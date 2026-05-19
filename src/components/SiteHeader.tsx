@@ -30,6 +30,7 @@ export function SiteHeader() {
     ]},
     { key: "experience", label: t.nav.experience, items: [
       { to: "/listen", label: t.nav.listen },
+      { to: "/watch", label: "Watch (YouTube)" },
       { to: "/radio", label: t.nav.radio },
       { to: "/gallery", label: t.nav.gallery },
       { to: "/festivals", label: t.nav.festivals },
