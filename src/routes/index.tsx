@@ -1,14 +1,19 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
-  Search, ShoppingBag, HelpCircle, BookOpen, Music, Radio, Mic,
-  ChevronDown, ChevronLeft, ChevronRight, Play, ArrowRight, Star,
+  ShoppingBag, HelpCircle, BookOpen, Music, Radio, Mic,
+  ChevronDown, ChevronLeft, ChevronRight, Play, ArrowRight,
 } from "lucide-react";
-import heroJuke from "@/assets/hero-juke.jpg";
-import heroCotton from "@/assets/hero-cotton.jpg";
-import robertJohnson from "@/assets/robert-johnson.jpg";
-import muddyWaters from "@/assets/muddy-waters.jpg";
-import sonHouse from "@/assets/son-house.jpg";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+import { IMG } from "@/data/images";
+import { useI18n } from "@/i18n";
+
+const heroJuke = IMG.jukeJoint;
+const heroCotton = IMG.cottonField;
+const robertJohnson = IMG.robertJohnson;
+const muddyWaters = IMG.muddyWaters;
+const sonHouse = IMG.sonHouse;
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -102,7 +107,7 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Header />
+      <SiteHeader />
 
       {/* HERO carousel */}
       <section className="relative">
@@ -114,7 +119,6 @@ function Home() {
             <HeroSlide {...s} active={i === slide} />
           </div>
         ))}
-        {/* Nav arrows */}
         <button
           onClick={() => setSlide((s) => (s - 1 + heroSlides.length) % heroSlides.length)}
           className="absolute left-4 top-1/2 -translate-y-1/2 z-20 size-10 rounded-full bg-background/40 backdrop-blur border border-border hover:border-gold transition flex items-center justify-center"
@@ -125,7 +129,6 @@ function Home() {
           className="absolute right-4 top-1/2 -translate-y-1/2 z-20 size-10 rounded-full bg-background/40 backdrop-blur border border-border hover:border-gold transition flex items-center justify-center"
           aria-label="Next slide"
         ><ChevronRight className="size-5" /></button>
-        {/* Dots */}
         <div className="absolute bottom-6 right-8 z-20 flex gap-2">
           {heroSlides.map((_, i) => (
             <button
@@ -139,58 +142,18 @@ function Home() {
       </section>
 
       <Ticker />
-
       <Join />
       <ThreeNames />
       <SupportBanner />
       <Timeline />
       <Voices />
       <DeltaVsChicago />
-      <Footer />
+      <SiteFooter />
     </div>
   );
 }
 
 /* ───────── components ───────── */
-
-function Header() {
-  return (
-    <header className="absolute top-0 inset-x-0 z-30">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="size-12 rounded-full border-2 border-gold/60 bg-card flex items-center justify-center font-display text-gold text-xs leading-tight text-center">
-            SB
-          </div>
-          <div>
-            <div className="font-display text-xl tracking-wide">SLOWBLUES</div>
-            <div className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">The Slow, Soulful Roots</div>
-          </div>
-        </div>
-        <nav className="hidden md:flex items-center gap-1 text-sm">
-          {["Home", "Artists", "Learn Blues", "Experience", "About", "Reviews"].map((n, i) => (
-            <a
-              key={n}
-              href="#"
-              className={`px-3 py-1.5 rounded-md transition ${i === 0 ? "bg-gold/10 text-gold" : "text-foreground/80 hover:text-gold"}`}
-            >
-              {n}
-            </a>
-          ))}
-        </nav>
-        <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-1 text-xs">
-            <button className="px-2 py-1 rounded bg-gold text-primary-foreground font-semibold">EN</button>
-            <button className="px-2 py-1 rounded text-muted-foreground hover:text-foreground">NO</button>
-            <button className="px-2 py-1 rounded text-muted-foreground hover:text-foreground">DE</button>
-          </div>
-          <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-gold">
-            <Search className="size-4" /> Search
-          </button>
-        </div>
-      </div>
-    </header>
-  );
-}
 
 function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showButtons, credit, active }: any) {
   return (
@@ -493,30 +456,3 @@ function Column({ tone, icon: Icon, title, sub, points, quote }: any) {
   );
 }
 
-function Footer() {
-  return (
-    <footer className="border-t border-border mt-12">
-      <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8 text-sm">
-        <div>
-          <div className="font-display text-xl text-gold mb-2">SLOWBLUES</div>
-          <p className="text-muted-foreground text-xs leading-relaxed">A timeless tribute to the raw soul of Delta & Chicago Blues — and the artists keeping it alive today.</p>
-        </div>
-        {[
-          { h: "Explore", l: ["Artists", "Timeline", "Reviews", "Map"] },
-          { h: "Learn", l: ["Delta Blues", "Chicago Blues", "Blues Quiz", "Glossary"] },
-          { h: "Community", l: ["Shop", "Guestbook", "Blog", "Newsletter"] },
-        ].map((c) => (
-          <div key={c.h}>
-            <div className="font-display text-foreground mb-3">{c.h}</div>
-            <ul className="space-y-2">
-              {c.l.map((i) => <li key={i}><a href="#" className="text-muted-foreground hover:text-gold transition">{i}</a></li>)}
-            </ul>
-          </div>
-        ))}
-      </div>
-      <div className="border-t border-border py-5 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} SlowBlues. The blues are the roots, everything else is the fruits.
-      </div>
-    </footer>
-  );
-}
