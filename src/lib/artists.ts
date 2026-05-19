@@ -125,6 +125,14 @@ function normalise(row: any): ArtistRecord {
     discography: Array.isArray(row.discography) ? row.discography : [],
     awards: Array.isArray(row.awards) ? row.awards : [],
     related_slugs: row.related_slugs ?? [],
+    gallery_images: row.gallery_images ?? [],
+    youtube_video_ids: row.youtube_video_ids ?? [],
+    styles: row.styles ?? [],
+    categories: row.categories ?? [],
+    search_terms: row.search_terms ?? [],
+    social_links: row.social_links ?? {},
+    external_links: Array.isArray(row.external_links) ? row.external_links : [],
+    article_references: Array.isArray(row.article_references) ? row.article_references : [],
   } as ArtistRecord;
 }
 
