@@ -84,6 +84,29 @@ export type ArtistRecord = {
   external_links: Array<{ label?: string; url: string }>;
   article_references: Array<{ title?: string; url: string }>;
   legacy: string | null;
+  family: FamilyEntry[];
+  formative: string[];
+  instruments: InstrumentEntry[];
+  anecdotes: string[];
+  collaborators: CollaboratorEntry[];
+  videos: VideoEntry[];
+  discography: DiscographyEntry[];
+  awards: AwardEntry[];
+  related_slugs: string[];
+  sort_order: number;
+};
+
+export function pickLang(record: ArtistRecord, lang: Lang, field: "biography" | "short" | "influence" | "seo_title" | "seo_description" | "era_label"): string | null {
+  const r = record as any;
+  return (
+    r[`${field}_${lang}`] ??
+    r[`${field}_no`] ??
+    r[`${field}_en`] ??
+    r[field] ??
+    null
+  );
+}
+
 
 function normalise(row: any): ArtistRecord {
   return {
