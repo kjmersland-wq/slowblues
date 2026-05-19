@@ -1,121 +1,89 @@
-# Complete Artist Page Architecture
+# SlowBlues Restoration Plan
 
-Building professional, multilingual, SEO-optimized detail pages for all 352 existing artists. Preserves all existing data — no overwrites, no placeholders.
+ZIP-arkivet inneholder det gamle React Router-prosjektet. Det må porteres bit-for-bit til den nåværende TanStack Start-stacken. Jeg foreslår 6 faser, hver leverbar og testbar for seg.
 
-## 1. URL structure (new routes)
+## Hva ZIP-en faktisk inneholder
 
-Add language-prefixed routes alongside existing `/artists/$slug`:
+- **~120 artister** i statiske `.ts`-filer (scandinavianArtists, britishArtists, modernAmericanArtists, europeanArtists×4, africanArtists, australianArtists, canadianArtists, danskBlues, svenskBlues, norskBluesunion)
+- **Image-mapper**: `artistImages.ts`, `britishArtistImages.ts`, `europeanArtistImages.ts`, `scandinavianArtistImages.ts` — verifiserte mappinger
+- **Reviews-systemet er databasedrevet** (`blues_reviews`-tabell i gammel Supabase). ZIP-en har **koden**, ikke innholdet. Dataen må enten dumpes fra gammel DB eller skrives på nytt. Dette må avklares.
+- **Public bilder**: 2.7 MB — artistportretter og galleri
+- **60+ sider** og massiv komponentbibliotek (artist, blog, reviews, festival, map, quiz, etc.)
 
-```text
-/artists                       (existing list, default locale = no)
-/artists/$slug                 (existing detail, default locale = no)
-/en/artists, /en/artists/$slug
-/sv/artists, /sv/artists/$slug
-/de/artists, /de/artists/$slug
-```
+## Fase 1 — Datafundament (databasen)
 
-Implementation: pathless layout `src/routes/{-$locale}.tsx` reading optional locale param, with child routes `artists.tsx` and `artists.$slug.tsx`. Locale flows via context to `pickLang()`. Existing un-prefixed routes keep working (Norwegian default) — no breaking changes.
+1. Migrer `artists`-tabellen til å støtte alle felter fra arkivet (mange er allerede der).
+2. Opprett **`blues_reviews`**-tabell med multilingual + scoring + status, slik ReviewDetail.tsx forventer.
+3. Opprett **`artist_images`** mapping-tabell (artist_slug → image_url, source, verified).
+4. Seed-script som importerer alle ~120 artister fra de statiske `.ts`-filene inn i `artists`-tabellen (idempotent — `ON CONFLICT (slug)`).
+5. Kopier verifiserte bilder fra `public/images/` inn i prosjektet og koble via `artist_images`.
 
-## 2. Standardized artist detail page sections
+## Fase 2 — Artist-detaljside (proff mal)
 
-Rebuild `artists.$slug.tsx` to render every section when data exists, gracefully hide when empty:
+Én generisk rute `/artists/$slug` som henter fra DB og rendrer:
 
-1. **Hero** — name, hero image, country flag, styles, active years, short intro
-2. **Full biography** — long-form bio + career history + musical evolution + influence/legacy
-3. **Musical styles** — chip taxonomy from `styles` + `categories`
-4. **Discography** — albums from `discography` + `key_recordings` (year, title, label, description, Spotify link)
-5. **Famous songs** — `signature_songs` list
-6. **Influences & related artists** — `influences` + cards built from `related_slugs` and auto-derived (same country/era/genre)
-7. **Embedded media** — YouTube grid from `youtube_video_ids` + `videos`
-8. **Gallery** — `gallery_images` + `img` with credit
-9. **External links** — `social_links` + `external_links` (Spotify, YouTube, Discogs, Wikipedia, official site)
-10. **Article references** — `article_references` blog cross-links
+- Hero med verifisert bilde + image-credit
+- Bio (EN/NO/SV/DE) med språk-fallback til EN + "Translation pending"-badge
+- Career / formative years / family / collaborators
+- Diskografi + signature songs
+- Influences + related artists (slug-lenker)
+- YouTube-mediearkiv (se Fase 4)
+- JSON-LD `MusicGroup`/`Person` + Wikidata `sameAs`
+- SEO `head()` per artist
 
-## 3. SEO per page
+Erstatter alle de gamle regionsspesifikke detalj-rutene (BritishArtistDetail, EuropeanArtistDetail, osv.) med én rute.
 
-In `head()`:
-- `title` = `seo_title_{lang}` || `${name} — Slow Blues`
-- `description` = `seo_description_{lang}` || derived from short
-- `og:title`, `og:description`, `og:type=profile`
-- `og:image` = `og_image` || resolved hero image (absolute via `getRequestOrigin` server fn)
-- `<link rel="canonical">` = `/{locale}/artists/${slug}` (locale-aware, leaf-only)
-- `<link rel="alternate" hreflang>` for no/en/sv/de + `x-default`
+## Fase 3 — QC-dashboard (admin)
 
-## 4. Structured data (JSON-LD)
+`/admin/quality` lister hver artist med flagg:
 
-Inline via `head().scripts`:
-- **MusicGroup** or **Person** on detail page (name, image, sameAs[social_links], genre, foundingDate from born)
-- **MusicAlbum** entries for each discography item
-- **MusicRecording** for signature songs
-- **BreadcrumbList** for `Home → Artists → {Name}`
-- **WebSite** + **Organization** stays in `__root.tsx`
+- mangler bilde / ikke-verifisert bilde
+- mangler bio i EN/NO/SV/DE
+- mangler YouTube-videoer
+- ødelagt slug eller dupliserte slugs
+- manglende SEO-metadata
+- ikke koblet til noen reviews
 
-## 5. Internal linking
+Bilde-policy: **flagg for manuell gjennomgang** — ingen AI-genererte portretter, ingen gjettet auto-assignment. Wikidata P18 (Commons) brukes kun hvis artisten har lagret `wikidata_qid`.
 
-`src/lib/relatedArtists.ts` — given an artist, compute:
-1. Explicit `related_slugs`
-2. Same country (limit 6)
-3. Same era (limit 6)
-4. Overlapping styles (limit 6)
+## Fase 4 — YouTube-overhaul
 
-Dedup, rank by overlap, return top 8. Rendered as cards under "Related artists".
+- `youtube_videos`-tabell koblet til artist (kategori: album / live / interview / documentary / festival)
+- Server-fn som søker `channelId` for offisielle kanaler først, så verifiserte uploads
+- Dedupe på `videoId`
+- Admin-UI for å godkjenne/avvise foreslåtte videoer
+- Embed-komponent som validerer at video fortsatt eksisterer
 
-## 6. Search + filtering
+## Fase 5 — Reviews-restaurering
 
-Extend `/artists` list with:
-- Text search (name + search_terms + birth_place)
-- Country filter (from distinct `country` values)
-- Genre filter (from `styles`)
-- Era filter (from `era`)
-- Region filter (existing)
-- Language switcher (no/en/sv/de) — affects displayed text via `pickLang`
+**Avhengig av om gammel Supabase-DB er tilgjengelig:**
 
-URL-driven via TanStack `validateSearch` so filters are bookmarkable and SSR-friendly.
+- **Hvis du har SQL-dump eller export**: importer direkte til ny `blues_reviews`-tabell
+- **Hvis ikke**: bygg `blues_reviews` + admin-CRUD + `/reviews` + `/reviews/$slug` med multilingual, scoring, artist-kobling, JSON-LD `Review` schema. Du fyller inn innhold via admin.
 
-## 7. Sitemap + hreflang
+Spørsmål jeg trenger svar på: **Har du en eksport av gamle `blues_reviews`-rader?** Hvis ja, last opp som SQL eller JSON.
 
-New `src/routes/sitemap[.]xml.ts`:
-- Static routes
-- One `<url>` per artist with `<xhtml:link rel="alternate" hreflang>` entries for no/en/sv/de + x-default
-- Sourced from DB query of all slugs
+## Fase 6 — Oversettelse-policy + identitet
 
-`public/robots.txt` keep, no changes needed.
+- Språk-fallback: vis EN med diskret "Translation pending NO/SV/DE" når lokal mangler. Ingen maskinoversettelse.
+- Designgjennomgang av artist-, reviews-, og landingsside slik at det føles redaksjonelt og blues-autentisk (typografi, atmosfære, ikke generisk).
+- Endelig fjerne plassholder-innhold på rotsiden.
 
-## 8. Language fallback
+## Teknisk
 
-Centralize in existing `pickLang(record, lang, field)` — already does `sv → no → en`. Verify and add `de` fallback chain (`de → en → no`). Use everywhere text is rendered. **Never invent translations.**
+- All datalogikk i `createServerFn` (`*.functions.ts`). DB-skriv via `requireSupabaseAuth` + admin-rolle. Aldri `client.server.ts` i klient-kjede.
+- Bilder portert til Supabase Storage-bucket `artist-images` (offentlig lesing, kun admin-skriv).
+- Migrations: én per fase, med RLS-policies (offentlig SELECT, admin INSERT/UPDATE/DELETE).
+- Strenge Zod-validatorer på alle server-fn input.
 
-## 9. Files to create / edit
+## Hva jeg foreslår å starte med nå (én leveranse)
 
-**Create**:
-- `src/routes/{-$locale}.tsx` (layout providing locale context)
-- `src/routes/{-$locale}/artists.tsx` (list — re-export of existing list logic with locale)
-- `src/routes/{-$locale}/artists.$slug.tsx` (detail — re-export)
-- `src/lib/locale.tsx` (LocaleContext + `useLocale()` hook, supported locales constant)
-- `src/lib/relatedArtists.ts` (relationship computation)
-- `src/lib/artistJsonLd.ts` (Schema.org builders)
-- `src/lib/origin.functions.ts` (getRequestOrigin server fn for absolute og:image)
-- `src/routes/sitemap[.]xml.ts`
+**Fase 1 + 2** i denne meldingen: migration for `artists`/`blues_reviews`/`artist_images`/`youtube_videos`, seed-script for ~120 artister, og generisk `/artists/$slug`-detaljside med multilingual + SEO + Wikidata-hook. Det gir deg umiddelbart en proff artist-arkitektur før vi går videre til QC-dashboard, YouTube-overhaul og reviews.
 
-**Edit**:
-- `src/routes/artists.$slug.tsx` — expand to all 10 sections, full SEO head, JSON-LD
-- `src/routes/artists.tsx` — add country/genre/era filters, language switcher, URL search params
-- `src/lib/artists.ts` — verify `pickLang` covers de; export filter helpers
-- `src/routes/__root.tsx` — ensure WebSite/Organization JSON-LD only
+## Spørsmål før jeg starter
 
-**Preserve untouched**: DB schema (already has all needed columns), all artist data, image assets, admin component.
+1. **Har du SQL/JSON-dump av gamle `blues_reviews`?** (avgjør Fase 5 — restaurering vs ny struktur)
+2. **OK å bygge én generisk `/artists/$slug`-rute** og pensjonere de regionsspesifikke detalj-sidene (BritishArtistDetail, EuropeanArtistDetail, ...)? Det gir én sannhetskilde.
+3. **OK med bilde-policy "flagg, ikke gjett"** — manglende bilder vises som n​øytral placeholder + admin-flagg, ingen auto-Unsplash/AI?
 
-## 10. Non-goals (explicit)
-
-- No translation generation (only show what exists, fall back per chain)
-- No DB schema changes — current schema already supports everything
-- No removal/rewrite of existing artists
-- No simplification of regional grouping (kept as additional filter)
-
-## Acceptance
-
-- All 352 artists reachable at `/artists/$slug` AND `/{en,sv,de}/artists/$slug`
-- Detail page shows all sections that have data; missing sections hidden cleanly
-- View-source on a detail page shows route-specific `<title>`, canonical, hreflang, og:*, JSON-LD MusicGroup
-- `/sitemap.xml` returns all artist URLs with hreflang alternates
-- List page supports text + country + genre + era + region + language filters via URL
+Si fra, så starter jeg Fase 1+2 umiddelbart i neste melding.
