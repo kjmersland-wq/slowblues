@@ -1,101 +1,121 @@
-## Hva jeg fant i arkivet
+# Complete Artist Page Architecture
 
-Arkivet `slow-blues-copilot-full-project-audit` inneholder en mye rikere artistdatabase enn det som finnes i nåværende prosjekt:
+Building professional, multilingual, SEO-optimized detail pages for all 352 existing artists. Preserves all existing data — no overwrites, no placeholders.
 
-- **~360 artister** fordelt på 10 datafiler:
-  - `artists.ts` (amerikansk hovedbase, 264 artister), `modernAmericanArtists.ts`, `canadianArtists.ts`, `africanArtists.ts`, `australianArtists.ts`
-  - `scandinavianArtists.ts` (35 nordiske, med country: norway/sweden/denmark/finland/iceland)
-  - `britishArtists.ts` (13), `europeanArtists.ts` + 3 wave-filer (34 totalt)
-- **Bildemapping**: `artistImages.ts`, `scandinavianArtistImages.ts`, `britishArtistImages.ts`, `europeanArtistImages.ts` (lokale `src/assets/artists/*.webp|jpg`)
-- **Rikt felt-sett pr. artist**: id, name, birthName, born, died, birthPlace, era, eraLabel, activePeriod, biography (en/no/de), family, formativeExperiences (en/no/de), instruments, anecdotes (en/no), collaborators, keyRecordings (med Spotify-IDer, komponister, musikere), awards, influence (en/no), styles, youtubeVideoIds, socialLinks, searchTerms, videoSearchQuery
-- **Språk i kilden**: engelsk + norsk overalt, tysk på en delmengde. **Svensk finnes ikke** i kildedataene.
+## 1. URL structure (new routes)
 
-## Viktig om svensk
+Add language-prefixed routes alongside existing `/artists/$slug`:
 
-Du ba om No/En/Sv, men svenske oversettelser eksisterer **ikke** i arkivet. Per din regel "ingen fake data" lager jeg **ikke** falske svenske tekster. Skjemaet får svenske kolonner som står tomme (null), så de kan fylles inn senere via admin eller maskinoversettelse. Tysk bevares der det finnes (`*_de`).
-
-## 1. Databaseskjema (migrasjon)
-
-Utvider eksisterende `artists`-tabell + legger til normaliserte hjelpetabeller. Alle tekstfelt har `_en`, `_no`, `_sv`, `_de`-varianter der kilden har flerspråklig.
-
-```
-artists  (utvidet)
-├── identitet:        id, slug (unik), name, birth_name, alt_name
-├── geografi:         country (enum), region (enum), birth_place, origin
-├── liv:              born, died, active_period, active_years
-├── klassifisering:   era, era_label_en, era_label_no, era_label_sv,
-│                     tag, styles text[], categories text[]
-├── biografi:         biography_en, biography_no, biography_sv, biography_de
-├── kort:             short_en, short_no, short_sv
-├── influence:        influence_en, influence_no, influence_sv,
-│                     influence_note
-├── SEO:              seo_title_en/_no/_sv, seo_description_en/_no/_sv,
-│                     canonical_slug, og_image
-├── medier:           img, gallery_images text[], image_credit,
-│                     youtube_video_ids text[], video_search_query
-├── lenker:           social_links jsonb, external_links jsonb,
-│                     article_references jsonb
-├── ruter:            base_path (/artists, /artists/scandinavian, …),
-│                     route_path (full URL), related_slugs text[]
-├── JSONB-seksjoner:  family, formative (en/no/de), instruments,
-│                     anecdotes (en/no), collaborators,
-│                     key_recordings, awards, signature_songs,
-│                     influences, labels, search_terms
-└── meta:             sort_order, source_file, source_region
+```text
+/artists                       (existing list, default locale = no)
+/artists/$slug                 (existing detail, default locale = no)
+/en/artists, /en/artists/$slug
+/sv/artists, /sv/artists/$slug
+/de/artists, /de/artists/$slug
 ```
 
-`country` enum: `usa | canada | uk | norway | sweden | denmark | finland | iceland | germany | france | netherlands | italy | spain | poland | ireland | south-africa | australia | other`.
-`region` enum: `american | scandinavian | british | european | african | australian | other`.
+Implementation: pathless layout `src/routes/{-$locale}.tsx` reading optional locale param, with child routes `artists.tsx` and `artists.$slug.tsx`. Locale flows via context to `pickLang()`. Existing un-prefixed routes keep working (Norwegian default) — no breaking changes.
 
-**RLS**: behold dagens regler (alle leser, admin skriver).
+## 2. Standardized artist detail page sections
 
-Ingen data slettes — eksisterende 38 artister i databasen oppdateres ved upsert på `slug` (skjemaet er bakoverkompatibelt).
+Rebuild `artists.$slug.tsx` to render every section when data exists, gracefully hide when empty:
 
-## 2. Bildeoverføring
+1. **Hero** — name, hero image, country flag, styles, active years, short intro
+2. **Full biography** — long-form bio + career history + musical evolution + influence/legacy
+3. **Musical styles** — chip taxonomy from `styles` + `categories`
+4. **Discography** — albums from `discography` + `key_recordings` (year, title, label, description, Spotify link)
+5. **Famous songs** — `signature_songs` list
+6. **Influences & related artists** — `influences` + cards built from `related_slugs` and auto-derived (same country/era/genre)
+7. **Embedded media** — YouTube grid from `youtube_video_ids` + `videos`
+8. **Gallery** — `gallery_images` + `img` with credit
+9. **External links** — `social_links` + `external_links` (Spotify, YouTube, Discogs, Wikipedia, official site)
+10. **Article references** — `article_references` blog cross-links
 
-- Kopier alle filer fra `src/assets/artists/` i arkivet → `src/assets/artists/` i prosjektet.
-- Behold lokale ES6-importer for bilder (best optimalisering) — bygger en lookup `slug → import` i `src/lib/artistImageMap.ts` generert fra de fire image-filene.
+## 3. SEO per page
 
-## 3. Ekstraksjonsskript
+In `head()`:
+- `title` = `seo_title_{lang}` || `${name} — Slow Blues`
+- `description` = `seo_description_{lang}` || derived from short
+- `og:title`, `og:description`, `og:type=profile`
+- `og:image` = `og_image` || resolved hero image (absolute via `getRequestOrigin` server fn)
+- `<link rel="canonical">` = `/{locale}/artists/${slug}` (locale-aware, leaf-only)
+- `<link rel="alternate" hreflang>` for no/en/sv/de + `x-default`
 
-`scripts/extract-artists.ts` (kjøres lokalt):
+## 4. Structured data (JSON-LD)
 
-1. Bruker `tsx` til å importere alle 10 data-filene direkte (de er gyldig TS med konstant-eksports).
-2. Normaliserer hver post til DB-rad-struktur (mapper feltnavn `biography → biography_en`, osv.).
-3. Utleder `country` per fil (canadianArtists → canada, britishArtists → uk, scandinavianArtists bruker eksisterende `country`-felt).
-4. Genererer `seo_title_{en,no}` og `seo_description_{en,no}` automatisk fra eksisterende navn + era + biography-snippet (engelsk + norsk eksisterer, derfor reell — ikke fake). `_sv` settes null.
-5. Genererer `route_path` som `${base_path}/${slug}`.
-6. Bygger `related_slugs` ved enkel matching mot `collaborators.slug` der det finnes.
-7. Skriver resultatet til `scripts/extracted-artists.json` for inspeksjon, deretter upsert til DB i batcher på 50.
+Inline via `head().scripts`:
+- **MusicGroup** or **Person** on detail page (name, image, sameAs[social_links], genre, foundingDate from born)
+- **MusicAlbum** entries for each discography item
+- **MusicRecording** for signature songs
+- **BreadcrumbList** for `Home → Artists → {Name}`
+- **WebSite** + **Organization** stays in `__root.tsx`
 
-## 4. Frontend-oppdateringer
+## 5. Internal linking
 
-- `src/lib/artists.ts`: utvid `ArtistRecord`-typen med nye felt + språkvarianter.
-- `useArtists()` får valgfri `lang`-parameter; helper `pickLang(record, 'en'|'no'|'sv')` velger riktig felt med fallback (sv → no → en).
-- `src/routes/artists.tsx`: viser artister filtrert på `region` og `country` (nye filter-chips).
-- `src/routes/artists.$slug.tsx`: bruker språkvalg fra `useI18n()`-konteksten, viser alle seksjoner inkl. styles, youtube-IDer, social/external links, article references.
-- **Nye ruter** (SEO-vennlig hierarki, matcher original prosjektstruktur):
-  - `/artists` — alle
-  - `/artists/scandinavian`, `/artists/british`, `/artists/european`, `/artists/african`, `/artists/australian`, `/artists/american`
-  - `/artists/$slug` — eksisterende detaljside (uendret URL)
-- `head()` i hver rute leser `seo_title_{lang}` / `seo_description_{lang}` fra DB.
+`src/lib/relatedArtists.ts` — given an artist, compute:
+1. Explicit `related_slugs`
+2. Same country (limit 6)
+3. Same era (limit 6)
+4. Overlapping styles (limit 6)
 
-## 5. Sitemap
+Dedup, rank by overlap, return top 8. Rendered as cards under "Related artists".
 
-`src/routes/api/public/sitemap[.]xml.ts` server-route som henter alle artist-slugs + region-sider og genererer `sitemap.xml` med `hreflang` for no/en/sv.
+## 6. Search + filtering
 
-## 6. Leveranserekkefølge
+Extend `/artists` list with:
+- Text search (name + search_terms + birth_place)
+- Country filter (from distinct `country` values)
+- Genre filter (from `styles`)
+- Era filter (from `era`)
+- Region filter (existing)
+- Language switcher (no/en/sv/de) — affects displayed text via `pickLang`
 
-1. **Migrasjon** (skjemautvidelse) → din godkjenning
-2. **Bildekopiering** + image map
-3. **Ekstraksjon + upsert** (kjør scriptet, lagre `extracted-artists.json` for revisjon)
-4. **Frontend**: språkhjelpere, utvidet detaljside, nye region-ruter
-5. **Sitemap** + hreflang
-6. **Verifikasjon**: tell rader, sjekk at /artists/lonnie-johnson fortsatt fungerer, åpne 3 vilkårlige artister på no/en
+URL-driven via TanStack `validateSearch` so filters are bookmarkable and SSR-friendly.
 
-## Teknisk
+## 7. Sitemap + hreflang
 
-- All ekstraksjon kjøres lokalt mot kildefiler i `/tmp/audit/...`. Ingen kall til opphavlige Lovable-prosjekter.
-- Bruker `supabase-js` med service-role-key i Node-script for upsert (RLS forblir streng for browser-klienten).
-- Eksisterende `ARTISTS`/`PROFILES`-konstanter beholdes som typede konstanter for backwards-kompatible imports, men DB blir sannhetskilde.
-- Ingen Lonnie Johnson-overskriving (han er allerede i DB med showcase-data).
+New `src/routes/sitemap[.]xml.ts`:
+- Static routes
+- One `<url>` per artist with `<xhtml:link rel="alternate" hreflang>` entries for no/en/sv/de + x-default
+- Sourced from DB query of all slugs
+
+`public/robots.txt` keep, no changes needed.
+
+## 8. Language fallback
+
+Centralize in existing `pickLang(record, lang, field)` — already does `sv → no → en`. Verify and add `de` fallback chain (`de → en → no`). Use everywhere text is rendered. **Never invent translations.**
+
+## 9. Files to create / edit
+
+**Create**:
+- `src/routes/{-$locale}.tsx` (layout providing locale context)
+- `src/routes/{-$locale}/artists.tsx` (list — re-export of existing list logic with locale)
+- `src/routes/{-$locale}/artists.$slug.tsx` (detail — re-export)
+- `src/lib/locale.tsx` (LocaleContext + `useLocale()` hook, supported locales constant)
+- `src/lib/relatedArtists.ts` (relationship computation)
+- `src/lib/artistJsonLd.ts` (Schema.org builders)
+- `src/lib/origin.functions.ts` (getRequestOrigin server fn for absolute og:image)
+- `src/routes/sitemap[.]xml.ts`
+
+**Edit**:
+- `src/routes/artists.$slug.tsx` — expand to all 10 sections, full SEO head, JSON-LD
+- `src/routes/artists.tsx` — add country/genre/era filters, language switcher, URL search params
+- `src/lib/artists.ts` — verify `pickLang` covers de; export filter helpers
+- `src/routes/__root.tsx` — ensure WebSite/Organization JSON-LD only
+
+**Preserve untouched**: DB schema (already has all needed columns), all artist data, image assets, admin component.
+
+## 10. Non-goals (explicit)
+
+- No translation generation (only show what exists, fall back per chain)
+- No DB schema changes — current schema already supports everything
+- No removal/rewrite of existing artists
+- No simplification of regional grouping (kept as additional filter)
+
+## Acceptance
+
+- All 352 artists reachable at `/artists/$slug` AND `/{en,sv,de}/artists/$slug`
+- Detail page shows all sections that have data; missing sections hidden cleanly
+- View-source on a detail page shows route-specific `<title>`, canonical, hreflang, og:*, JSON-LD MusicGroup
+- `/sitemap.xml` returns all artist URLs with hreflang alternates
+- List page supports text + country + genre + era + region + language filters via URL
