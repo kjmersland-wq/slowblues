@@ -14,6 +14,111 @@ export type Database = {
   }
   public: {
     Tables: {
+      artists: {
+        Row: {
+          active_years: string | null
+          alt_name: string | null
+          anecdotes: Json
+          awards: Json
+          bio: string[]
+          born: string | null
+          collaborators: Json
+          created_at: string
+          died: string | null
+          discography: Json
+          era: string | null
+          family: Json
+          formative: Json
+          id: string
+          img: string | null
+          influence_note: string | null
+          influences: string[]
+          instruments: Json
+          instruments_simple: string[]
+          labels: string[]
+          legacy: string | null
+          name: string
+          origin: string | null
+          region: string | null
+          related_slugs: string[]
+          short: string | null
+          signature_songs: string[]
+          slug: string
+          sort_order: number
+          tag: string
+          updated_at: string
+          videos: Json
+        }
+        Insert: {
+          active_years?: string | null
+          alt_name?: string | null
+          anecdotes?: Json
+          awards?: Json
+          bio?: string[]
+          born?: string | null
+          collaborators?: Json
+          created_at?: string
+          died?: string | null
+          discography?: Json
+          era?: string | null
+          family?: Json
+          formative?: Json
+          id?: string
+          img?: string | null
+          influence_note?: string | null
+          influences?: string[]
+          instruments?: Json
+          instruments_simple?: string[]
+          labels?: string[]
+          legacy?: string | null
+          name: string
+          origin?: string | null
+          region?: string | null
+          related_slugs?: string[]
+          short?: string | null
+          signature_songs?: string[]
+          slug: string
+          sort_order?: number
+          tag?: string
+          updated_at?: string
+          videos?: Json
+        }
+        Update: {
+          active_years?: string | null
+          alt_name?: string | null
+          anecdotes?: Json
+          awards?: Json
+          bio?: string[]
+          born?: string | null
+          collaborators?: Json
+          created_at?: string
+          died?: string | null
+          discography?: Json
+          era?: string | null
+          family?: Json
+          formative?: Json
+          id?: string
+          img?: string | null
+          influence_note?: string | null
+          influences?: string[]
+          instruments?: Json
+          instruments_simple?: string[]
+          labels?: string[]
+          legacy?: string | null
+          name?: string
+          origin?: string | null
+          region?: string | null
+          related_slugs?: string[]
+          short?: string | null
+          signature_songs?: string[]
+          slug?: string
+          sort_order?: number
+          tag?: string
+          updated_at?: string
+          videos?: Json
+        }
+        Relationships: []
+      }
       contact_messages: {
         Row: {
           created_at: string
