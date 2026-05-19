@@ -10,6 +10,7 @@ export function SiteFooter() {
     { to: "/history", label: t.nav.history },
     { to: "/artists", label: t.nav.artists },
     { to: "/styles", label: t.nav.styles },
+    { to: "/instruments", label: "Instruments & Gear" },
     { to: "/listen", label: t.nav.listen },
     { to: "/gallery", label: t.nav.gallery },
     { to: "/festivals", label: t.nav.festivals },
