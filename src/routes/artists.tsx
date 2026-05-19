@@ -1,8 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { SafeImage } from "@/components/SafeImage";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n } from "@/i18n";
-import { ARTISTS } from "@/data/blues";
+import { useArtists } from "@/lib/artists";
 import { IMG } from "@/data/images";
 import { useState, useMemo } from "react";
 import { Search } from "lucide-react";
@@ -21,11 +21,12 @@ const TAGS = ["All", "Delta", "Chicago", "Texas", "British", "Classic", "Modern"
 
 function ArtistsPage() {
   const { t } = useI18n();
+  const { data, loading, error } = useArtists();
   const [tag, setTag] = useState<string>("All");
   const [q, setQ] = useState("");
   const filtered = useMemo(
-    () => ARTISTS.filter((a) => (tag === "All" || a.tag === tag) && a.name.toLowerCase().includes(q.toLowerCase())),
-    [tag, q],
+    () => (data ?? []).filter((a) => (tag === "All" || a.tag === tag) && a.name.toLowerCase().includes(q.toLowerCase())),
+    [tag, q, data],
   );
 
   return (
@@ -46,22 +47,25 @@ function ArtistsPage() {
           </label>
         </div>
 
+        {error && <p className="text-center text-destructive py-8">Kunne ikke laste artister: {error}</p>}
+        {loading && !data && <p className="text-center text-muted-foreground py-16">Laster artister…</p>}
+
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           {filtered.map((a) => (
-            <article key={a.slug} className="group bg-card/50 border border-border rounded-lg overflow-hidden hover:border-gold/60 transition">
+            <Link key={a.slug} to="/artists/$slug" params={{ slug: a.slug }} className="group bg-card/50 border border-border rounded-lg overflow-hidden hover:border-gold/60 transition">
               <div className="aspect-[3/4] overflow-hidden">
-                <SafeImage src={a.img} alt={a.name} loading="lazy" className="size-full object-cover group-hover:scale-105 transition duration-700" />
+                {a.img && <SafeImage src={a.img} alt={a.name} loading="lazy" className="size-full object-cover group-hover:scale-105 transition duration-700" />}
               </div>
               <div className="p-4">
-                <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-1">{a.tag} · {a.era}</div>
+                <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-1">{a.tag}{a.era && ` · ${a.era}`}</div>
                 <h3 className="font-display text-xl mb-1">{a.name}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">{a.short}</p>
+                {a.short && <p className="text-xs text-muted-foreground leading-relaxed">{a.short}</p>}
               </div>
-            </article>
+            </Link>
           ))}
         </div>
 
-        {filtered.length === 0 && <p className="text-center text-muted-foreground py-16">No artists match your filter.</p>}
+        {!loading && filtered.length === 0 && <p className="text-center text-muted-foreground py-16">No artists match your filter.</p>}
         <p className="text-xs text-muted-foreground text-center mt-10">Portraits: Wikimedia Commons / Library of Congress — {t.common.publicDomain} & CC.</p>
       </section>
     </PageShell>
