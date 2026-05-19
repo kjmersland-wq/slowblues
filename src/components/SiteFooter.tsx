@@ -114,6 +114,8 @@ export function SiteFooter() {
 
       <div className="border-t border-border py-5 text-center text-xs text-muted-foreground flex items-center justify-center gap-2">
         © {new Date().getFullYear()} SlowBlues. <Heart className="size-3 text-gold" /> {t.footer.rights}
+        <span className="mx-2">·</span>
+        <Link to="/login" className="hover:text-gold">Admin</Link>
       </div>
     </footer>
   );
