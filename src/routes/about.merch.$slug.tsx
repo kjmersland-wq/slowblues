@@ -39,7 +39,8 @@ function ProductPage() {
   const { data, isLoading } = useQuery({
     queryKey: ["merch-product", slug],
     queryFn: () => fetcher({ data: { slug } }),
-    staleTime: 5 * 60 * 1000,
+    staleTime: 30 * 1000,
+    refetchOnWindowFocus: true,
   });
   const [active, setActive] = useState(0);
   const [color, setColor] = useState<string | null>(null);
