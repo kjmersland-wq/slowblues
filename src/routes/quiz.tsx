@@ -143,11 +143,27 @@ function QuizPage() {
     <PageShell>
       <PageHero eyebrow="Blues Quiz" title={no ? "Hvor godt kan du bluesen?" : "Think you know the blues?"} lead={no ? "Ti spørsmål fra Deltaen til i dag. Velg vanskelighetsgrad." : "Ten questions from the Delta to today. Pick your difficulty."} img={IMG.vinyl} />
       <section className="max-w-3xl mx-auto px-6 py-12">
+        <div className="mb-8 rounded-xl border border-gold/30 bg-gradient-to-br from-card/70 to-card/30 p-5">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+            <span className="inline-flex items-center gap-1.5 text-gold font-medium"><Calendar className="size-4" /> {cycleKey}</span>
+            <span className="text-muted-foreground">{cycleRange}</span>
+            <span className="text-xs text-muted-foreground/80">· {no ? "Nytt sett hver 10. dag" : "New set every 10 days"}</span>
+            <Link to={"/quiz/archive" as any} className="ml-auto inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-gold"><Archive className="size-3.5" /> {no ? "Arkiv" : "Archive"}</Link>
+          </div>
+          {featured && (
+            <div className="mt-3 flex items-center gap-2 text-sm">
+              <Star className="size-4 text-gold" />
+              <span className="text-muted-foreground">{no ? "Syklusens artist:" : "Featured artist:"}</span>
+              <Link to="/artists/$slug" params={{ slug: featured.slug }} className="text-gold hover:underline font-medium">{featured.name}</Link>
+            </div>
+          )}
+        </div>
         <div className="flex justify-center gap-2 mb-8">
           {DIFFICULTIES.map((d) => (
             <button key={d.id} onClick={() => setDifficulty(d.id)} className={`px-4 py-1.5 rounded-full text-sm transition ${difficulty === d.id ? "bg-gold text-primary-foreground" : "bg-card border border-border hover:border-gold/50"}`}>{d.label}</button>
           ))}
         </div>
+
 
         <div className="space-y-6">
           {questions.map((q, i) => {
