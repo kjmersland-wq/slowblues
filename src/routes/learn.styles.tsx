@@ -1,3 +1,3 @@
 import { createFileRoute } from "@tanstack/react-router";
-import StylesRoute from "./styles";
-export const Route = createFileRoute("/learn/styles")(StylesRoute as any);
+import { Route as StylesRoute } from "./styles";
+export const Route = createFileRoute("/learn/styles")({ component: StylesRoute.options.component!, head: StylesRoute.options.head });

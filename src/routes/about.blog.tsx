@@ -1,3 +1,3 @@
 import { createFileRoute } from "@tanstack/react-router";
-import BlogRoute from "./blog";
-export const Route = createFileRoute("/about/blog")(BlogRoute as any);
+import { Route as BlogRoute } from "./blog";
+export const Route = createFileRoute("/about/blog")({ component: BlogRoute.options.component!, head: BlogRoute.options.head });

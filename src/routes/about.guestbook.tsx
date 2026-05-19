@@ -1,3 +1,3 @@
 import { createFileRoute } from "@tanstack/react-router";
-import GuestbookRoute from "./guestbook";
-export const Route = createFileRoute("/about/guestbook")(GuestbookRoute as any);
+import { Route as GuestbookRoute } from "./guestbook";
+export const Route = createFileRoute("/about/guestbook")({ component: GuestbookRoute.options.component!, head: GuestbookRoute.options.head });

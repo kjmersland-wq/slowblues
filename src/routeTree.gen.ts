@@ -15,6 +15,7 @@ import { Route as SupportRouteImport } from './routes/support'
 import { Route as StylesRouteImport } from './routes/styles'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as RadioRouteImport } from './routes/radio'
+import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ListenRouteImport } from './routes/listen'
 import { Route as HistoryRouteImport } from './routes/history'
@@ -26,6 +27,12 @@ import { Route as CompareRouteImport } from './routes/compare'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as ArtistsRouteImport } from './routes/artists'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LearnStylesRouteImport } from './routes/learn.styles'
+import { Route as ExperienceMediaRouteImport } from './routes/experience.media'
+import { Route as ArtistsSlugRouteImport } from './routes/artists.$slug'
+import { Route as AboutMerchRouteImport } from './routes/about.merch'
+import { Route as AboutGuestbookRouteImport } from './routes/about.guestbook'
+import { Route as AboutBlogRouteImport } from './routes/about.blog'
 
 const WorldmapRoute = WorldmapRouteImport.update({
   id: '/worldmap',
@@ -55,6 +62,11 @@ const ReviewsRoute = ReviewsRouteImport.update({
 const RadioRoute = RadioRouteImport.update({
   id: '/radio',
   path: '/radio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuizRoute = QuizRouteImport.update({
+  id: '/quiz',
+  path: '/quiz',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -112,10 +124,40 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LearnStylesRoute = LearnStylesRouteImport.update({
+  id: '/learn/styles',
+  path: '/learn/styles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExperienceMediaRoute = ExperienceMediaRouteImport.update({
+  id: '/experience/media',
+  path: '/experience/media',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArtistsSlugRoute = ArtistsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ArtistsRoute,
+} as any)
+const AboutMerchRoute = AboutMerchRouteImport.update({
+  id: '/about/merch',
+  path: '/about/merch',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutGuestbookRoute = AboutGuestbookRouteImport.update({
+  id: '/about/guestbook',
+  path: '/about/guestbook',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutBlogRoute = AboutBlogRouteImport.update({
+  id: '/about/blog',
+  path: '/about/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/artists': typeof ArtistsRoute
+  '/artists': typeof ArtistsRouteWithChildren
   '/blog': typeof BlogRoute
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
@@ -125,16 +167,23 @@ export interface FileRoutesByFullPath {
   '/history': typeof HistoryRoute
   '/listen': typeof ListenRoute
   '/privacy': typeof PrivacyRoute
+  '/quiz': typeof QuizRoute
   '/radio': typeof RadioRoute
   '/reviews': typeof ReviewsRoute
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
   '/updates': typeof UpdatesRoute
   '/worldmap': typeof WorldmapRoute
+  '/about/blog': typeof AboutBlogRoute
+  '/about/guestbook': typeof AboutGuestbookRoute
+  '/about/merch': typeof AboutMerchRoute
+  '/artists/$slug': typeof ArtistsSlugRoute
+  '/experience/media': typeof ExperienceMediaRoute
+  '/learn/styles': typeof LearnStylesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/artists': typeof ArtistsRoute
+  '/artists': typeof ArtistsRouteWithChildren
   '/blog': typeof BlogRoute
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
@@ -144,17 +193,24 @@ export interface FileRoutesByTo {
   '/history': typeof HistoryRoute
   '/listen': typeof ListenRoute
   '/privacy': typeof PrivacyRoute
+  '/quiz': typeof QuizRoute
   '/radio': typeof RadioRoute
   '/reviews': typeof ReviewsRoute
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
   '/updates': typeof UpdatesRoute
   '/worldmap': typeof WorldmapRoute
+  '/about/blog': typeof AboutBlogRoute
+  '/about/guestbook': typeof AboutGuestbookRoute
+  '/about/merch': typeof AboutMerchRoute
+  '/artists/$slug': typeof ArtistsSlugRoute
+  '/experience/media': typeof ExperienceMediaRoute
+  '/learn/styles': typeof LearnStylesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/artists': typeof ArtistsRoute
+  '/artists': typeof ArtistsRouteWithChildren
   '/blog': typeof BlogRoute
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
@@ -164,12 +220,19 @@ export interface FileRoutesById {
   '/history': typeof HistoryRoute
   '/listen': typeof ListenRoute
   '/privacy': typeof PrivacyRoute
+  '/quiz': typeof QuizRoute
   '/radio': typeof RadioRoute
   '/reviews': typeof ReviewsRoute
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
   '/updates': typeof UpdatesRoute
   '/worldmap': typeof WorldmapRoute
+  '/about/blog': typeof AboutBlogRoute
+  '/about/guestbook': typeof AboutGuestbookRoute
+  '/about/merch': typeof AboutMerchRoute
+  '/artists/$slug': typeof ArtistsSlugRoute
+  '/experience/media': typeof ExperienceMediaRoute
+  '/learn/styles': typeof LearnStylesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -185,12 +248,19 @@ export interface FileRouteTypes {
     | '/history'
     | '/listen'
     | '/privacy'
+    | '/quiz'
     | '/radio'
     | '/reviews'
     | '/styles'
     | '/support'
     | '/updates'
     | '/worldmap'
+    | '/about/blog'
+    | '/about/guestbook'
+    | '/about/merch'
+    | '/artists/$slug'
+    | '/experience/media'
+    | '/learn/styles'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -204,12 +274,19 @@ export interface FileRouteTypes {
     | '/history'
     | '/listen'
     | '/privacy'
+    | '/quiz'
     | '/radio'
     | '/reviews'
     | '/styles'
     | '/support'
     | '/updates'
     | '/worldmap'
+    | '/about/blog'
+    | '/about/guestbook'
+    | '/about/merch'
+    | '/artists/$slug'
+    | '/experience/media'
+    | '/learn/styles'
   id:
     | '__root__'
     | '/'
@@ -223,17 +300,24 @@ export interface FileRouteTypes {
     | '/history'
     | '/listen'
     | '/privacy'
+    | '/quiz'
     | '/radio'
     | '/reviews'
     | '/styles'
     | '/support'
     | '/updates'
     | '/worldmap'
+    | '/about/blog'
+    | '/about/guestbook'
+    | '/about/merch'
+    | '/artists/$slug'
+    | '/experience/media'
+    | '/learn/styles'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ArtistsRoute: typeof ArtistsRoute
+  ArtistsRoute: typeof ArtistsRouteWithChildren
   BlogRoute: typeof BlogRoute
   CompareRoute: typeof CompareRoute
   ContactRoute: typeof ContactRoute
@@ -243,12 +327,18 @@ export interface RootRouteChildren {
   HistoryRoute: typeof HistoryRoute
   ListenRoute: typeof ListenRoute
   PrivacyRoute: typeof PrivacyRoute
+  QuizRoute: typeof QuizRoute
   RadioRoute: typeof RadioRoute
   ReviewsRoute: typeof ReviewsRoute
   StylesRoute: typeof StylesRoute
   SupportRoute: typeof SupportRoute
   UpdatesRoute: typeof UpdatesRoute
   WorldmapRoute: typeof WorldmapRoute
+  AboutBlogRoute: typeof AboutBlogRoute
+  AboutGuestbookRoute: typeof AboutGuestbookRoute
+  AboutMerchRoute: typeof AboutMerchRoute
+  ExperienceMediaRoute: typeof ExperienceMediaRoute
+  LearnStylesRoute: typeof LearnStylesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -293,6 +383,13 @@ declare module '@tanstack/react-router' {
       path: '/radio'
       fullPath: '/radio'
       preLoaderRoute: typeof RadioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quiz': {
+      id: '/quiz'
+      path: '/quiz'
+      fullPath: '/quiz'
+      preLoaderRoute: typeof QuizRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -372,12 +469,65 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learn/styles': {
+      id: '/learn/styles'
+      path: '/learn/styles'
+      fullPath: '/learn/styles'
+      preLoaderRoute: typeof LearnStylesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/experience/media': {
+      id: '/experience/media'
+      path: '/experience/media'
+      fullPath: '/experience/media'
+      preLoaderRoute: typeof ExperienceMediaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/artists/$slug': {
+      id: '/artists/$slug'
+      path: '/$slug'
+      fullPath: '/artists/$slug'
+      preLoaderRoute: typeof ArtistsSlugRouteImport
+      parentRoute: typeof ArtistsRoute
+    }
+    '/about/merch': {
+      id: '/about/merch'
+      path: '/about/merch'
+      fullPath: '/about/merch'
+      preLoaderRoute: typeof AboutMerchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about/guestbook': {
+      id: '/about/guestbook'
+      path: '/about/guestbook'
+      fullPath: '/about/guestbook'
+      preLoaderRoute: typeof AboutGuestbookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about/blog': {
+      id: '/about/blog'
+      path: '/about/blog'
+      fullPath: '/about/blog'
+      preLoaderRoute: typeof AboutBlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface ArtistsRouteChildren {
+  ArtistsSlugRoute: typeof ArtistsSlugRoute
+}
+
+const ArtistsRouteChildren: ArtistsRouteChildren = {
+  ArtistsSlugRoute: ArtistsSlugRoute,
+}
+
+const ArtistsRouteWithChildren =
+  ArtistsRoute._addFileChildren(ArtistsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ArtistsRoute: ArtistsRoute,
+  ArtistsRoute: ArtistsRouteWithChildren,
   BlogRoute: BlogRoute,
   CompareRoute: CompareRoute,
   ContactRoute: ContactRoute,
@@ -387,12 +537,18 @@ const rootRouteChildren: RootRouteChildren = {
   HistoryRoute: HistoryRoute,
   ListenRoute: ListenRoute,
   PrivacyRoute: PrivacyRoute,
+  QuizRoute: QuizRoute,
   RadioRoute: RadioRoute,
   ReviewsRoute: ReviewsRoute,
   StylesRoute: StylesRoute,
   SupportRoute: SupportRoute,
   UpdatesRoute: UpdatesRoute,
   WorldmapRoute: WorldmapRoute,
+  AboutBlogRoute: AboutBlogRoute,
+  AboutGuestbookRoute: AboutGuestbookRoute,
+  AboutMerchRoute: AboutMerchRoute,
+  ExperienceMediaRoute: ExperienceMediaRoute,
+  LearnStylesRoute: LearnStylesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
