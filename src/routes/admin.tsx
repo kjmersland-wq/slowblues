@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/useAuth";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
-import { Trash2, LogOut, MessageSquare, BookOpen } from "lucide-react";
+import { Trash2, LogOut, MessageSquare, BookOpen, ShieldCheck, Database } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   component: AdminPage,
@@ -89,7 +89,13 @@ function AdminPage() {
               <MessageSquare className="size-4" /> Kontakt ({contacts.length})
             </button>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
+            <Link to="/admin/quality" className="px-4 py-2 rounded-md border border-gold/40 text-sm hover:border-gold flex items-center gap-2 text-gold">
+              <ShieldCheck className="size-4" /> QC Dashboard
+            </Link>
+            <Link to="/admin/wikidata" className="px-4 py-2 rounded-md border border-border text-sm hover:border-gold flex items-center gap-2">
+              <Database className="size-4" /> Wikidata
+            </Link>
             <button onClick={refresh} disabled={busy} className="px-4 py-2 rounded-md border border-border text-sm hover:border-gold disabled:opacity-60">Oppdater</button>
             <button onClick={logout} className="px-4 py-2 rounded-md border border-border text-sm hover:border-gold flex items-center gap-2">
               <LogOut className="size-4" /> Logg ut
