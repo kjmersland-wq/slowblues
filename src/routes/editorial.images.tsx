@@ -5,6 +5,7 @@ import { useState } from "react";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { UnsplashImage } from "@/components/UnsplashImage";
 import { searchUnsplash, trackUnsplashDownload, type UnsplashPhoto } from "@/lib/unsplash.functions";
+import { searchPexelsPhotos, searchPixabayPhotos, type PexelsPhoto, type PixabayPhoto } from "@/lib/stockphotos.functions";
 import { IMG } from "@/data/images";
 import { Search, Loader2, Copy, Check, ExternalLink } from "lucide-react";
 
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/editorial/images")({
   head: () => ({
     meta: [
       { title: "Editorial Images — SlowBlues" },
-      { name: "description", content: "Search Unsplash for editorial photography — hero images, atmospherics, portraits — with one-click attribution-ready markup." },
+      { name: "description", content: "Search Unsplash, Pexels and Pixabay for editorial photography — heroes, atmospherics, portraits — with attribution-ready markup." },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),
@@ -21,44 +22,39 @@ export const Route = createFileRoute("/editorial/images")({
 
 const PRESETS = ["blues guitar", "smoky bar stage", "harmonica close up", "vinyl record", "jazz club new orleans", "delta mississippi", "concert crowd silhouette", "vintage microphone"] as const;
 
-type Orientation = "landscape" | "portrait" | "squarish";
+type Source = "unsplash" | "pexels" | "pixabay";
+type Orient = "landscape" | "portrait" | "square";
 
 function ImagesPage() {
-  const search = useServerFn(searchUnsplash);
-  const track = useServerFn(trackUnsplashDownload);
-
+  const [source, setSource] = useState<Source>("unsplash");
   const [query, setQuery] = useState("blues guitar stage");
-  const [orientation, setOrientation] = useState<Orientation>("landscape");
-  const [copied, setCopied] = useState<string | null>(null);
-
-  const { data, isFetching, error } = useQuery({
-    queryKey: ["unsplash", query, orientation],
-    queryFn: () => search({ data: { query, orientation, perPage: 18 } }),
-    enabled: query.length > 0,
-    staleTime: 30 * 60 * 1000,
-  });
-
-  const useImage = async (p: UnsplashPhoto) => {
-    // Required by Unsplash guidelines: track download when actually using the photo.
-    await track({ data: { downloadLocation: p.links.downloadLocation } });
-    const snippet =
-      `<img src="${p.urls.regular}" alt="${(p.altDescription ?? p.description ?? "").replace(/"/g, "&quot;")}" width="${p.width}" height="${p.height}" />\n` +
-      `<p>Photo by <a href="${p.user.profileUrl}" target="_blank" rel="noopener">${p.user.name}</a> on <a href="${p.links.html}" target="_blank" rel="noopener">Unsplash</a></p>`;
-    await navigator.clipboard.writeText(snippet);
-    setCopied(p.id);
-    setTimeout(() => setCopied(null), 1800);
-  };
+  const [orient, setOrient] = useState<Orient>("landscape");
 
   return (
     <PageShell>
       <PageHero
         eyebrow="Editorial"
-        title="Image Library — Unsplash"
-        lead="Search for hero shots and article images. Click Use to copy attribution-ready HTML — and to register the download with Unsplash as required by their API guidelines."
+        title="Image Library"
+        lead="Search Unsplash, Pexels and Pixabay side by side. Click Use on any photo to copy attribution-ready HTML — and register the use with the source where required."
         img={IMG.microphone}
       />
 
       <section className="max-w-7xl mx-auto px-6 py-12">
+        {/* Source tabs */}
+        <div className="flex gap-2 mb-5 border-b border-gold/20">
+          {(["unsplash", "pexels", "pixabay"] as Source[]).map((s) => (
+            <button
+              key={s}
+              onClick={() => setSource(s)}
+              className={`px-5 py-3 text-sm font-semibold capitalize transition border-b-2 -mb-px ${
+                source === s ? "border-gold text-gold" : "border-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -73,18 +69,18 @@ function ImagesPage() {
             <input
               name="q"
               defaultValue={query}
-              placeholder="Search Unsplash…"
+              placeholder={`Search ${source}…`}
               className="w-full pl-11 pr-4 py-3 bg-card border border-gold/30 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-gold"
             />
           </div>
           <select
-            value={orientation}
-            onChange={(e) => setOrientation(e.target.value as Orientation)}
+            value={orient}
+            onChange={(e) => setOrient(e.target.value as Orient)}
             className="px-4 py-3 bg-card border border-gold/30 rounded-lg text-foreground focus:outline-none focus:border-gold"
           >
             <option value="landscape">Landscape</option>
             <option value="portrait">Portrait</option>
-            <option value="squarish">Square</option>
+            <option value="square">Square</option>
           </select>
           <button type="submit" className="px-6 py-3 bg-gold text-black font-semibold rounded-lg hover:bg-gold/90 transition">
             Search
@@ -105,42 +101,229 @@ function ImagesPage() {
           ))}
         </div>
 
-        {isFetching && (
-          <div className="flex items-center gap-2 text-muted-foreground py-12">
-            <Loader2 className="h-4 w-4 animate-spin" /> Loading photos…
-          </div>
-        )}
-        {error && <p className="text-sm text-red-400 py-6">Unable to reach Unsplash right now.</p>}
-        {data?.error && <p className="text-sm text-amber-400 py-6">{data.error}</p>}
-
-        {data?.photos && data.photos.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {data.photos.map((p) => (
-              <div key={p.id} className="group flex flex-col gap-3">
-                <UnsplashImage photo={p} size="small" className="aspect-[4/3]" />
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => useImage(p)}
-                    className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md bg-gold text-black text-sm font-semibold hover:bg-gold/90 transition"
-                  >
-                    {copied === p.id ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                    {copied === p.id ? "Copied + tracked" : "Use (copy HTML)"}
-                  </button>
-                  <a
-                    href={p.links.html}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded-md border border-gold/30 text-muted-foreground hover:text-gold hover:border-gold transition"
-                    aria-label="View on Unsplash"
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+        {source === "unsplash" && <UnsplashResults query={query} orient={orient} />}
+        {source === "pexels" && <PexelsResults query={query} orient={orient} />}
+        {source === "pixabay" && <PixabayResults query={query} orient={orient} />}
       </section>
     </PageShell>
   );
+}
+
+/* ---------------- Unsplash ---------------- */
+
+function UnsplashResults({ query, orient }: { query: string; orient: Orient }) {
+  const search = useServerFn(searchUnsplash);
+  const track = useServerFn(trackUnsplashDownload);
+  const orientation = orient === "square" ? "squarish" : orient;
+  const [copied, setCopied] = useState<string | null>(null);
+
+  const { data, isFetching, error } = useQuery({
+    queryKey: ["unsplash", query, orientation],
+    queryFn: () => search({ data: { query, orientation, perPage: 18 } }),
+    enabled: query.length > 0,
+    staleTime: 30 * 60 * 1000,
+  });
+
+  const use = async (p: UnsplashPhoto) => {
+    await track({ data: { downloadLocation: p.links.downloadLocation } });
+    const html =
+      `<img src="${p.urls.regular}" alt="${esc(p.altDescription ?? p.description ?? "")}" width="${p.width}" height="${p.height}" />\n` +
+      `<p>Photo by <a href="${p.user.profileUrl}" target="_blank" rel="noopener">${p.user.name}</a> on <a href="${p.links.html}" target="_blank" rel="noopener">Unsplash</a></p>`;
+    await navigator.clipboard.writeText(html);
+    setCopied(p.id);
+    setTimeout(() => setCopied(null), 1800);
+  };
+
+  return (
+    <ResultsShell isFetching={isFetching} error={error} apiError={data?.error} empty={!isFetching && data?.photos.length === 0}>
+      {data?.photos.map((p) => (
+        <PhotoCard
+          key={p.id}
+          image={<UnsplashImage photo={p} size="small" className="aspect-[4/3]" />}
+          credit={`${p.user.name} · Unsplash`}
+          externalUrl={p.links.html}
+          copied={copied === p.id}
+          onUse={() => use(p)}
+        />
+      ))}
+    </ResultsShell>
+  );
+}
+
+/* ---------------- Pexels ---------------- */
+
+function PexelsResults({ query, orient }: { query: string; orient: Orient }) {
+  const search = useServerFn(searchPexelsPhotos);
+  const orientation = orient;
+  const [copied, setCopied] = useState<number | null>(null);
+
+  const { data, isFetching, error } = useQuery({
+    queryKey: ["pexels", query, orientation],
+    queryFn: () => search({ data: { query, orientation, perPage: 18 } }),
+    enabled: query.length > 0,
+    staleTime: 30 * 60 * 1000,
+  });
+
+  const use = async (p: PexelsPhoto) => {
+    const html =
+      `<img src="${p.src.large}" alt="${esc(p.alt)}" width="${p.width}" height="${p.height}" />\n` +
+      `<p>Photo by <a href="${p.photographerUrl}" target="_blank" rel="noopener">${p.photographer}</a> on <a href="${p.url}" target="_blank" rel="noopener">Pexels</a></p>`;
+    await navigator.clipboard.writeText(html);
+    setCopied(p.id);
+    setTimeout(() => setCopied(null), 1800);
+  };
+
+  return (
+    <ResultsShell isFetching={isFetching} error={error} apiError={data?.error} empty={!isFetching && data?.photos.length === 0}>
+      {data?.photos.map((p) => (
+        <PhotoCard
+          key={p.id}
+          image={
+            <figure className="relative overflow-hidden rounded-lg aspect-[4/3]" style={{ backgroundColor: p.avgColor }}>
+              <img src={p.src.medium} alt={p.alt} loading="lazy" className="w-full h-full object-cover" />
+              <figcaption className="absolute bottom-2 right-2 z-10 rounded bg-black/55 backdrop-blur-sm px-2 py-1 text-[10px] text-white/90">
+                Photo by{" "}
+                <a href={p.photographerUrl} target="_blank" rel="noopener noreferrer" className="underline">
+                  {p.photographer}
+                </a>{" "}
+                on{" "}
+                <a href={p.url} target="_blank" rel="noopener noreferrer" className="underline">
+                  Pexels
+                </a>
+              </figcaption>
+            </figure>
+          }
+          credit={`${p.photographer} · Pexels`}
+          externalUrl={p.url}
+          copied={copied === p.id}
+          onUse={() => use(p)}
+        />
+      ))}
+    </ResultsShell>
+  );
+}
+
+/* ---------------- Pixabay ---------------- */
+
+function PixabayResults({ query, orient }: { query: string; orient: Orient }) {
+  const search = useServerFn(searchPixabayPhotos);
+  const orientation = orient === "landscape" ? "horizontal" : orient === "portrait" ? "vertical" : "all";
+  const [copied, setCopied] = useState<number | null>(null);
+
+  const { data, isFetching, error } = useQuery({
+    queryKey: ["pixabay", query, orientation],
+    queryFn: () => search({ data: { query, orientation, perPage: 18 } }),
+    enabled: query.length > 0,
+    staleTime: 24 * 60 * 60 * 1000,
+  });
+
+  const use = async (p: PixabayPhoto) => {
+    const html =
+      `<img src="${p.large}" alt="${esc(p.tags)}" width="${p.width}" height="${p.height}" />\n` +
+      `<p>Image by <a href="${p.userUrl}" target="_blank" rel="noopener">${p.user}</a> on <a href="${p.pageUrl}" target="_blank" rel="noopener">Pixabay</a></p>`;
+    await navigator.clipboard.writeText(html);
+    setCopied(p.id);
+    setTimeout(() => setCopied(null), 1800);
+  };
+
+  return (
+    <ResultsShell isFetching={isFetching} error={error} apiError={data?.error} empty={!isFetching && data?.photos.length === 0}>
+      {data?.photos.map((p) => (
+        <PhotoCard
+          key={p.id}
+          image={
+            <figure className="relative overflow-hidden rounded-lg aspect-[4/3] bg-card">
+              <img src={p.webformat} alt={p.tags} loading="lazy" className="w-full h-full object-cover" />
+              <figcaption className="absolute bottom-2 right-2 z-10 rounded bg-black/55 backdrop-blur-sm px-2 py-1 text-[10px] text-white/90">
+                <a href={p.userUrl} target="_blank" rel="noopener noreferrer" className="underline">
+                  {p.user}
+                </a>{" "}
+                ·{" "}
+                <a href={p.pageUrl} target="_blank" rel="noopener noreferrer" className="underline">
+                  Pixabay
+                </a>
+              </figcaption>
+            </figure>
+          }
+          credit={`${p.user} · Pixabay`}
+          externalUrl={p.pageUrl}
+          copied={copied === p.id}
+          onUse={() => use(p)}
+        />
+      ))}
+    </ResultsShell>
+  );
+}
+
+/* ---------------- shared bits ---------------- */
+
+function ResultsShell({
+  isFetching,
+  error,
+  apiError,
+  empty,
+  children,
+}: {
+  isFetching: boolean;
+  error: unknown;
+  apiError: string | null | undefined;
+  empty: boolean | undefined;
+  children: React.ReactNode;
+}) {
+  return (
+    <>
+      {isFetching && (
+        <div className="flex items-center gap-2 text-muted-foreground py-12">
+          <Loader2 className="h-4 w-4 animate-spin" /> Loading photos…
+        </div>
+      )}
+      {error && <p className="text-sm text-red-400 py-6">Network error — try again shortly.</p>}
+      {apiError && <p className="text-sm text-amber-400 py-6">{apiError}</p>}
+      {empty && <p className="text-muted-foreground py-12">No results.</p>}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">{children}</div>
+    </>
+  );
+}
+
+function PhotoCard({
+  image,
+  credit,
+  externalUrl,
+  copied,
+  onUse,
+}: {
+  image: React.ReactNode;
+  credit: string;
+  externalUrl: string;
+  copied: boolean;
+  onUse: () => void;
+}) {
+  return (
+    <div className="flex flex-col gap-3">
+      {image}
+      <div className="flex items-center gap-2">
+        <button
+          onClick={onUse}
+          title={`Copy HTML — credit: ${credit}`}
+          className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md bg-gold text-black text-sm font-semibold hover:bg-gold/90 transition"
+        >
+          {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+          {copied ? "Copied" : "Use (copy HTML)"}
+        </button>
+        <a
+          href={externalUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p-2 rounded-md border border-gold/30 text-muted-foreground hover:text-gold hover:border-gold transition"
+          aria-label="Open source"
+        >
+          <ExternalLink className="h-4 w-4" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+function esc(s: string) {
+  return s.replace(/"/g, "&quot;");
 }
