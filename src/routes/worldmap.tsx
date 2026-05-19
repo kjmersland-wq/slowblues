@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { ExternalLink } from "lucide-react";
+import { useMemo, useRef, useState, type PointerEvent as ReactPointerEvent, type WheelEvent as ReactWheelEvent } from "react";
+import { ExternalLink, ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n } from "@/i18n";
 import { WORLD_PINS, type WorldPin, type WorldPinCategory } from "@/data/blues";
