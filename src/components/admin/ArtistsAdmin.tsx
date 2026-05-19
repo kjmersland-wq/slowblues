@@ -46,7 +46,7 @@ export function ArtistsAdmin() {
     setBusy(true);
     const { data, error } = await supabase.from("artists").select("*").order("name");
     if (error) setErr(error.message);
-    else setList((data ?? []) as ArtistRecord[]);
+    else setList((data ?? []) as unknown as ArtistRecord[]);
     setBusy(false);
   };
   useEffect(() => { void refresh(); }, []);
