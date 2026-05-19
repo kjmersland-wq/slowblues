@@ -2,9 +2,9 @@ import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { PageShell } from "@/components/PageShell";
-import { ShoppingBag, ExternalLink, Loader2, ArrowLeft } from "lucide-react";
-import { useState } from "react";
-import { fetchMerchProduct, type MerchProduct } from "@/lib/fourthwall.functions";
+import { ShoppingBag, ExternalLink, Loader2, ArrowLeft, Check } from "lucide-react";
+import { useState, useMemo } from "react";
+import { fetchMerchProduct, type MerchProduct, type MerchVariant } from "@/lib/fourthwall.functions";
 
 export const Route = createFileRoute("/about/merch/$slug")({
   component: ProductPage,
