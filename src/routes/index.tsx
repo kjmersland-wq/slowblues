@@ -9,9 +9,13 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { IMG } from "@/data/images";
 import { useI18n } from "@/i18n";
+import heroJukeImg from "@/assets/hero-juke.jpg";
+import heroDeltaImg from "@/assets/hero-delta.jpg";
+import heroGuitarImg from "@/assets/hero-guitar.jpg";
 
-const heroJuke = IMG.jukeJoint;
-const heroCotton = IMG.cottonField;
+const heroJuke = heroJukeImg;
+const heroCotton = heroDeltaImg;
+const heroGuitar = heroGuitarImg;
 const robertJohnson = IMG.robertJohnson;
 const muddyWaters = IMG.muddyWaters;
 const sonHouse = IMG.sonHouse;
@@ -61,7 +65,16 @@ const heroSlides = [
     attr: "",
     body: "",
     showButtons: false,
-    credit: "Photo: Unknown · Library of Congress",
+  },
+  {
+    img: heroGuitar,
+    eyebrow: "Slide & Resonator",
+    title: "THE SOUND OF SOUL",
+    titleAccent: "steel strings, brass cones, slow heartbeats",
+    quote: "«When you play the blues, you tell the truth about life.»",
+    attr: "— B.B. King",
+    body: "",
+    showButtons: false,
   },
 ];
 
