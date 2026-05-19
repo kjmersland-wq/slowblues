@@ -186,11 +186,12 @@ function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showBu
           <span className="h-px w-12 bg-gold/60" />
         </div>
         {showButtons && (
-          <div className="mx-auto mb-6 size-32 rounded-full border-2 border-gold/60 bg-card/80 backdrop-blur flex items-center justify-center">
-            <div className="text-center">
-              <div className="font-display text-gold text-lg leading-none">SlowBlues</div>
-              <div className="text-[8px] tracking-widest text-muted-foreground mt-1">GLOBAL BLUES ENCYCLOPEDIA</div>
-            </div>
+          <div className="relative mx-auto mb-6 size-32 rounded-full border-2 border-gold/60 bg-card/40 backdrop-blur flex items-center justify-center">
+            <img
+              src="/src/assets/logo-slowblues.png"
+              alt="SlowBlues — Global Blues Encyclopedia"
+              className="absolute size-40 object-contain drop-shadow-[0_4px_20px_rgba(0,0,0,0.5)]"
+            />
           </div>
         )}
         <h1 className="font-display font-black tracking-tight text-6xl md:text-8xl gold-gradient-text leading-none">
