@@ -42,7 +42,7 @@ function ConcertsList() {
           <p className="text-foreground/60">No concerts published yet. Check back soon.</p>
         ) : (
           <ul className="grid md:grid-cols-2 gap-5">
-            {concerts.map((c) => (
+            {concerts.map((c: any) => (
               <li key={c.slug}>
                 <Link
                   to="/concerts/$slug"
