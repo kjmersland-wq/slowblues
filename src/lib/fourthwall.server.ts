@@ -72,6 +72,26 @@ async function cached<T>(key: string, fn: () => Promise<T>): Promise<T> {
   return data;
 }
 
+/**
+ * Invalidate cached Fourthwall API responses. Pass a prefix like "collection:"
+ * to only clear matching keys, or omit to clear everything.
+ */
+export function invalidateFourthwallCache(prefix?: string): number {
+  if (!prefix) {
+    const n = cache.size;
+    cache.clear();
+    return n;
+  }
+  let n = 0;
+  for (const k of cache.keys()) {
+    if (k.startsWith(prefix)) {
+      cache.delete(k);
+      n++;
+    }
+  }
+  return n;
+}
+
 export async function listCollections(): Promise<FwCollection[]> {
   return cached("collections", async () => {
     const json = await fwFetch<{ results?: FwCollection[] }>("/collections");

@@ -33,7 +33,8 @@ function CollectionPage() {
   const { data, isLoading } = useQuery({
     queryKey: ["merch-collection", slug],
     queryFn: () => fetcher({ data: { slug } }),
-    staleTime: 5 * 60 * 1000,
+    staleTime: 30 * 1000,
+    refetchOnWindowFocus: true,
   });
 
   return (
