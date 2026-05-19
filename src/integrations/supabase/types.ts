@@ -491,6 +491,93 @@ export type Database = {
         }
         Relationships: []
       }
+      concerts: {
+        Row: {
+          artist_name: string | null
+          artist_slug: string | null
+          city: string | null
+          country: string | null
+          cover_image: string | null
+          created_at: string
+          description_de: string | null
+          description_en: string | null
+          description_no: string | null
+          description_sv: string | null
+          end_date: string | null
+          event_date: string | null
+          event_type: string
+          id: string
+          is_featured: boolean
+          published_at: string | null
+          seo_description_en: string | null
+          seo_title_en: string | null
+          slug: string
+          sort_order: number
+          status: string
+          ticket_url: string | null
+          title: string
+          updated_at: string
+          venue: string | null
+          youtube_video_id: string | null
+        }
+        Insert: {
+          artist_name?: string | null
+          artist_slug?: string | null
+          city?: string | null
+          country?: string | null
+          cover_image?: string | null
+          created_at?: string
+          description_de?: string | null
+          description_en?: string | null
+          description_no?: string | null
+          description_sv?: string | null
+          end_date?: string | null
+          event_date?: string | null
+          event_type?: string
+          id?: string
+          is_featured?: boolean
+          published_at?: string | null
+          seo_description_en?: string | null
+          seo_title_en?: string | null
+          slug: string
+          sort_order?: number
+          status?: string
+          ticket_url?: string | null
+          title: string
+          updated_at?: string
+          venue?: string | null
+          youtube_video_id?: string | null
+        }
+        Update: {
+          artist_name?: string | null
+          artist_slug?: string | null
+          city?: string | null
+          country?: string | null
+          cover_image?: string | null
+          created_at?: string
+          description_de?: string | null
+          description_en?: string | null
+          description_no?: string | null
+          description_sv?: string | null
+          end_date?: string | null
+          event_date?: string | null
+          event_type?: string
+          id?: string
+          is_featured?: boolean
+          published_at?: string | null
+          seo_description_en?: string | null
+          seo_title_en?: string | null
+          slug?: string
+          sort_order?: number
+          status?: string
+          ticket_url?: string | null
+          title?: string
+          updated_at?: string
+          venue?: string | null
+          youtube_video_id?: string | null
+        }
+        Relationships: []
+      }
       contact_messages: {
         Row: {
           created_at: string
