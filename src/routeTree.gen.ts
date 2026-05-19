@@ -51,6 +51,7 @@ import { Route as AboutGuestbookRouteImport } from './routes/about.guestbook'
 import { Route as AboutBlogRouteImport } from './routes/about.blog'
 import { Route as LocaleArtistsRouteImport } from './routes/$locale.artists'
 import { Route as QuizCycleCycleRouteImport } from './routes/quiz.cycle.$cycle'
+import { Route as ApiPublicFourthwallWebhookRouteImport } from './routes/api/public/fourthwall-webhook'
 import { Route as AboutMerchSlugRouteImport } from './routes/about.merch.$slug'
 import { Route as LocaleArtistsSlugRouteImport } from './routes/$locale.artists.$slug'
 import { Route as AboutMerchCollectionSlugRouteImport } from './routes/about.merch.collection.$slug'
@@ -265,6 +266,12 @@ const QuizCycleCycleRoute = QuizCycleCycleRouteImport.update({
   path: '/cycle/$cycle',
   getParentRoute: () => QuizRoute,
 } as any)
+const ApiPublicFourthwallWebhookRoute =
+  ApiPublicFourthwallWebhookRouteImport.update({
+    id: '/api/public/fourthwall-webhook',
+    path: '/api/public/fourthwall-webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AboutMerchSlugRoute = AboutMerchSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -326,6 +333,7 @@ export interface FileRoutesByFullPath {
   '/concerts/': typeof ConcertsIndexRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
+  '/api/public/fourthwall-webhook': typeof ApiPublicFourthwallWebhookRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
   '/about/merch/collection/$slug': typeof AboutMerchCollectionSlugRoute
 }
@@ -373,6 +381,7 @@ export interface FileRoutesByTo {
   '/concerts': typeof ConcertsIndexRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
+  '/api/public/fourthwall-webhook': typeof ApiPublicFourthwallWebhookRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
   '/about/merch/collection/$slug': typeof AboutMerchCollectionSlugRoute
 }
@@ -421,6 +430,7 @@ export interface FileRoutesById {
   '/concerts/': typeof ConcertsIndexRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
+  '/api/public/fourthwall-webhook': typeof ApiPublicFourthwallWebhookRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
   '/about/merch/collection/$slug': typeof AboutMerchCollectionSlugRoute
 }
@@ -470,6 +480,7 @@ export interface FileRouteTypes {
     | '/concerts/'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
+    | '/api/public/fourthwall-webhook'
     | '/quiz/cycle/$cycle'
     | '/about/merch/collection/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -517,6 +528,7 @@ export interface FileRouteTypes {
     | '/concerts'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
+    | '/api/public/fourthwall-webhook'
     | '/quiz/cycle/$cycle'
     | '/about/merch/collection/$slug'
   id:
@@ -564,6 +576,7 @@ export interface FileRouteTypes {
     | '/concerts/'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
+    | '/api/public/fourthwall-webhook'
     | '/quiz/cycle/$cycle'
     | '/about/merch/collection/$slug'
   fileRoutesById: FileRoutesById
@@ -602,6 +615,7 @@ export interface RootRouteChildren {
   ExperienceMediaRoute: typeof ExperienceMediaRoute
   LearnStylesRoute: typeof LearnStylesRoute
   ConcertsIndexRoute: typeof ConcertsIndexRoute
+  ApiPublicFourthwallWebhookRoute: typeof ApiPublicFourthwallWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -900,6 +914,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuizCycleCycleRouteImport
       parentRoute: typeof QuizRoute
     }
+    '/api/public/fourthwall-webhook': {
+      id: '/api/public/fourthwall-webhook'
+      path: '/api/public/fourthwall-webhook'
+      fullPath: '/api/public/fourthwall-webhook'
+      preLoaderRoute: typeof ApiPublicFourthwallWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about/merch/$slug': {
       id: '/about/merch/$slug'
       path: '/$slug'
@@ -1054,17 +1075,8 @@ const rootRouteChildren: RootRouteChildren = {
   ExperienceMediaRoute: ExperienceMediaRoute,
   LearnStylesRoute: LearnStylesRoute,
   ConcertsIndexRoute: ConcertsIndexRoute,
+  ApiPublicFourthwallWebhookRoute: ApiPublicFourthwallWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
