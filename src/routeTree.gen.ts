@@ -33,6 +33,7 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as ArtistsRouteImport } from './routes/artists'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ReviewsSlugRouteImport } from './routes/reviews.$slug'
 import { Route as QuizArchiveRouteImport } from './routes/quiz.archive'
 import { Route as NewsletterTemplateRouteImport } from './routes/newsletter.template'
 import { Route as NewsletterIdRouteImport } from './routes/newsletter.$id'
@@ -42,6 +43,7 @@ import { Route as EditorialImagesRouteImport } from './routes/editorial.images'
 import { Route as BlogIdRouteImport } from './routes/blog.$id'
 import { Route as ArtistsSlugRouteImport } from './routes/artists.$slug'
 import { Route as AdminWikidataRouteImport } from './routes/admin.wikidata'
+import { Route as AdminQualityRouteImport } from './routes/admin.quality'
 import { Route as AboutMerchRouteImport } from './routes/about.merch'
 import { Route as AboutGuestbookRouteImport } from './routes/about.guestbook'
 import { Route as AboutBlogRouteImport } from './routes/about.blog'
@@ -171,6 +173,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReviewsSlugRoute = ReviewsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ReviewsRoute,
+} as any)
 const QuizArchiveRoute = QuizArchiveRouteImport.update({
   id: '/archive',
   path: '/archive',
@@ -214,6 +221,11 @@ const ArtistsSlugRoute = ArtistsSlugRouteImport.update({
 const AdminWikidataRoute = AdminWikidataRouteImport.update({
   id: '/wikidata',
   path: '/wikidata',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminQualityRoute = AdminQualityRouteImport.update({
+  id: '/quality',
+  path: '/quality',
   getParentRoute: () => AdminRoute,
 } as any)
 const AboutMerchRoute = AboutMerchRouteImport.update({
@@ -276,7 +288,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/quiz': typeof QuizRouteWithChildren
   '/radio': typeof RadioRoute
-  '/reviews': typeof ReviewsRoute
+  '/reviews': typeof ReviewsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
@@ -287,6 +299,7 @@ export interface FileRoutesByFullPath {
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
+  '/admin/quality': typeof AdminQualityRoute
   '/admin/wikidata': typeof AdminWikidataRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/blog/$id': typeof BlogIdRoute
@@ -296,6 +309,7 @@ export interface FileRoutesByFullPath {
   '/newsletter/$id': typeof NewsletterIdRoute
   '/newsletter/template': typeof NewsletterTemplateRoute
   '/quiz/archive': typeof QuizArchiveRoute
+  '/reviews/$slug': typeof ReviewsSlugRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
@@ -319,7 +333,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/quiz': typeof QuizRouteWithChildren
   '/radio': typeof RadioRoute
-  '/reviews': typeof ReviewsRoute
+  '/reviews': typeof ReviewsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
@@ -330,6 +344,7 @@ export interface FileRoutesByTo {
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
+  '/admin/quality': typeof AdminQualityRoute
   '/admin/wikidata': typeof AdminWikidataRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/blog/$id': typeof BlogIdRoute
@@ -339,6 +354,7 @@ export interface FileRoutesByTo {
   '/newsletter/$id': typeof NewsletterIdRoute
   '/newsletter/template': typeof NewsletterTemplateRoute
   '/quiz/archive': typeof QuizArchiveRoute
+  '/reviews/$slug': typeof ReviewsSlugRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
@@ -363,7 +379,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/quiz': typeof QuizRouteWithChildren
   '/radio': typeof RadioRoute
-  '/reviews': typeof ReviewsRoute
+  '/reviews': typeof ReviewsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
@@ -374,6 +390,7 @@ export interface FileRoutesById {
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
+  '/admin/quality': typeof AdminQualityRoute
   '/admin/wikidata': typeof AdminWikidataRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/blog/$id': typeof BlogIdRoute
@@ -383,6 +400,7 @@ export interface FileRoutesById {
   '/newsletter/$id': typeof NewsletterIdRoute
   '/newsletter/template': typeof NewsletterTemplateRoute
   '/quiz/archive': typeof QuizArchiveRoute
+  '/reviews/$slug': typeof ReviewsSlugRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
@@ -419,6 +437,7 @@ export interface FileRouteTypes {
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
+    | '/admin/quality'
     | '/admin/wikidata'
     | '/artists/$slug'
     | '/blog/$id'
@@ -428,6 +447,7 @@ export interface FileRouteTypes {
     | '/newsletter/$id'
     | '/newsletter/template'
     | '/quiz/archive'
+    | '/reviews/$slug'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
     | '/quiz/cycle/$cycle'
@@ -462,6 +482,7 @@ export interface FileRouteTypes {
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
+    | '/admin/quality'
     | '/admin/wikidata'
     | '/artists/$slug'
     | '/blog/$id'
@@ -471,6 +492,7 @@ export interface FileRouteTypes {
     | '/newsletter/$id'
     | '/newsletter/template'
     | '/quiz/archive'
+    | '/reviews/$slug'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
     | '/quiz/cycle/$cycle'
@@ -505,6 +527,7 @@ export interface FileRouteTypes {
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
+    | '/admin/quality'
     | '/admin/wikidata'
     | '/artists/$slug'
     | '/blog/$id'
@@ -514,6 +537,7 @@ export interface FileRouteTypes {
     | '/newsletter/$id'
     | '/newsletter/template'
     | '/quiz/archive'
+    | '/reviews/$slug'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
     | '/quiz/cycle/$cycle'
@@ -538,7 +562,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   QuizRoute: typeof QuizRouteWithChildren
   RadioRoute: typeof RadioRoute
-  ReviewsRoute: typeof ReviewsRoute
+  ReviewsRoute: typeof ReviewsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StylesRoute: typeof StylesRoute
   SupportRoute: typeof SupportRoute
@@ -724,6 +748,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reviews/$slug': {
+      id: '/reviews/$slug'
+      path: '/$slug'
+      fullPath: '/reviews/$slug'
+      preLoaderRoute: typeof ReviewsSlugRouteImport
+      parentRoute: typeof ReviewsRoute
+    }
     '/quiz/archive': {
       id: '/quiz/archive'
       path: '/archive'
@@ -787,6 +818,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminWikidataRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/quality': {
+      id: '/admin/quality'
+      path: '/quality'
+      fullPath: '/admin/quality'
+      preLoaderRoute: typeof AdminQualityRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/about/merch': {
       id: '/about/merch'
       path: '/about/merch'
@@ -847,10 +885,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminQualityRoute: typeof AdminQualityRoute
   AdminWikidataRoute: typeof AdminWikidataRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminQualityRoute: AdminQualityRoute,
   AdminWikidataRoute: AdminWikidataRoute,
 }
 
@@ -903,6 +943,17 @@ const QuizRouteChildren: QuizRouteChildren = {
 
 const QuizRouteWithChildren = QuizRoute._addFileChildren(QuizRouteChildren)
 
+interface ReviewsRouteChildren {
+  ReviewsSlugRoute: typeof ReviewsSlugRoute
+}
+
+const ReviewsRouteChildren: ReviewsRouteChildren = {
+  ReviewsSlugRoute: ReviewsSlugRoute,
+}
+
+const ReviewsRouteWithChildren =
+  ReviewsRoute._addFileChildren(ReviewsRouteChildren)
+
 interface LocaleArtistsRouteChildren {
   LocaleArtistsSlugRoute: typeof LocaleArtistsSlugRoute
 }
@@ -947,7 +998,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   QuizRoute: QuizRouteWithChildren,
   RadioRoute: RadioRoute,
-  ReviewsRoute: ReviewsRoute,
+  ReviewsRoute: ReviewsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StylesRoute: StylesRoute,
   SupportRoute: SupportRoute,

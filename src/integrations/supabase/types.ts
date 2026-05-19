@@ -14,6 +14,93 @@ export type Database = {
   }
   public: {
     Tables: {
+      artist_images: {
+        Row: {
+          artist_slug: string
+          created_at: string
+          credit: string | null
+          credit_url: string | null
+          id: string
+          image_url: string
+          is_primary: boolean
+          notes: string | null
+          source: string
+          updated_at: string
+          verified: boolean
+          verified_at: string | null
+          verified_by: string | null
+        }
+        Insert: {
+          artist_slug: string
+          created_at?: string
+          credit?: string | null
+          credit_url?: string | null
+          id?: string
+          image_url: string
+          is_primary?: boolean
+          notes?: string | null
+          source: string
+          updated_at?: string
+          verified?: boolean
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Update: {
+          artist_slug?: string
+          created_at?: string
+          credit?: string | null
+          credit_url?: string | null
+          id?: string
+          image_url?: string
+          is_primary?: boolean
+          notes?: string | null
+          source?: string
+          updated_at?: string
+          verified?: boolean
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Relationships: []
+      }
+      artist_qc_flags: {
+        Row: {
+          artist_slug: string
+          created_at: string
+          flag_type: string
+          id: string
+          message: string | null
+          resolved: boolean
+          resolved_at: string | null
+          resolved_by: string | null
+          severity: string
+          updated_at: string
+        }
+        Insert: {
+          artist_slug: string
+          created_at?: string
+          flag_type: string
+          id?: string
+          message?: string | null
+          resolved?: boolean
+          resolved_at?: string | null
+          resolved_by?: string | null
+          severity?: string
+          updated_at?: string
+        }
+        Update: {
+          artist_slug?: string
+          created_at?: string
+          flag_type?: string
+          id?: string
+          message?: string | null
+          resolved?: boolean
+          resolved_at?: string | null
+          resolved_by?: string | null
+          severity?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       artists: {
         Row: {
           active_years: string | null
@@ -260,6 +347,150 @@ export type Database = {
         }
         Relationships: []
       }
+      blues_reviews: {
+        Row: {
+          album_title: string
+          apple_music_url: string | null
+          artist_name: string
+          artist_slug: string | null
+          bandcamp_url: string | null
+          blues_style: string | null
+          body_de: string | null
+          body_en: string | null
+          body_no: string | null
+          body_sv: string | null
+          cover_credit: string | null
+          cover_image: string | null
+          created_at: string
+          id: string
+          label: string | null
+          published_at: string | null
+          release_year: number | null
+          reviewer: string | null
+          score_atmosphere: number | null
+          score_instrumentation: number | null
+          score_production: number | null
+          score_songwriting: number | null
+          score_vocals: number | null
+          seo_description_de: string | null
+          seo_description_en: string | null
+          seo_description_no: string | null
+          seo_description_sv: string | null
+          seo_title_de: string | null
+          seo_title_en: string | null
+          seo_title_no: string | null
+          seo_title_sv: string | null
+          slug: string
+          spotify_album_id: string | null
+          status: string
+          title_de: string | null
+          title_en: string | null
+          title_no: string | null
+          title_sv: string | null
+          total_score: number | null
+          updated_at: string
+          verdict_de: string | null
+          verdict_en: string | null
+          verdict_no: string | null
+          verdict_sv: string | null
+          youtube_playlist_id: string | null
+        }
+        Insert: {
+          album_title: string
+          apple_music_url?: string | null
+          artist_name: string
+          artist_slug?: string | null
+          bandcamp_url?: string | null
+          blues_style?: string | null
+          body_de?: string | null
+          body_en?: string | null
+          body_no?: string | null
+          body_sv?: string | null
+          cover_credit?: string | null
+          cover_image?: string | null
+          created_at?: string
+          id?: string
+          label?: string | null
+          published_at?: string | null
+          release_year?: number | null
+          reviewer?: string | null
+          score_atmosphere?: number | null
+          score_instrumentation?: number | null
+          score_production?: number | null
+          score_songwriting?: number | null
+          score_vocals?: number | null
+          seo_description_de?: string | null
+          seo_description_en?: string | null
+          seo_description_no?: string | null
+          seo_description_sv?: string | null
+          seo_title_de?: string | null
+          seo_title_en?: string | null
+          seo_title_no?: string | null
+          seo_title_sv?: string | null
+          slug: string
+          spotify_album_id?: string | null
+          status?: string
+          title_de?: string | null
+          title_en?: string | null
+          title_no?: string | null
+          title_sv?: string | null
+          total_score?: number | null
+          updated_at?: string
+          verdict_de?: string | null
+          verdict_en?: string | null
+          verdict_no?: string | null
+          verdict_sv?: string | null
+          youtube_playlist_id?: string | null
+        }
+        Update: {
+          album_title?: string
+          apple_music_url?: string | null
+          artist_name?: string
+          artist_slug?: string | null
+          bandcamp_url?: string | null
+          blues_style?: string | null
+          body_de?: string | null
+          body_en?: string | null
+          body_no?: string | null
+          body_sv?: string | null
+          cover_credit?: string | null
+          cover_image?: string | null
+          created_at?: string
+          id?: string
+          label?: string | null
+          published_at?: string | null
+          release_year?: number | null
+          reviewer?: string | null
+          score_atmosphere?: number | null
+          score_instrumentation?: number | null
+          score_production?: number | null
+          score_songwriting?: number | null
+          score_vocals?: number | null
+          seo_description_de?: string | null
+          seo_description_en?: string | null
+          seo_description_no?: string | null
+          seo_description_sv?: string | null
+          seo_title_de?: string | null
+          seo_title_en?: string | null
+          seo_title_no?: string | null
+          seo_title_sv?: string | null
+          slug?: string
+          spotify_album_id?: string | null
+          status?: string
+          title_de?: string | null
+          title_en?: string | null
+          title_no?: string | null
+          title_sv?: string | null
+          total_score?: number | null
+          updated_at?: string
+          verdict_de?: string | null
+          verdict_en?: string | null
+          verdict_no?: string | null
+          verdict_sv?: string | null
+          youtube_playlist_id?: string | null
+        }
+        Relationships: []
+      }
       contact_messages: {
         Row: {
           created_at: string
@@ -326,6 +557,69 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      youtube_videos: {
+        Row: {
+          added_by: string | null
+          artist_slug: string
+          category: string
+          channel_id: string | null
+          channel_title: string | null
+          created_at: string
+          description: string | null
+          duration_seconds: number | null
+          id: string
+          is_official_channel: boolean
+          published_at: string | null
+          sort_order: number
+          status: string
+          thumbnail_url: string | null
+          title: string | null
+          updated_at: string
+          video_id: string
+          view_count: number | null
+        }
+        Insert: {
+          added_by?: string | null
+          artist_slug: string
+          category?: string
+          channel_id?: string | null
+          channel_title?: string | null
+          created_at?: string
+          description?: string | null
+          duration_seconds?: number | null
+          id?: string
+          is_official_channel?: boolean
+          published_at?: string | null
+          sort_order?: number
+          status?: string
+          thumbnail_url?: string | null
+          title?: string | null
+          updated_at?: string
+          video_id: string
+          view_count?: number | null
+        }
+        Update: {
+          added_by?: string | null
+          artist_slug?: string
+          category?: string
+          channel_id?: string | null
+          channel_title?: string | null
+          created_at?: string
+          description?: string | null
+          duration_seconds?: number | null
+          id?: string
+          is_official_channel?: boolean
+          published_at?: string | null
+          sort_order?: number
+          status?: string
+          thumbnail_url?: string | null
+          title?: string | null
+          updated_at?: string
+          video_id?: string
+          view_count?: number | null
         }
         Relationships: []
       }
