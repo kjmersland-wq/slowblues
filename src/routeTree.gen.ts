@@ -13,6 +13,7 @@ import { Route as WorldmapRouteImport } from './routes/worldmap'
 import { Route as UpdatesRouteImport } from './routes/updates'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as StylesRouteImport } from './routes/styles'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as RadioRouteImport } from './routes/radio'
 import { Route as QuizRouteImport } from './routes/quiz'
@@ -56,6 +57,11 @@ const SupportRoute = SupportRouteImport.update({
 const StylesRoute = StylesRouteImport.update({
   id: '/styles',
   path: '/styles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReviewsRoute = ReviewsRouteImport.update({
@@ -196,6 +202,7 @@ export interface FileRoutesByFullPath {
   '/quiz': typeof QuizRoute
   '/radio': typeof RadioRoute
   '/reviews': typeof ReviewsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
   '/updates': typeof UpdatesRoute
@@ -226,6 +233,7 @@ export interface FileRoutesByTo {
   '/quiz': typeof QuizRoute
   '/radio': typeof RadioRoute
   '/reviews': typeof ReviewsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
   '/updates': typeof UpdatesRoute
@@ -257,6 +265,7 @@ export interface FileRoutesById {
   '/quiz': typeof QuizRoute
   '/radio': typeof RadioRoute
   '/reviews': typeof ReviewsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
   '/updates': typeof UpdatesRoute
@@ -289,6 +298,7 @@ export interface FileRouteTypes {
     | '/quiz'
     | '/radio'
     | '/reviews'
+    | '/sitemap.xml'
     | '/styles'
     | '/support'
     | '/updates'
@@ -319,6 +329,7 @@ export interface FileRouteTypes {
     | '/quiz'
     | '/radio'
     | '/reviews'
+    | '/sitemap.xml'
     | '/styles'
     | '/support'
     | '/updates'
@@ -349,6 +360,7 @@ export interface FileRouteTypes {
     | '/quiz'
     | '/radio'
     | '/reviews'
+    | '/sitemap.xml'
     | '/styles'
     | '/support'
     | '/updates'
@@ -380,6 +392,7 @@ export interface RootRouteChildren {
   QuizRoute: typeof QuizRoute
   RadioRoute: typeof RadioRoute
   ReviewsRoute: typeof ReviewsRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StylesRoute: typeof StylesRoute
   SupportRoute: typeof SupportRoute
   UpdatesRoute: typeof UpdatesRoute
@@ -420,6 +433,13 @@ declare module '@tanstack/react-router' {
       path: '/styles'
       fullPath: '/styles'
       preLoaderRoute: typeof StylesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reviews': {
@@ -633,6 +653,7 @@ const rootRouteChildren: RootRouteChildren = {
   QuizRoute: QuizRoute,
   RadioRoute: RadioRoute,
   ReviewsRoute: ReviewsRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   StylesRoute: StylesRoute,
   SupportRoute: SupportRoute,
   UpdatesRoute: UpdatesRoute,
