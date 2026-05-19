@@ -1,3 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Route as StylesRoute } from "./styles";
-export const Route = createFileRoute("/learn/styles")({ component: StylesRoute.options.component!, head: StylesRoute.options.head });
+import { createFileRoute, redirect } from "@tanstack/react-router";
+export const Route = createFileRoute("/learn/styles")({
+  beforeLoad: () => { throw redirect({ to: "/styles" }); },
+});
