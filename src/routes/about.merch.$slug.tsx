@@ -2,9 +2,9 @@ import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { PageShell } from "@/components/PageShell";
-import { ShoppingBag, ExternalLink, Loader2, ArrowLeft } from "lucide-react";
-import { useState } from "react";
-import { fetchMerchProduct, type MerchProduct } from "@/lib/fourthwall.functions";
+import { ShoppingBag, ExternalLink, Loader2, ArrowLeft, Check } from "lucide-react";
+import { useState, useMemo } from "react";
+import { fetchMerchProduct, type MerchProduct, type MerchVariant } from "@/lib/fourthwall.functions";
 
 export const Route = createFileRoute("/about/merch/$slug")({
   component: ProductPage,
@@ -42,10 +42,25 @@ function ProductPage() {
     staleTime: 5 * 60 * 1000,
   });
   const [active, setActive] = useState(0);
+  const [color, setColor] = useState<string | null>(null);
+  const [size, setSize] = useState<string | null>(null);
+
+  const p = data?.product;
+
+  const selectedVariant: MerchVariant | null = useMemo(() => {
+    if (!p) return null;
+    if (!p.variants.length) return null;
+    const matches = p.variants.filter((v) => {
+      if (color && v.color?.name !== color) return false;
+      if (size && v.size !== size) return false;
+      return true;
+    });
+    return matches[0] ?? p.variants[0];
+  }, [p, color, size]);
 
   if (isLoading) return <PageShell><div className="flex items-center justify-center py-32 text-muted-foreground"><Loader2 className="size-5 animate-spin mr-2" />Loading…</div></PageShell>;
 
-  if (!data?.product) {
+  if (!p) {
     return (
       <PageShell>
         <div className="max-w-3xl mx-auto px-6 py-20 text-center">
@@ -56,8 +71,17 @@ function ProductPage() {
     );
   }
 
-  const p = data.product;
   const images = p.images.length ? p.images : (p.image ? [p.image] : []);
+  const displayPrice = selectedVariant?.price ?? p.price;
+  const priceLabel = displayPrice
+    ? (p.priceMax && !selectedVariant?.price
+        ? `${formatPrice(p.price)} – ${formatPrice(p.priceMax)}`
+        : formatPrice(displayPrice))
+    : "";
+  const buyUrl = selectedVariant
+    ? `${p.shopUrl}?variant=${encodeURIComponent(selectedVariant.id)}`
+    : p.shopUrl;
+
   const ld = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -103,14 +127,68 @@ function ProductPage() {
           <div>
             <div className="text-xs uppercase tracking-[0.2em] text-gold mb-2">SlowBlues Merch</div>
             <h1 className="font-display text-4xl md:text-5xl leading-tight mb-3">{p.name}</h1>
-            <div className="text-2xl text-foreground/90 mb-6">{formatPrice(p.price)}</div>
+            <div className="text-2xl text-foreground/90 mb-6 flex items-baseline gap-3">
+              {priceLabel}
+              {selectedVariant?.compareAt && (
+                <span className="text-base line-through text-muted-foreground">{formatPrice(selectedVariant.compareAt)}</span>
+              )}
+            </div>
 
-            {p.description && (
-              <div className="prose prose-invert max-w-none text-foreground/80 leading-relaxed mb-8 whitespace-pre-line">{p.description}</div>
+            {p.colors.length > 0 && (
+              <div className="mb-5">
+                <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-2">
+                  Color{color ? `: ${color}` : ""}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {p.colors.map((c) => {
+                    const selected = color === c.name;
+                    return (
+                      <button
+                        key={c.name}
+                        onClick={() => setColor(selected ? null : c.name)}
+                        title={c.name}
+                        className={`relative size-9 rounded-full border-2 transition ${selected ? "border-gold scale-110" : "border-border hover:border-foreground/40"}`}
+                        style={{ background: c.swatch ?? "transparent" }}
+                      >
+                        {selected && <Check className="size-4 absolute inset-0 m-auto text-white drop-shadow" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {p.sizes.length > 0 && p.sizes.some((s) => s.toLowerCase() !== "one size") && (
+              <div className="mb-6">
+                <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-2">
+                  Size{size ? `: ${size}` : ""}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {p.sizes.map((s) => {
+                    const selected = size === s;
+                    return (
+                      <button
+                        key={s}
+                        onClick={() => setSize(selected ? null : s)}
+                        className={`px-3 py-1.5 rounded-md border text-sm transition ${selected ? "border-gold bg-gold/10 text-gold" : "border-border hover:border-foreground/40"}`}
+                      >
+                        {s}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {p.descriptionHtml && (
+              <div
+                className="prose prose-invert max-w-none text-foreground/80 leading-relaxed mb-8 [&_p]:mb-3 [&_strong]:text-foreground"
+                dangerouslySetInnerHTML={{ __html: p.descriptionHtml }}
+              />
             )}
 
             <a
-              href={p.shopUrl}
+              href={buyUrl}
               target="_blank"
               rel="noopener"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition"
@@ -118,7 +196,30 @@ function ProductPage() {
               <ShoppingBag className="size-5" /> {p.inStock ? "Buy on Fourthwall" : "View on Fourthwall"}
               <ExternalLink className="size-4" />
             </a>
-            <p className="text-xs text-muted-foreground mt-3">Secure checkout on Fourthwall. Shipping calculated at checkout.</p>
+            <p className="text-xs text-muted-foreground mt-3">
+              Secure checkout on Fourthwall. Shipping calculated at checkout.
+              {selectedVariant?.sku && <> · SKU: {selectedVariant.sku}</>}
+            </p>
+
+            {p.variants.length > 1 && (
+              <details className="mt-6 text-sm">
+                <summary className="cursor-pointer text-muted-foreground hover:text-foreground">All variants & prices ({p.variants.length})</summary>
+                <ul className="mt-3 divide-y divide-border border border-border rounded-lg overflow-hidden">
+                  {p.variants.map((v) => (
+                    <li key={v.id} className="flex items-center justify-between gap-3 px-3 py-2 bg-card/40">
+                      <span className="flex items-center gap-2 min-w-0">
+                        {v.color?.swatch && <span className="size-3 rounded-full border border-border" style={{ background: v.color.swatch }} />}
+                        <span className="truncate">{v.color?.name ?? ""}{v.color && v.size ? " · " : ""}{v.size ?? ""}</span>
+                      </span>
+                      <span className="text-foreground/80 whitespace-nowrap">
+                        {v.price ? formatPrice(v.price) : ""}
+                        {!v.inStock && <span className="ml-2 text-xs text-muted-foreground">Sold out</span>}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            )}
           </div>
         </div>
 
