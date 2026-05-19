@@ -158,7 +158,7 @@ function ProductPage() {
               </div>
             )}
 
-            {p.sizes.length > 0 && p.sizes.some((s) => s.toLowerCase() !== "one size") && (
+            {p.sizes.length > 0 && (
               <div className="mb-6">
                 <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-2">
                   Size{size ? `: ${size}` : ""}
@@ -166,11 +166,13 @@ function ProductPage() {
                 <div className="flex flex-wrap gap-2">
                   {p.sizes.map((s) => {
                     const selected = size === s;
+                    const onlyOne = p.sizes.length === 1;
                     return (
                       <button
                         key={s}
-                        onClick={() => setSize(selected ? null : s)}
-                        className={`px-3 py-1.5 rounded-md border text-sm transition ${selected ? "border-gold bg-gold/10 text-gold" : "border-border hover:border-foreground/40"}`}
+                        onClick={() => !onlyOne && setSize(selected ? null : s)}
+                        disabled={onlyOne}
+                        className={`px-3 py-1.5 rounded-md border text-sm transition ${selected || onlyOne ? "border-gold bg-gold/10 text-gold" : "border-border hover:border-foreground/40"} ${onlyOne ? "cursor-default" : ""}`}
                       >
                         {s}
                       </button>
@@ -180,15 +182,8 @@ function ProductPage() {
               </div>
             )}
 
-            {p.descriptionHtml && (
-              <div
-                className="prose prose-invert max-w-none text-foreground/80 leading-relaxed mb-8 [&_p]:mb-3 [&_strong]:text-foreground"
-                dangerouslySetInnerHTML={{ __html: p.descriptionHtml }}
-              />
-            )}
-
             {selectedVariant && (
-              <div className="mb-4 flex flex-wrap items-center gap-2 text-sm">
+              <div className="mb-5 flex flex-wrap items-center gap-2 text-sm">
                 <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${selectedVariant.inStock ? "border-emerald-500/30 text-emerald-400 bg-emerald-500/10" : "border-destructive/30 text-destructive bg-destructive/10"}`}>
                   {selectedVariant.inStock ? "In stock" : "Sold out"}
                 </span>
@@ -207,14 +202,21 @@ function ProductPage() {
               href={buyUrl}
               target="_blank"
               rel="noopener"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition shadow-lg shadow-gold/20"
             >
-              <ShoppingBag className="size-5" /> {selectedVariant?.inStock ?? p.inStock ? "Buy on Fourthwall" : "View on Fourthwall"}
+              <ShoppingBag className="size-5" /> {(selectedVariant?.inStock ?? p.inStock) ? "Buy on Fourthwall" : "View on Fourthwall"}
               <ExternalLink className="size-4" />
             </a>
-            <p className="text-xs text-muted-foreground mt-3">
+            <p className="text-xs text-muted-foreground mt-3 mb-8">
               Secure checkout on Fourthwall. Shipping calculated at checkout.
             </p>
+
+            {p.descriptionHtml && (
+              <div
+                className="prose prose-invert max-w-none text-foreground/80 leading-relaxed mb-8 [&_p]:mb-3 [&_strong]:text-foreground"
+                dangerouslySetInnerHTML={{ __html: p.descriptionHtml }}
+              />
+            )}
 
             {p.variants.length > 1 && (
               <details className="mt-6 text-sm">
