@@ -34,6 +34,7 @@ export function SiteFooter() {
     }
   }
 
+  const explore: { to: any; label: string }[] = [
     { to: "/history", label: t.nav.history },
     { to: "/artists", label: t.nav.artists },
     { to: "/styles", label: t.nav.styles },
