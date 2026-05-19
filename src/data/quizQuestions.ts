@@ -727,7 +727,7 @@ export function formatCycleRange(cycleNumber: number, locale: string = "en"): st
  */
 function rollingPick<T>(pool: T[], cycleNumber: number, take: number, seedSalt: number): T[] {
   if (pool.length === 0) return [];
-  const ordered = seededShuffle(pool, 0x5b1ue5 ^ seedSalt);
+  const ordered = seededShuffle(pool, 0x5b1e5 ^ seedSalt);
   const start = ((cycleNumber - 1) * take) % ordered.length;
   const out: T[] = [];
   for (let i = 0; i < take; i++) {
