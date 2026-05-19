@@ -9,7 +9,31 @@ import logoSB from "@/assets/logo-slowblues.png";
 export function SiteFooter() {
   const { t } = useI18n();
 
-  const explore: { to: any; label: string }[] = [
+  const subscribe = useServerFn(subscribeNewsletter);
+  const [email, setEmail] = useState("");
+  const [subState, setSubState] = useState<"idle" | "loading" | "ok" | "err">("idle");
+  const [subMsg, setSubMsg] = useState("");
+
+  async function handleSubscribe(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email) return;
+    setSubState("loading");
+    try {
+      const res = await subscribe({ data: { email } });
+      if (res.ok) {
+        setSubState("ok");
+        setSubMsg("You're on the list. Next letter: Monday 21:00 CET.");
+        setEmail("");
+      } else {
+        setSubState("err");
+        setSubMsg(res.error);
+      }
+    } catch {
+      setSubState("err");
+      setSubMsg("Something went wrong. Please try again.");
+    }
+  }
+
     { to: "/history", label: t.nav.history },
     { to: "/artists", label: t.nav.artists },
     { to: "/styles", label: t.nav.styles },
