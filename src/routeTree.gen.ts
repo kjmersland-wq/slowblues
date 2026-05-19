@@ -38,6 +38,7 @@ import { Route as NewsletterTemplateRouteImport } from './routes/newsletter.temp
 import { Route as NewsletterIdRouteImport } from './routes/newsletter.$id'
 import { Route as LearnStylesRouteImport } from './routes/learn.styles'
 import { Route as ExperienceMediaRouteImport } from './routes/experience.media'
+import { Route as EditorialImagesRouteImport } from './routes/editorial.images'
 import { Route as BlogIdRouteImport } from './routes/blog.$id'
 import { Route as ArtistsSlugRouteImport } from './routes/artists.$slug'
 import { Route as AboutMerchRouteImport } from './routes/about.merch'
@@ -194,6 +195,11 @@ const ExperienceMediaRoute = ExperienceMediaRouteImport.update({
   path: '/experience/media',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EditorialImagesRoute = EditorialImagesRouteImport.update({
+  id: '/editorial/images',
+  path: '/editorial/images',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogIdRoute = BlogIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -277,6 +283,7 @@ export interface FileRoutesByFullPath {
   '/about/merch': typeof AboutMerchRouteWithChildren
   '/artists/$slug': typeof ArtistsSlugRoute
   '/blog/$id': typeof BlogIdRoute
+  '/editorial/images': typeof EditorialImagesRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
   '/newsletter/$id': typeof NewsletterIdRoute
@@ -318,6 +325,7 @@ export interface FileRoutesByTo {
   '/about/merch': typeof AboutMerchRouteWithChildren
   '/artists/$slug': typeof ArtistsSlugRoute
   '/blog/$id': typeof BlogIdRoute
+  '/editorial/images': typeof EditorialImagesRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
   '/newsletter/$id': typeof NewsletterIdRoute
@@ -360,6 +368,7 @@ export interface FileRoutesById {
   '/about/merch': typeof AboutMerchRouteWithChildren
   '/artists/$slug': typeof ArtistsSlugRoute
   '/blog/$id': typeof BlogIdRoute
+  '/editorial/images': typeof EditorialImagesRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
   '/newsletter/$id': typeof NewsletterIdRoute
@@ -403,6 +412,7 @@ export interface FileRouteTypes {
     | '/about/merch'
     | '/artists/$slug'
     | '/blog/$id'
+    | '/editorial/images'
     | '/experience/media'
     | '/learn/styles'
     | '/newsletter/$id'
@@ -444,6 +454,7 @@ export interface FileRouteTypes {
     | '/about/merch'
     | '/artists/$slug'
     | '/blog/$id'
+    | '/editorial/images'
     | '/experience/media'
     | '/learn/styles'
     | '/newsletter/$id'
@@ -485,6 +496,7 @@ export interface FileRouteTypes {
     | '/about/merch'
     | '/artists/$slug'
     | '/blog/$id'
+    | '/editorial/images'
     | '/experience/media'
     | '/learn/styles'
     | '/newsletter/$id'
@@ -525,6 +537,7 @@ export interface RootRouteChildren {
   AboutBlogRoute: typeof AboutBlogRoute
   AboutGuestbookRoute: typeof AboutGuestbookRoute
   AboutMerchRoute: typeof AboutMerchRouteWithChildren
+  EditorialImagesRoute: typeof EditorialImagesRoute
   ExperienceMediaRoute: typeof ExperienceMediaRoute
   LearnStylesRoute: typeof LearnStylesRoute
 }
@@ -734,6 +747,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExperienceMediaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/editorial/images': {
+      id: '/editorial/images'
+      path: '/editorial/images'
+      fullPath: '/editorial/images'
+      preLoaderRoute: typeof EditorialImagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/$id': {
       id: '/blog/$id'
       path: '/$id'
@@ -909,6 +929,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutBlogRoute: AboutBlogRoute,
   AboutGuestbookRoute: AboutGuestbookRoute,
   AboutMerchRoute: AboutMerchRouteWithChildren,
+  EditorialImagesRoute: EditorialImagesRoute,
   ExperienceMediaRoute: ExperienceMediaRoute,
   LearnStylesRoute: LearnStylesRoute,
 }
