@@ -446,5 +446,5 @@ const de: typeof no = {
   },
 };
 
-export const dict = { no, en, de };
+export const dict = { no, en, sv: no, de };
 export type Dict = typeof no;
