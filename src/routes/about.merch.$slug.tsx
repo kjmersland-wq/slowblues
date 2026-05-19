@@ -1,4 +1,5 @@
-import { createFileRoute, Link, useServerFn, useRouter } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { PageShell } from "@/components/PageShell";
 import { ShoppingBag, ExternalLink, Loader2, ArrowLeft } from "lucide-react";
