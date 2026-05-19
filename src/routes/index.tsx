@@ -1,6 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SafeImage } from "@/components/SafeImage";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { getNewsTicker, type TickerItem } from "@/lib/newsfeed.functions";
+import { blogArticles } from "@/data/blogArticles";
 import {
   ShoppingBag, HelpCircle, BookOpen, Music, Radio, Mic,
   ChevronDown, ChevronLeft, ChevronRight, Play, ArrowRight,
