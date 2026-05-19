@@ -288,9 +288,9 @@ function Ticker() {
     >
       <div className="flex gap-10 py-3 animate-ticker whitespace-nowrap will-change-transform">
         {loop.map((t, i) => (
-          <Link
+          <a
             key={`${t.id}-${i}`}
-            to={t.href}
+            href={t.href}
             className="text-sm text-foreground/85 hover:text-foreground inline-flex items-center gap-2 group"
           >
             <span className={`${accent(t.kind)} font-mono text-[10px] tracking-widest uppercase`}>
@@ -300,7 +300,7 @@ function Ticker() {
             <span className="group-hover:underline underline-offset-4 decoration-gold/60">
               {t.text}
             </span>
-          </Link>
+          </a>
         ))}
       </div>
     </div>
