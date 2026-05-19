@@ -56,7 +56,7 @@ export function SiteFooter() {
           <h3 className="font-display text-lg mb-4">{t.footer.explore}</h3>
           <ul className="space-y-1.5 text-sm">
             {explore.map((l) => (
-              <li key={l.to}><Link to={l.to} className="text-muted-foreground hover:text-gold transition">{l.label}</Link></li>
+              <li key={l.to}><Link to={l.to as any} className="text-muted-foreground hover:text-gold transition">{l.label}</Link></li>
             ))}
           </ul>
         </div>

@@ -65,7 +65,7 @@ export function SiteHeader() {
                 <div className="absolute left-0 top-full pt-2 min-w-[200px]">
                   <div className="bg-card border border-border rounded-md py-2 shadow-xl">
                     {g.items.map((it) => (
-                      <Link key={it.to} to={it.to} className="block px-4 py-2 text-sm hover:bg-gold/10 hover:text-gold transition">
+                      <Link key={it.to} to={it.to as any} className="block px-4 py-2 text-sm hover:bg-gold/10 hover:text-gold transition">
                         {it.label}
                       </Link>
                     ))}
@@ -74,7 +74,7 @@ export function SiteHeader() {
               )}
             </div>
           ))}
-          <Link to="/reviews" className="px-3 py-1.5 rounded-md hover:text-gold transition" activeProps={{ className: "px-3 py-1.5 rounded-md bg-gold/10 text-gold" }}>
+          <Link to={"/reviews" as any} className="px-3 py-1.5 rounded-md hover:text-gold transition" activeProps={{ className: "px-3 py-1.5 rounded-md bg-gold/10 text-gold" }}>
             {t.nav.reviews}
           </Link>
         </nav>
@@ -105,9 +105,9 @@ export function SiteHeader() {
           <div className="max-w-7xl mx-auto px-5 py-4 grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
             <Link to="/" onClick={() => setOpen(false)} className="py-2 hover:text-gold">{t.nav.home}</Link>
             {groups.flatMap((g) => g.items).map((it) => (
-              <Link key={it.to} to={it.to} onClick={() => setOpen(false)} className="py-2 hover:text-gold">{it.label}</Link>
+              <Link key={it.to} to={it.to as any} onClick={() => setOpen(false)} className="py-2 hover:text-gold">{it.label}</Link>
             ))}
-            <Link to="/reviews" onClick={() => setOpen(false)} className="py-2 hover:text-gold">{t.nav.reviews}</Link>
+            <Link to={"/reviews" as any} onClick={() => setOpen(false)} className="py-2 hover:text-gold">{t.nav.reviews}</Link>
             <div className="col-span-full flex gap-1 pt-3 border-t border-border mt-2">
               {LANGS.map((l) => (
                 <button key={l.code} onClick={() => setLang(l.code)} className={`px-3 py-1.5 rounded ${lang === l.code ? "bg-gold text-primary-foreground" : "bg-card"}`}>{l.label}</button>
