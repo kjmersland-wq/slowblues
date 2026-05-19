@@ -19,103 +19,244 @@ export type Database = {
           active_years: string | null
           alt_name: string | null
           anecdotes: Json
+          anecdotes_en: Json
+          anecdotes_no: Json
+          article_references: Json
           awards: Json
+          base_path: string | null
           bio: string[]
+          biography_de: string | null
+          biography_en: string | null
+          biography_no: string | null
+          biography_sv: string | null
+          birth_name: string | null
+          birth_place: string | null
           born: string | null
+          categories: string[]
           collaborators: Json
+          collaborators_en: Json
+          country: string | null
           created_at: string
           died: string | null
           discography: Json
           era: string | null
+          era_label_en: string | null
+          era_label_no: string | null
+          era_label_sv: string | null
+          external_links: Json
           family: Json
+          family_en: Json
+          family_no: Json
           formative: Json
+          formative_de: Json
+          formative_en: Json
+          formative_no: Json
+          gallery_images: string[]
           id: string
+          image_credit: string | null
           img: string | null
+          influence_en: string | null
+          influence_no: string | null
           influence_note: string | null
+          influence_sv: string | null
           influences: string[]
           instruments: Json
+          instruments_en: Json
           instruments_simple: string[]
+          key_recordings: Json
           labels: string[]
           legacy: string | null
           name: string
+          og_image: string | null
           origin: string | null
           region: string | null
           related_slugs: string[]
+          route_path: string | null
+          search_terms: string[]
+          seo_description_en: string | null
+          seo_description_no: string | null
+          seo_description_sv: string | null
+          seo_title_en: string | null
+          seo_title_no: string | null
+          seo_title_sv: string | null
           short: string | null
+          short_en: string | null
+          short_no: string | null
+          short_sv: string | null
           signature_songs: string[]
           slug: string
+          social_links: Json
           sort_order: number
+          source_file: string | null
+          source_region: string | null
+          styles: string[]
           tag: string
           updated_at: string
+          video_search_query: string | null
           videos: Json
+          youtube_video_ids: string[]
         }
         Insert: {
           active_years?: string | null
           alt_name?: string | null
           anecdotes?: Json
+          anecdotes_en?: Json
+          anecdotes_no?: Json
+          article_references?: Json
           awards?: Json
+          base_path?: string | null
           bio?: string[]
+          biography_de?: string | null
+          biography_en?: string | null
+          biography_no?: string | null
+          biography_sv?: string | null
+          birth_name?: string | null
+          birth_place?: string | null
           born?: string | null
+          categories?: string[]
           collaborators?: Json
+          collaborators_en?: Json
+          country?: string | null
           created_at?: string
           died?: string | null
           discography?: Json
           era?: string | null
+          era_label_en?: string | null
+          era_label_no?: string | null
+          era_label_sv?: string | null
+          external_links?: Json
           family?: Json
+          family_en?: Json
+          family_no?: Json
           formative?: Json
+          formative_de?: Json
+          formative_en?: Json
+          formative_no?: Json
+          gallery_images?: string[]
           id?: string
+          image_credit?: string | null
           img?: string | null
+          influence_en?: string | null
+          influence_no?: string | null
           influence_note?: string | null
+          influence_sv?: string | null
           influences?: string[]
           instruments?: Json
+          instruments_en?: Json
           instruments_simple?: string[]
+          key_recordings?: Json
           labels?: string[]
           legacy?: string | null
           name: string
+          og_image?: string | null
           origin?: string | null
           region?: string | null
           related_slugs?: string[]
+          route_path?: string | null
+          search_terms?: string[]
+          seo_description_en?: string | null
+          seo_description_no?: string | null
+          seo_description_sv?: string | null
+          seo_title_en?: string | null
+          seo_title_no?: string | null
+          seo_title_sv?: string | null
           short?: string | null
+          short_en?: string | null
+          short_no?: string | null
+          short_sv?: string | null
           signature_songs?: string[]
           slug: string
+          social_links?: Json
           sort_order?: number
+          source_file?: string | null
+          source_region?: string | null
+          styles?: string[]
           tag?: string
           updated_at?: string
+          video_search_query?: string | null
           videos?: Json
+          youtube_video_ids?: string[]
         }
         Update: {
           active_years?: string | null
           alt_name?: string | null
           anecdotes?: Json
+          anecdotes_en?: Json
+          anecdotes_no?: Json
+          article_references?: Json
           awards?: Json
+          base_path?: string | null
           bio?: string[]
+          biography_de?: string | null
+          biography_en?: string | null
+          biography_no?: string | null
+          biography_sv?: string | null
+          birth_name?: string | null
+          birth_place?: string | null
           born?: string | null
+          categories?: string[]
           collaborators?: Json
+          collaborators_en?: Json
+          country?: string | null
           created_at?: string
           died?: string | null
           discography?: Json
           era?: string | null
+          era_label_en?: string | null
+          era_label_no?: string | null
+          era_label_sv?: string | null
+          external_links?: Json
           family?: Json
+          family_en?: Json
+          family_no?: Json
           formative?: Json
+          formative_de?: Json
+          formative_en?: Json
+          formative_no?: Json
+          gallery_images?: string[]
           id?: string
+          image_credit?: string | null
           img?: string | null
+          influence_en?: string | null
+          influence_no?: string | null
           influence_note?: string | null
+          influence_sv?: string | null
           influences?: string[]
           instruments?: Json
+          instruments_en?: Json
           instruments_simple?: string[]
+          key_recordings?: Json
           labels?: string[]
           legacy?: string | null
           name?: string
+          og_image?: string | null
           origin?: string | null
           region?: string | null
           related_slugs?: string[]
+          route_path?: string | null
+          search_terms?: string[]
+          seo_description_en?: string | null
+          seo_description_no?: string | null
+          seo_description_sv?: string | null
+          seo_title_en?: string | null
+          seo_title_no?: string | null
+          seo_title_sv?: string | null
           short?: string | null
+          short_en?: string | null
+          short_no?: string | null
+          short_sv?: string | null
           signature_songs?: string[]
           slug?: string
+          social_links?: Json
           sort_order?: number
+          source_file?: string | null
+          source_region?: string | null
+          styles?: string[]
           tag?: string
           updated_at?: string
+          video_search_query?: string | null
           videos?: Json
+          youtube_video_ids?: string[]
         }
         Relationships: []
       }
