@@ -132,7 +132,7 @@ export type ArtistFacts = {
   dateOfBirth?: string;           // ISO date
   dateOfDeath?: string;
   placeOfBirth?: { qid: string; label: string };
-  countryOfCitizenship?: Array<{ qid: string; label: string }>;
+  countryOfCitizenship: Array<{ qid: string; label: string }>;
   genres: Array<{ qid: string; label: string }>;
   instruments: Array<{ qid: string; label: string }>;
   occupations: Array<{ qid: string; label: string }>;
