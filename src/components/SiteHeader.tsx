@@ -26,6 +26,7 @@ export function SiteHeader() {
       { to: "/history", label: t.nav.history },
       { to: "/styles", label: t.nav.styles },
       { to: "/compare", label: t.nav.compareStyles },
+      { to: "/instruments", label: "Instruments & Gear" },
     ]},
     { key: "experience", label: t.nav.experience, items: [
       { to: "/listen", label: t.nav.listen },
