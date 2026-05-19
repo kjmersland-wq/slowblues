@@ -57,6 +57,59 @@ function WorldMapPage() {
     () => new Set(CATEGORY_ORDER),
   );
 
+  // Zoom + pan state
+  const [scale, setScale] = useState(1);
+  const [tx, setTx] = useState(0);
+  const [ty, setTy] = useState(0);
+  const dragRef = useRef<{ x: number; y: number; tx: number; ty: number } | null>(null);
+
+  const MIN = 1;
+  const MAX = 12;
+  const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
+
+  const zoomBy = (factor: number) => {
+    setScale((s) => {
+      const next = clamp(s * factor, MIN, MAX);
+      // re-center pan within bounds
+      const bound = (next - 1) * 50;
+      setTx((p) => clamp(p, -bound, bound));
+      setTy((p) => clamp(p, -bound, bound));
+      return next;
+    });
+  };
+  const reset = () => {
+    setScale(1);
+    setTx(0);
+    setTy(0);
+  };
+
+  const onWheel = (e: ReactWheelEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    zoomBy(e.deltaY < 0 ? 1.15 : 1 / 1.15);
+  };
+
+  const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (scale <= 1) return;
+    (e.currentTarget as HTMLDivElement).setPointerCapture(e.pointerId);
+    dragRef.current = { x: e.clientX, y: e.clientY, tx, ty };
+  };
+  const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (!dragRef.current) return;
+    const dx = e.clientX - dragRef.current.x;
+    const dy = e.clientY - dragRef.current.y;
+    const rect = e.currentTarget.getBoundingClientRect();
+    // convert px delta into % of container, then divide by scale
+    const pctX = (dx / rect.width) * 100 / scale;
+    const pctY = (dy / rect.height) * 100 / scale;
+    const bound = (scale - 1) * 50;
+    setTx(clamp(dragRef.current.tx + pctX, -bound, bound));
+    setTy(clamp(dragRef.current.ty + pctY, -bound, bound));
+  };
+  const onPointerUp = () => {
+    dragRef.current = null;
+  };
+
+
   const toggle = (c: WorldPinCategory) => {
     setActive((prev) => {
       const next = new Set(prev);
