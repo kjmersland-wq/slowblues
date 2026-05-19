@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n } from "@/i18n";
 import { IMG } from "@/data/images";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/guestbook")({
   component: GuestbookPage,
@@ -13,24 +14,50 @@ export const Route = createFileRoute("/guestbook")({
   ]}),
 });
 
-const ENTRIES = [
-  { name: "Lars, Notodden", date: "2026-04-30", text: "Heard Muddy on the radio at 14. Never looked back. Thanks for keeping the flame alive." },
-  { name: "Marianne", date: "2026-04-18", text: "Tok med datteren min på Mandal Blues for første gang i fjor — nå er hun frelst på 13 år. Bluesen lever videre." },
-  { name: "Tom from Hamburg", date: "2026-04-02", text: "Found this site by accident, lost an entire afternoon in the artist profiles. Beautifully done." },
-  { name: "Anna, Bergen", date: "2026-03-21", text: "Tusen takk for det norske perspektivet — sjelden å se Notodden nevnt i samme setning som Chess Records." },
-];
+type Entry = { id: string; name: string; location: string | null; message: string; created_at: string };
 
 function GuestbookPage() {
   const { t } = useI18n();
-  const [list, setList] = useState(ENTRIES);
+  const [list, setList] = useState<Entry[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [name, setName] = useState("");
+  const [location, setLocation] = useState("");
   const [msg, setMsg] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  const submit = (e: React.FormEvent) => {
+  const load = async () => {
+    setLoading(true);
+    setError(null);
+    const { data, error } = await supabase
+      .from("guestbook_entries")
+      .select("id,name,location,message,created_at")
+      .order("created_at", { ascending: false })
+      .limit(100);
+    if (error) setError("Kunne ikke laste gjesteboken. Prøv igjen senere.");
+    else setList((data ?? []) as Entry[]);
+    setLoading(false);
+  };
+
+  useEffect(() => { load(); }, []);
+
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !msg.trim()) return;
-    setList([{ name, date: new Date().toISOString().slice(0, 10), text: msg }, ...list]);
-    setName(""); setMsg("");
+    if (!name.trim() || !msg.trim() || submitting) return;
+    setSubmitting(true);
+    setError(null);
+    const { error } = await supabase.from("guestbook_entries").insert({
+      name: name.trim().slice(0, 60),
+      location: location.trim() ? location.trim().slice(0, 80) : null,
+      message: msg.trim().slice(0, 800),
+    });
+    if (error) {
+      setError("Innlegget kunne ikke sendes. Sjekk teksten og prøv igjen.");
+    } else {
+      setName(""); setLocation(""); setMsg("");
+      await load();
+    }
+    setSubmitting(false);
   };
 
   return (
@@ -40,28 +67,41 @@ function GuestbookPage() {
         <form onSubmit={submit} className="bg-card/60 border border-border rounded-xl p-6 mb-10 space-y-4">
           <div>
             <label className="text-[10px] tracking-[0.25em] text-gold uppercase block mb-1.5">{t.pages.guestbook.name}</label>
-            <input value={name} onChange={(e) => setName(e.target.value)} className="w-full bg-background border border-border rounded-md px-3 py-2 focus:border-gold outline-none" />
+            <input value={name} onChange={(e) => setName(e.target.value)} maxLength={60} className="w-full bg-background border border-border rounded-md px-3 py-2 focus:border-gold outline-none" />
+          </div>
+          <div>
+            <label className="text-[10px] tracking-[0.25em] text-gold uppercase block mb-1.5">Sted (valgfritt)</label>
+            <input value={location} onChange={(e) => setLocation(e.target.value)} maxLength={80} className="w-full bg-background border border-border rounded-md px-3 py-2 focus:border-gold outline-none" />
           </div>
           <div>
             <label className="text-[10px] tracking-[0.25em] text-gold uppercase block mb-1.5">{t.pages.guestbook.message}</label>
-            <textarea value={msg} onChange={(e) => setMsg(e.target.value)} rows={4} className="w-full bg-background border border-border rounded-md px-3 py-2 focus:border-gold outline-none" />
+            <textarea value={msg} onChange={(e) => setMsg(e.target.value)} rows={4} maxLength={800} className="w-full bg-background border border-border rounded-md px-3 py-2 focus:border-gold outline-none" />
           </div>
-          <button className="px-5 py-2.5 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90">
-            {t.pages.guestbook.submit}
+          {error && <p className="text-sm text-red-400">{error}</p>}
+          <button disabled={submitting} className="px-5 py-2.5 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 disabled:opacity-60">
+            {submitting ? "Sender…" : t.pages.guestbook.submit}
           </button>
         </form>
 
-        <div className="space-y-4">
-          {list.map((e, i) => (
-            <article key={i} className="bg-card/40 border-l-4 border-gold/60 px-5 py-4 rounded-r-md">
-              <div className="flex items-center justify-between mb-2">
-                <div className="font-display text-lg text-gold">{e.name}</div>
-                <div className="text-xs text-muted-foreground">{e.date}</div>
-              </div>
-              <p className="text-sm text-foreground/85 italic">"{e.text}"</p>
-            </article>
-          ))}
-        </div>
+        {loading ? (
+          <p className="text-sm text-muted-foreground text-center py-8">Laster gjesteboken…</p>
+        ) : list.length === 0 ? (
+          <p className="text-sm text-muted-foreground text-center py-8">Ingen innlegg enda — bli den første.</p>
+        ) : (
+          <div className="space-y-4">
+            {list.map((e) => (
+              <article key={e.id} className="bg-card/40 border-l-4 border-gold/60 px-5 py-4 rounded-r-md">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="font-display text-lg text-gold">
+                    {e.name}{e.location ? `, ${e.location}` : ""}
+                  </div>
+                  <div className="text-xs text-muted-foreground">{e.created_at.slice(0, 10)}</div>
+                </div>
+                <p className="text-sm text-foreground/85 italic">"{e.message}"</p>
+              </article>
+            ))}
+          </div>
+        )}
       </section>
     </PageShell>
   );
