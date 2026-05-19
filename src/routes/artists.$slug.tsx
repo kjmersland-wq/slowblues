@@ -48,7 +48,7 @@ function ArtistDetail() {
     );
   }
 
-  const heroImg = a.img ?? IMG.muddyWaters;
+  const heroImg = resolveArtistImage(a.img) ?? IMG.muddyWaters;
   const related = (all ?? []).filter((x) => a.related_slugs.includes(x.slug));
 
   return (
