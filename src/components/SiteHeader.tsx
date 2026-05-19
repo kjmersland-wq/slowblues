@@ -38,6 +38,7 @@ export function SiteHeader() {
     ]},
     { key: "about", label: t.nav.about, items: [
       { to: "/blog", label: t.nav.blog },
+      { to: "/newsletter", label: "Newsletter" },
       { to: "/guestbook", label: t.nav.guestbook },
       { to: "/about/merch", label: "Merch" },
       { to: "/support", label: t.nav.support },

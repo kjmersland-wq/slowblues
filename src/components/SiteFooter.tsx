@@ -1,10 +1,38 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/i18n";
 import { BookOpen, ExternalLink, Heart, Mail } from "lucide-react";
+import { useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { subscribeNewsletter } from "@/lib/mailerlite.functions";
 import logoSB from "@/assets/logo-slowblues.png";
 
 export function SiteFooter() {
   const { t } = useI18n();
+
+  const subscribe = useServerFn(subscribeNewsletter);
+  const [email, setEmail] = useState("");
+  const [subState, setSubState] = useState<"idle" | "loading" | "ok" | "err">("idle");
+  const [subMsg, setSubMsg] = useState("");
+
+  async function handleSubscribe(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email) return;
+    setSubState("loading");
+    try {
+      const res = await subscribe({ data: { email } });
+      if (res.ok) {
+        setSubState("ok");
+        setSubMsg("You're on the list. Next letter: Monday 21:00 CET.");
+        setEmail("");
+      } else {
+        setSubState("err");
+        setSubMsg(res.error);
+      }
+    } catch {
+      setSubState("err");
+      setSubMsg("Something went wrong. Please try again.");
+    }
+  }
 
   const explore: { to: any; label: string }[] = [
     { to: "/history", label: t.nav.history },
@@ -24,6 +52,7 @@ export function SiteFooter() {
     { to: "/updates", label: t.nav.updates },
     { to: "/support", label: t.nav.support },
     { to: "/contact", label: t.nav.contact },
+    { to: "/newsletter", label: "Newsletter" },
     { to: "/privacy", label: t.nav.privacy },
   ];
 
@@ -108,11 +137,26 @@ export function SiteFooter() {
               <label key={o} className="flex items-center gap-2"><input defaultChecked type="checkbox" className="accent-[var(--color-gold)]" /> <span className="text-foreground/85">{o}</span></label>
             ))}
           </div>
-          <form className="flex flex-col sm:flex-row gap-2 max-w-2xl" onSubmit={(e) => e.preventDefault()}>
-            <input required type="email" placeholder={t.footer.emailPlaceholder} className="flex-1 px-4 py-2.5 rounded-md bg-card border border-border focus:border-gold outline-none text-sm" />
-            <button className="px-5 py-2.5 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 text-sm">{t.footer.subscribe}</button>
+          <form className="flex flex-col sm:flex-row gap-2 max-w-2xl" onSubmit={handleSubscribe}>
+            <input
+              required
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder={t.footer.emailPlaceholder}
+              maxLength={255}
+              className="flex-1 px-4 py-2.5 rounded-md bg-card border border-border focus:border-gold outline-none text-sm"
+            />
+            <button
+              disabled={subState === "loading"}
+              className="px-5 py-2.5 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 text-sm disabled:opacity-60"
+            >
+              {subState === "loading" ? "…" : t.footer.subscribe}
+            </button>
           </form>
-          <p className="mt-3 text-xs text-muted-foreground">{t.footer.privacyNote}</p>
+          {subState === "ok" && <p className="mt-3 text-sm text-gold">{subMsg}</p>}
+          {subState === "err" && <p className="mt-3 text-sm text-destructive">{subMsg}</p>}
+          <p className="mt-3 text-xs text-muted-foreground">{t.footer.privacyNote} <Link to="/newsletter" className="text-gold hover:underline">Read the archive →</Link></p>
         </div>
       </div>
 
