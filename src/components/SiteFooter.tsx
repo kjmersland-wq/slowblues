@@ -1,6 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/i18n";
 import { BookOpen, ExternalLink, Heart, Mail } from "lucide-react";
+import { useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { subscribeNewsletter } from "@/lib/mailerlite.functions";
 import logoSB from "@/assets/logo-slowblues.png";
 
 export function SiteFooter() {
