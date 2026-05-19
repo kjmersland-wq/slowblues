@@ -1,14 +1,19 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
-  Search, ShoppingBag, HelpCircle, BookOpen, Music, Radio, Mic,
-  ChevronDown, ChevronLeft, ChevronRight, Play, ArrowRight, Star,
+  ShoppingBag, HelpCircle, BookOpen, Music, Radio, Mic,
+  ChevronDown, ChevronLeft, ChevronRight, Play, ArrowRight,
 } from "lucide-react";
-import heroJuke from "@/assets/hero-juke.jpg";
-import heroCotton from "@/assets/hero-cotton.jpg";
-import robertJohnson from "@/assets/robert-johnson.jpg";
-import muddyWaters from "@/assets/muddy-waters.jpg";
-import sonHouse from "@/assets/son-house.jpg";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+import { IMG } from "@/data/images";
+import { useI18n } from "@/i18n";
+
+const heroJuke = IMG.jukeJoint;
+const heroCotton = IMG.cottonField;
+const robertJohnson = IMG.robertJohnson;
+const muddyWaters = IMG.muddyWaters;
+const sonHouse = IMG.sonHouse;
 
 export const Route = createFileRoute("/")({
   component: Home,
