@@ -3,6 +3,7 @@ import { SafeImage } from "@/components/SafeImage";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n } from "@/i18n";
 import { useArtists } from "@/lib/artists";
+import { resolveArtistImage } from "@/lib/artistImageMap";
 import { IMG } from "@/data/images";
 import { useState, useMemo } from "react";
 import { Search } from "lucide-react";
