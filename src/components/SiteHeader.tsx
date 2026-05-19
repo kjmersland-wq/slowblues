@@ -14,7 +14,8 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState<string | null>(null);
 
-  const groups = [
+  type Item = { to: string; label: string };
+  const groups: { key: string; label: string; items: Item[] }[] = [
     { key: "artists", label: t.nav.artists, items: [
       { to: "/artists", label: t.nav.artists },
       { to: "/updates", label: t.nav.updates },
@@ -38,7 +39,7 @@ export function SiteHeader() {
       { to: "/contact", label: t.nav.contact },
       { to: "/privacy", label: t.nav.privacy },
     ]},
-  ] as const;
+  ];
 
   return (
     <header className="sticky top-0 z-40 backdrop-blur bg-background/85 border-b border-border">
