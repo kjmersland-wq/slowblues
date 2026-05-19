@@ -18,6 +18,7 @@ import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as RadioRouteImport } from './routes/radio'
 import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as NewsletterRouteImport } from './routes/newsletter'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ListenRouteImport } from './routes/listen'
 import { Route as InstrumentsRouteImport } from './routes/instruments'
@@ -32,6 +33,7 @@ import { Route as ArtistsRouteImport } from './routes/artists'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as QuizArchiveRouteImport } from './routes/quiz.archive'
+import { Route as NewsletterIdRouteImport } from './routes/newsletter.$id'
 import { Route as LearnStylesRouteImport } from './routes/learn.styles'
 import { Route as ExperienceMediaRouteImport } from './routes/experience.media'
 import { Route as BlogIdRouteImport } from './routes/blog.$id'
@@ -88,6 +90,11 @@ const QuizRoute = QuizRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsletterRoute = NewsletterRouteImport.update({
+  id: '/newsletter',
+  path: '/newsletter',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -159,6 +166,11 @@ const QuizArchiveRoute = QuizArchiveRouteImport.update({
   id: '/archive',
   path: '/archive',
   getParentRoute: () => QuizRoute,
+} as any)
+const NewsletterIdRoute = NewsletterIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => NewsletterRoute,
 } as any)
 const LearnStylesRoute = LearnStylesRouteImport.update({
   id: '/learn/styles',
@@ -236,6 +248,7 @@ export interface FileRoutesByFullPath {
   '/instruments': typeof InstrumentsRoute
   '/listen': typeof ListenRoute
   '/login': typeof LoginRoute
+  '/newsletter': typeof NewsletterRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/quiz': typeof QuizRouteWithChildren
   '/radio': typeof RadioRoute
@@ -253,6 +266,7 @@ export interface FileRoutesByFullPath {
   '/blog/$id': typeof BlogIdRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
+  '/newsletter/$id': typeof NewsletterIdRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
@@ -273,6 +287,7 @@ export interface FileRoutesByTo {
   '/instruments': typeof InstrumentsRoute
   '/listen': typeof ListenRoute
   '/login': typeof LoginRoute
+  '/newsletter': typeof NewsletterRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/quiz': typeof QuizRouteWithChildren
   '/radio': typeof RadioRoute
@@ -290,6 +305,7 @@ export interface FileRoutesByTo {
   '/blog/$id': typeof BlogIdRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
+  '/newsletter/$id': typeof NewsletterIdRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
@@ -311,6 +327,7 @@ export interface FileRoutesById {
   '/instruments': typeof InstrumentsRoute
   '/listen': typeof ListenRoute
   '/login': typeof LoginRoute
+  '/newsletter': typeof NewsletterRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/quiz': typeof QuizRouteWithChildren
   '/radio': typeof RadioRoute
@@ -328,6 +345,7 @@ export interface FileRoutesById {
   '/blog/$id': typeof BlogIdRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
+  '/newsletter/$id': typeof NewsletterIdRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
@@ -350,6 +368,7 @@ export interface FileRouteTypes {
     | '/instruments'
     | '/listen'
     | '/login'
+    | '/newsletter'
     | '/privacy'
     | '/quiz'
     | '/radio'
@@ -367,6 +386,7 @@ export interface FileRouteTypes {
     | '/blog/$id'
     | '/experience/media'
     | '/learn/styles'
+    | '/newsletter/$id'
     | '/quiz/archive'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
@@ -387,6 +407,7 @@ export interface FileRouteTypes {
     | '/instruments'
     | '/listen'
     | '/login'
+    | '/newsletter'
     | '/privacy'
     | '/quiz'
     | '/radio'
@@ -404,6 +425,7 @@ export interface FileRouteTypes {
     | '/blog/$id'
     | '/experience/media'
     | '/learn/styles'
+    | '/newsletter/$id'
     | '/quiz/archive'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
@@ -424,6 +446,7 @@ export interface FileRouteTypes {
     | '/instruments'
     | '/listen'
     | '/login'
+    | '/newsletter'
     | '/privacy'
     | '/quiz'
     | '/radio'
@@ -441,6 +464,7 @@ export interface FileRouteTypes {
     | '/blog/$id'
     | '/experience/media'
     | '/learn/styles'
+    | '/newsletter/$id'
     | '/quiz/archive'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
@@ -462,6 +486,7 @@ export interface RootRouteChildren {
   InstrumentsRoute: typeof InstrumentsRoute
   ListenRoute: typeof ListenRoute
   LoginRoute: typeof LoginRoute
+  NewsletterRoute: typeof NewsletterRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
   QuizRoute: typeof QuizRouteWithChildren
   RadioRoute: typeof RadioRoute
@@ -542,6 +567,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/newsletter': {
+      id: '/newsletter'
+      path: '/newsletter'
+      fullPath: '/newsletter'
+      preLoaderRoute: typeof NewsletterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -641,6 +673,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/quiz/archive'
       preLoaderRoute: typeof QuizArchiveRouteImport
       parentRoute: typeof QuizRoute
+    }
+    '/newsletter/$id': {
+      id: '/newsletter/$id'
+      path: '/$id'
+      fullPath: '/newsletter/$id'
+      preLoaderRoute: typeof NewsletterIdRouteImport
+      parentRoute: typeof NewsletterRoute
     }
     '/learn/styles': {
       id: '/learn/styles'
@@ -750,6 +789,18 @@ const BlogRouteChildren: BlogRouteChildren = {
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
+interface NewsletterRouteChildren {
+  NewsletterIdRoute: typeof NewsletterIdRoute
+}
+
+const NewsletterRouteChildren: NewsletterRouteChildren = {
+  NewsletterIdRoute: NewsletterIdRoute,
+}
+
+const NewsletterRouteWithChildren = NewsletterRoute._addFileChildren(
+  NewsletterRouteChildren,
+)
+
 interface QuizRouteChildren {
   QuizArchiveRoute: typeof QuizArchiveRoute
   QuizCycleCycleRoute: typeof QuizCycleCycleRoute
@@ -802,6 +853,7 @@ const rootRouteChildren: RootRouteChildren = {
   InstrumentsRoute: InstrumentsRoute,
   ListenRoute: ListenRoute,
   LoginRoute: LoginRoute,
+  NewsletterRoute: NewsletterRouteWithChildren,
   PrivacyRoute: PrivacyRoute,
   QuizRoute: QuizRouteWithChildren,
   RadioRoute: RadioRoute,
@@ -821,3 +873,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
