@@ -187,18 +187,33 @@ function ProductPage() {
               />
             )}
 
+            {selectedVariant && (
+              <div className="mb-4 flex flex-wrap items-center gap-2 text-sm">
+                <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${selectedVariant.inStock ? "border-emerald-500/30 text-emerald-400 bg-emerald-500/10" : "border-destructive/30 text-destructive bg-destructive/10"}`}>
+                  {selectedVariant.inStock ? "In stock" : "Sold out"}
+                </span>
+                {selectedVariant.sku && (
+                  <span className="text-muted-foreground">SKU: <span className="text-foreground/80 font-mono text-xs">{selectedVariant.sku}</span></span>
+                )}
+                {selectedVariant.compareAt && selectedVariant.compareAt.value > (selectedVariant.price?.value ?? 0) && (
+                  <span className="text-muted-foreground">
+                    Was <span className="line-through">{formatPrice(selectedVariant.compareAt)}</span>
+                  </span>
+                )}
+              </div>
+            )}
+
             <a
               href={buyUrl}
               target="_blank"
               rel="noopener"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition"
             >
-              <ShoppingBag className="size-5" /> {p.inStock ? "Buy on Fourthwall" : "View on Fourthwall"}
+              <ShoppingBag className="size-5" /> {selectedVariant?.inStock ?? p.inStock ? "Buy on Fourthwall" : "View on Fourthwall"}
               <ExternalLink className="size-4" />
             </a>
             <p className="text-xs text-muted-foreground mt-3">
               Secure checkout on Fourthwall. Shipping calculated at checkout.
-              {selectedVariant?.sku && <> · SKU: {selectedVariant.sku}</>}
             </p>
 
             {p.variants.length > 1 && (
@@ -206,14 +221,20 @@ function ProductPage() {
                 <summary className="cursor-pointer text-muted-foreground hover:text-foreground">All variants & prices ({p.variants.length})</summary>
                 <ul className="mt-3 divide-y divide-border border border-border rounded-lg overflow-hidden">
                   {p.variants.map((v) => (
-                    <li key={v.id} className="flex items-center justify-between gap-3 px-3 py-2 bg-card/40">
+                    <li key={v.id} className="flex items-center justify-between gap-3 px-3 py-2.5 bg-card/40">
                       <span className="flex items-center gap-2 min-w-0">
                         {v.color?.swatch && <span className="size-3 rounded-full border border-border" style={{ background: v.color.swatch }} />}
-                        <span className="truncate">{v.color?.name ?? ""}{v.color && v.size ? " · " : ""}{v.size ?? ""}</span>
+                        <span className="truncate">
+                          {v.color?.name ?? ""}{v.color && v.size ? " · " : ""}{v.size ?? ""}
+                          {v.sku && <span className="ml-2 text-[11px] text-muted-foreground font-mono">{v.sku}</span>}
+                        </span>
                       </span>
-                      <span className="text-foreground/80 whitespace-nowrap">
+                      <span className="text-foreground/80 whitespace-nowrap flex items-center gap-2">
+                        {v.compareAt && v.compareAt.value > (v.price?.value ?? 0) && (
+                          <span className="text-xs line-through text-muted-foreground">{formatPrice(v.compareAt)}</span>
+                        )}
                         {v.price ? formatPrice(v.price) : ""}
-                        {!v.inStock && <span className="ml-2 text-xs text-muted-foreground">Sold out</span>}
+                        {!v.inStock && <span className="text-xs text-muted-foreground">Sold out</span>}
                       </span>
                     </li>
                   ))}
