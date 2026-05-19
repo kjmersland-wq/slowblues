@@ -275,6 +275,7 @@ function Ticker() {
     switch (k) {
       case "review": return "text-gold";
       case "youtube": return "text-red-400";
+      case "concert": return "text-amber-300";
       case "artist": return "text-blue-300";
       case "blog": return "text-emerald-300";
       default: return "text-gold";
