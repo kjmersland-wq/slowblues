@@ -33,6 +33,7 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as ArtistsRouteImport } from './routes/artists'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ConcertsIndexRouteImport } from './routes/concerts.index'
 import { Route as ReviewsSlugRouteImport } from './routes/reviews.$slug'
 import { Route as QuizArchiveRouteImport } from './routes/quiz.archive'
 import { Route as NewsletterTemplateRouteImport } from './routes/newsletter.template'
@@ -40,6 +41,7 @@ import { Route as NewsletterIdRouteImport } from './routes/newsletter.$id'
 import { Route as LearnStylesRouteImport } from './routes/learn.styles'
 import { Route as ExperienceMediaRouteImport } from './routes/experience.media'
 import { Route as EditorialImagesRouteImport } from './routes/editorial.images'
+import { Route as ConcertsSlugRouteImport } from './routes/concerts.$slug'
 import { Route as BlogIdRouteImport } from './routes/blog.$id'
 import { Route as ArtistsSlugRouteImport } from './routes/artists.$slug'
 import { Route as AdminWikidataRouteImport } from './routes/admin.wikidata'
@@ -173,6 +175,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConcertsIndexRoute = ConcertsIndexRouteImport.update({
+  id: '/concerts/',
+  path: '/concerts/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReviewsSlugRoute = ReviewsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -206,6 +213,11 @@ const ExperienceMediaRoute = ExperienceMediaRouteImport.update({
 const EditorialImagesRoute = EditorialImagesRouteImport.update({
   id: '/editorial/images',
   path: '/editorial/images',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConcertsSlugRoute = ConcertsSlugRouteImport.update({
+  id: '/concerts/$slug',
+  path: '/concerts/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogIdRoute = BlogIdRouteImport.update({
@@ -303,6 +315,7 @@ export interface FileRoutesByFullPath {
   '/admin/wikidata': typeof AdminWikidataRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/blog/$id': typeof BlogIdRoute
+  '/concerts/$slug': typeof ConcertsSlugRoute
   '/editorial/images': typeof EditorialImagesRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
@@ -310,6 +323,7 @@ export interface FileRoutesByFullPath {
   '/newsletter/template': typeof NewsletterTemplateRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/reviews/$slug': typeof ReviewsSlugRoute
+  '/concerts/': typeof ConcertsIndexRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
@@ -348,6 +362,7 @@ export interface FileRoutesByTo {
   '/admin/wikidata': typeof AdminWikidataRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/blog/$id': typeof BlogIdRoute
+  '/concerts/$slug': typeof ConcertsSlugRoute
   '/editorial/images': typeof EditorialImagesRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
@@ -355,6 +370,7 @@ export interface FileRoutesByTo {
   '/newsletter/template': typeof NewsletterTemplateRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/reviews/$slug': typeof ReviewsSlugRoute
+  '/concerts': typeof ConcertsIndexRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
@@ -394,6 +410,7 @@ export interface FileRoutesById {
   '/admin/wikidata': typeof AdminWikidataRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/blog/$id': typeof BlogIdRoute
+  '/concerts/$slug': typeof ConcertsSlugRoute
   '/editorial/images': typeof EditorialImagesRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
@@ -401,6 +418,7 @@ export interface FileRoutesById {
   '/newsletter/template': typeof NewsletterTemplateRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/reviews/$slug': typeof ReviewsSlugRoute
+  '/concerts/': typeof ConcertsIndexRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
@@ -441,6 +459,7 @@ export interface FileRouteTypes {
     | '/admin/wikidata'
     | '/artists/$slug'
     | '/blog/$id'
+    | '/concerts/$slug'
     | '/editorial/images'
     | '/experience/media'
     | '/learn/styles'
@@ -448,6 +467,7 @@ export interface FileRouteTypes {
     | '/newsletter/template'
     | '/quiz/archive'
     | '/reviews/$slug'
+    | '/concerts/'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
     | '/quiz/cycle/$cycle'
@@ -486,6 +506,7 @@ export interface FileRouteTypes {
     | '/admin/wikidata'
     | '/artists/$slug'
     | '/blog/$id'
+    | '/concerts/$slug'
     | '/editorial/images'
     | '/experience/media'
     | '/learn/styles'
@@ -493,6 +514,7 @@ export interface FileRouteTypes {
     | '/newsletter/template'
     | '/quiz/archive'
     | '/reviews/$slug'
+    | '/concerts'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
     | '/quiz/cycle/$cycle'
@@ -531,6 +553,7 @@ export interface FileRouteTypes {
     | '/admin/wikidata'
     | '/artists/$slug'
     | '/blog/$id'
+    | '/concerts/$slug'
     | '/editorial/images'
     | '/experience/media'
     | '/learn/styles'
@@ -538,6 +561,7 @@ export interface FileRouteTypes {
     | '/newsletter/template'
     | '/quiz/archive'
     | '/reviews/$slug'
+    | '/concerts/'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
     | '/quiz/cycle/$cycle'
@@ -573,9 +597,11 @@ export interface RootRouteChildren {
   AboutBlogRoute: typeof AboutBlogRoute
   AboutGuestbookRoute: typeof AboutGuestbookRoute
   AboutMerchRoute: typeof AboutMerchRouteWithChildren
+  ConcertsSlugRoute: typeof ConcertsSlugRoute
   EditorialImagesRoute: typeof EditorialImagesRoute
   ExperienceMediaRoute: typeof ExperienceMediaRoute
   LearnStylesRoute: typeof LearnStylesRoute
+  ConcertsIndexRoute: typeof ConcertsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -748,6 +774,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/concerts/': {
+      id: '/concerts/'
+      path: '/concerts'
+      fullPath: '/concerts/'
+      preLoaderRoute: typeof ConcertsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reviews/$slug': {
       id: '/reviews/$slug'
       path: '/$slug'
@@ -795,6 +828,13 @@ declare module '@tanstack/react-router' {
       path: '/editorial/images'
       fullPath: '/editorial/images'
       preLoaderRoute: typeof EditorialImagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/concerts/$slug': {
+      id: '/concerts/$slug'
+      path: '/concerts/$slug'
+      fullPath: '/concerts/$slug'
+      preLoaderRoute: typeof ConcertsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/$id': {
@@ -1009,10 +1049,22 @@ const rootRouteChildren: RootRouteChildren = {
   AboutBlogRoute: AboutBlogRoute,
   AboutGuestbookRoute: AboutGuestbookRoute,
   AboutMerchRoute: AboutMerchRouteWithChildren,
+  ConcertsSlugRoute: ConcertsSlugRoute,
   EditorialImagesRoute: EditorialImagesRoute,
   ExperienceMediaRoute: ExperienceMediaRoute,
   LearnStylesRoute: LearnStylesRoute,
+  ConcertsIndexRoute: ConcertsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
