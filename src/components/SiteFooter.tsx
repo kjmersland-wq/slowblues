@@ -52,6 +52,7 @@ export function SiteFooter() {
     { to: "/updates", label: t.nav.updates },
     { to: "/support", label: t.nav.support },
     { to: "/contact", label: t.nav.contact },
+    { to: "/newsletter", label: "Newsletter" },
     { to: "/privacy", label: t.nav.privacy },
   ];
 
