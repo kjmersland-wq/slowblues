@@ -56,6 +56,9 @@ function NewsletterArchivePage() {
           <p className="mt-5 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
             A weekly note from the founder — new releases, festival reports, artist stories and the obituaries we'd rather not write. Sent every Monday evening.
           </p>
+          <p className="mt-4 text-xs text-muted-foreground">
+            Editor? <Link to="/newsletter/template" className="text-gold hover:underline">Open the Monday Letter template →</Link>
+          </p>
         </div>
       </section>
 
