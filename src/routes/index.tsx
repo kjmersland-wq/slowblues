@@ -148,6 +148,7 @@ function Home() {
       <Timeline />
       <Voices />
       <DeltaVsChicago />
+      <SiteFooter />
     </div>
   );
 }
@@ -455,30 +456,3 @@ function Column({ tone, icon: Icon, title, sub, points, quote }: any) {
   );
 }
 
-function Footer() {
-  return (
-    <footer className="border-t border-border mt-12">
-      <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8 text-sm">
-        <div>
-          <div className="font-display text-xl text-gold mb-2">SLOWBLUES</div>
-          <p className="text-muted-foreground text-xs leading-relaxed">A timeless tribute to the raw soul of Delta & Chicago Blues — and the artists keeping it alive today.</p>
-        </div>
-        {[
-          { h: "Explore", l: ["Artists", "Timeline", "Reviews", "Map"] },
-          { h: "Learn", l: ["Delta Blues", "Chicago Blues", "Blues Quiz", "Glossary"] },
-          { h: "Community", l: ["Shop", "Guestbook", "Blog", "Newsletter"] },
-        ].map((c) => (
-          <div key={c.h}>
-            <div className="font-display text-foreground mb-3">{c.h}</div>
-            <ul className="space-y-2">
-              {c.l.map((i) => <li key={i}><a href="#" className="text-muted-foreground hover:text-gold transition">{i}</a></li>)}
-            </ul>
-          </div>
-        ))}
-      </div>
-      <div className="border-t border-border py-5 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} SlowBlues. The blues are the roots, everything else is the fruits.
-      </div>
-    </footer>
-  );
-}
