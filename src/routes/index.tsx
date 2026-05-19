@@ -230,14 +230,77 @@ function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showBu
 }
 
 function Ticker() {
-  const items = [...tickerItems, ...tickerItems];
+  const fetchTicker = useServerFn(getNewsTicker);
+  const { data } = useQuery({
+    queryKey: ["news-ticker"],
+    queryFn: () => fetchTicker(),
+    staleTime: 30 * 60 * 1000,         // 30 min fresh
+    refetchInterval: 60 * 60 * 1000,    // refetch every hour
+    refetchOnWindowFocus: true,
+  });
+
+  // Merge in latest blog highlights (client-bundled, no DB call)
+  const blogItems: TickerItem[] = useMemo(() => {
+    return [...blogArticles]
+      .sort((a, b) => (b.publishedDate ?? "").localeCompare(a.publishedDate ?? ""))
+      .slice(0, 6)
+      .map((b) => ({
+        id: `blog-${b.id}`,
+        kind: "blog" as const,
+        label: "BLOG",
+        text: b.titleEn,
+        href: `/blog/${b.id}`,
+        timestamp: b.publishedDate ?? new Date().toISOString(),
+        priority: 50,
+      }));
+  }, []);
+
+  const merged: TickerItem[] = useMemo(() => {
+    const base = data?.items?.length ? data.items : FALLBACK_TICKER;
+    const all = [...base, ...blogItems];
+    // de-dupe by id
+    const seen = new Set<string>();
+    const unique = all.filter((i) => (seen.has(i.id) ? false : (seen.add(i.id), true)));
+    unique.sort((a, b) => {
+      if (b.priority !== a.priority) return b.priority - a.priority;
+      return (b.timestamp ?? "").localeCompare(a.timestamp ?? "");
+    });
+    return unique.slice(0, 36);
+  }, [data, blogItems]);
+
+  // Duplicate the list so the marquee loops seamlessly
+  const loop = [...merged, ...merged];
+
+  const accent = (k: TickerItem["kind"]) => {
+    switch (k) {
+      case "review": return "text-gold";
+      case "youtube": return "text-red-400";
+      case "artist": return "text-blue-300";
+      case "blog": return "text-emerald-300";
+      default: return "text-gold";
+    }
+  };
+
   return (
-    <div className="relative border-y border-border bg-card/40 overflow-hidden ticker-mask">
-      <div className="flex gap-12 py-3 animate-ticker whitespace-nowrap">
-        {items.map((t, i) => (
-          <span key={i} className="text-sm text-foreground/80">
-            <span className="text-gold mr-2">•</span>{t}
-          </span>
+    <div
+      className="relative border-y border-border bg-card/40 overflow-hidden ticker-mask"
+      aria-label="Live blues news ticker"
+    >
+      <div className="flex gap-10 py-3 animate-ticker whitespace-nowrap will-change-transform">
+        {loop.map((t, i) => (
+          <Link
+            key={`${t.id}-${i}`}
+            to={t.href}
+            className="text-sm text-foreground/85 hover:text-foreground inline-flex items-center gap-2 group"
+          >
+            <span className={`${accent(t.kind)} font-mono text-[10px] tracking-widest uppercase`}>
+              {t.flag ? `${t.flag} ` : ""}{t.label}
+            </span>
+            <span className="opacity-40">›</span>
+            <span className="group-hover:underline underline-offset-4 decoration-gold/60">
+              {t.text}
+            </span>
+          </Link>
         ))}
       </div>
     </div>
