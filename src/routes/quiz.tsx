@@ -1,13 +1,16 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
 import { useMemo, useState } from "react";
-import { Check, X, RotateCcw, Trophy, ExternalLink } from "lucide-react";
+import { Check, X, RotateCcw, Trophy, ExternalLink, Calendar, Star, Archive } from "lucide-react";
 import {
   getWeeklyQuestions,
   getCurrentWeekKey,
   addToLeaderboard,
   getAllTimeLeaderboard,
+  getCycleNumber,
+  formatCycleRange,
+  getFeaturedArtist,
   type QuizDifficulty,
   type QuizQuestion,
 } from "@/data/quizQuestions";
@@ -15,14 +18,19 @@ import { useI18n } from "@/i18n";
 
 export const Route = createFileRoute("/quiz")({
   component: QuizPage,
-  head: () => ({
-    meta: [
-      { title: "Blues Quiz — SlowBlues" },
-      { name: "description", content: "Ukens bluesquiz — 10 spørsmål, audio-gjettelek og leaderboard." },
-      { property: "og:title", content: "Blues Quiz — SlowBlues" },
-      { property: "og:image", content: IMG.vinyl },
-    ],
-  }),
+  head: () => {
+    const cycle = getCycleNumber();
+    const key = `C-${String(cycle).padStart(3, "0")}`;
+    return {
+      meta: [
+        { title: `Blues Quiz · ${key} — SlowBlues` },
+        { name: "description", content: `New blues quiz every 10 days. Cycle ${key} (${formatCycleRange(cycle)}) — 10 curated questions, audio rounds and leaderboard.` },
+        { property: "og:title", content: `Blues Quiz · ${key} — SlowBlues` },
+        { property: "og:description", content: `Cycle ${key} — ${formatCycleRange(cycle)}. Test your blues knowledge with curated questions and audio rounds.` },
+        { property: "og:image", content: IMG.vinyl },
+      ],
+    };
+  },
 });
 
 const DIFFICULTIES: { id: QuizDifficulty; label: string }[] = [
@@ -37,6 +45,11 @@ function QuizPage() {
   const [difficulty, setDifficulty] = useState<QuizDifficulty>("medium");
   const [nickname, setNickname] = useState("");
   const [submitted, setSubmitted] = useState(false);
+
+  const cycle = useMemo(() => getCycleNumber(), []);
+  const cycleKey = useMemo(() => getCurrentWeekKey(), []);
+  const cycleRange = useMemo(() => formatCycleRange(cycle, no ? "nb-NO" : "en"), [cycle, no]);
+  const featured = useMemo(() => getFeaturedArtist(cycle), [cycle]);
 
   const questions = useMemo<QuizQuestion[]>(() => getWeeklyQuestions(difficulty), [difficulty]);
   const [answers, setAnswers] = useState<(number | null)[]>(() => Array(questions.length).fill(null));
