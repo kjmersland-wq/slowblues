@@ -31,6 +31,15 @@ const rows: Row[] = ARTISTS.map((a, i) => {
     labels: p?.labels ?? [],
     instruments_simple: p?.instruments ?? [],
     legacy: p?.legacy ?? null,
+    family: [],
+    formative: [],
+    instruments: [],
+    anecdotes: [],
+    collaborators: [],
+    videos: [],
+    discography: [],
+    awards: [],
+    related_slugs: [],
     sort_order: i,
   };
 });
