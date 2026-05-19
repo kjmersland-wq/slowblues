@@ -657,12 +657,20 @@ const audioQuestions: QuizQuestion[] = [
   },
 ];
 
-// ===== WEEKLY QUESTION SELECTION =====
+// ===== 10-DAY ROTATION SYSTEM =====
+// Every cycle = 10 days. Questions roll forward through the curated pool so
+// no question repeats until the whole pool has been used. Older cycles stay
+// reproducible (deterministic) for archive + SEO.
+
+const CYCLE_LENGTH_DAYS = 10;
+// Cycle 1 starts Monday 2026-01-05 (UTC). Stable epoch keeps URLs permanent.
+const CYCLE_EPOCH_UTC = Date.UTC(2026, 0, 5);
+const MS_PER_DAY = 86_400_000;
 
 function seededShuffle<T>(array: T[], seed: number): T[] {
   const shuffled = [...array];
   let m = shuffled.length;
-  let s = seed;
+  let s = seed || 1;
   while (m) {
     s = (s * 1103515245 + 12345) & 0x7fffffff;
     const i = s % m--;
@@ -671,9 +679,7 @@ function seededShuffle<T>(array: T[], seed: number): T[] {
   return shuffled;
 }
 
-/**
- * Get ISO week number from a date
- */
+/** ISO week (kept for backward compat) */
 export function getISOWeek(date: Date): number {
   const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
   const dayNum = d.getUTCDay() || 7;
@@ -682,60 +688,127 @@ export function getISOWeek(date: Date): number {
   return Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
 }
 
-/**
- * Get the current week key, e.g. '2026-W07'
- */
+/** Cycle number for a given date (1-indexed). Negative dates clamp to 1. */
+export function getCycleNumber(date: Date = new Date()): number {
+  const today = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+  const diff = Math.floor((today - CYCLE_EPOCH_UTC) / MS_PER_DAY);
+  return Math.max(1, Math.floor(diff / CYCLE_LENGTH_DAYS) + 1);
+}
+
+/** Cycle id used in URLs + leaderboard keys, e.g. 'C-042'. */
+export function getCycleKey(cycleNumber: number = getCycleNumber()): string {
+  return `C-${String(cycleNumber).padStart(3, '0')}`;
+}
+
+/** Backward-compat: getCurrentWeekKey now returns the active cycle key. */
 export function getCurrentWeekKey(): string {
-  const now = new Date();
-  const week = getISOWeek(now);
-  return `${now.getFullYear()}-W${String(week).padStart(2, '0')}`;
+  return getCycleKey();
+}
+
+/** Date window for a cycle (start inclusive, end inclusive). */
+export function getCycleRange(cycleNumber: number): { start: Date; end: Date } {
+  const startMs = CYCLE_EPOCH_UTC + (cycleNumber - 1) * CYCLE_LENGTH_DAYS * MS_PER_DAY;
+  const endMs = startMs + (CYCLE_LENGTH_DAYS - 1) * MS_PER_DAY;
+  return { start: new Date(startMs), end: new Date(endMs) };
+}
+
+export function formatCycleRange(cycleNumber: number, locale: string = "en"): string {
+  const { start, end } = getCycleRange(cycleNumber);
+  const fmt = new Intl.DateTimeFormat(locale, { month: "short", day: "numeric" });
+  const year = end.getUTCFullYear();
+  return `${fmt.format(start)} – ${fmt.format(end)}, ${year}`;
 }
 
 /**
- * Returns 10 questions for the current week, filtered by difficulty.
- * 8 standard + 2 audio (or as many audio as available for that difficulty)
+ * Deterministic rolling-window selection from a pool.
+ * Pool is shuffled once with a stable seed, then each cycle reads a
+ * contiguous slice. Guarantees every question is shown before any repeats,
+ * across the full archive of cycles.
  */
-export function getWeeklyQuestions(difficulty: QuizDifficulty): QuizQuestion[] {
-  const now = new Date();
-  const week = getISOWeek(now);
-  const seed = now.getFullYear() * 100 + week;
+function rollingPick<T>(pool: T[], cycleNumber: number, take: number, seedSalt: number): T[] {
+  if (pool.length === 0) return [];
+  const ordered = seededShuffle(pool, 0x5b1e5 ^ seedSalt);
+  const start = ((cycleNumber - 1) * take) % ordered.length;
+  const out: T[] = [];
+  for (let i = 0; i < take; i++) {
+    out.push(ordered[(start + i) % ordered.length]);
+  }
+  return out;
+}
 
+/**
+ * Returns 10 questions for the given cycle + difficulty.
+ * 8 standard + up to 2 audio. Audio interleaved at positions 4 and 8.
+ * Same shape as before — drop-in for the UI.
+ */
+export function getCycleQuestions(
+  difficulty: QuizDifficulty,
+  cycleNumber: number = getCycleNumber(),
+): QuizQuestion[] {
   const standardByDiff = standardQuestions.filter(q => q.difficulty === difficulty);
   const audioByDiff = audioQuestions.filter(q => q.difficulty === difficulty);
 
-  // If not enough questions for this difficulty, also pull from medium
   const standardPool = standardByDiff.length >= 8 ? standardByDiff :
     [...standardByDiff, ...standardQuestions.filter(q => q.difficulty === 'medium' && !standardByDiff.includes(q))];
   const audioPool = audioByDiff.length >= 2 ? audioByDiff :
     [...audioByDiff, ...audioQuestions.filter(q => !audioByDiff.includes(q))];
 
-  const shuffledStandard = seededShuffle(standardPool, seed);
-  const shuffledAudio = seededShuffle(audioPool, seed + 1);
-
-  const audioCount = Math.min(2, shuffledAudio.length);
+  const audioCount = Math.min(2, audioPool.length);
   const standardCount = 10 - audioCount;
 
-  const selected: QuizQuestion[] = shuffledStandard.slice(0, standardCount);
-  const selectedAudio = shuffledAudio.slice(0, audioCount);
+  // Per-difficulty salts keep rotations independent across levels.
+  const diffSalt = difficulty === 'easy' ? 11 : difficulty === 'medium' ? 23 : 37;
 
-  // Place audio at positions 4 and 8
+  const selected = rollingPick(standardPool, cycleNumber, standardCount, diffSalt);
+  const selectedAudio = rollingPick(audioPool, cycleNumber, audioCount, diffSalt + 100);
+
+  // Avoid two consecutive questions linking to the same artist
+  for (let i = 1; i < selected.length; i++) {
+    if (selected[i].artistLink && selected[i].artistLink === selected[i - 1].artistLink) {
+      for (let j = i + 1; j < selected.length; j++) {
+        if (selected[j].artistLink !== selected[i - 1].artistLink) {
+          [selected[i], selected[j]] = [selected[j], selected[i]];
+          break;
+        }
+      }
+    }
+  }
+
   const audioPositions = [3, 7];
   selectedAudio.forEach((aq, i) => {
-    const pos = Math.min(audioPositions[i] || selected.length, selected.length);
+    const pos = Math.min(audioPositions[i] ?? selected.length, selected.length);
     selected.splice(pos, 0, aq);
   });
 
   return selected.slice(0, 10);
 }
 
-// Keep backward compatibility
-export function getMonthlyQuestions(): QuizQuestion[] {
-  return getWeeklyQuestions('medium');
+/** Featured artist for a cycle: most-linked artist across all difficulties. */
+export function getFeaturedArtist(cycleNumber: number = getCycleNumber()): { slug: string; name: string; count: number } | null {
+  const all = [
+    ...getCycleQuestions('easy', cycleNumber),
+    ...getCycleQuestions('medium', cycleNumber),
+    ...getCycleQuestions('hard', cycleNumber),
+  ];
+  const tally = new Map<string, number>();
+  for (const q of all) {
+    if (!q.artistLink) continue;
+    const slug = q.artistLink.split('/').filter(Boolean).pop();
+    if (!slug || slug === 'instruments' || slug === 'styles' || slug === 'history') continue;
+    tally.set(slug, (tally.get(slug) ?? 0) + 1);
+  }
+  if (tally.size === 0) return null;
+  const [slug, count] = [...tally.entries()].sort((a, b) => b[1] - a[1])[0];
+  const name = slug.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
+  return { slug, name, count };
 }
 
-export function getCurrentMonthKey(): string {
-  return getCurrentWeekKey();
+// ----- Backward compatibility -----
+export function getWeeklyQuestions(difficulty: QuizDifficulty): QuizQuestion[] {
+  return getCycleQuestions(difficulty);
 }
+export function getMonthlyQuestions(): QuizQuestion[] { return getCycleQuestions('medium'); }
+export function getCurrentMonthKey(): string { return getCurrentWeekKey(); }
 
 // ===== LEADERBOARD (localStorage fallback – kept for offline) =====
 
