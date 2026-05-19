@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { SafeImage } from "@/components/SafeImage";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n } from "@/i18n";
 import { BLOG_POSTS } from "@/data/blues";
@@ -25,7 +26,7 @@ function BlogPage() {
           {BLOG_POSTS.map((p) => (
             <article key={p.slug} className="bg-card/60 border border-border rounded-xl overflow-hidden hover:border-gold/50 transition group">
               <div className="aspect-[16/10] overflow-hidden">
-                <img src={p.img} alt={p.title} loading="lazy" className="size-full object-cover group-hover:scale-105 transition duration-700" />
+                <SafeImage src={p.img} alt={p.title} loading="lazy" className="size-full object-cover group-hover:scale-105 transition duration-700" />
               </div>
               <div className="p-5">
                 <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-2">{p.date}</div>

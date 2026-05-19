@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { SafeImage } from "@/components/SafeImage";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n } from "@/i18n";
 import { IMG } from "@/data/images";
@@ -38,7 +39,7 @@ function GalleryPage() {
           {PHOTOS.map((p, i) => (
             <figure key={i} className="bg-card/60 border border-border rounded-lg overflow-hidden">
               <div className="aspect-[4/3] overflow-hidden bg-card">
-                <img src={p.src} alt={p.caption} loading="lazy" className="size-full object-cover hover:scale-105 transition duration-700" />
+                <SafeImage src={p.src} alt={p.caption} loading="lazy" className="size-full object-cover hover:scale-105 transition duration-700" />
               </div>
               <figcaption className="p-4">
                 <div className="text-sm">{p.caption}</div>

@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { SafeImage } from "@/components/SafeImage";
 import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
 
@@ -17,7 +18,7 @@ export function PageHero({ eyebrow, title, lead, img }: { eyebrow: string; title
     <section className="relative overflow-hidden border-b border-border">
       {img && (
         <>
-          <img src={img} alt="" className="absolute inset-0 size-full object-cover opacity-30" loading="eager" />
+          <SafeImage src={img} alt="" className="absolute inset-0 size-full object-cover opacity-30" loading="eager" />
           <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background" />
         </>
       )}

@@ -1,4 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { SafeImage } from "@/components/SafeImage";
 import { PageShell } from "@/components/PageShell";
 import { ARTISTS, PROFILES } from "@/data/blues";
 import { IMG } from "@/data/images";
@@ -45,7 +46,7 @@ function ArtistDetail() {
     <PageShell>
       <section className="relative">
         <div className="absolute inset-0 -z-10 overflow-hidden">
-          <img src={a.img} alt="" className="size-full object-cover opacity-20 blur-xl" />
+          <SafeImage src={a.img} alt="" className="size-full object-cover opacity-20 blur-xl" />
           <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/85 to-background" />
         </div>
         <div className="max-w-6xl mx-auto px-6 pt-10 pb-16">
@@ -54,7 +55,7 @@ function ArtistDetail() {
           </Link>
           <div className="grid md:grid-cols-[320px_1fr] gap-10 items-start">
             <div className="rounded-xl overflow-hidden border border-gold/30 shadow-2xl">
-              <img src={a.img} alt={a.name} className="w-full aspect-[3/4] object-cover" />
+              <SafeImage src={a.img} alt={a.name} className="w-full aspect-[3/4] object-cover" />
             </div>
             <div>
               <div className="text-xs tracking-[0.3em] text-gold uppercase mb-2">{a.tag} · {a.era}</div>

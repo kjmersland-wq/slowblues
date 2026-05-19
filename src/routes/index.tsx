@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { SafeImage } from "@/components/SafeImage";
 import { useEffect, useState } from "react";
 import {
   ShoppingBag, HelpCircle, BookOpen, Music, Radio, Mic,
@@ -276,7 +277,7 @@ function ThreeNames() {
         {pioneers.map((p) => (
           <article key={p.name} className="group bg-card/50 border border-border rounded-lg overflow-hidden hover:border-gold/50 transition">
             <div className="relative aspect-[4/5] overflow-hidden">
-              <img src={p.img} alt={p.name} loading="lazy" className="size-full object-cover group-hover:scale-105 transition duration-700" />
+              <SafeImage src={p.img} alt={p.name} loading="lazy" className="size-full object-cover group-hover:scale-105 transition duration-700" />
               <div className="absolute top-3 right-3 size-10 rounded-full bg-gold flex items-center justify-center">
                 <p.icon className="size-5 text-primary-foreground" />
               </div>
