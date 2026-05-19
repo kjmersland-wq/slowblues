@@ -17,6 +17,7 @@ import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as RadioRouteImport } from './routes/radio'
 import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as ListenRouteImport } from './routes/listen'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as GuestbookRouteImport } from './routes/guestbook'
@@ -26,6 +27,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as ArtistsRouteImport } from './routes/artists'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LearnStylesRouteImport } from './routes/learn.styles'
 import { Route as ExperienceMediaRouteImport } from './routes/experience.media'
@@ -74,6 +76,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ListenRoute = ListenRouteImport.update({
   id: '/listen',
   path: '/listen',
@@ -119,6 +126,11 @@ const ArtistsRoute = ArtistsRouteImport.update({
   path: '/artists',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -157,6 +169,7 @@ const AboutBlogRoute = AboutBlogRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/artists': typeof ArtistsRouteWithChildren
   '/blog': typeof BlogRoute
   '/compare': typeof CompareRoute
@@ -166,6 +179,7 @@ export interface FileRoutesByFullPath {
   '/guestbook': typeof GuestbookRoute
   '/history': typeof HistoryRoute
   '/listen': typeof ListenRoute
+  '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/quiz': typeof QuizRoute
   '/radio': typeof RadioRoute
@@ -183,6 +197,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/artists': typeof ArtistsRouteWithChildren
   '/blog': typeof BlogRoute
   '/compare': typeof CompareRoute
@@ -192,6 +207,7 @@ export interface FileRoutesByTo {
   '/guestbook': typeof GuestbookRoute
   '/history': typeof HistoryRoute
   '/listen': typeof ListenRoute
+  '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/quiz': typeof QuizRoute
   '/radio': typeof RadioRoute
@@ -210,6 +226,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/artists': typeof ArtistsRouteWithChildren
   '/blog': typeof BlogRoute
   '/compare': typeof CompareRoute
@@ -219,6 +236,7 @@ export interface FileRoutesById {
   '/guestbook': typeof GuestbookRoute
   '/history': typeof HistoryRoute
   '/listen': typeof ListenRoute
+  '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/quiz': typeof QuizRoute
   '/radio': typeof RadioRoute
@@ -238,6 +256,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/artists'
     | '/blog'
     | '/compare'
@@ -247,6 +266,7 @@ export interface FileRouteTypes {
     | '/guestbook'
     | '/history'
     | '/listen'
+    | '/login'
     | '/privacy'
     | '/quiz'
     | '/radio'
@@ -264,6 +284,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/artists'
     | '/blog'
     | '/compare'
@@ -273,6 +294,7 @@ export interface FileRouteTypes {
     | '/guestbook'
     | '/history'
     | '/listen'
+    | '/login'
     | '/privacy'
     | '/quiz'
     | '/radio'
@@ -290,6 +312,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/artists'
     | '/blog'
     | '/compare'
@@ -299,6 +322,7 @@ export interface FileRouteTypes {
     | '/guestbook'
     | '/history'
     | '/listen'
+    | '/login'
     | '/privacy'
     | '/quiz'
     | '/radio'
@@ -317,6 +341,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   ArtistsRoute: typeof ArtistsRouteWithChildren
   BlogRoute: typeof BlogRoute
   CompareRoute: typeof CompareRoute
@@ -326,6 +351,7 @@ export interface RootRouteChildren {
   GuestbookRoute: typeof GuestbookRoute
   HistoryRoute: typeof HistoryRoute
   ListenRoute: typeof ListenRoute
+  LoginRoute: typeof LoginRoute
   PrivacyRoute: typeof PrivacyRoute
   QuizRoute: typeof QuizRoute
   RadioRoute: typeof RadioRoute
@@ -399,6 +425,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/listen': {
       id: '/listen'
       path: '/listen'
@@ -460,6 +493,13 @@ declare module '@tanstack/react-router' {
       path: '/artists'
       fullPath: '/artists'
       preLoaderRoute: typeof ArtistsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -527,6 +567,7 @@ const ArtistsRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   ArtistsRoute: ArtistsRouteWithChildren,
   BlogRoute: BlogRoute,
   CompareRoute: CompareRoute,
@@ -536,6 +577,7 @@ const rootRouteChildren: RootRouteChildren = {
   GuestbookRoute: GuestbookRoute,
   HistoryRoute: HistoryRoute,
   ListenRoute: ListenRoute,
+  LoginRoute: LoginRoute,
   PrivacyRoute: PrivacyRoute,
   QuizRoute: QuizRoute,
   RadioRoute: RadioRoute,
