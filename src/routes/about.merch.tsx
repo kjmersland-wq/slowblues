@@ -35,7 +35,8 @@ function MerchPage() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["merch-overview"],
     queryFn: () => fetcher(),
-    staleTime: 5 * 60 * 1000,
+    staleTime: 30 * 1000,
+    refetchOnWindowFocus: true,
   });
 
   return (
