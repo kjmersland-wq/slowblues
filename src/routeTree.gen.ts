@@ -41,6 +41,7 @@ import { Route as ExperienceMediaRouteImport } from './routes/experience.media'
 import { Route as EditorialImagesRouteImport } from './routes/editorial.images'
 import { Route as BlogIdRouteImport } from './routes/blog.$id'
 import { Route as ArtistsSlugRouteImport } from './routes/artists.$slug'
+import { Route as AdminWikidataRouteImport } from './routes/admin.wikidata'
 import { Route as AboutMerchRouteImport } from './routes/about.merch'
 import { Route as AboutGuestbookRouteImport } from './routes/about.guestbook'
 import { Route as AboutBlogRouteImport } from './routes/about.blog'
@@ -210,6 +211,11 @@ const ArtistsSlugRoute = ArtistsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ArtistsRoute,
 } as any)
+const AdminWikidataRoute = AdminWikidataRouteImport.update({
+  id: '/wikidata',
+  path: '/wikidata',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AboutMerchRoute = AboutMerchRouteImport.update({
   id: '/about/merch',
   path: '/about/merch',
@@ -254,7 +260,7 @@ const AboutMerchCollectionSlugRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/artists': typeof ArtistsRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
@@ -281,6 +287,7 @@ export interface FileRoutesByFullPath {
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
+  '/admin/wikidata': typeof AdminWikidataRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/blog/$id': typeof BlogIdRoute
   '/editorial/images': typeof EditorialImagesRoute
@@ -296,7 +303,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/artists': typeof ArtistsRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
@@ -323,6 +330,7 @@ export interface FileRoutesByTo {
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
+  '/admin/wikidata': typeof AdminWikidataRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/blog/$id': typeof BlogIdRoute
   '/editorial/images': typeof EditorialImagesRoute
@@ -339,7 +347,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/artists': typeof ArtistsRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
@@ -366,6 +374,7 @@ export interface FileRoutesById {
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
+  '/admin/wikidata': typeof AdminWikidataRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/blog/$id': typeof BlogIdRoute
   '/editorial/images': typeof EditorialImagesRoute
@@ -410,6 +419,7 @@ export interface FileRouteTypes {
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
+    | '/admin/wikidata'
     | '/artists/$slug'
     | '/blog/$id'
     | '/editorial/images'
@@ -452,6 +462,7 @@ export interface FileRouteTypes {
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
+    | '/admin/wikidata'
     | '/artists/$slug'
     | '/blog/$id'
     | '/editorial/images'
@@ -494,6 +505,7 @@ export interface FileRouteTypes {
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
+    | '/admin/wikidata'
     | '/artists/$slug'
     | '/blog/$id'
     | '/editorial/images'
@@ -510,7 +522,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
   ArtistsRoute: typeof ArtistsRouteWithChildren
   BlogRoute: typeof BlogRouteWithChildren
   CompareRoute: typeof CompareRoute
@@ -768,6 +780,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArtistsSlugRouteImport
       parentRoute: typeof ArtistsRoute
     }
+    '/admin/wikidata': {
+      id: '/admin/wikidata'
+      path: '/wikidata'
+      fullPath: '/admin/wikidata'
+      preLoaderRoute: typeof AdminWikidataRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/about/merch': {
       id: '/about/merch'
       path: '/about/merch'
@@ -826,6 +845,16 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AdminRouteChildren {
+  AdminWikidataRoute: typeof AdminWikidataRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminWikidataRoute: AdminWikidataRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface ArtistsRouteChildren {
   ArtistsSlugRoute: typeof ArtistsSlugRoute
@@ -902,7 +931,7 @@ const AboutMerchRouteWithChildren = AboutMerchRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
   ArtistsRoute: ArtistsRouteWithChildren,
   BlogRoute: BlogRouteWithChildren,
   CompareRoute: CompareRoute,
