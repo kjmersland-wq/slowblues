@@ -35,19 +35,9 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-const tickerItems = [
-  "🇳🇴 Ariel Posen — Reasons for Leaving: 9.6/10. An atmospheric masterpiece!",
-  "🇳🇴 Buddy Guy — The Final Goodbye: 9.2/10. The king bows out in style!",
-  "🇳🇴 Gary Clark Jr. — Texas Rain: 9.4/10. Analog warmth and soul!",
-  "🇳🇴 Henrik Freischlader — Keep Going: 8.8/10. A blue flame from Germany!",
-  "🇸🇪 Louise Hoffsten celebrates 40 years with blues — jubilee tour in Scandinavia!",
-  "🇪🇺 European Blues Challenge Katowice April 16–18, 2026!",
-  "🇬🇧 Joanne Shaw Taylor announces new album «Heavy Soul» out May!",
-  "🎵 Buddy Guy farewell tour 2026 — final European dates announced!",
-  "🎵 Walter Trout European tour April–May 2026 — don't miss it!",
-  "🎵 Larkin Poe Scandinavia tour confirmed June 2026!",
-  "🎵 Joe Bonamassa acoustic Europe tour — autumn 2026!",
-  "📻 Weekly broadcast live now — Oz & The Wizards, Buddy Guy and more!",
+const FALLBACK_TICKER: TickerItem[] = [
+  { id: "fb-1", kind: "editorial", label: "EDITORIAL", text: "SlowBlues — a living archive of 330+ blues artists, reviews & live recordings.", href: "/artists", timestamp: new Date().toISOString(), priority: 1 },
+  { id: "fb-2", kind: "editorial", label: "EXPLORE", text: "Dive into the full artist archive — from Delta to Chicago to Scandinavia.", href: "/artists", timestamp: new Date().toISOString(), priority: 1 },
 ];
 
 const heroSlides = [
