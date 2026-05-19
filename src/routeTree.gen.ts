@@ -13,6 +13,7 @@ import { Route as WorldmapRouteImport } from './routes/worldmap'
 import { Route as UpdatesRouteImport } from './routes/updates'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as StylesRouteImport } from './routes/styles'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as RadioRouteImport } from './routes/radio'
 import { Route as QuizRouteImport } from './routes/quiz'
@@ -35,6 +36,8 @@ import { Route as ArtistsSlugRouteImport } from './routes/artists.$slug'
 import { Route as AboutMerchRouteImport } from './routes/about.merch'
 import { Route as AboutGuestbookRouteImport } from './routes/about.guestbook'
 import { Route as AboutBlogRouteImport } from './routes/about.blog'
+import { Route as LocaleArtistsRouteImport } from './routes/$locale.artists'
+import { Route as LocaleArtistsSlugRouteImport } from './routes/$locale.artists.$slug'
 
 const WorldmapRoute = WorldmapRouteImport.update({
   id: '/worldmap',
@@ -54,6 +57,11 @@ const SupportRoute = SupportRouteImport.update({
 const StylesRoute = StylesRouteImport.update({
   id: '/styles',
   path: '/styles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReviewsRoute = ReviewsRouteImport.update({
@@ -166,6 +174,16 @@ const AboutBlogRoute = AboutBlogRouteImport.update({
   path: '/about/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LocaleArtistsRoute = LocaleArtistsRouteImport.update({
+  id: '/$locale/artists',
+  path: '/$locale/artists',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocaleArtistsSlugRoute = LocaleArtistsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => LocaleArtistsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -184,16 +202,19 @@ export interface FileRoutesByFullPath {
   '/quiz': typeof QuizRoute
   '/radio': typeof RadioRoute
   '/reviews': typeof ReviewsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
   '/updates': typeof UpdatesRoute
   '/worldmap': typeof WorldmapRoute
+  '/$locale/artists': typeof LocaleArtistsRouteWithChildren
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
+  '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -212,16 +233,19 @@ export interface FileRoutesByTo {
   '/quiz': typeof QuizRoute
   '/radio': typeof RadioRoute
   '/reviews': typeof ReviewsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
   '/updates': typeof UpdatesRoute
   '/worldmap': typeof WorldmapRoute
+  '/$locale/artists': typeof LocaleArtistsRouteWithChildren
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
+  '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -241,16 +265,19 @@ export interface FileRoutesById {
   '/quiz': typeof QuizRoute
   '/radio': typeof RadioRoute
   '/reviews': typeof ReviewsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
   '/updates': typeof UpdatesRoute
   '/worldmap': typeof WorldmapRoute
+  '/$locale/artists': typeof LocaleArtistsRouteWithChildren
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
+  '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -271,16 +298,19 @@ export interface FileRouteTypes {
     | '/quiz'
     | '/radio'
     | '/reviews'
+    | '/sitemap.xml'
     | '/styles'
     | '/support'
     | '/updates'
     | '/worldmap'
+    | '/$locale/artists'
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
     | '/artists/$slug'
     | '/experience/media'
     | '/learn/styles'
+    | '/$locale/artists/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -299,16 +329,19 @@ export interface FileRouteTypes {
     | '/quiz'
     | '/radio'
     | '/reviews'
+    | '/sitemap.xml'
     | '/styles'
     | '/support'
     | '/updates'
     | '/worldmap'
+    | '/$locale/artists'
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
     | '/artists/$slug'
     | '/experience/media'
     | '/learn/styles'
+    | '/$locale/artists/$slug'
   id:
     | '__root__'
     | '/'
@@ -327,16 +360,19 @@ export interface FileRouteTypes {
     | '/quiz'
     | '/radio'
     | '/reviews'
+    | '/sitemap.xml'
     | '/styles'
     | '/support'
     | '/updates'
     | '/worldmap'
+    | '/$locale/artists'
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
     | '/artists/$slug'
     | '/experience/media'
     | '/learn/styles'
+    | '/$locale/artists/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -356,10 +392,12 @@ export interface RootRouteChildren {
   QuizRoute: typeof QuizRoute
   RadioRoute: typeof RadioRoute
   ReviewsRoute: typeof ReviewsRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StylesRoute: typeof StylesRoute
   SupportRoute: typeof SupportRoute
   UpdatesRoute: typeof UpdatesRoute
   WorldmapRoute: typeof WorldmapRoute
+  LocaleArtistsRoute: typeof LocaleArtistsRouteWithChildren
   AboutBlogRoute: typeof AboutBlogRoute
   AboutGuestbookRoute: typeof AboutGuestbookRoute
   AboutMerchRoute: typeof AboutMerchRoute
@@ -395,6 +433,13 @@ declare module '@tanstack/react-router' {
       path: '/styles'
       fullPath: '/styles'
       preLoaderRoute: typeof StylesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reviews': {
@@ -551,6 +596,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutBlogRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$locale/artists': {
+      id: '/$locale/artists'
+      path: '/$locale/artists'
+      fullPath: '/$locale/artists'
+      preLoaderRoute: typeof LocaleArtistsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$locale/artists/$slug': {
+      id: '/$locale/artists/$slug'
+      path: '/$slug'
+      fullPath: '/$locale/artists/$slug'
+      preLoaderRoute: typeof LocaleArtistsSlugRouteImport
+      parentRoute: typeof LocaleArtistsRoute
+    }
   }
 }
 
@@ -564,6 +623,18 @@ const ArtistsRouteChildren: ArtistsRouteChildren = {
 
 const ArtistsRouteWithChildren =
   ArtistsRoute._addFileChildren(ArtistsRouteChildren)
+
+interface LocaleArtistsRouteChildren {
+  LocaleArtistsSlugRoute: typeof LocaleArtistsSlugRoute
+}
+
+const LocaleArtistsRouteChildren: LocaleArtistsRouteChildren = {
+  LocaleArtistsSlugRoute: LocaleArtistsSlugRoute,
+}
+
+const LocaleArtistsRouteWithChildren = LocaleArtistsRoute._addFileChildren(
+  LocaleArtistsRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -582,10 +653,12 @@ const rootRouteChildren: RootRouteChildren = {
   QuizRoute: QuizRoute,
   RadioRoute: RadioRoute,
   ReviewsRoute: ReviewsRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   StylesRoute: StylesRoute,
   SupportRoute: SupportRoute,
   UpdatesRoute: UpdatesRoute,
   WorldmapRoute: WorldmapRoute,
+  LocaleArtistsRoute: LocaleArtistsRouteWithChildren,
   AboutBlogRoute: AboutBlogRoute,
   AboutGuestbookRoute: AboutGuestbookRoute,
   AboutMerchRoute: AboutMerchRoute,

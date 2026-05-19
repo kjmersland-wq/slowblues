@@ -96,15 +96,24 @@ export type ArtistRecord = {
   sort_order: number;
 };
 
-export function pickLang(record: ArtistRecord, lang: Lang, field: "biography" | "short" | "influence" | "seo_title" | "seo_description" | "era_label"): string | null {
+const FALLBACK_CHAIN: Record<Lang, Lang[]> = {
+  no: ["no", "en", "sv", "de"],
+  en: ["en", "no", "sv", "de"],
+  sv: ["sv", "no", "en", "de"],
+  de: ["de", "en", "no", "sv"],
+};
+
+export function pickLang(
+  record: ArtistRecord,
+  lang: Lang,
+  field: "biography" | "short" | "influence" | "seo_title" | "seo_description" | "era_label",
+): string | null {
   const r = record as any;
-  return (
-    r[`${field}_${lang}`] ??
-    r[`${field}_no`] ??
-    r[`${field}_en`] ??
-    r[field] ??
-    null
-  );
+  for (const l of FALLBACK_CHAIN[lang]) {
+    const v = r[`${field}_${l}`];
+    if (v) return v;
+  }
+  return r[field] ?? null;
 }
 
 
