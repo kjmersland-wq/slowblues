@@ -1,6 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SafeImage } from "@/components/SafeImage";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { getNewsTicker, type TickerItem } from "@/lib/newsfeed.functions";
+import { blogArticles } from "@/data/blogArticles";
 import {
   ShoppingBag, HelpCircle, BookOpen, Music, Radio, Mic,
   ChevronDown, ChevronLeft, ChevronRight, Play, ArrowRight,
@@ -31,19 +35,9 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-const tickerItems = [
-  "🇳🇴 Ariel Posen — Reasons for Leaving: 9.6/10. An atmospheric masterpiece!",
-  "🇳🇴 Buddy Guy — The Final Goodbye: 9.2/10. The king bows out in style!",
-  "🇳🇴 Gary Clark Jr. — Texas Rain: 9.4/10. Analog warmth and soul!",
-  "🇳🇴 Henrik Freischlader — Keep Going: 8.8/10. A blue flame from Germany!",
-  "🇸🇪 Louise Hoffsten celebrates 40 years with blues — jubilee tour in Scandinavia!",
-  "🇪🇺 European Blues Challenge Katowice April 16–18, 2026!",
-  "🇬🇧 Joanne Shaw Taylor announces new album «Heavy Soul» out May!",
-  "🎵 Buddy Guy farewell tour 2026 — final European dates announced!",
-  "🎵 Walter Trout European tour April–May 2026 — don't miss it!",
-  "🎵 Larkin Poe Scandinavia tour confirmed June 2026!",
-  "🎵 Joe Bonamassa acoustic Europe tour — autumn 2026!",
-  "📻 Weekly broadcast live now — Oz & The Wizards, Buddy Guy and more!",
+const FALLBACK_TICKER: TickerItem[] = [
+  { id: "fb-1", kind: "editorial", label: "EDITORIAL", text: "SlowBlues — a living archive of 330+ blues artists, reviews & live recordings.", href: "/artists", timestamp: new Date().toISOString(), priority: 1 },
+  { id: "fb-2", kind: "editorial", label: "EXPLORE", text: "Dive into the full artist archive — from Delta to Chicago to Scandinavia.", href: "/artists", timestamp: new Date().toISOString(), priority: 1 },
 ];
 
 const heroSlides = [
@@ -236,14 +230,77 @@ function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showBu
 }
 
 function Ticker() {
-  const items = [...tickerItems, ...tickerItems];
+  const fetchTicker = useServerFn(getNewsTicker);
+  const { data } = useQuery({
+    queryKey: ["news-ticker"],
+    queryFn: () => fetchTicker(),
+    staleTime: 30 * 60 * 1000,         // 30 min fresh
+    refetchInterval: 60 * 60 * 1000,    // refetch every hour
+    refetchOnWindowFocus: true,
+  });
+
+  // Merge in latest blog highlights (client-bundled, no DB call)
+  const blogItems: TickerItem[] = useMemo(() => {
+    return [...blogArticles]
+      .sort((a, b) => (b.publishedDate ?? "").localeCompare(a.publishedDate ?? ""))
+      .slice(0, 6)
+      .map((b) => ({
+        id: `blog-${b.id}`,
+        kind: "blog" as const,
+        label: "BLOG",
+        text: b.titleEn,
+        href: `/blog/${b.id}`,
+        timestamp: b.publishedDate ?? new Date().toISOString(),
+        priority: 50,
+      }));
+  }, []);
+
+  const merged: TickerItem[] = useMemo(() => {
+    const base = data?.items?.length ? data.items : FALLBACK_TICKER;
+    const all = [...base, ...blogItems];
+    // de-dupe by id
+    const seen = new Set<string>();
+    const unique = all.filter((i) => (seen.has(i.id) ? false : (seen.add(i.id), true)));
+    unique.sort((a, b) => {
+      if (b.priority !== a.priority) return b.priority - a.priority;
+      return (b.timestamp ?? "").localeCompare(a.timestamp ?? "");
+    });
+    return unique.slice(0, 36);
+  }, [data, blogItems]);
+
+  // Duplicate the list so the marquee loops seamlessly
+  const loop = [...merged, ...merged];
+
+  const accent = (k: TickerItem["kind"]) => {
+    switch (k) {
+      case "review": return "text-gold";
+      case "youtube": return "text-red-400";
+      case "artist": return "text-blue-300";
+      case "blog": return "text-emerald-300";
+      default: return "text-gold";
+    }
+  };
+
   return (
-    <div className="relative border-y border-border bg-card/40 overflow-hidden ticker-mask">
-      <div className="flex gap-12 py-3 animate-ticker whitespace-nowrap">
-        {items.map((t, i) => (
-          <span key={i} className="text-sm text-foreground/80">
-            <span className="text-gold mr-2">•</span>{t}
-          </span>
+    <div
+      className="relative border-y border-border bg-card/40 overflow-hidden ticker-mask"
+      aria-label="Live blues news ticker"
+    >
+      <div className="flex gap-10 py-3 animate-ticker whitespace-nowrap will-change-transform">
+        {loop.map((t, i) => (
+          <a
+            key={`${t.id}-${i}`}
+            href={t.href}
+            className="text-sm text-foreground/85 hover:text-foreground inline-flex items-center gap-2 group"
+          >
+            <span className={`${accent(t.kind)} font-mono text-[10px] tracking-widest uppercase`}>
+              {t.flag ? `${t.flag} ` : ""}{t.label}
+            </span>
+            <span className="opacity-40">›</span>
+            <span className="group-hover:underline underline-offset-4 decoration-gold/60">
+              {t.text}
+            </span>
+          </a>
         ))}
       </div>
     </div>
