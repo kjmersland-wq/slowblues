@@ -12,6 +12,7 @@ import { useI18n } from "@/i18n";
 import heroJukeImg from "@/assets/hero-juke.jpg";
 import heroDeltaImg from "@/assets/hero-delta.jpg";
 import heroGuitarImg from "@/assets/hero-guitar.jpg";
+import logoSB from "@/assets/logo-slowblues.png";
 
 const heroJuke = heroJukeImg;
 const heroCotton = heroDeltaImg;
@@ -188,7 +189,7 @@ function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showBu
         {showButtons && (
           <div className="relative mx-auto mb-6 size-32 rounded-full border-2 border-gold/60 bg-card/40 backdrop-blur flex items-center justify-center">
             <img
-              src="/src/assets/logo-slowblues.png"
+              src={logoSB}
               alt="SlowBlues — Global Blues Encyclopedia"
               className="absolute size-40 object-contain drop-shadow-[0_4px_20px_rgba(0,0,0,0.5)]"
             />
