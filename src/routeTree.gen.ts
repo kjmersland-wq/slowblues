@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorldmapRouteImport } from './routes/worldmap'
+import { Route as WatchRouteImport } from './routes/watch'
 import { Route as UpdatesRouteImport } from './routes/updates'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as StylesRouteImport } from './routes/styles'
@@ -33,6 +34,7 @@ import { Route as ArtistsRouteImport } from './routes/artists'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as QuizArchiveRouteImport } from './routes/quiz.archive'
+import { Route as NewsletterTemplateRouteImport } from './routes/newsletter.template'
 import { Route as NewsletterIdRouteImport } from './routes/newsletter.$id'
 import { Route as LearnStylesRouteImport } from './routes/learn.styles'
 import { Route as ExperienceMediaRouteImport } from './routes/experience.media'
@@ -50,6 +52,11 @@ import { Route as AboutMerchCollectionSlugRouteImport } from './routes/about.mer
 const WorldmapRoute = WorldmapRouteImport.update({
   id: '/worldmap',
   path: '/worldmap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WatchRoute = WatchRouteImport.update({
+  id: '/watch',
+  path: '/watch',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UpdatesRoute = UpdatesRouteImport.update({
@@ -167,6 +174,11 @@ const QuizArchiveRoute = QuizArchiveRouteImport.update({
   path: '/archive',
   getParentRoute: () => QuizRoute,
 } as any)
+const NewsletterTemplateRoute = NewsletterTemplateRouteImport.update({
+  id: '/template',
+  path: '/template',
+  getParentRoute: () => NewsletterRoute,
+} as any)
 const NewsletterIdRoute = NewsletterIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -257,6 +269,7 @@ export interface FileRoutesByFullPath {
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
   '/updates': typeof UpdatesRoute
+  '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
   '/$locale/artists': typeof LocaleArtistsRouteWithChildren
   '/about/blog': typeof AboutBlogRoute
@@ -267,6 +280,7 @@ export interface FileRoutesByFullPath {
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
   '/newsletter/$id': typeof NewsletterIdRoute
+  '/newsletter/template': typeof NewsletterTemplateRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
@@ -296,6 +310,7 @@ export interface FileRoutesByTo {
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
   '/updates': typeof UpdatesRoute
+  '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
   '/$locale/artists': typeof LocaleArtistsRouteWithChildren
   '/about/blog': typeof AboutBlogRoute
@@ -306,6 +321,7 @@ export interface FileRoutesByTo {
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
   '/newsletter/$id': typeof NewsletterIdRoute
+  '/newsletter/template': typeof NewsletterTemplateRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
@@ -336,6 +352,7 @@ export interface FileRoutesById {
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
   '/updates': typeof UpdatesRoute
+  '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
   '/$locale/artists': typeof LocaleArtistsRouteWithChildren
   '/about/blog': typeof AboutBlogRoute
@@ -346,6 +363,7 @@ export interface FileRoutesById {
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
   '/newsletter/$id': typeof NewsletterIdRoute
+  '/newsletter/template': typeof NewsletterTemplateRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
@@ -377,6 +395,7 @@ export interface FileRouteTypes {
     | '/styles'
     | '/support'
     | '/updates'
+    | '/watch'
     | '/worldmap'
     | '/$locale/artists'
     | '/about/blog'
@@ -387,6 +406,7 @@ export interface FileRouteTypes {
     | '/experience/media'
     | '/learn/styles'
     | '/newsletter/$id'
+    | '/newsletter/template'
     | '/quiz/archive'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
@@ -416,6 +436,7 @@ export interface FileRouteTypes {
     | '/styles'
     | '/support'
     | '/updates'
+    | '/watch'
     | '/worldmap'
     | '/$locale/artists'
     | '/about/blog'
@@ -426,6 +447,7 @@ export interface FileRouteTypes {
     | '/experience/media'
     | '/learn/styles'
     | '/newsletter/$id'
+    | '/newsletter/template'
     | '/quiz/archive'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
@@ -455,6 +477,7 @@ export interface FileRouteTypes {
     | '/styles'
     | '/support'
     | '/updates'
+    | '/watch'
     | '/worldmap'
     | '/$locale/artists'
     | '/about/blog'
@@ -465,6 +488,7 @@ export interface FileRouteTypes {
     | '/experience/media'
     | '/learn/styles'
     | '/newsletter/$id'
+    | '/newsletter/template'
     | '/quiz/archive'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
@@ -495,6 +519,7 @@ export interface RootRouteChildren {
   StylesRoute: typeof StylesRoute
   SupportRoute: typeof SupportRoute
   UpdatesRoute: typeof UpdatesRoute
+  WatchRoute: typeof WatchRoute
   WorldmapRoute: typeof WorldmapRoute
   LocaleArtistsRoute: typeof LocaleArtistsRouteWithChildren
   AboutBlogRoute: typeof AboutBlogRoute
@@ -511,6 +536,13 @@ declare module '@tanstack/react-router' {
       path: '/worldmap'
       fullPath: '/worldmap'
       preLoaderRoute: typeof WorldmapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/watch': {
+      id: '/watch'
+      path: '/watch'
+      fullPath: '/watch'
+      preLoaderRoute: typeof WatchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/updates': {
@@ -674,6 +706,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuizArchiveRouteImport
       parentRoute: typeof QuizRoute
     }
+    '/newsletter/template': {
+      id: '/newsletter/template'
+      path: '/template'
+      fullPath: '/newsletter/template'
+      preLoaderRoute: typeof NewsletterTemplateRouteImport
+      parentRoute: typeof NewsletterRoute
+    }
     '/newsletter/$id': {
       id: '/newsletter/$id'
       path: '/$id'
@@ -791,10 +830,12 @@ const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 interface NewsletterRouteChildren {
   NewsletterIdRoute: typeof NewsletterIdRoute
+  NewsletterTemplateRoute: typeof NewsletterTemplateRoute
 }
 
 const NewsletterRouteChildren: NewsletterRouteChildren = {
   NewsletterIdRoute: NewsletterIdRoute,
+  NewsletterTemplateRoute: NewsletterTemplateRoute,
 }
 
 const NewsletterRouteWithChildren = NewsletterRoute._addFileChildren(
@@ -862,6 +903,7 @@ const rootRouteChildren: RootRouteChildren = {
   StylesRoute: StylesRoute,
   SupportRoute: SupportRoute,
   UpdatesRoute: UpdatesRoute,
+  WatchRoute: WatchRoute,
   WorldmapRoute: WorldmapRoute,
   LocaleArtistsRoute: LocaleArtistsRouteWithChildren,
   AboutBlogRoute: AboutBlogRoute,
