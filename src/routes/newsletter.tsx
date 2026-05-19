@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { PageShell, PageHero } from "@/components/PageShell";
+import { PageShell } from "@/components/PageShell";
 import { fetchNewsletterArchive } from "@/lib/mailerlite.functions";
 import { IMG } from "@/data/images";
 import { Mail, Calendar, ArrowRight } from "lucide-react";
+import logoSB from "@/assets/logo-slowblues.png";
 
 export const Route = createFileRoute("/newsletter")({
   component: NewsletterArchivePage,
