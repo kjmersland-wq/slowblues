@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SafeImage } from "@/components/SafeImage";
 import { PageShell } from "@/components/PageShell";
 import { useArtist, useArtists, type ArtistRecord } from "@/lib/artists";
+import { resolveArtistImage } from "@/lib/artistImageMap";
 import { IMG } from "@/data/images";
 import { ArrowLeft, Music, MapPin, Disc3, Calendar, Users, Star, Quote, Guitar, PlayCircle, Mic, Award, Sparkles } from "lucide-react";
 
