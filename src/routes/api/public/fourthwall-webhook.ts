@@ -72,11 +72,28 @@ export const Route = createFileRoute("/api/public/fourthwall-webhook")({
 
         const eventType =
           (payload as { type?: string } | null)?.type ?? "unknown";
-        console.log(`[fourthwall-webhook] verified event: ${eventType}`);
 
-        // TODO: route event to handler (order.created, order.refunded, etc.)
+        // Bust server-side cache so the next page render hits live Fourthwall data.
+        let invalidated = 0;
+        if (
+          eventType.startsWith("PRODUCT_") ||
+          eventType.startsWith("OFFER_") ||
+          eventType.startsWith("COLLECTION_") ||
+          eventType === "product.created" ||
+          eventType === "product.updated" ||
+          eventType === "collection.updated"
+        ) {
+          invalidated = invalidateFourthwallCache();
+        }
 
-        return Response.json({ ok: true, event: eventType }, { status: 200 });
+        console.log(
+          `[fourthwall-webhook] verified event: ${eventType} (cache cleared: ${invalidated})`,
+        );
+
+        return Response.json(
+          { ok: true, event: eventType, invalidated },
+          { status: 200 },
+        );
       },
     },
   },
