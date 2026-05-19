@@ -35,6 +35,8 @@ import { Route as ArtistsSlugRouteImport } from './routes/artists.$slug'
 import { Route as AboutMerchRouteImport } from './routes/about.merch'
 import { Route as AboutGuestbookRouteImport } from './routes/about.guestbook'
 import { Route as AboutBlogRouteImport } from './routes/about.blog'
+import { Route as LocaleArtistsRouteImport } from './routes/$locale.artists'
+import { Route as LocaleArtistsSlugRouteImport } from './routes/$locale.artists.$slug'
 
 const WorldmapRoute = WorldmapRouteImport.update({
   id: '/worldmap',
@@ -166,6 +168,16 @@ const AboutBlogRoute = AboutBlogRouteImport.update({
   path: '/about/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LocaleArtistsRoute = LocaleArtistsRouteImport.update({
+  id: '/$locale/artists',
+  path: '/$locale/artists',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocaleArtistsSlugRoute = LocaleArtistsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => LocaleArtistsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -188,12 +200,14 @@ export interface FileRoutesByFullPath {
   '/support': typeof SupportRoute
   '/updates': typeof UpdatesRoute
   '/worldmap': typeof WorldmapRoute
+  '/$locale/artists': typeof LocaleArtistsRouteWithChildren
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
+  '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -216,12 +230,14 @@ export interface FileRoutesByTo {
   '/support': typeof SupportRoute
   '/updates': typeof UpdatesRoute
   '/worldmap': typeof WorldmapRoute
+  '/$locale/artists': typeof LocaleArtistsRouteWithChildren
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
+  '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -245,12 +261,14 @@ export interface FileRoutesById {
   '/support': typeof SupportRoute
   '/updates': typeof UpdatesRoute
   '/worldmap': typeof WorldmapRoute
+  '/$locale/artists': typeof LocaleArtistsRouteWithChildren
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
+  '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -275,12 +293,14 @@ export interface FileRouteTypes {
     | '/support'
     | '/updates'
     | '/worldmap'
+    | '/$locale/artists'
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
     | '/artists/$slug'
     | '/experience/media'
     | '/learn/styles'
+    | '/$locale/artists/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -303,12 +323,14 @@ export interface FileRouteTypes {
     | '/support'
     | '/updates'
     | '/worldmap'
+    | '/$locale/artists'
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
     | '/artists/$slug'
     | '/experience/media'
     | '/learn/styles'
+    | '/$locale/artists/$slug'
   id:
     | '__root__'
     | '/'
@@ -331,12 +353,14 @@ export interface FileRouteTypes {
     | '/support'
     | '/updates'
     | '/worldmap'
+    | '/$locale/artists'
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
     | '/artists/$slug'
     | '/experience/media'
     | '/learn/styles'
+    | '/$locale/artists/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -360,6 +384,7 @@ export interface RootRouteChildren {
   SupportRoute: typeof SupportRoute
   UpdatesRoute: typeof UpdatesRoute
   WorldmapRoute: typeof WorldmapRoute
+  LocaleArtistsRoute: typeof LocaleArtistsRouteWithChildren
   AboutBlogRoute: typeof AboutBlogRoute
   AboutGuestbookRoute: typeof AboutGuestbookRoute
   AboutMerchRoute: typeof AboutMerchRoute
@@ -551,6 +576,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutBlogRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$locale/artists': {
+      id: '/$locale/artists'
+      path: '/$locale/artists'
+      fullPath: '/$locale/artists'
+      preLoaderRoute: typeof LocaleArtistsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$locale/artists/$slug': {
+      id: '/$locale/artists/$slug'
+      path: '/$slug'
+      fullPath: '/$locale/artists/$slug'
+      preLoaderRoute: typeof LocaleArtistsSlugRouteImport
+      parentRoute: typeof LocaleArtistsRoute
+    }
   }
 }
 
@@ -564,6 +603,18 @@ const ArtistsRouteChildren: ArtistsRouteChildren = {
 
 const ArtistsRouteWithChildren =
   ArtistsRoute._addFileChildren(ArtistsRouteChildren)
+
+interface LocaleArtistsRouteChildren {
+  LocaleArtistsSlugRoute: typeof LocaleArtistsSlugRoute
+}
+
+const LocaleArtistsRouteChildren: LocaleArtistsRouteChildren = {
+  LocaleArtistsSlugRoute: LocaleArtistsSlugRoute,
+}
+
+const LocaleArtistsRouteWithChildren = LocaleArtistsRoute._addFileChildren(
+  LocaleArtistsRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -586,6 +637,7 @@ const rootRouteChildren: RootRouteChildren = {
   SupportRoute: SupportRoute,
   UpdatesRoute: UpdatesRoute,
   WorldmapRoute: WorldmapRoute,
+  LocaleArtistsRoute: LocaleArtistsRouteWithChildren,
   AboutBlogRoute: AboutBlogRoute,
   AboutGuestbookRoute: AboutGuestbookRoute,
   AboutMerchRoute: AboutMerchRoute,
@@ -595,3 +647,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
