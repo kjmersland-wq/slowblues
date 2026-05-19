@@ -3,7 +3,7 @@ import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 export type TickerItem = {
   id: string;
-  kind: "review" | "youtube" | "artist" | "blog" | "editorial";
+  kind: "review" | "youtube" | "artist" | "blog" | "editorial" | "concert";
   flag?: string;
   label: string;
   text: string;
