@@ -41,7 +41,9 @@ import { Route as AboutGuestbookRouteImport } from './routes/about.guestbook'
 import { Route as AboutBlogRouteImport } from './routes/about.blog'
 import { Route as LocaleArtistsRouteImport } from './routes/$locale.artists'
 import { Route as QuizCycleCycleRouteImport } from './routes/quiz.cycle.$cycle'
+import { Route as AboutMerchSlugRouteImport } from './routes/about.merch.$slug'
 import { Route as LocaleArtistsSlugRouteImport } from './routes/$locale.artists.$slug'
+import { Route as AboutMerchCollectionSlugRouteImport } from './routes/about.merch.collection.$slug'
 
 const WorldmapRoute = WorldmapRouteImport.update({
   id: '/worldmap',
@@ -203,11 +205,22 @@ const QuizCycleCycleRoute = QuizCycleCycleRouteImport.update({
   path: '/cycle/$cycle',
   getParentRoute: () => QuizRoute,
 } as any)
+const AboutMerchSlugRoute = AboutMerchSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => AboutMerchRoute,
+} as any)
 const LocaleArtistsSlugRoute = LocaleArtistsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => LocaleArtistsRoute,
 } as any)
+const AboutMerchCollectionSlugRoute =
+  AboutMerchCollectionSlugRouteImport.update({
+    id: '/collection/$slug',
+    path: '/collection/$slug',
+    getParentRoute: () => AboutMerchRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -235,14 +248,16 @@ export interface FileRoutesByFullPath {
   '/$locale/artists': typeof LocaleArtistsRouteWithChildren
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
-  '/about/merch': typeof AboutMerchRoute
+  '/about/merch': typeof AboutMerchRouteWithChildren
   '/artists/$slug': typeof ArtistsSlugRoute
   '/blog/$id': typeof BlogIdRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
+  '/about/merch/$slug': typeof AboutMerchSlugRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
+  '/about/merch/collection/$slug': typeof AboutMerchCollectionSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -270,14 +285,16 @@ export interface FileRoutesByTo {
   '/$locale/artists': typeof LocaleArtistsRouteWithChildren
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
-  '/about/merch': typeof AboutMerchRoute
+  '/about/merch': typeof AboutMerchRouteWithChildren
   '/artists/$slug': typeof ArtistsSlugRoute
   '/blog/$id': typeof BlogIdRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
+  '/about/merch/$slug': typeof AboutMerchSlugRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
+  '/about/merch/collection/$slug': typeof AboutMerchCollectionSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -306,14 +323,16 @@ export interface FileRoutesById {
   '/$locale/artists': typeof LocaleArtistsRouteWithChildren
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
-  '/about/merch': typeof AboutMerchRoute
+  '/about/merch': typeof AboutMerchRouteWithChildren
   '/artists/$slug': typeof ArtistsSlugRoute
   '/blog/$id': typeof BlogIdRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
+  '/about/merch/$slug': typeof AboutMerchSlugRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
+  '/about/merch/collection/$slug': typeof AboutMerchCollectionSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -350,7 +369,9 @@ export interface FileRouteTypes {
     | '/learn/styles'
     | '/quiz/archive'
     | '/$locale/artists/$slug'
+    | '/about/merch/$slug'
     | '/quiz/cycle/$cycle'
+    | '/about/merch/collection/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -385,7 +406,9 @@ export interface FileRouteTypes {
     | '/learn/styles'
     | '/quiz/archive'
     | '/$locale/artists/$slug'
+    | '/about/merch/$slug'
     | '/quiz/cycle/$cycle'
+    | '/about/merch/collection/$slug'
   id:
     | '__root__'
     | '/'
@@ -420,7 +443,9 @@ export interface FileRouteTypes {
     | '/learn/styles'
     | '/quiz/archive'
     | '/$locale/artists/$slug'
+    | '/about/merch/$slug'
     | '/quiz/cycle/$cycle'
+    | '/about/merch/collection/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -449,7 +474,7 @@ export interface RootRouteChildren {
   LocaleArtistsRoute: typeof LocaleArtistsRouteWithChildren
   AboutBlogRoute: typeof AboutBlogRoute
   AboutGuestbookRoute: typeof AboutGuestbookRoute
-  AboutMerchRoute: typeof AboutMerchRoute
+  AboutMerchRoute: typeof AboutMerchRouteWithChildren
   ExperienceMediaRoute: typeof ExperienceMediaRoute
   LearnStylesRoute: typeof LearnStylesRoute
 }
@@ -680,12 +705,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuizCycleCycleRouteImport
       parentRoute: typeof QuizRoute
     }
+    '/about/merch/$slug': {
+      id: '/about/merch/$slug'
+      path: '/$slug'
+      fullPath: '/about/merch/$slug'
+      preLoaderRoute: typeof AboutMerchSlugRouteImport
+      parentRoute: typeof AboutMerchRoute
+    }
     '/$locale/artists/$slug': {
       id: '/$locale/artists/$slug'
       path: '/$slug'
       fullPath: '/$locale/artists/$slug'
       preLoaderRoute: typeof LocaleArtistsSlugRouteImport
       parentRoute: typeof LocaleArtistsRoute
+    }
+    '/about/merch/collection/$slug': {
+      id: '/about/merch/collection/$slug'
+      path: '/collection/$slug'
+      fullPath: '/about/merch/collection/$slug'
+      preLoaderRoute: typeof AboutMerchCollectionSlugRouteImport
+      parentRoute: typeof AboutMerchRoute
     }
   }
 }
@@ -735,6 +774,20 @@ const LocaleArtistsRouteWithChildren = LocaleArtistsRoute._addFileChildren(
   LocaleArtistsRouteChildren,
 )
 
+interface AboutMerchRouteChildren {
+  AboutMerchSlugRoute: typeof AboutMerchSlugRoute
+  AboutMerchCollectionSlugRoute: typeof AboutMerchCollectionSlugRoute
+}
+
+const AboutMerchRouteChildren: AboutMerchRouteChildren = {
+  AboutMerchSlugRoute: AboutMerchSlugRoute,
+  AboutMerchCollectionSlugRoute: AboutMerchCollectionSlugRoute,
+}
+
+const AboutMerchRouteWithChildren = AboutMerchRoute._addFileChildren(
+  AboutMerchRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
@@ -761,10 +814,20 @@ const rootRouteChildren: RootRouteChildren = {
   LocaleArtistsRoute: LocaleArtistsRouteWithChildren,
   AboutBlogRoute: AboutBlogRoute,
   AboutGuestbookRoute: AboutGuestbookRoute,
-  AboutMerchRoute: AboutMerchRoute,
+  AboutMerchRoute: AboutMerchRouteWithChildren,
   ExperienceMediaRoute: ExperienceMediaRoute,
   LearnStylesRoute: LearnStylesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
