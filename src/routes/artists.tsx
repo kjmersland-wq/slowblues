@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { SafeImage } from "@/components/SafeImage";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n } from "@/i18n";
 import { ARTISTS } from "@/data/blues";
@@ -49,7 +50,7 @@ function ArtistsPage() {
           {filtered.map((a) => (
             <article key={a.slug} className="group bg-card/50 border border-border rounded-lg overflow-hidden hover:border-gold/60 transition">
               <div className="aspect-[3/4] overflow-hidden">
-                <img src={a.img} alt={a.name} loading="lazy" className="size-full object-cover group-hover:scale-105 transition duration-700" />
+                <SafeImage src={a.img} alt={a.name} loading="lazy" className="size-full object-cover group-hover:scale-105 transition duration-700" />
               </div>
               <div className="p-4">
                 <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-1">{a.tag} · {a.era}</div>

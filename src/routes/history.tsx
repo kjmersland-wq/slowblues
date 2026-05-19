@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { SafeImage } from "@/components/SafeImage";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n } from "@/i18n";
 import { IMG } from "@/data/images";
@@ -41,7 +42,7 @@ function HistoryPage() {
                 <p className="text-muted-foreground leading-relaxed">{e.body}</p>
               </div>
               <div className="md:[direction:ltr] aspect-[4/3] rounded-lg overflow-hidden border border-border">
-                <img src={e.img} alt={e.title} loading="lazy" className="size-full object-cover" />
+                <SafeImage src={e.img} alt={e.title} loading="lazy" className="size-full object-cover" />
               </div>
             </article>
           ))}
