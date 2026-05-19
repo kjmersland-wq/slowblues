@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/i18n";
 import { BookOpen, ExternalLink, Heart, Mail } from "lucide-react";
+import logoSB from "@/assets/logo-slowblues.png";
 
 export function SiteFooter() {
   const { t } = useI18n();
@@ -16,6 +17,8 @@ export function SiteFooter() {
     { to: "/radio", label: t.nav.radio },
     { to: "/guestbook", label: t.nav.guestbook },
     { to: "/blog", label: t.nav.blog },
+    { to: "/quiz", label: "Blues Quiz" },
+    { to: "/about/merch", label: "Merch" },
     { to: "/compare", label: t.nav.compareStyles },
     { to: "/updates", label: t.nav.updates },
     { to: "/support", label: t.nav.support },
@@ -46,7 +49,7 @@ export function SiteFooter() {
       <div className="max-w-7xl mx-auto px-6 py-16 grid lg:grid-cols-4 gap-10">
         <div>
           <div className="flex items-center gap-3 mb-4">
-            <div className="size-12 rounded-full border-2 border-gold/60 bg-card flex items-center justify-center font-display text-gold text-xs">SB</div>
+            <img src={logoSB} alt="SlowBlues.no" className="h-14 w-auto" />
             <div className="font-display text-xl">SLOWBLUES</div>
           </div>
           <p className="text-sm text-muted-foreground leading-relaxed">{t.footer.desc}</p>

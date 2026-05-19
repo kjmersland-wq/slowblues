@@ -2,10 +2,12 @@ import { Link } from "@tanstack/react-router";
 import { useI18n, type Lang } from "@/i18n";
 import { Search, ChevronDown, Menu, X } from "lucide-react";
 import { useState } from "react";
+import logoSB from "@/assets/logo-slowblues.png";
 
 const LANGS: { code: Lang; label: string }[] = [
   { code: "no", label: "NO" },
   { code: "en", label: "EN" },
+  { code: "sv", label: "SV" },
   { code: "de", label: "DE" },
 ];
 
@@ -31,10 +33,12 @@ export function SiteHeader() {
       { to: "/gallery", label: t.nav.gallery },
       { to: "/festivals", label: t.nav.festivals },
       { to: "/worldmap", label: t.nav.worldmap },
+      { to: "/quiz", label: "Blues Quiz" },
     ]},
     { key: "about", label: t.nav.about, items: [
       { to: "/blog", label: t.nav.blog },
       { to: "/guestbook", label: t.nav.guestbook },
+      { to: "/about/merch", label: "Merch" },
       { to: "/support", label: t.nav.support },
       { to: "/contact", label: t.nav.contact },
       { to: "/privacy", label: t.nav.privacy },
@@ -45,8 +49,8 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 backdrop-blur bg-background/85 border-b border-border">
       <div className="max-w-7xl mx-auto px-5 py-3 flex items-center justify-between gap-4">
         <Link to="/" className="flex items-center gap-3 shrink-0">
-          <div className="size-10 rounded-full border-2 border-gold/60 bg-card flex items-center justify-center font-display text-gold text-[10px] leading-none">SB</div>
-          <div>
+          <img src={logoSB} alt="SlowBlues.no — Global Blues Encyclopedia" className="h-11 w-auto" />
+          <div className="hidden sm:block">
             <div className="font-display text-lg tracking-wide leading-none">SLOWBLUES</div>
             <div className="text-[9px] tracking-[0.22em] text-muted-foreground uppercase mt-1">{t.header.tagline}</div>
           </div>
