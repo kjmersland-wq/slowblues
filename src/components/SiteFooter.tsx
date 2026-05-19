@@ -137,11 +137,26 @@ export function SiteFooter() {
               <label key={o} className="flex items-center gap-2"><input defaultChecked type="checkbox" className="accent-[var(--color-gold)]" /> <span className="text-foreground/85">{o}</span></label>
             ))}
           </div>
-          <form className="flex flex-col sm:flex-row gap-2 max-w-2xl" onSubmit={(e) => e.preventDefault()}>
-            <input required type="email" placeholder={t.footer.emailPlaceholder} className="flex-1 px-4 py-2.5 rounded-md bg-card border border-border focus:border-gold outline-none text-sm" />
-            <button className="px-5 py-2.5 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 text-sm">{t.footer.subscribe}</button>
+          <form className="flex flex-col sm:flex-row gap-2 max-w-2xl" onSubmit={handleSubscribe}>
+            <input
+              required
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder={t.footer.emailPlaceholder}
+              maxLength={255}
+              className="flex-1 px-4 py-2.5 rounded-md bg-card border border-border focus:border-gold outline-none text-sm"
+            />
+            <button
+              disabled={subState === "loading"}
+              className="px-5 py-2.5 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 text-sm disabled:opacity-60"
+            >
+              {subState === "loading" ? "…" : t.footer.subscribe}
+            </button>
           </form>
-          <p className="mt-3 text-xs text-muted-foreground">{t.footer.privacyNote}</p>
+          {subState === "ok" && <p className="mt-3 text-sm text-gold">{subMsg}</p>}
+          {subState === "err" && <p className="mt-3 text-sm text-destructive">{subMsg}</p>}
+          <p className="mt-3 text-xs text-muted-foreground">{t.footer.privacyNote} <Link to="/newsletter" className="text-gold hover:underline">Read the archive →</Link></p>
         </div>
       </div>
 
