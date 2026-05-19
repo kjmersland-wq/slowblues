@@ -171,61 +171,118 @@ function WorldMapPage() {
 
         {/* Map */}
         <div className="relative rounded-xl overflow-hidden border border-border bg-card/40 mb-10">
-          <div className="aspect-[2/1] relative bg-[radial-gradient(circle_at_center,var(--color-card),var(--color-background))]">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Equirectangular_projection_SW.jpg/1280px-Equirectangular_projection_SW.jpg"
-              alt="World map"
-              className="absolute inset-0 size-full object-cover opacity-25"
-            />
-            {visible.map((p, i) => {
-              const x = ((p.lng + 180) / 360) * 100;
-              const y = ((90 - p.lat) / 180) * 100;
-              const meta = CATEGORY_META[p.category];
-              const content = (
-                <>
-                  <span
-                    className="block size-2.5 rounded-full ring-2 ring-background/50 group-hover:scale-150 transition"
-                    style={{ backgroundColor: meta.color }}
-                  />
-                  <div className="hidden group-hover:block absolute left-1/2 -translate-x-1/2 mt-2 z-10 whitespace-nowrap bg-card/95 backdrop-blur border border-border rounded-md px-3 py-1.5 text-xs shadow-lg">
-                    <div className="font-display text-gold">{p.name}</div>
-                    <div className="text-muted-foreground">{p.type}</div>
-                    <div
-                      className="text-[10px] uppercase tracking-wider mt-0.5"
-                      style={{ color: meta.color }}
-                    >
-                      {meta.label}
-                    </div>
-                  </div>
-                </>
-              );
-              const style = { left: `${x}%`, top: `${y}%` } as const;
-              return p.url ? (
-                <a
-                  key={`${p.name}-${i}`}
-                  href={p.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute -translate-x-1/2 -translate-y-1/2 group cursor-pointer"
-                  style={style}
-                >
-                  {content}
-                </a>
-              ) : (
-                <div
-                  key={`${p.name}-${i}`}
-                  className="absolute -translate-x-1/2 -translate-y-1/2 group"
-                  style={style}
-                >
-                  {content}
-                </div>
-              );
-            })}
+          {/* Zoom controls */}
+          <div className="absolute top-3 right-3 z-20 flex flex-col gap-1.5 bg-card/80 backdrop-blur border border-border rounded-md p-1">
+            <button
+              type="button"
+              onClick={() => zoomBy(1.5)}
+              aria-label="Zoom in"
+              className="size-8 grid place-items-center hover:text-gold transition"
+            >
+              <ZoomIn className="size-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => zoomBy(1 / 1.5)}
+              aria-label="Zoom out"
+              className="size-8 grid place-items-center hover:text-gold transition"
+            >
+              <ZoomOut className="size-4" />
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              aria-label="Reset zoom"
+              className="size-8 grid place-items-center hover:text-gold transition"
+            >
+              <RotateCcw className="size-4" />
+            </button>
+            <div className="text-[10px] text-center text-muted-foreground font-mono px-1">
+              {scale.toFixed(1)}×
+            </div>
           </div>
-          <p className="absolute bottom-2 right-3 text-[10px] text-muted-foreground">
-            Map: Wikimedia Commons · Public Domain · {visible.length} places
+
+          <div
+            className="aspect-[2/1] relative bg-[radial-gradient(circle_at_center,var(--color-card),var(--color-background))] overflow-hidden touch-none select-none"
+            onWheel={onWheel}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerCancel={onPointerUp}
+            style={{ cursor: scale > 1 ? (dragRef.current ? "grabbing" : "grab") : "default" }}
+          >
+            <div
+              className="absolute inset-0"
+              style={{
+                transform: `translate(${tx}%, ${ty}%) scale(${scale})`,
+                transformOrigin: "center center",
+                transition: dragRef.current ? "none" : "transform 0.15s ease-out",
+              }}
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Equirectangular_projection_SW.jpg/1280px-Equirectangular_projection_SW.jpg"
+                alt="World map"
+                className="absolute inset-0 size-full object-cover opacity-25 pointer-events-none"
+                draggable={false}
+              />
+              {visible.map((p, i) => {
+                const x = ((p.lng + 180) / 360) * 100;
+                const y = ((90 - p.lat) / 180) * 100;
+                const meta = CATEGORY_META[p.category];
+                // Counter-scale the pin so it stays the same visual size when zoomed
+                const pinScale = 1 / scale;
+                const content = (
+                  <>
+                    <span
+                      className="block size-2.5 rounded-full ring-2 ring-background/50 group-hover:scale-150 transition"
+                      style={{ backgroundColor: meta.color }}
+                    />
+                    <div className="hidden group-hover:block absolute left-1/2 -translate-x-1/2 mt-2 z-10 whitespace-nowrap bg-card/95 backdrop-blur border border-border rounded-md px-3 py-1.5 text-xs shadow-lg">
+                      <div className="font-display text-gold">{p.name}</div>
+                      <div className="text-muted-foreground">{p.type}</div>
+                      <div
+                        className="text-[10px] uppercase tracking-wider mt-0.5"
+                        style={{ color: meta.color }}
+                      >
+                        {meta.label}
+                      </div>
+                    </div>
+                  </>
+                );
+                const style = {
+                  left: `${x}%`,
+                  top: `${y}%`,
+                  transform: `translate(-50%, -50%) scale(${pinScale})`,
+                } as const;
+                return p.url ? (
+                  <a
+                    key={`${p.name}-${i}`}
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onPointerDown={(e) => e.stopPropagation()}
+                    className="absolute group cursor-pointer"
+                    style={style}
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  <div
+                    key={`${p.name}-${i}`}
+                    className="absolute group"
+                    style={style}
+                  >
+                    {content}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <p className="absolute bottom-2 right-3 text-[10px] text-muted-foreground z-10 bg-background/60 backdrop-blur px-2 py-0.5 rounded">
+            Scroll / pinch to zoom · drag to pan · {visible.length} places
           </p>
         </div>
+
 
         {/* Grouped lists */}
         <div className="space-y-10">
