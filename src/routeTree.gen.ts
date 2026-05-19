@@ -20,6 +20,7 @@ import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ListenRouteImport } from './routes/listen'
+import { Route as InstrumentsRouteImport } from './routes/instruments'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as GuestbookRouteImport } from './routes/guestbook'
 import { Route as GalleryRouteImport } from './routes/gallery'
@@ -32,6 +33,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LearnStylesRouteImport } from './routes/learn.styles'
 import { Route as ExperienceMediaRouteImport } from './routes/experience.media'
+import { Route as BlogIdRouteImport } from './routes/blog.$id'
 import { Route as ArtistsSlugRouteImport } from './routes/artists.$slug'
 import { Route as AboutMerchRouteImport } from './routes/about.merch'
 import { Route as AboutGuestbookRouteImport } from './routes/about.guestbook'
@@ -94,6 +96,11 @@ const ListenRoute = ListenRouteImport.update({
   path: '/listen',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InstrumentsRoute = InstrumentsRouteImport.update({
+  id: '/instruments',
+  path: '/instruments',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HistoryRoute = HistoryRouteImport.update({
   id: '/history',
   path: '/history',
@@ -154,6 +161,11 @@ const ExperienceMediaRoute = ExperienceMediaRouteImport.update({
   path: '/experience/media',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIdRoute = BlogIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => BlogRoute,
+} as any)
 const ArtistsSlugRoute = ArtistsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -189,13 +201,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/artists': typeof ArtistsRouteWithChildren
-  '/blog': typeof BlogRoute
+  '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/festivals': typeof FestivalsRoute
   '/gallery': typeof GalleryRoute
   '/guestbook': typeof GuestbookRoute
   '/history': typeof HistoryRoute
+  '/instruments': typeof InstrumentsRoute
   '/listen': typeof ListenRoute
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
@@ -212,6 +225,7 @@ export interface FileRoutesByFullPath {
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRoute
   '/artists/$slug': typeof ArtistsSlugRoute
+  '/blog/$id': typeof BlogIdRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
@@ -220,13 +234,14 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/artists': typeof ArtistsRouteWithChildren
-  '/blog': typeof BlogRoute
+  '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/festivals': typeof FestivalsRoute
   '/gallery': typeof GalleryRoute
   '/guestbook': typeof GuestbookRoute
   '/history': typeof HistoryRoute
+  '/instruments': typeof InstrumentsRoute
   '/listen': typeof ListenRoute
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
@@ -243,6 +258,7 @@ export interface FileRoutesByTo {
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRoute
   '/artists/$slug': typeof ArtistsSlugRoute
+  '/blog/$id': typeof BlogIdRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
@@ -252,13 +268,14 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/artists': typeof ArtistsRouteWithChildren
-  '/blog': typeof BlogRoute
+  '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/festivals': typeof FestivalsRoute
   '/gallery': typeof GalleryRoute
   '/guestbook': typeof GuestbookRoute
   '/history': typeof HistoryRoute
+  '/instruments': typeof InstrumentsRoute
   '/listen': typeof ListenRoute
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
@@ -275,6 +292,7 @@ export interface FileRoutesById {
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRoute
   '/artists/$slug': typeof ArtistsSlugRoute
+  '/blog/$id': typeof BlogIdRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
@@ -292,6 +310,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/guestbook'
     | '/history'
+    | '/instruments'
     | '/listen'
     | '/login'
     | '/privacy'
@@ -308,6 +327,7 @@ export interface FileRouteTypes {
     | '/about/guestbook'
     | '/about/merch'
     | '/artists/$slug'
+    | '/blog/$id'
     | '/experience/media'
     | '/learn/styles'
     | '/$locale/artists/$slug'
@@ -323,6 +343,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/guestbook'
     | '/history'
+    | '/instruments'
     | '/listen'
     | '/login'
     | '/privacy'
@@ -339,6 +360,7 @@ export interface FileRouteTypes {
     | '/about/guestbook'
     | '/about/merch'
     | '/artists/$slug'
+    | '/blog/$id'
     | '/experience/media'
     | '/learn/styles'
     | '/$locale/artists/$slug'
@@ -354,6 +376,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/guestbook'
     | '/history'
+    | '/instruments'
     | '/listen'
     | '/login'
     | '/privacy'
@@ -370,6 +393,7 @@ export interface FileRouteTypes {
     | '/about/guestbook'
     | '/about/merch'
     | '/artists/$slug'
+    | '/blog/$id'
     | '/experience/media'
     | '/learn/styles'
     | '/$locale/artists/$slug'
@@ -379,13 +403,14 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
   ArtistsRoute: typeof ArtistsRouteWithChildren
-  BlogRoute: typeof BlogRoute
+  BlogRoute: typeof BlogRouteWithChildren
   CompareRoute: typeof CompareRoute
   ContactRoute: typeof ContactRoute
   FestivalsRoute: typeof FestivalsRoute
   GalleryRoute: typeof GalleryRoute
   GuestbookRoute: typeof GuestbookRoute
   HistoryRoute: typeof HistoryRoute
+  InstrumentsRoute: typeof InstrumentsRoute
   ListenRoute: typeof ListenRoute
   LoginRoute: typeof LoginRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -484,6 +509,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ListenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/instruments': {
+      id: '/instruments'
+      path: '/instruments'
+      fullPath: '/instruments'
+      preLoaderRoute: typeof InstrumentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/history': {
       id: '/history'
       path: '/history'
@@ -568,6 +600,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExperienceMediaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/$id': {
+      id: '/blog/$id'
+      path: '/$id'
+      fullPath: '/blog/$id'
+      preLoaderRoute: typeof BlogIdRouteImport
+      parentRoute: typeof BlogRoute
+    }
     '/artists/$slug': {
       id: '/artists/$slug'
       path: '/$slug'
@@ -624,6 +663,16 @@ const ArtistsRouteChildren: ArtistsRouteChildren = {
 const ArtistsRouteWithChildren =
   ArtistsRoute._addFileChildren(ArtistsRouteChildren)
 
+interface BlogRouteChildren {
+  BlogIdRoute: typeof BlogIdRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogIdRoute: BlogIdRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
+
 interface LocaleArtistsRouteChildren {
   LocaleArtistsSlugRoute: typeof LocaleArtistsSlugRoute
 }
@@ -640,13 +689,14 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
   ArtistsRoute: ArtistsRouteWithChildren,
-  BlogRoute: BlogRoute,
+  BlogRoute: BlogRouteWithChildren,
   CompareRoute: CompareRoute,
   ContactRoute: ContactRoute,
   FestivalsRoute: FestivalsRoute,
   GalleryRoute: GalleryRoute,
   GuestbookRoute: GuestbookRoute,
   HistoryRoute: HistoryRoute,
+  InstrumentsRoute: InstrumentsRoute,
   ListenRoute: ListenRoute,
   LoginRoute: LoginRoute,
   PrivacyRoute: PrivacyRoute,

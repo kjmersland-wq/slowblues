@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { useI18n } from "@/i18n";
+import type { BlogArticle } from "@/data/blogArticles";
 import { blogArticles, getBlogArticleById } from "@/data/blogArticles";
 import { ArrowLeft, Clock } from "lucide-react";
 
@@ -49,7 +50,7 @@ export const Route = createFileRoute("/blog/$id")({
 });
 
 function BlogArticlePage() {
-  const { article } = Route.useLoaderData();
+  const { article } = Route.useLoaderData() as { article: BlogArticle };
   const { lang } = useI18n();
   const no = lang === "no" || lang === "sv";
   const de = lang === "de";

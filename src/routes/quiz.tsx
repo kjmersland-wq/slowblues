@@ -49,7 +49,7 @@ function QuizPage() {
     setSubmitted(false);
   }, [questions.length, difficulty]);
 
-  const score = answers.reduce((s, a, i) => s + (a === questions[i]?.correctIndex ? 1 : 0), 0);
+  const score = answers.reduce<number>((s, a, i) => s + (a === questions[i]?.correctIndex ? 1 : 0), 0);
 
   const submitScore = () => {
     if (!nickname.trim()) return;
