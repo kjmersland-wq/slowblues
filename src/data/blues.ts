@@ -398,17 +398,125 @@ export const BLOG_POSTS = [
   { slug: "robert-johnson-truth", date: "2026-01-18", title: "Robert Johnson — Myth vs Truth", excerpt: "What we actually know about the man behind the crossroads legend, separated from a hundred years of romance.", img: IMG.robertJohnson },
 ];
 
-export const WORLD_PINS = [
-  { name: "Clarksdale, MS", lat: 34.20, lng: -90.57, type: "Cradle of the Delta blues" },
-  { name: "Memphis, TN", lat: 35.15, lng: -90.05, type: "Beale Street, Stax, Sun" },
-  { name: "Chicago, IL", lat: 41.85, lng: -87.65, type: "Chess Records, Maxwell Street" },
-  { name: "Helena, AR", lat: 34.53, lng: -90.59, type: "King Biscuit Time" },
-  { name: "New Orleans, LA", lat: 29.95, lng: -90.07, type: "Jazz/blues meeting point" },
-  { name: "London, UK", lat: 51.51, lng: -0.13, type: "British blues boom" },
-  { name: "Notodden, NO", lat: 59.56, lng: 9.26, type: "European Blues Hall of Fame" },
-  { name: "Tokyo, JP", lat: 35.68, lng: 139.69, type: "Japanese blues scene" },
-  { name: "Katowice, PL", lat: 50.26, lng: 19.02, type: "European Blues Challenge 2026" },
+export type WorldPinCategory =
+  | "cradle"
+  | "club"
+  | "festival"
+  | "museum"
+  | "grave"
+  | "label"
+  | "studio"
+  | "radio"
+  | "pilgrimage";
+
+export type WorldPin = {
+  name: string;
+  lat: number;
+  lng: number;
+  type: string;
+  category: WorldPinCategory;
+  url?: string;
+};
+
+export const WORLD_PINS: WorldPin[] = [
+  // ===== Cradle / origin =====
+  { name: "Clarksdale, MS", lat: 34.20, lng: -90.57, type: "Cradle of the Delta blues", category: "cradle" },
+  { name: "Memphis, TN", lat: 35.15, lng: -90.05, type: "Beale Street, Stax, Sun", category: "cradle" },
+  { name: "Chicago, IL", lat: 41.85, lng: -87.65, type: "Chess Records, Maxwell Street", category: "cradle" },
+  { name: "Helena, AR", lat: 34.53, lng: -90.59, type: "King Biscuit Time birthplace", category: "cradle" },
+  { name: "New Orleans, LA", lat: 29.95, lng: -90.07, type: "Jazz/blues meeting point", category: "cradle" },
+  { name: "Tutwiler, MS", lat: 33.99, lng: -90.43, type: "W.C. Handy heard the blues, 1903", category: "cradle" },
+  { name: "Dockery Farms, MS", lat: 33.65, lng: -90.62, type: "Charley Patton plantation — birthplace of Delta blues", category: "cradle", url: "https://dockeryfarms.org/" },
+  { name: "Stovall, MS", lat: 34.27, lng: -90.66, type: "Muddy Waters' cabin & Lomax 1941 recordings", category: "cradle" },
+  { name: "Crossroads, Clarksdale", lat: 34.197, lng: -90.583, type: "Highway 61 × 49 — Robert Johnson myth", category: "pilgrimage" },
+
+  // ===== Museums & Halls of Fame =====
+  { name: "Delta Blues Museum", lat: 34.201, lng: -90.575, type: "Clarksdale, MS", category: "museum", url: "https://www.deltabluesmuseum.org/" },
+  { name: "B.B. King Museum", lat: 33.418, lng: -90.180, type: "Indianola, MS", category: "museum", url: "https://bbkingmuseum.org/" },
+  { name: "Stax Museum of American Soul", lat: 35.119, lng: -90.067, type: "Memphis, TN", category: "museum", url: "https://staxmuseum.com/" },
+  { name: "Blues Hall of Fame", lat: 35.139, lng: -90.052, type: "The Blues Foundation, Memphis", category: "museum", url: "https://blues.org/blues-hall-of-fame/" },
+  { name: "Rock & Blues Museum", lat: 34.200, lng: -90.580, type: "Clarksdale, MS", category: "museum" },
+  { name: "GRAMMY Museum Mississippi", lat: 33.495, lng: -90.730, type: "Cleveland, MS", category: "museum", url: "https://grammymuseumms.org/" },
+  { name: "European Blues Hall of Fame", lat: 59.56, lng: 9.26, type: "Notodden, Norway", category: "museum", url: "https://www.bluesfest.no/" },
+  { name: "National Blues Museum", lat: 38.626, lng: -90.193, type: "St. Louis, MO", category: "museum", url: "https://nationalbluesmuseum.org/" },
+  { name: "Buddy Guy's Legends", lat: 41.872, lng: -87.625, type: "Chicago club & shrine", category: "club", url: "https://buddyguy.com/" },
+
+  // ===== Iconic clubs =====
+  { name: "Ground Zero Blues Club", lat: 34.201, lng: -90.578, type: "Clarksdale — co-owned by Morgan Freeman", category: "club", url: "https://groundzerobluesclub.com/" },
+  { name: "Red's Lounge", lat: 34.204, lng: -90.578, type: "Last true juke joint, Clarksdale", category: "club" },
+  { name: "B.B. King's Blues Club", lat: 35.140, lng: -90.052, type: "Beale Street, Memphis", category: "club" },
+  { name: "Rum Boogie Café", lat: 35.139, lng: -90.052, type: "Beale Street, Memphis", category: "club" },
+  { name: "Kingston Mines", lat: 41.929, lng: -87.652, type: "Chicago blues institution", category: "club", url: "https://kingstonmines.com/" },
+  { name: "Antone's", lat: 30.268, lng: -97.745, type: "Austin's home of the blues", category: "club", url: "https://antonesnightclub.com/" },
+  { name: "100 Club", lat: 51.515, lng: -0.137, type: "London — British blues boom HQ", category: "club", url: "https://the100club.co.uk/" },
+  { name: "Rosa's Lounge", lat: 41.917, lng: -87.703, type: "Chicago west-side blues", category: "club", url: "https://rosaslounge.com/" },
+
+  // ===== Festivals =====
+  { name: "Notodden Bluesfestival", lat: 59.56, lng: 9.26, type: "Europe's leading blues festival (Aug)", category: "festival", url: "https://www.bluesfest.no/" },
+  { name: "European Blues Challenge", lat: 50.26, lng: 19.02, type: "Katowice 2026", category: "festival", url: "https://www.europeanbluesunion.com/" },
+  { name: "Mandal Bluesfestival", lat: 58.030, lng: 7.456, type: "Southern Norway", category: "festival" },
+  { name: "Skånevik Bluesfestival", lat: 59.731, lng: 5.965, type: "Norwegian fjord blues", category: "festival" },
+  { name: "Sunflower River Blues Festival", lat: 34.200, lng: -90.580, type: "Clarksdale, MS (Aug)", category: "festival", url: "https://sunflowerfest.org/" },
+  { name: "King Biscuit Blues Festival", lat: 34.530, lng: -90.591, type: "Helena, AR (Oct)", category: "festival", url: "https://kingbiscuitfestival.com/" },
+  { name: "Chicago Blues Festival", lat: 41.882, lng: -87.620, type: "Millennium Park (Jun) — free, ~500k visitors", category: "festival", url: "https://www.chicago.gov/city/en/depts/dca/supp_info/chicago_blues_festival.html" },
+  { name: "Memphis in May / Beale Street Music", lat: 35.135, lng: -90.057, type: "Memphis, TN", category: "festival" },
+  { name: "International Blues Challenge", lat: 35.139, lng: -90.052, type: "Memphis — Blues Foundation (Jan)", category: "festival", url: "https://blues.org/international-blues-challenge/" },
+  { name: "Mississippi Valley Blues Festival", lat: 41.521, lng: -90.578, type: "Davenport, IA", category: "festival" },
+  { name: "Cahors Blues Festival", lat: 44.448, lng: 1.441, type: "Southern France (Jul)", category: "festival" },
+  { name: "Moulin Blues Ospel", lat: 51.281, lng: 5.811, type: "Netherlands (May)", category: "festival" },
+  { name: "Blues Peer", lat: 51.133, lng: 5.461, type: "Belgium — Europe's largest blues fest", category: "festival" },
+
+  // ===== Labels & studios =====
+  { name: "Chess Records (2120 S. Michigan)", lat: 41.854, lng: -87.624, type: "Chicago — Willie Dixon Blues Heaven", category: "label", url: "https://www.bluesheaven.com/" },
+  { name: "Sun Studio", lat: 35.139, lng: -90.030, type: "Memphis — Howlin' Wolf, Junior Parker", category: "studio", url: "https://www.sunstudio.com/" },
+  { name: "Stax Records (original site)", lat: 35.119, lng: -90.067, type: "Memphis — Otis Redding, Albert King", category: "label" },
+  { name: "Royal Studios", lat: 35.085, lng: -90.025, type: "Memphis — Al Green, Hi Records", category: "studio" },
+  { name: "FAME Studios", lat: 34.766, lng: -87.673, type: "Muscle Shoals, AL — soul-blues hotbed", category: "studio", url: "https://www.fame2.com/" },
+  { name: "Trumpet Records", lat: 32.299, lng: -90.184, type: "Jackson, MS — Sonny Boy Williamson II", category: "label" },
+
+  // ===== Graves / shrines =====
+  { name: "Robert Johnson grave (Little Zion)", lat: 33.847, lng: -90.092, type: "Greenwood, MS — most contested grave", category: "grave", url: "https://en.wikipedia.org/wiki/Robert_Johnson#Death" },
+  { name: "Muddy Waters grave", lat: 41.864, lng: -87.834, type: "Restvale Cemetery, Alsip, IL", category: "grave" },
+  { name: "Howlin' Wolf grave", lat: 41.870, lng: -87.857, type: "Oakridge Cemetery, Hillside, IL", category: "grave" },
+  { name: "B.B. King grave", lat: 33.418, lng: -90.180, type: "B.B. King Museum, Indianola, MS", category: "grave" },
+  { name: "Son House grave", lat: 43.225, lng: -77.580, type: "Mt. Hope Cemetery, Rochester, NY", category: "grave" },
+  { name: "Charley Patton grave", lat: 33.106, lng: -90.838, type: "New Jerusalem M.B. Church, Holly Ridge, MS", category: "grave" },
+  { name: "Sonny Boy Williamson II grave", lat: 34.450, lng: -90.690, type: "Tutwiler, MS", category: "grave" },
+  { name: "Mississippi John Hurt grave", lat: 32.851, lng: -89.748, type: "Avalon, MS", category: "grave" },
+  { name: "Elmore James grave", lat: 32.310, lng: -89.973, type: "Newport M.B. Church, Ebenezer, MS", category: "grave" },
+  { name: "Bessie Smith grave", lat: 39.940, lng: -75.105, type: "Mt. Lawn Cemetery, Sharon Hill, PA", category: "grave" },
+  { name: "Lead Belly grave", lat: 32.621, lng: -93.847, type: "Shiloh Baptist, Mooringsport, LA", category: "grave" },
+  { name: "John Lee Hooker grave", lat: 37.555, lng: -122.470, type: "Skylawn Memorial, San Mateo, CA", category: "grave" },
+
+  // ===== Pilgrimages & landmarks =====
+  { name: "Highway 61 — The Blues Highway", lat: 33.40, lng: -90.90, type: "Clarksdale → Memphis → New Orleans", category: "pilgrimage" },
+  { name: "Beale Street", lat: 35.139, lng: -90.052, type: "Memphis — historic blues district", category: "pilgrimage" },
+  { name: "Maxwell Street Market", lat: 41.866, lng: -87.647, type: "Chicago — electric blues was born here", category: "pilgrimage" },
+  { name: "Bentonia, MS (Blue Front Café)", lat: 32.165, lng: -90.378, type: "Skip James / Jimmy \"Duck\" Holmes", category: "pilgrimage", url: "https://www.bluefrontcafe.com/" },
+  { name: "Po' Monkey's (former)", lat: 33.679, lng: -90.778, type: "Merigold, MS — legendary juke joint", category: "pilgrimage" },
+  { name: "Bromberg Mississippi Blues Trail", lat: 32.85, lng: -89.95, type: "200+ markers across MS", category: "pilgrimage", url: "https://msbluestrail.org/" },
+
+  // ===== Radio stations =====
+  { name: "KFFA — King Biscuit Time", lat: 34.530, lng: -90.591, type: "Helena, AR — longest-running blues show (since 1941)", category: "radio", url: "https://kffa.com/" },
+  { name: "WROX 1450 AM", lat: 34.200, lng: -90.580, type: "Clarksdale, MS — historic Delta blues radio", category: "radio" },
+  { name: "WDIA 1070 AM", lat: 35.118, lng: -89.991, type: "Memphis — first all-Black format in the US", category: "radio", url: "https://wdia.iheart.com/" },
+  { name: "WMPR 90.1 FM", lat: 32.300, lng: -90.180, type: "Jackson, MS — community blues/gospel", category: "radio", url: "https://www.wmpr901.com/" },
+  { name: "WWOZ 90.7 FM", lat: 29.964, lng: -90.063, type: "New Orleans — guardian of NOLA music", category: "radio", url: "https://www.wwoz.org/" },
+  { name: "Bluesville (SiriusXM)", lat: 40.758, lng: -73.985, type: "B.B. King's BB King's Bluesville, NYC studios", category: "radio", url: "https://www.siriusxm.com/channels/bb-kings-bluesville" },
+  { name: "Bluestown Radio", lat: 59.56, lng: 9.26, type: "Notodden, NO — Nordic blues stream", category: "radio", url: "https://bluestownmusic.no/" },
+  { name: "Bluesradio.no", lat: 59.913, lng: 10.752, type: "Oslo — Norwegian online blues station", category: "radio" },
+  { name: "Blues Radio UK", lat: 51.51, lng: -0.13, type: "London — 24/7 online blues", category: "radio", url: "https://www.bluesradiouk.com/" },
+  { name: "Radio Blues (FR)", lat: 48.857, lng: 2.352, type: "Paris — francophone blues", category: "radio" },
+  { name: "Houston Blues Radio", lat: 29.760, lng: -95.367, type: "Houston, TX — online blues", category: "radio" },
+  { name: "Bluesville Radio AU", lat: -33.870, lng: 151.209, type: "Sydney — Australian blues stream", category: "radio" },
+
+  // ===== International scenes =====
+  { name: "London, UK", lat: 51.51, lng: -0.13, type: "British blues boom — Stones, Yardbirds, Mayall", category: "cradle" },
+  { name: "Tokyo, JP", lat: 35.68, lng: 139.69, type: "Japanese blues scene", category: "cradle" },
+  { name: "Notodden, NO", lat: 59.56, lng: 9.26, type: "European blues capital", category: "cradle" },
+  { name: "Katowice, PL", lat: 50.26, lng: 19.02, type: "Polish blues scene", category: "cradle" },
 ];
+
 
 // Full expanded history timeline
 export const TIMELINE = [
