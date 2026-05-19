@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { PageShell, PageHero } from "@/components/PageShell";
+import { PageShell } from "@/components/PageShell";
 import { fetchNewsletterArchive } from "@/lib/mailerlite.functions";
 import { IMG } from "@/data/images";
 import { Mail, Calendar, ArrowRight } from "lucide-react";
+import logoSB from "@/assets/logo-slowblues.png";
 
 export const Route = createFileRoute("/newsletter")({
   component: NewsletterArchivePage,
@@ -41,12 +42,22 @@ function NewsletterArchivePage() {
 
   return (
     <PageShell>
-      <PageHero
-        eyebrow="Monday Letter · 21:00 CET"
-        title="The SlowBlues Letter"
-        lead="A weekly note from the founder — new releases, festival reports, artist stories and the obituaries we'd rather not write. Sent every Monday evening."
-        img={IMG.microphone}
-      />
+      <section className="relative overflow-hidden border-b border-border">
+        <img src={IMG.microphone} alt="" className="absolute inset-0 size-full object-cover opacity-25" loading="eager" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/85 to-background" />
+        <div className="relative max-w-5xl mx-auto px-6 py-16 md:py-20 text-center">
+          <img src={logoSB} alt="SlowBlues — Global Blues Encyclopedia" className="mx-auto h-28 md:h-36 w-auto drop-shadow-[0_6px_24px_rgba(0,0,0,0.55)] mb-6" />
+          <div className="inline-flex items-center gap-3 mb-4">
+            <span className="h-px w-10 bg-gold/60" />
+            <span className="text-[11px] tracking-[0.3em] uppercase text-gold">Monday Letter · 21:00 CET</span>
+            <span className="h-px w-10 bg-gold/60" />
+          </div>
+          <h1 className="font-display text-5xl md:text-6xl gold-gradient-text leading-tight">The SlowBlues Letter</h1>
+          <p className="mt-5 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+            A weekly note from the founder — new releases, festival reports, artist stories and the obituaries we'd rather not write. Sent every Monday evening.
+          </p>
+        </div>
+      </section>
 
       <section className="max-w-3xl mx-auto px-6 py-12">
         <SignupCard />

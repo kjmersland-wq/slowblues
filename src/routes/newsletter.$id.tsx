@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { PageShell } from "@/components/PageShell";
 import { fetchNewsletter } from "@/lib/mailerlite.functions";
 import { ArrowLeft, Calendar } from "lucide-react";
+import logoSB from "@/assets/logo-slowblues.png";
 
 export const Route = createFileRoute("/newsletter/$id")({
   component: NewsletterDetailPage,
@@ -39,6 +40,11 @@ function NewsletterDetailPage() {
         <Link to="/newsletter" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-gold mb-8">
           <ArrowLeft className="size-4" /> Back to archive
         </Link>
+
+        <header className="text-center border-b border-border pb-8 mb-10">
+          <img src={logoSB} alt="SlowBlues — Global Blues Encyclopedia" className="mx-auto h-24 md:h-28 w-auto drop-shadow-[0_4px_18px_rgba(0,0,0,0.45)] mb-4" />
+          <div className="text-[10px] tracking-[0.3em] uppercase text-gold">SlowBlues.no · Weekly Blues Newsletter</div>
+        </header>
 
         {isLoading && <p className="text-sm text-muted-foreground">Loading letter…</p>}
         {error && <p className="text-sm text-muted-foreground">Couldn't load this letter.</p>}
