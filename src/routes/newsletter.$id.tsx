@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { PageShell } from "@/components/PageShell";
 import { fetchNewsletter } from "@/lib/mailerlite.functions";
 import { ArrowLeft, Calendar } from "lucide-react";
+import logoSB from "@/assets/logo-slowblues.png";
 
 export const Route = createFileRoute("/newsletter/$id")({
   component: NewsletterDetailPage,
