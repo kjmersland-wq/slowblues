@@ -187,11 +187,11 @@ function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showBu
           <span className="h-px w-12 bg-gold/60" />
         </div>
         {showButtons && (
-          <div className="relative mx-auto mb-6 size-32 rounded-full border-2 border-gold/60 bg-card/40 backdrop-blur flex items-center justify-center">
+          <div className="mx-auto mb-6 flex items-center justify-center">
             <img
               src={logoSB}
               alt="SlowBlues — Global Blues Encyclopedia"
-              className="absolute size-40 object-contain drop-shadow-[0_4px_20px_rgba(0,0,0,0.5)]"
+              className="size-56 md:size-64 object-contain drop-shadow-[0_6px_24px_rgba(0,0,0,0.55)]"
             />
           </div>
         )}
