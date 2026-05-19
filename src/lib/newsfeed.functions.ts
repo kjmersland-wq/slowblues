@@ -104,6 +104,47 @@ export const getNewsTicker = createServerFn({ method: "GET" }).handler(
     } catch (e) {
       console.error("ticker artists failed:", e);
     }
+    // 4) Upcoming concerts & festivals
+    try {
+      const today = new Date().toISOString().slice(0, 10);
+      const { data: concerts } = await (supabaseAdmin as any)
+        .from("concerts")
+        .select("slug, title, artist_name, event_type, venue, city, country, event_date, is_featured, published_at")
+        .eq("status", "published")
+        .gte("event_date", today)
+        .order("event_date", { ascending: true })
+        .limit(15);
+      for (const c of (concerts ?? []) as Array<{
+        slug: string; title: string; artist_name: string | null;
+        event_type: string | null; venue: string | null; city: string | null;
+        country: string | null; event_date: string | null;
+        is_featured: boolean | null; published_at: string | null;
+      }>) {
+        if (!c.slug) continue;
+        const flag = c.country ? FLAG_BY_COUNTRY[c.country] : undefined;
+        const label =
+          c.event_type === "festival" ? "FESTIVAL" :
+          c.event_type === "tour" ? "TOUR" : "CONCERT";
+        const where = [c.venue, c.city].filter(Boolean).join(", ");
+        const when = c.event_date
+          ? new Date(c.event_date).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })
+          : "";
+        const parts = [c.title, c.artist_name, where, when].filter(Boolean);
+        out.push({
+          id: `con-${c.slug}`,
+          kind: "artist", // closest existing kind for color; concerts share blue accent
+          flag,
+          label,
+          text: parts.join(" — "),
+          href: `/concerts/${c.slug}`,
+          timestamp: c.published_at ?? new Date().toISOString(),
+          priority: c.is_featured ? 90 : 75,
+        });
+      }
+    } catch (e) {
+      console.error("ticker concerts failed:", e);
+    }
+
 
     // Sort: priority desc, then recency desc
     out.sort((a, b) => {
