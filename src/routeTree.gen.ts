@@ -31,6 +31,7 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as ArtistsRouteImport } from './routes/artists'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as QuizArchiveRouteImport } from './routes/quiz.archive'
 import { Route as LearnStylesRouteImport } from './routes/learn.styles'
 import { Route as ExperienceMediaRouteImport } from './routes/experience.media'
 import { Route as BlogIdRouteImport } from './routes/blog.$id'
@@ -39,6 +40,7 @@ import { Route as AboutMerchRouteImport } from './routes/about.merch'
 import { Route as AboutGuestbookRouteImport } from './routes/about.guestbook'
 import { Route as AboutBlogRouteImport } from './routes/about.blog'
 import { Route as LocaleArtistsRouteImport } from './routes/$locale.artists'
+import { Route as QuizCycleCycleRouteImport } from './routes/quiz.cycle.$cycle'
 import { Route as LocaleArtistsSlugRouteImport } from './routes/$locale.artists.$slug'
 
 const WorldmapRoute = WorldmapRouteImport.update({
@@ -151,6 +153,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuizArchiveRoute = QuizArchiveRouteImport.update({
+  id: '/archive',
+  path: '/archive',
+  getParentRoute: () => QuizRoute,
+} as any)
 const LearnStylesRoute = LearnStylesRouteImport.update({
   id: '/learn/styles',
   path: '/learn/styles',
@@ -191,6 +198,11 @@ const LocaleArtistsRoute = LocaleArtistsRouteImport.update({
   path: '/$locale/artists',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuizCycleCycleRoute = QuizCycleCycleRouteImport.update({
+  id: '/cycle/$cycle',
+  path: '/cycle/$cycle',
+  getParentRoute: () => QuizRoute,
+} as any)
 const LocaleArtistsSlugRoute = LocaleArtistsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -212,7 +224,7 @@ export interface FileRoutesByFullPath {
   '/listen': typeof ListenRoute
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
-  '/quiz': typeof QuizRoute
+  '/quiz': typeof QuizRouteWithChildren
   '/radio': typeof RadioRoute
   '/reviews': typeof ReviewsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -228,7 +240,9 @@ export interface FileRoutesByFullPath {
   '/blog/$id': typeof BlogIdRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
+  '/quiz/archive': typeof QuizArchiveRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
+  '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -245,7 +259,7 @@ export interface FileRoutesByTo {
   '/listen': typeof ListenRoute
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
-  '/quiz': typeof QuizRoute
+  '/quiz': typeof QuizRouteWithChildren
   '/radio': typeof RadioRoute
   '/reviews': typeof ReviewsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -261,7 +275,9 @@ export interface FileRoutesByTo {
   '/blog/$id': typeof BlogIdRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
+  '/quiz/archive': typeof QuizArchiveRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
+  '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -279,7 +295,7 @@ export interface FileRoutesById {
   '/listen': typeof ListenRoute
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
-  '/quiz': typeof QuizRoute
+  '/quiz': typeof QuizRouteWithChildren
   '/radio': typeof RadioRoute
   '/reviews': typeof ReviewsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -295,7 +311,9 @@ export interface FileRoutesById {
   '/blog/$id': typeof BlogIdRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/styles': typeof LearnStylesRoute
+  '/quiz/archive': typeof QuizArchiveRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
+  '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -330,7 +348,9 @@ export interface FileRouteTypes {
     | '/blog/$id'
     | '/experience/media'
     | '/learn/styles'
+    | '/quiz/archive'
     | '/$locale/artists/$slug'
+    | '/quiz/cycle/$cycle'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -363,7 +383,9 @@ export interface FileRouteTypes {
     | '/blog/$id'
     | '/experience/media'
     | '/learn/styles'
+    | '/quiz/archive'
     | '/$locale/artists/$slug'
+    | '/quiz/cycle/$cycle'
   id:
     | '__root__'
     | '/'
@@ -396,7 +418,9 @@ export interface FileRouteTypes {
     | '/blog/$id'
     | '/experience/media'
     | '/learn/styles'
+    | '/quiz/archive'
     | '/$locale/artists/$slug'
+    | '/quiz/cycle/$cycle'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -414,7 +438,7 @@ export interface RootRouteChildren {
   ListenRoute: typeof ListenRoute
   LoginRoute: typeof LoginRoute
   PrivacyRoute: typeof PrivacyRoute
-  QuizRoute: typeof QuizRoute
+  QuizRoute: typeof QuizRouteWithChildren
   RadioRoute: typeof RadioRoute
   ReviewsRoute: typeof ReviewsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -586,6 +610,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quiz/archive': {
+      id: '/quiz/archive'
+      path: '/archive'
+      fullPath: '/quiz/archive'
+      preLoaderRoute: typeof QuizArchiveRouteImport
+      parentRoute: typeof QuizRoute
+    }
     '/learn/styles': {
       id: '/learn/styles'
       path: '/learn/styles'
@@ -642,6 +673,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleArtistsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quiz/cycle/$cycle': {
+      id: '/quiz/cycle/$cycle'
+      path: '/cycle/$cycle'
+      fullPath: '/quiz/cycle/$cycle'
+      preLoaderRoute: typeof QuizCycleCycleRouteImport
+      parentRoute: typeof QuizRoute
+    }
     '/$locale/artists/$slug': {
       id: '/$locale/artists/$slug'
       path: '/$slug'
@@ -673,6 +711,18 @@ const BlogRouteChildren: BlogRouteChildren = {
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
+interface QuizRouteChildren {
+  QuizArchiveRoute: typeof QuizArchiveRoute
+  QuizCycleCycleRoute: typeof QuizCycleCycleRoute
+}
+
+const QuizRouteChildren: QuizRouteChildren = {
+  QuizArchiveRoute: QuizArchiveRoute,
+  QuizCycleCycleRoute: QuizCycleCycleRoute,
+}
+
+const QuizRouteWithChildren = QuizRoute._addFileChildren(QuizRouteChildren)
+
 interface LocaleArtistsRouteChildren {
   LocaleArtistsSlugRoute: typeof LocaleArtistsSlugRoute
 }
@@ -700,7 +750,7 @@ const rootRouteChildren: RootRouteChildren = {
   ListenRoute: ListenRoute,
   LoginRoute: LoginRoute,
   PrivacyRoute: PrivacyRoute,
-  QuizRoute: QuizRoute,
+  QuizRoute: QuizRouteWithChildren,
   RadioRoute: RadioRoute,
   ReviewsRoute: ReviewsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
@@ -718,3 +768,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
