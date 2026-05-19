@@ -27,6 +27,8 @@ export type DiscographyEntry = {
 };
 export type AwardEntry = { year: number | string; title: string; category?: string; note?: string };
 
+export type Lang = "en" | "no" | "sv" | "de";
+
 export type ArtistRecord = {
   id: string;
   slug: string;
@@ -34,11 +36,39 @@ export type ArtistRecord = {
   alt_name: string | null;
   tag: string;
   era: string | null;
+  era_label_en: string | null;
+  era_label_no: string | null;
+  era_label_sv: string | null;
   region: string | null;
+  country: string | null;
+  base_path: string | null;
+  route_path: string | null;
   img: string | null;
+  og_image: string | null;
+  image_credit: string | null;
+  gallery_images: string[];
+  youtube_video_ids: string[];
   short: string | null;
+  short_en: string | null;
+  short_no: string | null;
+  short_sv: string | null;
+  biography_en: string | null;
+  biography_no: string | null;
+  biography_sv: string | null;
+  biography_de: string | null;
+  influence_en: string | null;
+  influence_no: string | null;
+  influence_sv: string | null;
+  seo_title_en: string | null;
+  seo_title_no: string | null;
+  seo_title_sv: string | null;
+  seo_description_en: string | null;
+  seo_description_no: string | null;
+  seo_description_sv: string | null;
   born: string | null;
   died: string | null;
+  birth_place: string | null;
+  birth_name: string | null;
   origin: string | null;
   active_years: string | null;
   influence_note: string | null;
@@ -47,18 +77,13 @@ export type ArtistRecord = {
   influences: string[];
   labels: string[];
   instruments_simple: string[];
+  styles: string[];
+  categories: string[];
+  search_terms: string[];
+  social_links: Record<string, string>;
+  external_links: Array<{ label?: string; url: string }>;
+  article_references: Array<{ title?: string; url: string }>;
   legacy: string | null;
-  family: FamilyEntry[];
-  formative: string[];
-  instruments: InstrumentEntry[];
-  anecdotes: string[];
-  collaborators: CollaboratorEntry[];
-  videos: VideoEntry[];
-  discography: DiscographyEntry[];
-  awards: AwardEntry[];
-  related_slugs: string[];
-  sort_order: number;
-};
 
 function normalise(row: any): ArtistRecord {
   return {
