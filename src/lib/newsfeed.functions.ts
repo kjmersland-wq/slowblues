@@ -132,7 +132,7 @@ export const getNewsTicker = createServerFn({ method: "GET" }).handler(
         const parts = [c.title, c.artist_name, where, when].filter(Boolean);
         out.push({
           id: `con-${c.slug}`,
-          kind: "artist", // closest existing kind for color; concerts share blue accent
+          kind: "concert",
           flag,
           label,
           text: parts.join(" — "),
