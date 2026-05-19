@@ -37,7 +37,7 @@ function QuizArchivePage() {
             return (
               <Link
                 key={n}
-                to={"/quiz/cycle/$cycle" as any}
+                to="/quiz/cycle/$cycle"
                 params={{ cycle: getCycleKey(n) }}
                 className="block rounded-xl border border-border bg-card/50 p-5 hover:border-gold/60 hover:bg-card/80 transition"
               >
