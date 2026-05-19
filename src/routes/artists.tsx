@@ -18,16 +18,28 @@ export const Route = createFileRoute("/artists")({
   ]}),
 });
 
-const TAGS = ["All", "Delta", "Chicago", "Texas", "British", "Classic", "Modern", "Nordic"] as const;
+const REGIONS = [
+  { id: "all", label: "Alle" },
+  { id: "american", label: "Amerikanske" },
+  { id: "british", label: "Britiske" },
+  { id: "european", label: "Europeiske" },
+  { id: "scandinavian", label: "Skandinaviske" },
+  { id: "african", label: "Afrikanske" },
+  { id: "australian", label: "Australske" },
+] as const;
 
 function ArtistsPage() {
   const { t } = useI18n();
   const { data, loading, error } = useArtists();
-  const [tag, setTag] = useState<string>("All");
+  const [region, setRegion] = useState<string>("all");
   const [q, setQ] = useState("");
   const filtered = useMemo(
-    () => (data ?? []).filter((a) => (tag === "All" || a.tag === tag) && a.name.toLowerCase().includes(q.toLowerCase())),
-    [tag, q, data],
+    () => (data ?? []).filter((a) =>
+      (region === "all" || a.region === region) &&
+      (a.name.toLowerCase().includes(q.toLowerCase()) ||
+        (a.search_terms ?? []).some((s) => s.toLowerCase().includes(q.toLowerCase())))
+    ),
+    [region, q, data],
   );
 
   return (
@@ -36,9 +48,9 @@ function ArtistsPage() {
       <section className="max-w-7xl mx-auto px-6 py-12">
         <div className="flex flex-wrap items-center gap-3 justify-between mb-8">
           <div className="flex flex-wrap gap-2">
-            {TAGS.map((x) => (
-              <button key={x} onClick={() => setTag(x)} className={`px-3 py-1.5 rounded-full text-sm border transition ${tag === x ? "bg-gold text-primary-foreground border-gold" : "border-border text-muted-foreground hover:text-gold hover:border-gold/50"}`}>
-                {x === "All" ? t.pages.artists.filterAll : x}
+            {REGIONS.map((x) => (
+              <button key={x.id} onClick={() => setRegion(x.id)} className={`px-3 py-1.5 rounded-full text-sm border transition ${region === x.id ? "bg-gold text-primary-foreground border-gold" : "border-border text-muted-foreground hover:text-gold hover:border-gold/50"}`}>
+                {x.label}
               </button>
             ))}
           </div>
@@ -51,20 +63,26 @@ function ArtistsPage() {
         {error && <p className="text-center text-destructive py-8">Kunne ikke laste artister: {error}</p>}
         {loading && !data && <p className="text-center text-muted-foreground py-16">Laster artister…</p>}
 
+        {data && <p className="text-xs text-muted-foreground mb-4">{filtered.length} av {data.length} artister</p>}
+
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-          {filtered.map((a) => (
-            <Link key={a.slug} to="/artists/$slug" params={{ slug: a.slug }} className="group bg-card/50 border border-border rounded-lg overflow-hidden hover:border-gold/60 transition">
-              <div className="aspect-[3/4] overflow-hidden">
-                {a.img && <SafeImage src={a.img} alt={a.name} loading="lazy" className="size-full object-cover group-hover:scale-105 transition duration-700" />}
-              </div>
-              <div className="p-4">
-                <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-1">{a.tag}{a.era && ` · ${a.era}`}</div>
-                <h3 className="font-display text-xl mb-1">{a.name}</h3>
-                {a.short && <p className="text-xs text-muted-foreground leading-relaxed">{a.short}</p>}
-              </div>
-            </Link>
-          ))}
+          {filtered.map((a) => {
+            const imgSrc = resolveArtistImage(a.img);
+            return (
+              <Link key={a.slug} to="/artists/$slug" params={{ slug: a.slug }} className="group bg-card/50 border border-border rounded-lg overflow-hidden hover:border-gold/60 transition">
+                <div className="aspect-[3/4] overflow-hidden bg-muted/20">
+                  {imgSrc && <SafeImage src={imgSrc} alt={a.name} loading="lazy" className="size-full object-cover group-hover:scale-105 transition duration-700" />}
+                </div>
+                <div className="p-4">
+                  <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-1">{a.country ?? a.region}{a.era && ` · ${a.era}`}</div>
+                  <h3 className="font-display text-xl mb-1">{a.name}</h3>
+                  {a.short && <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">{a.short}</p>}
+                </div>
+              </Link>
+            );
+          })}
         </div>
+
 
         {!loading && filtered.length === 0 && <p className="text-center text-muted-foreground py-16">No artists match your filter.</p>}
         <p className="text-xs text-muted-foreground text-center mt-10">Portraits: Wikimedia Commons / Library of Congress — {t.common.publicDomain} & CC.</p>
