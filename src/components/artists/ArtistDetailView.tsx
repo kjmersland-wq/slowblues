@@ -40,6 +40,7 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
 
   const heroImg = resolveArtistImage(a.img) ?? IMG.muddyWaters;
   const related = computeRelated(a, all ?? [], 8);
+  const nameIndex = useNameIndex(all);
   const bio = pickLang(a, lang, "biography");
   const short = pickLang(a, lang, "short") ?? a.short;
   const influence = pickLang(a, lang, "influence");
