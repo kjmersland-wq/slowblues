@@ -45,7 +45,7 @@ function LinksAdminPage() {
   };
 
   if (loading) return <PageShell><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
-  if (user && !isAdmin) return <PageShell><PageHero eyebrow="Admin" title="Ingen tilgang" img={IMG.pianoNight} /></PageShell>;
+  if (user && !isAdmin) return <PageShell><PageHero eyebrow="Admin" title="Ingen tilgang" lead="Kontoen din har ikke admin-rolle." img={IMG.pianoNight} /></PageShell>;
 
   const dead = (report ?? []).filter((r) => (r.website && !r.website.ok) || (r.facebook && !r.facebook.ok));
   const ok = (report ?? []).filter((r) => (r.website?.ok || r.facebook?.ok));
