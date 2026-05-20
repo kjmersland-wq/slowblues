@@ -1,0 +1,18 @@
+{
+  "name": "SlowBlues",
+  "short_name": "SlowBlues",
+  "description": "The slow, soulful roots of blues – artist profiles, history, instruments, and more.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["music", "education", "entertainment"]
+}

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sb="https://slowblues.no/rss-extensions">
+  <channel>
+    <title>SlowBlues.no – Blues Blog</title>
+    <link>https://slowblues.no/blog</link>
+    <atom:link href="https://slowblues.no/rss.xml" rel="self" type="application/rss+xml"/>
+    <description>In-depth articles about blues history, essential albums, Scandinavian blues, and the music's journey from the Mississippi Delta to the rest of the world. Written with passion by Kjell Mersland.</description>
+    <language>en</language>
+    <managingEditor>post@slowblues.no (Kjell Mersland)</managingEditor>
+    <webMaster>post@slowblues.no (Kjell Mersland)</webMaster>
+    <copyright>© 2025–2026 SlowBlues.no. All rights reserved.</copyright>
+    <category>Music</category>
+    <category>Blues</category>
+    <lastBuildDate>Thu, 26 Feb 2026 12:00:00 +0100</lastBuildDate>
+    <ttl>1440</ttl>
+    <image>
+      <url>https://slowblues.no/images/og-cover.jpg</url>
+      <title>SlowBlues.no – Blues Blog</title>
+      <link>https://slowblues.no/blog</link>
+      <width>1200</width>
+      <height>630</height>
+    </image>
+
+    <item>
+      <title>Weekly Blues Dispatch (Week 09): Blues Music Awards Nominees, BluesGig Launch &amp; Duke Robillard's New Album!</title>
+      <link>https://slowblues.no/blog/weekly-blues-dispatch-week-09-2026</link>
+      <guid isPermaLink="true">https://slowblues.no/blog/weekly-blues-dispatch-week-09-2026</guid>
+      <pubDate>Sun, 23 Feb 2026 08:00:00 +0100</pubDate>
+      <dc:creator>Kjell Mersland</dc:creator>
+      <category>Weekly Dispatch</category>
+      <description>The Blues Foundation just dropped the 2026 Blues Music Awards nominees – and it's a stacked field. Plus: we introduce BluesGig, our new all-in-one tool for Nordic blues clubs, Duke Robillard drops 'Blast Off!', and Oz &amp; The Wizards' release concert is just two weeks away!</description>
+      <sb:artists>buddy-guy,kenny-wayne-shepherd,walter-trout,joe-bonamassa,bobby-rush</sb:artists>
+      <sb:sources>The Blues Foundation, Stony Plain Records, SlowBlues.no, Kristiansand Bluesklubb</sb:sources>
+    </item>
+
+    <item>
+      <title>Weekly Blues Dispatch: February Birthdays, Oz &amp; The Wizards Release Concert &amp; Your Help Wanted!</title>
+      <link>https://slowblues.no/blog/weekly-blues-dispatch-february-16-2026</link>
+      <guid isPermaLink="true">https://slowblues.no/blog/weekly-blues-dispatch-february-16-2026</guid>
+      <pubDate>Mon, 16 Feb 2026 08:00:00 +0100</pubDate>
+      <dc:creator>Kjell Mersland</dc:creator>
+      <category>Weekly Dispatch</category>
+      <description>This week we celebrate the blues legends born in February – from Lonnie Johnson to Knut Reiersrud – hype the upcoming Oz &amp; The Wizards release concert in Kristiansand, spotlight Duke Robillard's brand-new album, and make a heartfelt plea for your help with artist photos and information. Plus: have you tried our Blues Quiz yet?</description>
+      <sb:artists>lonnie-johnson,knut-reiersrud,joanne-shaw-taylor,louise-hoffsten,joe-bonamassa</sb:artists>
+      <sb:sources>SlowBlues.no Research, Kristiansand Bluesklubb, Stony Plain Records</sb:sources>
+    </item>
+
+    <item>
+      <title>Buddy Guy Just Won What Might Be His Last Grammy – And I Need a Minute</title>
+      <link>https://slowblues.no/blog/buddy-guys-last-grammy-february-2026</link>
+      <guid isPermaLink="true">https://slowblues.no/blog/buddy-guys-last-grammy-february-2026</guid>
+      <pubDate>Sat, 07 Feb 2026 08:00:00 +0100</pubDate>
+      <dc:creator>Kjell Mersland</dc:creator>
+      <category>News</category>
+      <description>The 2026 Grammys gave Buddy Guy Best Traditional Blues Album for 'Ain't Done With The Blues.' At 89, this might be the final chapter – and it hit me harder than I expected. Plus: Big Blues Bender drops a monster lineup, Billy Branch proves Chicago harp is still king, and a Florida festival just booked the perfect blues weekend.</description>
+      <sb:artists>buddy-guy,bobby-rush,kenny-wayne-shepherd,sue-foley,little-walter</sb:artists>
+      <sb:sources>Grammy Awards 2026 Official Results, Alligator Records, Blues Foundation</sb:sources>
+    </item>
+
+    <item>
+      <title>Blues in February 2026 – New Albums, Tours &amp; Festival Announcements</title>
+      <link>https://slowblues.no/blog/blues-february-2026</link>
+      <guid isPermaLink="true">https://slowblues.no/blog/blues-february-2026</guid>
+      <pubDate>Sun, 01 Feb 2026 08:00:00 +0100</pubDate>
+      <dc:creator>Kjell Mersland</dc:creator>
+      <category>News</category>
+      <description>February 2026 is loaded with blues action: Joe Bonamassa drops a monumental B.B. King tribute, Lil' Ed &amp; The Blues Imperials return with a Chicago slide masterpiece, Tinsley Ellis goes acoustic, and Kingfish launches his Hard Road Tour.</description>
+      <sb:artists>joe-bonamassa,bb-king,christone-kingfish-ingram,buddy-guy</sb:artists>
+      <sb:sources>Alligator Records, J&amp;R Adventures, Vintage Guitar Magazine, Notodden Blues Festival</sb:sources>
+    </item>
+
+    <item>
+      <title>The Women Who Shaped the Blues</title>
+      <link>https://slowblues.no/blog/women-who-shaped-the-blues</link>
+      <guid isPermaLink="true">https://slowblues.no/blog/women-who-shaped-the-blues</guid>
+      <pubDate>Sun, 01 Jun 2025 08:00:00 +0200</pubDate>
+      <dc:creator>Kjell Mersland</dc:creator>
+      <category>Blues History</category>
+      <description>From Ma Rainey and Bessie Smith to Koko Taylor and modern trailblazers – the often-overlooked story of women who were foundational to the blues.</description>
+      <sb:artists>ma-rainey,bessie-smith,koko-taylor,etta-james,shemekia-copeland</sb:artists>
+      <sb:sources>The Blues Foundation, Library of Congress, Angela Davis – 'Blues Legacies and Black Feminism'</sb:sources>
+    </item>
+
+    <item>
+      <title>Blues in Scandinavia – How the Delta Sound Traveled North</title>
+      <link>https://slowblues.no/blog/blues-in-scandinavia</link>
+      <guid isPermaLink="true">https://slowblues.no/blog/blues-in-scandinavia</guid>
+      <pubDate>Mon, 10 Mar 2025 08:00:00 +0100</pubDate>
+      <dc:creator>Kjell Mersland</dc:creator>
+      <category>Blues Culture</category>
+      <description>The unlikely but passionate story of how Mississippi Delta blues took root in the cold Nordic countries and produced a vibrant blues scene.</description>
+      <sb:artists>knut-reiersrud,vidar-busk,erja-lyytinen,amund-maarud,louise-hoffsten</sb:artists>
+      <sb:sources>Notodden Blues Festival Archives, Norwegian Blues Union, Helsinki Blues Festival</sb:sources>
+    </item>
+
+    <item>
+      <title>10 Blues Albums You Must Hear Before You Die</title>
+      <link>https://slowblues.no/blog/10-blues-albums-you-must-hear</link>
+      <guid isPermaLink="true">https://slowblues.no/blog/10-blues-albums-you-must-hear</guid>
+      <pubDate>Wed, 15 Jan 2025 08:00:00 +0100</pubDate>
+      <dc:creator>Kjell Mersland</dc:creator>
+      <category>Essential Listening</category>
+      <description>From Robert Johnson's haunting recordings to modern masterpieces – these are the essential blues albums that every music lover needs in their collection.</description>
+      <sb:artists>robert-johnson,muddy-waters,bb-king,howlin-wolf,buddy-guy,albert-king,freddie-king,stevie-ray-vaughan,etta-james,joe-bonamassa</sb:artists>
+      <sb:sources>Chess Records, Stax Records, Robert Palmer – 'Deep Blues', Elijah Wald – 'Escaping the Delta'</sb:sources>
+    </item>
+
+  </channel>
+</rss>
