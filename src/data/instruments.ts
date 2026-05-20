@@ -246,3 +246,78 @@ export const getInstrumentById = (id: string): InstrumentHistory | undefined => 
 export const getInstrumentsByCategory = (category: InstrumentHistory["category"]): InstrumentHistory[] => {
   return instrumentsHistory.filter(i => i.category === category);
 };
+
+// Real images sourced from Wikimedia Commons (CC BY-SA / public domain) and Pexels.
+// Used to illustrate each instrument on /instruments.
+export const instrumentImages: Record<string, { url: string; credit: string; creditUrl?: string }> = {
+  "national-resonator": {
+    url: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Resonator_Style0.jpg",
+    credit: "Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Resonator_Style0.jpg",
+  },
+  "gibson-es-150": {
+    url: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Gibson_ES-150.png",
+    credit: "Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Gibson_ES-150.png",
+  },
+  "fender-telecaster": {
+    url: "https://upload.wikimedia.org/wikipedia/commons/0/05/Fender_Telecaster_American_Vintage_1952_transparent.png",
+    credit: "Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Fender_Telecaster_American_Vintage_1952_transparent.png",
+  },
+  "fender-stratocaster": {
+    url: "https://upload.wikimedia.org/wikipedia/commons/1/19/Black_Strat.jpg",
+    credit: "Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Black_Strat.jpg",
+  },
+  "gibson-les-paul": {
+    url: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Full_front_R9_Les_Paul.jpg",
+    credit: "Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Full_front_R9_Les_Paul.jpg",
+  },
+  "gibson-es-335": {
+    url: "https://upload.wikimedia.org/wikipedia/commons/0/0c/1960_Gibson_ES-335TD.jpg",
+    credit: "Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:1960_Gibson_ES-335TD.jpg",
+  },
+  "hohner-marine-band": {
+    url: "https://upload.wikimedia.org/wikipedia/commons/1/1d/Marine_Band_harmonica_in_box.jpg",
+    credit: "Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Marine_Band_harmonica_in_box.jpg",
+  },
+  "hohner-special-20": {
+    url: "https://upload.wikimedia.org/wikipedia/commons/d/de/Hohner_Special_20.jpg",
+    credit: "Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Hohner_Special_20.jpg",
+  },
+  "fender-bassman": {
+    url: "https://upload.wikimedia.org/wikipedia/commons/d/de/Bassman15.JPG",
+    credit: "Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Bassman15.JPG",
+  },
+  "fender-super-reverb": {
+    url: "https://upload.wikimedia.org/wikipedia/commons/b/bd/1964_Fender_Super_Reverb.JPG",
+    credit: "Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:1964_Fender_Super_Reverb.JPG",
+  },
+  "fender-deluxe-reverb": {
+    url: "https://upload.wikimedia.org/wikipedia/commons/0/04/DlxReverbFront.jpg",
+    credit: "Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:DlxReverbFront.jpg",
+  },
+  "astatic-jt30": {
+    url: "https://images.pexels.com/photos/32175741/pexels-photo-32175741.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    credit: "Christopher Welsch Leveroni / Pexels",
+    creditUrl: "https://www.pexels.com/photo/32175741/",
+  },
+  "shure-green-bullet": {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Shure_520DX_Green_Bullet_-_Dynamic_Harmonica_Microphone%2C_along_with_microphone_volume_knob_on_Gibson_Kalamazoo_amplifier_model_KEH-....jpg/960px-Shure_520DX_Green_Bullet_-_Dynamic_Harmonica_Microphone%2C_along_with_microphone_volume_knob_on_Gibson_Kalamazoo_amplifier_model_KEH-....jpg",
+    credit: "Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Shure_520DX_Green_Bullet_-_Dynamic_Harmonica_Microphone,_along_with_microphone_volume_knob_on_Gibson_Kalamazoo_amplifier_model_KEH-....jpg",
+  },
+  "glass-slide": {
+    url: "https://upload.wikimedia.org/wikipedia/commons/a/aa/Fingandslide.jpg",
+    credit: "Wikimedia Commons",
+    creditUrl: "https://commons.wikimedia.org/wiki/File:Fingandslide.jpg",
+  },
+};
