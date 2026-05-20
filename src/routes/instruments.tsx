@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
-import { instrumentsHistory, instrumentCategories, type InstrumentHistory } from "@/data/instruments";
+import { instrumentsHistory, instrumentCategories, instrumentImages, type InstrumentHistory } from "@/data/instruments";
+import { SafeImage } from "@/components/SafeImage";
 import { useState } from "react";
 
 export const Route = createFileRoute("/instruments")({
