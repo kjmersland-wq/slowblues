@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slowblues Newsletter</title>
+<style>
+  body { margin: 0; padding: 0; background: #f0ede8; font-family: Georgia, serif; }
+  .wrapper { max-width: 620px; margin: 0 auto; background: #faf9f6; }
+  .header { background: #1a2e4a; padding: 36px 40px 28px; text-align: center; }
+  .header h1 { margin: 0 0 4px; color: #e8d5a3; font-size: 32px; letter-spacing: 4px; font-family: Georgia, serif; }
+  .header p { margin: 0; color: #9ab0c8; font-size: 13px; letter-spacing: 1px; font-style: italic; }
+  .meta-bar { background: #243d57; padding: 10px 40px; text-align: center; color: #7a9bb8; font-size: 11px; font-family: Arial, sans-serif; letter-spacing: 0.5px; }
+  .section { padding: 32px 40px; border-bottom: 1px solid #e8e4de; }
+  .section-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; letter-spacing: 2px; color: #2e7d52; text-transform: uppercase; margin: 0 0 12px; }
+  .section h2 { font-family: Georgia, serif; font-size: 22px; color: #1a2e4a; margin: 0 0 12px; line-height: 1.3; }
+  .section p { font-family: Arial, sans-serif; font-size: 15px; color: #3a3a3a; line-height: 1.7; margin: 0 0 12px; }
+  .section a { color: #2e7d52; }
+  .divider { border: none; border-top: 1px solid #ddd8d0; margin: 0; }
+  .intro { background: #fdf8f0; padding: 28px 40px; border-bottom: 1px solid #e8e4de; }
+  .intro p { font-family: Georgia, serif; font-size: 16px; color: #2a2a2a; line-height: 1.8; margin: 0; font-style: italic; }
+  .main-review { padding: 32px 40px; border-bottom: 3px solid #1a2e4a; }
+  .review-meta { font-family: Arial, sans-serif; font-size: 12px; color: #888; margin: 0 0 16px; line-height: 1.8; }
+  .review-meta span { color: #1a2e4a; font-weight: bold; }
+  .verdict { background: #1a2e4a; color: #e8d5a3; padding: 16px 20px; font-family: Georgia, serif; font-style: italic; font-size: 15px; line-height: 1.6; margin: 16px 0; }
+  .read-more { display: inline-block; background: #2e7d52; color: #fff !important; padding: 10px 22px; font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; letter-spacing: 1px; text-decoration: none; margin-top: 8px; }
+  .short-review { padding: 20px 0; border-bottom: 1px solid #ece8e2; }
+  .short-review:last-child { border-bottom: none; }
+  .short-review h3 { font-family: Georgia, serif; font-size: 17px; color: #1a2e4a; margin: 0 0 6px; }
+  .short-review .meta { font-family: Arial, sans-serif; font-size: 11px; color: #999; margin: 0 0 8px; }
+  .short-review p { font-family: Arial, sans-serif; font-size: 14px; color: #444; line-height: 1.6; margin: 0 0 6px; }
+  .news-item { padding: 16px 0; border-bottom: 1px solid #ece8e2; }
+  .news-item:last-child { border-bottom: none; }
+  .news-item h4 { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; color: #1a2e4a; margin: 0 0 6px; }
+  .news-item p { font-family: Arial, sans-serif; font-size: 14px; color: #444; line-height: 1.6; margin: 0 0 4px; }
+  .concerts { padding: 32px 40px; border-bottom: 1px solid #e8e4de; }
+  .concert-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #ece8e2; font-family: Arial, sans-serif; font-size: 14px; }
+  .concert-item:last-child { border-bottom: none; }
+  .concert-artist { color: #1a2e4a; font-weight: bold; }
+  .concert-info { color: #666; font-size: 13px; }
+  .support { background: #1a2e4a; padding: 32px 40px; }
+  .support-block { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #2d4a68; }
+  .support-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .support-block .emoji { font-size: 22px; margin-bottom: 8px; display: block; }
+  .support-block h3 { font-family: Georgia, serif; color: #e8d5a3; font-size: 17px; margin: 0 0 8px; }
+  .support-block p { font-family: Arial, sans-serif; color: #9ab0c8; font-size: 14px; line-height: 1.6; margin: 0 0 10px; }
+  .support-block a { color: #6ecf96 !important; font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; letter-spacing: 0.5px; }
+  .signoff { padding: 32px 40px; background: #fdf8f0; border-bottom: 1px solid #e8e4de; }
+  .signoff p { font-family: Georgia, serif; font-size: 16px; color: #2a2a2a; line-height: 1.8; margin: 0 0 8px; font-style: italic; }
+  .signoff .name { font-style: normal; font-weight: bold; color: #1a2e4a; }
+  .footer { background: #111d2b; padding: 24px 40px; text-align: center; }
+  .footer p { font-family: Arial, sans-serif; font-size: 12px; color: #556; margin: 4px 0; }
+  .footer a { color: #7a9bb8 !important; }
+  @media (max-width: 480px) {
+    .section, .intro, .main-review, .concerts, .support, .signoff { padding: 24px 20px; }
+    .header { padding: 28px 20px 20px; }
+    .concert-item { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <div class="header">
+    <img src="https://fxyinaxloebqyptkbeki.supabase.co/storage/v1/object/public/email-assets/slowblues-logo.png" alt="SlowBlues.no — Global Blues Encyclopaedia" width="180" style="display:block; margin: 0 auto 18px; max-width:180px;" />
+    <h1>SLOWBLUES.NO</h1>
+    <p>Weekly Blues Newsletter — Issue #[###] — [DD.MM.YYYY]</p>
+  </div>
+  <div class="meta-bar">
+    Every Monday 21:00 CET &nbsp;•&nbsp; English Edition &nbsp;•&nbsp; Archive: EN / NO / DE
+  </div>
+
+  <!-- SECTION 1: INTRO -->
+  <div class="intro">
+    <p>
+      [Skriv din personlige intro her — varm, uformell, 2–3 setninger. 
+      Hva fanget oppmerksomheten din denne uken? 
+      Hint gjerne om hva som venter i utgaven.]
+    </p>
+  </div>
+
+  <!-- SECTION 2: MAIN REVIEW -->
+  <div class="main-review">
+    <div class="section-label">📀 Main Feature</div>
+    <h2>[Artist — Albumtittel (År)]</h2>
+    <div class="review-meta">
+      <span>Genre:</span> [f.eks. Chicago Blues] &nbsp;|&nbsp;
+      <span>Origin:</span> [Land/Region] &nbsp;|&nbsp;
+      <span>Released:</span> [År] &nbsp;|&nbsp;
+      <a href="[YouTube URL]" style="color:#2e7d52;">▶ Listen on YouTube</a>
+    </div>
+    <p>[Ingress — åpningskrok, 2–3 setninger som setter scenen for anmeldelsen.]</p>
+    <p>[Hoveddel avsnitt 1 — beskriv lyden, stemningen, musikerne.]</p>
+    <p>[Hoveddel avsnitt 2 — fremhev spesifikke låter eller øyeblikk.]</p>
+    <p>[Hoveddel avsnitt 3 — kontekst, sammenligning, hvorfor dette albumet betyr noe.]</p>
+    <div class="verdict">
+      "[Din endelige dom — 1–2 setninger. Hva sitter igjen etter siste takt.]"
+    </div>
+    <a href="https://slowblues.no/[url]" class="read-more">Read Full Review →</a>
+  </div>
+
+  <!-- SECTION 3: MORE REVIEWS -->
+  <div class="section">
+    <div class="section-label">📝 More Reviews</div>
+    <div class="short-review">
+      <h3>[Artist — Album (År)]</h3>
+      <div class="meta">[Sjanger] &nbsp;•&nbsp; [Land] &nbsp;•&nbsp; <a href="[YouTube URL]">▶ YouTube</a></div>
+      <p>[Kort omtale — 2–3 setninger om albumet.]</p>
+      <a href="https://slowblues.no/[url]" style="color:#2e7d52; font-size:13px; font-family:Arial,sans-serif;">Read more →</a>
+    </div>
+    <div class="short-review">
+      <h3>[Artist — Album (År)]</h3>
+      <div class="meta">[Sjanger] &nbsp;•&nbsp; [Land] &nbsp;•&nbsp; <a href="[YouTube URL]">▶ YouTube</a></div>
+      <p>[Kort omtale — 2–3 setninger om albumet.]</p>
+      <a href="https://slowblues.no/[url]" style="color:#2e7d52; font-size:13px; font-family:Arial,sans-serif;">Read more →</a>
+    </div>
+    <div class="short-review">
+      <h3>[Artist — Album (År)]</h3>
+      <div class="meta">[Sjanger] &nbsp;•&nbsp; [Land] &nbsp;•&nbsp; <a href="[YouTube URL]">▶ YouTube</a></div>
+      <p>[Kort omtale — 2–3 setninger om albumet.]</p>
+      <a href="https://slowblues.no/[url]" style="color:#2e7d52; font-size:13px; font-family:Arial,sans-serif;">Read more →</a>
+    </div>
+  </div>
+
+  <!-- SECTION 4: BLUES WORLD NEWS -->
+  <div class="section">
+    <div class="section-label">🌍 From the Blues World</div>
+    <div class="news-item">
+      <h4>[Overskrift nyhet 1]</h4>
+      <p>[2–4 setninger om saken. Kilde og kontekst inkludert.]</p>
+      <a href="[ekstern lenke]" style="color:#2e7d52; font-size:13px; font-family:Arial,sans-serif;">Read more →</a>
+    </div>
+    <div class="news-item">
+      <h4>[Overskrift nyhet 2]</h4>
+      <p>[2–4 setninger om saken.]</p>
+      <a href="[lenke]" style="color:#2e7d52; font-size:13px; font-family:Arial,sans-serif;">Read more →</a>
+    </div>
+    <div class="news-item">
+      <h4>[Overskrift nyhet 3]</h4>
+      <p>[2–4 setninger om saken.]</p>
+      <a href="[lenke]" style="color:#2e7d52; font-size:13px; font-family:Arial,sans-serif;">Read more →</a>
+    </div>
+    <div class="news-item">
+      <h4>[Overskrift nyhet 4]</h4>
+      <p>[2–4 setninger om saken.]</p>
+      <a href="[lenke]" style="color:#2e7d52; font-size:13px; font-family:Arial,sans-serif;">Read more →</a>
+    </div>
+    <div class="news-item">
+      <h4>[Overskrift nyhet 5]</h4>
+      <p>[2–4 setninger om saken.]</p>
+      <a href="[lenke]" style="color:#2e7d52; font-size:13px; font-family:Arial,sans-serif;">Read more →</a>
+    </div>
+    <div class="news-item">
+      <h4>[Overskrift nyhet 6]</h4>
+      <p>[2–4 setninger om saken.]</p>
+      <a href="[lenke]" style="color:#2e7d52; font-size:13px; font-family:Arial,sans-serif;">Read more →</a>
+    </div>
+  </div>
+
+  <!-- SECTION 5: TOURS & CONCERTS -->
+  <div class="concerts">
+    <div class="section-label">🚌 Tours & Concerts</div>
+    <div class="concert-item">
+      <span class="concert-artist">[Artist]</span>
+      <span class="concert-info">[Venue, By] &nbsp;•&nbsp; [DD.MM.ÅÅÅÅ]</span>
+    </div>
+    <div class="concert-item">
+      <span class="concert-artist">[Artist]</span>
+      <span class="concert-info">[Venue, By] &nbsp;•&nbsp; [DD.MM.ÅÅÅÅ]</span>
+    </div>
+    <div class="concert-item">
+      <span class="concert-artist">[Artist]</span>
+      <span class="concert-info">[Venue, By] &nbsp;•&nbsp; [DD.MM.ÅÅÅÅ]</span>
+    </div>
+    <div class="concert-item">
+      <span class="concert-artist">[Artist]</span>
+      <span class="concert-info">[Venue, By] &nbsp;•&nbsp; [DD.MM.ÅÅÅÅ]</span>
+    </div>
+    <div class="concert-item">
+      <span class="concert-artist">[Artist]</span>
+      <span class="concert-info">[Venue, By] &nbsp;•&nbsp; [DD.MM.ÅÅÅÅ]</span>
+    </div>
+    <p style="margin:16px 0 0; font-family:Arial,sans-serif; font-size:13px;">
+      <a href="https://slowblues.no/concerts" style="color:#2e7d52;">→ All concert dates at slowblues.no/concerts</a>
+    </p>
+  </div>
+
+  <!-- SECTION 6: SUPPORT & COMMUNITY -->
+  <div class="support">
+    <div class="support-block">
+      <span class="emoji">💛</span>
+      <h3>Support the Blues</h3>
+      <p>Enjoying Slowblues.no? Your support keeps the blues alive and this newsletter going — no amount is too small.</p>
+      <a href="https://slowblues.no/support">→ slowblues.no/support</a>
+    </div>
+    <div class="support-block">
+      <span class="emoji">🗺️</span>
+      <h3>The Blues World Map</h3>
+      <p>Explore our unique interactive Blues World Map — history, artists and roots from every corner of the globe.</p>
+      <a href="https://slowblues.no/blues-map">→ slowblues.no/blues-map</a>
+    </div>
+    <div class="support-block">
+      <span class="emoji">📖</span>
+      <h3>Sign Our Guestbook</h3>
+      <p>We miss hearing from you! Leave a note, share what you're listening to, or just say hello.</p>
+      <a href="https://slowblues.no/guestbook">→ slowblues.no/guestbook</a>
+    </div>
+  </div>
+
+  <!-- SECTION 7: SIGN-OFF -->
+  <div class="signoff">
+    <p>[Avsluttende tanke — hva hører du på denne uken? En personlig refleksjon, 2–3 setninger.]</p>
+    <p><span class="name">Keep it slow, keep it blue —</span><br>[Ditt navn]</p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>
+      <a href="https://slowblues.no">slowblues.no</a> &nbsp;•&nbsp;
+      <a href="https://slowblues.no/blog">Archive</a> &nbsp;•&nbsp;
+      <a href="https://slowblues.no/blues-map">Blues Map</a> &nbsp;•&nbsp;
+      <a href="https://slowblues.no/guestbook">Guestbook</a>
+    </p>
+    <p style="color:#445; margin-top:12px;">
+      You're receiving this because you subscribed at slowblues.no<br>
+      <a href="{$unsubscribe}">Unsubscribe</a> &nbsp;•&nbsp; <a href="{$webversion}">View in browser</a>
+    </p>
+    <p style="color:#334; font-size:11px; margin-top:8px;">Blues for life 🎵</p>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<title>Slowblues — Bloggarkivering</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 680px; margin: 40px auto; padding: 0 20px; background: #f8f6f2; color: #1a1a1a; }
+  h1 { font-family: Georgia, serif; color: #1a2e4a; font-size: 26px; border-bottom: 3px solid #1a2e4a; padding-bottom: 12px; }
+  h2 { font-family: Georgia, serif; color: #2e7d52; font-size: 17px; margin: 28px 0 10px; }
+  .step { background: #fff; border-radius: 6px; padding: 18px 22px; margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+  .step .num { display: inline-block; background: #1a2e4a; color: #e8d5a3; font-size: 13px; font-weight: bold; width: 26px; height: 26px; line-height: 26px; text-align: center; border-radius: 50%; margin-right: 10px; }
+  .step h3 { display: inline; font-size: 15px; color: #1a2e4a; }
+  .step p, .step ul { font-size: 14px; color: #444; line-height: 1.8; margin: 10px 0 0 36px; padding-left: 0; }
+  .step ul { padding-left: 18px; }
+  code { background: #e8f4ec; color: #1a6b3a; padding: 2px 7px; border-radius: 3px; font-size: 13px; }
+  .tag-box { background: #fdf8f0; border: 1px solid #e8d5a3; padding: 14px 18px; border-radius: 4px; font-size: 13px; color: #7a5c20; margin-top: 8px; }
+  .prompt-box { background: #1a2e4a; color: #9ab0c8; padding: 18px 22px; border-radius: 6px; font-size: 13px; line-height: 1.8; margin-top: 10px; }
+  .prompt-box strong { color: #e8d5a3; }
+  footer { margin-top: 40px; font-size: 12px; color: #999; text-align: center; padding-bottom: 40px; }
+</style>
+</head>
+<body>
+
+<h1>📦 Bloggarkivering på slowblues.no</h1>
+<p style="color:#666; font-size:14px;">Gjøres hver mandag kveld etter nyhetsbrevet er sendt ut via MailerLite.</p>
+
+<h2>Steg for steg</h2>
+
+<div class="step">
+  <span class="num">1</span><h3>Eksporter HTML fra MailerLite</h3>
+  <p>Etter utsending → åpne kampanjen i MailerLite → klikk <strong>"View web version"</strong> eller eksporter HTML. Dette er grunnlaget for alle tre blogginnlegg.</p>
+</div>
+
+<div class="step">
+  <span class="num">2</span><h3>Publiser engelsk versjon</h3>
+  <p>Opprett nytt blogginnlegg på slowblues.no:</p>
+  <ul>
+    <li>Tittel: <code>Newsletter #[###] — [Dato]</code></li>
+    <li>Lim inn innholdet (rens MailerLite-spesifikk kode)</li>
+    <li>Legg til albumbilder</li>
+    <li>URL: <code>slowblues.no/blog/newsletter-[###]</code></li>
+  </ul>
+</div>
+
+<div class="step">
+  <span class="num">3</span><h3>Oversett til norsk</h3>
+  <p>Bruk denne prompten til Claude:</p>
+  <div class="prompt-box">
+    <strong>Prompt:</strong><br>
+    Oversett dette nyhetsbrevinnholdet til norsk bokmål. 
+    Behold alle lenker og HTML-struktur uendret. 
+    Oversett kun løpende tekst — ikke artistnavn, albumnavn, stedsnavn eller URL-er. 
+    Behold den uformelle, varme tonen.<br><br>
+    [Lim inn engelsk tekst]
+  </div>
+  <p style="margin-top:12px;">Publiser som nytt blogginnlegg: <code>slowblues.no/blog/newsletter-[###]-no</code></p>
+</div>
+
+<div class="step">
+  <span class="num">4</span><h3>Oversett til tysk</h3>
+  <p>Bruk samme prompt som over, men bytt "norsk bokmål" med "tysk". Publiser: <code>slowblues.no/blog/newsletter-[###]-de</code></p>
+</div>
+
+<div class="step">
+  <span class="num">5</span><h3>Tagging</h3>
+  <div class="tag-box">
+    <strong>Standard tagger for alle tre versjoner:</strong><br><br>
+    <code>newsletter</code> &nbsp; <code>issue-[###]</code> &nbsp; <code>[artistnavn]</code> &nbsp; <code>[sjanger]</code> &nbsp; <code>[år]</code><br><br>
+    Eksempel: <code>newsletter</code> <code>issue-012</code> <code>buddy-guy</code> <code>chicago-blues</code> <code>2025</code>
+  </div>
+</div>
+
+<div class="step">
+  <span class="num">6</span><h3>Oppdater arkivsiden</h3>
+  <p>Legg til ny rad på <code>slowblues.no/newsletter-arkiv</code> (eller tilsvarende) med:</p>
+  <ul>
+    <li>Utgave #, dato, emnelinje</li>
+    <li>Lenker til EN / NO / DE versjon</li>
+  </ul>
+</div>
+
+<div class="step">
+  <span class="num">7</span><h3>Oppdater artistbiografier</h3>
+  <p>For hver artist omtalt i utgaven — sjekk om de finnes på slowblues.no. Legg til ny informasjon, nytt album, konserter eller lenker om nødvendig.</p>
+</div>
+
+<footer>slowblues.no &nbsp;•&nbsp; Blues for livet 🎵</footer>
+</body>
+</html>
