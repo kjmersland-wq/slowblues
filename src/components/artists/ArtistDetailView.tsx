@@ -5,6 +5,7 @@ import { resolveArtistImage } from "@/lib/artistImageMap";
 import { computeRelated } from "@/lib/relatedArtists";
 import { IMG } from "@/data/images";
 import { artistDetailPath, artistsListPath, type ArtistLocale } from "@/lib/locale";
+import { NameLink, useNameIndex } from "@/components/artists/NameLink";
 import {
   ArrowLeft, Music, MapPin, Disc3, Calendar, Users, Star, Quote, Guitar,
   PlayCircle, Mic, Award, Sparkles, Globe, ExternalLink, Image as ImageIcon, BookOpen,
