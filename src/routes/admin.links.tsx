@@ -38,7 +38,8 @@ function LinksAdminPage() {
 
   const clearLink = async (id: string, field: "website_url" | "facebook_url") => {
     if (!confirm("Fjern denne lenken fra artisten?")) return;
-    const { error } = await supabase.from("artists").update({ [field]: null }).eq("id", id);
+    const payload = field === "website_url" ? { website_url: null } : { facebook_url: null };
+    const { error } = await supabase.from("artists").update(payload).eq("id", id);
     if (error) { setMsg("Sletting feilet: " + error.message); return; }
     setReport((prev) => prev?.map((r) => r.id === id ? { ...r, [field === "website_url" ? "website" : "facebook"]: null } : r) ?? null);
   };

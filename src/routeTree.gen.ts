@@ -47,6 +47,7 @@ import { Route as ArtistsSlugRouteImport } from './routes/artists.$slug'
 import { Route as AdminWikidataRouteImport } from './routes/admin.wikidata'
 import { Route as AdminQuotesRouteImport } from './routes/admin.quotes'
 import { Route as AdminQualityRouteImport } from './routes/admin.quality'
+import { Route as AdminLinksRouteImport } from './routes/admin.links'
 import { Route as AboutMerchRouteImport } from './routes/about.merch'
 import { Route as AboutGuestbookRouteImport } from './routes/about.guestbook'
 import { Route as AboutBlogRouteImport } from './routes/about.blog'
@@ -247,6 +248,11 @@ const AdminQualityRoute = AdminQualityRouteImport.update({
   path: '/quality',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminLinksRoute = AdminLinksRouteImport.update({
+  id: '/links',
+  path: '/links',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AboutMerchRoute = AboutMerchRouteImport.update({
   id: '/about/merch',
   path: '/about/merch',
@@ -322,6 +328,7 @@ export interface FileRoutesByFullPath {
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
+  '/admin/links': typeof AdminLinksRoute
   '/admin/quality': typeof AdminQualityRoute
   '/admin/quotes': typeof AdminQuotesRoute
   '/admin/wikidata': typeof AdminWikidataRoute
@@ -371,6 +378,7 @@ export interface FileRoutesByTo {
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
+  '/admin/links': typeof AdminLinksRoute
   '/admin/quality': typeof AdminQualityRoute
   '/admin/quotes': typeof AdminQuotesRoute
   '/admin/wikidata': typeof AdminWikidataRoute
@@ -421,6 +429,7 @@ export interface FileRoutesById {
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
+  '/admin/links': typeof AdminLinksRoute
   '/admin/quality': typeof AdminQualityRoute
   '/admin/quotes': typeof AdminQuotesRoute
   '/admin/wikidata': typeof AdminWikidataRoute
@@ -472,6 +481,7 @@ export interface FileRouteTypes {
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
+    | '/admin/links'
     | '/admin/quality'
     | '/admin/quotes'
     | '/admin/wikidata'
@@ -521,6 +531,7 @@ export interface FileRouteTypes {
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
+    | '/admin/links'
     | '/admin/quality'
     | '/admin/quotes'
     | '/admin/wikidata'
@@ -570,6 +581,7 @@ export interface FileRouteTypes {
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
+    | '/admin/links'
     | '/admin/quality'
     | '/admin/quotes'
     | '/admin/wikidata'
@@ -900,6 +912,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminQualityRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/links': {
+      id: '/admin/links'
+      path: '/links'
+      fullPath: '/admin/links'
+      preLoaderRoute: typeof AdminLinksRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/about/merch': {
       id: '/about/merch'
       path: '/about/merch'
@@ -967,12 +986,14 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminLinksRoute: typeof AdminLinksRoute
   AdminQualityRoute: typeof AdminQualityRoute
   AdminQuotesRoute: typeof AdminQuotesRoute
   AdminWikidataRoute: typeof AdminWikidataRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminLinksRoute: AdminLinksRoute,
   AdminQualityRoute: AdminQualityRoute,
   AdminQuotesRoute: AdminQuotesRoute,
   AdminWikidataRoute: AdminWikidataRoute,
