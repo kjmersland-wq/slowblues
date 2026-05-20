@@ -101,8 +101,13 @@ export function ArtistListView({ locale }: { locale: ArtistLocale }) {
           const short = pickLang(a, lang, "short") ?? a.short;
           return (
             <Link key={a.slug} to={artistDetailPath(locale, a.slug)} className="group bg-card/50 border border-border rounded-lg overflow-hidden hover:border-gold/60 transition">
-              <div className="aspect-[3/4] overflow-hidden bg-muted/20">
-                {img && <SafeImage src={img} alt={a.name} loading="lazy" className="size-full object-cover group-hover:scale-105 transition duration-700" />}
+              <div className="relative aspect-[3/4] overflow-hidden bg-card/60">
+                {img && (
+                  <>
+                    <SafeImage src={img} alt="" className="absolute inset-0 size-full object-cover blur-xl scale-110 opacity-40" loading="lazy" />
+                    <SafeImage src={img} alt={a.name} loading="lazy" className="relative size-full object-contain group-hover:scale-[1.03] transition duration-700" />
+                  </>
+                )}
               </div>
               <div className="p-4">
                 <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-1">{a.country ?? a.region}{a.era && ` · ${a.era}`}</div>

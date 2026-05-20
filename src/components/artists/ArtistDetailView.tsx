@@ -62,8 +62,11 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
             <ArrowLeft className="size-4" /> {t.back}
           </Link>
           <div className="grid md:grid-cols-[320px_1fr] gap-10 items-start">
-            <div className="rounded-xl overflow-hidden border border-gold/30 shadow-2xl">
-              <SafeImage src={heroImg} alt={a.name} className="w-full aspect-[3/4] object-cover" />
+            <div className="rounded-xl overflow-hidden border border-gold/30 shadow-2xl bg-card/60">
+              <div className="relative aspect-[3/4] w-full overflow-hidden">
+                <SafeImage src={heroImg} alt="" className="absolute inset-0 size-full object-cover blur-2xl scale-110 opacity-40" loading="eager" />
+                <SafeImage src={heroImg} alt={a.name} className="relative size-full object-contain" loading="eager" />
+              </div>
               {a.image_credit && <div className="text-[10px] text-muted-foreground px-2 py-1 bg-card/60">{a.image_credit}</div>}
             </div>
             <div>
@@ -331,8 +334,9 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
           <Section icon={ImageIcon} title={t.gallery} tone="gold">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {gallery.map((src, i) => (
-                <div key={i} className="aspect-square rounded-lg overflow-hidden border border-border bg-muted/20">
-                  <SafeImage src={src} alt={`${a.name} ${i + 1}`} loading="lazy" className="size-full object-cover hover:scale-105 transition duration-500" />
+                <div key={i} className="relative aspect-square rounded-lg overflow-hidden border border-border bg-card/60">
+                  <SafeImage src={src} alt="" className="absolute inset-0 size-full object-cover blur-xl scale-110 opacity-40" loading="lazy" />
+                  <SafeImage src={src} alt={`${a.name} ${i + 1}`} loading="lazy" className="relative size-full object-contain transition duration-500" />
                 </div>
               ))}
             </div>
@@ -479,7 +483,12 @@ function RelatedCard({ a, locale }: { a: ArtistRecord; locale: ArtistLocale }) {
   const img = resolveArtistImage(a.img);
   return (
     <Link to={artistDetailPath(locale, a.slug)} className="block border border-border rounded-lg overflow-hidden bg-card/40 hover:border-gold/60 transition">
-      {img && <div className="aspect-[4/3] overflow-hidden bg-muted/20"><SafeImage src={img} alt={a.name} loading="lazy" className="size-full object-cover" /></div>}
+      {img && (
+        <div className="relative aspect-[4/3] overflow-hidden bg-card/60">
+          <SafeImage src={img} alt="" className="absolute inset-0 size-full object-cover blur-xl scale-110 opacity-40" loading="lazy" />
+          <SafeImage src={img} alt={a.name} loading="lazy" className="relative size-full object-contain" />
+        </div>
+      )}
       <div className="p-4">
         <div className="font-display text-lg text-gold mb-1">{a.name}</div>
         <div className="text-xs text-muted-foreground mb-2">{a.country ?? a.tag}{a.era && ` · ${a.era}`}</div>
