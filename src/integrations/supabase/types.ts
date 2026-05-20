@@ -131,6 +131,7 @@ export type Database = {
           era_label_no: string | null
           era_label_sv: string | null
           external_links: Json
+          facebook_url: string | null
           family: Json
           family_en: Json
           family_no: Json
@@ -153,9 +154,11 @@ export type Database = {
           key_recordings: Json
           labels: string[]
           legacy: string | null
+          link_check: Json
           name: string
           og_image: string | null
           origin: string | null
+          press_quotes: Json
           region: string | null
           related_slugs: string[]
           route_path: string | null
@@ -181,6 +184,7 @@ export type Database = {
           updated_at: string
           video_search_query: string | null
           videos: Json
+          website_url: string | null
           youtube_video_ids: string[]
         }
         Insert: {
@@ -212,6 +216,7 @@ export type Database = {
           era_label_no?: string | null
           era_label_sv?: string | null
           external_links?: Json
+          facebook_url?: string | null
           family?: Json
           family_en?: Json
           family_no?: Json
@@ -234,9 +239,11 @@ export type Database = {
           key_recordings?: Json
           labels?: string[]
           legacy?: string | null
+          link_check?: Json
           name: string
           og_image?: string | null
           origin?: string | null
+          press_quotes?: Json
           region?: string | null
           related_slugs?: string[]
           route_path?: string | null
@@ -262,6 +269,7 @@ export type Database = {
           updated_at?: string
           video_search_query?: string | null
           videos?: Json
+          website_url?: string | null
           youtube_video_ids?: string[]
         }
         Update: {
@@ -293,6 +301,7 @@ export type Database = {
           era_label_no?: string | null
           era_label_sv?: string | null
           external_links?: Json
+          facebook_url?: string | null
           family?: Json
           family_en?: Json
           family_no?: Json
@@ -315,9 +324,11 @@ export type Database = {
           key_recordings?: Json
           labels?: string[]
           legacy?: string | null
+          link_check?: Json
           name?: string
           og_image?: string | null
           origin?: string | null
+          press_quotes?: Json
           region?: string | null
           related_slugs?: string[]
           route_path?: string | null
@@ -343,6 +354,7 @@ export type Database = {
           updated_at?: string
           video_search_query?: string | null
           videos?: Json
+          website_url?: string | null
           youtube_video_ids?: string[]
         }
         Relationships: []

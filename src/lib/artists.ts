@@ -21,9 +21,21 @@ export type DiscographyEntry = {
   producer?: string;
   label?: string;
   chart?: string;
+  chart_position?: string;
   sales?: string;
+  sales_estimate?: string;
   notes?: string;
   musicians_count?: number;
+  musicians?: Array<{ name: string; instrument?: string }>;
+  youtube_id?: string;
+};
+export type PressQuote = {
+  quote: string;
+  author: string;
+  role?: string;
+  source_title?: string;
+  source_url?: string;
+  year?: number | string;
 };
 export type AwardEntry = { year: number | string; title: string; category?: string; note?: string };
 
@@ -92,6 +104,10 @@ export type ArtistRecord = {
   videos: VideoEntry[];
   discography: DiscographyEntry[];
   awards: AwardEntry[];
+  press_quotes: PressQuote[];
+  website_url: string | null;
+  facebook_url: string | null;
+  link_check: Record<string, { status?: number | string; checked_at?: string }>;
   related_slugs: string[];
   sort_order: number;
 };
@@ -133,6 +149,10 @@ function normalise(row: any): ArtistRecord {
     videos: Array.isArray(row.videos) ? row.videos : [],
     discography: Array.isArray(row.discography) ? row.discography : [],
     awards: Array.isArray(row.awards) ? row.awards : [],
+    press_quotes: Array.isArray(row.press_quotes) ? row.press_quotes : [],
+    website_url: row.website_url ?? null,
+    facebook_url: row.facebook_url ?? null,
+    link_check: row.link_check ?? {},
     related_slugs: row.related_slugs ?? [],
     gallery_images: row.gallery_images ?? [],
     youtube_video_ids: row.youtube_video_ids ?? [],
