@@ -122,7 +122,7 @@ function ConcertPage() {
         {c.youtube_video_id && (
           <div className="mt-10 aspect-video rounded-lg overflow-hidden border border-border">
             <iframe
-              src={`https://www.youtube.com/embed/${c.youtube_video_id}`}
+              src={`https://www.youtube-nocookie.com/embed/${c.youtube_video_id}?rel=0`}
               title={c.title}
               className="w-full h-full"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

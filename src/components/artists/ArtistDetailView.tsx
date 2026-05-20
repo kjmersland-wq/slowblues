@@ -381,7 +381,7 @@ function VideoGrid({ videos, fallbackIds }: { videos: ArtistRecord["videos"]; fa
       {featured && (
         <div className="grid md:grid-cols-[1.4fr_1fr] gap-8 items-start mb-10">
           <div className="aspect-video rounded-xl overflow-hidden border border-gold/30 bg-black">
-            <iframe src={`https://www.youtube.com/embed/${featured.youtube_id}`} title={featured.title} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen className="size-full" />
+            <iframe src={`https://www.youtube-nocookie.com/embed/${featured.youtube_id}?rel=0`} title={featured.title} loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen className="size-full" />
           </div>
           <div>
             <div className="text-[10px] tracking-[0.3em] text-gold uppercase mb-2">Featured</div>
