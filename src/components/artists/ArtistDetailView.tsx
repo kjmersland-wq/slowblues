@@ -210,7 +210,9 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {a.collaborators.map((c, i) => (
                 <div key={i} className="border border-border rounded-lg p-4 bg-card/40">
-                  <div className="font-display text-lg text-gold mb-1">{c.name}</div>
+                  <div className="font-display text-lg text-gold mb-1">
+                    <NameLink name={c.name} index={nameIndex} locale={locale} />
+                  </div>
                   {c.years && <div className="text-xs text-muted-foreground mb-2">{c.years}</div>}
                   {c.note && <p className="text-sm text-muted-foreground leading-relaxed">{c.note}</p>}
                 </div>
