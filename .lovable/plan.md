@@ -1,89 +1,76 @@
-# SlowBlues Restoration Plan
+# SlowBlues — Berik artistprofiler fra zip-data
 
-ZIP-arkivet inneholder det gamle React Router-prosjektet. Det må porteres bit-for-bit til den nåværende TanStack Start-stacken. Jeg foreslår 6 faser, hver leverbar og testbar for seg.
+Berik alle 353 artistprofiler med rikere data fra den opplastede zip-en, gjør strukturelle endringer som gjelder universelt, og bygg verktøy for lenkeverifikasjon. Jeg fabrikkerer ikke data — artister som ikke finnes i zip-en eller andre verifiserbare kilder beholder tomme felter til du fyller dem inn manuelt.
 
-## Hva ZIP-en faktisk inneholder
+## Hva zip-en faktisk inneholder
 
-- **~120 artister** i statiske `.ts`-filer (scandinavianArtists, britishArtists, modernAmericanArtists, europeanArtists×4, africanArtists, australianArtists, canadianArtists, danskBlues, svenskBlues, norskBluesunion)
-- **Image-mapper**: `artistImages.ts`, `britishArtistImages.ts`, `europeanArtistImages.ts`, `scandinavianArtistImages.ts` — verifiserte mappinger
-- **Reviews-systemet er databasedrevet** (`blues_reviews`-tabell i gammel Supabase). ZIP-en har **koden**, ikke innholdet. Dataen må enten dumpes fra gammel DB eller skrives på nytt. Dette må avklares.
-- **Public bilder**: 2.7 MB — artistportretter og galleri
-- **60+ sider** og massiv komponentbibliotek (artist, blog, reviews, festival, map, quiz, etc.)
+Zip-en har detaljerte data for ca. 70–120 artister fordelt på `scandinavianArtists.ts`, `britishArtists.ts`, `europeanArtists.ts`, `africanArtists.ts`, `australianArtists.ts`, `canadianArtists.ts`, `modernAmericanArtists.ts` og `artists.ts` (US). Datastrukturen inkluderer for hver innspilling: `musicians[]`, `chartPosition`, `sales`, `producer`, `composers[]`, `spotifyTrackId`. På artistnivå finnes `family[]`, `collaborators[]`, `socialLinks` (website/facebook/instagram/youtube/spotify) og `youtubeVideoIds[]`.
 
-## Fase 1 — Datafundament (databasen)
+Pressitater/kritikersitater finnes som fritekst inne i `biographyEn` (f.eks. "Blueprint magazine called him..."), ikke som strukturerte felt. Disse må jeg ekstrahere manuelt eller la deg legge til via admin.
 
-1. Migrer `artists`-tabellen til å støtte alle felter fra arkivet (mange er allerede der).
-2. Opprett **`blues_reviews`**-tabell med multilingual + scoring + status, slik ReviewDetail.tsx forventer.
-3. Opprett **`artist_images`** mapping-tabell (artist_slug → image_url, source, verified).
-4. Seed-script som importerer alle ~120 artister fra de statiske `.ts`-filene inn i `artists`-tabellen (idempotent — `ON CONFLICT (slug)`).
-5. Kopier verifiserte bilder fra `public/images/` inn i prosjektet og koble via `artist_images`.
+## Fase 1 — Skjemaendringer (universelt)
 
-## Fase 2 — Artist-detaljside (proff mal)
+Ett migrationsskritt mot `artists`-tabellen:
 
-Én generisk rute `/artists/$slug` som henter fra DB og rendrer:
+- Legg til kolonne `press_quotes jsonb NOT NULL DEFAULT '[]'` med form `[{ quote, author, role, source_title, source_url, year }]`.
+- Legg til kolonne `website_url text` og `facebook_url text` (utledet fra `social_links`, men eksplisitte felter gjør lenkesjekken enklere).
+- Legg til kolonne `link_check jsonb DEFAULT '{}'` for resultat av siste HEAD-sjekk: `{ website: { status, checked_at }, facebook: { status, checked_at } }`.
 
-- Hero med verifisert bilde + image-credit
-- Bio (EN/NO/SV/DE) med språk-fallback til EN + "Translation pending"-badge
-- Career / formative years / family / collaborators
-- Diskografi + signature songs
-- Influences + related artists (slug-lenker)
-- YouTube-mediearkiv (se Fase 4)
-- JSON-LD `MusicGroup`/`Person` + Wikidata `sameAs`
-- SEO `head()` per artist
+Discography-strukturen utvider jeg via koden (jsonb krever ingen schema-endring). Hver discography-entry kan nå inneholde `musicians[]`, `chart_position`, `sales_estimate`, `youtube_id` i tillegg til eksisterende felter.
 
-Erstatter alle de gamle regionsspesifikke detalj-rutene (BritishArtistDetail, EuropeanArtistDetail, osv.) med én rute.
+## Fase 2 — Dataimport fra zip
 
-## Fase 3 — QC-dashboard (admin)
+Skriv `scripts/import-zip-enrichment.ts` som:
 
-`/admin/quality` lister hver artist med flagg:
+1. Leser alle artist-arrays fra zip-en
+2. For hver artist matcher mot eksisterende `slug` i Supabase
+3. **Beriker uten å overskrive eksisterende verdier**:
+   - `discography` → erstatter med zip-versjon kun hvis zip har flere entries eller flere felter per entry (musicians/chartPosition/sales/producer/composers)
+   - `family` → erstatter hvis zip har flere entries
+   - `collaborators` → merge
+   - `social_links` → fyller inn manglende felter (website, facebook, instagram, youtube) — fjerner spotify
+   - `youtube_video_ids` → merge unike IDs
+4. Kjører som server-funksjon, ikke som vilkårlig migrasjon, så du ser logg over hva som ble oppdatert.
 
-- mangler bilde / ikke-verifisert bilde
-- mangler bio i EN/NO/SV/DE
-- mangler YouTube-videoer
-- ødelagt slug eller dupliserte slugs
-- manglende SEO-metadata
-- ikke koblet til noen reviews
+## Fase 3 — Fjern Spotify og legg til YouTube-embed på album
 
-Bilde-policy: **flagg for manuell gjennomgang** — ingen AI-genererte portretter, ingen gjettet auto-assignment. Wikidata P18 (Commons) brukes kun hvis artisten har lagret `wikidata_qid`.
+I `ArtistDetailView.tsx`:
 
-## Fase 4 — YouTube-overhaul
+- Fjern Spotify-knapp/lenke helt fra Diskografi-seksjonen og hero
+- Behold andre lyttelenker (Bandcamp, Apple Music på reviews-objekter)
+- For hver discography-entry: hvis `youtube_id` finnes, vis "Spill på YouTube"-lenke som åpner `youtube-nocookie.com/embed/<id>` i et innebygd lite preview-vindu (samme COEP-fix som konsertsiden)
+- Vis `musicians[]`, `chart_position`, `sales_estimate` per album når feltene finnes (skjul hvis tomme)
+- Legg til ny seksjon "Pressomtaler" som rendrer `press_quotes[]` med sitat, forfatter/rolle, og klikkbar kildelenke
 
-- `youtube_videos`-tabell koblet til artist (kategori: album / live / interview / documentary / festival)
-- Server-fn som søker `channelId` for offisielle kanaler først, så verifiserte uploads
-- Dedupe på `videoId`
-- Admin-UI for å godkjenne/avvise foreslåtte videoer
-- Embed-komponent som validerer at video fortsatt eksisterer
+Konsertsiden (`concerts.$slug.tsx`) har allerede YouTube-embed via `youtube_video_id`. Sjekk at alle konsertrader har feltet utfylt og merge inn fra zip der mulig.
 
-## Fase 5 — Reviews-restaurering
+## Fase 4 — Lenkeverifikasjon (admin-verktøy, ikke auto-slett)
 
-**Avhengig av om gammel Supabase-DB er tilgjengelig:**
+Ny rute `/admin/links` som:
 
-- **Hvis du har SQL-dump eller export**: importer direkte til ny `blues_reviews`-tabell
-- **Hvis ikke**: bygg `blues_reviews` + admin-CRUD + `/reviews` + `/reviews/$slug` med multilingual, scoring, artist-kobling, JSON-LD `Review` schema. Du fyller inn innhold via admin.
+- Lister alle artister med website/facebook fra `social_links`
+- Knapp "Kjør sjekk" → server-funksjon som gjør HEAD-request med 5s timeout for alle 353 artisters lenker (batch på 20 parallelt)
+- Lagrer status (`200`/`404`/`timeout`/`dns_fail`) i `link_check`-kolonnen
+- Viser tabell med "Døde lenker" filtrert
+- Du sletter manuelt via en "Fjern denne lenken"-knapp per rad — ingen auto-sletting
 
-Spørsmål jeg trenger svar på: **Har du en eksport av gamle `blues_reviews`-rader?** Hvis ja, last opp som SQL eller JSON.
+## Fase 5 — Pressitater fra zip-biografier
 
-## Fase 6 — Oversettelse-policy + identitet
+Skriv `scripts/extract-press-quotes.ts` som regex-skanner zip-ens biographyEn-felt etter mønstre som `"X magazine called him 'Y'"`, `"Z said 'W'"`, `"according to Q,"`, og pre-fyller `press_quotes` med utkast som du kan godkjenne i admin (felt `verified: false` til du sjekker av).
 
-- Språk-fallback: vis EN med diskret "Translation pending NO/SV/DE" når lokal mangler. Ingen maskinoversettelse.
-- Designgjennomgang av artist-, reviews-, og landingsside slik at det føles redaksjonelt og blues-autentisk (typografi, atmosfære, ikke generisk).
-- Endelig fjerne plassholder-innhold på rotsiden.
+For artister hvor zip ikke har kildebare sitater, lar jeg feltet stå tomt.
 
-## Teknisk
+## Hva som IKKE skjer i denne runden
 
-- All datalogikk i `createServerFn` (`*.functions.ts`). DB-skriv via `requireSupabaseAuth` + admin-rolle. Aldri `client.server.ts` i klient-kjede.
-- Bilder portert til Supabase Storage-bucket `artist-images` (offentlig lesing, kun admin-skriv).
-- Migrations: én per fase, med RLS-policies (offentlig SELECT, admin INSERT/UPDATE/DELETE).
-- Strenge Zod-validatorer på alle server-fn input.
+- Ingen syntetiske/AI-genererte sitater eller salgstall
+- Ingen auto-sletting av lenker (kun rapportering)
+- Artister utenfor zip-en får kun strukturelle endringer (Spotify fjernet, nye tomme seksjoner), ikke nytt innhold
+- Ingen Wikipedia/Wikidata-scraping i denne runden (kan komme som Fase 6 hvis du ønsker)
 
-## Hva jeg foreslår å starte med nå (én leveranse)
+## Tekniske detaljer
 
-**Fase 1 + 2** i denne meldingen: migration for `artists`/`blues_reviews`/`artist_images`/`youtube_videos`, seed-script for ~120 artister, og generisk `/artists/$slug`-detaljside med multilingual + SEO + Wikidata-hook. Det gir deg umiddelbart en proff artist-arkitektur før vi går videre til QC-dashboard, YouTube-overhaul og reviews.
-
-## Spørsmål før jeg starter
-
-1. **Har du SQL/JSON-dump av gamle `blues_reviews`?** (avgjør Fase 5 — restaurering vs ny struktur)
-2. **OK å bygge én generisk `/artists/$slug`-rute** og pensjonere de regionsspesifikke detalj-sidene (BritishArtistDetail, EuropeanArtistDetail, ...)? Det gir én sannhetskilde.
-3. **OK med bilde-policy "flagg, ikke gjett"** — manglende bilder vises som n​øytral placeholder + admin-flagg, ingen auto-Unsplash/AI?
-
-Si fra, så starter jeg Fase 1+2 umiddelbart i neste melding.
+- Migration: én SQL-fil legger til `press_quotes`, `website_url`, `facebook_url`, `link_check`
+- Importer: `scripts/import-zip-enrichment.ts` kjøres lokalt med `bun run` mot service-role-key, ikke via klienten
+- Lenkesjekk: `createServerFn` med `requireSupabaseAuth` + admin-rolle, kjører `Promise.all` i batches
+- Frontend: kun endringer i `src/components/artists/ArtistDetailView.tsx`
+- TypeScript-typer i `src/lib/artists.ts` utvides med `musicians`, `chart_position`, `sales_estimate`, `youtube_id` på `DiscographyEntry` og ny `PressQuote`-type
