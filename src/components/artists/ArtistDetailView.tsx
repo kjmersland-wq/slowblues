@@ -222,6 +222,33 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
           </Section>
         )}
 
+        {/* Press quotes & critic statements */}
+        {a.press_quotes.length > 0 && (
+          <Section icon={Quote} title={t.press} tone="amber">
+            <div className="grid md:grid-cols-2 gap-5">
+              {a.press_quotes.map((q, i) => (
+                <figure key={i} className="border border-amber-400/20 rounded-lg p-5 bg-amber-400/5">
+                  <blockquote className="text-foreground/90 italic leading-relaxed mb-3">"{q.quote}"</blockquote>
+                  <figcaption className="text-sm text-muted-foreground">
+                    <span className="text-amber-200 font-medium">{q.author}</span>
+                    {q.role && <span> · {q.role}</span>}
+                    {q.year && <span> · {q.year}</span>}
+                    {q.source_url && (
+                      <>
+                        {" — "}
+                        <a href={q.source_url} target="_blank" rel="noopener noreferrer" className="text-amber-300 hover:text-amber-100 underline underline-offset-4">
+                          {q.source_title ?? t.source}
+                        </a>
+                      </>
+                    )}
+                    {!q.source_url && q.source_title && <span> — {q.source_title}</span>}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </Section>
+        )}
+
         {/* Discography */}
         {a.discography.length > 0 && (
           <Section icon={Disc3} title={t.discography} tone="gold">
@@ -229,21 +256,42 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
               <table className="w-full text-sm">
                 <thead>
                   <tr className="text-left text-[10px] tracking-[0.2em] uppercase text-muted-foreground border-b border-border">
-                    <th className="p-3">År</th><th className="p-3">Tittel</th><th className="p-3">Produsent</th><th className="p-3">Label</th><th className="p-3">Chart</th><th className="p-3">Salg</th><th className="p-3">Notater</th>
+                    <th className="p-3">År</th><th className="p-3">Tittel</th><th className="p-3">Produsent</th><th className="p-3">Label</th><th className="p-3">Chart</th><th className="p-3">Salg</th><th className="p-3">{t.musicians}</th><th className="p-3">YouTube</th><th className="p-3">Notater</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {a.discography.map((d, i) => (
-                    <tr key={i} className="border-b border-border/50 last:border-0 align-top">
-                      <td className="p-3 text-gold font-mono">{d.year}</td>
-                      <td className="p-3 font-medium">{d.title}</td>
-                      <td className="p-3 text-muted-foreground">{d.producer ?? "—"}</td>
-                      <td className="p-3 text-muted-foreground">{d.label ?? "—"}</td>
-                      <td className="p-3">{d.chart ?? "—"}</td>
-                      <td className="p-3 text-muted-foreground">{d.sales ?? "—"}</td>
-                      <td className="p-3 text-muted-foreground italic max-w-xs">{d.notes ?? ""}</td>
-                    </tr>
-                  ))}
+                  {a.discography.map((d, i) => {
+                    const chart = d.chart_position ?? d.chart;
+                    const sales = d.sales_estimate ?? d.sales;
+                    return (
+                      <tr key={i} className="border-b border-border/50 last:border-0 align-top">
+                        <td className="p-3 text-gold font-mono">{d.year}</td>
+                        <td className="p-3 font-medium">{d.title}</td>
+                        <td className="p-3 text-muted-foreground">{d.producer ?? "—"}</td>
+                        <td className="p-3 text-muted-foreground">{d.label ?? "—"}</td>
+                        <td className="p-3">{chart ?? "—"}</td>
+                        <td className="p-3 text-muted-foreground">{sales ?? "—"}</td>
+                        <td className="p-3 text-muted-foreground max-w-[18rem]">
+                          {d.musicians && d.musicians.length > 0
+                            ? d.musicians.map((m) => `${m.name}${m.instrument ? ` (${m.instrument})` : ""}`).join(", ")
+                            : "—"}
+                        </td>
+                        <td className="p-3">
+                          {d.youtube_id ? (
+                            <a
+                              href={`https://www.youtube.com/watch?v=${d.youtube_id}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-gold hover:text-amber-200 underline underline-offset-4"
+                            >
+                              <PlayCircle className="size-3.5" /> {t.watch}
+                            </a>
+                          ) : "—"}
+                        </td>
+                        <td className="p-3 text-muted-foreground italic max-w-xs">{d.notes ?? ""}</td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
