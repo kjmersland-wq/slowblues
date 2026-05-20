@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/i18n";
-import { BookOpen, ExternalLink, Heart, Mail } from "lucide-react";
+import { BookOpen, ExternalLink, Heart, Mail, Building2, MessageSquare } from "lucide-react";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { subscribeNewsletter } from "@/lib/mailerlite.functions";
@@ -48,12 +48,20 @@ export function SiteFooter() {
     { to: "/blog", label: t.nav.blog },
     { to: "/quiz", label: "Blues Quiz" },
     { to: "/about/merch", label: "Merch" },
-    { to: "/compare", label: t.nav.compareStyles },
-    { to: "/updates", label: t.nav.updates },
-    { to: "/support", label: t.nav.support },
-    { to: "/contact", label: t.nav.contact },
     { to: "/newsletter", label: "Newsletter" },
-    { to: "/privacy", label: t.nav.privacy },
+    { to: "/support", label: t.nav.support },
+  ];
+
+  const legal: { to: any; label: string }[] = [
+    { to: "/about", label: "About SlowBlues" },
+    { to: "/contact", label: "Contact" },
+    { to: "/privacy", label: "Privacy Policy" },
+    { to: "/gdpr", label: "GDPR & Data Protection" },
+    { to: "/cookies", label: "Cookie Policy" },
+    { to: "/terms", label: "Terms of Service" },
+    { to: "/disclaimer", label: "Disclaimer" },
+    { to: "/accessibility", label: "Accessibility Statement" },
+    { to: "/copyright", label: "Copyright Notice" },
   ];
 
   const archives = [
@@ -63,64 +71,64 @@ export function SiteFooter() {
     { name: "Blues Foundation", url: "https://blues.org" },
   ];
 
-  const books = [
-    { name: "\"Deep Blues\" — Robert Palmer" },
-    { name: "\"The History of the Blues\" — Francis Davis" },
-  ];
-
-  const related = [
-    { name: "TheBluesLegacy.com", url: "https://thebluesleagacy.com" },
-    { name: "Rock and Blues Muse", url: "https://rockandbluesmuse.com" },
-    { name: "Paste Magazine Blues", url: "https://www.pastemagazine.com/music" },
-  ];
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-24 border-t border-border bg-gradient-to-b from-background to-card/40">
-      <div className="max-w-7xl mx-auto px-6 py-16 grid lg:grid-cols-4 gap-10">
+    <footer className="mt-24 border-t border-border bg-gradient-to-b from-background to-card/40" aria-labelledby="site-footer-heading">
+      <h2 id="site-footer-heading" className="sr-only">Footer</h2>
+
+      <div className="max-w-7xl mx-auto px-6 py-16 grid lg:grid-cols-4 md:grid-cols-2 gap-10">
         <div>
-          <div className="flex items-center gap-3 mb-4">
-            <img src={logoSB} alt="SlowBlues.no" className="h-14 w-auto" />
-            <div className="font-display text-xl">SLOWBLUES</div>
+          <Link to="/" className="flex items-center gap-3 mb-4">
+            <img src={logoSB} alt="SlowBlues logo" className="h-14 w-auto" />
+            <span className="font-display text-xl">SLOWBLUES</span>
+          </Link>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-5">{t.footer.desc}</p>
+          <div className="text-xs text-muted-foreground/90 space-y-1 not-italic" itemScope itemType="https://schema.org/Organization">
+            <div className="flex items-center gap-1.5 text-gold mb-1.5">
+              <Building2 className="size-3.5" aria-hidden="true" />
+              <span className="tracking-[0.2em] text-[10px] uppercase">Utgiver</span>
+            </div>
+            <div itemProp="parentOrganization" className="font-medium text-foreground/90">KM TECH LABS — Kjell Mersland</div>
+            <div>Org.nr. <span itemProp="taxID">934 044 029</span></div>
+            <div>Ansvarlig redaktør: <span itemProp="publisher">Kjell Mersland</span></div>
           </div>
-          <p className="text-sm text-muted-foreground leading-relaxed">{t.footer.desc}</p>
         </div>
 
-        <div>
+        <nav aria-label="Explore">
           <h3 className="font-display text-lg mb-4">{t.footer.explore}</h3>
           <ul className="space-y-1.5 text-sm">
             {explore.map((l) => (
-              <li key={l.to}><Link to={l.to as any} className="text-muted-foreground hover:text-gold transition">{l.label}</Link></li>
+              <li key={l.to}><Link to={l.to as any} className="text-muted-foreground hover:text-gold transition focus:outline-none focus-visible:text-gold focus-visible:underline">{l.label}</Link></li>
             ))}
           </ul>
-        </div>
+        </nav>
 
-        <div>
-          <h3 className="font-display text-lg mb-4">{t.footer.archives}</h3>
+        <nav aria-label="Legal and information">
+          <h3 className="font-display text-lg mb-4">Informasjon</h3>
           <ul className="space-y-1.5 text-sm">
-            {archives.map((a) => (
-              <li key={a.name}>
-                <a href={a.url} target="_blank" rel="noopener" className="text-muted-foreground hover:text-gold transition inline-flex items-center gap-1">
-                  {a.name} <ExternalLink className="size-3" />
-                </a>
-              </li>
+            {legal.map((l) => (
+              <li key={l.to}><Link to={l.to as any} className="text-muted-foreground hover:text-gold transition focus:outline-none focus-visible:text-gold focus-visible:underline">{l.label}</Link></li>
             ))}
           </ul>
-        </div>
+          <Link
+            to="/contact"
+            className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-md border border-gold/40 text-gold hover:bg-gold hover:text-primary-foreground transition text-xs font-medium tracking-wide"
+          >
+            <MessageSquare className="size-3.5" aria-hidden="true" />
+            Send melding via kontaktskjema
+          </Link>
+        </nav>
 
         <div>
           <h3 className="font-display text-lg mb-4 inline-flex items-center gap-2">
-            <BookOpen className="size-4 text-gold" /> {t.footer.further}
+            <BookOpen className="size-4 text-gold" aria-hidden="true" /> {t.footer.archives}
           </h3>
-          <div className="text-[10px] tracking-[0.2em] text-gold mb-2">{t.footer.books}</div>
-          <ul className="space-y-1 text-sm text-muted-foreground italic mb-5">
-            {books.map((b) => <li key={b.name}>{b.name}</li>)}
-          </ul>
-          <div className="text-[10px] tracking-[0.2em] text-gold mb-2">{t.footer.related}</div>
-          <ul className="space-y-1 text-sm">
-            {related.map((r) => (
-              <li key={r.name}>
-                <a href={r.url} target="_blank" rel="noopener" className="text-muted-foreground hover:text-gold inline-flex items-center gap-1">
-                  {r.name} <ExternalLink className="size-3" />
+          <ul className="space-y-1.5 text-sm mb-6">
+            {archives.map((a) => (
+              <li key={a.name}>
+                <a href={a.url} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-gold transition inline-flex items-center gap-1">
+                  {a.name} <ExternalLink className="size-3" aria-hidden="true" />
                 </a>
               </li>
             ))}
@@ -130,15 +138,12 @@ export function SiteFooter() {
 
       <div className="border-t border-border">
         <div className="max-w-7xl mx-auto px-6 py-10">
-          <div className="flex items-center gap-2 text-gold mb-2"><Mail className="size-4" /> <span className="font-display text-lg">{t.footer.newsletterTitle}</span></div>
+          <div className="flex items-center gap-2 text-gold mb-2"><Mail className="size-4" aria-hidden="true" /> <span className="font-display text-lg">{t.footer.newsletterTitle}</span></div>
           <p className="text-sm text-muted-foreground mb-4">{t.footer.newsletterDesc}</p>
-          <div className="grid sm:grid-cols-2 gap-2 text-sm mb-4">
-            {[t.footer.optBlog, t.footer.optReviews, t.footer.optFestivals, t.footer.optGlobal].map((o) => (
-              <label key={o} className="flex items-center gap-2"><input defaultChecked type="checkbox" className="accent-[var(--color-gold)]" /> <span className="text-foreground/85">{o}</span></label>
-            ))}
-          </div>
-          <form className="flex flex-col sm:flex-row gap-2 max-w-2xl" onSubmit={handleSubscribe}>
+          <form className="flex flex-col sm:flex-row gap-2 max-w-2xl" onSubmit={handleSubscribe} aria-label="Newsletter signup">
+            <label htmlFor="footer-newsletter-email" className="sr-only">{t.footer.emailPlaceholder}</label>
             <input
+              id="footer-newsletter-email"
               required
               type="email"
               value={email}
@@ -154,16 +159,23 @@ export function SiteFooter() {
               {subState === "loading" ? "…" : t.footer.subscribe}
             </button>
           </form>
-          {subState === "ok" && <p className="mt-3 text-sm text-gold">{subMsg}</p>}
-          {subState === "err" && <p className="mt-3 text-sm text-destructive">{subMsg}</p>}
-          <p className="mt-3 text-xs text-muted-foreground">{t.footer.privacyNote} <Link to="/newsletter" className="text-gold hover:underline">Read the archive →</Link></p>
+          {subState === "ok" && <p className="mt-3 text-sm text-gold" role="status">{subMsg}</p>}
+          {subState === "err" && <p className="mt-3 text-sm text-destructive" role="alert">{subMsg}</p>}
+          <p className="mt-3 text-xs text-muted-foreground">{t.footer.privacyNote} <Link to="/privacy" className="text-gold hover:underline">Personvern →</Link></p>
         </div>
       </div>
 
-      <div className="border-t border-border py-5 text-center text-xs text-muted-foreground flex items-center justify-center gap-2">
-        © {new Date().getFullYear()} SlowBlues. <Heart className="size-3 text-gold" /> {t.footer.rights}
-        <span className="mx-2">·</span>
-        <Link to="/login" className="hover:text-gold">Admin</Link>
+      <div className="border-t border-border py-5 px-6 text-xs text-muted-foreground flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-2 max-w-7xl mx-auto">
+        <div className="flex items-center gap-2 text-center">
+          © {year} <span className="text-foreground/80">KM TECH LABS</span> · SlowBlues.no <Heart className="size-3 text-gold" aria-hidden="true" /> {t.footer.rights}
+        </div>
+        <div className="flex items-center gap-3">
+          <Link to="/copyright" className="hover:text-gold">© Copyright</Link>
+          <span aria-hidden="true">·</span>
+          <Link to="/privacy" className="hover:text-gold">Privacy</Link>
+          <span aria-hidden="true">·</span>
+          <Link to="/login" className="hover:text-gold">Admin</Link>
+        </div>
       </div>
     </footer>
   );
