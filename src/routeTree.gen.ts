@@ -30,10 +30,10 @@ import { Route as FestivalsRouteImport } from './routes/festivals'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as BlogRouteImport } from './routes/blog'
-import { Route as ArtistsRouteImport } from './routes/artists'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConcertsIndexRouteImport } from './routes/concerts.index'
+import { Route as ArtistsIndexRouteImport } from './routes/artists.index'
 import { Route as ReviewsSlugRouteImport } from './routes/reviews.$slug'
 import { Route as QuizArchiveRouteImport } from './routes/quiz.archive'
 import { Route as NewsletterTemplateRouteImport } from './routes/newsletter.template'
@@ -49,7 +49,7 @@ import { Route as AdminQualityRouteImport } from './routes/admin.quality'
 import { Route as AboutMerchRouteImport } from './routes/about.merch'
 import { Route as AboutGuestbookRouteImport } from './routes/about.guestbook'
 import { Route as AboutBlogRouteImport } from './routes/about.blog'
-import { Route as LocaleArtistsRouteImport } from './routes/$locale.artists'
+import { Route as LocaleArtistsIndexRouteImport } from './routes/$locale.artists.index'
 import { Route as QuizCycleCycleRouteImport } from './routes/quiz.cycle.$cycle'
 import { Route as ApiPublicFourthwallWebhookRouteImport } from './routes/api/public/fourthwall-webhook'
 import { Route as AboutMerchSlugRouteImport } from './routes/about.merch.$slug'
@@ -161,11 +161,6 @@ const BlogRoute = BlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ArtistsRoute = ArtistsRouteImport.update({
-  id: '/artists',
-  path: '/artists',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -179,6 +174,11 @@ const IndexRoute = IndexRouteImport.update({
 const ConcertsIndexRoute = ConcertsIndexRouteImport.update({
   id: '/concerts/',
   path: '/concerts/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArtistsIndexRoute = ArtistsIndexRouteImport.update({
+  id: '/artists/',
+  path: '/artists/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReviewsSlugRoute = ReviewsSlugRouteImport.update({
@@ -256,9 +256,9 @@ const AboutBlogRoute = AboutBlogRouteImport.update({
   path: '/about/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LocaleArtistsRoute = LocaleArtistsRouteImport.update({
-  id: '/$locale/artists',
-  path: '/$locale/artists',
+const LocaleArtistsIndexRoute = LocaleArtistsIndexRouteImport.update({
+  id: '/$locale/artists/',
+  path: '/$locale/artists/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const QuizCycleCycleRoute = QuizCycleCycleRouteImport.update({
@@ -292,7 +292,6 @@ const AboutMerchCollectionSlugRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
-  '/artists': typeof ArtistsRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
@@ -314,7 +313,6 @@ export interface FileRoutesByFullPath {
   '/updates': typeof UpdatesRoute
   '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
-  '/$locale/artists': typeof LocaleArtistsRouteWithChildren
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
@@ -330,17 +328,18 @@ export interface FileRoutesByFullPath {
   '/newsletter/template': typeof NewsletterTemplateRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/reviews/$slug': typeof ReviewsSlugRoute
+  '/artists/': typeof ArtistsIndexRoute
   '/concerts/': typeof ConcertsIndexRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
   '/api/public/fourthwall-webhook': typeof ApiPublicFourthwallWebhookRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
+  '/$locale/artists/': typeof LocaleArtistsIndexRoute
   '/about/merch/collection/$slug': typeof AboutMerchCollectionSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
-  '/artists': typeof ArtistsRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
@@ -362,7 +361,6 @@ export interface FileRoutesByTo {
   '/updates': typeof UpdatesRoute
   '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
-  '/$locale/artists': typeof LocaleArtistsRouteWithChildren
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
@@ -378,18 +376,19 @@ export interface FileRoutesByTo {
   '/newsletter/template': typeof NewsletterTemplateRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/reviews/$slug': typeof ReviewsSlugRoute
+  '/artists': typeof ArtistsIndexRoute
   '/concerts': typeof ConcertsIndexRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
   '/api/public/fourthwall-webhook': typeof ApiPublicFourthwallWebhookRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
+  '/$locale/artists': typeof LocaleArtistsIndexRoute
   '/about/merch/collection/$slug': typeof AboutMerchCollectionSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
-  '/artists': typeof ArtistsRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
@@ -411,7 +410,6 @@ export interface FileRoutesById {
   '/updates': typeof UpdatesRoute
   '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
-  '/$locale/artists': typeof LocaleArtistsRouteWithChildren
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
@@ -427,11 +425,13 @@ export interface FileRoutesById {
   '/newsletter/template': typeof NewsletterTemplateRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/reviews/$slug': typeof ReviewsSlugRoute
+  '/artists/': typeof ArtistsIndexRoute
   '/concerts/': typeof ConcertsIndexRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
   '/api/public/fourthwall-webhook': typeof ApiPublicFourthwallWebhookRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
+  '/$locale/artists/': typeof LocaleArtistsIndexRoute
   '/about/merch/collection/$slug': typeof AboutMerchCollectionSlugRoute
 }
 export interface FileRouteTypes {
@@ -439,7 +439,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
-    | '/artists'
     | '/blog'
     | '/compare'
     | '/contact'
@@ -461,7 +460,6 @@ export interface FileRouteTypes {
     | '/updates'
     | '/watch'
     | '/worldmap'
-    | '/$locale/artists'
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
@@ -477,17 +475,18 @@ export interface FileRouteTypes {
     | '/newsletter/template'
     | '/quiz/archive'
     | '/reviews/$slug'
+    | '/artists/'
     | '/concerts/'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
     | '/api/public/fourthwall-webhook'
     | '/quiz/cycle/$cycle'
+    | '/$locale/artists/'
     | '/about/merch/collection/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/admin'
-    | '/artists'
     | '/blog'
     | '/compare'
     | '/contact'
@@ -509,7 +508,6 @@ export interface FileRouteTypes {
     | '/updates'
     | '/watch'
     | '/worldmap'
-    | '/$locale/artists'
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
@@ -525,17 +523,18 @@ export interface FileRouteTypes {
     | '/newsletter/template'
     | '/quiz/archive'
     | '/reviews/$slug'
+    | '/artists'
     | '/concerts'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
     | '/api/public/fourthwall-webhook'
     | '/quiz/cycle/$cycle'
+    | '/$locale/artists'
     | '/about/merch/collection/$slug'
   id:
     | '__root__'
     | '/'
     | '/admin'
-    | '/artists'
     | '/blog'
     | '/compare'
     | '/contact'
@@ -557,7 +556,6 @@ export interface FileRouteTypes {
     | '/updates'
     | '/watch'
     | '/worldmap'
-    | '/$locale/artists'
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
@@ -573,18 +571,19 @@ export interface FileRouteTypes {
     | '/newsletter/template'
     | '/quiz/archive'
     | '/reviews/$slug'
+    | '/artists/'
     | '/concerts/'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
     | '/api/public/fourthwall-webhook'
     | '/quiz/cycle/$cycle'
+    | '/$locale/artists/'
     | '/about/merch/collection/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
-  ArtistsRoute: typeof ArtistsRouteWithChildren
   BlogRoute: typeof BlogRouteWithChildren
   CompareRoute: typeof CompareRoute
   ContactRoute: typeof ContactRoute
@@ -606,7 +605,6 @@ export interface RootRouteChildren {
   UpdatesRoute: typeof UpdatesRoute
   WatchRoute: typeof WatchRoute
   WorldmapRoute: typeof WorldmapRoute
-  LocaleArtistsRoute: typeof LocaleArtistsRouteWithChildren
   AboutBlogRoute: typeof AboutBlogRoute
   AboutGuestbookRoute: typeof AboutGuestbookRoute
   AboutMerchRoute: typeof AboutMerchRouteWithChildren
@@ -614,8 +612,10 @@ export interface RootRouteChildren {
   EditorialImagesRoute: typeof EditorialImagesRoute
   ExperienceMediaRoute: typeof ExperienceMediaRoute
   LearnStylesRoute: typeof LearnStylesRoute
+  ArtistsIndexRoute: typeof ArtistsIndexRoute
   ConcertsIndexRoute: typeof ConcertsIndexRoute
   ApiPublicFourthwallWebhookRoute: typeof ApiPublicFourthwallWebhookRoute
+  LocaleArtistsIndexRoute: typeof LocaleArtistsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -767,13 +767,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/artists': {
-      id: '/artists'
-      path: '/artists'
-      fullPath: '/artists'
-      preLoaderRoute: typeof ArtistsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -793,6 +786,13 @@ declare module '@tanstack/react-router' {
       path: '/concerts'
       fullPath: '/concerts/'
       preLoaderRoute: typeof ConcertsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/artists/': {
+      id: '/artists/'
+      path: '/artists'
+      fullPath: '/artists/'
+      preLoaderRoute: typeof ArtistsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reviews/$slug': {
@@ -900,11 +900,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutBlogRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/$locale/artists': {
-      id: '/$locale/artists'
+    '/$locale/artists/': {
+      id: '/$locale/artists/'
       path: '/$locale/artists'
-      fullPath: '/$locale/artists'
-      preLoaderRoute: typeof LocaleArtistsRouteImport
+      fullPath: '/$locale/artists/'
+      preLoaderRoute: typeof LocaleArtistsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/quiz/cycle/$cycle': {
@@ -957,17 +957,6 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
-interface ArtistsRouteChildren {
-  ArtistsSlugRoute: typeof ArtistsSlugRoute
-}
-
-const ArtistsRouteChildren: ArtistsRouteChildren = {
-  ArtistsSlugRoute: ArtistsSlugRoute,
-}
-
-const ArtistsRouteWithChildren =
-  ArtistsRoute._addFileChildren(ArtistsRouteChildren)
-
 interface BlogRouteChildren {
   BlogIdRoute: typeof BlogIdRoute
 }
@@ -1015,18 +1004,6 @@ const ReviewsRouteChildren: ReviewsRouteChildren = {
 const ReviewsRouteWithChildren =
   ReviewsRoute._addFileChildren(ReviewsRouteChildren)
 
-interface LocaleArtistsRouteChildren {
-  LocaleArtistsSlugRoute: typeof LocaleArtistsSlugRoute
-}
-
-const LocaleArtistsRouteChildren: LocaleArtistsRouteChildren = {
-  LocaleArtistsSlugRoute: LocaleArtistsSlugRoute,
-}
-
-const LocaleArtistsRouteWithChildren = LocaleArtistsRoute._addFileChildren(
-  LocaleArtistsRouteChildren,
-)
-
 interface AboutMerchRouteChildren {
   AboutMerchSlugRoute: typeof AboutMerchSlugRoute
   AboutMerchCollectionSlugRoute: typeof AboutMerchCollectionSlugRoute
@@ -1044,7 +1021,6 @@ const AboutMerchRouteWithChildren = AboutMerchRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
-  ArtistsRoute: ArtistsRouteWithChildren,
   BlogRoute: BlogRouteWithChildren,
   CompareRoute: CompareRoute,
   ContactRoute: ContactRoute,
@@ -1066,7 +1042,6 @@ const rootRouteChildren: RootRouteChildren = {
   UpdatesRoute: UpdatesRoute,
   WatchRoute: WatchRoute,
   WorldmapRoute: WorldmapRoute,
-  LocaleArtistsRoute: LocaleArtistsRouteWithChildren,
   AboutBlogRoute: AboutBlogRoute,
   AboutGuestbookRoute: AboutGuestbookRoute,
   AboutMerchRoute: AboutMerchRouteWithChildren,
@@ -1074,9 +1049,21 @@ const rootRouteChildren: RootRouteChildren = {
   EditorialImagesRoute: EditorialImagesRoute,
   ExperienceMediaRoute: ExperienceMediaRoute,
   LearnStylesRoute: LearnStylesRoute,
+  ArtistsIndexRoute: ArtistsIndexRoute,
   ConcertsIndexRoute: ConcertsIndexRoute,
   ApiPublicFourthwallWebhookRoute: ApiPublicFourthwallWebhookRoute,
+  LocaleArtistsIndexRoute: LocaleArtistsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

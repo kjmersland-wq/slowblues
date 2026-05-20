@@ -11,7 +11,7 @@ const HERO = {
   no: { eyebrow: "Hall of Fame", title: "Artister", lead: "330+ bluesartist-profiler — pionerene, mestrene og dagens stemmer." },
 } as const;
 
-export const Route = createFileRoute("/$locale/artists")({
+export const Route = createFileRoute("/$locale/artists/")({
   beforeLoad: ({ params }) => {
     if (!isLocale(params.locale) || params.locale === "no") throw notFound();
   },
