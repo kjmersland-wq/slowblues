@@ -104,6 +104,10 @@ export type ArtistRecord = {
   videos: VideoEntry[];
   discography: DiscographyEntry[];
   awards: AwardEntry[];
+  press_quotes: PressQuote[];
+  website_url: string | null;
+  facebook_url: string | null;
+  link_check: Record<string, { status?: number | string; checked_at?: string }>;
   related_slugs: string[];
   sort_order: number;
 };
