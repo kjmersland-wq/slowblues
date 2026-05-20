@@ -144,7 +144,9 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
               {a.family.map((f, i) => (
                 <div key={i} className="border border-border rounded-lg p-5 bg-card/40">
                   <div className="text-[10px] tracking-[0.25em] text-rose-400/80 uppercase mb-2">{f.relation}</div>
-                  <div className="font-display text-xl mb-1">{f.name}</div>
+                  <div className="font-display text-xl mb-1">
+                    <NameLink name={f.name} index={nameIndex} locale={locale} />
+                  </div>
                   {f.note && <p className="text-sm text-muted-foreground">{f.note}</p>}
                 </div>
               ))}
