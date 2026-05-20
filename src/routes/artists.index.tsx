@@ -5,7 +5,7 @@ import { IMG } from "@/data/images";
 import { ArtistListView } from "@/components/artists/ArtistListView";
 import { SUPPORTED_LOCALES, artistsListPath, DEFAULT_LOCALE } from "@/lib/locale";
 
-export const Route = createFileRoute("/artists")({
+export const Route = createFileRoute("/artists/")({
   component: ArtistsPage,
   head: () => ({
     meta: [
