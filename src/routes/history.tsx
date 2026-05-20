@@ -3,6 +3,15 @@ import { SafeImage } from "@/components/SafeImage";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n } from "@/i18n";
 import { IMG } from "@/data/images";
+import { timelineEvents } from "@/data/timeline";
+
+// Local public-domain timeline images (Library of Congress / Wikimedia Commons)
+const timelineImages = import.meta.glob("@/assets/timeline/*.jpg", { eager: true, query: "?url", import: "default" }) as Record<string, string>;
+const timelineImageByYear: Record<number, string> = {};
+for (const [path, url] of Object.entries(timelineImages)) {
+  const match = path.match(/(\d{4})-/);
+  if (match) timelineImageByYear[parseInt(match[1], 10)] = url;
+}
 
 export const Route = createFileRoute("/history")({
   component: HistoryPage,
@@ -48,6 +57,44 @@ function HistoryPage() {
           ))}
         </div>
         <p className="text-xs text-muted-foreground text-center mt-16">{t.common.photoBy}: Library of Congress / Wikimedia Commons · {t.common.publicDomain} & Unsplash</p>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-6 pb-20">
+        <header className="mb-10 text-center">
+          <div className="text-xs tracking-[0.25em] text-gold uppercase mb-2">Year by year</div>
+          <h2 className="font-display text-3xl md:text-4xl">Detailed Timeline · 1865 — 2025</h2>
+          <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
+            Every documented milestone in the music's history — from emancipation to today's new generation. Bilingual: English &amp; norsk.
+          </p>
+        </header>
+
+        <ol className="space-y-6">
+          {timelineEvents.map((ev) => {
+            const img = timelineImageByYear[ev.year];
+            return (
+              <li key={ev.year} className="bg-card/60 border border-border rounded-lg overflow-hidden grid md:grid-cols-[200px_1fr] gap-0">
+                {img ? (
+                  <div className="aspect-[4/3] md:aspect-auto md:h-full overflow-hidden bg-card border-b md:border-b-0 md:border-r border-border">
+                    <SafeImage src={img} alt={ev.title} loading="lazy" className="size-full object-cover" />
+                  </div>
+                ) : (
+                  <div className="hidden md:flex items-center justify-center bg-card border-r border-border">
+                    <span className="font-display text-4xl text-gold">{ev.year}</span>
+                  </div>
+                )}
+                <div className="p-5">
+                  <div className="flex items-baseline gap-3 mb-1">
+                    <span className="font-display text-2xl text-gold">{ev.year}</span>
+                    <span className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">{ev.category}</span>
+                  </div>
+                  <h3 className="font-display text-xl">{ev.title} <span className="text-muted-foreground text-base font-sans">· {ev.titleNo}</span></h3>
+                  <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{ev.description}</p>
+                  <p className="text-sm text-muted-foreground/80 mt-2 leading-relaxed italic">{ev.descriptionNo}</p>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
       </section>
     </PageShell>
   );
