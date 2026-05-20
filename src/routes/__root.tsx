@@ -73,6 +73,43 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://sslow-blues.lovable.app/#organization",
+              name: "KM TECH LABS",
+              alternateName: "KM TECH LABS — Kjell Mersland",
+              legalName: "KM TECH LABS — Kjell Mersland",
+              taxID: "934 044 029",
+              vatID: "NO934044029",
+              url: "https://sslow-blues.lovable.app",
+              founder: { "@type": "Person", name: "Kjell Mersland" },
+              address: { "@type": "PostalAddress", addressCountry: "NO" },
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "editorial",
+                url: "https://sslow-blues.lovable.app/contact",
+                availableLanguage: ["Norwegian", "English", "German"],
+              },
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://sslow-blues.lovable.app/#website",
+              url: "https://sslow-blues.lovable.app",
+              name: "SlowBlues",
+              description: "Redaksjonelt blues-arkiv med 330+ artistprofiler, historikk, anmeldelser og festivaler.",
+              publisher: { "@id": "https://sslow-blues.lovable.app/#organization" },
+              inLanguage: ["no", "en", "de"],
+            },
+          ],
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
