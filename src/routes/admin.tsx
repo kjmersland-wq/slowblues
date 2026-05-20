@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/useAuth";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
-import { Trash2, LogOut, MessageSquare, BookOpen, ShieldCheck, Database } from "lucide-react";
+import { Trash2, LogOut, MessageSquare, BookOpen, ShieldCheck, Database, Quote, Link2 } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   component: AdminPage,
