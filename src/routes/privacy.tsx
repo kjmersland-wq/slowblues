@@ -18,6 +18,11 @@ function PrivacyPage() {
     <PageShell>
       <PageHero eyebrow={t.pages.privacy.eyebrow} title={t.pages.privacy.title} lead={t.pages.privacy.lead} />
       <section className="max-w-3xl mx-auto px-6 py-12 prose prose-invert">
+        <div className="mb-8 rounded-lg border border-border bg-card/50 p-5 text-sm not-italic">
+          <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-2">Behandlingsansvarlig</div>
+          <p className="text-foreground/90 m-0">KM TECH LABS — Kjell Mersland · Org.nr. 934 044 029 · Ansvarlig redaktør: Kjell Mersland</p>
+          <p className="text-muted-foreground m-0 mt-1">All kontakt skjer via <a href="/contact" className="text-gold hover:underline">kontaktskjemaet</a>. Se også <a href="/gdpr" className="text-gold hover:underline">GDPR-erklæringen</a>.</p>
+        </div>
         <div className="space-y-6 text-foreground/85 leading-relaxed">
           {content.map((b, i) => (
             <div key={i}>

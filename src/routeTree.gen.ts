@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorldmapRouteImport } from './routes/worldmap'
 import { Route as WatchRouteImport } from './routes/watch'
 import { Route as UpdatesRouteImport } from './routes/updates'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as StylesRouteImport } from './routes/styles'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -25,12 +26,18 @@ import { Route as ListenRouteImport } from './routes/listen'
 import { Route as InstrumentsRouteImport } from './routes/instruments'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as GuestbookRouteImport } from './routes/guestbook'
+import { Route as GdprRouteImport } from './routes/gdpr'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as FestivalsRouteImport } from './routes/festivals'
+import { Route as DisclaimerRouteImport } from './routes/disclaimer'
+import { Route as CopyrightRouteImport } from './routes/copyright'
+import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AccessibilityRouteImport } from './routes/accessibility'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConcertsIndexRouteImport } from './routes/concerts.index'
 import { Route as ArtistsIndexRouteImport } from './routes/artists.index'
@@ -71,6 +78,11 @@ const WatchRoute = WatchRouteImport.update({
 const UpdatesRoute = UpdatesRouteImport.update({
   id: '/updates',
   path: '/updates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SupportRoute = SupportRouteImport.update({
@@ -138,6 +150,11 @@ const GuestbookRoute = GuestbookRouteImport.update({
   path: '/guestbook',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GdprRoute = GdprRouteImport.update({
+  id: '/gdpr',
+  path: '/gdpr',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GalleryRoute = GalleryRouteImport.update({
   id: '/gallery',
   path: '/gallery',
@@ -146,6 +163,21 @@ const GalleryRoute = GalleryRouteImport.update({
 const FestivalsRoute = FestivalsRouteImport.update({
   id: '/festivals',
   path: '/festivals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DisclaimerRoute = DisclaimerRouteImport.update({
+  id: '/disclaimer',
+  path: '/disclaimer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CopyrightRoute = CopyrightRouteImport.update({
+  id: '/copyright',
+  path: '/copyright',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -166,6 +198,16 @@ const BlogRoute = BlogRouteImport.update({
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccessibilityRoute = AccessibilityRouteImport.update({
+  id: '/accessibility',
+  path: '/accessibility',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -254,19 +296,19 @@ const AdminLinksRoute = AdminLinksRouteImport.update({
   getParentRoute: () => AdminRoute,
 } as any)
 const AboutMerchRoute = AboutMerchRouteImport.update({
-  id: '/about/merch',
-  path: '/about/merch',
-  getParentRoute: () => rootRouteImport,
+  id: '/merch',
+  path: '/merch',
+  getParentRoute: () => AboutRoute,
 } as any)
 const AboutGuestbookRoute = AboutGuestbookRouteImport.update({
-  id: '/about/guestbook',
-  path: '/about/guestbook',
-  getParentRoute: () => rootRouteImport,
+  id: '/guestbook',
+  path: '/guestbook',
+  getParentRoute: () => AboutRoute,
 } as any)
 const AboutBlogRoute = AboutBlogRouteImport.update({
-  id: '/about/blog',
-  path: '/about/blog',
-  getParentRoute: () => rootRouteImport,
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => AboutRoute,
 } as any)
 const LocaleArtistsIndexRoute = LocaleArtistsIndexRouteImport.update({
   id: '/$locale/artists/',
@@ -303,12 +345,18 @@ const AboutMerchCollectionSlugRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRouteWithChildren
+  '/accessibility': typeof AccessibilityRoute
   '/admin': typeof AdminRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
+  '/copyright': typeof CopyrightRoute
+  '/disclaimer': typeof DisclaimerRoute
   '/festivals': typeof FestivalsRoute
   '/gallery': typeof GalleryRoute
+  '/gdpr': typeof GdprRoute
   '/guestbook': typeof GuestbookRoute
   '/history': typeof HistoryRoute
   '/instruments': typeof InstrumentsRoute
@@ -322,6 +370,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
+  '/terms': typeof TermsRoute
   '/updates': typeof UpdatesRoute
   '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
@@ -353,12 +402,18 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRouteWithChildren
+  '/accessibility': typeof AccessibilityRoute
   '/admin': typeof AdminRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
+  '/copyright': typeof CopyrightRoute
+  '/disclaimer': typeof DisclaimerRoute
   '/festivals': typeof FestivalsRoute
   '/gallery': typeof GalleryRoute
+  '/gdpr': typeof GdprRoute
   '/guestbook': typeof GuestbookRoute
   '/history': typeof HistoryRoute
   '/instruments': typeof InstrumentsRoute
@@ -372,6 +427,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
+  '/terms': typeof TermsRoute
   '/updates': typeof UpdatesRoute
   '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
@@ -404,12 +460,18 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRouteWithChildren
+  '/accessibility': typeof AccessibilityRoute
   '/admin': typeof AdminRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
+  '/copyright': typeof CopyrightRoute
+  '/disclaimer': typeof DisclaimerRoute
   '/festivals': typeof FestivalsRoute
   '/gallery': typeof GalleryRoute
+  '/gdpr': typeof GdprRoute
   '/guestbook': typeof GuestbookRoute
   '/history': typeof HistoryRoute
   '/instruments': typeof InstrumentsRoute
@@ -423,6 +485,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
+  '/terms': typeof TermsRoute
   '/updates': typeof UpdatesRoute
   '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
@@ -456,12 +519,18 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
+    | '/accessibility'
     | '/admin'
     | '/blog'
     | '/compare'
     | '/contact'
+    | '/cookies'
+    | '/copyright'
+    | '/disclaimer'
     | '/festivals'
     | '/gallery'
+    | '/gdpr'
     | '/guestbook'
     | '/history'
     | '/instruments'
@@ -475,6 +544,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/styles'
     | '/support'
+    | '/terms'
     | '/updates'
     | '/watch'
     | '/worldmap'
@@ -506,12 +576,18 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
+    | '/accessibility'
     | '/admin'
     | '/blog'
     | '/compare'
     | '/contact'
+    | '/cookies'
+    | '/copyright'
+    | '/disclaimer'
     | '/festivals'
     | '/gallery'
+    | '/gdpr'
     | '/guestbook'
     | '/history'
     | '/instruments'
@@ -525,6 +601,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/styles'
     | '/support'
+    | '/terms'
     | '/updates'
     | '/watch'
     | '/worldmap'
@@ -556,12 +633,18 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
+    | '/accessibility'
     | '/admin'
     | '/blog'
     | '/compare'
     | '/contact'
+    | '/cookies'
+    | '/copyright'
+    | '/disclaimer'
     | '/festivals'
     | '/gallery'
+    | '/gdpr'
     | '/guestbook'
     | '/history'
     | '/instruments'
@@ -575,6 +658,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/styles'
     | '/support'
+    | '/terms'
     | '/updates'
     | '/watch'
     | '/worldmap'
@@ -607,12 +691,18 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRouteWithChildren
+  AccessibilityRoute: typeof AccessibilityRoute
   AdminRoute: typeof AdminRouteWithChildren
   BlogRoute: typeof BlogRouteWithChildren
   CompareRoute: typeof CompareRoute
   ContactRoute: typeof ContactRoute
+  CookiesRoute: typeof CookiesRoute
+  CopyrightRoute: typeof CopyrightRoute
+  DisclaimerRoute: typeof DisclaimerRoute
   FestivalsRoute: typeof FestivalsRoute
   GalleryRoute: typeof GalleryRoute
+  GdprRoute: typeof GdprRoute
   GuestbookRoute: typeof GuestbookRoute
   HistoryRoute: typeof HistoryRoute
   InstrumentsRoute: typeof InstrumentsRoute
@@ -626,12 +716,10 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StylesRoute: typeof StylesRoute
   SupportRoute: typeof SupportRoute
+  TermsRoute: typeof TermsRoute
   UpdatesRoute: typeof UpdatesRoute
   WatchRoute: typeof WatchRoute
   WorldmapRoute: typeof WorldmapRoute
-  AboutBlogRoute: typeof AboutBlogRoute
-  AboutGuestbookRoute: typeof AboutGuestbookRoute
-  AboutMerchRoute: typeof AboutMerchRouteWithChildren
   ArtistsSlugRoute: typeof ArtistsSlugRoute
   ConcertsSlugRoute: typeof ConcertsSlugRoute
   EditorialImagesRoute: typeof EditorialImagesRoute
@@ -665,6 +753,13 @@ declare module '@tanstack/react-router' {
       path: '/updates'
       fullPath: '/updates'
       preLoaderRoute: typeof UpdatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/support': {
@@ -758,6 +853,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuestbookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gdpr': {
+      id: '/gdpr'
+      path: '/gdpr'
+      fullPath: '/gdpr'
+      preLoaderRoute: typeof GdprRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/gallery': {
       id: '/gallery'
       path: '/gallery'
@@ -770,6 +872,27 @@ declare module '@tanstack/react-router' {
       path: '/festivals'
       fullPath: '/festivals'
       preLoaderRoute: typeof FestivalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/disclaimer': {
+      id: '/disclaimer'
+      path: '/disclaimer'
+      fullPath: '/disclaimer'
+      preLoaderRoute: typeof DisclaimerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/copyright': {
+      id: '/copyright'
+      path: '/copyright'
+      fullPath: '/copyright'
+      preLoaderRoute: typeof CopyrightRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -798,6 +921,20 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/accessibility': {
+      id: '/accessibility'
+      path: '/accessibility'
+      fullPath: '/accessibility'
+      preLoaderRoute: typeof AccessibilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -921,24 +1058,24 @@ declare module '@tanstack/react-router' {
     }
     '/about/merch': {
       id: '/about/merch'
-      path: '/about/merch'
+      path: '/merch'
       fullPath: '/about/merch'
       preLoaderRoute: typeof AboutMerchRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AboutRoute
     }
     '/about/guestbook': {
       id: '/about/guestbook'
-      path: '/about/guestbook'
+      path: '/guestbook'
       fullPath: '/about/guestbook'
       preLoaderRoute: typeof AboutGuestbookRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AboutRoute
     }
     '/about/blog': {
       id: '/about/blog'
-      path: '/about/blog'
+      path: '/blog'
       fullPath: '/about/blog'
       preLoaderRoute: typeof AboutBlogRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AboutRoute
     }
     '/$locale/artists/': {
       id: '/$locale/artists/'
@@ -984,6 +1121,34 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AboutMerchRouteChildren {
+  AboutMerchSlugRoute: typeof AboutMerchSlugRoute
+  AboutMerchCollectionSlugRoute: typeof AboutMerchCollectionSlugRoute
+}
+
+const AboutMerchRouteChildren: AboutMerchRouteChildren = {
+  AboutMerchSlugRoute: AboutMerchSlugRoute,
+  AboutMerchCollectionSlugRoute: AboutMerchCollectionSlugRoute,
+}
+
+const AboutMerchRouteWithChildren = AboutMerchRoute._addFileChildren(
+  AboutMerchRouteChildren,
+)
+
+interface AboutRouteChildren {
+  AboutBlogRoute: typeof AboutBlogRoute
+  AboutGuestbookRoute: typeof AboutGuestbookRoute
+  AboutMerchRoute: typeof AboutMerchRouteWithChildren
+}
+
+const AboutRouteChildren: AboutRouteChildren = {
+  AboutBlogRoute: AboutBlogRoute,
+  AboutGuestbookRoute: AboutGuestbookRoute,
+  AboutMerchRoute: AboutMerchRouteWithChildren,
+}
+
+const AboutRouteWithChildren = AboutRoute._addFileChildren(AboutRouteChildren)
 
 interface AdminRouteChildren {
   AdminLinksRoute: typeof AdminLinksRoute
@@ -1048,28 +1213,20 @@ const ReviewsRouteChildren: ReviewsRouteChildren = {
 const ReviewsRouteWithChildren =
   ReviewsRoute._addFileChildren(ReviewsRouteChildren)
 
-interface AboutMerchRouteChildren {
-  AboutMerchSlugRoute: typeof AboutMerchSlugRoute
-  AboutMerchCollectionSlugRoute: typeof AboutMerchCollectionSlugRoute
-}
-
-const AboutMerchRouteChildren: AboutMerchRouteChildren = {
-  AboutMerchSlugRoute: AboutMerchSlugRoute,
-  AboutMerchCollectionSlugRoute: AboutMerchCollectionSlugRoute,
-}
-
-const AboutMerchRouteWithChildren = AboutMerchRoute._addFileChildren(
-  AboutMerchRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRouteWithChildren,
+  AccessibilityRoute: AccessibilityRoute,
   AdminRoute: AdminRouteWithChildren,
   BlogRoute: BlogRouteWithChildren,
   CompareRoute: CompareRoute,
   ContactRoute: ContactRoute,
+  CookiesRoute: CookiesRoute,
+  CopyrightRoute: CopyrightRoute,
+  DisclaimerRoute: DisclaimerRoute,
   FestivalsRoute: FestivalsRoute,
   GalleryRoute: GalleryRoute,
+  GdprRoute: GdprRoute,
   GuestbookRoute: GuestbookRoute,
   HistoryRoute: HistoryRoute,
   InstrumentsRoute: InstrumentsRoute,
@@ -1083,12 +1240,10 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StylesRoute: StylesRoute,
   SupportRoute: SupportRoute,
+  TermsRoute: TermsRoute,
   UpdatesRoute: UpdatesRoute,
   WatchRoute: WatchRoute,
   WorldmapRoute: WorldmapRoute,
-  AboutBlogRoute: AboutBlogRoute,
-  AboutGuestbookRoute: AboutGuestbookRoute,
-  AboutMerchRoute: AboutMerchRouteWithChildren,
   ArtistsSlugRoute: ArtistsSlugRoute,
   ConcertsSlugRoute: ConcertsSlugRoute,
   EditorialImagesRoute: EditorialImagesRoute,
