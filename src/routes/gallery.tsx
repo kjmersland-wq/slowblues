@@ -37,7 +37,7 @@ function GalleryPage() {
 
       <section className="max-w-7xl mx-auto px-6 py-12">
         <header className="mb-8">
-          <div className="text-xs tracking-[0.25em] text-gold uppercase mb-2">FSA / OWI Collection</header>
+          <div className="text-xs tracking-[0.25em] text-gold uppercase mb-2">FSA / OWI Collection</div>
           <h2 className="font-display text-3xl">Library of Congress — Field Photography</h2>
           <p className="text-muted-foreground mt-2 max-w-2xl">Farm Security Administration documentary photographs from the late 1930s and early 1940s — the world the blues came from.</p>
         </header>
