@@ -3,6 +3,15 @@ import { SafeImage } from "@/components/SafeImage";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n } from "@/i18n";
 import { IMG } from "@/data/images";
+import { timelineEvents } from "@/data/timeline";
+
+// Local public-domain timeline images (Library of Congress / Wikimedia Commons)
+const timelineImages = import.meta.glob("@/assets/timeline/*.jpg", { eager: true, query: "?url", import: "default" }) as Record<string, string>;
+const timelineImageByYear: Record<number, string> = {};
+for (const [path, url] of Object.entries(timelineImages)) {
+  const match = path.match(/(\d{4})-/);
+  if (match) timelineImageByYear[parseInt(match[1], 10)] = url;
+}
 
 export const Route = createFileRoute("/history")({
   component: HistoryPage,
