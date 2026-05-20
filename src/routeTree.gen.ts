@@ -227,9 +227,9 @@ const BlogIdRoute = BlogIdRouteImport.update({
   getParentRoute: () => BlogRoute,
 } as any)
 const ArtistsSlugRoute = ArtistsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => ArtistsRoute,
+  id: '/artists/$slug',
+  path: '/artists/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminWikidataRoute = AdminWikidataRouteImport.update({
   id: '/wikidata',
@@ -278,9 +278,9 @@ const AboutMerchSlugRoute = AboutMerchSlugRouteImport.update({
   getParentRoute: () => AboutMerchRoute,
 } as any)
 const LocaleArtistsSlugRoute = LocaleArtistsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => LocaleArtistsRoute,
+  id: '/$locale/artists/$slug',
+  path: '/$locale/artists/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AboutMerchCollectionSlugRoute =
   AboutMerchCollectionSlugRouteImport.update({
@@ -608,12 +608,14 @@ export interface RootRouteChildren {
   AboutBlogRoute: typeof AboutBlogRoute
   AboutGuestbookRoute: typeof AboutGuestbookRoute
   AboutMerchRoute: typeof AboutMerchRouteWithChildren
+  ArtistsSlugRoute: typeof ArtistsSlugRoute
   ConcertsSlugRoute: typeof ConcertsSlugRoute
   EditorialImagesRoute: typeof EditorialImagesRoute
   ExperienceMediaRoute: typeof ExperienceMediaRoute
   LearnStylesRoute: typeof LearnStylesRoute
   ArtistsIndexRoute: typeof ArtistsIndexRoute
   ConcertsIndexRoute: typeof ConcertsIndexRoute
+  LocaleArtistsSlugRoute: typeof LocaleArtistsSlugRoute
   ApiPublicFourthwallWebhookRoute: typeof ApiPublicFourthwallWebhookRoute
   LocaleArtistsIndexRoute: typeof LocaleArtistsIndexRoute
 }
@@ -860,10 +862,10 @@ declare module '@tanstack/react-router' {
     }
     '/artists/$slug': {
       id: '/artists/$slug'
-      path: '/$slug'
+      path: '/artists/$slug'
       fullPath: '/artists/$slug'
       preLoaderRoute: typeof ArtistsSlugRouteImport
-      parentRoute: typeof ArtistsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/admin/wikidata': {
       id: '/admin/wikidata'
@@ -930,10 +932,10 @@ declare module '@tanstack/react-router' {
     }
     '/$locale/artists/$slug': {
       id: '/$locale/artists/$slug'
-      path: '/$slug'
+      path: '/$locale/artists/$slug'
       fullPath: '/$locale/artists/$slug'
       preLoaderRoute: typeof LocaleArtistsSlugRouteImport
-      parentRoute: typeof LocaleArtistsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/about/merch/collection/$slug': {
       id: '/about/merch/collection/$slug'
@@ -1045,12 +1047,14 @@ const rootRouteChildren: RootRouteChildren = {
   AboutBlogRoute: AboutBlogRoute,
   AboutGuestbookRoute: AboutGuestbookRoute,
   AboutMerchRoute: AboutMerchRouteWithChildren,
+  ArtistsSlugRoute: ArtistsSlugRoute,
   ConcertsSlugRoute: ConcertsSlugRoute,
   EditorialImagesRoute: EditorialImagesRoute,
   ExperienceMediaRoute: ExperienceMediaRoute,
   LearnStylesRoute: LearnStylesRoute,
   ArtistsIndexRoute: ArtistsIndexRoute,
   ConcertsIndexRoute: ConcertsIndexRoute,
+  LocaleArtistsSlugRoute: LocaleArtistsSlugRoute,
   ApiPublicFourthwallWebhookRoute: ApiPublicFourthwallWebhookRoute,
   LocaleArtistsIndexRoute: LocaleArtistsIndexRoute,
 }
