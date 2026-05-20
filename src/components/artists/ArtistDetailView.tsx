@@ -278,9 +278,17 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
                         <td className="p-3">{chart ?? "—"}</td>
                         <td className="p-3 text-muted-foreground">{sales ?? "—"}</td>
                         <td className="p-3 text-muted-foreground max-w-[18rem]">
-                          {d.musicians && d.musicians.length > 0
-                            ? d.musicians.map((m) => `${m.name}${m.instrument ? ` (${m.instrument})` : ""}`).join(", ")
-                            : "—"}
+                          {d.musicians && d.musicians.length > 0 ? (
+                            <span>
+                              {d.musicians.map((m, mi) => (
+                                <span key={mi}>
+                                  <NameLink name={m.name} index={nameIndex} locale={locale} />
+                                  {m.instrument ? ` (${m.instrument})` : ""}
+                                  {mi < d.musicians!.length - 1 ? ", " : ""}
+                                </span>
+                              ))}
+                            </span>
+                          ) : "—"}
                         </td>
                         <td className="p-3">
                           {d.youtube_id ? (
