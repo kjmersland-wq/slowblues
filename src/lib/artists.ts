@@ -21,9 +21,21 @@ export type DiscographyEntry = {
   producer?: string;
   label?: string;
   chart?: string;
+  chart_position?: string;
   sales?: string;
+  sales_estimate?: string;
   notes?: string;
   musicians_count?: number;
+  musicians?: Array<{ name: string; instrument?: string }>;
+  youtube_id?: string;
+};
+export type PressQuote = {
+  quote: string;
+  author: string;
+  role?: string;
+  source_title?: string;
+  source_url?: string;
+  year?: number | string;
 };
 export type AwardEntry = { year: number | string; title: string; category?: string; note?: string };
 
