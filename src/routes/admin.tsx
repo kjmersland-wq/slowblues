@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/useAuth";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
-import { Trash2, LogOut, MessageSquare, BookOpen, ShieldCheck, Database } from "lucide-react";
+import { Trash2, LogOut, MessageSquare, BookOpen, ShieldCheck, Database, Quote, Link2 } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   component: AdminPage,
@@ -92,6 +92,12 @@ function AdminPage() {
           <div className="flex gap-2 flex-wrap">
             <Link to="/admin/quality" className="px-4 py-2 rounded-md border border-gold/40 text-sm hover:border-gold flex items-center gap-2 text-gold">
               <ShieldCheck className="size-4" /> QC Dashboard
+            </Link>
+            <Link to="/admin/quotes" className="px-4 py-2 rounded-md border border-border text-sm hover:border-gold flex items-center gap-2">
+              <Quote className="size-4" /> Pressomtaler
+            </Link>
+            <Link to="/admin/links" className="px-4 py-2 rounded-md border border-border text-sm hover:border-gold flex items-center gap-2">
+              <Link2 className="size-4" /> Lenkesjekk
             </Link>
             <Link to="/admin/wikidata" className="px-4 py-2 rounded-md border border-border text-sm hover:border-gold flex items-center gap-2">
               <Database className="size-4" /> Wikidata

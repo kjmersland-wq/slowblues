@@ -5,6 +5,7 @@ import { resolveArtistImage } from "@/lib/artistImageMap";
 import { computeRelated } from "@/lib/relatedArtists";
 import { IMG } from "@/data/images";
 import { artistDetailPath, artistsListPath, type ArtistLocale } from "@/lib/locale";
+import { NameLink, useNameIndex } from "@/components/artists/NameLink";
 import {
   ArrowLeft, Music, MapPin, Disc3, Calendar, Users, Star, Quote, Guitar,
   PlayCircle, Mic, Award, Sparkles, Globe, ExternalLink, Image as ImageIcon, BookOpen,
@@ -39,6 +40,7 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
 
   const heroImg = resolveArtistImage(a.img) ?? IMG.muddyWaters;
   const related = computeRelated(a, all ?? [], 8);
+  const nameIndex = useNameIndex(all);
   const bio = pickLang(a, lang, "biography");
   const short = pickLang(a, lang, "short") ?? a.short;
   const influence = pickLang(a, lang, "influence");
@@ -142,7 +144,9 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
               {a.family.map((f, i) => (
                 <div key={i} className="border border-border rounded-lg p-5 bg-card/40">
                   <div className="text-[10px] tracking-[0.25em] text-rose-400/80 uppercase mb-2">{f.relation}</div>
-                  <div className="font-display text-xl mb-1">{f.name}</div>
+                  <div className="font-display text-xl mb-1">
+                    <NameLink name={f.name} index={nameIndex} locale={locale} />
+                  </div>
                   {f.note && <p className="text-sm text-muted-foreground">{f.note}</p>}
                 </div>
               ))}
@@ -206,7 +210,9 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {a.collaborators.map((c, i) => (
                 <div key={i} className="border border-border rounded-lg p-4 bg-card/40">
-                  <div className="font-display text-lg text-gold mb-1">{c.name}</div>
+                  <div className="font-display text-lg text-gold mb-1">
+                    <NameLink name={c.name} index={nameIndex} locale={locale} />
+                  </div>
                   {c.years && <div className="text-xs text-muted-foreground mb-2">{c.years}</div>}
                   {c.note && <p className="text-sm text-muted-foreground leading-relaxed">{c.note}</p>}
                 </div>
@@ -272,9 +278,17 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
                         <td className="p-3">{chart ?? "—"}</td>
                         <td className="p-3 text-muted-foreground">{sales ?? "—"}</td>
                         <td className="p-3 text-muted-foreground max-w-[18rem]">
-                          {d.musicians && d.musicians.length > 0
-                            ? d.musicians.map((m) => `${m.name}${m.instrument ? ` (${m.instrument})` : ""}`).join(", ")
-                            : "—"}
+                          {d.musicians && d.musicians.length > 0 ? (
+                            <span>
+                              {d.musicians.map((m, mi) => (
+                                <span key={mi}>
+                                  <NameLink name={m.name} index={nameIndex} locale={locale} />
+                                  {m.instrument ? ` (${m.instrument})` : ""}
+                                  {mi < d.musicians!.length - 1 ? ", " : ""}
+                                </span>
+                              ))}
+                            </span>
+                          ) : "—"}
                         </td>
                         <td className="p-3">
                           {d.youtube_id ? (
