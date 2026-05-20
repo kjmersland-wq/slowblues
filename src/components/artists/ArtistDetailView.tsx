@@ -346,11 +346,13 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
         {(Object.keys(a.social_links ?? {}).length > 0 || a.external_links.length > 0) && (
           <Section icon={Globe} title={t.links} tone="gold">
             <div className="flex flex-wrap gap-3">
-              {Object.entries(a.social_links ?? {}).map(([k, v]) => (
-                <a key={k} href={v as string} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gold/40 bg-gold/5 text-gold hover:bg-gold/15 transition text-sm">
-                  <ExternalLink className="size-3.5" /> {k}
-                </a>
-              ))}
+              {Object.entries(a.social_links ?? {})
+                .filter(([k, v]) => k.toLowerCase() !== "spotify" && typeof v === "string" && v.length > 0)
+                .map(([k, v]) => (
+                  <a key={k} href={v as string} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gold/40 bg-gold/5 text-gold hover:bg-gold/15 transition text-sm">
+                    <ExternalLink className="size-3.5" /> {k}
+                  </a>
+                ))}
               {a.external_links.map((l, i) => (
                 <a key={i} href={l.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border bg-card/40 hover:border-gold/50 hover:text-gold transition text-sm">
                   <ExternalLink className="size-3.5" /> {l.label ?? new URL(l.url).hostname.replace(/^www\./, "")}
