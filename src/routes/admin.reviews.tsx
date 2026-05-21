@@ -207,10 +207,11 @@ function AdminReviewsPage() {
                 </div>
 
                 <div className="space-y-3">
-                  <Field label="Slug" value={editing.slug} onChange={(v) => setEditing({ ...editing, slug: v })} />
-                  <Field label="Artist name" value={editing.artist_name} onChange={(v) => setEditing({ ...editing, artist_name: v })} />
+                  <Field label="Slug" value={editing.slug ?? ""} onChange={(v) => setEditing({ ...editing, slug: v })} />
+                  <Field label="Artist name" value={editing.artist_name ?? ""} onChange={(v) => setEditing({ ...editing, artist_name: v })} />
                   <Field label="Artist slug" value={editing.artist_slug ?? ""} onChange={(v) => setEditing({ ...editing, artist_slug: v || null })} />
-                  <Field label="Album title" value={editing.album_title} onChange={(v) => setEditing({ ...editing, album_title: v })} />
+                  <Field label="Album title" value={editing.album_title ?? ""} onChange={(v) => setEditing({ ...editing, album_title: v })} />
+
                   <div className="grid grid-cols-3 gap-3">
                     <Field label="Year" value={String(editing.release_year ?? "")} onChange={(v) => setEditing({ ...editing, release_year: v ? Number(v) : null })} />
                     <Field label="Label" value={editing.label ?? ""} onChange={(v) => setEditing({ ...editing, label: v || null })} />
