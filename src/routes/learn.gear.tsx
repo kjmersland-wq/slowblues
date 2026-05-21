@@ -51,6 +51,7 @@ const BRANDS: Brand[] = [
   {
     id: "fender", cat: "guitars", name: "Fender",
     founded: "1946 · Leo Fender · Fullerton, California",
+    founder: { name: "Leo Fender", years: "1909–1991", image: wm("Clarence Leo Fender, Guitar Design File (49532200938).jpg"), credit: "Wikimedia Commons", creditUrl: wmPage("Clarence Leo Fender, Guitar Design File (49532200938).jpg") },
     models: ["Telecaster (1950)", "Stratocaster (1954)", "Fender Bassman amp"],
     editorialEN: "Leo Fender couldn't play guitar. That's the great irony. He built his instruments by listening to musicians — what they needed, what hurt their hands, what got lost in the mix on a noisy stage. The Telecaster was the first mass-produced solid-body electric guitar. Blues players picked it up immediately. Albert Collins never put his down.",
     editorialNO: "Leo Fender kunne ikke spille gitar. Det er den store ironien. Han bygde instrumenter ved å lytte til musikere — hva de trengte, hva som gjorde vondt i hendene, hva som forsvant i miksen på en støyende scene. Telecasteren var den første masseproduserte elektriske solid-body-gitaren. Bluesmusikerne tok den i bruk umiddelbart. Albert Collins la den aldri fra seg.",
@@ -68,6 +69,7 @@ const BRANDS: Brand[] = [
   {
     id: "gibson", cat: "guitars", name: "Gibson",
     founded: "1902 · Orville Gibson · Kalamazoo, Michigan",
+    founder: { name: "Orville Gibson", years: "1856–1918", image: wm("Orville Gibson pre-1910.jpg"), credit: "Wikimedia Commons", creditUrl: wmPage("Orville Gibson pre-1910.jpg") },
     models: ["ES-335 (1958)", "Les Paul (1952)", "ES-150 (1936)", "Flying V (1958)", "SG (1961)"],
     editorialEN: "BB King named his Gibson 'Lucille' after a woman whose name caused a bar fight and a fire. He ran back into the burning building to rescue the guitar. After that, every Gibson ES-355 he owned was called Lucille. That's the blues relationship with a Gibson — it's not just an instrument, it's a partner.",
     editorialNO: "BB King kalte sin Gibson «Lucille» etter ei dame hvis navn forårsaket et barslagsmål og en brann. Han løp tilbake inn i den brennende bygningen for å redde gitaren. Etter det het hver eneste Gibson ES-355 han eide Lucille. Det er bluesens forhold til en Gibson — det er ikke bare et instrument, det er en partner.",
@@ -84,6 +86,7 @@ const BRANDS: Brand[] = [
   {
     id: "martin", cat: "guitars", name: "Martin",
     founded: "1833 · C.F. Martin Sr. · Nazareth, Pennsylvania",
+    founder: { name: "C. F. Martin Sr.", years: "1796–1873", image: wm("Christian Frederick Martin.jpg"), credit: "Wikimedia Commons", creditUrl: wmPage("Christian Frederick Martin.jpg") },
     models: ["000-28", "00-17", "Dreadnought series"],
     editorialEN: "Before the amplifier, there was the Martin. Robert Johnson played a Gibson L-1, yes — but the acoustic Martin defined the Delta sound for an entire generation of blues musicians who couldn't afford electricity and didn't need it.",
     editorialNO: "Før forsterkeren fantes Martin. Robert Johnson spilte en Gibson L-1, ja — men den akustiske Martin definerte Delta-lyden for en hel generasjon bluesmusikere som ikke hadde råd til strøm og ikke trengte det.",
@@ -97,6 +100,7 @@ const BRANDS: Brand[] = [
   {
     id: "national", cat: "guitars", name: "National / Resonator",
     founded: "1927 · John Dopyera · Los Angeles",
+    founder: { name: "John Dopyera", years: "1893–1988" },
     models: ["Style O (metal resonator)", "Dobro (wood resonator)"],
     editorialEN: "Before amplification, if you needed to be heard over a noisy room, you played a National. The metal resonator became the sound of the Delta — that metallic, ringing sustain you hear on Son House and Bukka White recordings. Slide guitar and a National. Nothing louder. Nothing more desperate-sounding.",
     editorialNO: "Før forsterkningen kom: trengte du å høres over en støyende sal, spilte du en National. Metallresonatoren ble lyden av Delta — den metalliske, klingende sustainen du hører på opptakene til Son House og Bukka White. Slidegitar og en National. Ingenting høyere. Ingenting mer desperat.",
@@ -111,6 +115,7 @@ const BRANDS: Brand[] = [
   {
     id: "fender-amps", cat: "amps", name: "Fender Amplifiers",
     founded: "1946 · Fullerton, California",
+    founder: { name: "Leo Fender", years: "1909–1991", image: wm("Clarence Leo Fender, Guitar Design File (49532200938).jpg"), credit: "Wikimedia Commons", creditUrl: wmPage("Clarence Leo Fender, Guitar Design File (49532200938).jpg") },
     models: ["Tweed Bassman (1957)", "Blues Junior", "Super Reverb", "Vibroverb"],
     editorialEN: "The tweed Fender Bassman was originally designed for bass guitar. Nobody used it for bass. Blues and rock guitarists immediately understood what a slightly overdriven Bassman could do. It became the foundation of the Chicago sound — and the inspiration for the first Marshall amp.",
     editorialNO: "Tweed Fender Bassman ble opprinnelig designet for bassgitar. Ingen brukte den til bass. Blues- og rockegitarister forsto umiddelbart hva en lett overdrevet Bassman kunne gjøre. Den ble grunnsteinen i Chicago-lyden — og inspirasjonen til den første Marshall-forsterkeren.",
@@ -124,6 +129,7 @@ const BRANDS: Brand[] = [
   {
     id: "marshall", cat: "amps", name: "Marshall",
     founded: "1962 · Jim Marshall · London",
+    founder: { name: "Jim Marshall", years: "1923–2012", image: wm("Jim Marshall at Summer NAMM 2007.jpg"), credit: "Wikimedia Commons", creditUrl: wmPage("Jim Marshall at Summer NAMM 2007.jpg") },
     models: ["JTM45 (1962)", "1962 Bluesbreaker combo", "Plexi Super Lead"],
     editorialEN: "Jim Marshall was a drum teacher who ran a music shop in Hanwell, London. His customers — young British guitarists who'd been listening to American blues records — kept asking for louder American amps. Marshall built them something better. The JTM45 was directly inspired by the Fender Bassman. Eric Clapton plugged a Les Paul into one in 1966 and made the Beano album. That sound changed everything.",
     editorialNO: "Jim Marshall var en trommelærer som drev en musikkbutikk i Hanwell, London. Kundene hans — unge britiske gitarister som hadde hørt på amerikanske blues-plater — ba stadig om høyere amerikanske forsterkere. Marshall bygde dem noe bedre. JTM45 var direkte inspirert av Fender Bassman. Eric Clapton koblet en Les Paul inn i en i 1966 og lagde Beano-platen. Den lyden forandret alt.",
@@ -138,6 +144,7 @@ const BRANDS: Brand[] = [
   {
     id: "vox", cat: "amps", name: "Vox",
     founded: "1957 · Tom Jennings · Dartford, England",
+    founder: { name: "Tom Jennings", years: "1917–1978" },
     models: ["AC30"],
     editorialEN: "The AC30 was the British blues boom in box form — bright, chimey, and capable of a snarl when pushed. John Mayall and the first Fleetwood Mac generation leaned on it.",
     editorialNO: "AC30 var det britiske bluesboomet i en boks — lys, klingende, og i stand til å snerre når den ble presset. John Mayall og den første Fleetwood Mac-generasjonen lente seg på den.",
@@ -148,6 +155,7 @@ const BRANDS: Brand[] = [
   {
     id: "dumble", cat: "amps", name: "Dumble",
     founded: "Hand-built · Alexander Dumble · California",
+    founder: { name: "Howard Alexander Dumble", years: "1944–2022" },
     models: ["Overdrive Special", "Steel String Singer"],
     editorialEN: "Howard Alexander Dumble builds amplifiers one at a time, by hand, in secret. He doesn't advertise. He doesn't have a website. He chooses his customers personally. Stevie Ray Vaughan had one. That should tell you everything.",
     editorialNO: "Howard Alexander Dumble bygger forsterkere én om gangen, for hånd, i hemmelighet. Han annonserer ikke. Han har ingen nettside. Han velger kundene sine selv. Stevie Ray Vaughan hadde en. Det burde fortelle deg alt.",
@@ -160,6 +168,7 @@ const BRANDS: Brand[] = [
   {
     id: "hohner", cat: "harmonicas", name: "Hohner",
     founded: "1857 · Matthias Hohner · Trossingen, Germany",
+    founder: { name: "Matthias Hohner", years: "1833–1902" },
     models: ["Marine Band (1896)", "Special 20", "Chromonica", "Blues Harp"],
     editorialEN: "A Marine Band harmonica costs around 50 dollars. Little Walter put one through a PA system in the 1950s and invented amplified blues harp. He cupped a bullet microphone in his hands with the harmonica and created a sound nobody had heard before — part saxophone, part guitar, entirely blues. Fifty dollars. Changed music forever.",
     editorialNO: "Et Marine Band-munnspill koster rundt 50 dollar. Little Walter kjørte ett gjennom et PA-anlegg på 1950-tallet og oppfant forsterket bluesharp. Han kuppet en bullet-mikrofon sammen med munnspillet og skapte en lyd ingen hadde hørt før — halvt saksofon, halvt gitar, helt blues. Femti dollar. Forandret musikken for alltid.",
@@ -176,6 +185,7 @@ const BRANDS: Brand[] = [
   {
     id: "lee-oskar", cat: "harmonicas", name: "Lee Oskar",
     founded: "1983 · Lee Oskar · Denmark / USA",
+    founder: { name: "Lee Oskar", years: "b. 1948", image: wm("Lee Oskar 1976 press photo.png"), credit: "Wikimedia Commons", creditUrl: wmPage("Lee Oskar 1976 press photo.png") },
     models: ["Major Diatonic", "Melody Maker", "Natural Minor"],
     editorialEN: "Durable, airtight construction. A favourite of professional touring blues harp players who can't afford a leaky reed plate on night three of a tour.",
     editorialNO: "Solid og lufttett konstruksjon. En favoritt blant profesjonelle turnerende bluesharpspillere som ikke har råd til en lekk reedplate på natt tre av en turné.",
@@ -186,6 +196,7 @@ const BRANDS: Brand[] = [
   {
     id: "ludwig", cat: "drums", name: "Ludwig",
     founded: "1909 · William & Theobald Ludwig · Chicago",
+    founder: { name: "William F. Ludwig Sr.", years: "1879–1973" },
     models: ["Classic Maple", "Black Beauty snare"],
     editorialEN: "The Chicago blues rhythm section ran on Ludwig drums. Fred Below, Francis Clay, Sam Lay — the men who locked down the groove for Muddy Waters, Little Walter and Howlin' Wolf were playing Ludwig. Blues rhythm is not decoration. It is the foundation. These drums were the foundation.",
     editorialNO: "Chicago-bluesens rytmeseksjon gikk på Ludwig-trommer. Fred Below, Francis Clay, Sam Lay — mennene som låste grooven for Muddy Waters, Little Walter og Howlin' Wolf, spilte Ludwig. Bluesrytme er ikke dekorasjon. Det er fundamentet. Disse trommene var fundamentet.",
@@ -199,6 +210,7 @@ const BRANDS: Brand[] = [
   {
     id: "gretsch", cat: "drums", name: "Gretsch Drums",
     founded: "1883 · Friedrich Gretsch · Brooklyn",
+    founder: { name: "Friedrich Gretsch", years: "1856–1895", image: wm("Friedrich W. Gretsch.jpg"), credit: "Wikimedia Commons", creditUrl: wmPage("Friedrich W. Gretsch.jpg") },
     models: ["Broadkaster", "USA Custom"],
     editorialEN: "Gretsch carried the jazz-blues crossover era. Charlie Watts famously brought their feel into the Rolling Stones — and the Stones brought the blues to the world.",
     editorialNO: "Gretsch bar jazz-blues-overgangstiden. Charlie Watts brakte berømt deres følelse inn i Rolling Stones — og Stones brakte bluesen ut i verden.",
@@ -209,6 +221,7 @@ const BRANDS: Brand[] = [
   {
     id: "shure", cat: "mics", name: "Shure",
     founded: "1925 · Sidney Shure · Chicago",
+    founder: { name: "Sidney N. Shure", years: "1902–1995" },
     models: ["520DX 'Green Bullet'", "SM57", "SM58", "55SH 'Unidyne'"],
     editorialEN: "The Shure Green Bullet was designed in 1949 as a dispatcher's microphone for trucking companies. Blues harmonica players stole it. Its limited frequency response — it cuts the highs and mids brutally — turned out to be exactly what amplified blues harp needed. The 'wrong' microphone for the 'wrong' purpose became one of the most iconic sounds in blues. That's very blues.",
     editorialNO: "Shure Green Bullet ble designet i 1949 som en dispatcher-mikrofon for lastebilselskaper. Bluesmunnspillerne stjal den. Den begrensede frekvensresponsen — den kutter diskanten og mellomtonen brutalt — viste seg å være akkurat det forsterket bluesharp trengte. Den «feile» mikrofonen til det «feile» formålet ble en av de mest ikoniske lydene i blues. Veldig blues, det.",
