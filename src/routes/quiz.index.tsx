@@ -172,18 +172,14 @@ function QuizPage() {
               <div key={q.id} className="bg-card/60 border border-border rounded-xl p-5">
                 <div className="font-display text-lg mb-3"><span className="text-gold mr-2">{i + 1}.</span>{no ? q.questionNo : q.question}</div>
                 {q.type === "audio-guess" && q.youtubeVideoId && (
-                  <div className="mb-3 rounded-md overflow-hidden border border-border">
-                    <iframe
-                      title={q.id}
-                      className="w-full aspect-video"
-                      src={`https://www.youtube-nocookie.com/embed/${q.youtubeVideoId}?start=${q.audioStart ?? 0}&end=${q.audioEnd ?? 30}&modestbranding=1&rel=0`}
-                      allow="encrypted-media; autoplay"
-                      loading="lazy"
-                    />
-                    {(q.audioHint || q.audioHintNo) && (
-                      <div className="text-xs text-muted-foreground px-3 py-2 italic bg-background/40">{no ? q.audioHintNo : q.audioHint}</div>
-                    )}
-                  </div>
+                  <BlindAudioClip
+                    videoId={q.youtubeVideoId}
+                    start={q.audioStart ?? 0}
+                    end={q.audioEnd ?? 30}
+                    hint={no ? q.audioHintNo : q.audioHint}
+                    label={no ? "Spill av lydklipp" : "Play audio clip"}
+                    playingLabel={no ? "Spiller … lytt nøye" : "Playing … listen carefully"}
+                  />
                 )}
                 <div className="grid sm:grid-cols-2 gap-2">
                   {opts.map((c, ci) => (
