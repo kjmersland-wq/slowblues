@@ -442,7 +442,7 @@ function Card({ title, icon: Icon, children }: { title: string; icon?: any; chil
   );
 }
 
-function VideoGrid({ videos, fallbackIds }: { videos: ArtistRecord["videos"]; fallbackIds: string[] }) {
+function VideoGrid({ videos, fallbackIds, featuredLabel }: { videos: ArtistRecord["videos"]; fallbackIds: string[]; featuredLabel: string }) {
   const featured = videos.find((v) => v.kind === "featured");
   const more = videos.filter((v) => v !== featured);
   const extra = fallbackIds.filter((id) => !videos.some((v) => v.youtube_id === id)).map((id) => ({ kind: "more" as const, title: "", youtube_id: id }));
@@ -456,7 +456,7 @@ function VideoGrid({ videos, fallbackIds }: { videos: ArtistRecord["videos"]; fa
             <iframe src={`https://www.youtube-nocookie.com/embed/${featured.youtube_id}?rel=0`} title={featured.title} loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen className="size-full" />
           </div>
           <div>
-            <div className="text-[10px] tracking-[0.3em] text-gold uppercase mb-2">Featured</div>
+            <div className="text-[10px] tracking-[0.3em] text-gold uppercase mb-2">{featuredLabel}</div>
             <h3 className="font-display text-2xl mb-3">{featured.title}</h3>
             {featured.note && <p className="text-muted-foreground leading-relaxed mb-3">{featured.note}</p>}
             {featured.channel && <p className="text-sm text-muted-foreground">{featured.channel}</p>}
