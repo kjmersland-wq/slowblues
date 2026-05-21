@@ -207,3 +207,64 @@ function QuizPage() {
     </PageShell>
   );
 }
+
+function BlindAudioClip({
+  videoId,
+  start,
+  end,
+  hint,
+  label,
+  playingLabel,
+}: {
+  videoId: string;
+  start: number;
+  end: number;
+  hint?: string;
+  label: string;
+  playingLabel: string;
+}) {
+  const [playing, setPlaying] = useState(false);
+  const duration = Math.max(1, end - start);
+
+  return (
+    <div className="mb-3 rounded-md overflow-hidden border border-border bg-black/60">
+      <div className="relative aspect-video">
+        {playing ? (
+          <>
+            {/* Iframe loads audio; fully covered so the album art / title can't be seen */}
+            <iframe
+              title="audio-clip"
+              className="absolute inset-0 h-full w-full opacity-0 pointer-events-none"
+              src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&start=${start}&end=${end}&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3`}
+              allow="encrypted-media; autoplay"
+            />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-card to-background text-center px-4">
+              <div className="flex items-center gap-2 text-gold">
+                <Volume2 className="size-6 animate-pulse" />
+                <Music className="size-5 animate-pulse" />
+                <Volume2 className="size-6 animate-pulse" />
+              </div>
+              <div className="text-sm text-foreground/90 font-medium">{playingLabel}</div>
+              <div className="text-xs text-muted-foreground">~{duration}s</div>
+            </div>
+          </>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setPlaying(true)}
+            className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-card to-background hover:from-card/80 transition group"
+          >
+            <span className="flex h-16 w-16 items-center justify-center rounded-full bg-gold text-primary-foreground shadow-lg group-hover:scale-105 transition">
+              <Volume2 className="size-7" />
+            </span>
+            <span className="text-sm font-medium text-foreground">{label}</span>
+            <span className="text-xs text-muted-foreground">~{duration}s</span>
+          </button>
+        )}
+      </div>
+      {hint && (
+        <div className="text-xs text-muted-foreground px-3 py-2 italic bg-background/40 border-t border-border">{hint}</div>
+      )}
+    </div>
+  );
+}
