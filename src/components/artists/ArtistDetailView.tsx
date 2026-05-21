@@ -42,7 +42,8 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
     </div>
   );
 
-  const heroImg = resolveArtistImage(a.img) ?? IMG.muddyWaters;
+  const ownImg = resolveArtistImage(a.img);
+  const heroImg = ownImg ?? IMG.muddyWaters;
   const related = computeRelated(a, all ?? [], 8);
   const bio = pickLang(a, lang, "biography");
   const short = pickLang(a, lang, "short") ?? a.short;
