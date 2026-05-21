@@ -245,6 +245,26 @@ function ReviewDetailPage() {
           </div>
         )}
 
+        {review.youtube_playlist_id && (
+          <section className="mt-10">
+            <h2 className="font-display text-xl mb-3 text-gold">Listen</h2>
+            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-gold/20 bg-black">
+              <iframe
+                src={
+                  review.youtube_playlist_id.length === 11
+                    ? `https://www.youtube-nocookie.com/embed/${review.youtube_playlist_id}?rel=0`
+                    : `https://www.youtube-nocookie.com/embed/videoseries?list=${review.youtube_playlist_id}&rel=0`
+                }
+                title={`${review.artist_name} — ${review.album_title}`}
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute inset-0 h-full w-full"
+              />
+            </div>
+          </section>
+        )}
+
+
         {scores.some(([, v]) => typeof v === "number") && (
           <section className="mt-12 p-6 rounded-lg bg-card/40 border border-border">
             <h2 className="font-display text-xl mb-4 text-gold">Scorecard</h2>
