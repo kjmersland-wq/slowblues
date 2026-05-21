@@ -842,3 +842,96 @@ function Note({
     </div>
   );
 }
+
+const PARTNER_SECTION_COPY: Record<string, { heading: string; sub: string; partnersLabel: string }> = {
+  en: {
+    heading: "Partner Editions",
+    sub: "Selected products created in collaboration with blues partners. Every purchase supports both SlowBlues and our partners.",
+    partnersLabel: "Our partners",
+  },
+  no: {
+    heading: "Partner-utgaver",
+    sub: "Utvalgte produkter laget i samarbeid med bluespartnere. Hvert kjøp støtter både SlowBlues og våre partnere.",
+    partnersLabel: "Våre partnere",
+  },
+  de: {
+    heading: "Partner-Editionen",
+    sub: "Ausgewählte Produkte in Zusammenarbeit mit Blues-Partnern. Jeder Kauf unterstützt sowohl SlowBlues als auch unsere Partner.",
+    partnersLabel: "Unsere Partner",
+  },
+  sv: {
+    heading: "Partnerupplagor",
+    sub: "Utvalda produkter skapade tillsammans med bluespartners. Varje köp stödjer både SlowBlues och våra partners.",
+    partnersLabel: "Våra partners",
+  },
+};
+
+function PartnerEditionsSection({
+  partners,
+  products,
+  lang,
+  onOpen,
+  onAdd,
+}: {
+  partners: Partner[];
+  products: MerchProduct[];
+  lang: string;
+  onOpen: (p: MerchProduct) => void;
+  onAdd: (i: CartItem) => void;
+}) {
+  const copy = PARTNER_SECTION_COPY[lang] ?? PARTNER_SECTION_COPY.en;
+  return (
+    <section
+      className="mb-16 rounded-2xl border border-gold/40 bg-gradient-to-b from-gold/[0.04] to-transparent p-6 sm:p-8 shadow-[0_0_60px_-30px_var(--color-gold)]"
+      aria-labelledby="partner-editions-heading"
+    >
+      <div className="mb-6">
+        <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-gold mb-3">
+          <Handshake className="size-4" /> Partner Edition
+        </div>
+        <h2 id="partner-editions-heading" className="font-display text-3xl md:text-4xl mb-3">
+          {copy.heading}
+        </h2>
+        <p className="text-foreground/80 max-w-2xl leading-relaxed">{copy.sub}</p>
+      </div>
+
+      {partners.length > 0 && (
+        <div className="mb-8">
+          <div className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-3">
+            {copy.partnersLabel}
+          </div>
+          <div className="flex flex-wrap items-center gap-6">
+            {partners.map((p) => (
+              <a
+                key={p.id}
+                href={p.website}
+                target="_blank"
+                rel="noopener"
+                title={p.name}
+                className="group inline-flex items-center"
+              >
+                {p.logoUrl ? (
+                  <img
+                    src={p.logoUrl}
+                    alt={p.name}
+                    className="h-10 max-w-[140px] object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition"
+                  />
+                ) : (
+                  <span className="text-sm font-medium text-muted-foreground group-hover:text-gold transition">
+                    {p.name}
+                  </span>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {products.map((p) => (
+          <ProductCard key={p.id} p={p} onOpen={() => onOpen(p)} onAdd={onAdd} />
+        ))}
+      </div>
+    </section>
+  );
+}
