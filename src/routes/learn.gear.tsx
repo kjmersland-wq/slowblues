@@ -20,11 +20,19 @@ export const Route = createFileRoute("/learn/gear")({
 type Cat = "guitars" | "amps" | "harmonicas" | "drums" | "mics";
 
 type Artist = { name: string; slug?: string; note?: string };
+type Founder = {
+  name: string;
+  years?: string;
+  image?: string; // Wikimedia Commons Special:FilePath URL
+  credit?: string; // e.g. "Wikimedia Commons"
+  creditUrl?: string;
+};
 type Brand = {
   id: string;
   cat: Cat;
   name: string;
   founded: string;
+  founder?: Founder;
   models: string[];
   editorialEN: string;
   editorialNO?: string;
@@ -32,6 +40,12 @@ type Brand = {
   ytQuery: string;
   artists: Artist[];
 };
+
+const wm = (file: string) =>
+  `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}?width=480`;
+const wmPage = (file: string) =>
+  `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file)}`;
+
 
 const BRANDS: Brand[] = [
   {
