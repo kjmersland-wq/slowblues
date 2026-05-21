@@ -7,7 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { PlayCircle, X, ChevronLeft, ChevronRight, Loader2, Music2 } from "lucide-react";
+import { PlayCircle, X, ChevronLeft, ChevronRight, Loader2, Music2, Disc3 } from "lucide-react";
 import { searchYouTube, type YTVideo } from "@/lib/youtube.functions";
 
 type Tab = "live" | "music";
