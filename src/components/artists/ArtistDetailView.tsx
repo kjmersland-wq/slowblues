@@ -230,7 +230,7 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
         {/* Curated videos (editor-picked featured/more) */}
         {(a.videos.length > 0 || youtubeIds.length > 0) && (
           <Section icon={PlayCircle} title={t.videos} tone="gold">
-            <VideoGrid videos={a.videos} fallbackIds={youtubeIds} />
+            <VideoGrid videos={a.videos} fallbackIds={youtubeIds} featuredLabel={t.featured} />
           </Section>
         )}
 
