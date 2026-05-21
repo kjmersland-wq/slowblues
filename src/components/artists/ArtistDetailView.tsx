@@ -501,11 +501,13 @@ function RelatedCard({ a, locale }: { a: ArtistRecord; locale: ArtistLocale }) {
   const img = resolveArtistImage(a.img);
   return (
     <Link to={artistDetailPath(locale, a.slug)} className="block border border-border rounded-lg overflow-hidden bg-card/40 hover:border-gold/60 transition">
-      {img && (
+      {img ? (
         <div className="relative aspect-[4/3] overflow-hidden bg-card/60">
           <SafeImage src={img} alt="" className="absolute inset-0 size-full object-cover blur-xl scale-110 opacity-40" loading="lazy" />
           <SafeImage src={img} alt={a.name} loading="lazy" className="relative size-full object-contain" />
         </div>
+      ) : (
+        <ArtistInitialsPlaceholder name={a.name} className="aspect-[4/3]" />
       )}
       <div className="p-4">
         <div className="font-display text-lg text-gold mb-1">{a.name}</div>
