@@ -22,6 +22,7 @@ const no = {
     support: "Støtt",
     contact: "Kontakt",
     privacy: "Personvern",
+    advertise: "Annonsér",
     search: "Søk",
   },
   header: {
