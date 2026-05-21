@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { PageShell } from "@/components/PageShell";
@@ -35,7 +35,6 @@ function formatPrice(p: MerchProduct["price"]) {
 function ProductPage() {
   const { slug } = Route.useParams();
   const fetcher = useServerFn(fetchMerchProduct);
-  const router = useRouter();
   const { data, isLoading } = useQuery({
     queryKey: ["merch-product", slug],
     queryFn: () => fetcher({ data: { slug } }),
