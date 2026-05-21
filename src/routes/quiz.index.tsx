@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
 import { useMemo, useState } from "react";
-import { Check, X, RotateCcw, Trophy, ExternalLink, Calendar, Star, Archive } from "lucide-react";
+import { Check, X, RotateCcw, Trophy, ExternalLink, Calendar, Star, Archive, Volume2, Music } from "lucide-react";
 import {
   getWeeklyQuestions,
   getCurrentWeekKey,
