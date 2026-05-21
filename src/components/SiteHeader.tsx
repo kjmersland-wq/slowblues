@@ -42,6 +42,7 @@ export function SiteHeader() {
       { to: "/newsletter", label: "Newsletter" },
       { to: "/guestbook", label: t.nav.guestbook },
       { to: "/about/merch", label: "Merch" },
+      { to: "/about/advertise", label: t.nav.advertise },
       { to: "/support", label: t.nav.support },
       { to: "/contact", label: t.nav.contact },
       { to: "/privacy", label: t.nav.privacy },
