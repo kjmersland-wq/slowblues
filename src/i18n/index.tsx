@@ -10,7 +10,7 @@ type Ctx = {
 const I18nContext = createContext<Ctx | null>(null);
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("no");
+  const [lang, setLangState] = useState<Lang>("en");
 
   useEffect(() => {
     try {
