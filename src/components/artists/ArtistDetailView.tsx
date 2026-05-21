@@ -10,6 +10,7 @@ import {
   ArrowLeft, Music, MapPin, Disc3, Calendar, Users, Star, Quote, Guitar,
   PlayCircle, Mic, Award, Sparkles, Globe, ExternalLink, Image as ImageIcon, BookOpen,
 } from "lucide-react";
+import { ArtistYouTube, AlbumYouTubeCell } from "@/components/artists/ArtistYouTube";
 
 const T = {
   no: { back: "Tilbake til artister", notFound: "Artist ikke funnet", loading: "Laster…", error: "Kunne ikke laste artisten", born: "Født", active: "Aktiv", styles: "Stiler og sjangre", discography: "Diskografi", songs: "Kjente sanger", related: "Relaterte artister", videos: "Se & Lytt", gallery: "Galleri", links: "Eksterne lenker", articles: "Relaterte artikler", influences: "Innflytelser", legacy: "Musikalsk innflytelse", family: "Familie og privatliv", formative: "Formende opplevelser", instruments: "Instrumenter og utstyr", anecdotes: "Historier og anekdoter", collaborators: "Samarbeidspartnere", awards: "Priser og anerkjennelse", from: "fra", musicians: "Musikere", watch: "Se", press: "Pressomtaler og sitater", source: "Kilde" },
@@ -224,12 +225,15 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
           </Section>
         )}
 
-        {/* Videos: structured videos[] OR plain youtube_video_ids[] */}
+        {/* Curated videos (editor-picked featured/more) */}
         {(a.videos.length > 0 || youtubeIds.length > 0) && (
           <Section icon={PlayCircle} title={t.videos} tone="gold">
             <VideoGrid videos={a.videos} fallbackIds={youtubeIds} />
           </Section>
         )}
+
+        {/* Auto-fetched YouTube videos for this artist */}
+        <ArtistYouTube artistName={a.name} title={t.videos} />
 
         {/* Press quotes & critic statements */}
         {a.press_quotes.length > 0 && (
@@ -303,7 +307,9 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
                             >
                               <PlayCircle className="size-3.5" /> {t.watch}
                             </a>
-                          ) : "—"}
+                          ) : (
+                            <AlbumYouTubeCell artistName={a.name} albumTitle={d.title} watchLabel={t.watch} />
+                          )}
                         </td>
                         <td className="p-3 text-muted-foreground italic max-w-xs">{d.notes ?? ""}</td>
                       </tr>
