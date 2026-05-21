@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n } from "@/i18n";
 import { IMG } from "@/data/images";
+import { supabase } from "@/integrations/supabase/client";
 import { Heart, ShoppingBag, Share2, Coffee, Music, Star, Crown, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 
@@ -42,16 +43,28 @@ function SupportPage() {
     }
   }
 
-  function handleSupport(level: string, amount: number) {
-    // Stripe checkout integration placeholder — wire up when backend is ready
-    toast.info(`Opening checkout for ${level} (${amount} NOK)…`);
-    console.log('Support level:', level, 'Amount:', amount);
+  async function handleSupport(level: string) {
+    try {
+      const { data, error } = await supabase.functions.invoke('create-support-payment', {
+        body: { level },
+      });
+      if (error) throw error;
+      if (data?.url) {
+        window.location.href = data.url;
+      } else {
+        toast.error('Could not start checkout. Please try again.');
+      }
+    } catch (err) {
+      toast.error('Payment initiation failed. Please try again.');
+      console.error('Support payment error:', err);
+    }
   }
 
   const supportTiers = [
     {
       icon: Music,
       name: 'Blues Friend',
+      level: 'blues-friend',
       amount: 50,
       currency: 'NOK',
       desc: 'Buy us a coffee. Your name goes on the supporters wall.',
@@ -60,6 +73,7 @@ function SupportPage() {
     {
       icon: Star,
       name: 'Blues Supporter',
+      level: 'blues-supporter',
       amount: 150,
       currency: 'NOK',
       desc: 'Keep the servers running. Early access to new features + supporters wall.',
@@ -68,6 +82,7 @@ function SupportPage() {
     {
       icon: Crown,
       name: 'Blues Patron',
+      level: 'blues-patron',
       amount: 500,
       currency: 'NOK',
       desc: 'Become a patron. All perks + a personal thank-you in the newsletter.',
@@ -110,7 +125,7 @@ function SupportPage() {
               </div>
               <p className="text-sm text-muted-foreground mb-6">{tier.desc}</p>
               <button
-                onClick={() => handleSupport(tier.name, tier.amount)}
+                onClick={() => handleSupport(tier.level)}
                 className="w-full px-5 py-2.5 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition flex items-center justify-center gap-2"
               >
                 Support <ArrowRight className="size-4" />
