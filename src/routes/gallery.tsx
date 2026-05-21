@@ -4,18 +4,19 @@ import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n } from "@/i18n";
 import { IMG } from "@/data/images";
 import { galleryImages } from "@/data/galleryImages";
+import { GALLERY_EXTRAS, type GalleryPhoto } from "@/data/galleryExtras";
+import { Lightbox, useLightbox, type LightboxPhoto } from "@/components/Lightbox";
 
 export const Route = createFileRoute("/gallery")({
   component: GalleryPage,
   head: () => ({ meta: [
     { title: "Gallery — SlowBlues" },
-    { name: "description", content: "Historic blues photography from the Library of Congress FSA/OWI Collection and Wikimedia Commons — fully credited, public domain." },
+    { name: "description", content: "Historic blues photography from the Library of Congress FSA/OWI Collection, Wikimedia Commons, plus contemporary stage and gear photography from Unsplash, Pexels and Pixabay — fully credited." },
     { property: "og:title", content: "Gallery — SlowBlues" },
     { property: "og:image", content: IMG.jukeJoint },
   ]}),
 });
 
-// Additional curated public-domain shots from Wikimedia / Library of Congress
 const EXTRA_PHOTOS = [
   { src: IMG.delta, caption: "The Mississippi Delta — where it all began", source: "Wikimedia Commons · CC" },
   { src: IMG.chessRecords, caption: "Chess Records building, 2120 South Michigan Avenue, Chicago", source: "Wikimedia Commons · CC BY-SA" },
@@ -31,6 +32,10 @@ const EXTRA_PHOTOS = [
 
 function GalleryPage() {
   const { t } = useI18n();
+  const lb = useLightbox();
+
+  const toLb = (photos: GalleryPhoto[]): LightboxPhoto[] => photos;
+
   return (
     <PageShell>
       <PageHero eyebrow={t.pages.gallery.eyebrow} title={t.pages.gallery.title} lead={t.pages.gallery.lead} img={IMG.jukeJoint} />
@@ -81,10 +86,67 @@ function GalleryPage() {
           ))}
         </div>
 
+        {GALLERY_EXTRAS.map((section) => {
+          const photos = toLb(section.photos);
+          return (
+            <div key={section.id}>
+              <header className="mt-16 mb-8">
+                <div className="text-xs tracking-[0.25em] text-gold uppercase mb-2">{section.id.replace(/-/g, " ")}</div>
+                <h2 className="font-display text-3xl">{section.titleEn}</h2>
+                <p className="text-muted-foreground mt-2 max-w-2xl">{section.leadEn}</p>
+              </header>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {section.photos.map((p, i) => (
+                  <figure key={p.src} className="bg-card/60 border border-border rounded-lg overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={() => lb.open(photos, i)}
+                      className="block aspect-[4/3] w-full overflow-hidden bg-card cursor-zoom-in"
+                      aria-label={`Open ${p.caption}`}
+                    >
+                      <img
+                        src={p.src}
+                        alt={p.alt}
+                        loading="lazy"
+                        className="size-full object-cover hover:scale-105 transition duration-700"
+                      />
+                    </button>
+                    <figcaption className="p-4">
+                      <div className="text-sm line-clamp-2">{p.caption}</div>
+                      <div className="text-[11px] text-muted-foreground mt-1">
+                        Photo:{" "}
+                        <a
+                          href={p.creditUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline hover:text-gold"
+                        >
+                          {p.credit}
+                        </a>{" "}
+                        on {p.source}
+                      </div>
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+
         <p className="text-xs text-muted-foreground text-center mt-10 max-w-2xl mx-auto">
-          All images sourced from publicly available archives (Library of Congress, Wikimedia Commons) under Public Domain or Creative Commons licences. Attribution provided per image.
+          All images sourced from publicly available archives (Library of Congress, Wikimedia Commons) under Public Domain or Creative Commons licences, plus contemporary photography from Unsplash, Pexels and Pixabay — credited to the original photographers.
         </p>
       </section>
+
+      {lb.state && (
+        <Lightbox
+          photos={lb.state.photos}
+          index={lb.state.index}
+          onClose={lb.close}
+          onIndex={lb.setIndex}
+        />
+      )}
     </PageShell>
   );
 }
