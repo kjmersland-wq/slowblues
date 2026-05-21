@@ -59,6 +59,7 @@ import { Route as AdminLinksRouteImport } from './routes/admin.links'
 import { Route as AboutMerchRouteImport } from './routes/about.merch'
 import { Route as AboutGuestbookRouteImport } from './routes/about.guestbook'
 import { Route as AboutBlogRouteImport } from './routes/about.blog'
+import { Route as AboutAdvertiseRouteImport } from './routes/about.advertise'
 import { Route as LocaleArtistsIndexRouteImport } from './routes/$locale.artists.index'
 import { Route as QuizCycleCycleRouteImport } from './routes/quiz.cycle.$cycle'
 import { Route as ApiPublicFourthwallWebhookRouteImport } from './routes/api/public/fourthwall-webhook'
@@ -316,6 +317,11 @@ const AboutBlogRoute = AboutBlogRouteImport.update({
   path: '/about/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutAdvertiseRoute = AboutAdvertiseRouteImport.update({
+  id: '/about/advertise',
+  path: '/about/advertise',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LocaleArtistsIndexRoute = LocaleArtistsIndexRouteImport.update({
   id: '/$locale/artists/',
   path: '/$locale/artists/',
@@ -374,6 +380,7 @@ export interface FileRoutesByFullPath {
   '/updates': typeof UpdatesRoute
   '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
+  '/about/advertise': typeof AboutAdvertiseRoute
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
@@ -432,6 +439,7 @@ export interface FileRoutesByTo {
   '/updates': typeof UpdatesRoute
   '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
+  '/about/advertise': typeof AboutAdvertiseRoute
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
@@ -491,6 +499,7 @@ export interface FileRoutesById {
   '/updates': typeof UpdatesRoute
   '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
+  '/about/advertise': typeof AboutAdvertiseRoute
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
@@ -551,6 +560,7 @@ export interface FileRouteTypes {
     | '/updates'
     | '/watch'
     | '/worldmap'
+    | '/about/advertise'
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
@@ -609,6 +619,7 @@ export interface FileRouteTypes {
     | '/updates'
     | '/watch'
     | '/worldmap'
+    | '/about/advertise'
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
@@ -667,6 +678,7 @@ export interface FileRouteTypes {
     | '/updates'
     | '/watch'
     | '/worldmap'
+    | '/about/advertise'
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
@@ -726,6 +738,7 @@ export interface RootRouteChildren {
   UpdatesRoute: typeof UpdatesRoute
   WatchRoute: typeof WatchRoute
   WorldmapRoute: typeof WorldmapRoute
+  AboutAdvertiseRoute: typeof AboutAdvertiseRoute
   AboutBlogRoute: typeof AboutBlogRoute
   AboutGuestbookRoute: typeof AboutGuestbookRoute
   AboutMerchRoute: typeof AboutMerchRouteWithChildren
@@ -1110,6 +1123,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutBlogRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about/advertise': {
+      id: '/about/advertise'
+      path: '/about/advertise'
+      fullPath: '/about/advertise'
+      preLoaderRoute: typeof AboutAdvertiseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/$locale/artists/': {
       id: '/$locale/artists/'
       path: '/$locale/artists'
@@ -1194,6 +1214,7 @@ const rootRouteChildren: RootRouteChildren = {
   UpdatesRoute: UpdatesRoute,
   WatchRoute: WatchRoute,
   WorldmapRoute: WorldmapRoute,
+  AboutAdvertiseRoute: AboutAdvertiseRoute,
   AboutBlogRoute: AboutBlogRoute,
   AboutGuestbookRoute: AboutGuestbookRoute,
   AboutMerchRoute: AboutMerchRouteWithChildren,
