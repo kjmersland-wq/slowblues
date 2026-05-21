@@ -93,8 +93,8 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
               {short && <p className="text-lg text-foreground/85 leading-relaxed mb-6">{short}</p>}
               {(a.instruments_simple.length > 0 || a.labels.length > 0) && (
                 <div className="grid sm:grid-cols-2 gap-4 text-sm">
-                  {a.instruments_simple.length > 0 && <Fact icon={Music} label="Instrumenter" value={a.instruments_simple.join(", ")} />}
-                  {a.labels.length > 0 && <Fact icon={Disc3} label="Labels" value={a.labels.join(", ")} />}
+                  {a.instruments_simple.length > 0 && <Fact icon={Music} label={t.instrumentsShort} value={a.instruments_simple.join(", ")} />}
+                  {a.labels.length > 0 && <Fact icon={Disc3} label={t.labelsShort} value={a.labels.join(", ")} />}
                   {a.origin && <Fact icon={MapPin} label={t.from} value={a.origin} />}
                   {a.born && <Fact icon={Calendar} label={t.born} value={a.born} />}
                 </div>
