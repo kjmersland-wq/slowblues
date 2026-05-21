@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      artist_edit_log: {
+        Row: {
+          artist_slug: string
+          edited_at: string
+          edited_by: string | null
+          fields_changed: string[]
+          id: string
+        }
+        Insert: {
+          artist_slug: string
+          edited_at?: string
+          edited_by?: string | null
+          fields_changed?: string[]
+          id?: string
+        }
+        Update: {
+          artist_slug?: string
+          edited_at?: string
+          edited_by?: string | null
+          fields_changed?: string[]
+          id?: string
+        }
+        Relationships: []
+      }
       artist_images: {
         Row: {
           artist_slug: string
