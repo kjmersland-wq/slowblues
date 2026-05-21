@@ -33,15 +33,16 @@ try {
   console.error("⚠️  Kunne ikke lese fra DB via psql:", e.message);
 }
 
-// 2) Hent slugs som er hardkodet i src/data/blues.ts (de "viktige" listene)
+// 2) Hent slugs fra ARTISTS-arrayet i src/data/blues.ts (kun den eksporten —
+//    STYLES og BLOG_POSTS har egne slug-felt og hører ikke til /artists/).
 let staticSlugs = new Set();
 try {
-  const out = execSync(
-    `grep -oE 'slug: "[a-z0-9-]+"' src/data/blues.ts | sed 's/slug: "//;s/"$//' | sort -u`,
-    { encoding: "utf8" },
-  );
-  staticSlugs = new Set(out.split("\n").filter(Boolean));
-  console.log(`  ${staticSlugs.size} slugs referert fra src/data/blues.ts\n`);
+  const file = execSync("cat src/data/blues.ts", { encoding: "utf8" });
+  const start = file.indexOf("export const ARTISTS");
+  const end = start >= 0 ? file.indexOf("export const ", start + 20) : -1;
+  const block = start >= 0 ? file.slice(start, end > 0 ? end : undefined) : "";
+  for (const m of block.matchAll(/slug:\s*"([a-z0-9-]+)"/g)) staticSlugs.add(m[1]);
+  console.log(`  ${staticSlugs.size} slugs i ARTISTS-arrayet (src/data/blues.ts)\n`);
 } catch {}
 
 const allSlugs = [...new Set([...dbSlugs, ...staticSlugs])].sort();
