@@ -471,6 +471,7 @@ const sv: typeof no = {
     support: "Stötta",
     contact: "Kontakt",
     privacy: "Integritet",
+    advertise: "Annonsera",
     search: "Sök",
   },
   header: { tagline: "DE LÅNGSAMMA, SJÄLFULLA RÖTTERNA" },
