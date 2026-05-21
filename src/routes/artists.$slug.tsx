@@ -6,7 +6,7 @@ import { buildArtistJsonLd, buildBreadcrumb } from "@/lib/artistJsonLd";
 import { pickLang, type Lang, type ArtistRecord } from "@/lib/artists";
 import { SUPPORTED_LOCALES, artistDetailPath, DEFAULT_LOCALE } from "@/lib/locale";
 
-const LOCALE: Lang = DEFAULT_LOCALE;
+export const LOCALE: Lang = DEFAULT_LOCALE;
 
 export const Route = createFileRoute("/artists/$slug")({
   component: Page,
