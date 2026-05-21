@@ -267,7 +267,7 @@ function MerchPage() {
       </section>
 
       {active && (
-        <ProductModal product={active} onClose={() => setActive(null)} onAdd={cart.add} />
+        <ProductModal product={active} onClose={() => setActive(null)} onAdd={cart.add} lang={lang} />
       )}
 
       <CartDrawer
