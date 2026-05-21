@@ -19,6 +19,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           "/worldmap", "/radio", "/gallery", "/instruments", "/watch", "/listen",
           "/compare", "/learn/gear", "/learn/styles", "/experience/media",
           "/about", "/about/blog", "/about/merch", "/about/guestbook", "/about/advertise",
+          "/guestbook",
           "/contact", "/support", "/newsletter", "/quiz", "/quiz/archive", "/updates",
           "/accessibility", "/privacy", "/cookies", "/terms", "/gdpr", "/copyright", "/disclaimer",
         ];
