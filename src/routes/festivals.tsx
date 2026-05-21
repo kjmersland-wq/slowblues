@@ -5,14 +5,44 @@ import { FESTIVALS } from "@/data/blues";
 import { IMG } from "@/data/images";
 import { ExternalLink, MapPin, Calendar } from "lucide-react";
 
+import { FESTIVALS } from "@/data/blues";
+
 export const Route = createFileRoute("/festivals")({
   component: FestivalsPage,
-  head: () => ({ meta: [
-    { title: "Blues Festivals 2026 — SlowBlues" },
-    { name: "description", content: "The festivals that matter — from Notodden to Memphis." },
-    { property: "og:title", content: "Blues Festivals 2026 — SlowBlues" },
-    { property: "og:image", content: IMG.crowd },
-  ]}),
+  head: () => ({
+    meta: [
+      { title: "Blues Festivals 2026 — SlowBlues" },
+      { name: "description", content: "The blues festivals that matter in 2026 — from Notodden, Mandal and Skånevik to Chicago, Memphis and Helena, Arkansas." },
+      { property: "og:title", content: "Blues Festivals 2026 — SlowBlues" },
+      { property: "og:description", content: "The blues festivals that matter in 2026 — Notodden, Memphis, Chicago, Cognac and more." },
+      { property: "og:url", content: "https://www.slowblues.no/festivals" },
+      { property: "og:image", content: IMG.crowd },
+    ],
+    links: [{ rel: "canonical", href: "https://www.slowblues.no/festivals" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "@id": "https://www.slowblues.no/festivals#list",
+          name: "Blues Festivals 2026",
+          url: "https://www.slowblues.no/festivals",
+          numberOfItems: FESTIVALS.length,
+          itemListElement: FESTIVALS.map((f, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            item: {
+              "@type": "Festival",
+              name: f.name,
+              url: f.url,
+              location: { "@type": "Place", name: `${f.city}, ${f.country.replace(/^\S+\s/, "")}` },
+            },
+          })),
+        }),
+      },
+    ],
+  }),
 });
 
 function FestivalsPage() {

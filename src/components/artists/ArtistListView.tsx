@@ -61,8 +61,15 @@ export function ArtistListView({ locale }: { locale: ArtistLocale }) {
 
   const hasFilter = region !== "all" || country !== "all" || era !== "all" || genre !== "all" || q.length > 0;
 
+  const browseHeading =
+    locale === "no" ? "Bla gjennom artister"
+    : locale === "sv" ? "Bläddra bland artister"
+    : locale === "de" ? "Künstler durchsuchen"
+    : "Browse Artists";
+
   return (
-    <section className="max-w-7xl mx-auto px-6 py-12">
+    <section className="max-w-7xl mx-auto px-6 py-12" aria-labelledby="artists-browse-heading">
+      <h2 id="artists-browse-heading" className="sr-only">{browseHeading}</h2>
       {/* Language switcher */}
       <div className="flex flex-wrap items-center gap-2 mb-6">
         <span className="text-xs tracking-[0.25em] uppercase text-muted-foreground mr-2">{t.language}:</span>
@@ -77,7 +84,15 @@ export function ArtistListView({ locale }: { locale: ArtistLocale }) {
       <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
         <label className="flex items-center gap-2 bg-card border border-border rounded-md px-3 py-2 lg:col-span-2">
           <Search className="size-4 text-muted-foreground shrink-0" />
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t.search} className="bg-transparent outline-none text-sm w-full" />
+          <span className="sr-only">{t.search}</span>
+          <input
+            type="search"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder={t.search}
+            aria-label={t.search}
+            className="bg-transparent outline-none text-sm w-full"
+          />
         </label>
         <FacetSelect label={t.region} value={region} onChange={setRegion} options={facets.regions} all={t.all} />
         <FacetSelect label={t.country} value={country} onChange={setCountry} options={facets.countries} all={t.all} />

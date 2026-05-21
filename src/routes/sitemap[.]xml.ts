@@ -3,8 +3,7 @@ import type {} from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { SUPPORTED_LOCALES, artistDetailPath, artistsListPath, DEFAULT_LOCALE } from "@/lib/locale";
 
-// TODO: replace with your project URL once a project name or custom domain is set.
-const BASE_URL = "";
+const BASE_URL = "https://www.slowblues.no";
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -15,7 +14,14 @@ export const Route = createFileRoute("/sitemap.xml")({
           .select("slug, updated_at")
           .order("name", { ascending: true });
 
-        const staticPaths = ["/", "/artists", "/blog", "/history", "/styles", "/festivals", "/worldmap", "/radio", "/gallery"];
+        const staticPaths = [
+          "/", "/artists", "/blog", "/history", "/styles", "/festivals",
+          "/worldmap", "/radio", "/gallery", "/instruments", "/watch", "/listen",
+          "/compare", "/learn/gear", "/learn/styles", "/experience/media",
+          "/about", "/about/blog", "/about/merch", "/about/guestbook", "/about/advertise",
+          "/contact", "/support", "/newsletter", "/quiz", "/quiz/archive", "/updates",
+          "/accessibility", "/privacy", "/cookies", "/terms", "/gdpr", "/copyright", "/disclaimer",
+        ];
         const urls: string[] = [];
 
         for (const p of staticPaths) {

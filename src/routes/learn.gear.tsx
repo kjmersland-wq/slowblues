@@ -13,6 +13,30 @@ export const Route = createFileRoute("/learn/gear")({
       { property: "og:url", content: "https://www.slowblues.no/learn/gear" },
     ],
     links: [{ rel: "canonical", href: "https://www.slowblues.no/learn/gear" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "@id": "https://www.slowblues.no/learn/gear#brands",
+          name: "Blues Gear Brands",
+          url: "https://www.slowblues.no/learn/gear",
+          itemListElement: BRANDS.map((b, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            item: {
+              "@type": "Brand",
+              "@id": `https://www.slowblues.no/learn/gear#${b.id}`,
+              name: b.name,
+              url: b.url,
+              description: b.editorialEN.slice(0, 240),
+              ...(b.founder ? { founder: { "@type": "Person", name: b.founder.name } } : {}),
+            },
+          })),
+        }),
+      },
+    ],
   }),
   component: GearPage,
 });

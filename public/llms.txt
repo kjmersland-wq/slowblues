@@ -1,0 +1,32 @@
+# SlowBlues
+
+> SlowBlues is an independent editorial blues archive — 330+ artist profiles, reviews, history, festivals, radio and gear, with a Nordic perspective on the Delta, Chicago and global blues tradition.
+
+SlowBlues is a multilingual (Norwegian, English, German, Swedish) reference site for blues music. It documents pioneers, modern voices, instruments, festivals, radio stations and culture surrounding the blues. Content is editorial, non-commercial and updated continuously.
+
+## Pages
+
+- [Home](/): Overview, latest editorial highlights and featured artists.
+- [Artists](/artists): Searchable archive of 330+ blues artist profiles.
+- [Blog](/blog): Reviews, interviews, deep dives, tour reports.
+- [History](/history): Timeline of the blues from field hollers to today.
+- [Styles](/styles): Delta vs Chicago vs Texas vs British blues styles.
+- [Festivals](/festivals): Major blues festivals in Norway, Europe and the US.
+- [Radio](/radio): Blues radio stations and weekly shows.
+- [Gear](/learn/gear): Guitars, amps, harmonicas and microphones that shaped the sound.
+- [Instruments](/instruments): The instruments of the blues.
+- [Gallery](/gallery): Editorial photography.
+- [World Map](/worldmap): Blues places — cradles, clubs, festivals, graves, studios.
+- [Watch](/watch) and [Listen](/listen): Curated video and audio.
+- [Compare](/compare): Side-by-side comparison of blues styles.
+- [About](/about): About SlowBlues and the editorial mission.
+- [Support](/support): Ways to support the archive.
+- [Contact](/contact): Editorial contact.
+
+## Optional
+
+- [Newsletter](/newsletter): Periodic editorial newsletter archive.
+- [Quiz](/quiz): Blues knowledge quiz.
+- [Guestbook](/about/guestbook): Reader guestbook.
+- [Merch](/about/merch): Supporter merchandise.
+- [Privacy](/privacy), [Cookies](/cookies), [Terms](/terms), [GDPR](/gdpr), [Copyright](/copyright), [Accessibility](/accessibility): Legal and policy pages.
