@@ -90,9 +90,13 @@ function AdminPage() {
             </button>
           </div>
           <div className="flex gap-2 flex-wrap">
+            <Link to="/admin/reviews" className="px-4 py-2 rounded-md border border-gold/40 text-sm hover:border-gold flex items-center gap-2 text-gold">
+              <BookOpen className="size-4" /> Reviews
+            </Link>
             <Link to="/admin/quality" className="px-4 py-2 rounded-md border border-gold/40 text-sm hover:border-gold flex items-center gap-2 text-gold">
               <ShieldCheck className="size-4" /> QC Dashboard
             </Link>
+
             <Link to="/admin/quotes" className="px-4 py-2 rounded-md border border-border text-sm hover:border-gold flex items-center gap-2">
               <Quote className="size-4" /> Pressomtaler
             </Link>
