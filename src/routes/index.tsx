@@ -310,10 +310,10 @@ function Ticker() {
 
 function Join() {
   const items = [
-    { icon: ShoppingBag, title: "Blues Merch", desc: "T-shirts, posters and vinyl for the true blues fan." },
-    { icon: HelpCircle, title: "Blues Quiz", desc: "Think you know your blues? Prove it." },
-    { icon: BookOpen, title: "Guestbook", desc: "Leave your mark. Tell us your blues story." },
-  ];
+    { icon: ShoppingBag, title: "Blues Merch", desc: "T-shirts, posters and vinyl for the true blues fan.", to: "/about/merch" },
+    { icon: HelpCircle, title: "Blues Quiz", desc: "Think you know your blues? Prove it.", to: "/quiz" },
+    { icon: BookOpen, title: "Guestbook", desc: "Leave your mark. Tell us your blues story.", to: "/guestbook" },
+  ] as const;
   return (
     <section className="py-24 px-6 max-w-7xl mx-auto">
       <div className="text-center mb-14">
@@ -322,7 +322,11 @@ function Join() {
       </div>
       <div className="grid md:grid-cols-3 gap-6">
         {items.map((it) => (
-          <div key={it.title} className="group bg-card/60 border border-border rounded-lg p-8 text-center hover:border-gold/60 transition">
+          <Link
+            key={it.title}
+            to={it.to}
+            className="group bg-card/60 border border-border rounded-lg p-8 text-center hover:border-gold/60 transition block"
+          >
             <div className="mx-auto size-14 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center mb-5 group-hover:bg-gold/20 transition">
               <it.icon className="size-6 text-gold" />
             </div>
@@ -331,12 +335,13 @@ function Join() {
             <div className="mt-5 text-sm text-gold flex items-center justify-center gap-1 group-hover:gap-2 transition-all">
               Go <ArrowRight className="size-4" />
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>
   );
 }
+
 
 function ThreeNames() {
   return (
