@@ -5,8 +5,6 @@ import { FESTIVALS } from "@/data/blues";
 import { IMG } from "@/data/images";
 import { ExternalLink, MapPin, Calendar } from "lucide-react";
 
-import { FESTIVALS } from "@/data/blues";
-
 export const Route = createFileRoute("/festivals")({
   component: FestivalsPage,
   head: () => ({
