@@ -129,6 +129,7 @@ function useCart() {
 
 function MerchPage() {
   const fetcher = useServerFn(fetchMerchOverview);
+  const { lang } = useI18n();
   const { data, isLoading, error } = useQuery({
     queryKey: ["merch-overview-nok"],
     queryFn: () => fetcher(),
@@ -144,6 +145,9 @@ function MerchPage() {
 
   const products = data?.products ?? [];
   const featured = products.slice(0, 4);
+  const partners = activePartners();
+  const partnerProducts = products.filter((p) => partnerForProduct(p.slug));
+  const showPartnerSection = partners.length > 0 && partnerProducts.length > 0;
 
   return (
     <PageShell>
