@@ -1,9 +1,11 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { PageShell } from "@/components/PageShell";
+import { CoverFallback } from "@/components/reviews/CoverFallback";
 import { supabase } from "@/integrations/supabase/client";
 import { useI18n } from "@/i18n";
-import { Star, ArrowLeft, Calendar, Disc, Music } from "lucide-react";
+import { Star, ArrowLeft, Calendar, Music } from "lucide-react";
+
 
 type Review = {
   id: string;
