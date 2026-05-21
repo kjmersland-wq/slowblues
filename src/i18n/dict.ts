@@ -322,6 +322,7 @@ const de: typeof no = {
     support: "Unterstützen",
     contact: "Kontakt",
     privacy: "Datenschutz",
+    advertise: "Werben",
     search: "Suche",
   },
   header: { tagline: "DIE LANGSAMEN, SEELENVOLLEN WURZELN" },
