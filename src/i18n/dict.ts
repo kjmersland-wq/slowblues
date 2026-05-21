@@ -173,6 +173,7 @@ const en: typeof no = {
     support: "Support",
     contact: "Contact",
     privacy: "Privacy",
+    advertise: "Advertise",
     search: "Search",
   },
   header: { tagline: "THE SLOW, SOULFUL ROOTS" },
