@@ -46,6 +46,7 @@ import { Route as QuizArchiveRouteImport } from './routes/quiz.archive'
 import { Route as NewsletterTemplateRouteImport } from './routes/newsletter.template'
 import { Route as NewsletterIdRouteImport } from './routes/newsletter.$id'
 import { Route as LearnStylesRouteImport } from './routes/learn.styles'
+import { Route as LearnGearRouteImport } from './routes/learn.gear'
 import { Route as ExperienceMediaRouteImport } from './routes/experience.media'
 import { Route as EditorialImagesRouteImport } from './routes/editorial.images'
 import { Route as ConcertsSlugRouteImport } from './routes/concerts.$slug'
@@ -255,6 +256,11 @@ const LearnStylesRoute = LearnStylesRouteImport.update({
   path: '/learn/styles',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LearnGearRoute = LearnGearRouteImport.update({
+  id: '/learn/gear',
+  path: '/learn/gear',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExperienceMediaRoute = ExperienceMediaRouteImport.update({
   id: '/experience/media',
   path: '/experience/media',
@@ -413,6 +419,7 @@ export interface FileRoutesByFullPath {
   '/concerts/$slug': typeof ConcertsSlugRoute
   '/editorial/images': typeof EditorialImagesRoute
   '/experience/media': typeof ExperienceMediaRoute
+  '/learn/gear': typeof LearnGearRoute
   '/learn/styles': typeof LearnStylesRoute
   '/newsletter/$id': typeof NewsletterIdRoute
   '/newsletter/template': typeof NewsletterTemplateRoute
@@ -475,6 +482,7 @@ export interface FileRoutesByTo {
   '/concerts/$slug': typeof ConcertsSlugRoute
   '/editorial/images': typeof EditorialImagesRoute
   '/experience/media': typeof ExperienceMediaRoute
+  '/learn/gear': typeof LearnGearRoute
   '/learn/styles': typeof LearnStylesRoute
   '/newsletter/$id': typeof NewsletterIdRoute
   '/newsletter/template': typeof NewsletterTemplateRoute
@@ -538,6 +546,7 @@ export interface FileRoutesById {
   '/concerts/$slug': typeof ConcertsSlugRoute
   '/editorial/images': typeof EditorialImagesRoute
   '/experience/media': typeof ExperienceMediaRoute
+  '/learn/gear': typeof LearnGearRoute
   '/learn/styles': typeof LearnStylesRoute
   '/newsletter/$id': typeof NewsletterIdRoute
   '/newsletter/template': typeof NewsletterTemplateRoute
@@ -602,6 +611,7 @@ export interface FileRouteTypes {
     | '/concerts/$slug'
     | '/editorial/images'
     | '/experience/media'
+    | '/learn/gear'
     | '/learn/styles'
     | '/newsletter/$id'
     | '/newsletter/template'
@@ -664,6 +674,7 @@ export interface FileRouteTypes {
     | '/concerts/$slug'
     | '/editorial/images'
     | '/experience/media'
+    | '/learn/gear'
     | '/learn/styles'
     | '/newsletter/$id'
     | '/newsletter/template'
@@ -726,6 +737,7 @@ export interface FileRouteTypes {
     | '/concerts/$slug'
     | '/editorial/images'
     | '/experience/media'
+    | '/learn/gear'
     | '/learn/styles'
     | '/newsletter/$id'
     | '/newsletter/template'
@@ -789,6 +801,7 @@ export interface RootRouteChildren {
   ConcertsSlugRoute: typeof ConcertsSlugRoute
   EditorialImagesRoute: typeof EditorialImagesRoute
   ExperienceMediaRoute: typeof ExperienceMediaRoute
+  LearnGearRoute: typeof LearnGearRoute
   LearnStylesRoute: typeof LearnStylesRoute
   NewsletterIdRoute: typeof NewsletterIdRoute
   NewsletterTemplateRoute: typeof NewsletterTemplateRoute
@@ -1070,6 +1083,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnStylesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learn/gear': {
+      id: '/learn/gear'
+      path: '/learn/gear'
+      fullPath: '/learn/gear'
+      preLoaderRoute: typeof LearnGearRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/experience/media': {
       id: '/experience/media'
       path: '/experience/media'
@@ -1300,6 +1320,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConcertsSlugRoute: ConcertsSlugRoute,
   EditorialImagesRoute: EditorialImagesRoute,
   ExperienceMediaRoute: ExperienceMediaRoute,
+  LearnGearRoute: LearnGearRoute,
   LearnStylesRoute: LearnStylesRoute,
   NewsletterIdRoute: NewsletterIdRoute,
   NewsletterTemplateRoute: NewsletterTemplateRoute,
