@@ -1,10 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n } from "@/i18n";
 import { IMG } from "@/data/images";
-import { supabase } from "@/integrations/supabase/client";
-import { Heart, ShoppingBag, Share2, Coffee, Music, Star, Crown, ArrowRight } from "lucide-react";
+import { createSupportCheckout } from "@/lib/support.functions";
+import { Heart, ShoppingBag, Share2, Coffee, Music, Star, Crown, ArrowRight, Smartphone } from "lucide-react";
 import { toast } from "sonner";
+
+const VIPPS_NUMBER = "47255113"; // +47 47255113
 
 export const Route = createFileRoute("/support")({
   component: SupportPage,
@@ -43,12 +46,11 @@ function SupportPage() {
     }
   }
 
-  async function handleSupport(level: string) {
+  const startCheckout = useServerFn(createSupportCheckout);
+
+  async function handleSupport(level: 'blues-friend' | 'blues-supporter' | 'blues-patron') {
     try {
-      const { data, error } = await supabase.functions.invoke('create-support-payment', {
-        body: { level },
-      });
-      if (error) throw error;
+      const data = await startCheckout({ data: { level, origin: window.location.origin } });
       if (data?.url) {
         window.location.href = data.url;
       } else {
@@ -58,6 +60,16 @@ function SupportPage() {
       toast.error('Payment initiation failed. Please try again.');
       console.error('Support payment error:', err);
     }
+  }
+
+  function handleVipps(amount: number) {
+    const url = `vipps://send?phone=${VIPPS_NUMBER}&amount=${amount}&comment=SlowBlues`;
+    window.location.href = url;
+    setTimeout(() => {
+      toast.message('Vipps', {
+        description: `Åpne Vipps på mobil og send til +47 ${VIPPS_NUMBER} (kr ${amount})`,
+      });
+    }, 800);
   }
 
   const supportTiers = [
@@ -125,11 +137,18 @@ function SupportPage() {
               </div>
               <p className="text-sm text-muted-foreground mb-6">{tier.desc}</p>
               <button
-                onClick={() => handleSupport(tier.level)}
+                onClick={() => handleSupport(tier.level as 'blues-friend' | 'blues-supporter' | 'blues-patron')}
                 className="w-full px-5 py-2.5 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition flex items-center justify-center gap-2"
               >
-                Support <ArrowRight className="size-4" />
+                Kort / Stripe <ArrowRight className="size-4" />
               </button>
+              <button
+                onClick={() => handleVipps(tier.amount)}
+                className="mt-2 w-full px-5 py-2.5 rounded-md border border-gold/40 text-gold font-medium hover:bg-gold/10 transition flex items-center justify-center gap-2"
+              >
+                <Smartphone className="size-4" /> Vipps {tier.amount} kr
+              </button>
+              <div className="mt-2 text-[11px] text-muted-foreground">Vipps: +47 {VIPPS_NUMBER}</div>
             </div>
           ))}
         </div>
