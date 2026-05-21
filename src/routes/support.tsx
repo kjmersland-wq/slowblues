@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n } from "@/i18n";
 import { IMG } from "@/data/images";
+import { supabase } from "@/integrations/supabase/client";
 import { Heart, ShoppingBag, Share2, Coffee, Music, Star, Crown, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 
