@@ -36,7 +36,10 @@ export const Route = createFileRoute("/")({
       { property: "og:url", content: "https://www.slowblues.no/" },
       { property: "og:type", content: "website" },
     ],
-    links: [{ rel: "canonical", href: "https://www.slowblues.no/" }],
+    links: [
+      { rel: "canonical", href: "https://www.slowblues.no/" },
+      { rel: "preload", as: "image", href: heroJukeImg, fetchpriority: "high" } as any,
+    ],
   }),
 });
 
