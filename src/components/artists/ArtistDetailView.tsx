@@ -10,7 +10,7 @@ import {
   ArrowLeft, Music, MapPin, Disc3, Calendar, Users, Star, Quote, Guitar,
   PlayCircle, Mic, Award, Sparkles, Globe, ExternalLink, Image as ImageIcon, BookOpen,
 } from "lucide-react";
-import { ArtistYouTube, AlbumYouTubeCell } from "@/components/artists/ArtistYouTube";
+import { ArtistYouTube, AlbumYouTubeCell, DiscographyVideos } from "@/components/artists/ArtistYouTube";
 
 const T = {
   no: { back: "Tilbake til artister", notFound: "Artist ikke funnet", loading: "Laster…", error: "Kunne ikke laste artisten", born: "Født", active: "Aktiv", styles: "Stiler og sjangre", discography: "Diskografi", songs: "Kjente sanger", related: "Relaterte artister", videos: "Se & Lytt", gallery: "Galleri", links: "Eksterne lenker", articles: "Relaterte artikler", influences: "Innflytelser", legacy: "Musikalsk innflytelse", family: "Familie og privatliv", formative: "Formende opplevelser", instruments: "Instrumenter og utstyr", anecdotes: "Historier og anekdoter", collaborators: "Samarbeidspartnere", awards: "Priser og anerkjennelse", from: "fra", musicians: "Musikere", watch: "Se", press: "Pressomtaler og sitater", source: "Kilde" },
@@ -265,59 +265,55 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
         {/* Discography */}
         {a.discography.length > 0 && (
           <Section icon={Disc3} title={t.discography} tone="gold">
-            <div className="overflow-x-auto border border-border rounded-xl bg-card/40">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="text-left text-[10px] tracking-[0.2em] uppercase text-muted-foreground border-b border-border">
-                    <th className="p-3">År</th><th className="p-3">Tittel</th><th className="p-3">Produsent</th><th className="p-3">Label</th><th className="p-3">Chart</th><th className="p-3">Salg</th><th className="p-3">{t.musicians}</th><th className="p-3">YouTube</th><th className="p-3">Notater</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {a.discography.map((d, i) => {
-                    const chart = d.chart_position ?? d.chart;
-                    const sales = d.sales_estimate ?? d.sales;
-                    return (
-                      <tr key={i} className="border-b border-border/50 last:border-0 align-top">
-                        <td className="p-3 text-gold font-mono">{d.year}</td>
-                        <td className="p-3 font-medium">{d.title}</td>
-                        <td className="p-3 text-muted-foreground">{d.producer ?? "—"}</td>
-                        <td className="p-3 text-muted-foreground">{d.label ?? "—"}</td>
-                        <td className="p-3">{chart ?? "—"}</td>
-                        <td className="p-3 text-muted-foreground">{sales ?? "—"}</td>
-                        <td className="p-3 text-muted-foreground max-w-[18rem]">
-                          {d.musicians && d.musicians.length > 0 ? (
-                            <span>
-                              {d.musicians.map((m, mi) => (
-                                <span key={mi}>
-                                  <NameLink name={m.name} index={nameIndex} locale={locale} />
-                                  {m.instrument ? ` (${m.instrument})` : ""}
-                                  {mi < d.musicians!.length - 1 ? ", " : ""}
-                                </span>
-                              ))}
-                            </span>
-                          ) : "—"}
-                        </td>
-                        <td className="p-3">
-                          {d.youtube_id ? (
-                            <a
-                              href={`https://www.youtube.com/watch?v=${d.youtube_id}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-gold hover:text-amber-200 underline underline-offset-4"
-                            >
-                              <PlayCircle className="size-3.5" /> {t.watch}
-                            </a>
-                          ) : (
-                            <AlbumYouTubeCell artistName={a.name} albumTitle={d.title} watchLabel={t.watch} />
-                          )}
-                        </td>
-                        <td className="p-3 text-muted-foreground italic max-w-xs">{d.notes ?? ""}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+            <DiscographyVideos>
+              <div className="overflow-x-auto border border-border rounded-xl bg-card/40">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="text-left text-[10px] tracking-[0.2em] uppercase text-muted-foreground border-b border-border">
+                      <th className="p-3">År</th><th className="p-3">Tittel</th><th className="p-3">Produsent</th><th className="p-3">Label</th><th className="p-3">Chart</th><th className="p-3">Salg</th><th className="p-3">{t.musicians}</th><th className="p-3">YouTube</th><th className="p-3">Notater</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {a.discography.map((d, i) => {
+                      const chart = d.chart_position ?? d.chart;
+                      const sales = d.sales_estimate ?? d.sales;
+                      return (
+                        <tr key={i} className="border-b border-border/50 last:border-0 align-top">
+                          <td className="p-3 text-gold font-mono">{d.year}</td>
+                          <td className="p-3 font-medium">{d.title}</td>
+                          <td className="p-3 text-muted-foreground">{d.producer ?? "—"}</td>
+                          <td className="p-3 text-muted-foreground">{d.label ?? "—"}</td>
+                          <td className="p-3">{chart ?? "—"}</td>
+                          <td className="p-3 text-muted-foreground">{sales ?? "—"}</td>
+                          <td className="p-3 text-muted-foreground max-w-[18rem]">
+                            {d.musicians && d.musicians.length > 0 ? (
+                              <span>
+                                {d.musicians.map((m, mi) => (
+                                  <span key={mi}>
+                                    <NameLink name={m.name} index={nameIndex} locale={locale} />
+                                    {m.instrument ? ` (${m.instrument})` : ""}
+                                    {mi < d.musicians!.length - 1 ? ", " : ""}
+                                  </span>
+                                ))}
+                              </span>
+                            ) : "—"}
+                          </td>
+                          <td className="p-3">
+                            <AlbumYouTubeCell
+                              artistName={a.name}
+                              albumTitle={d.title}
+                              watchLabel={t.watch}
+                              initialVideoId={d.youtube_id ?? null}
+                            />
+                          </td>
+                          <td className="p-3 text-muted-foreground italic max-w-xs">{d.notes ?? ""}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </DiscographyVideos>
           </Section>
         )}
 
