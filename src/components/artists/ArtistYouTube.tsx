@@ -491,7 +491,7 @@ export function AlbumYouTubeCell({
   if (!id) {
     return (
       <span
-        className="inline-flex items-center justify-center text-muted-foreground/50"
+        className="inline-flex items-center justify-center text-muted-foreground"
         style={{ width: 80, height: 45 }}
         aria-label="—"
       >
