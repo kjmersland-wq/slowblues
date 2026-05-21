@@ -11,6 +11,7 @@ import {
   PlayCircle, Mic, Award, Sparkles, Globe, ExternalLink, Image as ImageIcon, BookOpen,
 } from "lucide-react";
 import { ArtistYouTube, AlbumYouTubeCell, DiscographyVideos } from "@/components/artists/ArtistYouTube";
+import { ArtistInitialsPlaceholder } from "@/components/artists/ArtistInitialsPlaceholder";
 
 const T = {
   no: { back: "Tilbake til artister", notFound: "Artist ikke funnet", loading: "Laster…", error: "Kunne ikke laste artisten", born: "Født", died: "Død", active: "Aktiv", styles: "Stiler og sjangre", discography: "Diskografi", songs: "Kjente sanger", related: "Relaterte artister", videos: "Se & Lytt", gallery: "Galleri", links: "Eksterne lenker", articles: "Relaterte artikler", influences: "Innflytelser", legacy: "Musikalsk innflytelse", family: "Familie og privatliv", formative: "Formende opplevelser", instruments: "Instrumenter og utstyr", instrumentsShort: "Instrumenter", labelsShort: "Plateselskaper", anecdotes: "Historier og anekdoter", collaborators: "Samarbeidspartnere", awards: "Priser og anerkjennelse", from: "fra", musicians: "Musikere", watch: "Se", press: "Pressomtaler og sitater", source: "Kilde", year: "År", title: "Tittel", producer: "Produsent", label: "Label", chart: "Liste", sales: "Salg", notes: "Notater", featured: "Utvalgt", deceasedBanner: "Denne artisten er ikke lenger blant oss." },
@@ -42,7 +43,8 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
     </div>
   );
 
-  const heroImg = resolveArtistImage(a.img) ?? IMG.muddyWaters;
+  const ownImg = resolveArtistImage(a.img);
+  const heroImg = ownImg ?? IMG.muddyWaters;
   const related = computeRelated(a, all ?? [], 8);
   const bio = pickLang(a, lang, "biography");
   const short = pickLang(a, lang, "short") ?? a.short;
@@ -67,10 +69,16 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
           <div className="grid md:grid-cols-[320px_1fr] gap-10 items-start">
             <div className="rounded-xl overflow-hidden border border-gold/30 shadow-2xl bg-card/60">
               <div className="relative aspect-[3/4] w-full overflow-hidden">
-                <SafeImage src={heroImg} alt="" className="absolute inset-0 size-full object-cover blur-2xl scale-110 opacity-40" loading="eager" />
-                <SafeImage src={heroImg} alt={a.name} className="relative size-full object-contain" loading="eager" />
+                {ownImg ? (
+                  <>
+                    <SafeImage src={ownImg} alt="" className="absolute inset-0 size-full object-cover blur-2xl scale-110 opacity-40" loading="eager" />
+                    <SafeImage src={ownImg} alt={a.name} className="relative size-full object-contain" loading="eager" />
+                  </>
+                ) : (
+                  <ArtistInitialsPlaceholder name={a.name} className="absolute inset-0" />
+                )}
               </div>
-              {a.image_credit && <div className="text-[10px] text-muted-foreground px-2 py-1 bg-card/60">{a.image_credit}</div>}
+              {ownImg && a.image_credit && <div className="text-[10px] text-muted-foreground px-2 py-1 bg-card/60">{a.image_credit}</div>}
             </div>
             <div>
               <div className="inline-block text-xs tracking-[0.3em] text-gold uppercase mb-2 px-3 py-1 rounded-md bg-gold/10 border border-gold/30">
@@ -493,11 +501,13 @@ function RelatedCard({ a, locale }: { a: ArtistRecord; locale: ArtistLocale }) {
   const img = resolveArtistImage(a.img);
   return (
     <Link to={artistDetailPath(locale, a.slug)} className="block border border-border rounded-lg overflow-hidden bg-card/40 hover:border-gold/60 transition">
-      {img && (
+      {img ? (
         <div className="relative aspect-[4/3] overflow-hidden bg-card/60">
           <SafeImage src={img} alt="" className="absolute inset-0 size-full object-cover blur-xl scale-110 opacity-40" loading="lazy" />
           <SafeImage src={img} alt={a.name} loading="lazy" className="relative size-full object-contain" />
         </div>
+      ) : (
+        <ArtistInitialsPlaceholder name={a.name} className="aspect-[4/3]" />
       )}
       <div className="p-4">
         <div className="font-display text-lg text-gold mb-1">{a.name}</div>

@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { SafeImage } from "@/components/SafeImage";
+import { ArtistInitialsPlaceholder } from "@/components/artists/ArtistInitialsPlaceholder";
 import { useArtists, pickLang, type Lang } from "@/lib/artists";
 import { resolveArtistImage } from "@/lib/artistImageMap";
 import { useMemo, useState } from "react";
@@ -102,11 +103,13 @@ export function ArtistListView({ locale }: { locale: ArtistLocale }) {
           return (
             <Link key={a.slug} to={artistDetailPath(locale, a.slug)} className="group bg-card/50 border border-border rounded-lg overflow-hidden hover:border-gold/60 transition">
               <div className="relative aspect-[3/4] overflow-hidden bg-card/60">
-                {img && (
+                {img ? (
                   <>
                     <SafeImage src={img} alt="" className="absolute inset-0 size-full object-cover blur-xl scale-110 opacity-40" loading="lazy" />
                     <SafeImage src={img} alt={a.name} loading="lazy" className="relative size-full object-contain group-hover:scale-[1.03] transition duration-700" />
                   </>
+                ) : (
+                  <ArtistInitialsPlaceholder name={a.name} className="absolute inset-0" />
                 )}
               </div>
               <div className="p-4">
