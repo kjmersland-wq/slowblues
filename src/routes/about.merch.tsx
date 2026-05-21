@@ -210,6 +210,16 @@ function MerchPage() {
           </div>
         )}
 
+        {showPartnerSection && !isLoading && !error && !data?.error && (
+          <PartnerEditionsSection
+            partners={partners}
+            products={partnerProducts}
+            lang={lang}
+            onOpen={setActive}
+            onAdd={cart.add}
+          />
+        )}
+
         {!isLoading && !error && !data?.error && featured.length > 0 && (
           <div className="mb-16">
             <SectionHeading kicker="Featured" title="This cycle's picks" />
