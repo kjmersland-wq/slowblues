@@ -78,6 +78,12 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
               </div>
               <h1 className="font-display text-5xl md:text-6xl mb-3 leading-[1.05] gold-gradient-text">{a.name}</h1>
               {a.alt_name && <p className="text-muted-foreground mb-4">{t.born}: {a.alt_name}</p>}
+              {a.died && (
+                <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-md bg-gold/10 border border-gold/30 text-gold text-xs tracking-wide">
+                  <span aria-hidden>✦</span>
+                  <span>{t.deceasedBanner}</span>
+                </div>
+              )}
               <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground mb-6">
                 {a.born && <span>{t.born}: {a.born}{a.died && ` · ${t.died}: ${a.died}`}</span>}
                 {(a.country || a.origin) && <span>• <MapPin className="inline size-3.5" /> {a.country ?? a.origin}</span>}
