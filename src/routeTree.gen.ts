@@ -56,6 +56,7 @@ import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminQuotesRouteImport } from './routes/admin.quotes'
 import { Route as AdminQualityRouteImport } from './routes/admin.quality'
 import { Route as AdminLinksRouteImport } from './routes/admin.links'
+import { Route as AdminArtistsRouteImport } from './routes/admin.artists'
 import { Route as AboutMerchRouteImport } from './routes/about.merch'
 import { Route as AboutGuestbookRouteImport } from './routes/about.guestbook'
 import { Route as AboutBlogRouteImport } from './routes/about.blog'
@@ -303,6 +304,11 @@ const AdminLinksRoute = AdminLinksRouteImport.update({
   path: '/admin/links',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminArtistsRoute = AdminArtistsRouteImport.update({
+  id: '/admin/artists',
+  path: '/admin/artists',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutMerchRoute = AboutMerchRouteImport.update({
   id: '/about/merch',
   path: '/about/merch',
@@ -390,6 +396,7 @@ export interface FileRoutesByFullPath {
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
+  '/admin/artists': typeof AdminArtistsRoute
   '/admin/links': typeof AdminLinksRoute
   '/admin/quality': typeof AdminQualityRoute
   '/admin/quotes': typeof AdminQuotesRoute
@@ -450,6 +457,7 @@ export interface FileRoutesByTo {
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
+  '/admin/artists': typeof AdminArtistsRoute
   '/admin/links': typeof AdminLinksRoute
   '/admin/quality': typeof AdminQualityRoute
   '/admin/quotes': typeof AdminQuotesRoute
@@ -511,6 +519,7 @@ export interface FileRoutesById {
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
+  '/admin/artists': typeof AdminArtistsRoute
   '/admin/links': typeof AdminLinksRoute
   '/admin/quality': typeof AdminQualityRoute
   '/admin/quotes': typeof AdminQuotesRoute
@@ -573,6 +582,7 @@ export interface FileRouteTypes {
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
+    | '/admin/artists'
     | '/admin/links'
     | '/admin/quality'
     | '/admin/quotes'
@@ -633,6 +643,7 @@ export interface FileRouteTypes {
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
+    | '/admin/artists'
     | '/admin/links'
     | '/admin/quality'
     | '/admin/quotes'
@@ -693,6 +704,7 @@ export interface FileRouteTypes {
     | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
+    | '/admin/artists'
     | '/admin/links'
     | '/admin/quality'
     | '/admin/quotes'
@@ -754,6 +766,7 @@ export interface RootRouteChildren {
   AboutBlogRoute: typeof AboutBlogRoute
   AboutGuestbookRoute: typeof AboutGuestbookRoute
   AboutMerchRoute: typeof AboutMerchRouteWithChildren
+  AdminArtistsRoute: typeof AdminArtistsRoute
   AdminLinksRoute: typeof AdminLinksRoute
   AdminQualityRoute: typeof AdminQualityRoute
   AdminQuotesRoute: typeof AdminQuotesRoute
@@ -1115,6 +1128,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLinksRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/artists': {
+      id: '/admin/artists'
+      path: '/admin/artists'
+      fullPath: '/admin/artists'
+      preLoaderRoute: typeof AdminArtistsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about/merch': {
       id: '/about/merch'
       path: '/about/merch'
@@ -1238,6 +1258,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutBlogRoute: AboutBlogRoute,
   AboutGuestbookRoute: AboutGuestbookRoute,
   AboutMerchRoute: AboutMerchRouteWithChildren,
+  AdminArtistsRoute: AdminArtistsRoute,
   AdminLinksRoute: AdminLinksRoute,
   AdminQualityRoute: AdminQualityRoute,
   AdminQuotesRoute: AdminQuotesRoute,
