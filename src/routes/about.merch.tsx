@@ -17,12 +17,20 @@ import {
   ShoppingCart,
   Trash2,
   ArrowLeft,
+  Handshake,
 } from "lucide-react";
 import {
   fetchMerchOverview,
   type MerchProduct,
   type MerchVariant,
 } from "@/lib/fourthwall.functions";
+import {
+  activePartners,
+  partnerForProduct,
+  partnerDescription,
+  type Partner,
+} from "@/data/partners";
+import { useI18n } from "@/i18n";
 
 export const Route = createFileRoute("/about/merch")({
   component: MerchPage,
