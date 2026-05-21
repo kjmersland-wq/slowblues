@@ -226,24 +226,24 @@ const AboutIndexRoute = AboutIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReviewsSlugRoute = ReviewsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => ReviewsRoute,
+  id: '/reviews/$slug',
+  path: '/reviews/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const QuizArchiveRoute = QuizArchiveRouteImport.update({
-  id: '/archive',
-  path: '/archive',
-  getParentRoute: () => QuizRoute,
+  id: '/quiz/archive',
+  path: '/quiz/archive',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const NewsletterTemplateRoute = NewsletterTemplateRouteImport.update({
-  id: '/template',
-  path: '/template',
-  getParentRoute: () => NewsletterRoute,
+  id: '/newsletter/template',
+  path: '/newsletter/template',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const NewsletterIdRoute = NewsletterIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => NewsletterRoute,
+  id: '/newsletter/$id',
+  path: '/newsletter/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const LearnStylesRoute = LearnStylesRouteImport.update({
   id: '/learn/styles',
@@ -266,9 +266,9 @@ const ConcertsSlugRoute = ConcertsSlugRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogIdRoute = BlogIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => BlogRoute,
+  id: '/blog/$id',
+  path: '/blog/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ArtistsSlugRoute = ArtistsSlugRouteImport.update({
   id: '/artists/$slug',
@@ -276,39 +276,39 @@ const ArtistsSlugRoute = ArtistsSlugRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminWikidataRoute = AdminWikidataRouteImport.update({
-  id: '/wikidata',
-  path: '/wikidata',
-  getParentRoute: () => AdminRoute,
+  id: '/admin/wikidata',
+  path: '/admin/wikidata',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminQuotesRoute = AdminQuotesRouteImport.update({
-  id: '/quotes',
-  path: '/quotes',
-  getParentRoute: () => AdminRoute,
+  id: '/admin/quotes',
+  path: '/admin/quotes',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminQualityRoute = AdminQualityRouteImport.update({
-  id: '/quality',
-  path: '/quality',
-  getParentRoute: () => AdminRoute,
+  id: '/admin/quality',
+  path: '/admin/quality',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminLinksRoute = AdminLinksRouteImport.update({
-  id: '/links',
-  path: '/links',
-  getParentRoute: () => AdminRoute,
+  id: '/admin/links',
+  path: '/admin/links',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AboutMerchRoute = AboutMerchRouteImport.update({
-  id: '/merch',
-  path: '/merch',
-  getParentRoute: () => AboutRoute,
+  id: '/about/merch',
+  path: '/about/merch',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AboutGuestbookRoute = AboutGuestbookRouteImport.update({
-  id: '/guestbook',
-  path: '/guestbook',
-  getParentRoute: () => AboutRoute,
+  id: '/about/guestbook',
+  path: '/about/guestbook',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AboutBlogRoute = AboutBlogRouteImport.update({
-  id: '/blog',
-  path: '/blog',
-  getParentRoute: () => AboutRoute,
+  id: '/about/blog',
+  path: '/about/blog',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const LocaleArtistsIndexRoute = LocaleArtistsIndexRouteImport.update({
   id: '/$locale/artists/',
@@ -316,9 +316,9 @@ const LocaleArtistsIndexRoute = LocaleArtistsIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const QuizCycleCycleRoute = QuizCycleCycleRouteImport.update({
-  id: '/cycle/$cycle',
-  path: '/cycle/$cycle',
-  getParentRoute: () => QuizRoute,
+  id: '/quiz/cycle/$cycle',
+  path: '/quiz/cycle/$cycle',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicFourthwallWebhookRoute =
   ApiPublicFourthwallWebhookRouteImport.update({
@@ -714,11 +714,23 @@ export interface RootRouteChildren {
   UpdatesRoute: typeof UpdatesRoute
   WatchRoute: typeof WatchRoute
   WorldmapRoute: typeof WorldmapRoute
+  AboutBlogRoute: typeof AboutBlogRoute
+  AboutGuestbookRoute: typeof AboutGuestbookRoute
+  AboutMerchRoute: typeof AboutMerchRouteWithChildren
+  AdminLinksRoute: typeof AdminLinksRoute
+  AdminQualityRoute: typeof AdminQualityRoute
+  AdminQuotesRoute: typeof AdminQuotesRoute
+  AdminWikidataRoute: typeof AdminWikidataRoute
   ArtistsSlugRoute: typeof ArtistsSlugRoute
+  BlogIdRoute: typeof BlogIdRoute
   ConcertsSlugRoute: typeof ConcertsSlugRoute
   EditorialImagesRoute: typeof EditorialImagesRoute
   ExperienceMediaRoute: typeof ExperienceMediaRoute
   LearnStylesRoute: typeof LearnStylesRoute
+  NewsletterIdRoute: typeof NewsletterIdRoute
+  NewsletterTemplateRoute: typeof NewsletterTemplateRoute
+  QuizArchiveRoute: typeof QuizArchiveRoute
+  ReviewsSlugRoute: typeof ReviewsSlugRoute
   AboutIndexRoute: typeof AboutIndexRoute
   AdminIndexRoute: typeof AdminIndexRoute
   ArtistsIndexRoute: typeof ArtistsIndexRoute
@@ -729,6 +741,7 @@ export interface RootRouteChildren {
   ReviewsIndexRoute: typeof ReviewsIndexRoute
   LocaleArtistsSlugRoute: typeof LocaleArtistsSlugRoute
   ApiPublicFourthwallWebhookRoute: typeof ApiPublicFourthwallWebhookRoute
+  QuizCycleCycleRoute: typeof QuizCycleCycleRoute
   LocaleArtistsIndexRoute: typeof LocaleArtistsIndexRoute
 }
 
@@ -960,31 +973,31 @@ declare module '@tanstack/react-router' {
     }
     '/reviews/$slug': {
       id: '/reviews/$slug'
-      path: '/$slug'
+      path: '/reviews/$slug'
       fullPath: '/reviews/$slug'
       preLoaderRoute: typeof ReviewsSlugRouteImport
-      parentRoute: typeof ReviewsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/quiz/archive': {
       id: '/quiz/archive'
-      path: '/archive'
+      path: '/quiz/archive'
       fullPath: '/quiz/archive'
       preLoaderRoute: typeof QuizArchiveRouteImport
-      parentRoute: typeof QuizRoute
+      parentRoute: typeof rootRouteImport
     }
     '/newsletter/template': {
       id: '/newsletter/template'
-      path: '/template'
+      path: '/newsletter/template'
       fullPath: '/newsletter/template'
       preLoaderRoute: typeof NewsletterTemplateRouteImport
-      parentRoute: typeof NewsletterRoute
+      parentRoute: typeof rootRouteImport
     }
     '/newsletter/$id': {
       id: '/newsletter/$id'
-      path: '/$id'
+      path: '/newsletter/$id'
       fullPath: '/newsletter/$id'
       preLoaderRoute: typeof NewsletterIdRouteImport
-      parentRoute: typeof NewsletterRoute
+      parentRoute: typeof rootRouteImport
     }
     '/learn/styles': {
       id: '/learn/styles'
@@ -1016,10 +1029,10 @@ declare module '@tanstack/react-router' {
     }
     '/blog/$id': {
       id: '/blog/$id'
-      path: '/$id'
+      path: '/blog/$id'
       fullPath: '/blog/$id'
       preLoaderRoute: typeof BlogIdRouteImport
-      parentRoute: typeof BlogRoute
+      parentRoute: typeof rootRouteImport
     }
     '/artists/$slug': {
       id: '/artists/$slug'
@@ -1030,52 +1043,52 @@ declare module '@tanstack/react-router' {
     }
     '/admin/wikidata': {
       id: '/admin/wikidata'
-      path: '/wikidata'
+      path: '/admin/wikidata'
       fullPath: '/admin/wikidata'
       preLoaderRoute: typeof AdminWikidataRouteImport
-      parentRoute: typeof AdminRoute
+      parentRoute: typeof rootRouteImport
     }
     '/admin/quotes': {
       id: '/admin/quotes'
-      path: '/quotes'
+      path: '/admin/quotes'
       fullPath: '/admin/quotes'
       preLoaderRoute: typeof AdminQuotesRouteImport
-      parentRoute: typeof AdminRoute
+      parentRoute: typeof rootRouteImport
     }
     '/admin/quality': {
       id: '/admin/quality'
-      path: '/quality'
+      path: '/admin/quality'
       fullPath: '/admin/quality'
       preLoaderRoute: typeof AdminQualityRouteImport
-      parentRoute: typeof AdminRoute
+      parentRoute: typeof rootRouteImport
     }
     '/admin/links': {
       id: '/admin/links'
-      path: '/links'
+      path: '/admin/links'
       fullPath: '/admin/links'
       preLoaderRoute: typeof AdminLinksRouteImport
-      parentRoute: typeof AdminRoute
+      parentRoute: typeof rootRouteImport
     }
     '/about/merch': {
       id: '/about/merch'
-      path: '/merch'
+      path: '/about/merch'
       fullPath: '/about/merch'
       preLoaderRoute: typeof AboutMerchRouteImport
-      parentRoute: typeof AboutRoute
+      parentRoute: typeof rootRouteImport
     }
     '/about/guestbook': {
       id: '/about/guestbook'
-      path: '/guestbook'
+      path: '/about/guestbook'
       fullPath: '/about/guestbook'
       preLoaderRoute: typeof AboutGuestbookRouteImport
-      parentRoute: typeof AboutRoute
+      parentRoute: typeof rootRouteImport
     }
     '/about/blog': {
       id: '/about/blog'
-      path: '/blog'
+      path: '/about/blog'
       fullPath: '/about/blog'
       preLoaderRoute: typeof AboutBlogRouteImport
-      parentRoute: typeof AboutRoute
+      parentRoute: typeof rootRouteImport
     }
     '/$locale/artists/': {
       id: '/$locale/artists/'
@@ -1086,10 +1099,10 @@ declare module '@tanstack/react-router' {
     }
     '/quiz/cycle/$cycle': {
       id: '/quiz/cycle/$cycle'
-      path: '/cycle/$cycle'
+      path: '/quiz/cycle/$cycle'
       fullPath: '/quiz/cycle/$cycle'
       preLoaderRoute: typeof QuizCycleCycleRouteImport
-      parentRoute: typeof QuizRoute
+      parentRoute: typeof rootRouteImport
     }
     '/api/public/fourthwall-webhook': {
       id: '/api/public/fourthwall-webhook'
@@ -1122,6 +1135,20 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AboutMerchRouteChildren {
+  AboutMerchSlugRoute: typeof AboutMerchSlugRoute
+  AboutMerchCollectionSlugRoute: typeof AboutMerchCollectionSlugRoute
+}
+
+const AboutMerchRouteChildren: AboutMerchRouteChildren = {
+  AboutMerchSlugRoute: AboutMerchSlugRoute,
+  AboutMerchCollectionSlugRoute: AboutMerchCollectionSlugRoute,
+}
+
+const AboutMerchRouteWithChildren = AboutMerchRoute._addFileChildren(
+  AboutMerchRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccessibilityRoute: AccessibilityRoute,
@@ -1147,11 +1174,23 @@ const rootRouteChildren: RootRouteChildren = {
   UpdatesRoute: UpdatesRoute,
   WatchRoute: WatchRoute,
   WorldmapRoute: WorldmapRoute,
+  AboutBlogRoute: AboutBlogRoute,
+  AboutGuestbookRoute: AboutGuestbookRoute,
+  AboutMerchRoute: AboutMerchRouteWithChildren,
+  AdminLinksRoute: AdminLinksRoute,
+  AdminQualityRoute: AdminQualityRoute,
+  AdminQuotesRoute: AdminQuotesRoute,
+  AdminWikidataRoute: AdminWikidataRoute,
   ArtistsSlugRoute: ArtistsSlugRoute,
+  BlogIdRoute: BlogIdRoute,
   ConcertsSlugRoute: ConcertsSlugRoute,
   EditorialImagesRoute: EditorialImagesRoute,
   ExperienceMediaRoute: ExperienceMediaRoute,
   LearnStylesRoute: LearnStylesRoute,
+  NewsletterIdRoute: NewsletterIdRoute,
+  NewsletterTemplateRoute: NewsletterTemplateRoute,
+  QuizArchiveRoute: QuizArchiveRoute,
+  ReviewsSlugRoute: ReviewsSlugRoute,
   AboutIndexRoute: AboutIndexRoute,
   AdminIndexRoute: AdminIndexRoute,
   ArtistsIndexRoute: ArtistsIndexRoute,
@@ -1162,6 +1201,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReviewsIndexRoute: ReviewsIndexRoute,
   LocaleArtistsSlugRoute: LocaleArtistsSlugRoute,
   ApiPublicFourthwallWebhookRoute: ApiPublicFourthwallWebhookRoute,
+  QuizCycleCycleRoute: QuizCycleCycleRoute,
   LocaleArtistsIndexRoute: LocaleArtistsIndexRoute,
 }
 export const routeTree = rootRouteImport
