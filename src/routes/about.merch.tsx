@@ -466,11 +466,14 @@ function ProductModal({
   product,
   onClose,
   onAdd,
+  lang,
 }: {
   product: MerchProduct;
   onClose: () => void;
   onAdd: (i: CartItem) => void;
+  lang: string;
 }) {
+  const partner = partnerForProduct(product.slug);
   const [color, setColor] = useState(product.colors[0]?.name ?? "");
   const [size, setSize] = useState(product.sizes[0] ?? "");
   const [qty, setQty] = useState(1);
