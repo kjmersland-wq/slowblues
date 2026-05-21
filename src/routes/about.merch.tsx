@@ -16,6 +16,7 @@ import {
   Minus,
   ShoppingCart,
   Trash2,
+  ArrowLeft,
 } from "lucide-react";
 import {
   fetchMerchOverview,
