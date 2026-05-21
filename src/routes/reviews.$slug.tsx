@@ -1,9 +1,11 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { PageShell } from "@/components/PageShell";
+import { CoverFallback } from "@/components/reviews/CoverFallback";
 import { supabase } from "@/integrations/supabase/client";
 import { useI18n } from "@/i18n";
-import { Star, ArrowLeft, Calendar, Disc, Music } from "lucide-react";
+import { Star, ArrowLeft, Calendar, Music } from "lucide-react";
+
 
 type Review = {
   id: string;
@@ -171,10 +173,15 @@ function ReviewDetailPage() {
               )}
             </div>
           ) : (
-            <div className="aspect-square rounded-lg bg-muted/30 border border-border flex items-center justify-center">
-              <Disc className="size-16 text-muted-foreground/30" />
-            </div>
+            <CoverFallback
+              artist={review.artist_name}
+              title={review.album_title}
+              className="aspect-square rounded-lg border border-border"
+            />
           )}
+
+
+
 
           <div>
             <div className="text-[10px] tracking-[0.3em] text-gold uppercase mb-2">
@@ -237,6 +244,26 @@ function ReviewDetailPage() {
             ))}
           </div>
         )}
+
+        {review.youtube_playlist_id && (
+          <section className="mt-10">
+            <h2 className="font-display text-xl mb-3 text-gold">Listen</h2>
+            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-gold/20 bg-black">
+              <iframe
+                src={
+                  review.youtube_playlist_id.length === 11
+                    ? `https://www.youtube-nocookie.com/embed/${review.youtube_playlist_id}?rel=0`
+                    : `https://www.youtube-nocookie.com/embed/videoseries?list=${review.youtube_playlist_id}&rel=0`
+                }
+                title={`${review.artist_name} — ${review.album_title}`}
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute inset-0 h-full w-full"
+              />
+            </div>
+          </section>
+        )}
+
 
         {scores.some(([, v]) => typeof v === "number") && (
           <section className="mt-12 p-6 rounded-lg bg-card/40 border border-border">
