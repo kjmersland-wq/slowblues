@@ -94,20 +94,23 @@ export function invalidateFourthwallCache(prefix?: string): number {
 
 export async function listCollections(): Promise<FwCollection[]> {
   return cached("collections", async () => {
-    const json = await fwFetch<{ results?: FwCollection[] }>("/collections");
+    const json = await fwFetch<{ results?: FwCollection[] }>("/collections", { currency: "NOK" });
     return json.results ?? [];
   });
 }
 
 export async function listCollectionProducts(slug: string): Promise<FwProduct[]> {
-  return cached(`collection:${slug}`, async () => {
-    const json = await fwFetch<{ results?: FwProduct[] }>(`/collections/${encodeURIComponent(slug)}/products`);
+  return cached(`collection:${slug}:NOK`, async () => {
+    const json = await fwFetch<{ results?: FwProduct[] }>(
+      `/collections/${encodeURIComponent(slug)}/products`,
+      { currency: "NOK" },
+    );
     return json.results ?? [];
   });
 }
 
 export async function listAllProducts(): Promise<FwProduct[]> {
-  return cached("all-products", async () => {
+  return cached("all-products:NOK", async () => {
     const collections = await listCollections();
     const seen = new Map<string, FwProduct>();
     for (const c of collections) {
@@ -130,5 +133,5 @@ export async function getProductBySlug(slug: string): Promise<FwProduct | null> 
 // Public Fourthwall storefront base used for redirect-checkout links.
 // Override via env if your store URL differs.
 export function shopBaseUrl(): string {
-  return process.env.FOURTHWALL_SHOP_URL ?? "https://slowblues-shop.fourthwall.com";
+  return process.env.FOURTHWALL_SHOP_URL ?? "https://slow-blues-shop.fourthwall.com";
 }

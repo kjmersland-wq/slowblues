@@ -89,7 +89,7 @@ function mapProduct(p: FwProduct, shop: string): MerchProduct {
     variants,
     colors: Array.from(colorsMap.values()),
     sizes,
-    shopUrl: `${shop.replace(/\/$/, "")}/products/${p.slug}`,
+    shopUrl: `${shop.replace(/\/$/, "")}/en-nok/products/${p.slug}`,
     inStock,
   };
 }
