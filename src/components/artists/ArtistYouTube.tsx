@@ -7,7 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { PlayCircle, X, ChevronLeft, ChevronRight, Loader2, Music2 } from "lucide-react";
+import { PlayCircle, X, ChevronLeft, ChevronRight, Loader2, Music2, Disc3 } from "lucide-react";
 import { searchYouTube, type YTVideo } from "@/lib/youtube.functions";
 
 type Tab = "live" | "music";
@@ -470,7 +470,6 @@ export function AlbumYouTubeCell({
   initialVideoId?: string | null;
 }) {
   const [id, setId] = useState<string | null>(initialVideoId ?? null);
-  const [loading, setLoading] = useState(!initialVideoId);
   const [localOpen, setLocalOpen] = useState(false);
   const ctx = useContext(DiscographyVideoContext);
 
@@ -479,36 +478,8 @@ export function AlbumYouTubeCell({
   const key = keyRef.current;
 
   useEffect(() => {
-    if (initialVideoId) {
-      setId(initialVideoId);
-      setLoading(false);
-      return;
-    }
-    let cancelled = false;
-    const cacheKey = `yt:album:${artistName.toLowerCase()}:${albumTitle.toLowerCase()}`;
-    const cached = readCache<YTVideo[]>(cacheKey);
-    if (cached && cached[0]) {
-      setId(cached[0].id);
-      setLoading(false);
-      return;
-    }
-    searchYouTube({ data: { query: `${artistName} ${albumTitle} full album official`, max: 1 } })
-      .then((r) => {
-        if (cancelled) return;
-        const first = r.videos?.[0];
-        if (first) {
-          setId(first.id);
-          writeCache(cacheKey, [first]);
-        }
-        setLoading(false);
-      })
-      .catch(() => {
-        if (!cancelled) setLoading(false);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [artistName, albumTitle, initialVideoId]);
+    setId(initialVideoId ?? null);
+  }, [initialVideoId]);
 
   // Register with provider so prev/next can walk all rows
   useEffect(() => {
@@ -517,18 +488,18 @@ export function AlbumYouTubeCell({
     return () => ctx.unregister(key);
   }, [ctx, id, key, artistName, albumTitle]);
 
-  if (loading) {
+  if (!id) {
     return (
-      <div
-        className="inline-flex items-center justify-center bg-black/60 border border-border rounded-md text-muted-foreground/60"
+      <span
+        className="inline-flex items-center justify-center text-muted-foreground/50"
         style={{ width: 80, height: 45 }}
-        aria-label="Søker…"
+        aria-label="—"
       >
-        <Loader2 className="size-4 animate-spin" />
-      </div>
+        <Disc3 className="size-5" />
+      </span>
     );
   }
-  if (!id) return <span className="text-muted-foreground">—</span>;
+
 
   const handleClick = () => {
     if (ctx) ctx.open(key);
