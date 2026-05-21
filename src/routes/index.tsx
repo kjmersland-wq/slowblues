@@ -177,6 +177,9 @@ function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showBu
         src={img}
         alt=""
         loading={active ? "eager" : "lazy"}
+        {...(isPrimary ? { fetchPriority: "high" as const } : {})}
+        width={1920}
+        height={1080}
         className="absolute inset-0 size-full object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/65 to-background" />
