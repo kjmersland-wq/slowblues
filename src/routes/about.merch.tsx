@@ -209,7 +209,7 @@ function MerchPage() {
         )}
 
         {!isLoading && !error && !data?.error && products.length > 0 && (
-          <div className="mb-12">
+          <div id="merch-grid" className="mb-12 scroll-mt-24">
             <SectionHeading kicker="All products" title="The full shop" />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {products.map((p) => (
@@ -252,6 +252,16 @@ function MerchPage() {
         onClose={() => setCartOpen(false)}
         cart={cart}
       />
+
+      {/* Fixed back-to-grid button */}
+      {!active && !cartOpen && products.length > 4 && (
+        <a
+          href="#merch-grid"
+          className="fixed bottom-6 right-6 z-30 inline-flex items-center gap-2 px-5 py-3 rounded-full bg-card/95 border border-gold/40 text-gold hover:bg-gold/10 hover:border-gold transition shadow-xl backdrop-blur"
+        >
+          <ArrowLeft className="size-4 rotate-90" /> Se alle produkter
+        </a>
+      )}
     </PageShell>
   );
 }
@@ -462,6 +472,12 @@ function ProductModal({
           aria-label="Close"
         >
           <X className="size-5" />
+        </button>
+        <button
+          onClick={onClose}
+          className="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold/40 bg-card/60 text-gold hover:bg-gold/10 hover:border-gold transition text-xs font-medium z-10"
+        >
+          <ArrowLeft className="size-3.5" /> Tilbake til butikken
         </button>
 
         <div>

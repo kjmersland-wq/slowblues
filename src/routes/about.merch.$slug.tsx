@@ -101,9 +101,13 @@ function ProductPage() {
   return (
     <PageShell>
       <div className="max-w-6xl mx-auto px-6 py-10">
-        <button onClick={() => router.history.back()} className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-gold mb-8">
-          <ArrowLeft className="size-4" /> Back
-        </button>
+        <Link
+          to="/about/merch"
+          className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-gold/40 bg-card/40 text-gold hover:bg-gold/10 hover:border-gold transition text-sm font-medium"
+        >
+          <ArrowLeft className="size-4" /> Tilbake til butikken
+        </Link>
+
 
         <div className="grid md:grid-cols-2 gap-10">
           <div>
