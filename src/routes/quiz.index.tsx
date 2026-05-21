@@ -90,7 +90,7 @@ function QuizPage() {
             </div>
             {!submitted ? (
               <div className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
-                <input value={nickname} onChange={(e) => setNickname(e.target.value)} placeholder={no ? "Kallenavn for leaderboard" : "Nickname for leaderboard"} className="flex-1 px-3 py-2 rounded-md bg-background border border-border text-sm" maxLength={24} />
+                <input value={nickname} onChange={(e) => setNickname(e.target.value)} placeholder={no ? "Kallenavn for leaderboard" : "Nickname for leaderboard"} aria-label={no ? "Kallenavn for leaderboard" : "Nickname for leaderboard"} className="flex-1 px-3 py-2 rounded-md bg-background border border-border text-sm" maxLength={24} />
                 <button onClick={submitScore} disabled={!nickname.trim()} className="px-4 py-2 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 disabled:opacity-40">{no ? "Send inn" : "Submit"}</button>
               </div>
             ) : (

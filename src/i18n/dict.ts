@@ -301,7 +301,7 @@ const en: typeof no = {
       eyebrow: "Blog",
       title: "Latest Posts",
       lead: "Reviews, interviews, deep dives and tour reports.",
-      readMore: "Read more",
+      readMore: "Read full article",
     },
     updates: {
       eyebrow: "Live",
@@ -372,7 +372,7 @@ const en: typeof no = {
     },
   },
   common: {
-    learnMore: "Learn more",
+    learnMore: "Learn more about this topic",
     listenNow: "Listen now",
     backHome: "Back to home",
     photoBy: "Photo",

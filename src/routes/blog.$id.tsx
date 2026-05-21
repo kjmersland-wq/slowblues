@@ -14,17 +14,23 @@ export const Route = createFileRoute("/blog/$id")({
   component: BlogArticlePage,
   head: ({ params, loaderData }) => {
     const a = loaderData?.article;
-    const url = `https://sslow-blues.lovable.app/blog/${params.id}`;
+    const url = `https://www.slowblues.no/blog/${params.id}`;
     if (!a) return { meta: [{ title: "Article — SlowBlues" }] };
+    // Norwegian as primary (site domain is .no); fall back to English.
+    const primaryTitle = (a.titleNo ?? a.titleEn).slice(0, 60);
+    const primaryExcerpt = (a.excerptNo ?? a.excerptEn).slice(0, 158);
     return {
       meta: [
-        { title: `${a.titleEn} — SlowBlues` },
-        { name: "description", content: a.excerptEn },
+        { title: `${primaryTitle} — SlowBlues` },
+        { name: "description", content: primaryExcerpt },
         { name: "keywords", content: a.keywordsEn.join(", ") },
-        { property: "og:title", content: a.titleEn },
-        { property: "og:description", content: a.excerptEn },
+        { property: "og:title", content: primaryTitle },
+        { property: "og:description", content: primaryExcerpt },
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
+        { property: "og:locale", content: "nb_NO" },
+        { property: "og:locale:alternate", content: "en_US" },
+        ...(a.titleDe ? [{ property: "og:locale:alternate", content: "de_DE" }] : []),
         { property: "article:published_time", content: a.publishedDate },
         { property: "article:modified_time", content: a.modifiedDate },
         { property: "article:author", content: a.author },
@@ -36,12 +42,14 @@ export const Route = createFileRoute("/blog/$id")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Article",
-            headline: a.titleEn,
-            description: a.excerptEn,
+            headline: primaryTitle,
+            description: primaryExcerpt,
+            inLanguage: "nb-NO",
             author: { "@type": "Person", name: a.author },
             datePublished: a.publishedDate,
             dateModified: a.modifiedDate,
             keywords: a.keywordsEn.join(", "),
+            mainEntityOfPage: url,
           }),
         },
       ],

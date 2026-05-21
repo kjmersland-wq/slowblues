@@ -11,10 +11,38 @@ export const Route = createFileRoute("/radio")({
   component: RadioPage,
   head: () => ({
     meta: [
-      { title: "Blues Radio — SlowBlues" },
+      { title: "Blues Radio — Stations & Shows | SlowBlues" },
       { name: "description", content: "Bluesradio og bluesprogrammer fra Norge, Norden og hele verden — live streams, ukentlige programmer og spillelister." },
-      { property: "og:title", content: "Blues Radio — SlowBlues" },
+      { property: "og:title", content: "Blues Radio — Stations & Shows | SlowBlues" },
+      { property: "og:description", content: "Live blues streams and weekly shows from Norway, the Nordics and around the world." },
+      { property: "og:url", content: "https://www.slowblues.no/radio" },
       { property: "og:image", content: IMG.microphone },
+    ],
+    links: [{ rel: "canonical", href: "https://www.slowblues.no/radio" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "@id": "https://www.slowblues.no/radio#shows",
+          name: "SlowBlues Radio Shows",
+          url: "https://www.slowblues.no/radio",
+          numberOfItems: RADIO_SHOWS.length,
+          itemListElement: RADIO_SHOWS.map((s, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            item: {
+              "@type": "BroadcastService",
+              name: s.show,
+              description: s.host,
+              broadcastDisplayName: s.show,
+              broadcastTimezone: "Europe/Oslo",
+              areaServed: "Worldwide",
+            },
+          })),
+        }),
+      },
     ],
   }),
 });

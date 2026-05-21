@@ -29,9 +29,14 @@ export const Route = createFileRoute("/")({
   component: Home,
   head: () => ({
     meta: [
-      { title: "SlowBlues — 330+ Blues Artists, Live News" },
-      { name: "description", content: "A timeless tribute to the raw soul of Delta & Chicago Blues. From the cotton fields to the global stage — the real roots of modern music." },
+      { title: "SlowBlues — 330+ Blues Artists, History & Reviews" },
+      { name: "description", content: "A timeless tribute to the raw soul of Delta & Chicago Blues. 330+ artist profiles, reviews, festivals and live news — the real roots of modern music." },
+      { property: "og:title", content: "SlowBlues — 330+ Blues Artists, History & Reviews" },
+      { property: "og:description", content: "A timeless tribute to the raw soul of Delta & Chicago Blues — 330+ artist profiles, reviews, festivals and live news." },
+      { property: "og:url", content: "https://www.slowblues.no/" },
+      { property: "og:type", content: "website" },
     ],
+    links: [{ rel: "canonical", href: "https://www.slowblues.no/" }],
   }),
 });
 
@@ -125,7 +130,7 @@ function Home() {
             key={i}
             className={`${i === slide ? "opacity-100" : "opacity-0 pointer-events-none absolute inset-0"} transition-opacity duration-1000`}
           >
-            <HeroSlide {...s} active={i === slide} />
+            <HeroSlide {...s} active={i === slide} isPrimary={i === 0} />
           </div>
         ))}
         <button
@@ -164,7 +169,8 @@ function Home() {
 
 /* ───────── components ───────── */
 
-function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showButtons, credit, active }: any) {
+function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showButtons, credit, active, isPrimary }: any) {
+  const HeadingTag: any = isPrimary ? "h1" : "h2";
   return (
     <div className="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
       <img
@@ -189,11 +195,11 @@ function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showBu
             />
           </div>
         )}
-        <h1 className="font-display font-black tracking-tight text-6xl md:text-8xl gold-gradient-text leading-none">
+        <HeadingTag className="font-display font-black tracking-tight text-6xl md:text-8xl gold-gradient-text leading-none">
           {showButtons ? title : (
             <>A timeless tribute to the raw soul of <span className="text-gold">Delta & Chicago Blues</span></>
           )}
-        </h1>
+        </HeadingTag>
         {showButtons && (
           <div className="mt-4 font-display text-2xl md:text-3xl text-foreground/90">{titleAccent}</div>
         )}
