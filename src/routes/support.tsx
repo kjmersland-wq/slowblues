@@ -125,7 +125,7 @@ function SupportPage() {
               </div>
               <p className="text-sm text-muted-foreground mb-6">{tier.desc}</p>
               <button
-                onClick={() => handleSupport(tier.name, tier.amount)}
+                onClick={() => handleSupport(tier.level)}
                 className="w-full px-5 py-2.5 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition flex items-center justify-center gap-2"
               >
                 Support <ArrowRight className="size-4" />
