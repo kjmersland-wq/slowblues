@@ -25,10 +25,10 @@ export const IMG = {
   // Library of Congress — FSA cotton-field & juke-joint imagery (PD)
   cottonField: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Picking_cotton_in_Mississippi_LCCN2017819999.jpg/1280px-Picking_cotton_in_Mississippi_LCCN2017819999.jpg",
   jukeJoint: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Juke_joint%2C_Saturday_evening%2C_outside_Clarksdale%2C_Mississippi_%28LOC_fsa.8a26764%29.jpg/1280px-Juke_joint%2C_Saturday_evening%2C_outside_Clarksdale%2C_Mississippi_%28LOC_fsa.8a26764%29.jpg",
-  delta: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Mississippi_Delta_Region.jpg/1280px-Mississippi_Delta_Region.jpg",
-  chessRecords: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Chess_Records_2120_Michigan_Ave.jpg/1280px-Chess_Records_2120_Michigan_Ave.jpg",
-  beale: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Beale_Street_in_Memphis_Tennessee_at_night.jpg/1280px-Beale_Street_in_Memphis_Tennessee_at_night.jpg",
-  clarksdale: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Clarksdale_Crossroads.jpg/1280px-Clarksdale_Crossroads.jpg",
+  delta: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Mississippi_delta_from_space.jpg/1280px-Mississippi_delta_from_space.jpg",
+  chessRecords: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Chess_Records_Studio.jpg/1280px-Chess_Records_Studio.jpg",
+  beale: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Memphis_Beale_Street.jpg",
+  clarksdale: "https://upload.wikimedia.org/wikipedia/commons/b/be/ClarksdaleCrossroads.jpg",
 
   // Unsplash — open use atmospheric (guitar / stage / vinyl)
   guitar: "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1600&q=80",
