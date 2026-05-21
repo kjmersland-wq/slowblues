@@ -1,21 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import { supabase } from "@/integrations/supabase/client";
 import { ArtistDetailView } from "@/components/artists/ArtistDetailView";
 import { resolveArtistImage } from "@/lib/artistImageMap";
 import { buildArtistJsonLd, buildBreadcrumb } from "@/lib/artistJsonLd";
 import { pickLang, type Lang, type ArtistRecord } from "@/lib/artists";
 import { SUPPORTED_LOCALES, artistDetailPath, DEFAULT_LOCALE } from "@/lib/locale";
 
-const LOCALE: Lang = DEFAULT_LOCALE;
+export const LOCALE: Lang = DEFAULT_LOCALE;
 
 export const Route = createFileRoute("/artists/$slug")({
   component: Page,
-  loader: async ({ params }) => {
-    const { data } = await supabase.from("artists").select("*").eq("slug", params.slug).maybeSingle();
-    return { artist: (data ?? null) as ArtistRecord | null };
-  },
-  head: ({ params, loaderData }) => buildHead(params.slug, loaderData?.artist ?? null, LOCALE),
+  head: ({ params }) => buildHead(params.slug, null, LOCALE),
 });
 
 function Page() {

@@ -4,7 +4,7 @@ import { IMG } from "@/data/images";
 import { ArtistListView } from "@/components/artists/ArtistListView";
 import { SUPPORTED_LOCALES, artistsListPath, isLocale, type ArtistLocale } from "@/lib/locale";
 
-const HERO = {
+export const HERO = {
   en: { eyebrow: "Hall of Fame", title: "Artists", lead: "330+ blues artist profiles — pioneers, masters and today's voices." },
   sv: { eyebrow: "Hall of Fame", title: "Artister", lead: "330+ artistprofiler — pionjärerna, mästarna och dagens röster." },
   de: { eyebrow: "Hall of Fame", title: "Künstler", lead: "330+ Blues-Künstlerprofile — Pioniere, Meister und heutige Stimmen." },

@@ -18,7 +18,7 @@ export const Route = createFileRoute("/about/merch/collection/$slug")({
   }),
 });
 
-function prettify(slug: string) {
+export function prettify(slug: string) {
   return slug.split("-").map((s) => s.charAt(0).toUpperCase() + s.slice(1)).join(" ");
 }
 function formatPrice(p: MerchProduct["price"]) {
