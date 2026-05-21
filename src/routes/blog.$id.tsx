@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import { useI18n } from "@/i18n";
+import { useI18n, tr } from "@/i18n";
 import type { BlogArticle } from "@/data/blogArticles";
 import { blogArticles, getBlogArticleById } from "@/data/blogArticles";
 import { ArrowLeft, Clock } from "lucide-react";
