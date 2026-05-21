@@ -566,6 +566,42 @@ function ProductModal({
             dangerouslySetInnerHTML={{ __html: product.descriptionHtml || product.description }}
           />
 
+          {partner && (
+            <div
+              className="mb-5 rounded-lg border p-4 flex items-center gap-3"
+              style={{
+                borderColor: partner.accentColor + "66",
+                background: partner.accentColor + "10",
+              }}
+            >
+              {partner.logoUrl && (
+                <img
+                  src={partner.logoUrl}
+                  alt={partner.name}
+                  className="h-10 w-10 object-contain bg-white rounded p-1 shrink-0"
+                />
+              )}
+              <div className="flex-1 min-w-0 text-sm">
+                <div className="font-medium mb-0.5">
+                  🤝 Partner Edition — made in collaboration with{" "}
+                  <a
+                    href={partner.website}
+                    target="_blank"
+                    rel="noopener"
+                    className="underline hover:text-gold"
+                  >
+                    {partner.name}
+                  </a>
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  Part of the proceeds supports {partner.name}.{" "}
+                  <span className="italic">{partnerDescription(partner, lang)}</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+
           {product.colors.length > 0 && (
             <div className="mb-4">
               <div className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
