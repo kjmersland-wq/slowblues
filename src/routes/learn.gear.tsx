@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { useI18n } from "@/i18n";
+import { useI18n, tr } from "@/i18n";
 import { ExternalLink, Share2, Music, Guitar, Mic, Speaker, Drum } from "lucide-react";
 
 export const Route = createFileRoute("/learn/gear")({
@@ -270,26 +270,35 @@ const BRANDS: Brand[] = [
   },
 ];
 
-const CATS: { id: Cat | "all"; labelEN: string; labelNO: string; icon: typeof Guitar }[] = [
-  { id: "all", labelEN: "All", labelNO: "Alle", icon: Music },
-  { id: "guitars", labelEN: "Guitars", labelNO: "Gitarer", icon: Guitar },
-  { id: "amps", labelEN: "Amplifiers", labelNO: "Forsterkere", icon: Speaker },
-  { id: "harmonicas", labelEN: "Harmonicas", labelNO: "Munnspill", icon: Music },
-  { id: "drums", labelEN: "Drums & Rhythm", labelNO: "Trommer & rytme", icon: Drum },
-  { id: "mics", labelEN: "Microphones", labelNO: "Mikrofoner", icon: Mic },
+const CATS: { id: Cat | "all"; labels: { no: string; en: string; sv: string; de: string }; icon: typeof Guitar }[] = [
+  { id: "all", labels: { no: "Alle", en: "All", sv: "Alla", de: "Alle" }, icon: Music },
+  { id: "guitars", labels: { no: "Gitarer", en: "Guitars", sv: "Gitarrer", de: "Gitarren" }, icon: Guitar },
+  { id: "amps", labels: { no: "Forsterkere", en: "Amplifiers", sv: "Förstärkare", de: "Verstärker" }, icon: Speaker },
+  { id: "harmonicas", labels: { no: "Munnspill", en: "Harmonicas", sv: "Munspel", de: "Mundharmonikas" }, icon: Music },
+  { id: "drums", labels: { no: "Trommer & rytme", en: "Drums & Rhythm", sv: "Trummor & rytm", de: "Schlagzeug & Rhythmus" }, icon: Drum },
+  { id: "mics", labels: { no: "Mikrofoner", en: "Microphones", sv: "Mikrofoner", de: "Mikrofone" }, icon: Mic },
 ];
 
 function GearPage() {
   const { lang } = useI18n();
-  const isNO = lang === "no";
+  const isNO = lang === "no" || lang === "sv";
   const [cat, setCat] = useState<Cat | "all">("all");
 
   const visible = useMemo(() => (cat === "all" ? BRANDS : BRANDS.filter((b) => b.cat === cat)), [cat]);
 
   const hero = {
-    title: isNO ? "Verktøyet som bygget bluesen" : "The Tools That Built the Blues",
-    subEN: "Blues isn't just about feeling — it's about the right instrument in the right hands at the right moment. A Telecaster through a tweed Fender amp. A Marine Band in the key of A. A Shure 520DX held just right. These are the tools that made the music.",
-    subNO: "Blues handler ikke bare om følelser — det handler om riktig instrument i riktige hender i rett øyeblikk. En Telecaster gjennom en tweed Fender-forsterker. Et Marine Band i A-dur. En Shure 520DX holdt akkurat riktig. Dette er verktøyet som skapte musikken.",
+    title: tr(lang, {
+      no: "Verktøyet som bygget bluesen",
+      en: "The Tools That Built the Blues",
+      sv: "Verktygen som byggde bluesen",
+      de: "Die Werkzeuge, die den Blues schufen",
+    }),
+    sub: tr(lang, {
+      en: "Blues isn't just about feeling — it's about the right instrument in the right hands at the right moment. A Telecaster through a tweed Fender amp. A Marine Band in the key of A. A Shure 520DX held just right. These are the tools that made the music.",
+      no: "Blues handler ikke bare om følelser — det handler om riktig instrument i riktige hender i rett øyeblikk. En Telecaster gjennom en tweed Fender-forsterker. Et Marine Band i A-dur. En Shure 520DX holdt akkurat riktig. Dette er verktøyet som skapte musikken.",
+      sv: "Blues handlar inte bara om känsla — det handlar om rätt instrument i rätt händer i rätt ögonblick. En Telecaster genom en tweed Fender-förstärkare. Ett Marine Band i A-dur. En Shure 520DX som hålls rätt. Det är verktygen som skapade musiken.",
+      de: "Blues ist nicht nur Gefühl — es geht um das richtige Instrument in den richtigen Händen im richtigen Moment. Eine Telecaster durch einen Tweed-Fender-Amp. Eine Marine Band in A. Ein richtig gehaltenes Shure 520DX. Das sind die Werkzeuge, die die Musik schufen.",
+    }),
   };
 
   return (
@@ -304,7 +313,7 @@ function GearPage() {
           <HeroIllustration />
           <h1 className="font-display text-4xl sm:text-6xl text-gold leading-tight mt-6">{hero.title}</h1>
           <p className="mt-6 text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            {isNO ? hero.subNO : hero.subEN}
+            {hero.sub}
           </p>
         </div>
       </section>
@@ -326,7 +335,7 @@ function GearPage() {
                 }`}
               >
                 <Icon className="size-4" />
-                {isNO ? c.labelNO : c.labelEN}
+                {tr(lang, c.labels)}
               </button>
             );
           })}
@@ -336,7 +345,7 @@ function GearPage() {
       {/* BRANDS */}
       <main className="max-w-5xl mx-auto px-5 py-12 space-y-10">
         {visible.map((b) => (
-          <BrandCard key={b.id} brand={b} isNO={isNO} />
+          <BrandCard key={b.id} brand={b} isNO={isNO} lang={lang} />
         ))}
       </main>
 
@@ -344,7 +353,7 @@ function GearPage() {
       <section className="border-t border-border">
         <div className="max-w-3xl mx-auto px-5 py-14 text-center">
           <p className="text-muted-foreground">
-            {isNO ? "Mangler vi et merke? Si fra." : "Missing a brand? Let us know."}
+            {tr(lang, { no: "Mangler vi et merke? Si fra.", en: "Missing a brand? Let us know.", sv: "Saknar vi ett märke? Säg till.", de: "Fehlt eine Marke? Sag uns Bescheid." })}
           </p>
           <a
             href="mailto:kjell@slowblues.no"
@@ -358,7 +367,7 @@ function GearPage() {
   );
 }
 
-function BrandCard({ brand, isNO }: { brand: Brand; isNO: boolean }) {
+function BrandCard({ brand, isNO, lang }: { brand: Brand; isNO: boolean; lang: ReturnType<typeof useI18n>["lang"] }) {
   const editorial = isNO && brand.editorialNO ? brand.editorialNO : brand.editorialEN;
   const ytUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(brand.ytQuery)}`;
 
@@ -384,7 +393,7 @@ function BrandCard({ brand, isNO }: { brand: Brand; isNO: boolean }) {
             <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mt-2">{brand.founded}</p>
             {brand.founder && (
               <p className="text-[11px] text-muted-foreground/80 mt-1">
-                {isNO ? "Grunnlegger" : "Founder"}: {brand.founder.name}
+                {tr(lang, { no: "Grunnlegger", en: "Founder", sv: "Grundare", de: "Gründer" })}: {brand.founder.name}
                 {brand.founder.years ? ` (${brand.founder.years})` : ""}
               </p>
             )}
@@ -395,7 +404,7 @@ function BrandCard({ brand, isNO }: { brand: Brand; isNO: boolean }) {
           className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-gold transition px-3 py-1.5 rounded-full border border-border"
           aria-label="Share"
         >
-          <Share2 className="size-3.5" /> {isNO ? "Del" : "Share"}
+          <Share2 className="size-3.5" /> {tr(lang, { no: "Del", en: "Share", sv: "Dela", de: "Teilen" })}
         </button>
       </header>
 
@@ -412,7 +421,7 @@ function BrandCard({ brand, isNO }: { brand: Brand; isNO: boolean }) {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gold/15 text-gold border border-gold/40 hover:bg-gold/25 transition text-sm"
             >
-              {isNO ? `Besøk ${brand.name}` : `Visit ${brand.name}`} <ExternalLink className="size-3.5" />
+              {tr(lang, { no: `Besøk ${brand.name}`, en: `Visit ${brand.name}`, sv: `Besök ${brand.name}`, de: `${brand.name} besuchen` })} <ExternalLink className="size-3.5" />
             </a>
             <a
               href={ytUrl}
@@ -420,7 +429,7 @@ function BrandCard({ brand, isNO }: { brand: Brand; isNO: boolean }) {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-border text-muted-foreground hover:text-gold hover:border-gold/40 transition text-sm"
             >
-              {isNO ? "YouTube-søk" : "YouTube search"} <ExternalLink className="size-3.5" />
+              {tr(lang, { no: "YouTube-søk", en: "YouTube search", sv: "YouTube-sökning", de: "YouTube-Suche" })} <ExternalLink className="size-3.5" />
             </a>
           </div>
         </div>
@@ -428,7 +437,7 @@ function BrandCard({ brand, isNO }: { brand: Brand; isNO: boolean }) {
         <aside className="space-y-5">
           <div>
             <h3 className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-2">
-              {isNO ? "Nøkkelmodeller" : "Key models"}
+              {tr(lang, { no: "Nøkkelmodeller", en: "Key models", sv: "Nyckelmodeller", de: "Schlüsselmodelle" })}
             </h3>
             <ul className="space-y-1 text-sm">
               {brand.models.map((m) => (
@@ -439,7 +448,7 @@ function BrandCard({ brand, isNO }: { brand: Brand; isNO: boolean }) {
           {brand.artists.length > 0 && (
             <div>
               <h3 className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-2">
-                {isNO ? "Brukt av" : "Used by"}
+                {tr(lang, { no: "Brukt av", en: "Used by", sv: "Används av", de: "Verwendet von" })}
               </h3>
               <ul className="space-y-1 text-sm">
                 {brand.artists.map((a) => (

@@ -41,3 +41,18 @@ export function useI18n() {
 }
 
 export type { Lang };
+
+/**
+ * Tiny inline translator for strings that don't live in dict.ts.
+ * Provides graceful fallbacks: sv → no, de → en, missing → en → no.
+ */
+export function tr(
+  lang: Lang,
+  variants: { no: string; en: string; sv?: string; de?: string }
+): string {
+  if (lang === "no") return variants.no;
+  if (lang === "sv") return variants.sv ?? variants.no;
+  if (lang === "de") return variants.de ?? variants.en;
+  return variants.en;
+}
+

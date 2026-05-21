@@ -45,7 +45,7 @@ function BlogPage() {
                   </div>
                   <h2 className="font-display text-xl mb-2 leading-tight">{title}</h2>
                   <p className="text-sm text-muted-foreground leading-relaxed line-clamp-4">{excerpt}</p>
-                  <div className="mt-4 text-xs text-muted-foreground">{p.author} · {new Date(p.publishedDate).toLocaleDateString(no ? "nb-NO" : "en-GB")}</div>
+                  <div className="mt-4 text-xs text-muted-foreground">{p.author} · {new Date(p.publishedDate).toLocaleDateString(lang === "no" ? "nb-NO" : lang === "sv" ? "sv-SE" : lang === "de" ? "de-DE" : "en-GB")}</div>
                   <div className="mt-3 text-sm text-gold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                     {t.pages.blog.readMore} <ArrowRight className="size-4" />
                   </div>
