@@ -5,7 +5,7 @@ import { IMG } from "@/data/images";
 import { blogArticles } from "@/data/blogArticles";
 import { ArrowRight, Clock } from "lucide-react";
 
-export const Route = createFileRoute("/blog")({
+export const Route = createFileRoute("/blog/")({
   component: BlogPage,
   head: () => ({
     meta: [
