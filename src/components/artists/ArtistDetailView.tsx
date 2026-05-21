@@ -68,10 +68,16 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
           <div className="grid md:grid-cols-[320px_1fr] gap-10 items-start">
             <div className="rounded-xl overflow-hidden border border-gold/30 shadow-2xl bg-card/60">
               <div className="relative aspect-[3/4] w-full overflow-hidden">
-                <SafeImage src={heroImg} alt="" className="absolute inset-0 size-full object-cover blur-2xl scale-110 opacity-40" loading="eager" />
-                <SafeImage src={heroImg} alt={a.name} className="relative size-full object-contain" loading="eager" />
+                {ownImg ? (
+                  <>
+                    <SafeImage src={ownImg} alt="" className="absolute inset-0 size-full object-cover blur-2xl scale-110 opacity-40" loading="eager" />
+                    <SafeImage src={ownImg} alt={a.name} className="relative size-full object-contain" loading="eager" />
+                  </>
+                ) : (
+                  <ArtistInitialsPlaceholder name={a.name} className="absolute inset-0" />
+                )}
               </div>
-              {a.image_credit && <div className="text-[10px] text-muted-foreground px-2 py-1 bg-card/60">{a.image_credit}</div>}
+              {ownImg && a.image_credit && <div className="text-[10px] text-muted-foreground px-2 py-1 bg-card/60">{a.image_credit}</div>}
             </div>
             <div>
               <div className="inline-block text-xs tracking-[0.3em] text-gold uppercase mb-2 px-3 py-1 rounded-md bg-gold/10 border border-gold/30">
