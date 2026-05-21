@@ -459,3 +459,39 @@ function HeroIllustration() {
     </svg>
   );
 }
+
+function FounderAvatar({ founder }: { founder: Founder }) {
+  const initials = founder.name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase();
+  if (founder.image) {
+    return (
+      <a
+        href={founder.creditUrl || "#"}
+        target="_blank"
+        rel="noopener noreferrer"
+        title={`${founder.name}${founder.credit ? ` — Photo: ${founder.credit}` : ""}`}
+        className="block shrink-0"
+      >
+        <img
+          src={founder.image}
+          alt={founder.name}
+          loading="lazy"
+          className="size-16 sm:size-20 rounded-full object-cover border-2 border-gold/40 shadow-md"
+        />
+      </a>
+    );
+  }
+  return (
+    <div
+      aria-label={founder.name}
+      className="size-16 sm:size-20 rounded-full border-2 border-gold/30 bg-gradient-to-br from-[oklch(0.32_0.08_25)] to-[oklch(0.18_0.04_25)] flex items-center justify-center text-gold font-display text-xl shrink-0"
+    >
+      {initials}
+    </div>
+  );
+}
