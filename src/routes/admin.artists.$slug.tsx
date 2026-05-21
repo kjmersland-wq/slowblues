@@ -391,10 +391,12 @@ function MusiciansEditor({ value, onChange }: { value: any[]; onChange: (m: any[
 
 /* ----------------- Family ----------------- */
 function FamilyTab({ a, allSlugs, busy, onSave }: { a: Artist; allSlugs: { slug: string; name: string }[]; busy: boolean; onSave: (p: Partial<Artist>, fields: string[]) => void }) {
-  const [items, setItems] = useState<any[]>(a.family.map((f) => ({
-    name: "", relation: "other", note: "", slug: "", source: "", verified: false, ...f,
-    relation: normalizeRelation(f.relation ?? f.relation),
-  })));
+  const [items, setItems] = useState<any[]>(a.family.map((f) => {
+    const merged = { name: "", relation: "other", note: "", slug: "", source: "", verified: false, ...f };
+    merged.relation = normalizeRelation(merged.relation);
+    return merged;
+  }));
+
 
   function normalizeRelation(r: string | undefined) {
     if (!r) return "other";

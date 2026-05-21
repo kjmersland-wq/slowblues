@@ -64,6 +64,7 @@ import { Route as AboutAdvertiseRouteImport } from './routes/about.advertise'
 import { Route as LocaleArtistsIndexRouteImport } from './routes/$locale.artists.index'
 import { Route as QuizCycleCycleRouteImport } from './routes/quiz.cycle.$cycle'
 import { Route as ApiPublicFourthwallWebhookRouteImport } from './routes/api/public/fourthwall-webhook'
+import { Route as AdminArtistsSlugRouteImport } from './routes/admin.artists.$slug'
 import { Route as AboutMerchSlugRouteImport } from './routes/about.merch.$slug'
 import { Route as LocaleArtistsSlugRouteImport } from './routes/$locale.artists.$slug'
 import { Route as LocaleAboutAdvertiseRouteImport } from './routes/$locale.about.advertise'
@@ -345,6 +346,11 @@ const ApiPublicFourthwallWebhookRoute =
     path: '/api/public/fourthwall-webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
+const AdminArtistsSlugRoute = AdminArtistsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => AdminArtistsRoute,
+} as any)
 const AboutMerchSlugRoute = AboutMerchSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -396,7 +402,7 @@ export interface FileRoutesByFullPath {
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
-  '/admin/artists': typeof AdminArtistsRoute
+  '/admin/artists': typeof AdminArtistsRouteWithChildren
   '/admin/links': typeof AdminLinksRoute
   '/admin/quality': typeof AdminQualityRoute
   '/admin/quotes': typeof AdminQuotesRoute
@@ -423,6 +429,7 @@ export interface FileRoutesByFullPath {
   '/$locale/about/advertise': typeof LocaleAboutAdvertiseRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
+  '/admin/artists/$slug': typeof AdminArtistsSlugRoute
   '/api/public/fourthwall-webhook': typeof ApiPublicFourthwallWebhookRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
   '/$locale/artists/': typeof LocaleArtistsIndexRoute
@@ -457,7 +464,7 @@ export interface FileRoutesByTo {
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
-  '/admin/artists': typeof AdminArtistsRoute
+  '/admin/artists': typeof AdminArtistsRouteWithChildren
   '/admin/links': typeof AdminLinksRoute
   '/admin/quality': typeof AdminQualityRoute
   '/admin/quotes': typeof AdminQuotesRoute
@@ -484,6 +491,7 @@ export interface FileRoutesByTo {
   '/$locale/about/advertise': typeof LocaleAboutAdvertiseRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
+  '/admin/artists/$slug': typeof AdminArtistsSlugRoute
   '/api/public/fourthwall-webhook': typeof ApiPublicFourthwallWebhookRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
   '/$locale/artists': typeof LocaleArtistsIndexRoute
@@ -519,7 +527,7 @@ export interface FileRoutesById {
   '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
-  '/admin/artists': typeof AdminArtistsRoute
+  '/admin/artists': typeof AdminArtistsRouteWithChildren
   '/admin/links': typeof AdminLinksRoute
   '/admin/quality': typeof AdminQualityRoute
   '/admin/quotes': typeof AdminQuotesRoute
@@ -546,6 +554,7 @@ export interface FileRoutesById {
   '/$locale/about/advertise': typeof LocaleAboutAdvertiseRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
+  '/admin/artists/$slug': typeof AdminArtistsSlugRoute
   '/api/public/fourthwall-webhook': typeof ApiPublicFourthwallWebhookRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
   '/$locale/artists/': typeof LocaleArtistsIndexRoute
@@ -609,6 +618,7 @@ export interface FileRouteTypes {
     | '/$locale/about/advertise'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
+    | '/admin/artists/$slug'
     | '/api/public/fourthwall-webhook'
     | '/quiz/cycle/$cycle'
     | '/$locale/artists/'
@@ -670,6 +680,7 @@ export interface FileRouteTypes {
     | '/$locale/about/advertise'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
+    | '/admin/artists/$slug'
     | '/api/public/fourthwall-webhook'
     | '/quiz/cycle/$cycle'
     | '/$locale/artists'
@@ -731,6 +742,7 @@ export interface FileRouteTypes {
     | '/$locale/about/advertise'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
+    | '/admin/artists/$slug'
     | '/api/public/fourthwall-webhook'
     | '/quiz/cycle/$cycle'
     | '/$locale/artists/'
@@ -766,7 +778,7 @@ export interface RootRouteChildren {
   AboutBlogRoute: typeof AboutBlogRoute
   AboutGuestbookRoute: typeof AboutGuestbookRoute
   AboutMerchRoute: typeof AboutMerchRouteWithChildren
-  AdminArtistsRoute: typeof AdminArtistsRoute
+  AdminArtistsRoute: typeof AdminArtistsRouteWithChildren
   AdminLinksRoute: typeof AdminLinksRoute
   AdminQualityRoute: typeof AdminQualityRoute
   AdminQuotesRoute: typeof AdminQuotesRoute
@@ -1184,6 +1196,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicFourthwallWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/artists/$slug': {
+      id: '/admin/artists/$slug'
+      path: '/$slug'
+      fullPath: '/admin/artists/$slug'
+      preLoaderRoute: typeof AdminArtistsSlugRouteImport
+      parentRoute: typeof AdminArtistsRoute
+    }
     '/about/merch/$slug': {
       id: '/about/merch/$slug'
       path: '/$slug'
@@ -1229,6 +1248,18 @@ const AboutMerchRouteWithChildren = AboutMerchRoute._addFileChildren(
   AboutMerchRouteChildren,
 )
 
+interface AdminArtistsRouteChildren {
+  AdminArtistsSlugRoute: typeof AdminArtistsSlugRoute
+}
+
+const AdminArtistsRouteChildren: AdminArtistsRouteChildren = {
+  AdminArtistsSlugRoute: AdminArtistsSlugRoute,
+}
+
+const AdminArtistsRouteWithChildren = AdminArtistsRoute._addFileChildren(
+  AdminArtistsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccessibilityRoute: AccessibilityRoute,
@@ -1258,7 +1289,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutBlogRoute: AboutBlogRoute,
   AboutGuestbookRoute: AboutGuestbookRoute,
   AboutMerchRoute: AboutMerchRouteWithChildren,
-  AdminArtistsRoute: AdminArtistsRoute,
+  AdminArtistsRoute: AdminArtistsRouteWithChildren,
   AdminLinksRoute: AdminLinksRoute,
   AdminQualityRoute: AdminQualityRoute,
   AdminQuotesRoute: AdminQuotesRoute,
