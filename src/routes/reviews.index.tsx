@@ -25,7 +25,7 @@ type Review = {
   published_at: string | null;
 };
 
-export const Route = createFileRoute("/reviews")({
+export const Route = createFileRoute("/reviews/")({
   component: ReviewsPage,
   head: () => ({
     meta: [

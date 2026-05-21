@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { Building2, Mail, Globe, Headphones } from "lucide-react";
 
-export const Route = createFileRoute("/about")({
+export const Route = createFileRoute("/about/")({
   component: AboutPage,
   head: () => ({ meta: [
     { title: "Om SlowBlues — Norges blues-arkiv" },

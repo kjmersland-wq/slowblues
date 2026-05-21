@@ -6,7 +6,7 @@ import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
 import { Trash2, LogOut, MessageSquare, BookOpen, ShieldCheck, Database, Quote, Link2 } from "lucide-react";
 
-export const Route = createFileRoute("/admin")({
+export const Route = createFileRoute("/admin/")({
   component: AdminPage,
   head: () => ({ meta: [{ title: "Admin — SlowBlues" }, { name: "robots", content: "noindex" }] }),
 });

@@ -7,7 +7,7 @@ import { IMG } from "@/data/images";
 import { Mail, Calendar, ArrowRight } from "lucide-react";
 import logoSB from "@/assets/logo-slowblues.png";
 
-export const Route = createFileRoute("/newsletter")({
+export const Route = createFileRoute("/newsletter/")({
   component: NewsletterArchivePage,
   head: () => ({
     meta: [

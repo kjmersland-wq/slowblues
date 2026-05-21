@@ -16,7 +16,7 @@ import {
 } from "@/data/quizQuestions";
 import { useI18n } from "@/i18n";
 
-export const Route = createFileRoute("/quiz")({
+export const Route = createFileRoute("/quiz/")({
   component: QuizPage,
   head: () => {
     const cycle = getCycleNumber();
