@@ -52,6 +52,7 @@ import { Route as ConcertsSlugRouteImport } from './routes/concerts.$slug'
 import { Route as BlogIdRouteImport } from './routes/blog.$id'
 import { Route as ArtistsSlugRouteImport } from './routes/artists.$slug'
 import { Route as AdminWikidataRouteImport } from './routes/admin.wikidata'
+import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminQuotesRouteImport } from './routes/admin.quotes'
 import { Route as AdminQualityRouteImport } from './routes/admin.quality'
 import { Route as AdminLinksRouteImport } from './routes/admin.links'
@@ -280,6 +281,11 @@ const AdminWikidataRoute = AdminWikidataRouteImport.update({
   path: '/admin/wikidata',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminReviewsRoute = AdminReviewsRouteImport.update({
+  id: '/admin/reviews',
+  path: '/admin/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminQuotesRoute = AdminQuotesRouteImport.update({
   id: '/admin/quotes',
   path: '/admin/quotes',
@@ -374,6 +380,7 @@ export interface FileRoutesByFullPath {
   '/admin/links': typeof AdminLinksRoute
   '/admin/quality': typeof AdminQualityRoute
   '/admin/quotes': typeof AdminQuotesRoute
+  '/admin/reviews': typeof AdminReviewsRoute
   '/admin/wikidata': typeof AdminWikidataRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/blog/$id': typeof BlogIdRoute
@@ -431,6 +438,7 @@ export interface FileRoutesByTo {
   '/admin/links': typeof AdminLinksRoute
   '/admin/quality': typeof AdminQualityRoute
   '/admin/quotes': typeof AdminQuotesRoute
+  '/admin/reviews': typeof AdminReviewsRoute
   '/admin/wikidata': typeof AdminWikidataRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/blog/$id': typeof BlogIdRoute
@@ -489,6 +497,7 @@ export interface FileRoutesById {
   '/admin/links': typeof AdminLinksRoute
   '/admin/quality': typeof AdminQualityRoute
   '/admin/quotes': typeof AdminQuotesRoute
+  '/admin/reviews': typeof AdminReviewsRoute
   '/admin/wikidata': typeof AdminWikidataRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/blog/$id': typeof BlogIdRoute
@@ -548,6 +557,7 @@ export interface FileRouteTypes {
     | '/admin/links'
     | '/admin/quality'
     | '/admin/quotes'
+    | '/admin/reviews'
     | '/admin/wikidata'
     | '/artists/$slug'
     | '/blog/$id'
@@ -605,6 +615,7 @@ export interface FileRouteTypes {
     | '/admin/links'
     | '/admin/quality'
     | '/admin/quotes'
+    | '/admin/reviews'
     | '/admin/wikidata'
     | '/artists/$slug'
     | '/blog/$id'
@@ -662,6 +673,7 @@ export interface FileRouteTypes {
     | '/admin/links'
     | '/admin/quality'
     | '/admin/quotes'
+    | '/admin/reviews'
     | '/admin/wikidata'
     | '/artists/$slug'
     | '/blog/$id'
@@ -720,6 +732,7 @@ export interface RootRouteChildren {
   AdminLinksRoute: typeof AdminLinksRoute
   AdminQualityRoute: typeof AdminQualityRoute
   AdminQuotesRoute: typeof AdminQuotesRoute
+  AdminReviewsRoute: typeof AdminReviewsRoute
   AdminWikidataRoute: typeof AdminWikidataRoute
   ArtistsSlugRoute: typeof ArtistsSlugRoute
   BlogIdRoute: typeof BlogIdRoute
@@ -1048,6 +1061,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminWikidataRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/reviews': {
+      id: '/admin/reviews'
+      path: '/admin/reviews'
+      fullPath: '/admin/reviews'
+      preLoaderRoute: typeof AdminReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/quotes': {
       id: '/admin/quotes'
       path: '/admin/quotes'
@@ -1180,6 +1200,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminLinksRoute: AdminLinksRoute,
   AdminQualityRoute: AdminQualityRoute,
   AdminQuotesRoute: AdminQuotesRoute,
+  AdminReviewsRoute: AdminReviewsRoute,
   AdminWikidataRoute: AdminWikidataRoute,
   ArtistsSlugRoute: ArtistsSlugRoute,
   BlogIdRoute: BlogIdRoute,

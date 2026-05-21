@@ -72,6 +72,10 @@ function AdminReviewsPage() {
     setErr(null);
     const payload = {
       ...editing,
+      slug: editing.slug,
+      artist_name: editing.artist_name,
+      album_title: editing.album_title,
+      status: editing.status ?? "draft",
       published_at:
         editing.status === "published" && !editing.published_at
           ? new Date().toISOString()
@@ -79,7 +83,8 @@ function AdminReviewsPage() {
     };
     const { error } = editing.id
       ? await supabase.from("blues_reviews").update(payload).eq("id", editing.id)
-      : await supabase.from("blues_reviews").insert(payload);
+      : await supabase.from("blues_reviews").insert(payload as any);
+
     setBusy(false);
     if (error) {
       setErr(error.message);
