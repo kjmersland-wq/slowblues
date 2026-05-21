@@ -70,7 +70,7 @@ function BlogArticlePage() {
   return (
     <PageShell>
       <article className="max-w-3xl mx-auto px-6 py-12">
-        <Link to="/blog" className="inline-flex items-center gap-1 text-sm text-gold hover:underline mb-6"><ArrowLeft className="size-4" /> {no ? "Alle artikler" : "All articles"}</Link>
+        <Link to="/blog" className="inline-flex items-center gap-1 text-sm text-gold hover:underline mb-6"><ArrowLeft className="size-4" /> {tr(lang, { no: "Alle artikler", en: "All articles", sv: "Alla artiklar", de: "Alle Artikel" })}</Link>
 
         <div className="flex items-center gap-3 text-[10px] tracking-[0.25em] text-gold uppercase mb-3">
           <span>{cat}</span>
@@ -79,7 +79,7 @@ function BlogArticlePage() {
         <h1 className="font-display text-4xl md:text-5xl mb-4 leading-tight">{title}</h1>
         <p className="text-lg text-muted-foreground leading-relaxed mb-6">{excerpt}</p>
         <div className="text-xs text-muted-foreground border-b border-border pb-6 mb-8">
-          {article.author} · {new Date(article.publishedDate).toLocaleDateString(no ? "nb-NO" : "en-GB")}
+          {article.author} · {new Date(article.publishedDate).toLocaleDateString(lang === "no" ? "nb-NO" : lang === "sv" ? "sv-SE" : lang === "de" ? "de-DE" : "en-GB")}
         </div>
 
         <div className="prose prose-invert max-w-none">
@@ -108,7 +108,7 @@ function BlogArticlePage() {
 
         {article.relatedArtistIds && article.relatedArtistIds.length > 0 && (
           <div className="mt-12 pt-8 border-t border-border">
-            <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-3">{no ? "Relaterte artister" : "Related artists"}</div>
+            <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-3">{tr(lang, { no: "Relaterte artister", en: "Related artists", sv: "Relaterade artister", de: "Verwandte Künstler" })}</div>
             <div className="flex flex-wrap gap-2">
               {article.relatedArtistIds.map((slug) => (
                 <Link key={slug} to="/artists/$slug" params={{ slug }} className="text-sm px-3 py-1.5 rounded-full bg-card border border-border hover:border-gold/50 hover:text-gold transition capitalize">
@@ -120,7 +120,7 @@ function BlogArticlePage() {
         )}
 
         <div className="mt-12 pt-8 border-t border-border">
-          <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-3">{no ? "Flere artikler" : "More articles"}</div>
+          <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-3">{tr(lang, { no: "Flere artikler", en: "More articles", sv: "Fler artiklar", de: "Weitere Artikel" })}</div>
           <ul className="space-y-2">
             {blogArticles.filter((a) => a.id !== article.id).slice(0, 5).map((a) => (
               <li key={a.id}>

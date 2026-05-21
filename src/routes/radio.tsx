@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
-import { useI18n } from "@/i18n";
+import { useI18n, tr } from "@/i18n";
 import { RADIO_SHOWS } from "@/data/blues";
 import { IMG } from "@/data/images";
 import { bluesRadioStations } from "@/data/bluesRadio";
@@ -48,10 +48,10 @@ export const Route = createFileRoute("/radio")({
 });
 
 const REGIONS = [
-  { id: "all", labelEn: "All", labelNo: "Alle" },
-  { id: "norway", labelEn: "Norway", labelNo: "Norge" },
-  { id: "nordic", labelEn: "Nordic", labelNo: "Norden" },
-  { id: "world", labelEn: "World", labelNo: "Verden" },
+  { id: "all", labels: { no: "Alle", en: "All", sv: "Alla", de: "Alle" } },
+  { id: "norway", labels: { no: "Norge", en: "Norway", sv: "Norge", de: "Norwegen" } },
+  { id: "nordic", labels: { no: "Norden", en: "Nordic", sv: "Norden", de: "Nordeuropa" } },
+  { id: "world", labels: { no: "Verden", en: "World", sv: "Världen", de: "Welt" } },
 ] as const;
 
 function RadioPage() {
@@ -87,13 +87,23 @@ function RadioPage() {
           ))}
         </div>
 
-        <h2 className="font-display text-2xl mb-2 inline-flex items-center gap-2"><RadioIcon className="size-5 text-gold" /> {no ? "Bluesprogrammer & stasjoner" : "Blues programs & stations"}</h2>
-        <p className="text-sm text-muted-foreground mb-6">{no ? `${bluesRadioStations.length} kuraterte bluesprogrammer fra hele verden.` : `${bluesRadioStations.length} curated blues programs from around the world.`}</p>
+        <h2 className="font-display text-2xl mb-2 inline-flex items-center gap-2">
+          <RadioIcon className="size-5 text-gold" />
+          {tr(lang, { no: "Bluesprogrammer & stasjoner", en: "Blues programs & stations", sv: "Bluesprogram & stationer", de: "Blues-Programme & Sender" })}
+        </h2>
+        <p className="text-sm text-muted-foreground mb-6">
+          {tr(lang, {
+            no: `${bluesRadioStations.length} kuraterte bluesprogrammer fra hele verden.`,
+            en: `${bluesRadioStations.length} curated blues programs from around the world.`,
+            sv: `${bluesRadioStations.length} kurerade bluesprogram från hela världen.`,
+            de: `${bluesRadioStations.length} kuratierte Blues-Programme aus aller Welt.`,
+          })}
+        </p>
 
         <div className="flex flex-wrap gap-2 mb-6">
           {REGIONS.map((r) => (
             <button key={r.id} onClick={() => setRegion(r.id)} className={`px-4 py-1.5 rounded-full text-sm transition ${region === r.id ? "bg-gold text-primary-foreground" : "bg-card border border-border hover:border-gold/50"}`}>
-              {no ? r.labelNo : r.labelEn}
+              {tr(lang, r.labels)}
             </button>
           ))}
         </div>
@@ -107,8 +117,12 @@ function RadioPage() {
               <h3 className="font-display text-lg mb-2 leading-tight">{s.name}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">{no ? s.descriptionNo : s.descriptionEn}</p>
               <div className="flex flex-wrap gap-3 text-xs">
-                <a href={s.listenUrl} target="_blank" rel="noopener" className="inline-flex items-center gap-1 text-gold hover:underline"><Play className="size-3" /> {no ? "Lytt" : "Listen"} {s.listenNote && <span className="text-muted-foreground">({s.listenNote})</span>}</a>
-                <a href={s.website} target="_blank" rel="noopener" className="inline-flex items-center gap-1 text-muted-foreground hover:text-gold">{no ? "Nettside" : "Website"} <ExternalLink className="size-3" /></a>
+                <a href={s.listenUrl} target="_blank" rel="noopener" className="inline-flex items-center gap-1 text-gold hover:underline">
+                  <Play className="size-3" /> {tr(lang, { no: "Lytt", en: "Listen", sv: "Lyssna", de: "Hören" })} {s.listenNote && <span className="text-muted-foreground">({s.listenNote})</span>}
+                </a>
+                <a href={s.website} target="_blank" rel="noopener" className="inline-flex items-center gap-1 text-muted-foreground hover:text-gold">
+                  {tr(lang, { no: "Nettside", en: "Website", sv: "Webbplats", de: "Webseite" })} <ExternalLink className="size-3" />
+                </a>
               </div>
             </article>
           ))}

@@ -11,7 +11,7 @@ import {
   getCycleQuestions,
   type QuizDifficulty,
 } from "@/data/quizQuestions";
-import { useI18n } from "@/i18n";
+import { useI18n, tr } from "@/i18n";
 
 export const Route = createFileRoute("/quiz/cycle/$cycle")({
   component: CyclePage,
@@ -49,9 +49,10 @@ function CyclePage() {
   const { cycleNumber } = Route.useLoaderData();
   const { lang } = useI18n();
   const no = lang === "no" || lang === "sv";
+  const localeStr = lang === "no" ? "nb-NO" : lang === "sv" ? "sv-SE" : lang === "de" ? "de-DE" : "en";
   const [difficulty, setDifficulty] = useState<QuizDifficulty>("medium");
   const key = getCycleKey(cycleNumber);
-  const range = formatCycleRange(cycleNumber, no ? "nb-NO" : "en");
+  const range = formatCycleRange(cycleNumber, localeStr);
   const featured = getFeaturedArtist(cycleNumber);
   const questions = getCycleQuestions(difficulty, cycleNumber);
   const isCurrent = cycleNumber === getCycleNumber();
@@ -61,24 +62,28 @@ function CyclePage() {
       <PageHero
         eyebrow={`Cycle ${key}`}
         title={`Blues Quiz ${key}`}
-        lead={`${range} · ${no ? "Bla gjennom syklusens kuraterte spørsmål." : "Browse this cycle's curated questions."}`}
+        lead={`${range} · ${tr(lang, { no: "Bla gjennom syklusens kuraterte spørsmål.", en: "Browse this cycle's curated questions.", sv: "Bläddra bland periodens kurerade frågor.", de: "Durchstöbere die kuratierten Fragen dieses Zyklus." })}`}
         img={IMG.vinyl}
       />
       <section className="max-w-3xl mx-auto px-6 py-12">
         <div className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
           <Link to={"/quiz/archive" as any} className="inline-flex items-center gap-1 text-muted-foreground hover:text-gold">
-            <ArrowLeft className="size-3.5" /> {no ? "Tilbake til arkivet" : "Back to archive"}
+            <ArrowLeft className="size-3.5" /> {tr(lang, { no: "Tilbake til arkivet", en: "Back to archive", sv: "Tillbaka till arkivet", de: "Zurück zum Archiv" })}
           </Link>
           <span className="inline-flex items-center gap-1.5 text-gold"><Calendar className="size-4" /> {range}</span>
           {isCurrent && <span className="text-[10px] tracking-widest text-gold/90 bg-gold/10 px-2 py-0.5 rounded">LIVE</span>}
           {!isCurrent && (
-            <Link to="/quiz" className="ml-auto text-xs text-muted-foreground hover:text-gold">{no ? "Spill aktuell syklus →" : "Play current cycle →"}</Link>
+            <Link to="/quiz" className="ml-auto text-xs text-muted-foreground hover:text-gold">
+              {tr(lang, { no: "Spill aktuell syklus →", en: "Play current cycle →", sv: "Spela aktuell period →", de: "Aktuellen Zyklus spielen →" })}
+            </Link>
           )}
         </div>
 
         {featured && (
           <div className="mb-6 rounded-xl border border-gold/30 bg-gradient-to-br from-card/70 to-card/30 p-5">
-            <div className="text-xs tracking-[0.2em] text-gold mb-1 inline-flex items-center gap-1.5"><Star className="size-3.5" /> {no ? "SYKLUSENS ARTIST" : "FEATURED ARTIST"}</div>
+            <div className="text-xs tracking-[0.2em] text-gold mb-1 inline-flex items-center gap-1.5">
+              <Star className="size-3.5" /> {tr(lang, { no: "SYKLUSENS ARTIST", en: "FEATURED ARTIST", sv: "PERIODENS ARTIST", de: "KÜNSTLER DES ZYKLUS" })}
+            </div>
             <Link to="/artists/$slug" params={{ slug: featured.slug }} className="font-display text-2xl gold-gradient-text hover:underline">{featured.name}</Link>
           </div>
         )}
@@ -95,10 +100,14 @@ function CyclePage() {
             return (
               <li key={q.id} className="bg-card/60 border border-border rounded-xl p-5">
                 <div className="font-display text-lg mb-2"><span className="text-gold mr-2">{i + 1}.</span>{no ? q.questionNo : q.question}</div>
-                <div className="text-sm text-muted-foreground mb-2">{no ? "Svar" : "Answer"}: <span className="text-gold">{opts[q.correctIndex]}</span></div>
+                <div className="text-sm text-muted-foreground mb-2">
+                  {tr(lang, { no: "Svar", en: "Answer", sv: "Svar", de: "Antwort" })}: <span className="text-gold">{opts[q.correctIndex]}</span>
+                </div>
                 <p className="text-sm text-muted-foreground/90 leading-relaxed">{no ? q.explanationNo : q.explanation}</p>
                 {q.artistLink && (
-                  <a href={q.artistLink} className="mt-2 inline-flex items-center gap-1 text-xs text-gold hover:underline">{no ? "Les mer" : "Read more"} <ExternalLink className="size-3" /></a>
+                  <a href={q.artistLink} className="mt-2 inline-flex items-center gap-1 text-xs text-gold hover:underline">
+                    {tr(lang, { no: "Les mer", en: "Read more", sv: "Läs mer", de: "Mehr lesen" })} <ExternalLink className="size-3" />
+                  </a>
                 )}
               </li>
             );
