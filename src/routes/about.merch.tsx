@@ -17,12 +17,20 @@ import {
   ShoppingCart,
   Trash2,
   ArrowLeft,
+  Handshake,
 } from "lucide-react";
 import {
   fetchMerchOverview,
   type MerchProduct,
   type MerchVariant,
 } from "@/lib/fourthwall.functions";
+import {
+  activePartners,
+  partnerForProduct,
+  partnerDescription,
+  type Partner,
+} from "@/data/partners";
+import { useI18n } from "@/i18n";
 
 export const Route = createFileRoute("/about/merch")({
   component: MerchPage,
@@ -121,6 +129,7 @@ function useCart() {
 
 function MerchPage() {
   const fetcher = useServerFn(fetchMerchOverview);
+  const { lang } = useI18n();
   const { data, isLoading, error } = useQuery({
     queryKey: ["merch-overview-nok"],
     queryFn: () => fetcher(),
@@ -136,6 +145,9 @@ function MerchPage() {
 
   const products = data?.products ?? [];
   const featured = products.slice(0, 4);
+  const partners = activePartners();
+  const partnerProducts = products.filter((p) => partnerForProduct(p.slug));
+  const showPartnerSection = partners.length > 0 && partnerProducts.length > 0;
 
   return (
     <PageShell>
@@ -198,6 +210,16 @@ function MerchPage() {
           </div>
         )}
 
+        {showPartnerSection && !isLoading && !error && !data?.error && (
+          <PartnerEditionsSection
+            partners={partners}
+            products={partnerProducts}
+            lang={lang}
+            onOpen={setActive}
+            onAdd={cart.add}
+          />
+        )}
+
         {!isLoading && !error && !data?.error && featured.length > 0 && (
           <div className="mb-16">
             <SectionHeading kicker="Featured" title="This cycle's picks" />
@@ -245,7 +267,7 @@ function MerchPage() {
       </section>
 
       {active && (
-        <ProductModal product={active} onClose={() => setActive(null)} onAdd={cart.add} />
+        <ProductModal product={active} onClose={() => setActive(null)} onAdd={cart.add} lang={lang} />
       )}
 
       <CartDrawer
@@ -326,6 +348,8 @@ function ProductCard({
     });
   };
 
+  const partner = partnerForProduct(p.slug);
+
   return (
     <div
       onClick={onOpen}
@@ -333,7 +357,7 @@ function ProductCard({
       onMouseLeave={() => setHover(false)}
       className="group cursor-pointer bg-card/40 border border-border rounded-xl overflow-hidden hover:border-gold/50 transition flex flex-col"
     >
-      <div className="aspect-square bg-muted/30 overflow-hidden">
+      <div className="relative aspect-square bg-muted/30 overflow-hidden">
         {img ? (
           <img
             src={img}
@@ -345,6 +369,30 @@ function ProductCard({
           <div className="w-full h-full flex items-center justify-center text-muted-foreground">
             <ShoppingBag className="size-8" />
           </div>
+        )}
+        {partner && (
+          <>
+            <div
+              className="absolute top-2 left-2 z-10 inline-flex items-center gap-1 rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-primary-foreground shadow"
+              style={{ background: partner.accentColor }}
+            >
+              Partner Edition
+            </div>
+            <div
+              className="absolute bottom-2 left-2 z-10 h-8 rounded-md bg-white/95 px-2 flex items-center shadow"
+              title={`In collaboration with ${partner.name}`}
+            >
+              {partner.logoUrl ? (
+                <img
+                  src={partner.logoUrl}
+                  alt={partner.name}
+                  className="h-6 max-w-[80px] object-contain"
+                />
+              ) : (
+                <span className="text-[10px] font-bold text-black">{partner.name}</span>
+              )}
+            </div>
+          </>
         )}
       </div>
       <div className="p-4 flex flex-col flex-1">
@@ -418,11 +466,14 @@ function ProductModal({
   product,
   onClose,
   onAdd,
+  lang,
 }: {
   product: MerchProduct;
   onClose: () => void;
   onAdd: (i: CartItem) => void;
+  lang: string;
 }) {
+  const partner = partnerForProduct(product.slug);
   const [color, setColor] = useState(product.colors[0]?.name ?? "");
   const [size, setSize] = useState(product.sizes[0] ?? "");
   const [qty, setQty] = useState(1);
@@ -514,6 +565,42 @@ function ProductModal({
             className="prose prose-invert prose-sm max-w-none text-foreground/80 mb-5 max-h-48 overflow-y-auto"
             dangerouslySetInnerHTML={{ __html: product.descriptionHtml || product.description }}
           />
+
+          {partner && (
+            <div
+              className="mb-5 rounded-lg border p-4 flex items-center gap-3"
+              style={{
+                borderColor: partner.accentColor + "66",
+                background: partner.accentColor + "10",
+              }}
+            >
+              {partner.logoUrl && (
+                <img
+                  src={partner.logoUrl}
+                  alt={partner.name}
+                  className="h-10 w-10 object-contain bg-white rounded p-1 shrink-0"
+                />
+              )}
+              <div className="flex-1 min-w-0 text-sm">
+                <div className="font-medium mb-0.5">
+                  🤝 Partner Edition — made in collaboration with{" "}
+                  <a
+                    href={partner.website}
+                    target="_blank"
+                    rel="noopener"
+                    className="underline hover:text-gold"
+                  >
+                    {partner.name}
+                  </a>
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  Part of the proceeds supports {partner.name}.{" "}
+                  <span className="italic">{partnerDescription(partner, lang)}</span>
+                </div>
+              </div>
+            </div>
+          )}
+
 
           {product.colors.length > 0 && (
             <div className="mb-4">
@@ -753,5 +840,98 @@ function Note({
       </div>
       <p className="text-sm text-muted-foreground leading-relaxed">{children}</p>
     </div>
+  );
+}
+
+const PARTNER_SECTION_COPY: Record<string, { heading: string; sub: string; partnersLabel: string }> = {
+  en: {
+    heading: "Partner Editions",
+    sub: "Selected products created in collaboration with blues partners. Every purchase supports both SlowBlues and our partners.",
+    partnersLabel: "Our partners",
+  },
+  no: {
+    heading: "Partner-utgaver",
+    sub: "Utvalgte produkter laget i samarbeid med bluespartnere. Hvert kjøp støtter både SlowBlues og våre partnere.",
+    partnersLabel: "Våre partnere",
+  },
+  de: {
+    heading: "Partner-Editionen",
+    sub: "Ausgewählte Produkte in Zusammenarbeit mit Blues-Partnern. Jeder Kauf unterstützt sowohl SlowBlues als auch unsere Partner.",
+    partnersLabel: "Unsere Partner",
+  },
+  sv: {
+    heading: "Partnerupplagor",
+    sub: "Utvalda produkter skapade tillsammans med bluespartners. Varje köp stödjer både SlowBlues och våra partners.",
+    partnersLabel: "Våra partners",
+  },
+};
+
+function PartnerEditionsSection({
+  partners,
+  products,
+  lang,
+  onOpen,
+  onAdd,
+}: {
+  partners: Partner[];
+  products: MerchProduct[];
+  lang: string;
+  onOpen: (p: MerchProduct) => void;
+  onAdd: (i: CartItem) => void;
+}) {
+  const copy = PARTNER_SECTION_COPY[lang] ?? PARTNER_SECTION_COPY.en;
+  return (
+    <section
+      className="mb-16 rounded-2xl border border-gold/40 bg-gradient-to-b from-gold/[0.04] to-transparent p-6 sm:p-8 shadow-[0_0_60px_-30px_var(--color-gold)]"
+      aria-labelledby="partner-editions-heading"
+    >
+      <div className="mb-6">
+        <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-gold mb-3">
+          <Handshake className="size-4" /> Partner Edition
+        </div>
+        <h2 id="partner-editions-heading" className="font-display text-3xl md:text-4xl mb-3">
+          {copy.heading}
+        </h2>
+        <p className="text-foreground/80 max-w-2xl leading-relaxed">{copy.sub}</p>
+      </div>
+
+      {partners.length > 0 && (
+        <div className="mb-8">
+          <div className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-3">
+            {copy.partnersLabel}
+          </div>
+          <div className="flex flex-wrap items-center gap-6">
+            {partners.map((p) => (
+              <a
+                key={p.id}
+                href={p.website}
+                target="_blank"
+                rel="noopener"
+                title={p.name}
+                className="group inline-flex items-center"
+              >
+                {p.logoUrl ? (
+                  <img
+                    src={p.logoUrl}
+                    alt={p.name}
+                    className="h-10 max-w-[140px] object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition"
+                  />
+                ) : (
+                  <span className="text-sm font-medium text-muted-foreground group-hover:text-gold transition">
+                    {p.name}
+                  </span>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {products.map((p) => (
+          <ProductCard key={p.id} p={p} onOpen={() => onOpen(p)} onAdd={onAdd} />
+        ))}
+      </div>
+    </section>
   );
 }
