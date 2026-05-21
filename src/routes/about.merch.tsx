@@ -348,6 +348,8 @@ function ProductCard({
     });
   };
 
+  const partner = partnerForProduct(p.slug);
+
   return (
     <div
       onClick={onOpen}
@@ -355,7 +357,7 @@ function ProductCard({
       onMouseLeave={() => setHover(false)}
       className="group cursor-pointer bg-card/40 border border-border rounded-xl overflow-hidden hover:border-gold/50 transition flex flex-col"
     >
-      <div className="aspect-square bg-muted/30 overflow-hidden">
+      <div className="relative aspect-square bg-muted/30 overflow-hidden">
         {img ? (
           <img
             src={img}
@@ -367,6 +369,30 @@ function ProductCard({
           <div className="w-full h-full flex items-center justify-center text-muted-foreground">
             <ShoppingBag className="size-8" />
           </div>
+        )}
+        {partner && (
+          <>
+            <div
+              className="absolute top-2 left-2 z-10 inline-flex items-center gap-1 rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-primary-foreground shadow"
+              style={{ background: partner.accentColor }}
+            >
+              Partner Edition
+            </div>
+            <div
+              className="absolute bottom-2 left-2 z-10 h-8 rounded-md bg-white/95 px-2 flex items-center shadow"
+              title={`In collaboration with ${partner.name}`}
+            >
+              {partner.logoUrl ? (
+                <img
+                  src={partner.logoUrl}
+                  alt={partner.name}
+                  className="h-6 max-w-[80px] object-contain"
+                />
+              ) : (
+                <span className="text-[10px] font-bold text-black">{partner.name}</span>
+              )}
+            </div>
+          </>
         )}
       </div>
       <div className="p-4 flex flex-col flex-1">
