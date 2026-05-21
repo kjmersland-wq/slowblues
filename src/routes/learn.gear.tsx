@@ -353,9 +353,18 @@ function BrandCard({ brand, isNO }: { brand: Brand; isNO: boolean }) {
       className="rounded-2xl border border-border bg-card/60 backdrop-blur p-6 sm:p-10 shadow-xl scroll-mt-32"
     >
       <header className="flex flex-wrap items-start justify-between gap-4 border-b border-border pb-5">
-        <div>
-          <h2 className="font-display text-3xl sm:text-4xl text-gold">{brand.name}</h2>
-          <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mt-2">{brand.founded}</p>
+        <div className="flex items-center gap-4">
+          {brand.founder && <FounderAvatar founder={brand.founder} />}
+          <div>
+            <h2 className="font-display text-3xl sm:text-4xl text-gold">{brand.name}</h2>
+            <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mt-2">{brand.founded}</p>
+            {brand.founder && (
+              <p className="text-[11px] text-muted-foreground/80 mt-1">
+                {isNO ? "Grunnlegger" : "Founder"}: {brand.founder.name}
+                {brand.founder.years ? ` (${brand.founder.years})` : ""}
+              </p>
+            )}
+          </div>
         </div>
         <button
           onClick={share}
@@ -365,6 +374,7 @@ function BrandCard({ brand, isNO }: { brand: Brand; isNO: boolean }) {
           <Share2 className="size-3.5" /> {isNO ? "Del" : "Share"}
         </button>
       </header>
+
 
       <div className="grid md:grid-cols-3 gap-8 mt-6">
         <div className="md:col-span-2 space-y-5">
