@@ -502,9 +502,15 @@ export function AlbumYouTubeCell({
 
 
   const handleClick = () => {
-    if (ctx) ctx.open(key);
-    else setLocalOpen(true);
+    if (ctx) {
+      // Ensure registration before opening (handles fast clicks before effect commits)
+      ctx.register({ key, title: `${artistName} — ${albumTitle}`, videoId: id });
+      ctx.open(key);
+    } else {
+      setLocalOpen(true);
+    }
   };
+
 
   return (
     <>
