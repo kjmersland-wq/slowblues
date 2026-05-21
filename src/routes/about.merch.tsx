@@ -123,7 +123,10 @@ function MerchPage() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["merch-overview-nok"],
     queryFn: () => fetcher(),
-    staleTime: 60 * 1000,
+    staleTime: 5 * 60 * 1000, // 5 min SWR — matches server cache
+    gcTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
   });
 
   const cart = useCart();
