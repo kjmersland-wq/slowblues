@@ -271,7 +271,7 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="text-left text-[10px] tracking-[0.2em] uppercase text-muted-foreground border-b border-border">
-                      <th className="p-3">År</th><th className="p-3">Tittel</th><th className="p-3">Produsent</th><th className="p-3">Label</th><th className="p-3">Chart</th><th className="p-3">Salg</th><th className="p-3">{t.musicians}</th><th className="p-3">YouTube</th><th className="p-3">Notater</th>
+                      <th className="p-3">{t.year}</th><th className="p-3">{t.title}</th><th className="p-3">{t.producer}</th><th className="p-3">{t.label}</th><th className="p-3">{t.chart}</th><th className="p-3">{t.sales}</th><th className="p-3">{t.musicians}</th><th className="p-3">YouTube</th><th className="p-3">{t.notes}</th>
                     </tr>
                   </thead>
                   <tbody>
