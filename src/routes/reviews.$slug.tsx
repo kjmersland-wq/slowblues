@@ -178,6 +178,9 @@ function ReviewDetailPage() {
               title={review.album_title}
               className="aspect-square rounded-lg border border-border"
             />
+          )}
+
+
 
 
           <div>
