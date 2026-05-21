@@ -65,6 +65,7 @@ import { Route as QuizCycleCycleRouteImport } from './routes/quiz.cycle.$cycle'
 import { Route as ApiPublicFourthwallWebhookRouteImport } from './routes/api/public/fourthwall-webhook'
 import { Route as AboutMerchSlugRouteImport } from './routes/about.merch.$slug'
 import { Route as LocaleArtistsSlugRouteImport } from './routes/$locale.artists.$slug'
+import { Route as LocaleAboutAdvertiseRouteImport } from './routes/$locale.about.advertise'
 import { Route as AboutMerchCollectionSlugRouteImport } from './routes/about.merch.collection.$slug'
 
 const WorldmapRoute = WorldmapRouteImport.update({
@@ -348,6 +349,11 @@ const LocaleArtistsSlugRoute = LocaleArtistsSlugRouteImport.update({
   path: '/$locale/artists/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LocaleAboutAdvertiseRoute = LocaleAboutAdvertiseRouteImport.update({
+  id: '/$locale/about/advertise',
+  path: '/$locale/about/advertise',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutMerchCollectionSlugRoute =
   AboutMerchCollectionSlugRouteImport.update({
     id: '/collection/$slug',
@@ -407,6 +413,7 @@ export interface FileRoutesByFullPath {
   '/newsletter/': typeof NewsletterIndexRoute
   '/quiz/': typeof QuizIndexRoute
   '/reviews/': typeof ReviewsIndexRoute
+  '/$locale/about/advertise': typeof LocaleAboutAdvertiseRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
   '/api/public/fourthwall-webhook': typeof ApiPublicFourthwallWebhookRoute
@@ -466,6 +473,7 @@ export interface FileRoutesByTo {
   '/newsletter': typeof NewsletterIndexRoute
   '/quiz': typeof QuizIndexRoute
   '/reviews': typeof ReviewsIndexRoute
+  '/$locale/about/advertise': typeof LocaleAboutAdvertiseRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
   '/api/public/fourthwall-webhook': typeof ApiPublicFourthwallWebhookRoute
@@ -526,6 +534,7 @@ export interface FileRoutesById {
   '/newsletter/': typeof NewsletterIndexRoute
   '/quiz/': typeof QuizIndexRoute
   '/reviews/': typeof ReviewsIndexRoute
+  '/$locale/about/advertise': typeof LocaleAboutAdvertiseRoute
   '/$locale/artists/$slug': typeof LocaleArtistsSlugRoute
   '/about/merch/$slug': typeof AboutMerchSlugRoute
   '/api/public/fourthwall-webhook': typeof ApiPublicFourthwallWebhookRoute
@@ -587,6 +596,7 @@ export interface FileRouteTypes {
     | '/newsletter/'
     | '/quiz/'
     | '/reviews/'
+    | '/$locale/about/advertise'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
     | '/api/public/fourthwall-webhook'
@@ -646,6 +656,7 @@ export interface FileRouteTypes {
     | '/newsletter'
     | '/quiz'
     | '/reviews'
+    | '/$locale/about/advertise'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
     | '/api/public/fourthwall-webhook'
@@ -705,6 +716,7 @@ export interface FileRouteTypes {
     | '/newsletter/'
     | '/quiz/'
     | '/reviews/'
+    | '/$locale/about/advertise'
     | '/$locale/artists/$slug'
     | '/about/merch/$slug'
     | '/api/public/fourthwall-webhook'
@@ -765,6 +777,7 @@ export interface RootRouteChildren {
   NewsletterIndexRoute: typeof NewsletterIndexRoute
   QuizIndexRoute: typeof QuizIndexRoute
   ReviewsIndexRoute: typeof ReviewsIndexRoute
+  LocaleAboutAdvertiseRoute: typeof LocaleAboutAdvertiseRoute
   LocaleArtistsSlugRoute: typeof LocaleArtistsSlugRoute
   ApiPublicFourthwallWebhookRoute: typeof ApiPublicFourthwallWebhookRoute
   QuizCycleCycleRoute: typeof QuizCycleCycleRoute
@@ -1165,6 +1178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleArtistsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$locale/about/advertise': {
+      id: '/$locale/about/advertise'
+      path: '/$locale/about/advertise'
+      fullPath: '/$locale/about/advertise'
+      preLoaderRoute: typeof LocaleAboutAdvertiseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about/merch/collection/$slug': {
       id: '/about/merch/collection/$slug'
       path: '/collection/$slug'
@@ -1241,6 +1261,7 @@ const rootRouteChildren: RootRouteChildren = {
   NewsletterIndexRoute: NewsletterIndexRoute,
   QuizIndexRoute: QuizIndexRoute,
   ReviewsIndexRoute: ReviewsIndexRoute,
+  LocaleAboutAdvertiseRoute: LocaleAboutAdvertiseRoute,
   LocaleArtistsSlugRoute: LocaleArtistsSlugRoute,
   ApiPublicFourthwallWebhookRoute: ApiPublicFourthwallWebhookRoute,
   QuizCycleCycleRoute: QuizCycleCycleRoute,
