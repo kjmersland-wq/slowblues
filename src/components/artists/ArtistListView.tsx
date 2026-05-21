@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { SafeImage } from "@/components/SafeImage";
+import { ArtistInitialsPlaceholder } from "@/components/artists/ArtistInitialsPlaceholder";
 import { useArtists, pickLang, type Lang } from "@/lib/artists";
 import { resolveArtistImage } from "@/lib/artistImageMap";
 import { useMemo, useState } from "react";
