@@ -24,6 +24,7 @@ const no = {
     privacy: "Personvern",
     advertise: "Annonsér",
     search: "Søk",
+    gear: "Utstyr & Merker",
   },
   header: {
     tagline: "DE LANGSOMME, SJELFULLE RØTTENE",
@@ -215,6 +216,7 @@ const en: typeof no = {
     privacy: "Privacy",
     advertise: "Advertise",
     search: "Search",
+    gear: "Gear & Brands",
   },
   header: { tagline: "THE SLOW, SOULFUL ROOTS" },
   footer: {
@@ -404,6 +406,7 @@ const de: typeof no = {
     privacy: "Datenschutz",
     advertise: "Werben",
     search: "Suche",
+    gear: "Equipment & Marken",
   },
   header: { tagline: "DIE LANGSAMEN, SEELENVOLLEN WURZELN" },
   footer: {
@@ -593,6 +596,7 @@ const sv: typeof no = {
     privacy: "Integritet",
     advertise: "Annonsera",
     search: "Sök",
+    gear: "Utrustning & Märken",
   },
   header: { tagline: "DE LÅNGSAMMA, SJÄLFULLA RÖTTERNA" },
   footer: {
