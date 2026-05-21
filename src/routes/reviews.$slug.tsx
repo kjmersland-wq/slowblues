@@ -173,10 +173,12 @@ function ReviewDetailPage() {
               )}
             </div>
           ) : (
-            <div className="aspect-square rounded-lg bg-muted/30 border border-border flex items-center justify-center">
-              <Disc className="size-16 text-muted-foreground/30" />
-            </div>
-          )}
+            <CoverFallback
+              artist={review.artist_name}
+              title={review.album_title}
+              className="aspect-square rounded-lg border border-border"
+            />
+
 
           <div>
             <div className="text-[10px] tracking-[0.3em] text-gold uppercase mb-2">
