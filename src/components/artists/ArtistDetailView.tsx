@@ -13,11 +13,12 @@ import {
 import { ArtistYouTube, AlbumYouTubeCell, DiscographyVideos } from "@/components/artists/ArtistYouTube";
 
 const T = {
-  no: { back: "Tilbake til artister", notFound: "Artist ikke funnet", loading: "Laster…", error: "Kunne ikke laste artisten", born: "Født", active: "Aktiv", styles: "Stiler og sjangre", discography: "Diskografi", songs: "Kjente sanger", related: "Relaterte artister", videos: "Se & Lytt", gallery: "Galleri", links: "Eksterne lenker", articles: "Relaterte artikler", influences: "Innflytelser", legacy: "Musikalsk innflytelse", family: "Familie og privatliv", formative: "Formende opplevelser", instruments: "Instrumenter og utstyr", anecdotes: "Historier og anekdoter", collaborators: "Samarbeidspartnere", awards: "Priser og anerkjennelse", from: "fra", musicians: "Musikere", watch: "Se", press: "Pressomtaler og sitater", source: "Kilde", year: "År", title: "Tittel", producer: "Produsent", label: "Label", chart: "Liste", sales: "Salg", notes: "Notater" },
-  en: { back: "Back to artists", notFound: "Artist not found", loading: "Loading…", error: "Could not load the artist", born: "Born", active: "Active", styles: "Styles and genres", discography: "Discography", songs: "Famous songs", related: "Related artists", videos: "Watch & Listen", gallery: "Gallery", links: "External links", articles: "Related articles", influences: "Influences", legacy: "Musical influence", family: "Family and personal life", formative: "Formative experiences", instruments: "Instruments and gear", anecdotes: "Stories and anecdotes", collaborators: "Collaborators", awards: "Awards and recognition", from: "from", musicians: "Musicians", watch: "Watch", press: "Press & quotes", source: "Source", year: "Year", title: "Title", producer: "Producer", label: "Label", chart: "Chart", sales: "Sales", notes: "Notes" },
-  sv: { back: "Tillbaka till artister", notFound: "Artist hittades inte", loading: "Laddar…", error: "Kunde inte ladda artisten", born: "Född", active: "Aktiv", styles: "Stilar och genrer", discography: "Diskografi", songs: "Kända låtar", related: "Relaterade artister", videos: "Se & Lyssna", gallery: "Galleri", links: "Externa länkar", articles: "Relaterade artiklar", influences: "Influenser", legacy: "Musikaliskt inflytande", family: "Familj och privatliv", formative: "Formativa upplevelser", instruments: "Instrument och utrustning", anecdotes: "Berättelser och anekdoter", collaborators: "Samarbetspartners", awards: "Priser och erkännanden", from: "från", musicians: "Musiker", watch: "Se", press: "Press & citat", source: "Källa", year: "År", title: "Titel", producer: "Producent", label: "Label", chart: "Lista", sales: "Försäljning", notes: "Noteringar" },
-  de: { back: "Zurück zu den Künstlern", notFound: "Künstler nicht gefunden", loading: "Lädt…", error: "Künstler konnte nicht geladen werden", born: "Geboren", active: "Aktiv", styles: "Stile und Genres", discography: "Diskografie", songs: "Bekannte Lieder", related: "Verwandte Künstler", videos: "Sehen & Hören", gallery: "Galerie", links: "Externe Links", articles: "Verwandte Artikel", influences: "Einflüsse", legacy: "Musikalischer Einfluss", family: "Familie und Privatleben", formative: "Prägende Erfahrungen", instruments: "Instrumente und Ausrüstung", anecdotes: "Geschichten und Anekdoten", collaborators: "Mitstreiter", awards: "Auszeichnungen", from: "aus", musicians: "Musiker", watch: "Ansehen", press: "Presse & Zitate", source: "Quelle", year: "Jahr", title: "Titel", producer: "Produzent", label: "Label", chart: "Charts", sales: "Verkauf", notes: "Anmerkungen" },
+  no: { back: "Tilbake til artister", notFound: "Artist ikke funnet", loading: "Laster…", error: "Kunne ikke laste artisten", born: "Født", died: "Død", active: "Aktiv", styles: "Stiler og sjangre", discography: "Diskografi", songs: "Kjente sanger", related: "Relaterte artister", videos: "Se & Lytt", gallery: "Galleri", links: "Eksterne lenker", articles: "Relaterte artikler", influences: "Innflytelser", legacy: "Musikalsk innflytelse", family: "Familie og privatliv", formative: "Formende opplevelser", instruments: "Instrumenter og utstyr", instrumentsShort: "Instrumenter", labelsShort: "Plateselskaper", anecdotes: "Historier og anekdoter", collaborators: "Samarbeidspartnere", awards: "Priser og anerkjennelse", from: "fra", musicians: "Musikere", watch: "Se", press: "Pressomtaler og sitater", source: "Kilde", year: "År", title: "Tittel", producer: "Produsent", label: "Label", chart: "Liste", sales: "Salg", notes: "Notater", featured: "Utvalgt" },
+  en: { back: "Back to artists", notFound: "Artist not found", loading: "Loading…", error: "Could not load the artist", born: "Born", died: "Died", active: "Active", styles: "Styles and genres", discography: "Discography", songs: "Famous songs", related: "Related artists", videos: "Watch & Listen", gallery: "Gallery", links: "External links", articles: "Related articles", influences: "Influences", legacy: "Musical Influence", family: "Family and personal life", formative: "Formative experiences", instruments: "Instruments & Equipment", instrumentsShort: "Instruments", labelsShort: "Labels", anecdotes: "Stories & Anecdotes", collaborators: "Collaborators", awards: "Awards & Recognition", from: "from", musicians: "Musicians", watch: "Watch", press: "Press & quotes", source: "Source", year: "Year", title: "Title", producer: "Producer", label: "Label", chart: "Chart", sales: "Sales", notes: "Notes", featured: "Featured" },
+  sv: { back: "Tillbaka till artister", notFound: "Artist hittades inte", loading: "Laddar…", error: "Kunde inte ladda artisten", born: "Född", died: "Död", active: "Aktiv", styles: "Stilar och genrer", discography: "Diskografi", songs: "Kända låtar", related: "Relaterade artister", videos: "Se & Lyssna", gallery: "Galleri", links: "Externa länkar", articles: "Relaterade artiklar", influences: "Influenser", legacy: "Musikaliskt inflytande", family: "Familj och privatliv", formative: "Formativa upplevelser", instruments: "Instrument och utrustning", instrumentsShort: "Instrument", labelsShort: "Skivbolag", anecdotes: "Historier & anekdoter", collaborators: "Samarbetspartners", awards: "Utmärkelser", from: "från", musicians: "Musiker", watch: "Se", press: "Press & citat", source: "Källa", year: "År", title: "Titel", producer: "Producent", label: "Label", chart: "Lista", sales: "Försäljning", notes: "Noteringar", featured: "Utvald" },
+  de: { back: "Zurück zu den Künstlern", notFound: "Künstler nicht gefunden", loading: "Lädt…", error: "Künstler konnte nicht geladen werden", born: "Geboren", died: "Gestorben", active: "Aktiv", styles: "Stile und Genres", discography: "Diskografie", songs: "Bekannte Lieder", related: "Verwandte Künstler", videos: "Sehen & Hören", gallery: "Galerie", links: "Externe Links", articles: "Verwandte Artikel", influences: "Einflüsse", legacy: "Musikalischer Einfluss", family: "Familie und Privatleben", formative: "Prägende Erlebnisse", instruments: "Instrumente & Ausrüstung", instrumentsShort: "Instrumente", labelsShort: "Labels", anecdotes: "Geschichten & Anekdoten", collaborators: "Kollaborationen", awards: "Auszeichnungen", from: "aus", musicians: "Musiker", watch: "Ansehen", press: "Presse & Zitate", source: "Quelle", year: "Jahr", title: "Titel", producer: "Produzent", label: "Label", chart: "Charts", sales: "Verkauf", notes: "Anmerkungen", featured: "Empfohlen" },
 } as const;
+
 
 
 export function ArtistDetailView({ slug, locale }: { slug: string; locale: ArtistLocale }) {
@@ -78,7 +79,7 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
               <h1 className="font-display text-5xl md:text-6xl mb-3 leading-[1.05] gold-gradient-text">{a.name}</h1>
               {a.alt_name && <p className="text-muted-foreground mb-4">{t.born}: {a.alt_name}</p>}
               <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground mb-6">
-                {a.born && <span>{a.born}{a.died && ` — ${a.died}`}</span>}
+                {a.born && <span>{t.born}: {a.born}{a.died && ` · ${t.died}: ${a.died}`}</span>}
                 {(a.country || a.origin) && <span>• <MapPin className="inline size-3.5" /> {a.country ?? a.origin}</span>}
                 {a.active_years && <span>• {t.active}: {a.active_years}</span>}
               </div>
@@ -92,8 +93,8 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
               {short && <p className="text-lg text-foreground/85 leading-relaxed mb-6">{short}</p>}
               {(a.instruments_simple.length > 0 || a.labels.length > 0) && (
                 <div className="grid sm:grid-cols-2 gap-4 text-sm">
-                  {a.instruments_simple.length > 0 && <Fact icon={Music} label="Instrumenter" value={a.instruments_simple.join(", ")} />}
-                  {a.labels.length > 0 && <Fact icon={Disc3} label="Labels" value={a.labels.join(", ")} />}
+                  {a.instruments_simple.length > 0 && <Fact icon={Music} label={t.instrumentsShort} value={a.instruments_simple.join(", ")} />}
+                  {a.labels.length > 0 && <Fact icon={Disc3} label={t.labelsShort} value={a.labels.join(", ")} />}
                   {a.origin && <Fact icon={MapPin} label={t.from} value={a.origin} />}
                   {a.born && <Fact icon={Calendar} label={t.born} value={a.born} />}
                 </div>
@@ -229,7 +230,7 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
         {/* Curated videos (editor-picked featured/more) */}
         {(a.videos.length > 0 || youtubeIds.length > 0) && (
           <Section icon={PlayCircle} title={t.videos} tone="gold">
-            <VideoGrid videos={a.videos} fallbackIds={youtubeIds} />
+            <VideoGrid videos={a.videos} fallbackIds={youtubeIds} featuredLabel={t.featured} />
           </Section>
         )}
 
@@ -441,7 +442,7 @@ function Card({ title, icon: Icon, children }: { title: string; icon?: any; chil
   );
 }
 
-function VideoGrid({ videos, fallbackIds }: { videos: ArtistRecord["videos"]; fallbackIds: string[] }) {
+function VideoGrid({ videos, fallbackIds, featuredLabel }: { videos: ArtistRecord["videos"]; fallbackIds: string[]; featuredLabel: string }) {
   const featured = videos.find((v) => v.kind === "featured");
   const more = videos.filter((v) => v !== featured);
   const extra = fallbackIds.filter((id) => !videos.some((v) => v.youtube_id === id)).map((id) => ({ kind: "more" as const, title: "", youtube_id: id }));
@@ -455,7 +456,7 @@ function VideoGrid({ videos, fallbackIds }: { videos: ArtistRecord["videos"]; fa
             <iframe src={`https://www.youtube-nocookie.com/embed/${featured.youtube_id}?rel=0`} title={featured.title} loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen className="size-full" />
           </div>
           <div>
-            <div className="text-[10px] tracking-[0.3em] text-gold uppercase mb-2">Featured</div>
+            <div className="text-[10px] tracking-[0.3em] text-gold uppercase mb-2">{featuredLabel}</div>
             <h3 className="font-display text-2xl mb-3">{featured.title}</h3>
             {featured.note && <p className="text-muted-foreground leading-relaxed mb-3">{featured.note}</p>}
             {featured.channel && <p className="text-sm text-muted-foreground">{featured.channel}</p>}
