@@ -118,11 +118,6 @@ export function SiteHeader() {
               <Link key={it.to} to={it.to as any} onClick={() => setOpen(false)} className="py-2 hover:text-gold">{it.label}</Link>
             ))}
             <Link to={"/reviews" as any} onClick={() => setOpen(false)} className="py-2 hover:text-gold">{t.nav.reviews}</Link>
-            <div className="col-span-full flex gap-1 pt-3 border-t border-border mt-2">
-              {LANGS.map((l) => (
-                <button key={l.code} onClick={() => setLang(l.code)} className={`px-3 py-1.5 rounded ${lang === l.code ? "bg-gold text-primary-foreground" : "bg-card"}`}>{l.label}</button>
-              ))}
-            </div>
           </div>
         </div>
       )}
