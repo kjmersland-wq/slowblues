@@ -59,7 +59,7 @@ function LoginPage() {
             {busy ? "Jobber…" : mode === "signup" ? "Opprett konto" : "Logg inn"}
           </button>
           <p className="text-xs text-muted-foreground">
-            Den første registrerte kontoen blir automatisk administrator.
+            Registrering er deaktivert.
             <br />
             <Link to="/" className="text-gold hover:underline">← Tilbake til forsiden</Link>
           </p>
