@@ -52,12 +52,12 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 backdrop-blur bg-background/85 border-b border-border">
-      <div className="max-w-7xl mx-auto px-5 py-3 flex items-center justify-between gap-4">
-        <Link to="/" className="flex items-center gap-3 shrink-0">
-          <img src={logoSB} alt="SlowBlues.no — Global Blues Encyclopedia" className="h-11 w-auto" />
-          <div className="hidden sm:block">
-            <div className="font-display text-lg tracking-wide leading-none">SLOWBLUES</div>
-            <div className="text-[9px] tracking-[0.22em] text-muted-foreground uppercase mt-1">{t.header.tagline}</div>
+      <div className="max-w-7xl mx-auto px-3 sm:px-5 py-2.5 sm:py-3 flex items-center justify-between gap-2 sm:gap-4">
+        <Link to="/" className="flex items-center gap-2 sm:gap-3 shrink min-w-0">
+          <img src={logoSB} alt="SlowBlues.no — Global Blues Encyclopedia" className="h-9 sm:h-11 w-auto shrink-0" />
+          <div className="hidden sm:block min-w-0">
+            <div className="font-display text-lg tracking-wide leading-none truncate">SLOWBLUES</div>
+            <div className="text-[9px] tracking-[0.22em] text-muted-foreground uppercase mt-1 truncate">{t.header.tagline}</div>
           </div>
         </Link>
 
@@ -88,13 +88,14 @@ export function SiteHeader() {
           </Link>
         </nav>
 
-        <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-0.5 text-xs">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-0.5 text-[11px] sm:text-xs">
             {LANGS.map((l) => (
               <button
                 key={l.code}
                 onClick={() => setLang(l.code)}
-                className={`px-2 py-1 rounded transition ${lang === l.code ? "bg-gold text-primary-foreground font-semibold" : "text-muted-foreground hover:text-foreground"}`}
+                aria-label={`Språk: ${l.label}`}
+                className={`px-1.5 sm:px-2 py-1 rounded transition ${lang === l.code ? "bg-gold text-primary-foreground font-semibold" : "text-muted-foreground hover:text-foreground"}`}
               >
                 {l.label}
               </button>
@@ -103,7 +104,7 @@ export function SiteHeader() {
           <button className="hidden sm:flex items-center gap-1.5 text-sm text-muted-foreground hover:text-gold">
             <Search className="size-4" /> {t.nav.search}
           </button>
-          <button className="lg:hidden" aria-label="Menu" onClick={() => setOpen((o) => !o)}>
+          <button className="lg:hidden p-1 -mr-1" aria-label="Menu" onClick={() => setOpen((o) => !o)}>
             {open ? <X className="size-6" /> : <Menu className="size-6" />}
           </button>
         </div>
@@ -117,11 +118,6 @@ export function SiteHeader() {
               <Link key={it.to} to={it.to as any} onClick={() => setOpen(false)} className="py-2 hover:text-gold">{it.label}</Link>
             ))}
             <Link to={"/reviews" as any} onClick={() => setOpen(false)} className="py-2 hover:text-gold">{t.nav.reviews}</Link>
-            <div className="col-span-full flex gap-1 pt-3 border-t border-border mt-2">
-              {LANGS.map((l) => (
-                <button key={l.code} onClick={() => setLang(l.code)} className={`px-3 py-1.5 rounded ${lang === l.code ? "bg-gold text-primary-foreground" : "bg-card"}`}>{l.label}</button>
-              ))}
-            </div>
           </div>
         </div>
       )}

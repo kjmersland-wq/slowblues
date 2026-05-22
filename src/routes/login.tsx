@@ -11,7 +11,7 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [mode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState<string | null>(null);
@@ -46,10 +46,6 @@ function LoginPage() {
       <PageHero eyebrow="Admin" title="Logg inn" lead="Tilgang for moderatorer av SlowBlues." img={IMG.pianoNight} />
       <section className="max-w-md mx-auto px-6 py-12">
         <form onSubmit={submit} className="bg-card/60 border border-border rounded-xl p-6 space-y-4">
-          <div className="flex gap-2 text-xs tracking-[0.25em] uppercase">
-            <button type="button" onClick={() => setMode("signin")} className={`px-3 py-1.5 rounded ${mode === "signin" ? "bg-gold text-primary-foreground" : "border border-border"}`}>Logg inn</button>
-            <button type="button" onClick={() => setMode("signup")} className={`px-3 py-1.5 rounded ${mode === "signup" ? "bg-gold text-primary-foreground" : "border border-border"}`}>Registrer</button>
-          </div>
           <div>
             <label className="text-[10px] tracking-[0.25em] text-gold uppercase block mb-1.5">E-post</label>
             <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="w-full bg-background border border-border rounded-md px-3 py-2 focus:border-gold outline-none" />
@@ -63,7 +59,7 @@ function LoginPage() {
             {busy ? "Jobber…" : mode === "signup" ? "Opprett konto" : "Logg inn"}
           </button>
           <p className="text-xs text-muted-foreground">
-            Den første registrerte kontoen blir automatisk administrator.
+            Registrering er deaktivert.
             <br />
             <Link to="/" className="text-gold hover:underline">← Tilbake til forsiden</Link>
           </p>
