@@ -52,12 +52,12 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 backdrop-blur bg-background/85 border-b border-border">
-      <div className="max-w-7xl mx-auto px-5 py-3 flex items-center justify-between gap-4">
-        <Link to="/" className="flex items-center gap-3 shrink-0">
-          <img src={logoSB} alt="SlowBlues.no — Global Blues Encyclopedia" className="h-11 w-auto" />
-          <div className="hidden sm:block">
-            <div className="font-display text-lg tracking-wide leading-none">SLOWBLUES</div>
-            <div className="text-[9px] tracking-[0.22em] text-muted-foreground uppercase mt-1">{t.header.tagline}</div>
+      <div className="max-w-7xl mx-auto px-3 sm:px-5 py-2.5 sm:py-3 flex items-center justify-between gap-2 sm:gap-4">
+        <Link to="/" className="flex items-center gap-2 sm:gap-3 shrink min-w-0">
+          <img src={logoSB} alt="SlowBlues.no — Global Blues Encyclopedia" className="h-9 sm:h-11 w-auto shrink-0" />
+          <div className="hidden sm:block min-w-0">
+            <div className="font-display text-lg tracking-wide leading-none truncate">SLOWBLUES</div>
+            <div className="text-[9px] tracking-[0.22em] text-muted-foreground uppercase mt-1 truncate">{t.header.tagline}</div>
           </div>
         </Link>
 
