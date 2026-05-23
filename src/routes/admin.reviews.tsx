@@ -19,8 +19,26 @@ type Review = {
   label: string | null;
   blues_style: string | null;
   cover_image: string | null;
+  title_no: string | null;
+  title_sv: string | null;
+  title_en: string | null;
+  title_de: string | null;
+  verdict_no: string | null;
+  verdict_sv: string | null;
   verdict_en: string | null;
+  verdict_de: string | null;
+  body_no: string | null;
+  body_sv: string | null;
   body_en: string | null;
+  body_de: string | null;
+  seo_title_no: string | null;
+  seo_title_sv: string | null;
+  seo_title_en: string | null;
+  seo_title_de: string | null;
+  seo_description_no: string | null;
+  seo_description_sv: string | null;
+  seo_description_en: string | null;
+  seo_description_de: string | null;
   total_score: number | null;
   youtube_playlist_id: string | null;
   youtube_album_url: string | null;
@@ -28,6 +46,7 @@ type Review = {
   status: string;
   published_at: string | null;
 };
+
 
 const empty: Partial<Review> = {
   slug: "",
@@ -224,8 +243,33 @@ function AdminReviewsPage() {
                   <Field label="Total score (0-10)" value={String(editing.total_score ?? "")} onChange={(v) => setEditing({ ...editing, total_score: v ? Number(v) : null })} />
                   <Field label="YouTube playlist or video ID" value={editing.youtube_playlist_id ?? ""} onChange={(v) => setEditing({ ...editing, youtube_playlist_id: v || null })} />
                   <Field label="YouTube album URL (full link)" value={editing.youtube_album_url ?? ""} onChange={(v) => setEditing({ ...editing, youtube_album_url: v || null })} />
-                  <Textarea label="Verdict (1 line)" value={editing.verdict_en ?? ""} onChange={(v) => setEditing({ ...editing, verdict_en: v })} rows={2} />
-                  <Textarea label="Body" value={editing.body_en ?? ""} onChange={(v) => setEditing({ ...editing, body_en: v })} rows={10} />
+                  <Textarea label="Verdict (1 line) — Norsk" value={editing.verdict_no ?? ""} onChange={(v) => setEditing({ ...editing, verdict_no: v })} rows={2} />
+                  <Field label="Album-tittel oversettelse (NO)" value={editing.title_no ?? ""} onChange={(v) => setEditing({ ...editing, title_no: v || null })} />
+                  <Textarea label="Anmeldelse — Norsk" value={editing.body_no ?? ""} onChange={(v) => setEditing({ ...editing, body_no: v })} rows={10} />
+                  <Field label="SEO-tittel (NO)" value={editing.seo_title_no ?? ""} onChange={(v) => setEditing({ ...editing, seo_title_no: v || null })} />
+                  <Textarea label="SEO-beskrivelse (NO)" value={editing.seo_description_no ?? ""} onChange={(v) => setEditing({ ...editing, seo_description_no: v })} rows={2} />
+
+                  <div className="pt-3 border-t border-border" />
+                  <Textarea label="Verdict (1 rad) — Svenska" value={editing.verdict_sv ?? ""} onChange={(v) => setEditing({ ...editing, verdict_sv: v })} rows={2} />
+                  <Field label="Albumtitel översättning (SV)" value={editing.title_sv ?? ""} onChange={(v) => setEditing({ ...editing, title_sv: v || null })} />
+                  <Textarea label="Recension — Svenska" value={editing.body_sv ?? ""} onChange={(v) => setEditing({ ...editing, body_sv: v })} rows={10} />
+                  <Field label="SEO-titel (SV)" value={editing.seo_title_sv ?? ""} onChange={(v) => setEditing({ ...editing, seo_title_sv: v || null })} />
+                  <Textarea label="SEO-beskrivning (SV)" value={editing.seo_description_sv ?? ""} onChange={(v) => setEditing({ ...editing, seo_description_sv: v })} rows={2} />
+
+                  <div className="pt-3 border-t border-border" />
+                  <Textarea label="Verdict (1 line) — English" value={editing.verdict_en ?? ""} onChange={(v) => setEditing({ ...editing, verdict_en: v })} rows={2} />
+                  <Field label="Album title translation (EN)" value={editing.title_en ?? ""} onChange={(v) => setEditing({ ...editing, title_en: v || null })} />
+                  <Textarea label="Review body — English" value={editing.body_en ?? ""} onChange={(v) => setEditing({ ...editing, body_en: v })} rows={10} />
+                  <Field label="SEO title (EN)" value={editing.seo_title_en ?? ""} onChange={(v) => setEditing({ ...editing, seo_title_en: v || null })} />
+                  <Textarea label="SEO description (EN)" value={editing.seo_description_en ?? ""} onChange={(v) => setEditing({ ...editing, seo_description_en: v })} rows={2} />
+
+                  <div className="pt-3 border-t border-border" />
+                  <Textarea label="Verdict (1 Zeile) — Deutsch" value={editing.verdict_de ?? ""} onChange={(v) => setEditing({ ...editing, verdict_de: v })} rows={2} />
+                  <Field label="Albumtitel Übersetzung (DE)" value={editing.title_de ?? ""} onChange={(v) => setEditing({ ...editing, title_de: v || null })} />
+                  <Textarea label="Rezension — Deutsch" value={editing.body_de ?? ""} onChange={(v) => setEditing({ ...editing, body_de: v })} rows={10} />
+                  <Field label="SEO-Titel (DE)" value={editing.seo_title_de ?? ""} onChange={(v) => setEditing({ ...editing, seo_title_de: v || null })} />
+                  <Textarea label="SEO-Beschreibung (DE)" value={editing.seo_description_de ?? ""} onChange={(v) => setEditing({ ...editing, seo_description_de: v })} rows={2} />
+
 
                   <TracksEditor
                     tracks={editing.tracks ?? []}
