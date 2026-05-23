@@ -276,3 +276,44 @@ function Textarea({ label, value, onChange, rows = 4 }: { label: string; value: 
     </label>
   );
 }
+
+function TracksEditor({ tracks, onChange }: { tracks: Track[]; onChange: (t: Track[]) => void }) {
+  const update = (i: number, patch: Partial<Track>) => {
+    const next = tracks.slice();
+    next[i] = { ...next[i], ...patch };
+    onChange(next);
+  };
+  const add = () => onChange([...tracks, { title: "", personnel: "" }]);
+  const remove = (i: number) => onChange(tracks.filter((_, idx) => idx !== i));
+  return (
+    <div className="space-y-2 pt-2 border-t border-border">
+      <div className="flex items-center justify-between">
+        <span className="text-xs text-muted-foreground uppercase tracking-wider">Tracks & personnel</span>
+        <button type="button" onClick={add} className="text-xs px-2 py-1 rounded border border-border hover:border-gold flex items-center gap-1">
+          <Plus className="size-3" /> Add track
+        </button>
+      </div>
+      {tracks.map((t, i) => (
+        <div key={i} className="grid grid-cols-[1fr_2fr_auto] gap-2 items-start">
+          <input
+            value={t.title}
+            onChange={(e) => update(i, { title: e.target.value })}
+            placeholder={`Track ${i + 1} title`}
+            className="px-2 py-1.5 rounded bg-background border border-border text-sm"
+          />
+          <textarea
+            value={t.personnel}
+            onChange={(e) => update(i, { personnel: e.target.value })}
+            placeholder="Musicians (e.g. John Doe – guitar, Jane Roe – drums)"
+            rows={2}
+            className="px-2 py-1.5 rounded bg-background border border-border text-sm"
+          />
+          <button type="button" onClick={() => remove(i)} className="p-2 rounded border border-border hover:border-red-500 hover:text-red-400">
+            <Trash2 className="size-4" />
+          </button>
+        </div>
+      ))}
+      {!tracks.length && <p className="text-xs text-muted-foreground">No tracks added yet.</p>}
+    </div>
+  );
+}
