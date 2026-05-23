@@ -109,7 +109,11 @@ function QuotesAdminPage() {
   return (
     <PageShell>
       <PageHero eyebrow="Admin" title="Pressomtaler & sitater" lead="Legg til kritikersitater og uttalelser med kilde for hver artist." img={IMG.pianoNight} />
+      <div className="max-w-6xl mx-auto px-6 pt-6">
+        <Link to="/admin" className="text-sm text-muted-foreground hover:text-gold">← Tilbake til admin</Link>
+      </div>
       <section className="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-[280px_1fr] gap-6">
+
         <aside className="border border-border rounded-lg bg-card/40 p-3 h-fit">
           <div className="relative mb-3">
             <Search className="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
