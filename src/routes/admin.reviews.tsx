@@ -19,8 +19,26 @@ type Review = {
   label: string | null;
   blues_style: string | null;
   cover_image: string | null;
+  title_no: string | null;
+  title_sv: string | null;
+  title_en: string | null;
+  title_de: string | null;
+  verdict_no: string | null;
+  verdict_sv: string | null;
   verdict_en: string | null;
+  verdict_de: string | null;
+  body_no: string | null;
+  body_sv: string | null;
   body_en: string | null;
+  body_de: string | null;
+  seo_title_no: string | null;
+  seo_title_sv: string | null;
+  seo_title_en: string | null;
+  seo_title_de: string | null;
+  seo_description_no: string | null;
+  seo_description_sv: string | null;
+  seo_description_en: string | null;
+  seo_description_de: string | null;
   total_score: number | null;
   youtube_playlist_id: string | null;
   youtube_album_url: string | null;
@@ -28,6 +46,7 @@ type Review = {
   status: string;
   published_at: string | null;
 };
+
 
 const empty: Partial<Review> = {
   slug: "",
