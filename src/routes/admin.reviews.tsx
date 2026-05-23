@@ -223,8 +223,14 @@ function AdminReviewsPage() {
                   </div>
                   <Field label="Total score (0-10)" value={String(editing.total_score ?? "")} onChange={(v) => setEditing({ ...editing, total_score: v ? Number(v) : null })} />
                   <Field label="YouTube playlist or video ID" value={editing.youtube_playlist_id ?? ""} onChange={(v) => setEditing({ ...editing, youtube_playlist_id: v || null })} />
+                  <Field label="YouTube album URL (full link)" value={editing.youtube_album_url ?? ""} onChange={(v) => setEditing({ ...editing, youtube_album_url: v || null })} />
                   <Textarea label="Verdict (1 line)" value={editing.verdict_en ?? ""} onChange={(v) => setEditing({ ...editing, verdict_en: v })} rows={2} />
-                  <Textarea label="Body" value={editing.body_en ?? ""} onChange={(v) => setEditing({ ...editing, body_en: v })} rows={8} />
+                  <Textarea label="Body" value={editing.body_en ?? ""} onChange={(v) => setEditing({ ...editing, body_en: v })} rows={10} />
+
+                  <TracksEditor
+                    tracks={editing.tracks ?? []}
+                    onChange={(t) => setEditing({ ...editing, tracks: t })}
+                  />
                   <label className="block text-xs">
                     <span className="block mb-1 text-muted-foreground uppercase tracking-wider">Status</span>
                     <select
