@@ -143,9 +143,15 @@ function AdminArtistEdit() {
       <section className="max-w-5xl mx-auto px-3 sm:px-6 py-6">
         {/* Top nav */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
-          <Link to="/admin/artists" className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-border text-sm hover:border-gold">
-            <ArrowLeft className="size-4" /> Liste
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link to="/admin" className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-border text-sm hover:border-gold">
+              <ArrowLeft className="size-4" /> Admin
+            </Link>
+            <Link to="/admin/artists" className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-border text-sm hover:border-gold">
+              <ArrowLeft className="size-4" /> Liste
+            </Link>
+          </div>
+
           <div className="flex flex-wrap gap-2">
             <a href={`/artists/${a.slug}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-border text-sm hover:border-gold">
               <Eye className="size-4" /> Vis live <ExternalLink className="size-3" />
