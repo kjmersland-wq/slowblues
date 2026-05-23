@@ -154,7 +154,7 @@ function NewArtistPage() {
     add({ step: "SEO-felt (no/sv/en/de)", ok: true, note: "Maler satt — finpuss i admin" });
 
     // Save patch
-    const { error } = await supabase.from("artists").update(patch).eq("slug", createdSlug);
+    const { error } = await supabase.from("artists").update(patch as any).eq("slug", createdSlug);
     if (error) add({ step: "Lagring", ok: false, note: error.message });
     else add({ step: "Lagring", ok: true, note: "Berikelse fullført" });
 

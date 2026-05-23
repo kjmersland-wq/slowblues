@@ -134,10 +134,10 @@ function AdminSEO() {
 
         {tab === "reviews" && (
           <RowList
-            rows={filtered(reviewRows as any)}
-            renderLink={(r) => <Link to="/admin/reviews" className="text-gold hover:underline">{r.artist_name} — {r.album_title}</Link>}
-            liveHref={(r) => `/reviews/${r.slug}`}
-            subText={(r) => `${r.slug} · ${r.status}`}
+            rows={filtered(reviewRows as any) as any}
+            renderLink={(r: any) => <Link to="/admin/reviews" className="text-gold hover:underline">{r.artist_name} — {r.album_title}</Link>}
+            liveHref={(r: any) => `/reviews/${r.slug}`}
+            subText={(r: any) => `${r.slug} · ${r.status}`}
           />
         )}
 
