@@ -424,11 +424,13 @@ export type Database = {
           title_no: string | null
           title_sv: string | null
           total_score: number | null
+          tracks: Json
           updated_at: string
           verdict_de: string | null
           verdict_en: string | null
           verdict_no: string | null
           verdict_sv: string | null
+          youtube_album_url: string | null
           youtube_playlist_id: string | null
         }
         Insert: {
@@ -471,11 +473,13 @@ export type Database = {
           title_no?: string | null
           title_sv?: string | null
           total_score?: number | null
+          tracks?: Json
           updated_at?: string
           verdict_de?: string | null
           verdict_en?: string | null
           verdict_no?: string | null
           verdict_sv?: string | null
+          youtube_album_url?: string | null
           youtube_playlist_id?: string | null
         }
         Update: {
@@ -518,11 +522,13 @@ export type Database = {
           title_no?: string | null
           title_sv?: string | null
           total_score?: number | null
+          tracks?: Json
           updated_at?: string
           verdict_de?: string | null
           verdict_en?: string | null
           verdict_no?: string | null
           verdict_sv?: string | null
+          youtube_album_url?: string | null
           youtube_playlist_id?: string | null
         }
         Relationships: []

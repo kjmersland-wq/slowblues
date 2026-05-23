@@ -7,6 +7,8 @@ import { IMG } from "@/data/images";
 import { CoverFallback } from "@/components/reviews/CoverFallback";
 import { Trash2, Upload, Save, Plus } from "lucide-react";
 
+type Track = { title: string; personnel: string };
+
 type Review = {
   id: string;
   slug: string;
@@ -21,6 +23,8 @@ type Review = {
   body_en: string | null;
   total_score: number | null;
   youtube_playlist_id: string | null;
+  youtube_album_url: string | null;
+  tracks: Track[];
   status: string;
   published_at: string | null;
 };
@@ -56,7 +60,7 @@ function AdminReviewsPage() {
       .select("*")
       .order("published_at", { ascending: false, nullsFirst: false });
     if (error) setErr(error.message);
-    setItems((data ?? []) as Review[]);
+    setItems(((data ?? []) as unknown) as Review[]);
   };
 
   useEffect(() => {
@@ -219,8 +223,14 @@ function AdminReviewsPage() {
                   </div>
                   <Field label="Total score (0-10)" value={String(editing.total_score ?? "")} onChange={(v) => setEditing({ ...editing, total_score: v ? Number(v) : null })} />
                   <Field label="YouTube playlist or video ID" value={editing.youtube_playlist_id ?? ""} onChange={(v) => setEditing({ ...editing, youtube_playlist_id: v || null })} />
+                  <Field label="YouTube album URL (full link)" value={editing.youtube_album_url ?? ""} onChange={(v) => setEditing({ ...editing, youtube_album_url: v || null })} />
                   <Textarea label="Verdict (1 line)" value={editing.verdict_en ?? ""} onChange={(v) => setEditing({ ...editing, verdict_en: v })} rows={2} />
-                  <Textarea label="Body" value={editing.body_en ?? ""} onChange={(v) => setEditing({ ...editing, body_en: v })} rows={8} />
+                  <Textarea label="Body" value={editing.body_en ?? ""} onChange={(v) => setEditing({ ...editing, body_en: v })} rows={10} />
+
+                  <TracksEditor
+                    tracks={editing.tracks ?? []}
+                    onChange={(t) => setEditing({ ...editing, tracks: t })}
+                  />
                   <label className="block text-xs">
                     <span className="block mb-1 text-muted-foreground uppercase tracking-wider">Status</span>
                     <select
@@ -264,5 +274,46 @@ function Textarea({ label, value, onChange, rows = 4 }: { label: string; value: 
       <span className="block mb-1 text-muted-foreground uppercase tracking-wider">{label}</span>
       <textarea rows={rows} value={value} onChange={(e) => onChange(e.target.value)} className="w-full px-2 py-1.5 rounded bg-background border border-border text-sm" />
     </label>
+  );
+}
+
+function TracksEditor({ tracks, onChange }: { tracks: Track[]; onChange: (t: Track[]) => void }) {
+  const update = (i: number, patch: Partial<Track>) => {
+    const next = tracks.slice();
+    next[i] = { ...next[i], ...patch };
+    onChange(next);
+  };
+  const add = () => onChange([...tracks, { title: "", personnel: "" }]);
+  const remove = (i: number) => onChange(tracks.filter((_, idx) => idx !== i));
+  return (
+    <div className="space-y-2 pt-2 border-t border-border">
+      <div className="flex items-center justify-between">
+        <span className="text-xs text-muted-foreground uppercase tracking-wider">Tracks & personnel</span>
+        <button type="button" onClick={add} className="text-xs px-2 py-1 rounded border border-border hover:border-gold flex items-center gap-1">
+          <Plus className="size-3" /> Add track
+        </button>
+      </div>
+      {tracks.map((t, i) => (
+        <div key={i} className="grid grid-cols-[1fr_2fr_auto] gap-2 items-start">
+          <input
+            value={t.title}
+            onChange={(e) => update(i, { title: e.target.value })}
+            placeholder={`Track ${i + 1} title`}
+            className="px-2 py-1.5 rounded bg-background border border-border text-sm"
+          />
+          <textarea
+            value={t.personnel}
+            onChange={(e) => update(i, { personnel: e.target.value })}
+            placeholder="Musicians (e.g. John Doe – guitar, Jane Roe – drums)"
+            rows={2}
+            className="px-2 py-1.5 rounded bg-background border border-border text-sm"
+          />
+          <button type="button" onClick={() => remove(i)} className="p-2 rounded border border-border hover:border-red-500 hover:text-red-400">
+            <Trash2 className="size-4" />
+          </button>
+        </div>
+      ))}
+      {!tracks.length && <p className="text-xs text-muted-foreground">No tracks added yet.</p>}
+    </div>
   );
 }
