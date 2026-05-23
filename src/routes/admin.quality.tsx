@@ -185,6 +185,8 @@ function QCPage() {
       />
 
       <section className="max-w-7xl mx-auto px-6 py-8">
+        <Link to="/admin" className="inline-block mb-6 text-sm text-muted-foreground hover:text-gold">← Tilbake til admin</Link>
+
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
           <StatCard icon={<ImageIcon className="size-4" />} label="Missing images" value={stats.missing_image} total={stats.total} tone="error" />
           <StatCard icon={<AlertTriangle className="size-4" />} label="Unverified images" value={stats.unverified_image} total={stats.total} tone="warn" />
