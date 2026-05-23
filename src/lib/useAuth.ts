@@ -21,28 +21,38 @@ export function useAuth() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
-      setSession(s);
-      setUser(s?.user ?? null);
-      if (s?.user) {
-        setTimeout(async () => {
-          setIsAdmin(await checkAdmin(s.user.id));
-        }, 0);
-      } else {
+    let active = true;
+
+    const syncSession = async (nextSession: Session | null) => {
+      if (!active) return;
+      setSession(nextSession);
+      setUser(nextSession?.user ?? null);
+
+      if (!nextSession?.user) {
         setIsAdmin(false);
+        setLoading(false);
+        return;
       }
-    });
 
-    supabase.auth.getSession().then(async ({ data }) => {
-      setSession(data.session);
-      setUser(data.session?.user ?? null);
-      if (data.session?.user) {
-        setIsAdmin(await checkAdmin(data.session.user.id));
-      }
+      setLoading(true);
+      const nextIsAdmin = await checkAdmin(nextSession.user.id);
+      if (!active) return;
+      setIsAdmin(nextIsAdmin);
       setLoading(false);
+    };
+
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
+      void syncSession(s);
     });
 
-    return () => sub.subscription.unsubscribe();
+    supabase.auth.getSession().then(({ data }) => {
+      void syncSession(data.session);
+    });
+
+    return () => {
+      active = false;
+      sub.subscription.unsubscribe();
+    };
   }, []);
 
   return { session, user, isAdmin, loading };
