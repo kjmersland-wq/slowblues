@@ -7,6 +7,8 @@ import { IMG } from "@/data/images";
 import { CoverFallback } from "@/components/reviews/CoverFallback";
 import { Trash2, Upload, Save, Plus } from "lucide-react";
 
+type Track = { title: string; personnel: string };
+
 type Review = {
   id: string;
   slug: string;
@@ -21,6 +23,8 @@ type Review = {
   body_en: string | null;
   total_score: number | null;
   youtube_playlist_id: string | null;
+  youtube_album_url: string | null;
+  tracks: Track[];
   status: string;
   published_at: string | null;
 };
