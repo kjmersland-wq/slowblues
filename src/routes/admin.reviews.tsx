@@ -60,7 +60,7 @@ function AdminReviewsPage() {
       .select("*")
       .order("published_at", { ascending: false, nullsFirst: false });
     if (error) setErr(error.message);
-    setItems((data ?? []) as Review[]);
+    setItems(((data ?? []) as unknown) as Review[]);
   };
 
   useEffect(() => {
