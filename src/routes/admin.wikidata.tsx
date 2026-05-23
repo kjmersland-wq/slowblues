@@ -50,6 +50,8 @@ function WikidataAdminPage() {
       />
 
       <section className="max-w-6xl mx-auto px-6 py-12 space-y-8">
+        <Link to="/admin" className="inline-block text-sm text-muted-foreground hover:text-gold">← Tilbake til admin</Link>
+
         <div className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-4 flex gap-3 text-sm text-amber-200/90">
           <AlertTriangle className="h-5 w-5 flex-shrink-0 mt-0.5" />
           <p>
