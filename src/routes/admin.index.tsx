@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/useAuth";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
-import { Trash2, LogOut, MessageSquare, BookOpen, ShieldCheck, Database, Quote, Link2 } from "lucide-react";
+import { Trash2, LogOut, MessageSquare, BookOpen, ShieldCheck, Database, Quote, Link2, UserPlus, Search } from "lucide-react";
 
 export const Route = createFileRoute("/admin/")({
   component: AdminPage,
@@ -90,13 +90,21 @@ function AdminPage() {
             </button>
           </div>
           <div className="flex gap-2 flex-wrap">
+            <Link to="/admin/artists/new" className="px-4 py-2 rounded-md border border-gold/60 bg-gold/10 text-sm hover:border-gold flex items-center gap-2 text-gold">
+              <UserPlus className="size-4" /> Ny artist
+            </Link>
+            <Link to="/admin/artists" className="px-4 py-2 rounded-md border border-border text-sm hover:border-gold flex items-center gap-2">
+              <Database className="size-4" /> Artister
+            </Link>
             <Link to="/admin/reviews" className="px-4 py-2 rounded-md border border-gold/40 text-sm hover:border-gold flex items-center gap-2 text-gold">
               <BookOpen className="size-4" /> Reviews
             </Link>
-            <Link to="/admin/quality" className="px-4 py-2 rounded-md border border-gold/40 text-sm hover:border-gold flex items-center gap-2 text-gold">
-              <ShieldCheck className="size-4" /> QC Dashboard
+            <Link to="/admin/seo" className="px-4 py-2 rounded-md border border-gold/40 text-sm hover:border-gold flex items-center gap-2 text-gold">
+              <Search className="size-4" /> SEO-sjekk
             </Link>
-
+            <Link to="/admin/quality" className="px-4 py-2 rounded-md border border-border text-sm hover:border-gold flex items-center gap-2">
+              <ShieldCheck className="size-4" /> QC
+            </Link>
             <Link to="/admin/quotes" className="px-4 py-2 rounded-md border border-border text-sm hover:border-gold flex items-center gap-2">
               <Quote className="size-4" /> Pressomtaler
             </Link>
