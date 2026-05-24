@@ -41,7 +41,7 @@ const NO = [
   { h: "Hva bruker vi dataene til?", p: "E-postadressen brukes utelukkende til å sende deg nyhetsbrevet du har bedt om. Gjestebok-innlegg publiseres synlig på siden. Vi selger ikke data til tredjeparter, noensinne." },
   { h: "Analyse", p: "Vi bruker anonymisert besøksstatistikk (uten cookies som identifiserer deg) for å forstå hvilke artikler folk leser. Ingen personlig profil bygges." },
   { h: "Bilder og opphavsrett", p: "Alle historiske bilder er hentet fra Library of Congress, Wikimedia Commons og andre offentlige arkiver under Public Domain eller Creative Commons. Atmosfærebilder er fra Unsplash under deres frie lisens. Attribusjon vises der hvor det kreves." },
-  { h: "Rettighetene dine", p: "Du kan når som helst be om innsyn i, korreksjon av eller sletting av data vi har om deg. Send en e-post til hei@slowblues.no, så svarer vi innen 14 dager." },
+  { h: "Rettighetene dine", p: "Du kan når som helst be om innsyn i, korreksjon av eller sletting av data vi har om deg. Send oss en henvendelse via kontaktskjemaet, så svarer vi innen 14 dager." },
   { h: "Cookies", p: "Kun én lokal lagring brukes: språkvalget ditt (\"slowblues-lang\"). Ingen sporings-cookies." },
 ];
 
