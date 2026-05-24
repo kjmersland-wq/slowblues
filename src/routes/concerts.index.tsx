@@ -18,12 +18,56 @@ const listConcerts = createServerFn({ method: "GET" }).handler(async () => {
 
 export const Route = createFileRoute("/concerts/")({
   loader: () => listConcerts(),
-  head: () => ({
-    meta: [
-      { title: "Concerts & Festivals — SlowBlues" },
-      { name: "description", content: "Upcoming blues concerts, tours, and festivals — curated by SlowBlues." },
-    ],
-  }),
+  head: ({ loaderData }) => {
+    const concerts = (loaderData?.concerts ?? []) as Array<{
+      slug: string; title: string; artist_name?: string | null; venue?: string | null;
+      city?: string | null; country?: string | null; event_date?: string | null;
+    }>;
+    return {
+      meta: [
+        { title: "Concerts & Festivals — Live Blues | SlowBlues" },
+        { name: "description", content: "Upcoming blues concerts, tours and festivals from clubs, theatres and festival fields around the world — curated by SlowBlues." },
+        { property: "og:title", content: "Concerts & Festivals — Live Blues | SlowBlues" },
+        { property: "og:description", content: "Upcoming blues concerts, tours and festivals — curated by SlowBlues." },
+        { property: "og:url", content: "https://www.slowblues.no/concerts" },
+      ],
+      links: [{ rel: "canonical", href: "https://www.slowblues.no/concerts" }],
+      scripts: concerts.length === 0 ? [] : [{
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "Upcoming blues concerts and festivals",
+          url: "https://www.slowblues.no/concerts",
+          numberOfItems: concerts.length,
+          itemListElement: concerts.map((c, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            item: {
+              "@type": "Event",
+              name: c.title,
+              url: `https://www.slowblues.no/concerts/${c.slug}`,
+              ...(c.event_date ? { startDate: c.event_date } : {}),
+              ...(c.venue || c.city
+                ? {
+                    location: {
+                      "@type": "Place",
+                      name: c.venue ?? c.city ?? "",
+                      ...(c.city || c.country
+                        ? { address: [c.city, c.country].filter(Boolean).join(", ") }
+                        : {}),
+                    },
+                  }
+                : {}),
+              ...(c.artist_name
+                ? { performer: { "@type": "MusicGroup", name: c.artist_name } }
+                : {}),
+            },
+          })),
+        }),
+      }],
+    };
+  },
   errorComponent: ({ error }) => <div className="p-10 text-foreground/70">Failed to load concerts: {error.message}</div>,
   notFoundComponent: () => <div className="p-10">No concerts yet.</div>,
   component: ConcertsList,
