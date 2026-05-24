@@ -87,7 +87,7 @@ function FounderPage() {
         <p className="mt-8 text-lg leading-relaxed text-foreground/90 italic font-serif">{tr(lang, f.lede)}</p>
 
         <section className="mt-8 space-y-5">
-          {(f.bio[lang] ?? f.bio.en).map((p, i) => (
+          {(f.bio[lang] ?? f.bio.en).map((p: string, i: number) => (
             <p key={i} className="text-foreground/85 leading-relaxed text-[15px] sm:text-base">{p}</p>
           ))}
         </section>
@@ -97,7 +97,7 @@ function FounderPage() {
             {tr(lang, { no: "Anekdoter & hendelser", en: "Anecdotes & moments", sv: "Anekdoter & händelser", de: "Anekdoten & Momente" })}
           </h2>
           <ul className="space-y-4">
-            {(f.anecdotes[lang] ?? f.anecdotes.en).map((a, i) => (
+            {(f.anecdotes[lang] ?? f.anecdotes.en).map((a: string, i: number) => (
               <li key={i} className="border-l-2 border-gold/50 pl-4 text-foreground/85 leading-relaxed">{a}</li>
             ))}
           </ul>
@@ -109,7 +109,7 @@ function FounderPage() {
               {tr(lang, { no: "Lenker", en: "Links", sv: "Länkar", de: "Links" })}
             </h2>
             <ul className="space-y-2">
-              {f.links.map((l) => (
+              {f.links.map((l: { label: string; url: string }) => (
                 <li key={l.url}>
                   <a
                     href={l.url}
