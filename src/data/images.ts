@@ -4,9 +4,9 @@
 
 export const IMG = {
   // Historic blues figures (Wikimedia Commons — Public Domain / no known restrictions)
-  robertJohnson: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Robert_Johnson.png/640px-Robert_Johnson.png",
-  muddyWaters: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Muddy_Waters_1971_Jazz_Festival_in_Hamburg_2.jpg/640px-Muddy_Waters_1971_Jazz_Festival_in_Hamburg_2.jpg",
-  sonHouse: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Son_house.jpg/640px-Son_house.jpg",
+  robertJohnson: "https://babdgnaovgofprrsdssi.supabase.co/storage/v1/object/public/artist-images/robert-johnson.webp",
+  muddyWaters: "https://babdgnaovgofprrsdssi.supabase.co/storage/v1/object/public/artist-images/muddy-waters.webp",
+  sonHouse: "https://babdgnaovgofprrsdssi.supabase.co/storage/v1/object/public/artist-images/son-house.webp",
   bbKing: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/B.B._King_at_the_Beale_Street_Music_Festival.jpg/640px-B.B._King_at_the_Beale_Street_Music_Festival.jpg",
   howlinWolf: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Howlin%27_Wolf_1972.jpg/640px-Howlin%27_Wolf_1972.jpg",
   johnLeeHooker: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/John_Lee_Hooker_1980.jpg/640px-John_Lee_Hooker_1980.jpg",
