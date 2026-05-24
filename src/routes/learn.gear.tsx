@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useI18n, tr } from "@/i18n";
 import { ExternalLink, Share2, Music, Guitar, Mic, Speaker, Drum } from "lucide-react";
+import { PageShell } from "@/components/PageShell";
 
 export const Route = createFileRoute("/learn/gear")({
   head: () => ({
