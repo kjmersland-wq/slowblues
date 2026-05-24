@@ -42,12 +42,13 @@ export function buildHead(slug: string, a: ArtistRecord | null, locale: Lang) {
     };
   }
 
-  const title = pickLang(a as any, locale, "seo_title") ?? `${a.name} — SlowBlues`;
-  const description =
+  const title = pickLang(a as any, locale, "seo_title") ?? `${a.name} — Blues artist | SlowBlues`;
+  const rawDesc =
     pickLang(a as any, locale, "seo_description") ??
     pickLang(a as any, locale, "short") ??
     a.short ??
-    `${a.name} — blues artist profile, biography, discography and videos.`;
+    `${a.name} — blues artist profile, biography, discography and videos on SlowBlues, the curated archive of blues history and culture.`;
+  const description = clampDescription(rawDesc, a.name);
   const heroImg = a.og_image ?? resolveArtistImage(a.img) ?? null;
   const jsonLd = buildArtistJsonLd(a as any, canonical, heroImg);
   const breadcrumb = buildBreadcrumb(a as any, "");
