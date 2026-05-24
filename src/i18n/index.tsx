@@ -15,8 +15,9 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     try {
       const stored = localStorage.getItem("slowblues-lang") as Lang | null;
-      if (stored && (stored === "no" || stored === "en" || stored === "de")) {
+      if (stored && (stored === "no" || stored === "en" || stored === "sv" || stored === "de")) {
         setLangState(stored);
+        try { document.documentElement.lang = stored; } catch {}
       }
     } catch {}
   }, []);
