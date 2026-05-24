@@ -77,3 +77,14 @@ export function buildHead(slug: string, a: ArtistRecord | null, locale: Lang) {
     ],
   };
 }
+
+function clampDescription(text: string, name: string): string {
+  let s = (text ?? "").replace(/\s+/g, " ").trim();
+  if (s.length < 50) {
+    s = `${s} — Read more about ${name} on SlowBlues, the curated blues archive.`.trim();
+  }
+  if (s.length > 160) {
+    s = s.slice(0, 157).replace(/\s+\S*$/, "") + "…";
+  }
+  return s;
+}
