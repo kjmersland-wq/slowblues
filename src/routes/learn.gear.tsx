@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useI18n, tr } from "@/i18n";
 import { ExternalLink, Share2, Music, Guitar, Mic, Speaker, Drum } from "lucide-react";
+import { PageShell } from "@/components/PageShell";
 
 export const Route = createFileRoute("/learn/gear")({
   head: () => ({
@@ -302,6 +303,7 @@ function GearPage() {
   };
 
   return (
+    <PageShell>
     <div className="bg-background text-foreground">
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-border">
@@ -364,6 +366,7 @@ function GearPage() {
         </div>
       </section>
     </div>
+    </PageShell>
   );
 }
 
