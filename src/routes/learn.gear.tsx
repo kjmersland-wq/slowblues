@@ -340,7 +340,6 @@ const CATS: { id: Cat | "all"; labels: { no: string; en: string; sv: string; de:
 
 function GearPage() {
   const { lang } = useI18n();
-  const isNO = lang === "no" || lang === "sv";
   const [cat, setCat] = useState<Cat | "all">("all");
 
   const visible = useMemo(() => (cat === "all" ? BRANDS : BRANDS.filter((b) => b.cat === cat)), [cat]);
