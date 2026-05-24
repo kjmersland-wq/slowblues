@@ -414,12 +414,12 @@ function GearPage() {
           <p className="text-muted-foreground">
             {tr(lang, { no: "Mangler vi et merke? Si fra.", en: "Missing a brand? Let us know.", sv: "Saknar vi ett märke? Säg till.", de: "Fehlt eine Marke? Sag uns Bescheid." })}
           </p>
-          <a
-            href="mailto:kjell@slowblues.no"
+          <Link
+            to="/contact"
             className="inline-block mt-4 px-6 py-3 rounded-full bg-gold text-primary-foreground font-semibold hover:opacity-90 transition"
           >
-            kjell@slowblues.no
-          </a>
+            {tr(lang, { no: "Kontakt oss", en: "Contact us", sv: "Kontakta oss", de: "Kontakt aufnehmen" })}
+          </Link>
         </div>
       </section>
     </div>
