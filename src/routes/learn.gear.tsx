@@ -453,10 +453,20 @@ function BrandCard({ brand, lang }: { brand: Brand; lang: ReturnType<typeof useI
             <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mt-2">{tr(lang, brand.founded)}</p>
             {brand.founder && (
               <p className="text-[11px] text-muted-foreground/80 mt-1">
-                {tr(lang, { no: "Grunnlegger", en: "Founder", sv: "Grundare", de: "Gründer" })}: {brand.founder.name}
+                {tr(lang, { no: "Grunnlegger", en: "Founder", sv: "Grundare", de: "Gründer" })}:{" "}
+                <Link to="/learn/gear/$id" params={{ id: brand.id }} className="text-gold hover:underline">
+                  {brand.founder.name}
+                </Link>
                 {brand.founder.years ? ` (${brand.founder.years})` : ""}
               </p>
             )}
+            <Link
+              to="/learn/gear/$id"
+              params={{ id: brand.id }}
+              className="inline-block mt-2 text-[11px] uppercase tracking-[0.18em] text-gold hover:underline"
+            >
+              {tr(lang, { no: "Les hele historien →", en: "Read the full story →", sv: "Läs hela historien →", de: "Die ganze Geschichte →" })}
+            </Link>
           </div>
         </div>
         <button
