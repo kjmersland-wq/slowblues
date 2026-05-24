@@ -68,7 +68,7 @@ function FounderPage() {
             </a>
           ) : (
             <div className="size-32 sm:size-40 rounded-full border-2 border-gold/30 bg-gradient-to-br from-[oklch(0.32_0.08_25)] to-[oklch(0.18_0.04_25)] flex items-center justify-center text-gold font-display text-4xl shrink-0">
-              {f.name.split(/\s+/).slice(0, 2).map((w) => w[0]).join("")}
+              {f.name.split(/\s+/).slice(0, 2).map((w: string) => w[0]).join("")}
             </div>
           )}
           <div>

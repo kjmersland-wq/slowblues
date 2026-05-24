@@ -65,6 +65,7 @@ import { Route as AboutBlogRouteImport } from './routes/about.blog'
 import { Route as AboutAdvertiseRouteImport } from './routes/about.advertise'
 import { Route as LocaleArtistsIndexRouteImport } from './routes/$locale.artists.index'
 import { Route as QuizCycleCycleRouteImport } from './routes/quiz.cycle.$cycle'
+import { Route as LearnGearIdRouteImport } from './routes/learn.gear.$id'
 import { Route as ApiPublicFourthwallWebhookRouteImport } from './routes/api/public/fourthwall-webhook'
 import { Route as AdminArtistsNewRouteImport } from './routes/admin.artists.new'
 import { Route as AdminArtistsSlugRouteImport } from './routes/admin.artists.$slug'
@@ -353,6 +354,11 @@ const QuizCycleCycleRoute = QuizCycleCycleRouteImport.update({
   path: '/quiz/cycle/$cycle',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LearnGearIdRoute = LearnGearIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => LearnGearRoute,
+} as any)
 const ApiPublicFourthwallWebhookRoute =
   ApiPublicFourthwallWebhookRouteImport.update({
     id: '/api/public/fourthwall-webhook',
@@ -432,7 +438,7 @@ export interface FileRoutesByFullPath {
   '/concerts/$slug': typeof ConcertsSlugRoute
   '/editorial/images': typeof EditorialImagesRoute
   '/experience/media': typeof ExperienceMediaRoute
-  '/learn/gear': typeof LearnGearRoute
+  '/learn/gear': typeof LearnGearRouteWithChildren
   '/learn/styles': typeof LearnStylesRoute
   '/newsletter/$id': typeof NewsletterIdRoute
   '/newsletter/template': typeof NewsletterTemplateRoute
@@ -452,6 +458,7 @@ export interface FileRoutesByFullPath {
   '/admin/artists/$slug': typeof AdminArtistsSlugRoute
   '/admin/artists/new': typeof AdminArtistsNewRoute
   '/api/public/fourthwall-webhook': typeof ApiPublicFourthwallWebhookRoute
+  '/learn/gear/$id': typeof LearnGearIdRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
   '/$locale/artists/': typeof LocaleArtistsIndexRoute
   '/about/merch/collection/$slug': typeof AboutMerchCollectionSlugRoute
@@ -497,7 +504,7 @@ export interface FileRoutesByTo {
   '/concerts/$slug': typeof ConcertsSlugRoute
   '/editorial/images': typeof EditorialImagesRoute
   '/experience/media': typeof ExperienceMediaRoute
-  '/learn/gear': typeof LearnGearRoute
+  '/learn/gear': typeof LearnGearRouteWithChildren
   '/learn/styles': typeof LearnStylesRoute
   '/newsletter/$id': typeof NewsletterIdRoute
   '/newsletter/template': typeof NewsletterTemplateRoute
@@ -517,6 +524,7 @@ export interface FileRoutesByTo {
   '/admin/artists/$slug': typeof AdminArtistsSlugRoute
   '/admin/artists/new': typeof AdminArtistsNewRoute
   '/api/public/fourthwall-webhook': typeof ApiPublicFourthwallWebhookRoute
+  '/learn/gear/$id': typeof LearnGearIdRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
   '/$locale/artists': typeof LocaleArtistsIndexRoute
   '/about/merch/collection/$slug': typeof AboutMerchCollectionSlugRoute
@@ -563,7 +571,7 @@ export interface FileRoutesById {
   '/concerts/$slug': typeof ConcertsSlugRoute
   '/editorial/images': typeof EditorialImagesRoute
   '/experience/media': typeof ExperienceMediaRoute
-  '/learn/gear': typeof LearnGearRoute
+  '/learn/gear': typeof LearnGearRouteWithChildren
   '/learn/styles': typeof LearnStylesRoute
   '/newsletter/$id': typeof NewsletterIdRoute
   '/newsletter/template': typeof NewsletterTemplateRoute
@@ -583,6 +591,7 @@ export interface FileRoutesById {
   '/admin/artists/$slug': typeof AdminArtistsSlugRoute
   '/admin/artists/new': typeof AdminArtistsNewRoute
   '/api/public/fourthwall-webhook': typeof ApiPublicFourthwallWebhookRoute
+  '/learn/gear/$id': typeof LearnGearIdRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
   '/$locale/artists/': typeof LocaleArtistsIndexRoute
   '/about/merch/collection/$slug': typeof AboutMerchCollectionSlugRoute
@@ -650,6 +659,7 @@ export interface FileRouteTypes {
     | '/admin/artists/$slug'
     | '/admin/artists/new'
     | '/api/public/fourthwall-webhook'
+    | '/learn/gear/$id'
     | '/quiz/cycle/$cycle'
     | '/$locale/artists/'
     | '/about/merch/collection/$slug'
@@ -715,6 +725,7 @@ export interface FileRouteTypes {
     | '/admin/artists/$slug'
     | '/admin/artists/new'
     | '/api/public/fourthwall-webhook'
+    | '/learn/gear/$id'
     | '/quiz/cycle/$cycle'
     | '/$locale/artists'
     | '/about/merch/collection/$slug'
@@ -780,6 +791,7 @@ export interface FileRouteTypes {
     | '/admin/artists/$slug'
     | '/admin/artists/new'
     | '/api/public/fourthwall-webhook'
+    | '/learn/gear/$id'
     | '/quiz/cycle/$cycle'
     | '/$locale/artists/'
     | '/about/merch/collection/$slug'
@@ -826,7 +838,7 @@ export interface RootRouteChildren {
   ConcertsSlugRoute: typeof ConcertsSlugRoute
   EditorialImagesRoute: typeof EditorialImagesRoute
   ExperienceMediaRoute: typeof ExperienceMediaRoute
-  LearnGearRoute: typeof LearnGearRoute
+  LearnGearRoute: typeof LearnGearRouteWithChildren
   LearnStylesRoute: typeof LearnStylesRoute
   NewsletterIdRoute: typeof NewsletterIdRoute
   NewsletterTemplateRoute: typeof NewsletterTemplateRoute
@@ -1241,6 +1253,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuizCycleCycleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learn/gear/$id': {
+      id: '/learn/gear/$id'
+      path: '/$id'
+      fullPath: '/learn/gear/$id'
+      preLoaderRoute: typeof LearnGearIdRouteImport
+      parentRoute: typeof LearnGearRoute
+    }
     '/api/public/fourthwall-webhook': {
       id: '/api/public/fourthwall-webhook'
       path: '/api/public/fourthwall-webhook'
@@ -1321,6 +1340,18 @@ const AdminArtistsRouteWithChildren = AdminArtistsRoute._addFileChildren(
   AdminArtistsRouteChildren,
 )
 
+interface LearnGearRouteChildren {
+  LearnGearIdRoute: typeof LearnGearIdRoute
+}
+
+const LearnGearRouteChildren: LearnGearRouteChildren = {
+  LearnGearIdRoute: LearnGearIdRoute,
+}
+
+const LearnGearRouteWithChildren = LearnGearRoute._addFileChildren(
+  LearnGearRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccessibilityRoute: AccessibilityRoute,
@@ -1362,7 +1393,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConcertsSlugRoute: ConcertsSlugRoute,
   EditorialImagesRoute: EditorialImagesRoute,
   ExperienceMediaRoute: ExperienceMediaRoute,
-  LearnGearRoute: LearnGearRoute,
+  LearnGearRoute: LearnGearRouteWithChildren,
   LearnStylesRoute: LearnStylesRoute,
   NewsletterIdRoute: NewsletterIdRoute,
   NewsletterTemplateRoute: NewsletterTemplateRoute,
