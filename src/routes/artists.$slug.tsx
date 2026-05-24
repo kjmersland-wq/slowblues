@@ -5,12 +5,14 @@ import { resolveArtistImage } from "@/lib/artistImageMap";
 import { buildArtistJsonLd, buildBreadcrumb } from "@/lib/artistJsonLd";
 import { pickLang, type Lang, type ArtistRecord } from "@/lib/artists";
 import { SUPPORTED_LOCALES, artistDetailPath, DEFAULT_LOCALE } from "@/lib/locale";
+import { loadArtistForHead } from "@/lib/artistHead.functions";
 
 export const LOCALE: Lang = DEFAULT_LOCALE;
 
 export const Route = createFileRoute("/artists/$slug")({
   component: Page,
-  head: ({ params }) => buildHead(params.slug, null, LOCALE),
+  loader: ({ params }) => loadArtistForHead({ data: { slug: params.slug } }),
+  head: ({ params, loaderData }) => buildHead(params.slug, loaderData?.artist ?? null, LOCALE),
 });
 
 function Page() {
@@ -21,11 +23,14 @@ function Page() {
 export function buildHead(slug: string, a: ArtistRecord | null, locale: Lang) {
   const canonical = artistDetailPath(locale, slug);
   if (!a) {
+    const fallbackTitle = `${slug} — Blues artist profile | SlowBlues`;
+    const fallbackDesc = `Discover the blues artist ${slug} on SlowBlues — biography, discography, signature songs, videos and historical context from our curated blues archive.`;
     return {
       meta: [
-        { title: `${slug} — SlowBlues` },
-        { name: "description", content: "Blues artist profile on SlowBlues." },
-        { property: "og:title", content: `${slug} — SlowBlues` },
+        { title: fallbackTitle },
+        { name: "description", content: fallbackDesc },
+        { property: "og:title", content: fallbackTitle },
+        { property: "og:description", content: fallbackDesc },
         { property: "og:url", content: canonical },
         { property: "og:type", content: "profile" },
       ],
@@ -37,12 +42,13 @@ export function buildHead(slug: string, a: ArtistRecord | null, locale: Lang) {
     };
   }
 
-  const title = pickLang(a as any, locale, "seo_title") ?? `${a.name} — SlowBlues`;
-  const description =
+  const title = pickLang(a as any, locale, "seo_title") ?? `${a.name} — Blues artist | SlowBlues`;
+  const rawDesc =
     pickLang(a as any, locale, "seo_description") ??
     pickLang(a as any, locale, "short") ??
     a.short ??
-    `${a.name} — blues artist profile, biography, discography and videos.`;
+    `${a.name} — blues artist profile, biography, discography and videos on SlowBlues, the curated archive of blues history and culture.`;
+  const description = clampDescription(rawDesc, a.name);
   const heroImg = a.og_image ?? resolveArtistImage(a.img) ?? null;
   const jsonLd = buildArtistJsonLd(a as any, canonical, heroImg);
   const breadcrumb = buildBreadcrumb(a as any, "");
@@ -70,4 +76,15 @@ export function buildHead(slug: string, a: ArtistRecord | null, locale: Lang) {
       { type: "application/ld+json", children: JSON.stringify(breadcrumb) },
     ],
   };
+}
+
+function clampDescription(text: string, name: string): string {
+  let s = (text ?? "").replace(/\s+/g, " ").trim();
+  if (s.length < 50) {
+    s = `${s} — Read more about ${name} on SlowBlues, the curated blues archive.`.trim();
+  }
+  if (s.length > 160) {
+    s = s.slice(0, 157).replace(/\s+\S*$/, "") + "…";
+  }
+  return s;
 }
