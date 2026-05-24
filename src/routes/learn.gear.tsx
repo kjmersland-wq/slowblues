@@ -428,8 +428,8 @@ function GearPage() {
   );
 }
 
-function BrandCard({ brand, isNO, lang }: { brand: Brand; isNO: boolean; lang: ReturnType<typeof useI18n>["lang"] }) {
-  const editorial = isNO && brand.editorialNO ? brand.editorialNO : brand.editorialEN;
+function BrandCard({ brand, lang }: { brand: Brand; lang: ReturnType<typeof useI18n>["lang"] }) {
+  const editorial = tr(lang, brand.editorial);
   const ytUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(brand.ytQuery)}`;
 
   const share = () => {
