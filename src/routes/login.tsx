@@ -6,7 +6,7 @@ import { IMG } from "@/data/images";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
-  head: () => ({ meta: [{ title: "Logg inn — SlowBlues" }] }),
+  head: () => ({ meta: [{ title: "Logg inn — SlowBlues" }, { name: "robots", content: "noindex" }] }),
 });
 
 function LoginPage() {
