@@ -4,13 +4,17 @@ import { Building2, Mail, Globe, Headphones } from "lucide-react";
 
 export const Route = createFileRoute("/about/")({
   component: AboutPage,
-  head: () => ({ meta: [
-    { title: "Om SlowBlues — Norges blues-arkiv" },
-    { name: "description", content: "SlowBlues.no er et redaksjonelt arkiv for blues — 330+ artistprofiler, anmeldelser og historikk. Utgitt av KM TECH LABS, redigert av Kjell Mersland." },
-    { property: "og:title", content: "Om SlowBlues" },
-    { property: "og:description", content: "Redaksjonelt blues-arkiv utgitt av KM TECH LABS." },
-    { property: "og:type", content: "website" },
-  ]}),
+  head: () => ({
+    meta: [
+      { title: "Om SlowBlues — Norges blues-arkiv" },
+      { name: "description", content: "SlowBlues.no er et redaksjonelt arkiv for blues — 330+ artistprofiler, anmeldelser og historikk. Utgitt av KM TECH LABS, redigert av Kjell Mersland." },
+      { property: "og:title", content: "Om SlowBlues" },
+      { property: "og:description", content: "Redaksjonelt blues-arkiv utgitt av KM TECH LABS — 330+ artistprofiler, anmeldelser og historikk." },
+      { property: "og:url", content: "https://www.slowblues.no/about" },
+      { property: "og:type", content: "website" },
+    ],
+    links: [{ rel: "canonical", href: "https://www.slowblues.no/about" }],
+  }),
 });
 
 function AboutPage() {
