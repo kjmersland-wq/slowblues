@@ -31,7 +31,7 @@ export const Route = createFileRoute("/festivals")({
             "@type": "ListItem",
             position: i + 1,
             item: {
-              "@type": "Festival",
+              "@type": "MusicFestival",
               name: f.name,
               url: f.url,
               location: { "@type": "Place", name: `${f.city}, ${f.country.replace(/^\S+\s/, "")}` },
