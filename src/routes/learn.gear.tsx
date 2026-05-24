@@ -404,7 +404,7 @@ function GearPage() {
       {/* BRANDS */}
       <main className="max-w-5xl mx-auto px-5 py-12 space-y-10">
         {visible.map((b) => (
-          <BrandCard key={b.id} brand={b} isNO={isNO} lang={lang} />
+          <BrandCard key={b.id} brand={b} lang={lang} />
         ))}
       </main>
 
