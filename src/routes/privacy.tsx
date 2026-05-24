@@ -50,7 +50,7 @@ const EN: typeof NO = [
   { h: "What do we use it for?", p: "Email is used exclusively for the newsletter you signed up for. Guestbook entries are visibly published on the site. We never sell data to third parties." },
   { h: "Analytics", p: "We use anonymised page-view statistics (no identifying cookies) to understand which articles people read. No personal profile is built." },
   { h: "Images and copyright", p: "All historical images are sourced from the Library of Congress, Wikimedia Commons and other public archives under Public Domain or Creative Commons. Atmospheric images come from Unsplash under their free licence. Attribution is shown where required." },
-  { h: "Your rights", p: "You can request access to, correction of, or deletion of any data we hold about you at any time. Email hei@slowblues.no and we will respond within 14 days." },
+  { h: "Your rights", p: "You can request access to, correction of, or deletion of any data we hold about you at any time. Reach out via the contact form and we will respond within 14 days." },
   { h: "Cookies", p: "Only one local-storage value is used: your language choice (\"slowblues-lang\"). No tracking cookies." },
 ];
 
