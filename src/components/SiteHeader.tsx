@@ -111,13 +111,30 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <div className="lg:hidden border-t border-border bg-background">
-          <div className="max-w-7xl mx-auto px-5 py-4 grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
-            <Link to="/" onClick={() => setOpen(false)} className="py-2 hover:text-gold">{t.nav.home}</Link>
-            {groups.flatMap((g) => g.items).map((it) => (
-              <Link key={it.to} to={it.to as any} onClick={() => setOpen(false)} className="py-2 hover:text-gold">{it.label}</Link>
-            ))}
-            <Link to={"/reviews" as any} onClick={() => setOpen(false)} className="py-2 hover:text-gold">{t.nav.reviews}</Link>
+        <div className="lg:hidden border-t border-border bg-background max-h-[calc(100vh-3.5rem)] overflow-y-auto">
+          <div className="max-w-7xl mx-auto px-5 py-4 text-sm">
+            <div className="flex flex-wrap gap-2 pb-3 mb-3 border-b border-border">
+              <Link to="/" onClick={() => setOpen(false)} className="px-3 py-1.5 rounded-full bg-card border border-gold/20 hover:border-gold hover:text-gold">
+                {t.nav.home}
+              </Link>
+              <Link to={"/reviews" as any} onClick={() => setOpen(false)} className="px-3 py-1.5 rounded-full bg-gold/15 border border-gold text-gold font-semibold">
+                {t.nav.reviews}
+              </Link>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-x-6 gap-y-4">
+              {groups.map((g) => (
+                <div key={g.key}>
+                  <div className="text-[10px] uppercase tracking-[0.18em] text-gold/70 mb-1.5">{g.label}</div>
+                  <div className="flex flex-col">
+                    {g.items.map((it) => (
+                      <Link key={it.to} to={it.to as any} onClick={() => setOpen(false)} className="py-1.5 hover:text-gold">
+                        {it.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
