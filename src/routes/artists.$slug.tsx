@@ -23,11 +23,14 @@ function Page() {
 export function buildHead(slug: string, a: ArtistRecord | null, locale: Lang) {
   const canonical = artistDetailPath(locale, slug);
   if (!a) {
+    const fallbackTitle = `${slug} — Blues artist profile | SlowBlues`;
+    const fallbackDesc = `Discover the blues artist ${slug} on SlowBlues — biography, discography, signature songs, videos and historical context from our curated blues archive.`;
     return {
       meta: [
-        { title: `${slug} — SlowBlues` },
-        { name: "description", content: "Blues artist profile on SlowBlues." },
-        { property: "og:title", content: `${slug} — SlowBlues` },
+        { title: fallbackTitle },
+        { name: "description", content: fallbackDesc },
+        { property: "og:title", content: fallbackTitle },
+        { property: "og:description", content: fallbackDesc },
         { property: "og:url", content: canonical },
         { property: "og:type", content: "profile" },
       ],
