@@ -5,12 +5,14 @@ import { resolveArtistImage } from "@/lib/artistImageMap";
 import { buildArtistJsonLd, buildBreadcrumb } from "@/lib/artistJsonLd";
 import { pickLang, type Lang, type ArtistRecord } from "@/lib/artists";
 import { SUPPORTED_LOCALES, artistDetailPath, DEFAULT_LOCALE } from "@/lib/locale";
+import { loadArtistForHead } from "@/lib/artistHead.functions";
 
 export const LOCALE: Lang = DEFAULT_LOCALE;
 
 export const Route = createFileRoute("/artists/$slug")({
   component: Page,
-  head: ({ params }) => buildHead(params.slug, null, LOCALE),
+  loader: ({ params }) => loadArtistForHead({ data: { slug: params.slug } }),
+  head: ({ params, loaderData }) => buildHead(params.slug, loaderData?.artist ?? null, LOCALE),
 });
 
 function Page() {
