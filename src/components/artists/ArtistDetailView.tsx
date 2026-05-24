@@ -78,7 +78,18 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
                   <ArtistInitialsPlaceholder name={a.name} className="absolute inset-0" />
                 )}
               </div>
-              {ownImg && a.image_credit && <div className="text-[10px] text-muted-foreground px-2 py-1 bg-card/60">{a.image_credit}</div>}
+              {ownImg && a.image_credit && (
+                <div className={`text-[10px] px-2 py-1.5 ${a.image_credit.toLowerCase().includes('ai-generated') ? 'bg-amber-500/10 border-t border-amber-500/30 text-amber-300' : 'bg-card/60 text-muted-foreground'}`}>
+                  {a.image_credit.toLowerCase().includes('ai-generated') ? (
+                    <span className="flex items-center gap-1.5">
+                      <Sparkles className="size-3" />
+                      AI-generated historical interpretation — no original photograph available
+                    </span>
+                  ) : (
+                    a.image_credit
+                  )}
+                </div>
+              )}
             </div>
             <div>
               <div className="inline-block text-xs tracking-[0.3em] text-gold uppercase mb-2 px-3 py-1 rounded-md bg-gold/10 border border-gold/30">

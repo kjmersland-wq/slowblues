@@ -122,13 +122,20 @@ export function ArtistListView({ locale }: { locale: ArtistLocale }) {
                   <>
                     <SafeImage src={img} alt="" className="absolute inset-0 size-full object-cover blur-xl scale-110 opacity-40" loading="lazy" />
                     <SafeImage src={img} alt={a.name} loading="lazy" className="relative size-full object-contain group-hover:scale-[1.03] transition duration-700" />
-                    <span
-                      title={`Photo: ${a.image_credit ?? "Wikimedia Commons"}`}
-                      aria-label={`Photo: ${a.image_credit ?? "Wikimedia Commons"}`}
-                      className="absolute bottom-1.5 right-1.5 size-5 rounded-full bg-black/60 text-gold text-[11px] font-bold flex items-center justify-center opacity-0 group-hover:opacity-100 transition"
-                    >
-                      i
-                    </span>
+                    {a.image_credit?.toLowerCase().includes('ai-generated') && (
+                      <div className="absolute bottom-0 inset-x-0 bg-black/70 text-[10px] text-amber-300 px-2 py-1 text-center backdrop-blur-sm">
+                        AI-generated interpretation
+                      </div>
+                    )}
+                    {!a.image_credit?.toLowerCase().includes('ai-generated') && (
+                      <span
+                        title={`Photo: ${a.image_credit ?? "Wikimedia Commons"}`}
+                        aria-label={`Photo: ${a.image_credit ?? "Wikimedia Commons"}`}
+                        className="absolute bottom-1.5 right-1.5 size-5 rounded-full bg-black/60 text-gold text-[11px] font-bold flex items-center justify-center opacity-0 group-hover:opacity-100 transition"
+                      >
+                        i
+                      </span>
+                    )}
                   </>
                 ) : (
                   <ArtistInitialsPlaceholder name={a.name} className="absolute inset-0" />
