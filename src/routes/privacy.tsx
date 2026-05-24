@@ -59,6 +59,6 @@ const DE: typeof NO = [
   { h: "Wofür verwenden wir die Daten?", p: "Die E-Mail-Adresse wird ausschließlich für den abonnierten Newsletter verwendet. Gästebuch-Einträge werden sichtbar veröffentlicht. Wir verkaufen niemals Daten an Dritte." },
   { h: "Analyse", p: "Wir nutzen anonymisierte Besucherstatistiken (keine identifizierenden Cookies). Es wird kein persönliches Profil erstellt." },
   { h: "Bilder und Urheberrecht", p: "Alle historischen Bilder stammen aus der Library of Congress, Wikimedia Commons und anderen öffentlichen Archiven unter Public Domain oder Creative Commons. Atmosphärische Bilder von Unsplash unter deren freier Lizenz. Attribution wird wo nötig angezeigt." },
-  { h: "Deine Rechte", p: "Du kannst jederzeit Auskunft, Korrektur oder Löschung der über dich gespeicherten Daten verlangen. E-Mail an hei@slowblues.no — Antwort innerhalb von 14 Tagen." },
+  { h: "Deine Rechte", p: "Du kannst jederzeit Auskunft, Korrektur oder Löschung der über dich gespeicherten Daten verlangen. Sende uns deine Anfrage über das Kontaktformular — Antwort innerhalb von 14 Tagen." },
   { h: "Cookies", p: "Nur ein lokaler Speicherwert wird verwendet: deine Sprachwahl (\"slowblues-lang\"). Keine Tracking-Cookies." },
 ];
