@@ -31,7 +31,7 @@ export const Route = createFileRoute("/learn/gear")({
               "@id": `https://www.slowblues.no/learn/gear#${b.id}`,
               name: b.name,
               url: b.url,
-              description: b.editorialEN.slice(0, 240),
+              description: b.editorial.en.slice(0, 240),
               ...(b.founder ? { founder: { "@type": "Person", name: b.founder.name } } : {}),
             },
           })),
