@@ -447,11 +447,7 @@ function BrandCard({ brand, lang }: { brand: Brand; lang: ReturnType<typeof useI
     >
       <header className="flex flex-wrap items-start justify-between gap-4 border-b border-border pb-5">
         <div className="flex items-center gap-4">
-          {brand.founder && (
-            <Link to="/learn/gear/$id" params={{ id: brand.id }} className="block shrink-0">
-              <FounderAvatar founder={brand.founder} />
-            </Link>
-          )}
+          {brand.founder && <FounderAvatar founder={brand.founder} />}
           <div>
             <h2 className="font-display text-3xl sm:text-4xl text-gold">{brand.name}</h2>
             <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mt-2">{tr(lang, brand.founded)}</p>
