@@ -12,7 +12,7 @@ import {
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { IMG } from "@/data/images";
-import { useI18n } from "@/i18n";
+import { useI18n, tr, type Lang } from "@/i18n";
 import heroJukeImg from "@/assets/hero-juke.jpg";
 import heroDeltaImg from "@/assets/hero-delta.jpg";
 import heroGuitarImg from "@/assets/hero-guitar.jpg";
@@ -48,79 +48,204 @@ const FALLBACK_TICKER: TickerItem[] = [
   { id: "fb-2", kind: "editorial", label: "EXPLORE", text: "Dive into the full artist archive — from Delta to Chicago to Scandinavia.", href: "/artists", timestamp: new Date().toISOString(), priority: 1 },
 ];
 
-const heroSlides = [
-  {
-    img: heroJuke,
-    eyebrow: "The Slow, Soulful Roots",
-    title: "SLOWBLUES",
-    titleAccent: "Where the blues began",
-    quote: "«The blues are the roots, everything else is the fruits.»",
-    attr: "— Willie Dixon",
-    body: "330+ artist profiles. Step into Chicago. The history, pioneers and sound that laid the foundation for rock, jazz and everything that came after.",
-    showButtons: true,
-  },
-  {
-    img: heroCotton,
-    eyebrow: "Delta & Chicago",
-    title: "A TIMELESS TRIBUTE",
-    titleAccent: "to the raw soul of Delta & Chicago Blues",
-    quote: "From the cotton fields to the global stage — the real roots of modern music.",
-    attr: "",
-    body: "",
-    showButtons: false,
-  },
-  {
-    img: heroGuitar,
-    eyebrow: "Slide & Resonator",
-    title: "THE SOUND OF SOUL",
-    titleAccent: "steel strings, brass cones, slow heartbeats",
-    quote: "«When you play the blues, you tell the truth about life.»",
-    attr: "— B.B. King",
-    body: "",
-    showButtons: false,
-  },
-];
+function getHeroSlides(lang: Lang) {
+  return [
+    {
+      img: heroJuke,
+      eyebrow: tr(lang, { no: "De langsomme, sjelfulle røttene", en: "The Slow, Soulful Roots", sv: "De långsamma, själfulla rötterna", de: "Die langsamen, seelenvollen Wurzeln" }),
+      title: "SLOWBLUES",
+      titleAccent: tr(lang, { no: "Der bluesen begynte", en: "Where the blues began", sv: "Där bluesen började", de: "Wo der Blues begann" }),
+      quote: tr(lang, {
+        no: "«Bluesen er røttene, alt annet er fruktene.»",
+        en: "«The blues are the roots, everything else is the fruits.»",
+        sv: "«Bluesen är rötterna, allt annat är frukterna.»",
+        de: "«Der Blues ist die Wurzel, alles andere sind die Früchte.»",
+      }),
+      attr: "— Willie Dixon",
+      body: tr(lang, {
+        no: "330+ artistprofiler. Tre inn i Chicago. Historien, pionerene og lyden som la grunnlaget for rock, jazz og alt som kom etter.",
+        en: "330+ artist profiles. Step into Chicago. The history, pioneers and sound that laid the foundation for rock, jazz and everything that came after.",
+        sv: "330+ artistprofiler. Stig in i Chicago. Historien, pionjärerna och ljudet som lade grunden för rock, jazz och allt som kom efter.",
+        de: "330+ Künstlerprofile. Tritt ein in Chicago. Die Geschichte, Pioniere und der Klang, der den Grundstein für Rock, Jazz und alles Spätere legte.",
+      }),
+      showButtons: true,
+    },
+    {
+      img: heroCotton,
+      eyebrow: tr(lang, { no: "Delta & Chicago", en: "Delta & Chicago", sv: "Delta & Chicago", de: "Delta & Chicago" }),
+      title: tr(lang, { no: "EN TIDLØS HYLLEST", en: "A TIMELESS TRIBUTE", sv: "EN TIDLÖS HYLLNING", de: "EINE ZEITLOSE HOMMAGE" }),
+      titleAccent: tr(lang, {
+        no: "til den rå sjelen i Delta- og Chicago-bluesen",
+        en: "to the raw soul of Delta & Chicago Blues",
+        sv: "till den råa själen i Delta- och Chicago-bluesen",
+        de: "an die rohe Seele des Delta- und Chicago-Blues",
+      }),
+      quote: tr(lang, {
+        no: "Fra bomullsmarkene til verdens scener — de virkelige røttene til moderne musikk.",
+        en: "From the cotton fields to the global stage — the real roots of modern music.",
+        sv: "Från bomullsfälten till världens scener — de verkliga rötterna till modern musik.",
+        de: "Von den Baumwollfeldern auf die Bühnen der Welt — die echten Wurzeln moderner Musik.",
+      }),
+      attr: "",
+      body: "",
+      showButtons: false,
+    },
+    {
+      img: heroGuitar,
+      eyebrow: tr(lang, { no: "Slide & resonator", en: "Slide & Resonator", sv: "Slide & resonator", de: "Slide & Resonator" }),
+      title: tr(lang, { no: "LYDEN AV SJEL", en: "THE SOUND OF SOUL", sv: "LJUDET AV SJÄL", de: "DER KLANG DER SEELE" }),
+      titleAccent: tr(lang, {
+        no: "stålstrenger, messingkoner, langsomme hjerteslag",
+        en: "steel strings, brass cones, slow heartbeats",
+        sv: "stålsträngar, mässingkoner, långsamma hjärtslag",
+        de: "Stahlsaiten, Messingkonen, langsame Herzschläge",
+      }),
+      quote: tr(lang, {
+        no: "«Når du spiller blues, forteller du sannheten om livet.»",
+        en: "«When you play the blues, you tell the truth about life.»",
+        sv: "«När du spelar blues berättar du sanningen om livet.»",
+        de: "«Wenn du Blues spielst, erzählst du die Wahrheit über das Leben.»",
+      }),
+      attr: "— B.B. King",
+      body: "",
+      showButtons: false,
+    },
+  ];
+}
 
-const pioneers = [
-  {
-    img: robertJohnson, icon: Music, tag: "The Crossroads Legend",
-    name: "Robert Johnson",
-    desc: "Only 29 recordings, but he defined the Delta blues sound and inspired generations of rock musicians.",
-  },
-  {
-    img: muddyWaters, icon: Radio, tag: "Father of Chicago Blues",
-    name: "Muddy Waters",
-    desc: "Electrified the Delta sound and became the bridge between acoustic roots and modern blues-rock.",
-  },
-  {
-    img: sonHouse, icon: Mic, tag: "The Preacher's Blues",
-    name: "Son House",
-    desc: "Raw, emotional slide guitar and spiritual intensity that directly influenced Robert Johnson.",
-  },
-];
+function getPioneers(lang: Lang) {
+  return [
+    {
+      img: robertJohnson, icon: Music,
+      tag: tr(lang, { no: "Korsveis-legenden", en: "The Crossroads Legend", sv: "Korsvägslegenden", de: "Die Crossroads-Legende" }),
+      name: "Robert Johnson",
+      desc: tr(lang, {
+        no: "Kun 29 innspillinger, men han definerte Delta-blueslyden og inspirerte generasjoner av rockemusikere.",
+        en: "Only 29 recordings, but he defined the Delta blues sound and inspired generations of rock musicians.",
+        sv: "Bara 29 inspelningar, men han definierade Delta-bluesens ljud och inspirerade generationer av rockmusiker.",
+        de: "Nur 29 Aufnahmen, doch er definierte den Delta-Blues-Sound und inspirierte Generationen von Rockmusikern.",
+      }),
+    },
+    {
+      img: muddyWaters, icon: Radio,
+      tag: tr(lang, { no: "Chicago-bluesens far", en: "Father of Chicago Blues", sv: "Chicago-bluesens fader", de: "Vater des Chicago-Blues" }),
+      name: "Muddy Waters",
+      desc: tr(lang, {
+        no: "Elektrifiserte Delta-lyden og ble broen mellom akustiske røtter og moderne bluesrock.",
+        en: "Electrified the Delta sound and became the bridge between acoustic roots and modern blues-rock.",
+        sv: "Elektrifierade Delta-ljudet och blev bron mellan akustiska rötter och modern bluesrock.",
+        de: "Elektrifizierte den Delta-Sound und wurde zur Brücke zwischen akustischen Wurzeln und modernem Blues-Rock.",
+      }),
+    },
+    {
+      img: sonHouse, icon: Mic,
+      tag: tr(lang, { no: "Predikantens blues", en: "The Preacher's Blues", sv: "Predikantens blues", de: "Der Blues des Predigers" }),
+      name: "Son House",
+      desc: tr(lang, {
+        no: "Rå, emosjonell slidegitar og åndelig intensitet som direkte påvirket Robert Johnson.",
+        en: "Raw, emotional slide guitar and spiritual intensity that directly influenced Robert Johnson.",
+        sv: "Rå, känslomässig slidegitarr och andlig intensitet som direkt påverkade Robert Johnson.",
+        de: "Rohe, emotionale Slide-Gitarre und spirituelle Intensität, die Robert Johnson direkt beeinflussten.",
+      }),
+    },
+  ];
+}
 
-const timeline = [
-  { year: "1890", title: "The Blues Takes Shape", body: "The blues form begins to crystallize in the Mississippi Delta region. Work songs, field hollers, spirituals and African musical traditions blend into one." },
-  { year: "1920", title: "First Blues Recording", body: "Mamie Smith records 'Crazy Blues' for Okeh Records — the first blues recording by an African American artist. It sells over 75,000 copies in the first month." },
-  { year: "1936", title: "Robert Johnson Sessions", body: "Robert Johnson records his legendary sessions in San Antonio, Texas at the Gunter Hotel. These 29 songs would become the most influential blues recordings of all time." },
-  { year: "1947", title: "Chess Records Founded", body: "Leonard and Phil Chess establish Chess Records in Chicago (originally Aristocrat). The label would become the most important blues record company in history." },
-  { year: "1958", title: "Muddy Waters Tours Britain", body: "Muddy Waters' electric performances shock British audiences expecting acoustic folk-blues. This tour ignites the British blues boom and inspires a generation." },
-  { year: "1962", title: "Rolling Stones Formed", body: "The Rolling Stones form in London, named after Muddy Waters' song. They and other British bands would soon bring the blues to a worldwide rock audience." },
-];
+function getTimeline(lang: Lang) {
+  return [
+    { year: "1890",
+      title: tr(lang, { no: "Bluesen tar form", en: "The Blues Takes Shape", sv: "Bluesen tar form", de: "Der Blues nimmt Gestalt an" }),
+      body: tr(lang, {
+        no: "Bluesformen begynner å krystallisere seg i Mississippi-deltaet. Arbeidssanger, field hollers, spirituals og afrikanske musikktradisjoner smelter sammen.",
+        en: "The blues form begins to crystallize in the Mississippi Delta region. Work songs, field hollers, spirituals and African musical traditions blend into one.",
+        sv: "Bluesformen börjar kristalliseras i Mississippi-deltat. Arbetssånger, field hollers, spirituals och afrikanska musiktraditioner smälter samman.",
+        de: "Die Blues-Form beginnt sich im Mississippi-Delta zu formen. Arbeitslieder, Field Hollers, Spirituals und afrikanische Musiktraditionen verschmelzen.",
+      })},
+    { year: "1920",
+      title: tr(lang, { no: "Første blues-innspilling", en: "First Blues Recording", sv: "Första blues-inspelningen", de: "Erste Blues-Aufnahme" }),
+      body: tr(lang, {
+        no: "Mamie Smith spiller inn 'Crazy Blues' for Okeh Records — den første blues-innspillingen av en afroamerikansk artist. Den selger over 75 000 eksemplarer på en måned.",
+        en: "Mamie Smith records 'Crazy Blues' for Okeh Records — the first blues recording by an African American artist. It sells over 75,000 copies in the first month.",
+        sv: "Mamie Smith spelar in 'Crazy Blues' för Okeh Records — den första blues-inspelningen av en afroamerikansk artist. Den säljer över 75 000 exemplar på en månad.",
+        de: "Mamie Smith nimmt 'Crazy Blues' für Okeh Records auf — die erste Blues-Aufnahme einer afroamerikanischen Künstlerin. Über 75.000 Exemplare im ersten Monat.",
+      })},
+    { year: "1936",
+      title: tr(lang, { no: "Robert Johnsons innspillinger", en: "Robert Johnson Sessions", sv: "Robert Johnson-sessionerna", de: "Robert-Johnson-Sessions" }),
+      body: tr(lang, {
+        no: "Robert Johnson spiller inn sine legendariske sesjoner i San Antonio, Texas på Gunter Hotel. Disse 29 sangene skulle bli de mest innflytelsesrike blues-innspillingene noensinne.",
+        en: "Robert Johnson records his legendary sessions in San Antonio, Texas at the Gunter Hotel. These 29 songs would become the most influential blues recordings of all time.",
+        sv: "Robert Johnson spelar in sina legendariska sessioner i San Antonio, Texas på Gunter Hotel. Dessa 29 låtar skulle bli tidernas mest inflytelserika blues-inspelningar.",
+        de: "Robert Johnson nimmt seine legendären Sessions im Gunter Hotel in San Antonio, Texas auf. Diese 29 Songs werden zu den einflussreichsten Blues-Aufnahmen aller Zeiten.",
+      })},
+    { year: "1947",
+      title: tr(lang, { no: "Chess Records grunnlegges", en: "Chess Records Founded", sv: "Chess Records grundas", de: "Chess Records gegründet" }),
+      body: tr(lang, {
+        no: "Leonard og Phil Chess etablerer Chess Records i Chicago (opprinnelig Aristocrat). Selskapet skulle bli det viktigste blues-plateselskapet i historien.",
+        en: "Leonard and Phil Chess establish Chess Records in Chicago (originally Aristocrat). The label would become the most important blues record company in history.",
+        sv: "Leonard och Phil Chess etablerar Chess Records i Chicago (ursprungligen Aristocrat). Bolaget skulle bli historiens viktigaste blues-skivbolag.",
+        de: "Leonard und Phil Chess gründen Chess Records in Chicago (ursprünglich Aristocrat). Das Label wird zum wichtigsten Blues-Label der Geschichte.",
+      })},
+    { year: "1958",
+      title: tr(lang, { no: "Muddy Waters turnerer Storbritannia", en: "Muddy Waters Tours Britain", sv: "Muddy Waters turnerar i Storbritannien", de: "Muddy Waters tourt durch Großbritannien" }),
+      body: tr(lang, {
+        no: "Muddy Waters' elektriske opptredener sjokkerer britisk publikum som ventet akustisk folk-blues. Turen tenner den britiske blues-bølgen.",
+        en: "Muddy Waters' electric performances shock British audiences expecting acoustic folk-blues. This tour ignites the British blues boom and inspires a generation.",
+        sv: "Muddy Waters elektriska framträdanden chockar brittisk publik som väntat sig akustisk folk-blues. Turnén tänder den brittiska blues-boomen.",
+        de: "Muddy Waters' elektrische Auftritte schockieren das britische Publikum, das akustischen Folk-Blues erwartete. Die Tour entfacht den britischen Blues-Boom.",
+      })},
+    { year: "1962",
+      title: tr(lang, { no: "Rolling Stones dannes", en: "Rolling Stones Formed", sv: "Rolling Stones bildas", de: "Rolling Stones gegründet" }),
+      body: tr(lang, {
+        no: "The Rolling Stones dannes i London, oppkalt etter Muddy Waters-sangen. De og andre britiske band ville snart bringe bluesen ut til et globalt rockepublikum.",
+        en: "The Rolling Stones form in London, named after Muddy Waters' song. They and other British bands would soon bring the blues to a worldwide rock audience.",
+        sv: "The Rolling Stones bildas i London, uppkallat efter Muddy Waters låt. De och andra brittiska band skulle snart föra ut bluesen till en global rockpublik.",
+        de: "Die Rolling Stones formieren sich in London, benannt nach Muddy Waters' Song. Sie und andere britische Bands bringen den Blues bald zum weltweiten Rockpublikum.",
+      })},
+  ];
+}
 
-const voices = [
-  { tag: "Chicago", name: "Lonnie Johnson", years: "1920s–1970", desc: "Lonnie Johnson was one of the most influential and innovative guitarists in...", color: "from-amber-900/60 to-stone-900" },
-  { tag: "Chicago", name: "King Biscuit Boy", years: "1961–2003", desc: "King Biscuit Boy, born Richard Alfred Newell in Hamilton, Ontario, was one of Canada's most...", color: "from-stone-800 to-stone-900" },
-  { tag: "Chicago", name: "Sue Foley", years: "1988–present", desc: "Sue Foley is a Canadian-born blues guitarist, vocalist and songwriter who has been a...", color: "from-rose-900/60 to-stone-900" },
-  { tag: "Chicago", name: "Colin James", years: "1985–present", desc: "Colin James is one of Canada's most successful and versatile blues-rock artists, with a career...", color: "from-stone-800 to-stone-900" },
-];
+function getVoices(lang: Lang) {
+  const tag = tr(lang, { no: "Chicago", en: "Chicago", sv: "Chicago", de: "Chicago" });
+  return [
+    { tag, name: "Lonnie Johnson", years: tr(lang, { no: "1920-tallet–1970", en: "1920s–1970", sv: "1920-talet–1970", de: "1920er–1970" }),
+      desc: tr(lang, {
+        no: "Lonnie Johnson var en av de mest innflytelsesrike og nyskapende gitaristene i …",
+        en: "Lonnie Johnson was one of the most influential and innovative guitarists in...",
+        sv: "Lonnie Johnson var en av de mest inflytelserika och nyskapande gitarristerna i …",
+        de: "Lonnie Johnson war einer der einflussreichsten und innovativsten Gitarristen …",
+      }), color: "from-amber-900/60 to-stone-900" },
+    { tag, name: "King Biscuit Boy", years: "1961–2003",
+      desc: tr(lang, {
+        no: "King Biscuit Boy, født Richard Alfred Newell i Hamilton, Ontario, var en av Canadas mest …",
+        en: "King Biscuit Boy, born Richard Alfred Newell in Hamilton, Ontario, was one of Canada's most...",
+        sv: "King Biscuit Boy, född Richard Alfred Newell i Hamilton, Ontario, var en av Kanadas mest …",
+        de: "King Biscuit Boy, geboren als Richard Alfred Newell in Hamilton, Ontario, war einer der bekanntesten kanadischen …",
+      }), color: "from-stone-800 to-stone-900" },
+    { tag, name: "Sue Foley", years: tr(lang, { no: "1988–i dag", en: "1988–present", sv: "1988–idag", de: "1988–heute" }),
+      desc: tr(lang, {
+        no: "Sue Foley er en kanadiskfødt bluesgitarist, vokalist og låtskriver som har vært en …",
+        en: "Sue Foley is a Canadian-born blues guitarist, vocalist and songwriter who has been a...",
+        sv: "Sue Foley är en kanadensiskfödd bluesgitarrist, vokalist och låtskrivare som varit en …",
+        de: "Sue Foley ist eine in Kanada geborene Blues-Gitarristin, Sängerin und Songwriterin, die seit …",
+      }), color: "from-rose-900/60 to-stone-900" },
+    { tag, name: "Colin James", years: tr(lang, { no: "1985–i dag", en: "1985–present", sv: "1985–idag", de: "1985–heute" }),
+      desc: tr(lang, {
+        no: "Colin James er en av Canadas mest suksessrike og allsidige blues-rock-artister, med en karriere …",
+        en: "Colin James is one of Canada's most successful and versatile blues-rock artists, with a career...",
+        sv: "Colin James är en av Kanadas mest framgångsrika och mångsidiga blues-rock-artister, med en karriär …",
+        de: "Colin James ist einer der erfolgreichsten und vielseitigsten Blues-Rock-Künstler Kanadas, mit einer Karriere …",
+      }), color: "from-stone-800 to-stone-900" },
+  ];
+}
 
 function Home() {
+  const { lang } = useI18n();
+  const heroSlides = useMemo(() => getHeroSlides(lang), [lang]);
   const [slide, setSlide] = useState(0);
   useEffect(() => {
     const t = setInterval(() => setSlide((s) => (s + 1) % heroSlides.length), 8000);
     return () => clearInterval(t);
-  }, []);
+  }, [heroSlides.length]);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -133,7 +258,7 @@ function Home() {
             key={i}
             className={`${i === slide ? "opacity-100" : "opacity-0 pointer-events-none absolute inset-0"} transition-opacity duration-1000`}
           >
-            <HeroSlide {...s} active={i === slide} isPrimary={i === 0} />
+            <HeroSlide {...s} active={i === slide} isPrimary={i === 0} lang={lang} />
           </div>
         ))}
         <button
@@ -172,8 +297,19 @@ function Home() {
 
 /* ───────── components ───────── */
 
-function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showButtons, credit, active, isPrimary }: any) {
+function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showButtons, credit, active, isPrimary, lang }: any) {
   const HeadingTag: any = isPrimary ? "h1" : "h2";
+  const tributeJsx = (
+    <>
+      {tr(lang, {
+        no: "En tidløs hyllest til den rå sjelen i ",
+        en: "A timeless tribute to the raw soul of ",
+        sv: "En tidlös hyllning till den råa själen i ",
+        de: "Eine zeitlose Hommage an die rohe Seele des ",
+      })}
+      <span className="text-gold">{tr(lang, { no: "Delta- og Chicago-bluesen", en: "Delta & Chicago Blues", sv: "Delta- och Chicago-bluesen", de: "Delta- und Chicago-Blues" })}</span>
+    </>
+  );
   return (
     <div className="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
       <img
@@ -202,9 +338,7 @@ function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showBu
           </div>
         )}
         <HeadingTag className="font-display font-black tracking-tight text-6xl md:text-8xl gold-gradient-text leading-none">
-          {showButtons ? title : (
-            <>A timeless tribute to the raw soul of <span className="text-gold">Delta & Chicago Blues</span></>
-          )}
+          {showButtons ? title : tributeJsx}
         </HeadingTag>
         {showButtons && (
           <div className="mt-4 font-display text-2xl md:text-3xl text-foreground/90">{titleAccent}</div>
@@ -217,13 +351,13 @@ function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showBu
         {showButtons && (
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <a href="#voices" className="px-7 py-3.5 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition">
-              Explore 330+ artists
+              {tr(lang, { no: "Utforsk 330+ artister", en: "Explore 330+ artists", sv: "Utforska 330+ artister", de: "330+ Künstler entdecken" })}
             </a>
             <a href="#support" className="px-7 py-3.5 rounded-md border border-gold/60 text-foreground hover:bg-gold/10 transition flex items-center gap-2">
-              <ShoppingBag className="size-4" /> Shop Blues Merch
+              <ShoppingBag className="size-4" /> {tr(lang, { no: "Kjøp blues-merch", en: "Shop Blues Merch", sv: "Köp blues-merch", de: "Blues-Merch kaufen" })}
             </a>
             <a href="#" className="px-7 py-3.5 rounded-md border border-gold/40 text-foreground hover:bg-gold/10 transition flex items-center gap-2">
-              <Play className="size-4" /> Listen
+              <Play className="size-4" /> {tr(lang, { no: "Lytt", en: "Listen", sv: "Lyssna", de: "Hören" })}
             </a>
           </div>
         )}
@@ -233,7 +367,7 @@ function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showBu
           </div>
         )}
         <div className="mt-16 flex flex-col items-center gap-2 text-xs tracking-[0.3em] text-muted-foreground">
-          SCROLL
+          {tr(lang, { no: "RULL", en: "SCROLL", sv: "RULLA", de: "SCROLLEN" })}
           <ChevronDown className="size-4 animate-bounce-slow text-gold" />
         </div>
       </div>
@@ -246,12 +380,11 @@ function Ticker() {
   const { data } = useQuery({
     queryKey: ["news-ticker"],
     queryFn: () => fetchTicker(),
-    staleTime: 30 * 60 * 1000,         // 30 min fresh
-    refetchInterval: 60 * 60 * 1000,    // refetch every hour
+    staleTime: 30 * 60 * 1000,
+    refetchInterval: 60 * 60 * 1000,
     refetchOnWindowFocus: true,
   });
 
-  // Merge in latest blog highlights (client-bundled, no DB call)
   const blogItems: TickerItem[] = useMemo(() => {
     return [...blogArticles]
       .sort((a, b) => (b.publishedDate ?? "").localeCompare(a.publishedDate ?? ""))
@@ -270,7 +403,6 @@ function Ticker() {
   const merged: TickerItem[] = useMemo(() => {
     const base = data?.items?.length ? data.items : FALLBACK_TICKER;
     const all = [...base, ...blogItems];
-    // de-dupe by id
     const seen = new Set<string>();
     const unique = all.filter((i) => (seen.has(i.id) ? false : (seen.add(i.id), true)));
     unique.sort((a, b) => {
@@ -280,7 +412,6 @@ function Ticker() {
     return unique.slice(0, 36);
   }, [data, blogItems]);
 
-  // Duplicate the list so the marquee loops seamlessly
   const loop = [...merged, ...merged];
 
   const accent = (k: TickerItem["kind"]) => {
@@ -321,16 +452,30 @@ function Ticker() {
 }
 
 function Join() {
+  const { lang } = useI18n();
   const items = [
-    { icon: ShoppingBag, title: "Blues Merch", desc: "T-shirts, posters and vinyl for the true blues fan.", to: "/about/merch" },
-    { icon: HelpCircle, title: "Blues Quiz", desc: "Think you know your blues? Prove it.", to: "/quiz" },
-    { icon: BookOpen, title: "Guestbook", desc: "Leave your mark. Tell us your blues story.", to: "/guestbook" },
+    { icon: ShoppingBag,
+      title: tr(lang, { no: "Blues-merch", en: "Blues Merch", sv: "Blues-merch", de: "Blues-Merch" }),
+      desc: tr(lang, { no: "T-skjorter, plakater og vinyl for den ekte bluesfanen.", en: "T-shirts, posters and vinyl for the true blues fan.", sv: "T-shirts, posters och vinyl för den äkta bluesfantasten.", de: "T-Shirts, Poster und Vinyl für den echten Blues-Fan." }),
+      to: "/about/merch" },
+    { icon: HelpCircle,
+      title: tr(lang, { no: "Blues-quiz", en: "Blues Quiz", sv: "Blues-quiz", de: "Blues-Quiz" }),
+      desc: tr(lang, { no: "Tror du at du kan bluesen din? Bevis det.", en: "Think you know your blues? Prove it.", sv: "Tror du att du kan din blues? Bevisa det.", de: "Glaubst du, du kennst deinen Blues? Beweise es." }),
+      to: "/quiz" },
+    { icon: BookOpen,
+      title: tr(lang, { no: "Gjestebok", en: "Guestbook", sv: "Gästbok", de: "Gästebuch" }),
+      desc: tr(lang, { no: "Sett ditt avtrykk. Fortell oss din blues-historie.", en: "Leave your mark. Tell us your blues story.", sv: "Sätt ditt avtryck. Berätta din blues-historia.", de: "Hinterlasse deine Spur. Erzähl uns deine Blues-Geschichte." }),
+      to: "/guestbook" },
   ] as const;
   return (
     <section className="py-24 px-6 max-w-7xl mx-auto">
       <div className="text-center mb-14">
-        <h2 className="font-display text-5xl gold-gradient-text">Join In</h2>
-        <p className="mt-3 text-muted-foreground">More than a website — a community for the blues.</p>
+        <h2 className="font-display text-5xl gold-gradient-text">
+          {tr(lang, { no: "Bli med", en: "Join In", sv: "Var med", de: "Mach mit" })}
+        </h2>
+        <p className="mt-3 text-muted-foreground">
+          {tr(lang, { no: "Mer enn en nettside — et fellesskap for bluesen.", en: "More than a website — a community for the blues.", sv: "Mer än en webbplats — en gemenskap för bluesen.", de: "Mehr als eine Website — eine Gemeinschaft für den Blues." })}
+        </p>
       </div>
       <div className="grid md:grid-cols-3 gap-6">
         {items.map((it) => (
@@ -345,7 +490,7 @@ function Join() {
             <h3 className="font-display text-2xl mb-2">{it.title}</h3>
             <p className="text-sm text-muted-foreground">{it.desc}</p>
             <div className="mt-5 text-sm text-gold flex items-center justify-center gap-1 group-hover:gap-2 transition-all">
-              Go <ArrowRight className="size-4" />
+              {tr(lang, { no: "Gå", en: "Go", sv: "Gå", de: "Los" })} <ArrowRight className="size-4" />
             </div>
           </Link>
         ))}
@@ -356,13 +501,31 @@ function Join() {
 
 
 function ThreeNames() {
-  const aiNote = "AI-generated historical interpretation";
+  const { lang } = useI18n();
+  const aiNote = tr(lang, {
+    no: "AI-generert historisk tolkning",
+    en: "AI-generated historical interpretation",
+    sv: "AI-genererad historisk tolkning",
+    de: "KI-generierte historische Interpretation",
+  });
+  const pioneers = useMemo(() => getPioneers(lang), [lang]);
   return (
     <section className="py-20 px-6 max-w-7xl mx-auto">
       <div className="text-center mb-12">
-        <div className="text-xs tracking-[0.3em] text-destructive uppercase mb-3">Start Here</div>
-        <h2 className="font-display text-5xl">Three names you must know</h2>
-        <p className="mt-3 text-muted-foreground">Without them — no Rolling Stones. No Led Zeppelin. No rock guitar as we know it.</p>
+        <div className="text-xs tracking-[0.3em] text-destructive uppercase mb-3">
+          {tr(lang, { no: "Start her", en: "Start Here", sv: "Börja här", de: "Hier anfangen" })}
+        </div>
+        <h2 className="font-display text-5xl">
+          {tr(lang, { no: "Tre navn du må kjenne", en: "Three names you must know", sv: "Tre namn du måste känna till", de: "Drei Namen, die du kennen musst" })}
+        </h2>
+        <p className="mt-3 text-muted-foreground">
+          {tr(lang, {
+            no: "Uten dem — ingen Rolling Stones. Ingen Led Zeppelin. Ingen rockegitar slik vi kjenner den.",
+            en: "Without them — no Rolling Stones. No Led Zeppelin. No rock guitar as we know it.",
+            sv: "Utan dem — inga Rolling Stones. Inget Led Zeppelin. Ingen rockgitarr som vi känner den.",
+            de: "Ohne sie — keine Rolling Stones. Kein Led Zeppelin. Keine Rockgitarre, wie wir sie kennen.",
+          })}
+        </p>
       </div>
       <div className="grid md:grid-cols-3 gap-6">
         {pioneers.map((p) => (
@@ -382,7 +545,7 @@ function ThreeNames() {
               <h3 className="font-display text-2xl mb-3">{p.name}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
               <a href="#" className="mt-4 inline-flex items-center gap-1 text-sm text-gold hover:gap-2 transition-all">
-                Explore profile <ArrowRight className="size-4" />
+                {tr(lang, { no: "Utforsk profil", en: "Explore profile", sv: "Utforska profil", de: "Profil entdecken" })} <ArrowRight className="size-4" />
               </a>
             </div>
           </article>
@@ -390,7 +553,7 @@ function ThreeNames() {
       </div>
       <div className="text-center mt-12">
         <a href="#" className="inline-flex items-center gap-2 px-7 py-3 rounded-md border border-gold/60 text-gold hover:bg-gold/10 transition">
-          See all artists <ArrowRight className="size-4" />
+          {tr(lang, { no: "Se alle artister", en: "See all artists", sv: "Se alla artister", de: "Alle Künstler sehen" })} <ArrowRight className="size-4" />
         </a>
       </div>
     </section>
@@ -398,17 +561,32 @@ function ThreeNames() {
 }
 
 function SupportBanner() {
+  const { lang } = useI18n();
   return (
     <section id="support" className="relative py-24 px-6 bg-gradient-to-b from-background via-card/30 to-background">
       <div className="max-w-3xl mx-auto text-center">
-        <h2 className="font-display text-4xl md:text-5xl">Support the blues. Wear the blues.</h2>
-        <p className="mt-4 text-muted-foreground">Every t-shirt, poster and vinyl sold keeps this site running and the blues alive.</p>
+        <h2 className="font-display text-4xl md:text-5xl">
+          {tr(lang, {
+            no: "Støtt bluesen. Bær bluesen.",
+            en: "Support the blues. Wear the blues.",
+            sv: "Stötta bluesen. Bär bluesen.",
+            de: "Unterstütze den Blues. Trag den Blues.",
+          })}
+        </h2>
+        <p className="mt-4 text-muted-foreground">
+          {tr(lang, {
+            no: "Hver t-skjorte, plakat og vinyl som selges, holder denne siden i live — og bluesen i live.",
+            en: "Every t-shirt, poster and vinyl sold keeps this site running and the blues alive.",
+            sv: "Varje t-shirt, poster och vinyl som säljs håller den här sidan vid liv — och bluesen vid liv.",
+            de: "Jedes verkaufte T-Shirt, Poster und Vinyl hält diese Seite am Laufen und den Blues lebendig.",
+          })}
+        </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <a href="#" className="px-7 py-3 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 flex items-center gap-2">
-            <ShoppingBag className="size-4" /> Shop merch
+            <ShoppingBag className="size-4" /> {tr(lang, { no: "Kjøp merch", en: "Shop merch", sv: "Köp merch", de: "Merch kaufen" })}
           </a>
           <a href="#" className="px-7 py-3 rounded-md border border-border text-foreground hover:border-gold/60 flex items-center gap-2">
-            <BookOpen className="size-4" /> Read the blog
+            <BookOpen className="size-4" /> {tr(lang, { no: "Les bloggen", en: "Read the blog", sv: "Läs bloggen", de: "Blog lesen" })}
           </a>
         </div>
       </div>
@@ -417,12 +595,30 @@ function SupportBanner() {
 }
 
 function Timeline() {
+  const { lang } = useI18n();
+  const timeline = useMemo(() => getTimeline(lang), [lang]);
   return (
     <section className="py-24 px-6 max-w-5xl mx-auto">
       <div className="text-center mb-16">
-        <div className="text-xs tracking-[0.3em] text-gold uppercase mb-3">The Timeline</div>
-        <h2 className="font-display text-5xl md:text-6xl">From cotton fields to electric clubs</h2>
-        <p className="mt-4 text-muted-foreground">A hundred years of toil, migration and amplification. Six moments that changed everything.</p>
+        <div className="text-xs tracking-[0.3em] text-gold uppercase mb-3">
+          {tr(lang, { no: "Tidslinjen", en: "The Timeline", sv: "Tidslinjen", de: "Die Zeitlinie" })}
+        </div>
+        <h2 className="font-display text-5xl md:text-6xl">
+          {tr(lang, {
+            no: "Fra bomullsmarker til elektriske klubber",
+            en: "From cotton fields to electric clubs",
+            sv: "Från bomullsfält till elektriska klubbar",
+            de: "Von Baumwollfeldern zu elektrischen Clubs",
+          })}
+        </h2>
+        <p className="mt-4 text-muted-foreground">
+          {tr(lang, {
+            no: "Hundre år med slit, migrasjon og forsterkning. Seks øyeblikk som forandret alt.",
+            en: "A hundred years of toil, migration and amplification. Six moments that changed everything.",
+            sv: "Hundra år av slit, migration och förstärkning. Sex ögonblick som förändrade allt.",
+            de: "Hundert Jahre Mühsal, Migration und Verstärkung. Sechs Momente, die alles veränderten.",
+          })}
+        </p>
       </div>
       <div className="relative">
         <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-gold/40 to-transparent -translate-x-1/2" />
@@ -442,7 +638,7 @@ function Timeline() {
       </div>
       <div className="text-center mt-16">
         <a href="#" className="inline-flex items-center gap-2 text-gold hover:gap-3 transition-all">
-          Explore the complete timeline <ArrowRight className="size-4" />
+          {tr(lang, { no: "Utforsk hele tidslinjen", en: "Explore the complete timeline", sv: "Utforska hela tidslinjen", de: "Die ganze Zeitlinie entdecken" })} <ArrowRight className="size-4" />
         </a>
       </div>
     </section>
@@ -450,13 +646,24 @@ function Timeline() {
 }
 
 function Voices() {
+  const { lang } = useI18n();
+  const voices = useMemo(() => getVoices(lang), [lang]);
   return (
     <section id="voices" className="py-24 px-6 max-w-7xl mx-auto">
       <div className="text-center mb-14">
-        <div className="text-xs tracking-[0.3em] text-gold uppercase mb-3">The Originals</div>
-        <h2 className="font-display text-5xl">Voices from the Delta</h2>
+        <div className="text-xs tracking-[0.3em] text-gold uppercase mb-3">
+          {tr(lang, { no: "Originalene", en: "The Originals", sv: "Originalen", de: "Die Originale" })}
+        </div>
+        <h2 className="font-display text-5xl">
+          {tr(lang, { no: "Stemmer fra deltaet", en: "Voices from the Delta", sv: "Röster från deltat", de: "Stimmen aus dem Delta" })}
+        </h2>
         <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-          They sang about what they knew — hard work, lost love, the road forward. The recordings still hit you right in the chest.
+          {tr(lang, {
+            no: "De sang om det de visste — hardt arbeid, tapt kjærlighet, veien videre. Innspillingene treffer deg fortsatt rett i brystet.",
+            en: "They sang about what they knew — hard work, lost love, the road forward. The recordings still hit you right in the chest.",
+            sv: "De sjöng om det de kände — hårt arbete, förlorad kärlek, vägen framåt. Inspelningarna träffar dig fortfarande rakt i bröstet.",
+            de: "Sie sangen über das, was sie kannten — harte Arbeit, verlorene Liebe, den Weg nach vorn. Die Aufnahmen treffen dich noch immer mitten ins Herz.",
+          })}
         </p>
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -481,43 +688,68 @@ function Voices() {
 }
 
 function DeltaVsChicago() {
+  const { lang } = useI18n();
   return (
     <section className="py-24 px-6 max-w-6xl mx-auto">
       <div className="text-center mb-14">
-        <div className="text-xs tracking-[0.3em] text-gold uppercase mb-3">Two Soundscapes, One Soul</div>
-        <h2 className="font-display text-5xl md:text-6xl">Delta vs Chicago</h2>
+        <div className="text-xs tracking-[0.3em] text-gold uppercase mb-3">
+          {tr(lang, {
+            no: "To lydlandskap, én sjel",
+            en: "Two Soundscapes, One Soul",
+            sv: "Två ljudlandskap, en själ",
+            de: "Zwei Klangwelten, eine Seele",
+          })}
+        </div>
+        <h2 className="font-display text-5xl md:text-6xl">
+          {tr(lang, { no: "Delta vs Chicago", en: "Delta vs Chicago", sv: "Delta vs Chicago", de: "Delta vs Chicago" })}
+        </h2>
         <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-          One man and a guitar on a porch in Clarksdale. A full band shaking the walls at Chess Records. Same pain, different voltage.
+          {tr(lang, {
+            no: "Én mann med en gitar på en veranda i Clarksdale. Et fullt band som rister veggene hos Chess Records. Samme smerte, ulik spenning.",
+            en: "One man and a guitar on a porch in Clarksdale. A full band shaking the walls at Chess Records. Same pain, different voltage.",
+            sv: "En man med en gitarr på en veranda i Clarksdale. Ett helt band som skakar väggarna hos Chess Records. Samma smärta, olika spänning.",
+            de: "Ein Mann mit einer Gitarre auf einer Veranda in Clarksdale. Eine ganze Band, die die Wände bei Chess Records erschüttert. Gleicher Schmerz, andere Spannung.",
+          })}
         </p>
       </div>
       <div className="grid md:grid-cols-2 gap-6">
         <Column
           tone="from-amber-900/30 to-stone-900/40"
           icon={Music}
-          title="Delta Blues"
-          sub="1890s — 1940s"
+          title={tr(lang, { no: "Delta-blues", en: "Delta Blues", sv: "Delta-blues", de: "Delta-Blues" })}
+          sub={tr(lang, { no: "1890-tallet — 1940-tallet", en: "1890s — 1940s", sv: "1890-talet — 1940-talet", de: "1890er — 1940er" })}
           points={[
-            "Acoustic guitar with slide / bottleneck",
-            "Solo artists or small groups",
-            "Raw, emotional vocals",
-            "Rural Mississippi origin",
-            "Influenced by work songs and field hollers",
+            tr(lang, { no: "Akustisk gitar med slide / bottleneck", en: "Acoustic guitar with slide / bottleneck", sv: "Akustisk gitarr med slide / bottleneck", de: "Akustische Gitarre mit Slide / Bottleneck" }),
+            tr(lang, { no: "Soloartister eller små grupper", en: "Solo artists or small groups", sv: "Soloartister eller små grupper", de: "Soloartisten oder kleine Gruppen" }),
+            tr(lang, { no: "Rå, emosjonell vokal", en: "Raw, emotional vocals", sv: "Rå, känslomässig sång", de: "Rohe, emotionale Vocals" }),
+            tr(lang, { no: "Opphav i rurale Mississippi", en: "Rural Mississippi origin", sv: "Ursprung på Mississippis landsbygd", de: "Ursprung im ländlichen Mississippi" }),
+            tr(lang, { no: "Påvirket av arbeidssanger og field hollers", en: "Influenced by work songs and field hollers", sv: "Påverkad av arbetssånger och field hollers", de: "Beeinflusst von Arbeitsliedern und Field Hollers" }),
           ]}
-          quote="«Delta blues was about the voice and the guitar — nothing between you and the pain.»"
+          quote={tr(lang, {
+            no: "«Delta-blues handlet om stemmen og gitaren — ingenting mellom deg og smerten.»",
+            en: "«Delta blues was about the voice and the guitar — nothing between you and the pain.»",
+            sv: "«Delta-blues handlade om rösten och gitarren — ingenting mellan dig och smärtan.»",
+            de: "«Delta-Blues war Stimme und Gitarre — nichts zwischen dir und dem Schmerz.»",
+          })}
         />
         <Column
           tone="from-red-900/30 to-stone-900/40"
           icon={Radio}
-          title="Chicago Blues"
-          sub="1940s — today"
+          title={tr(lang, { no: "Chicago-blues", en: "Chicago Blues", sv: "Chicago-blues", de: "Chicago-Blues" })}
+          sub={tr(lang, { no: "1940-tallet — i dag", en: "1940s — today", sv: "1940-talet — idag", de: "1940er — heute" })}
           points={[
-            "Electric guitar with amplification",
-            "Full band: bass, drums, piano, harmonica",
-            "Urban nightclub sound",
-            "Chess Records and Maxwell Street",
-            "The foundation of rock and roll",
+            tr(lang, { no: "Elektrisk gitar med forsterkning", en: "Electric guitar with amplification", sv: "Elgitarr med förstärkning", de: "E-Gitarre mit Verstärkung" }),
+            tr(lang, { no: "Fullt band: bass, trommer, piano, munnspill", en: "Full band: bass, drums, piano, harmonica", sv: "Helt band: bas, trummor, piano, munspel", de: "Komplette Band: Bass, Schlagzeug, Klavier, Mundharmonika" }),
+            tr(lang, { no: "Urban nattklubblyd", en: "Urban nightclub sound", sv: "Urbant nattklubbsljud", de: "Urbaner Nachtklub-Sound" }),
+            tr(lang, { no: "Chess Records og Maxwell Street", en: "Chess Records and Maxwell Street", sv: "Chess Records och Maxwell Street", de: "Chess Records und Maxwell Street" }),
+            tr(lang, { no: "Grunnlaget for rock and roll", en: "The foundation of rock and roll", sv: "Grunden för rock and roll", de: "Das Fundament des Rock 'n' Roll" }),
           ]}
-          quote="«When we got to Chicago and plugged in, the blues got louder — and the world started listening.»"
+          quote={tr(lang, {
+            no: "«Da vi kom til Chicago og koblet til strøm, ble bluesen høyere — og verden begynte å lytte.»",
+            en: "«When we got to Chicago and plugged in, the blues got louder — and the world started listening.»",
+            sv: "«När vi kom till Chicago och kopplade in, blev bluesen högre — och världen började lyssna.»",
+            de: "«Als wir in Chicago ankamen und einsteckten, wurde der Blues lauter — und die Welt begann zuzuhören.»",
+          })}
         />
       </div>
     </section>
@@ -550,4 +782,3 @@ function Column({ tone, icon: Icon, title, sub, points, quote }: any) {
     </div>
   );
 }
-
