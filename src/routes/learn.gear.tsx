@@ -52,15 +52,15 @@ type Founder = {
   credit?: string; // e.g. "Wikimedia Commons"
   creditUrl?: string;
 };
+type L10n = { no: string; en: string; sv: string; de: string };
 type Brand = {
   id: string;
   cat: Cat;
   name: string;
-  founded: string;
+  founded: L10n;
   founder?: Founder;
   models: string[];
-  editorialEN: string;
-  editorialNO?: string;
+  editorial: L10n;
   url: string;
   ytQuery: string;
   artists: Artist[];
