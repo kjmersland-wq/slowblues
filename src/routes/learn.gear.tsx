@@ -303,6 +303,7 @@ function GearPage() {
   };
 
   return (
+    <PageShell>
     <div className="bg-background text-foreground">
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-border">
