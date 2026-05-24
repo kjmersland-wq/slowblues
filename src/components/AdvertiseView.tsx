@@ -5,6 +5,7 @@ import { IMG } from "@/data/images";
 import { activePartners, partnerDescription } from "@/data/partners";
 import { Handshake, Mail, Users, Globe, Tag, Mic, Music, ShoppingBag, MapPin, Sparkles, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const OFFER_ICONS = [Mail, Sparkles, Tag, Mic, ShoppingBag, MapPin];
 
@@ -16,16 +17,23 @@ export function AdvertiseView() {
   const [form, setForm] = useState({ name: "", org: "", email: "", type: "newsletter", message: "" });
   const [sending, setSending] = useState(false);
 
-  function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent) {
     e.preventDefault();
     setSending(true);
     const typeLabel = (a.types as Record<string, string>)[form.type] ?? form.type;
-    const subject = encodeURIComponent(`Partner inquiry from ${form.name || "—"} — ${typeLabel}`);
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nOrganisation: ${form.org}\nEmail: ${form.email}\nType: ${typeLabel}\n\n${form.message}`
-    );
-    window.location.href = `mailto:kjell@slowblues.no?subject=${subject}&body=${body}`;
-    setTimeout(() => { setSending(false); toast.success("Opening your email client…"); }, 400);
+    const composed = `Partner inquiry — ${typeLabel}\nOrganisation: ${form.org || "—"}\n\n${form.message}`;
+    const { error } = await supabase.from("contact_messages").insert({
+      name: form.name.trim().slice(0, 100),
+      email: form.email.trim().slice(0, 255),
+      message: composed.slice(0, 2000),
+    });
+    setSending(false);
+    if (error) {
+      toast.error("Could not send. Please try again.");
+    } else {
+      toast.success("Thanks! We'll get back to you soon.");
+      setForm({ name: "", org: "", email: "", type: "newsletter", message: "" });
+    }
   }
 
   return (
