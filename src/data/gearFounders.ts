@@ -876,3 +876,69 @@ export const FOUNDERS: Record<string, FounderProfile> = {
     ],
   },
 };
+
+// Aliases — same founder, different brand entry on the gear page.
+FOUNDERS["fender-amps"] = { ...FOUNDERS.fender, brandId: "fender-amps" };
+
+// Lee Oskar — Danish-born harp player and brand founder.
+FOUNDERS["lee-oskar"] = {
+  brandId: "lee-oskar",
+  name: "Lee Oskar",
+  years: "f. 1948",
+  birthplace: "København, Danmark",
+  image: "https://commons.wikimedia.org/wiki/Special:FilePath/Lee%20Oskar%201976%20press%20photo.png?width=640",
+  imageCredit: "Wikimedia Commons",
+  imageCreditUrl: "https://commons.wikimedia.org/wiki/File:Lee%20Oskar%201976%20press%20photo.png",
+  title: {
+    no: "Dansken som bygde munnspillet for de som lever av det",
+    en: "The Dane who built the harmonica for people who live off it",
+    sv: "Dansken som byggde munspelet för dem som lever på det",
+    de: "Der Däne, der die Mundharmonika für Berufsspieler baute",
+  },
+  lede: {
+    no: "Han kom til USA med et munnspill i lomma og endte i bandet War. Så bygde han instrumentet han selv ville hatt da han startet.",
+    en: "He arrived in the US with a harmonica in his pocket and ended up in the band War. Then he built the instrument he wished he'd had when he started.",
+    sv: "Han kom till USA med ett munspel i fickan och hamnade i bandet War. Sedan byggde han instrumentet han önskade att han haft från början.",
+    de: "Er kam mit einer Mundharmonika in der Tasche in die USA und landete in der Band War. Dann baute er das Instrument, das er sich am Anfang gewünscht hätte.",
+  },
+  bio: {
+    no: [
+      "Lee Oskar Levitin ble født i København i 1948. Som ungdom reiste han til USA med lite annet enn et munnspill. På 1970-tallet endte han i funk-/rockebandet War — solostemmen i «Low Rider» og «Why Can't We Be Friends?» er hans.",
+      "I 1983 gikk han sammen med den japanske produsenten Tombo og lanserte Lee Oskar Harmonicas. Tanken var enkel: bygg et munnspill som tåler en hel turné, hvor du kan bytte enkelt-tonelater istedenfor å kaste hele instrumentet.",
+    ],
+    en: [
+      "Lee Oskar Levitin was born in Copenhagen in 1948. As a teenager he travelled to the US with little more than a harmonica. In the 1970s he ended up in the funk/rock band War — the lead harp lines on 'Low Rider' and 'Why Can't We Be Friends?' are his.",
+      "In 1983 he partnered with Japanese maker Tombo to launch Lee Oskar Harmonicas. The idea was simple: build a harp that survives a full tour, where you can swap individual reed plates instead of throwing the whole instrument away.",
+    ],
+    sv: [
+      "Lee Oskar Levitin föddes i Köpenhamn 1948. Som tonåring reste han till USA med inte mycket mer än ett munspel. På 1970-talet hamnade han i funk-/rockbandet War — solorna i 'Low Rider' och 'Why Can't We Be Friends?' är hans.",
+      "1983 gick han ihop med japanska Tombo och lanserade Lee Oskar Harmonicas. Tanken var enkel: bygg ett munspel som klarar en hel turné, där man kan byta enskilda tonplattor istället för att kasta hela instrumentet.",
+    ],
+    de: [
+      "Lee Oskar Levitin wurde 1948 in Kopenhagen geboren. Als Jugendlicher reiste er mit kaum mehr als einer Mundharmonika in die USA. In den 1970ern landete er bei der Funk-/Rockband War — die Harp-Soli in 'Low Rider' und 'Why Can't We Be Friends?' sind seine.",
+      "1983 schloss er sich mit dem japanischen Hersteller Tombo zusammen und gründete Lee Oskar Harmonicas. Die Idee war einfach: eine Mundharmonika bauen, die eine ganze Tour übersteht, bei der man einzelne Stimmplatten tauschen kann, statt das ganze Instrument wegzuwerfen.",
+    ],
+  },
+  anecdotes: {
+    no: [
+      "Han spilte det berømte solo-løpet på «Low Rider» i ett take, etter sigende uten å vite at båndet gikk.",
+      "Lee Oskar-systemet med Major Diatonic, Natural Minor, Harmonic Minor og Melody Maker — alle i samme familie — gjorde det enklere for bluesspillere å håndtere både moll og dur uten å bytte teknikk midt i låten.",
+    ],
+    en: [
+      "He played the famous solo run on 'Low Rider' in a single take, reportedly without knowing the tape was rolling.",
+      "The Lee Oskar tuning system — Major Diatonic, Natural Minor, Harmonic Minor and Melody Maker, all in one product family — made it easier for blues players to handle both minor and major tunes without switching technique mid-song.",
+    ],
+    sv: [
+      "Han spelade det berömda solot i 'Low Rider' i en tagning, enligt egen utsago utan att veta att bandet rullade.",
+      "Lee Oskar-systemet med Major Diatonic, Natural Minor, Harmonic Minor och Melody Maker — alla i samma familj — gjorde det lättare för bluesspelare att hantera både moll och dur utan att byta teknik mitt i låten.",
+    ],
+    de: [
+      "Das berühmte Solo in 'Low Rider' spielte er angeblich in einem Take ein, ohne zu wissen, dass das Band lief.",
+      "Das Lee-Oskar-System — Major Diatonic, Natural Minor, Harmonic Minor und Melody Maker in einer Familie — machte es Bluesspielern leichter, Moll- und Dur-Stücke zu spielen, ohne mitten im Song die Technik zu wechseln.",
+    ],
+  },
+  links: [
+    { label: "leeoskar.com", url: "https://www.leeoskar.com" },
+    { label: "Lee Oskar (Wikipedia)", url: "https://en.wikipedia.org/wiki/Lee_Oskar" },
+  ],
+};
