@@ -366,7 +366,6 @@ function GearPage() {
         </div>
       </section>
     </div>
-    </div>
     </PageShell>
   );
 }
