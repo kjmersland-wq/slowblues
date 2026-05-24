@@ -509,12 +509,12 @@ export const blogArticles: BlogArticle[] = [
         headingNo: "Hva nå? Din tur til å si din mening",
         paragraphsEn: [
           "What a start to the blues year. Between Bonamassa's B.B. King tribute, Lil' Ed's Chicago slide assault, Tinsley's acoustic revelation, and Kingfish tearing up stages worldwide, the blues is firing on all cylinders in 2026.",
-          "I'd love to hear from you: Have you listened to Blues Summit 100 yet? Are you planning to catch Kingfish on his Hard Road Tour? And are any of you making the pilgrimage to Notodden this summer? Drop me a line at post@slowblues.no – your voices make this community what it is.",
+          "I'd love to hear from you: Have you listened to Blues Summit 100 yet? Are you planning to catch Kingfish on his Hard Road Tour? And are any of you making the pilgrimage to Notodden this summer? Drop me a line via the contact form – your voices make this community what it is.",
           "While you're here, why not test your blues knowledge with our Blues Quiz, or dive deeper into the artists mentioned in this article by exploring our artist profiles? And if this article moved you, share it with a fellow blues fan. The blues is a conversation, and the more voices we have, the richer it gets. Keep listening, keep feeling, keep the blues alive."
         ],
         paragraphsNo: [
           "For en start på bluesåret. Mellom Bonamassas B.B. King-hyllest, Lil' Eds Chicago-slide-angrep, Tinsleys akustiske åpenbaring og Kingfish som herjer scener verden over, går bluesen for fullt i 2026.",
-          "Jeg vil gjerne høre fra dere: Har dere lyttet til Blues Summit 100 ennå? Planlegger dere å se Kingfish på Hard Road Tour? Og kommer noen av dere til Notodden i sommer? Send meg en linje på post@slowblues.no – stemmene deres gjør dette fellesskapet til det det er.",
+          "Jeg vil gjerne høre fra dere: Har dere lyttet til Blues Summit 100 ennå? Planlegger dere å se Kingfish på Hard Road Tour? Og kommer noen av dere til Notodden i sommer? Send oss en melding via kontaktskjemaet – stemmene deres gjør dette fellesskapet til det det er.",
           "Mens du er her, hvorfor ikke teste blueskunnskapen din med vår Blues Quiz, eller dykke dypere inn i artistene som er nevnt i denne artikkelen ved å utforske artistprofilene våre? Og hvis denne artikkelen berørte deg, del den med en bluesfan. Bluesen er en samtale, og jo flere stemmer vi har, desto rikere blir den. Fortsett å lytte, fortsett å føle, hold bluesen i live."
         ],
       },
@@ -620,12 +620,12 @@ export const blogArticles: BlogArticle[] = [
         headingNo: "Din tur – hva synes du om Grammy-kvelden?",
         paragraphsEn: [
           "That's my week in blues. Buddy Guy getting what might be his final Grammy. Robert Randolph surprising a few people. Big Blues Bender announcing a lineup that could bankrupt me. Billy Branch proving the harp is still the most soulful instrument in blues. And festivals from Vegas to Vero Beach keeping the whole thing alive.",
-          "I want to hear from you. Was Buddy the right pick? Should Bonamassa have taken the contemporary category? Are you planning any blues festival trips this year? Drop me a line at post@slowblues.no or share this with someone who needs more blues in their life.",
+          "I want to hear from you. Was Buddy the right pick? Should Bonamassa have taken the contemporary category? Are you planning any blues festival trips this year? Drop me a line via the contact form or share this with someone who needs more blues in their life.",
           "And while you're here – why not explore some of the artists we talked about today? Dive into our profiles, take our Blues Quiz, or just put on 'Ain't Done With The Blues' and turn up the volume. The neighbours will understand. Probably."
         ],
         paragraphsNo: [
           "Det er min uke i blues. Buddy Guy som får det som kanskje er hans siste Grammy. Robert Randolph som overrasker noen. Big Blues Bender som kunngjør en lineup som kan ruinere meg. Billy Branch som beviser at munnspillet fortsatt er det mest sjelfulle instrumentet i blues. Og festivaler fra Vegas til Vero Beach som holder hele greia i live.",
-          "Jeg vil høre fra dere. Var Buddy riktig valg? Burde Bonamassa tatt den samtidige kategorien? Planlegger dere noen bluesfestival-turer i år? Send meg en linje på post@slowblues.no eller del dette med noen som trenger mer blues i livet sitt.",
+          "Jeg vil høre fra dere. Var Buddy riktig valg? Burde Bonamassa tatt den samtidige kategorien? Planlegger dere noen bluesfestival-turer i år? Send oss en melding via kontaktskjemaet eller del dette med noen som trenger mer blues i livet sitt.",
           "Og mens du er her – hvorfor ikke utforske noen av artistene vi snakket om i dag? Dykk inn i profilene våre, ta vår Blues Quiz, eller bare sett på 'Ain't Done With The Blues' og skru opp volumet. Naboene vil forstå. Sannsynligvis."
         ],
       },
@@ -1016,13 +1016,13 @@ export const blogArticles: BlogArticle[] = [
         headingNo: "🌍 Til neste uke – hold bluesen i live",
         paragraphsEn: [
           "That's my week. Blues Music Awards nominees announced. BluesGig launched for Nordic organisers. Duke Robillard still swinging at 76. And Oz & The Wizards getting ready to rock Kristiansand. Not a bad week for the blues.",
-          "As always, I want to hear from you. Who are your BMA picks? Have you tried BluesGig yet? Are you going to Teateret on March 7? Drop me a line at post@slowblues.no – your voices make this community what it is.",
+          "As always, I want to hear from you. Who are your BMA picks? Have you tried BluesGig yet? Are you going to Teateret on March 7? Drop me a line via the contact form – your voices make this community what it is.",
           "And while you're here: test your knowledge with our Blues Quiz at https://slowblues.no/blues-quiz, explore 330+ artist profiles, or share this dispatch with a friend who needs more blues in their feed. Every share counts. The blues is a conversation – and we're glad you're part of it. 🎸",
           "#SlowBlues #BluesMusicAwards2026 #BluesGig #DukeRobillard #OzAndTheWizards #NordicBlues"
         ],
         paragraphsNo: [
           "Det er min uke. Blues Music Awards-nominasjoner annonsert. BluesGig lansert for nordiske arrangører. Duke Robillard som fortsatt svinger i en alder av 76. Og Oz & The Wizards som gjør seg klare til å rocke Kristiansand. Ikke en dårlig uke for bluesen.",
-          "Som alltid vil jeg høre fra dere. Hvem er deres BMA-favoritter? Har dere prøvd BluesGig ennå? Skal dere på Teateret 7. mars? Send meg en linje på post@slowblues.no – stemmene deres gjør dette fellesskapet til det det er.",
+          "Som alltid vil jeg høre fra dere. Hvem er deres BMA-favoritter? Har dere prøvd BluesGig ennå? Skal dere på Teateret 7. mars? Send oss en melding via kontaktskjemaet – stemmene deres gjør dette fellesskapet til det det er.",
           "Og mens du er her: test kunnskapene dine med vår Blues Quiz på https://slowblues.no/blues-quiz, utforsk 330+ artistprofiler, eller del denne oppdateringen med en venn som trenger mer blues i feeden sin. Hver deling teller. Bluesen er en samtale – og vi er glade for at du er med. 🎸",
           "#SlowBlues #BluesMusicAwards2026 #BluesGig #DukeRobillard #OzAndTheWizards #NordiskBlues"
         ],
