@@ -9,11 +9,14 @@ export const Route = createFileRoute("/blog/")({
   component: BlogPage,
   head: () => ({
     meta: [
-      { title: "Blues Blog — SlowBlues" },
-      { name: "description", content: "Anmeldelser, intervjuer, dypdykk og turnérapporter fra bluesens verden." },
-      { property: "og:title", content: "Blues Blog — SlowBlues" },
+      { title: "Blues Blog — Reviews, Interviews & Deep Dives | SlowBlues" },
+      { name: "description", content: "Reviews, interviews, deep dives and tour reports from the world of blues — curated weekly by SlowBlues, the editorial blues archive." },
+      { property: "og:title", content: "Blues Blog — Reviews, Interviews & Deep Dives | SlowBlues" },
+      { property: "og:description", content: "Weekly reviews, interviews and deep dives from the world of blues — curated by SlowBlues." },
+      { property: "og:url", content: "https://www.slowblues.no/blog" },
       { property: "og:image", content: IMG.vinyl },
     ],
+    links: [{ rel: "canonical", href: "https://www.slowblues.no/blog" }],
   }),
 });
 
