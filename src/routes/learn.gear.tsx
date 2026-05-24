@@ -447,16 +447,30 @@ function BrandCard({ brand, lang }: { brand: Brand; lang: ReturnType<typeof useI
     >
       <header className="flex flex-wrap items-start justify-between gap-4 border-b border-border pb-5">
         <div className="flex items-center gap-4">
-          {brand.founder && <FounderAvatar founder={brand.founder} />}
+          {brand.founder && (
+            <Link to="/learn/gear/$id" params={{ id: brand.id }} className="block shrink-0">
+              <FounderAvatar founder={brand.founder} />
+            </Link>
+          )}
           <div>
             <h2 className="font-display text-3xl sm:text-4xl text-gold">{brand.name}</h2>
             <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mt-2">{tr(lang, brand.founded)}</p>
             {brand.founder && (
               <p className="text-[11px] text-muted-foreground/80 mt-1">
-                {tr(lang, { no: "Grunnlegger", en: "Founder", sv: "Grundare", de: "Gründer" })}: {brand.founder.name}
+                {tr(lang, { no: "Grunnlegger", en: "Founder", sv: "Grundare", de: "Gründer" })}:{" "}
+                <Link to="/learn/gear/$id" params={{ id: brand.id }} className="text-gold hover:underline">
+                  {brand.founder.name}
+                </Link>
                 {brand.founder.years ? ` (${brand.founder.years})` : ""}
               </p>
             )}
+            <Link
+              to="/learn/gear/$id"
+              params={{ id: brand.id }}
+              className="inline-block mt-2 text-[11px] uppercase tracking-[0.18em] text-gold hover:underline"
+            >
+              {tr(lang, { no: "Les hele historien →", en: "Read the full story →", sv: "Läs hela historien →", de: "Die ganze Geschichte →" })}
+            </Link>
           </div>
         </div>
         <button
