@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useI18n, tr } from "@/i18n";
 import { ExternalLink, Share2, Music, Guitar, Mic, Speaker, Drum } from "lucide-react";
@@ -39,7 +39,7 @@ export const Route = createFileRoute("/learn/gear")({
       },
     ],
   }),
-  component: GearPage,
+  component: GearRoute,
 });
 
 type Cat = "guitars" | "amps" | "harmonicas" | "drums" | "mics";
@@ -337,6 +337,16 @@ const CATS: { id: Cat | "all"; labels: { no: string; en: string; sv: string; de:
   { id: "drums", labels: { no: "Trommer & rytme", en: "Drums & Rhythm", sv: "Trummor & rytm", de: "Schlagzeug & Rhythmus" }, icon: Drum },
   { id: "mics", labels: { no: "Mikrofoner", en: "Microphones", sv: "Mikrofoner", de: "Mikrofone" }, icon: Mic },
 ];
+
+function GearRoute() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+
+  if (pathname !== "/learn/gear") {
+    return <Outlet />;
+  }
+
+  return <GearPage />;
+}
 
 function GearPage() {
   const { lang } = useI18n();
