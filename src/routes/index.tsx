@@ -356,6 +356,7 @@ function Join() {
 
 
 function ThreeNames() {
+  const aiNote = "AI-generated historical interpretation";
   return (
     <section className="py-20 px-6 max-w-7xl mx-auto">
       <div className="text-center mb-12">
@@ -372,6 +373,9 @@ function ThreeNames() {
                 <p.icon className="size-5 text-primary-foreground" />
               </div>
               <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-card to-transparent" />
+              <div className="absolute bottom-0 inset-x-0 bg-black/60 text-[10px] text-amber-300 px-2 py-1 text-center backdrop-blur-sm">
+                {aiNote}
+              </div>
             </div>
             <div className="p-6">
               <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-2">{p.tag}</div>
