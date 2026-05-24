@@ -450,7 +450,7 @@ function BrandCard({ brand, lang }: { brand: Brand; lang: ReturnType<typeof useI
           {brand.founder && <FounderAvatar founder={brand.founder} />}
           <div>
             <h2 className="font-display text-3xl sm:text-4xl text-gold">{brand.name}</h2>
-            <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mt-2">{brand.founded}</p>
+            <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mt-2">{tr(lang, brand.founded)}</p>
             {brand.founder && (
               <p className="text-[11px] text-muted-foreground/80 mt-1">
                 {tr(lang, { no: "Grunnlegger", en: "Founder", sv: "Grundare", de: "Gründer" })}: {brand.founder.name}
