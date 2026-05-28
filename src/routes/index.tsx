@@ -44,8 +44,8 @@ export const Route = createFileRoute("/")({
 });
 
 const FALLBACK_TICKER: TickerItem[] = [
-  { id: "fb-1", kind: "editorial", label: "EDITORIAL", text: "SlowBlues — a living archive of 330+ blues artists, reviews & live recordings.", href: "/artists", timestamp: new Date().toISOString(), priority: 1 },
-  { id: "fb-2", kind: "editorial", label: "EXPLORE", text: "Dive into the full artist archive — from Delta to Chicago to Scandinavia.", href: "/artists", timestamp: new Date().toISOString(), priority: 1 },
+  { id: "fb-1", kind: "editorial", label: "EDITORIAL", text: "SlowBlues — a living archive of 330+ blues artists, reviews & live recordings.", href: "/artists", timestamp: "2026-01-01T00:00:02.000Z", priority: 1 },
+  { id: "fb-2", kind: "editorial", label: "EXPLORE", text: "Dive into the full artist archive — from Delta to Chicago to Scandinavia.", href: "/artists", timestamp: "2026-01-01T00:00:01.000Z", priority: 1 },
 ];
 
 function getHeroSlides(lang: Lang) {
@@ -395,7 +395,7 @@ function Ticker() {
         label: "BLOG",
         text: b.titleEn,
         href: `/blog/${b.id}`,
-        timestamp: b.publishedDate ?? new Date().toISOString(),
+        timestamp: b.publishedDate ?? "2026-01-01T00:00:00.000Z",
         priority: 50,
       }));
   }, []);
