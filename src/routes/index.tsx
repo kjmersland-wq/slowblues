@@ -53,7 +53,12 @@ function getHeroSlides(lang: Lang) {
     {
       img: heroJuke,
       eyebrow: tr(lang, { no: "De langsomme, sjelfulle røttene", en: "The Slow, Soulful Roots", sv: "De långsamma, själfulla rötterna", de: "Die langsamen, seelenvollen Wurzeln" }),
-      title: "SLOWBLUES",
+      title: tr(lang, {
+        no: "SlowBlues — Det globale blues-leksikonet",
+        en: "SlowBlues — The Global Blues Encyclopedia",
+        sv: "SlowBlues — Det globala blues-lexikonet",
+        de: "SlowBlues — Die globale Blues-Enzyklopädie",
+      }),
       titleAccent: tr(lang, { no: "Der bluesen begynte", en: "Where the blues began", sv: "Där bluesen började", de: "Wo der Blues begann" }),
       quote: tr(lang, {
         no: "«Bluesen er røttene, alt annet er fruktene.»",
