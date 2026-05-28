@@ -493,7 +493,7 @@ function VideoGrid({ videos, fallbackIds, featuredLabel }: { videos: ArtistRecor
           {list.map((v, i) => (
             <a key={`${v.youtube_id}-${i}`} href={`https://www.youtube.com/watch?v=${v.youtube_id}`} target="_blank" rel="noopener noreferrer" className="group block border border-border rounded-lg overflow-hidden bg-card/40 hover:border-gold/60 transition">
               <div className="relative aspect-video bg-black">
-                <img src={`https://i.ytimg.com/vi/${v.youtube_id}/hqdefault.jpg`} alt={v.title || "Video"} loading="lazy" className="size-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition duration-500" />
+                <img src={`https://i.ytimg.com/vi/${v.youtube_id}/hqdefault.jpg`} alt={v.title || ""} loading="lazy" className="size-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition duration-500" />
               </div>
               {v.title && (
                 <div className="p-3">
