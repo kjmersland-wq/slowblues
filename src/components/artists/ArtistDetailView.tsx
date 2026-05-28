@@ -208,7 +208,7 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
                   <div key={cat} className="border border-border rounded-xl p-5 bg-card/40">
                     <div className="flex items-center gap-2 mb-4">
                       <div className="size-9 rounded-full bg-gold/15 border border-gold/40 flex items-center justify-center"><Ico className="size-4 text-gold" /></div>
-                      <h4 className="font-display text-lg">{cat}</h4>
+                      <h3 className="font-display text-lg">{cat}</h3>
                     </div>
                     <div className="space-y-4">
                       {items.map((it, i) => (
