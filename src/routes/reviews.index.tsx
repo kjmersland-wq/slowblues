@@ -37,8 +37,11 @@ export const Route = createFileRoute("/reviews/")({
       { title: "Album Reviews — SlowBlues" },
       { name: "description", content: "In-depth blues album reviews and ratings from the SlowBlues editors." },
       { property: "og:title", content: "Album Reviews — SlowBlues" },
+      { property: "og:description", content: "Browse SlowBlues' in-depth blues album reviews — Delta, Chicago, Texas and modern blues records rated by our editors." },
       { property: "og:image", content: IMG.vinyl },
+      { property: "og:url", content: "https://www.slowblues.no/reviews" },
     ],
+    links: [{ rel: "canonical", href: "https://www.slowblues.no/reviews" }],
   }),
 });
 

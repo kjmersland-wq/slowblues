@@ -25,9 +25,10 @@ export const Route = createFileRoute("/concerts/$slug")({
     if (!concert) throw notFound();
     return { concert };
   },
-  head: ({ loaderData }) => {
+  head: ({ params, loaderData }) => {
     const c = loaderData?.concert;
-    if (!c) return { meta: [{ title: "Concert — SlowBlues" }] };
+    const canonical = `https://www.slowblues.no/concerts/${params.slug}`;
+    if (!c) return { meta: [{ title: "Concert — SlowBlues" }], links: [{ rel: "canonical", href: canonical }] };
     const title = c.seo_title_en ?? `${c.title} — SlowBlues`;
     const desc =
       c.seo_description_en ??
@@ -39,8 +40,10 @@ export const Route = createFileRoute("/concerts/$slug")({
         { name: "description", content: desc },
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
+        { property: "og:url", content: canonical },
         ...(c.cover_image ? [{ property: "og:image", content: c.cover_image }] : []),
       ],
+      links: [{ rel: "canonical", href: canonical }],
     };
   },
   errorComponent: ({ error }) => (
