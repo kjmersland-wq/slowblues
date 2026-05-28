@@ -50,7 +50,7 @@ type Review = {
   seo_description_de: string | null;
 };
 
-const SITE = "https://sslow-blues.lovable.app";
+const SITE = "https://www.slowblues.no";
 
 async function fetchReview(slug: string): Promise<Review | null> {
   const { data } = await supabase
