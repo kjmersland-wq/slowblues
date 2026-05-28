@@ -395,7 +395,7 @@ function Ticker() {
         label: "BLOG",
         text: b.titleEn,
         href: `/blog/${b.id}`,
-        timestamp: b.publishedDate ?? new Date().toISOString(),
+        timestamp: b.publishedDate ?? "2026-01-01T00:00:00.000Z",
         priority: 50,
       }));
   }, []);
