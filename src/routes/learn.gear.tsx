@@ -329,13 +329,13 @@ const BRANDS: Brand[] = [
   },
 ];
 
-const CATS: { id: Cat | "all"; labels: { no: string; en: string; sv: string; de: string }; icon: typeof Guitar }[] = [
-  { id: "all", labels: { no: "Alle", en: "All", sv: "Alla", de: "Alle" }, icon: Music },
-  { id: "guitars", labels: { no: "Gitarer", en: "Guitars", sv: "Gitarrer", de: "Gitarren" }, icon: Guitar },
-  { id: "amps", labels: { no: "Forsterkere", en: "Amplifiers", sv: "Förstärkare", de: "Verstärker" }, icon: Speaker },
-  { id: "harmonicas", labels: { no: "Munnspill", en: "Harmonicas", sv: "Munspel", de: "Mundharmonikas" }, icon: Music },
-  { id: "drums", labels: { no: "Trommer & rytme", en: "Drums & Rhythm", sv: "Trummor & rytm", de: "Schlagzeug & Rhythmus" }, icon: Drum },
-  { id: "mics", labels: { no: "Mikrofoner", en: "Microphones", sv: "Mikrofoner", de: "Mikrofone" }, icon: Mic },
+const CATS: { id: Cat | "all"; labels: { no: string; en: string; sv: string; de: string; pl: string }; icon: typeof Guitar }[] = [
+  { id: "all", labels: { no: "Alle", en: "All", sv: "Alla", de: "Alle", pl: "Wszystko" }, icon: Music },
+  { id: "guitars", labels: { no: "Gitarer", en: "Guitars", sv: "Gitarrer", de: "Gitarren", pl: "Gitary" }, icon: Guitar },
+  { id: "amps", labels: { no: "Forsterkere", en: "Amplifiers", sv: "Förstärkare", de: "Verstärker", pl: "Wzmacniacze" }, icon: Speaker },
+  { id: "harmonicas", labels: { no: "Munnspill", en: "Harmonicas", sv: "Munspel", de: "Mundharmonikas", pl: "Harmonijki" }, icon: Music },
+  { id: "drums", labels: { no: "Trommer & rytme", en: "Drums & Rhythm", sv: "Trummor & rytm", de: "Schlagzeug & Rhythmus", pl: "Perkusja i rytm" }, icon: Drum },
+  { id: "mics", labels: { no: "Mikrofoner", en: "Microphones", sv: "Mikrofoner", de: "Mikrofone", pl: "Mikrofony" }, icon: Mic },
 ];
 
 function GearRoute() {
