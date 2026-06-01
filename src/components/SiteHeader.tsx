@@ -1,14 +1,15 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n, type Lang } from "@/i18n";
 import { Search, ChevronDown, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import logoSB from "@/assets/logo-slowblues.png";
 
-const LANGS: { code: Lang; label: string }[] = [
-  { code: "no", label: "NO" },
-  { code: "en", label: "EN" },
-  { code: "sv", label: "SV" },
-  { code: "de", label: "DE" },
+const LANGS: { code: Lang; label: string; flag: string }[] = [
+  { code: "no", label: "NO", flag: "🇳🇴" },
+  { code: "en", label: "EN", flag: "🇬🇧" },
+  { code: "sv", label: "SV", flag: "🇸🇪" },
+  { code: "de", label: "DE", flag: "🇩🇪" },
+  { code: "pl", label: "PL", flag: "🇵🇱" },
 ];
 
 export function SiteHeader() {
