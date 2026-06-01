@@ -112,25 +112,45 @@ export type ArtistRecord = {
   sort_order: number;
 };
 
-const FALLBACK_CHAIN: Record<Lang, Lang[]> = {
-  no: ["no", "en", "sv", "de"],
-  en: ["en", "no", "sv", "de"],
-  sv: ["sv", "no", "en", "de"],
-  de: ["de", "en", "no", "sv"],
-  pl: ["en", "no", "sv", "de"],
-};
-
+// Strict locale pick — no fallback. Returns localized value or null.
 export function pickLang(
   record: ArtistRecord,
   lang: Lang,
   field: "biography" | "short" | "influence" | "seo_title" | "seo_description" | "era_label",
 ): string | null {
   const r = record as any;
-  for (const l of FALLBACK_CHAIN[lang]) {
-    const v = r[`${field}_${l}`];
-    if (v) return v;
-  }
-  return r[field] ?? null;
+  return r[`${field}_${lang}`] ?? null;
+}
+
+// Localized array (signature_songs, influences). No fallback.
+export function pickLangArray(
+  record: ArtistRecord,
+  lang: Lang,
+  field: "signature_songs" | "influences",
+): string[] {
+  const r = record as any;
+  const v = r[`${field}_${lang}`];
+  return Array.isArray(v) ? v : [];
+}
+
+// Localized jsonb array (family, formative, anecdotes, instruments,
+// collaborators, discography, awards, press_quotes). No fallback.
+export function pickLangJsonb<T = any>(
+  record: ArtistRecord,
+  lang: Lang,
+  field:
+    | "family"
+    | "formative"
+    | "anecdotes"
+    | "instruments"
+    | "collaborators"
+    | "discography"
+    | "awards"
+    | "press_quotes",
+): T[] {
+  const r = record as any;
+  const v = r[`${field}_${lang}`];
+  return Array.isArray(v) ? (v as T[]) : [];
 }
 
 
