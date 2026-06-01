@@ -150,21 +150,9 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
           </section>
         )}
 
-        {/* Fallback to legacy bio paragraphs if no multilingual bio */}
-        {!bio && a.bio.length > 0 && (
-          <section className="max-w-3xl mx-auto space-y-5 text-foreground/85 leading-relaxed text-lg">
-            {a.bio.map((p, i) => <p key={i}>{p}</p>)}
-          </section>
-        )}
-
         {influence && (
           <Card title={t.legacy} icon={Sparkles}>
             <p className="text-muted-foreground leading-relaxed whitespace-pre-line">{influence}</p>
-          </Card>
-        )}
-        {!influence && a.legacy && (
-          <Card title={t.legacy} icon={Sparkles}>
-            <p className="text-muted-foreground leading-relaxed">{a.legacy}</p>
           </Card>
         )}
 
