@@ -1,4 +1,4 @@
-export type Lang = "no" | "en" | "sv" | "de";
+export type Lang = "no" | "en" | "sv" | "de" | "pl";
 
 const no = {
   nav: {
