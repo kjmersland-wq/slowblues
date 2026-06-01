@@ -130,51 +130,87 @@ export type Database = {
           active_years: string | null
           alt_name: string | null
           anecdotes: Json
+          anecdotes_de: Json
           anecdotes_en: Json
           anecdotes_no: Json
+          anecdotes_pl: Json
+          anecdotes_sv: Json
           article_references: Json
           awards: Json
+          awards_de: Json
+          awards_en: Json
+          awards_no: Json
+          awards_pl: Json
+          awards_sv: Json
           base_path: string | null
           bio: string[]
           biography_de: string | null
           biography_en: string | null
           biography_no: string | null
+          biography_pl: string | null
           biography_sv: string | null
           birth_name: string | null
           birth_place: string | null
           born: string | null
           categories: string[]
           collaborators: Json
+          collaborators_de: Json
           collaborators_en: Json
+          collaborators_no: Json
+          collaborators_pl: Json
+          collaborators_sv: Json
           country: string | null
           created_at: string
           died: string | null
           discography: Json
+          discography_de: Json
+          discography_en: Json
+          discography_no: Json
+          discography_pl: Json
+          discography_sv: Json
           era: string | null
+          era_label_de: string | null
           era_label_en: string | null
           era_label_no: string | null
+          era_label_pl: string | null
           era_label_sv: string | null
           external_links: Json
           facebook_url: string | null
           family: Json
+          family_de: Json
           family_en: Json
           family_no: Json
+          family_pl: Json
+          family_sv: Json
           formative: Json
           formative_de: Json
           formative_en: Json
           formative_no: Json
+          formative_pl: Json
+          formative_sv: Json
           gallery_images: string[]
           id: string
           image_credit: string | null
           img: string | null
+          influence_de: string | null
           influence_en: string | null
           influence_no: string | null
           influence_note: string | null
+          influence_pl: string | null
           influence_sv: string | null
           influences: string[]
+          influences_de: string[]
+          influences_en: string[]
+          influences_no: string[]
+          influences_pl: string[]
+          influences_sv: string[]
           instruments: Json
+          instruments_de: Json
           instruments_en: Json
+          instruments_no: Json
+          instruments_pl: Json
           instruments_simple: string[]
+          instruments_sv: Json
           key_recordings: Json
           labels: string[]
           legacy: string | null
@@ -183,21 +219,37 @@ export type Database = {
           og_image: string | null
           origin: string | null
           press_quotes: Json
+          press_quotes_de: Json
+          press_quotes_en: Json
+          press_quotes_no: Json
+          press_quotes_pl: Json
+          press_quotes_sv: Json
           region: string | null
           related_slugs: string[]
           route_path: string | null
           search_terms: string[]
+          seo_description_de: string | null
           seo_description_en: string | null
           seo_description_no: string | null
+          seo_description_pl: string | null
           seo_description_sv: string | null
+          seo_title_de: string | null
           seo_title_en: string | null
           seo_title_no: string | null
+          seo_title_pl: string | null
           seo_title_sv: string | null
           short: string | null
+          short_de: string | null
           short_en: string | null
           short_no: string | null
+          short_pl: string | null
           short_sv: string | null
           signature_songs: string[]
+          signature_songs_de: string[]
+          signature_songs_en: string[]
+          signature_songs_no: string[]
+          signature_songs_pl: string[]
+          signature_songs_sv: string[]
           slug: string
           social_links: Json
           sort_order: number
@@ -215,51 +267,87 @@ export type Database = {
           active_years?: string | null
           alt_name?: string | null
           anecdotes?: Json
+          anecdotes_de?: Json
           anecdotes_en?: Json
           anecdotes_no?: Json
+          anecdotes_pl?: Json
+          anecdotes_sv?: Json
           article_references?: Json
           awards?: Json
+          awards_de?: Json
+          awards_en?: Json
+          awards_no?: Json
+          awards_pl?: Json
+          awards_sv?: Json
           base_path?: string | null
           bio?: string[]
           biography_de?: string | null
           biography_en?: string | null
           biography_no?: string | null
+          biography_pl?: string | null
           biography_sv?: string | null
           birth_name?: string | null
           birth_place?: string | null
           born?: string | null
           categories?: string[]
           collaborators?: Json
+          collaborators_de?: Json
           collaborators_en?: Json
+          collaborators_no?: Json
+          collaborators_pl?: Json
+          collaborators_sv?: Json
           country?: string | null
           created_at?: string
           died?: string | null
           discography?: Json
+          discography_de?: Json
+          discography_en?: Json
+          discography_no?: Json
+          discography_pl?: Json
+          discography_sv?: Json
           era?: string | null
+          era_label_de?: string | null
           era_label_en?: string | null
           era_label_no?: string | null
+          era_label_pl?: string | null
           era_label_sv?: string | null
           external_links?: Json
           facebook_url?: string | null
           family?: Json
+          family_de?: Json
           family_en?: Json
           family_no?: Json
+          family_pl?: Json
+          family_sv?: Json
           formative?: Json
           formative_de?: Json
           formative_en?: Json
           formative_no?: Json
+          formative_pl?: Json
+          formative_sv?: Json
           gallery_images?: string[]
           id?: string
           image_credit?: string | null
           img?: string | null
+          influence_de?: string | null
           influence_en?: string | null
           influence_no?: string | null
           influence_note?: string | null
+          influence_pl?: string | null
           influence_sv?: string | null
           influences?: string[]
+          influences_de?: string[]
+          influences_en?: string[]
+          influences_no?: string[]
+          influences_pl?: string[]
+          influences_sv?: string[]
           instruments?: Json
+          instruments_de?: Json
           instruments_en?: Json
+          instruments_no?: Json
+          instruments_pl?: Json
           instruments_simple?: string[]
+          instruments_sv?: Json
           key_recordings?: Json
           labels?: string[]
           legacy?: string | null
@@ -268,21 +356,37 @@ export type Database = {
           og_image?: string | null
           origin?: string | null
           press_quotes?: Json
+          press_quotes_de?: Json
+          press_quotes_en?: Json
+          press_quotes_no?: Json
+          press_quotes_pl?: Json
+          press_quotes_sv?: Json
           region?: string | null
           related_slugs?: string[]
           route_path?: string | null
           search_terms?: string[]
+          seo_description_de?: string | null
           seo_description_en?: string | null
           seo_description_no?: string | null
+          seo_description_pl?: string | null
           seo_description_sv?: string | null
+          seo_title_de?: string | null
           seo_title_en?: string | null
           seo_title_no?: string | null
+          seo_title_pl?: string | null
           seo_title_sv?: string | null
           short?: string | null
+          short_de?: string | null
           short_en?: string | null
           short_no?: string | null
+          short_pl?: string | null
           short_sv?: string | null
           signature_songs?: string[]
+          signature_songs_de?: string[]
+          signature_songs_en?: string[]
+          signature_songs_no?: string[]
+          signature_songs_pl?: string[]
+          signature_songs_sv?: string[]
           slug: string
           social_links?: Json
           sort_order?: number
@@ -300,51 +404,87 @@ export type Database = {
           active_years?: string | null
           alt_name?: string | null
           anecdotes?: Json
+          anecdotes_de?: Json
           anecdotes_en?: Json
           anecdotes_no?: Json
+          anecdotes_pl?: Json
+          anecdotes_sv?: Json
           article_references?: Json
           awards?: Json
+          awards_de?: Json
+          awards_en?: Json
+          awards_no?: Json
+          awards_pl?: Json
+          awards_sv?: Json
           base_path?: string | null
           bio?: string[]
           biography_de?: string | null
           biography_en?: string | null
           biography_no?: string | null
+          biography_pl?: string | null
           biography_sv?: string | null
           birth_name?: string | null
           birth_place?: string | null
           born?: string | null
           categories?: string[]
           collaborators?: Json
+          collaborators_de?: Json
           collaborators_en?: Json
+          collaborators_no?: Json
+          collaborators_pl?: Json
+          collaborators_sv?: Json
           country?: string | null
           created_at?: string
           died?: string | null
           discography?: Json
+          discography_de?: Json
+          discography_en?: Json
+          discography_no?: Json
+          discography_pl?: Json
+          discography_sv?: Json
           era?: string | null
+          era_label_de?: string | null
           era_label_en?: string | null
           era_label_no?: string | null
+          era_label_pl?: string | null
           era_label_sv?: string | null
           external_links?: Json
           facebook_url?: string | null
           family?: Json
+          family_de?: Json
           family_en?: Json
           family_no?: Json
+          family_pl?: Json
+          family_sv?: Json
           formative?: Json
           formative_de?: Json
           formative_en?: Json
           formative_no?: Json
+          formative_pl?: Json
+          formative_sv?: Json
           gallery_images?: string[]
           id?: string
           image_credit?: string | null
           img?: string | null
+          influence_de?: string | null
           influence_en?: string | null
           influence_no?: string | null
           influence_note?: string | null
+          influence_pl?: string | null
           influence_sv?: string | null
           influences?: string[]
+          influences_de?: string[]
+          influences_en?: string[]
+          influences_no?: string[]
+          influences_pl?: string[]
+          influences_sv?: string[]
           instruments?: Json
+          instruments_de?: Json
           instruments_en?: Json
+          instruments_no?: Json
+          instruments_pl?: Json
           instruments_simple?: string[]
+          instruments_sv?: Json
           key_recordings?: Json
           labels?: string[]
           legacy?: string | null
@@ -353,21 +493,37 @@ export type Database = {
           og_image?: string | null
           origin?: string | null
           press_quotes?: Json
+          press_quotes_de?: Json
+          press_quotes_en?: Json
+          press_quotes_no?: Json
+          press_quotes_pl?: Json
+          press_quotes_sv?: Json
           region?: string | null
           related_slugs?: string[]
           route_path?: string | null
           search_terms?: string[]
+          seo_description_de?: string | null
           seo_description_en?: string | null
           seo_description_no?: string | null
+          seo_description_pl?: string | null
           seo_description_sv?: string | null
+          seo_title_de?: string | null
           seo_title_en?: string | null
           seo_title_no?: string | null
+          seo_title_pl?: string | null
           seo_title_sv?: string | null
           short?: string | null
+          short_de?: string | null
           short_en?: string | null
           short_no?: string | null
+          short_pl?: string | null
           short_sv?: string | null
           signature_songs?: string[]
+          signature_songs_de?: string[]
+          signature_songs_en?: string[]
+          signature_songs_no?: string[]
+          signature_songs_pl?: string[]
+          signature_songs_sv?: string[]
           slug?: string
           social_links?: Json
           sort_order?: number
