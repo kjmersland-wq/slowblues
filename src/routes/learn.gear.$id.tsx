@@ -53,7 +53,7 @@ function FounderPage() {
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-gold transition mb-8"
         >
           <ArrowLeft className="size-4" />
-          {tr(lang, { no: "Tilbake til verktøyet", en: "Back to the tools", sv: "Tillbaka till verktygen", de: "Zurück zu den Werkzeugen" })}
+          {tr(lang, { no: "Tilbake til verktøyet", en: "Back to the tools", pl: "Powrót do narzędzi", sv: "Tillbaka till verktygen", de: "Zurück zu den Werkzeugen" })}
         </Link>
 
         <header className="flex flex-col sm:flex-row gap-6 items-start border-b border-border pb-8">
@@ -73,7 +73,7 @@ function FounderPage() {
           )}
           <div>
             <p className="text-[11px] uppercase tracking-[0.25em] text-gold mb-2">
-              {tr(lang, { no: "Grunnlegger", en: "Founder", sv: "Grundare", de: "Gründer" })}
+              {tr(lang, { no: "Grunnlegger", en: "Founder", pl: "Założyciel", sv: "Grundare", de: "Gründer" })}
             </p>
             <h1 className="font-display text-4xl sm:text-5xl text-gold leading-tight">{f.name}</h1>
             <p className="text-sm text-muted-foreground mt-2">
@@ -94,7 +94,7 @@ function FounderPage() {
 
         <section className="mt-12">
           <h2 className="text-[11px] uppercase tracking-[0.25em] text-gold mb-4">
-            {tr(lang, { no: "Anekdoter & hendelser", en: "Anecdotes & moments", sv: "Anekdoter & händelser", de: "Anekdoten & Momente" })}
+            {tr(lang, { no: "Anekdoter & hendelser", en: "Anecdotes & moments", pl: "Anegdoty i chwile", sv: "Anekdoter & händelser", de: "Anekdoten & Momente" })}
           </h2>
           <ul className="space-y-4">
             {(f.anecdotes[lang] ?? f.anecdotes.en).map((a: string, i: number) => (
@@ -106,7 +106,7 @@ function FounderPage() {
         {f.links.length > 0 && (
           <section className="mt-12 border-t border-border pt-8">
             <h2 className="text-[11px] uppercase tracking-[0.25em] text-gold mb-4">
-              {tr(lang, { no: "Lenker", en: "Links", sv: "Länkar", de: "Links" })}
+              {tr(lang, { no: "Lenker", en: "Links", pl: "Linki", sv: "Länkar", de: "Links" })}
             </h2>
             <ul className="space-y-2">
               {f.links.map((l: { label: string; url: string }) => (
@@ -127,7 +127,7 @@ function FounderPage() {
 
         {f.imageCredit && (
           <p className="mt-12 text-[11px] text-muted-foreground/70">
-            {tr(lang, { no: "Foto", en: "Photo", sv: "Foto", de: "Foto" })}: {f.imageCreditUrl ? (
+            {tr(lang, { no: "Foto", en: "Photo", pl: "Zdjęcie", sv: "Foto", de: "Foto" })}: {f.imageCreditUrl ? (
               <a href={f.imageCreditUrl} target="_blank" rel="noopener noreferrer" className="hover:text-gold">{f.imageCredit}</a>
             ) : f.imageCredit}
           </p>
@@ -135,10 +135,10 @@ function FounderPage() {
 
         <div className="mt-16 border-t border-border pt-8 flex justify-between text-sm">
           <Link to="/learn/gear" className="text-muted-foreground hover:text-gold transition">
-            ← {tr(lang, { no: "Alle verktøy", en: "All tools", sv: "Alla verktyg", de: "Alle Werkzeuge" })}
+            ← {tr(lang, { no: "Alle verktøy", en: "All tools", pl: "Wszystkie narzędzia", sv: "Alla verktyg", de: "Alle Werkzeuge" })}
           </Link>
           <Link to="/contact" className="text-gold hover:underline">
-            {tr(lang, { no: "Send oss noe vi mangler", en: "Send us something we're missing", sv: "Skicka oss något vi saknar", de: "Schick uns, was fehlt" })}
+            {tr(lang, { no: "Send oss noe vi mangler", en: "Send us something we're missing", pl: "Wyślij nam, czego brakuje", sv: "Skicka oss något vi saknar", de: "Schick uns, was fehlt" })}
           </Link>
         </div>
       </article>

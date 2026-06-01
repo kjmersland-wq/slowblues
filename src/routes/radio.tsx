@@ -89,7 +89,7 @@ function RadioPage() {
 
         <h2 className="font-display text-2xl mb-2 inline-flex items-center gap-2">
           <RadioIcon className="size-5 text-gold" />
-          {tr(lang, { no: "Bluesprogrammer & stasjoner", en: "Blues programs & stations", sv: "Bluesprogram & stationer", de: "Blues-Programme & Sender" })}
+          {tr(lang, { no: "Bluesprogrammer & stasjoner", en: "Blues programs & stations", pl: "Programy i stacje bluesowe", sv: "Bluesprogram & stationer", de: "Blues-Programme & Sender" })}
         </h2>
         <p className="text-sm text-muted-foreground mb-6">
           {tr(lang, {
@@ -118,10 +118,10 @@ function RadioPage() {
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">{no ? s.descriptionNo : s.descriptionEn}</p>
               <div className="flex flex-wrap gap-3 text-xs">
                 <a href={s.listenUrl} target="_blank" rel="noopener" className="inline-flex items-center gap-1 text-gold hover:underline">
-                  <Play className="size-3" /> {tr(lang, { no: "Lytt", en: "Listen", sv: "Lyssna", de: "Hören" })} {s.listenNote && <span className="text-muted-foreground">({s.listenNote})</span>}
+                  <Play className="size-3" /> {tr(lang, { no: "Lytt", en: "Listen", pl: "Słuchaj", sv: "Lyssna", de: "Hören" })} {s.listenNote && <span className="text-muted-foreground">({s.listenNote})</span>}
                 </a>
                 <a href={s.website} target="_blank" rel="noopener" className="inline-flex items-center gap-1 text-muted-foreground hover:text-gold">
-                  {tr(lang, { no: "Nettside", en: "Website", sv: "Webbplats", de: "Webseite" })} <ExternalLink className="size-3" />
+                  {tr(lang, { no: "Nettside", en: "Website", pl: "Strona internetowa", sv: "Webbplats", de: "Webseite" })} <ExternalLink className="size-3" />
                 </a>
               </div>
             </article>

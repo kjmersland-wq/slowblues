@@ -70,7 +70,7 @@ function BlogArticlePage() {
   return (
     <PageShell>
       <article className="max-w-3xl mx-auto px-6 py-12">
-        <Link to="/blog" className="inline-flex items-center gap-1 text-sm text-gold hover:underline mb-6"><ArrowLeft className="size-4" /> {tr(lang, { no: "Alle artikler", en: "All articles", sv: "Alla artiklar", de: "Alle Artikel" })}</Link>
+        <Link to="/blog" className="inline-flex items-center gap-1 text-sm text-gold hover:underline mb-6"><ArrowLeft className="size-4" /> {tr(lang, { no: "Alle artikler", en: "All articles", pl: "Wszystkie artykuły", sv: "Alla artiklar", de: "Alle Artikel" })}</Link>
 
         <div className="flex items-center gap-3 text-[10px] tracking-[0.25em] text-gold uppercase mb-3">
           <span>{cat}</span>
@@ -108,7 +108,7 @@ function BlogArticlePage() {
 
         {article.relatedArtistIds && article.relatedArtistIds.length > 0 && (
           <div className="mt-12 pt-8 border-t border-border">
-            <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-3">{tr(lang, { no: "Relaterte artister", en: "Related artists", sv: "Relaterade artister", de: "Verwandte Künstler" })}</div>
+            <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-3">{tr(lang, { no: "Relaterte artister", en: "Related artists", pl: "Powiązani artyści", sv: "Relaterade artister", de: "Verwandte Künstler" })}</div>
             <div className="flex flex-wrap gap-2">
               {article.relatedArtistIds.map((slug) => (
                 <Link key={slug} to="/artists/$slug" params={{ slug }} className="text-sm px-3 py-1.5 rounded-full bg-card border border-border hover:border-gold/50 hover:text-gold transition capitalize">
@@ -120,7 +120,7 @@ function BlogArticlePage() {
         )}
 
         <div className="mt-12 pt-8 border-t border-border">
-          <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-3">{tr(lang, { no: "Flere artikler", en: "More articles", sv: "Fler artiklar", de: "Weitere Artikel" })}</div>
+          <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-3">{tr(lang, { no: "Flere artikler", en: "More articles", pl: "Więcej artykułów", sv: "Fler artiklar", de: "Weitere Artikel" })}</div>
           <ul className="space-y-2">
             {blogArticles.filter((a) => a.id !== article.id).slice(0, 5).map((a) => (
               <li key={a.id}>

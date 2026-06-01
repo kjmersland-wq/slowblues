@@ -82,9 +82,9 @@ function QuizPage() {
     return (
       <PageShell>
         <PageHero
-          eyebrow={tr(lang, { no: "Resultat", en: "Result", sv: "Resultat", de: "Ergebnis" })}
-          title={tr(lang, { no: "Hvor godt gikk det?", en: "How did you do?", sv: "Hur gick det?", de: "Wie ist es gelaufen?" })}
-          lead={tr(lang, { no: "Hvert svar viser riktig valg og forklaring.", en: "Every answer below shows the correct choice and explanation.", sv: "Varje svar visar rätt val och förklaring.", de: "Jede Antwort zeigt die richtige Wahl und Erklärung." })}
+          eyebrow={tr(lang, { no: "Resultat", en: "Result", pl: "Wynik", sv: "Resultat", de: "Ergebnis" })}
+          title={tr(lang, { no: "Hvor godt gikk det?", en: "How did you do?", pl: "Jak Ci poszło?", sv: "Hur gick det?", de: "Wie ist es gelaufen?" })}
+          lead={tr(lang, { no: "Hvert svar viser riktig valg og forklaring.", en: "Every answer below shows the correct choice and explanation.", pl: "Każda odpowiedź poniżej przedstawia poprawny wybór i wyjaśnienie.", sv: "Varje svar visar rätt val och förklaring.", de: "Jede Antwort zeigt die richtige Wahl und Erklärung." })}
           img={IMG.vinyl}
         />
         <section className="max-w-3xl mx-auto px-6 py-12">
@@ -93,27 +93,27 @@ function QuizPage() {
             <div className="font-display text-5xl gold-gradient-text mb-1">{score} / {questions.length}</div>
             <div className="text-muted-foreground mb-5">
               {score >= 8
-                ? tr(lang, { no: "Bluesforsker.", en: "Blues scholar.", sv: "Bluesforskare.", de: "Blues-Kenner." })
+                ? tr(lang, { no: "Bluesforsker.", en: "Blues scholar.", pl: "Znawca bluesa.", sv: "Bluesforskare.", de: "Blues-Kenner." })
                 : score >= 5
-                ? tr(lang, { no: "Solid bluesfan.", en: "Solid blues fan.", sv: "Stadig bluesfan.", de: "Solider Blues-Fan." })
-                : tr(lang, { no: "På tide å grave dypere.", en: "Time to dig deeper.", sv: "Dags att gräva djupare.", de: "Zeit, tiefer zu graben." })}
+                ? tr(lang, { no: "Solid bluesfan.", en: "Solid blues fan.", pl: "Prawdziwy fan bluesa.", sv: "Stadig bluesfan.", de: "Solider Blues-Fan." })
+                : tr(lang, { no: "På tide å grave dypere.", en: "Time to dig deeper.", pl: "Czas zagłębić się w temat.", sv: "Dags att gräva djupare.", de: "Zeit, tiefer zu graben." })}
             </div>
             {!submitted ? (
               <div className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
                 <input
                   value={nickname}
                   onChange={(e) => setNickname(e.target.value)}
-                  placeholder={tr(lang, { no: "Kallenavn for leaderboard", en: "Nickname for leaderboard", sv: "Smeknamn för topplistan", de: "Spitzname für Bestenliste" })}
-                  aria-label={tr(lang, { no: "Kallenavn for leaderboard", en: "Nickname for leaderboard", sv: "Smeknamn för topplistan", de: "Spitzname für Bestenliste" })}
+                  placeholder={tr(lang, { no: "Kallenavn for leaderboard", en: "Nickname for leaderboard", pl: "Pseudonim do rankingu", sv: "Smeknamn för topplistan", de: "Spitzname für Bestenliste" })}
+                  aria-label={tr(lang, { no: "Kallenavn for leaderboard", en: "Nickname for leaderboard", pl: "Pseudonim do rankingu", sv: "Smeknamn för topplistan", de: "Spitzname für Bestenliste" })}
                   className="flex-1 px-3 py-2 rounded-md bg-background border border-border text-sm"
                   maxLength={24}
                 />
                 <button onClick={submitScore} disabled={!nickname.trim()} className="px-4 py-2 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 disabled:opacity-40">
-                  {tr(lang, { no: "Send inn", en: "Submit", sv: "Skicka in", de: "Absenden" })}
+                  {tr(lang, { no: "Send inn", en: "Submit", pl: "Prześlij", sv: "Skicka in", de: "Absenden" })}
                 </button>
               </div>
             ) : (
-              <div className="text-sm text-gold">{tr(lang, { no: "Score lagret!", en: "Score saved!", sv: "Poäng sparad!", de: "Punktzahl gespeichert!" })}</div>
+              <div className="text-sm text-gold">{tr(lang, { no: "Score lagret!", en: "Score saved!", pl: "Wynik zapisany!", sv: "Poäng sparad!", de: "Punktzahl gespeichert!" })}</div>
             )}
           </div>
 
@@ -121,7 +121,7 @@ function QuizPage() {
             <div className="bg-card/40 border border-border rounded-lg p-5 mb-8">
               <div className="font-display text-lg mb-3 inline-flex items-center gap-2">
                 <Trophy className="size-4 text-gold" />
-                {tr(lang, { no: "Leaderboard (topp 10)", en: "Leaderboard (top 10)", sv: "Topplista (topp 10)", de: "Bestenliste (Top 10)" })}
+                {tr(lang, { no: "Leaderboard (topp 10)", en: "Leaderboard (top 10)", pl: "Ranking (top 10)", sv: "Topplista (topp 10)", de: "Bestenliste (Top 10)" })}
               </div>
               <ol className="text-sm space-y-1.5">
                 {board.map((e, i) => (
@@ -145,12 +145,12 @@ function QuizPage() {
                     <div className="font-medium">{i + 1}. {no ? q.questionNo : q.question}</div>
                   </div>
                   <div className="text-sm text-muted-foreground ml-7 mb-2">
-                    {tr(lang, { no: "Riktig svar", en: "Answer", sv: "Rätt svar", de: "Antwort" })}: <span className="text-gold">{opts[q.correctIndex]}</span>
+                    {tr(lang, { no: "Riktig svar", en: "Answer", pl: "Odpowiedź", sv: "Rätt svar", de: "Antwort" })}: <span className="text-gold">{opts[q.correctIndex]}</span>
                   </div>
                   <p className="text-sm text-muted-foreground/90 ml-7 leading-relaxed">{no ? q.explanationNo : q.explanation}</p>
                   {q.artistLink && (
                     <a href={q.artistLink} className="ml-7 mt-2 inline-flex items-center gap-1 text-xs text-gold hover:underline">
-                      {tr(lang, { no: "Les mer om artisten", en: "Read more about the artist", sv: "Läs mer om artisten", de: "Mehr über den Künstler" })} <ExternalLink className="size-3" />
+                      {tr(lang, { no: "Les mer om artisten", en: "Read more about the artist", pl: "Przeczytaj więcej o artyście", sv: "Läs mer om artisten", de: "Mehr über den Künstler" })} <ExternalLink className="size-3" />
                     </a>
                   )}
                 </div>
@@ -158,7 +158,7 @@ function QuizPage() {
             })}
           </div>
           <button onClick={() => { setAnswers(Array(questions.length).fill(null)); setDone(false); setSubmitted(false); }} className="mt-8 mx-auto flex items-center gap-2 px-5 py-2.5 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90">
-            <RotateCcw className="size-4" /> {tr(lang, { no: "Prøv igjen", en: "Try again", sv: "Försök igen", de: "Nochmal versuchen" })}
+            <RotateCcw className="size-4" /> {tr(lang, { no: "Prøv igjen", en: "Try again", pl: "Spróbuj ponownie", sv: "Försök igen", de: "Nochmal versuchen" })}
           </button>
         </section>
       </PageShell>
@@ -169,8 +169,8 @@ function QuizPage() {
     <PageShell>
       <PageHero
         eyebrow="Blues Quiz"
-        title={tr(lang, { no: "Hvor godt kan du bluesen?", en: "Think you know the blues?", sv: "Hur bra kan du bluesen?", de: "Wie gut kennst du den Blues?" })}
-        lead={tr(lang, { no: "Ti spørsmål fra Deltaen til i dag. Velg vanskelighetsgrad.", en: "Ten questions from the Delta to today. Pick your difficulty.", sv: "Tio frågor från Deltat till idag. Välj svårighetsgrad.", de: "Zehn Fragen vom Delta bis heute. Wähle den Schwierigkeitsgrad." })}
+        title={tr(lang, { no: "Hvor godt kan du bluesen?", en: "Think you know the blues?", pl: "Myślisz, że znasz bluesa?", sv: "Hur bra kan du bluesen?", de: "Wie gut kennst du den Blues?" })}
+        lead={tr(lang, { no: "Ti spørsmål fra Deltaen til i dag. Velg vanskelighetsgrad.", en: "Ten questions from the Delta to today. Pick your difficulty.", pl: "Dziesięć pytań od Delty do dziś. Wybierz swój poziom trudności.", sv: "Tio frågor från Deltat till idag. Välj svårighetsgrad.", de: "Zehn Fragen vom Delta bis heute. Wähle den Schwierigkeitsgrad." })}
         img={IMG.vinyl}
       />
       <section className="max-w-3xl mx-auto px-6 py-12">
@@ -178,15 +178,15 @@ function QuizPage() {
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
             <span className="inline-flex items-center gap-1.5 text-gold font-medium"><Calendar className="size-4" /> {cycleKey}</span>
             <span className="text-muted-foreground">{cycleRange}</span>
-            <span className="text-xs text-muted-foreground/80">· {tr(lang, { no: "Nytt sett hver 10. dag", en: "New set every 10 days", sv: "Nya frågor var 10:e dag", de: "Neue Fragen alle 10 Tage" })}</span>
+            <span className="text-xs text-muted-foreground/80">· {tr(lang, { no: "Nytt sett hver 10. dag", en: "New set every 10 days", pl: "Nowy zestaw co 10 dni", sv: "Nya frågor var 10:e dag", de: "Neue Fragen alle 10 Tage" })}</span>
             <Link to={"/quiz/archive" as any} className="ml-auto inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-gold">
-              <Archive className="size-3.5" /> {tr(lang, { no: "Arkiv", en: "Archive", sv: "Arkiv", de: "Archiv" })}
+              <Archive className="size-3.5" /> {tr(lang, { no: "Arkiv", en: "Archive", pl: "Archiwum", sv: "Arkiv", de: "Archiv" })}
             </Link>
           </div>
           {featured && (
             <div className="mt-3 flex items-center gap-2 text-sm">
               <Star className="size-4 text-gold" />
-              <span className="text-muted-foreground">{tr(lang, { no: "Syklusens artist:", en: "Featured artist:", sv: "Periodens artist:", de: "Künstler des Zyklus:" })}</span>
+              <span className="text-muted-foreground">{tr(lang, { no: "Syklusens artist:", en: "Featured artist:", pl: "Polecany artysta:", sv: "Periodens artist:", de: "Künstler des Zyklus:" })}</span>
               <Link to="/artists/$slug" params={{ slug: featured.slug }} className="text-gold hover:underline font-medium">{featured.name}</Link>
             </div>
           )}
@@ -210,8 +210,8 @@ function QuizPage() {
                     start={q.audioStart ?? 0}
                     end={q.audioEnd ?? 30}
                     hint={no ? q.audioHintNo : q.audioHint}
-                    label={tr(lang, { no: "Spill av lydklipp", en: "Play audio clip", sv: "Spela ljudklipp", de: "Audioclip abspielen" })}
-                    playingLabel={tr(lang, { no: "Spiller … lytt nøye", en: "Playing … listen carefully", sv: "Spelar … lyssna noga", de: "Wird abgespielt … gut zuhören" })}
+                    label={tr(lang, { no: "Spill av lydklipp", en: "Play audio clip", pl: "Odtwórz klip audio", sv: "Spela ljudklipp", de: "Audioclip abspielen" })}
+                    playingLabel={tr(lang, { no: "Spiller … lytt nøye", en: "Playing … listen carefully", pl: "Odtwarzanie... słuchaj uważnie", sv: "Spelar … lyssna noga", de: "Wird abgespielt … gut zuhören" })}
                   />
                 )}
                 <div className="grid sm:grid-cols-2 gap-2">
@@ -234,7 +234,7 @@ function QuizPage() {
           onClick={() => setDone(true)}
           className="mt-8 w-full sm:w-auto mx-auto block px-7 py-3 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          {tr(lang, { no: "Vis resultatet", en: "Show my result", sv: "Visa resultatet", de: "Ergebnis anzeigen" })}
+          {tr(lang, { no: "Vis resultatet", en: "Show my result", pl: "Pokaż mój wynik", sv: "Visa resultatet", de: "Ergebnis anzeigen" })}
         </button>
       </section>
     </PageShell>

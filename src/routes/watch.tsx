@@ -121,42 +121,42 @@ function WatchPage() {
   const quotaError = !!data?.error && /quota|429/i.test(data.error);
 
   const T = {
-    eyebrow: tr(lang, { no: "Se", en: "Watch", sv: "Titta", de: "Sehen" }),
-    title: tr(lang, { no: "Blues på YouTube", en: "Blues on YouTube", sv: "Blues på YouTube", de: "Blues auf YouTube" }),
+    eyebrow: tr(lang, { no: "Se", en: "Watch", pl: "Obejrzyj", sv: "Titta", de: "Sehen" }),
+    title: tr(lang, { no: "Blues på YouTube", en: "Blues on YouTube", pl: "Blues na YouTube", sv: "Blues på YouTube", de: "Blues auf YouTube" }),
     lead: tr(lang, {
       no: "Hver video på SlowBlues hentes fra YouTube – det eneste stedet vi stoler på for fulle konserter, intervjuer og de dypeste bluesperlene.",
-      en: "Every video on SlowBlues is sourced from YouTube — the only place we trust for full performances, interviews and the deep cuts that keep the music alive.",
+      en: "Every video on SlowBlues is sourced from YouTube — the only place we trust for full performances, interviews and the deep cuts that keep the music alive.", pl: "Każdy film na SlowBlues pochodzi z YouTube — jedynego miejsca, któremu ufamy w kwestii pełnych wykonań, wywiadów i głębokich utworów, które utrzymują muzykę przy życiu.",
       sv: "Varje video på SlowBlues hämtas från YouTube – den enda plats vi litar på för hela konserter, intervjuer och de djupaste bluespärlorna.",
       de: "Jedes Video auf SlowBlues stammt von YouTube – dem einzigen Ort, dem wir bei kompletten Konzerten, Interviews und tiefen Blues-Schätzen vertrauen.",
     }),
     searchPlaceholder: tr(lang, {
       no: "Søk artister, sanger, festivaler…",
-      en: "Search artists, songs, festivals…",
+      en: "Search artists, songs, festivals…", pl: "Szukaj artystów, utworów, festiwali…",
       sv: "Sök artister, låtar, festivaler…",
       de: "Künstler, Songs, Festivals suchen…",
     }),
-    searchBtn: tr(lang, { no: "Søk YouTube", en: "Search YouTube", sv: "Sök YouTube", de: "YouTube suchen" }),
-    loading: tr(lang, { no: "Laster fra YouTube…", en: "Loading from YouTube…", sv: "Laddar från YouTube…", de: "Lädt von YouTube…" }),
+    searchBtn: tr(lang, { no: "Søk YouTube", en: "Search YouTube", pl: "Szukaj na YouTube", sv: "Sök YouTube", de: "YouTube suchen" }),
+    loading: tr(lang, { no: "Laster fra YouTube…", en: "Loading from YouTube…", pl: "Ładowanie z YouTube…", sv: "Laddar från YouTube…", de: "Lädt von YouTube…" }),
     unreachable: tr(lang, {
       no: "Får ikke kontakt med YouTube akkurat nå. Prøv igjen om litt.",
-      en: "Unable to reach YouTube right now. Try again shortly.",
+      en: "Unable to reach YouTube right now. Try again shortly.", pl: "Nie można teraz dosięgnąć YouTube. Spróbuj ponownie wkrótce.",
       sv: "Når inte YouTube just nu. Försök igen om en stund.",
       de: "YouTube ist gerade nicht erreichbar. Bitte später erneut versuchen.",
     }),
     quotaTitle: tr(lang, {
       no: "Dagens YouTube-søkekvote er brukt opp",
-      en: "Today's YouTube search quota has been used up",
+      en: "Today's YouTube search quota has been used up", pl: "Dzisiejszy limit wyszukań na YouTube został wyczerpany",
       sv: "Dagens YouTube-sökkvot är slut",
       de: "Das heutige YouTube-Suchkontingent ist aufgebraucht",
     }),
     quotaDesc: tr(lang, {
       no: "Bruk knappene under – de åpner samme søk direkte på YouTube.",
-      en: "Use the buttons below — they open the same search directly on YouTube.",
+      en: "Use the buttons below — they open the same search directly on YouTube.", pl: "Użyj poniższych przycisków — otwierają one to samo wyszukiwanie bezpośrednio na YouTube.",
       sv: "Använd knapparna nedan – de öppnar samma sökning direkt på YouTube.",
       de: "Nutze die Schaltflächen unten – sie öffnen die gleiche Suche direkt auf YouTube.",
     }),
-    noResults: tr(lang, { no: "Ingen treff for", en: "No results for", sv: "Inga träffar för", de: "Keine Treffer für" }),
-    openOnYouTube: tr(lang, { no: "Åpne på YouTube", en: "Open on YouTube", sv: "Öppna på YouTube", de: "Auf YouTube öffnen" }),
+    noResults: tr(lang, { no: "Ingen treff for", en: "No results for", pl: "Brak wyników dla", sv: "Inga träffar för", de: "Keine Treffer für" }),
+    openOnYouTube: tr(lang, { no: "Åpne på YouTube", en: "Open on YouTube", pl: "Otwórz na YouTube", sv: "Öppna på YouTube", de: "Auf YouTube öffnen" }),
   };
 
   return (
