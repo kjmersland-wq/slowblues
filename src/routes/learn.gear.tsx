@@ -52,7 +52,7 @@ type Founder = {
   credit?: string; // e.g. "Wikimedia Commons"
   creditUrl?: string;
 };
-type L10n = { no: string; en: string; sv: string; de: string };
+type L10n = { no: string; en: string; sv: string; de: string; pl?: string };
 type Brand = {
   id: string;
   cat: Cat;
