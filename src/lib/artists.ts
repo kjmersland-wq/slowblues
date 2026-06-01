@@ -117,6 +117,7 @@ const FALLBACK_CHAIN: Record<Lang, Lang[]> = {
   en: ["en", "no", "sv", "de"],
   sv: ["sv", "no", "en", "de"],
   de: ["de", "en", "no", "sv"],
+  pl: ["en", "no", "sv", "de"],
 };
 
 export function pickLang(
