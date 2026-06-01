@@ -15,6 +15,7 @@ const T = {
   en: { search: "Search artists…", all: "All", region: "Region", country: "Country", genre: "Genre", era: "Era", language: "Language", showing: "of", artists: "artists", noMatch: "No artists match your filter.", clear: "Clear" },
   sv: { search: "Sök artister…", all: "Alla", region: "Region", country: "Land", genre: "Genre", era: "Era", language: "Språk", showing: "av", artists: "artister", noMatch: "Inga artister matchar filtret.", clear: "Rensa" },
   de: { search: "Künstler suchen…", all: "Alle", region: "Region", country: "Land", genre: "Genre", era: "Epoche", language: "Sprache", showing: "von", artists: "Künstlern", noMatch: "Keine Künstler entsprechen dem Filter.", clear: "Zurücksetzen" },
+  pl: { search: "Szukaj artystów…", all: "Wszyscy", region: "Region", country: "Kraj", genre: "Gatunek", era: "Epoka", language: "Język", showing: "z", artists: "artystów", noMatch: "Żaden artysta nie pasuje do filtra.", clear: "Wyczyść" },
 } as const;
 
 export function ArtistListView({ locale }: { locale: ArtistLocale }) {
