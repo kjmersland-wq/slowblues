@@ -66,6 +66,7 @@ export function ArtistListView({ locale }: { locale: ArtistLocale }) {
     locale === "no" ? "Bla gjennom artister"
     : locale === "sv" ? "Bläddra bland artister"
     : locale === "de" ? "Künstler durchsuchen"
+    : locale === "pl" ? "Przeglądaj artystów"
     : "Browse Artists";
 
   return (
