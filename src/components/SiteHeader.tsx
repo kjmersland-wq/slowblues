@@ -16,6 +16,19 @@ export function SiteHeader() {
   const { lang, setLang, t } = useI18n();
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState<string | null>(null);
+  const [langOpen, setLangOpen] = useState(false);
+  const langRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!langOpen) return;
+    const onDoc = (e: MouseEvent) => {
+      if (langRef.current && !langRef.current.contains(e.target as Node)) setLangOpen(false);
+    };
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
+  }, [langOpen]);
+
+  const activeLang = LANGS.find((l) => l.code === lang) ?? LANGS[1];
 
   type Item = { to: string; label: string };
   const groups: { key: string; label: string; items: Item[] }[] = [
