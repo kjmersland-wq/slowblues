@@ -54,7 +54,7 @@ export function NameLink({
       </Link>
     );
   }
-  const wikiLang = locale === "en" ? "en" : locale === "de" ? "de" : locale === "sv" ? "sv" : "no";
+  const wikiLang = locale === "en" ? "en" : locale === "de" ? "de" : locale === "sv" ? "sv" : locale === "pl" ? "pl" : "no";
   const href = `https://${wikiLang}.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(name)}`;
   return (
     <a
