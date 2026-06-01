@@ -22,7 +22,7 @@ export const Route = createFileRoute("/watch")({
 });
 
 type Preset = { q: string; label: string };
-type Category = { key: string; label: { no: string; en: string; sv: string; de: string }; presets: Preset[] };
+type Category = { key: string; label: { no: string; en: string; sv: string; de: string; pl?: string }; presets: Preset[] };
 
 const CATEGORIES: Category[] = [
   {
