@@ -39,7 +39,7 @@ export type PressQuote = {
 };
 export type AwardEntry = { year: number | string; title: string; category?: string; note?: string };
 
-export type Lang = "en" | "no" | "sv" | "de";
+export type Lang = "en" | "no" | "sv" | "de" | "pl";
 
 export type ArtistRecord = {
   id: string;
