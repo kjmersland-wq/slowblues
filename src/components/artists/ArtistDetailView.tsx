@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { SafeImage } from "@/components/SafeImage";
-import { useArtist, useArtists, pickLang, type ArtistRecord, type Lang } from "@/lib/artists";
+import { useArtist, useArtists, pickLang, pickLangArray, pickLangJsonb, type ArtistRecord, type Lang, type FamilyEntry, type InstrumentEntry, type CollaboratorEntry, type DiscographyEntry, type AwardEntry, type PressQuote } from "@/lib/artists";
 import { resolveArtistImage } from "@/lib/artistImageMap";
 import { computeRelated } from "@/lib/relatedArtists";
 import { IMG } from "@/data/images";
@@ -48,9 +48,19 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
   const heroImg = ownImg ?? IMG.muddyWaters;
   const related = computeRelated(a, all ?? [], 8);
   const bio = pickLang(a, lang, "biography");
-  const short = pickLang(a, lang, "short") ?? a.short;
+  const short = pickLang(a, lang, "short");
   const influence = pickLang(a, lang, "influence");
-  const eraLabel = pickLang(a, lang, "era_label") ?? a.era;
+  const eraLabel = pickLang(a, lang, "era_label");
+  const signatureSongs = pickLangArray(a, lang, "signature_songs");
+  const influences = pickLangArray(a, lang, "influences");
+  const family = pickLangJsonb<FamilyEntry>(a, lang, "family");
+  const formative = pickLangJsonb<string>(a, lang, "formative");
+  const anecdotes = pickLangJsonb<string>(a, lang, "anecdotes");
+  const instruments = pickLangJsonb<InstrumentEntry>(a, lang, "instruments");
+  const collaborators = pickLangJsonb<CollaboratorEntry>(a, lang, "collaborators");
+  const discography = pickLangJsonb<DiscographyEntry>(a, lang, "discography");
+  const awards = pickLangJsonb<AwardEntry>(a, lang, "awards");
+  const pressQuotes = pickLangJsonb<PressQuote>(a, lang, "press_quotes");
   const allStyles = Array.from(new Set([...(a.styles ?? []), ...(a.categories ?? [])]));
   const gallery = (a.gallery_images ?? []).map((p) => resolveArtistImage(p)).filter(Boolean) as string[];
   const youtubeIds = Array.from(new Set([...(a.youtube_video_ids ?? []), ...(a.videos ?? []).map((v) => v.youtube_id)])).filter(Boolean);
@@ -140,29 +150,17 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
           </section>
         )}
 
-        {/* Fallback to legacy bio paragraphs if no multilingual bio */}
-        {!bio && a.bio.length > 0 && (
-          <section className="max-w-3xl mx-auto space-y-5 text-foreground/85 leading-relaxed text-lg">
-            {a.bio.map((p, i) => <p key={i}>{p}</p>)}
-          </section>
-        )}
-
         {influence && (
           <Card title={t.legacy} icon={Sparkles}>
             <p className="text-muted-foreground leading-relaxed whitespace-pre-line">{influence}</p>
           </Card>
         )}
-        {!influence && a.legacy && (
-          <Card title={t.legacy} icon={Sparkles}>
-            <p className="text-muted-foreground leading-relaxed">{a.legacy}</p>
-          </Card>
-        )}
 
         {/* Influences */}
-        {a.influences.length > 0 && (
+        {influences.length > 0 && (
           <Section icon={Star} title={t.influences} tone="amber">
             <div className="flex flex-wrap gap-2">
-              {a.influences.map((inf, i) => (
+              {influences.map((inf, i) => (
                 <span key={i} className="px-3 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-200 text-sm">{inf}</span>
               ))}
             </div>
@@ -170,10 +168,10 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
         )}
 
         {/* Family */}
-        {a.family.length > 0 && (
+        {family.length > 0 && (
           <Section icon={Users} title={t.family} tone="rose">
             <div className="grid md:grid-cols-2 gap-4">
-              {a.family.map((f, i) => (
+              {family.map((f, i) => (
                 <div key={i} className="border border-border rounded-lg p-5 bg-card/40">
                   <div className="text-[10px] tracking-[0.25em] text-rose-400/80 uppercase mb-2">{f.relation}</div>
                   <div className="font-display text-xl mb-1">
@@ -186,10 +184,10 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
           </Section>
         )}
 
-        {a.formative.length > 0 && (
+        {formative.length > 0 && (
           <Section icon={Star} title={t.formative} tone="amber">
             <ul className="space-y-3">
-              {a.formative.map((f, i) => (
+              {formative.map((f, i) => (
                 <li key={i} className="flex gap-3 text-foreground/85 leading-relaxed">
                   <span className="text-amber-400 mt-2">•</span><span>{f}</span>
                 </li>
@@ -198,11 +196,11 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
           </Section>
         )}
 
-        {a.instruments.length > 0 && (
+        {instruments.length > 0 && (
           <Section icon={Guitar} title={t.instruments} tone="gold">
             <div className="grid md:grid-cols-3 gap-5">
               {["Gitar", "Annet", "Vokal"].map((cat) => {
-                const items = a.instruments.filter((i) => i.category === cat);
+                const items = instruments.filter((i) => i.category === cat);
                 if (items.length === 0) return null;
                 const Ico = cat === "Gitar" ? Guitar : cat === "Vokal" ? Mic : Music;
                 return (
@@ -227,20 +225,20 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
           </Section>
         )}
 
-        {a.anecdotes.length > 0 && (
+        {anecdotes.length > 0 && (
           <Section icon={Quote} title={t.anecdotes} tone="rose">
             <div className="grid md:grid-cols-2 gap-4">
-              {a.anecdotes.map((q, i) => (
+              {anecdotes.map((q, i) => (
                 <blockquote key={i} className="border border-border rounded-lg p-5 bg-card/40 text-foreground/80 italic leading-relaxed">"{q}"</blockquote>
               ))}
             </div>
           </Section>
         )}
 
-        {a.collaborators.length > 0 && (
+        {collaborators.length > 0 && (
           <Section icon={Users} title={t.collaborators} tone="rose">
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {a.collaborators.map((c, i) => (
+              {collaborators.map((c, i) => (
                 <div key={i} className="border border-border rounded-lg p-4 bg-card/40">
                   <div className="font-display text-lg text-gold mb-1">
                     <NameLink name={c.name} index={nameIndex} locale={locale} />
@@ -264,10 +262,10 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
         <ArtistYouTube artistName={a.name} title={t.videos} />
 
         {/* Press quotes & critic statements */}
-        {a.press_quotes.length > 0 && (
+        {pressQuotes.length > 0 && (
           <Section icon={Quote} title={t.press} tone="amber">
             <div className="grid md:grid-cols-2 gap-5">
-              {a.press_quotes.map((q, i) => (
+              {pressQuotes.map((q, i) => (
                 <figure key={i} className="border border-amber-400/20 rounded-lg p-5 bg-amber-400/5">
                   <blockquote className="text-foreground/90 italic leading-relaxed mb-3">"{q.quote}"</blockquote>
                   <figcaption className="text-sm text-muted-foreground">
@@ -291,7 +289,7 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
         )}
 
         {/* Discography */}
-        {a.discography.length > 0 && (
+        {discography.length > 0 && (
           <Section icon={Disc3} title={t.discography} tone="gold">
             <DiscographyVideos>
               <div className="overflow-x-auto border border-border rounded-xl bg-card/40">
@@ -302,7 +300,7 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
                     </tr>
                   </thead>
                   <tbody>
-                    {a.discography.map((d, i) => {
+                    {discography.map((d, i) => {
                       const chart = d.chart_position ?? d.chart;
                       const sales = d.sales_estimate ?? d.sales;
                       return (
@@ -346,10 +344,10 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
         )}
 
         {/* Famous songs */}
-        {a.signature_songs.length > 0 && (
+        {signatureSongs.length > 0 && (
           <Section icon={Music} title={t.songs} tone="gold">
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
-              {a.signature_songs.map((s, i) => (
+              {signatureSongs.map((s, i) => (
                 <div key={i} className="border border-border rounded-lg px-4 py-3 bg-card/40 flex items-center gap-3">
                   <span className="text-gold font-mono text-xs">{String(i + 1).padStart(2, "0")}</span>
                   <span className="text-foreground/90">{s}</span>
@@ -373,10 +371,10 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
           </Section>
         )}
 
-        {a.awards.length > 0 && (
+        {awards.length > 0 && (
           <Section icon={Award} title={t.awards} tone="gold">
             <div className="grid md:grid-cols-2 gap-4">
-              {a.awards.map((w, i) => (
+              {awards.map((w, i) => (
                 <div key={i} className="border border-border rounded-lg p-5 bg-card/40 flex gap-4">
                   <div className="size-10 rounded-full bg-gold/15 border border-gold/40 flex items-center justify-center shrink-0"><Award className="size-5 text-gold" /></div>
                   <div>
