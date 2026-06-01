@@ -62,19 +62,19 @@ function CyclePage() {
       <PageHero
         eyebrow={`Cycle ${key}`}
         title={`Blues Quiz ${key}`}
-        lead={`${range} · ${tr(lang, { no: "Bla gjennom syklusens kuraterte spørsmål.", en: "Browse this cycle's curated questions.", sv: "Bläddra bland periodens kurerade frågor.", de: "Durchstöbere die kuratierten Fragen dieses Zyklus." })}`}
+        lead={`${range} · ${tr(lang, { no: "Bla gjennom syklusens kuraterte spørsmål.", en: "Browse this cycle's curated questions.", pl: "Przejrzyj wyselekcjonowane pytania z tego cyklu.", sv: "Bläddra bland periodens kurerade frågor.", de: "Durchstöbere die kuratierten Fragen dieses Zyklus." })}`}
         img={IMG.vinyl}
       />
       <section className="max-w-3xl mx-auto px-6 py-12">
         <div className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
           <Link to={"/quiz/archive" as any} className="inline-flex items-center gap-1 text-muted-foreground hover:text-gold">
-            <ArrowLeft className="size-3.5" /> {tr(lang, { no: "Tilbake til arkivet", en: "Back to archive", sv: "Tillbaka till arkivet", de: "Zurück zum Archiv" })}
+            <ArrowLeft className="size-3.5" /> {tr(lang, { no: "Tilbake til arkivet", en: "Back to archive", pl: "Wróć do archiwum", sv: "Tillbaka till arkivet", de: "Zurück zum Archiv" })}
           </Link>
           <span className="inline-flex items-center gap-1.5 text-gold"><Calendar className="size-4" /> {range}</span>
           {isCurrent && <span className="text-[10px] tracking-widest text-gold/90 bg-gold/10 px-2 py-0.5 rounded">LIVE</span>}
           {!isCurrent && (
             <Link to="/quiz" className="ml-auto text-xs text-muted-foreground hover:text-gold">
-              {tr(lang, { no: "Spill aktuell syklus →", en: "Play current cycle →", sv: "Spela aktuell period →", de: "Aktuellen Zyklus spielen →" })}
+              {tr(lang, { no: "Spill aktuell syklus →", en: "Play current cycle →", pl: "Odtwórz bieżący cykl →", sv: "Spela aktuell period →", de: "Aktuellen Zyklus spielen →" })}
             </Link>
           )}
         </div>
@@ -82,7 +82,7 @@ function CyclePage() {
         {featured && (
           <div className="mb-6 rounded-xl border border-gold/30 bg-gradient-to-br from-card/70 to-card/30 p-5">
             <div className="text-xs tracking-[0.2em] text-gold mb-1 inline-flex items-center gap-1.5">
-              <Star className="size-3.5" /> {tr(lang, { no: "SYKLUSENS ARTIST", en: "FEATURED ARTIST", sv: "PERIODENS ARTIST", de: "KÜNSTLER DES ZYKLUS" })}
+              <Star className="size-3.5" /> {tr(lang, { no: "SYKLUSENS ARTIST", en: "FEATURED ARTIST", pl: "WYRÓŻNIONY ARTYSTA", sv: "PERIODENS ARTIST", de: "KÜNSTLER DES ZYKLUS" })}
             </div>
             <Link to="/artists/$slug" params={{ slug: featured.slug }} className="font-display text-2xl gold-gradient-text hover:underline">{featured.name}</Link>
           </div>
@@ -101,12 +101,12 @@ function CyclePage() {
               <li key={q.id} className="bg-card/60 border border-border rounded-xl p-5">
                 <div className="font-display text-lg mb-2"><span className="text-gold mr-2">{i + 1}.</span>{no ? q.questionNo : q.question}</div>
                 <div className="text-sm text-muted-foreground mb-2">
-                  {tr(lang, { no: "Svar", en: "Answer", sv: "Svar", de: "Antwort" })}: <span className="text-gold">{opts[q.correctIndex]}</span>
+                  {tr(lang, { no: "Svar", en: "Answer", pl: "Odpowiedź", sv: "Svar", de: "Antwort" })}: <span className="text-gold">{opts[q.correctIndex]}</span>
                 </div>
                 <p className="text-sm text-muted-foreground/90 leading-relaxed">{no ? q.explanationNo : q.explanation}</p>
                 {q.artistLink && (
                   <a href={q.artistLink} className="mt-2 inline-flex items-center gap-1 text-xs text-gold hover:underline">
-                    {tr(lang, { no: "Les mer", en: "Read more", sv: "Läs mer", de: "Mehr lesen" })} <ExternalLink className="size-3" />
+                    {tr(lang, { no: "Les mer", en: "Read more", pl: "Czytaj więcej", sv: "Läs mer", de: "Mehr lesen" })} <ExternalLink className="size-3" />
                   </a>
                 )}
               </li>

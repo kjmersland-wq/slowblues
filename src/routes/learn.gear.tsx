@@ -357,12 +357,12 @@ function GearPage() {
   const hero = {
     title: tr(lang, {
       no: "Verktøyet som bygget bluesen",
-      en: "The Tools That Built the Blues",
+      en: "The Tools That Built the Blues", pl: "Narzędzia, które zbudowały bluesa",
       sv: "Verktygen som byggde bluesen",
       de: "Die Werkzeuge, die den Blues schufen",
     }),
     sub: tr(lang, {
-      en: "Blues isn't just about feeling — it's about the right instrument in the right hands at the right moment. A Telecaster through a tweed Fender amp. A Marine Band in the key of A. A Shure 520DX held just right. These are the tools that made the music.",
+      en: "Blues isn't just about feeling — it's about the right instrument in the right hands at the right moment. A Telecaster through a tweed Fender amp. A Marine Band in the key of A. A Shure 520DX held just right. These are the tools that made the music.", pl: "Blues to nie tylko uczucia – to odpowiedni instrument w odpowiednich rękach w odpowiednim momencie. Telecaster przez tweedowy wzmacniacz Fendera. Harmonijka Marine Band w tonacji A. Shure 520DX trzymany perfekcyjnie. To były narzędzia, które tworzyły tę muzykę.",
       no: "Blues handler ikke bare om følelser — det handler om riktig instrument i riktige hender i rett øyeblikk. En Telecaster gjennom en tweed Fender-forsterker. Et Marine Band i A-dur. En Shure 520DX holdt akkurat riktig. Dette er verktøyet som skapte musikken.",
       sv: "Blues handlar inte bara om känsla — det handlar om rätt instrument i rätt händer i rätt ögonblick. En Telecaster genom en tweed Fender-förstärkare. Ett Marine Band i A-dur. En Shure 520DX som hålls rätt. Det är verktygen som skapade musiken.",
       de: "Blues ist nicht nur Gefühl — es geht um das richtige Instrument in den richtigen Händen im richtigen Moment. Eine Telecaster durch einen Tweed-Fender-Amp. Eine Marine Band in A. Ein richtig gehaltenes Shure 520DX. Das sind die Werkzeuge, die die Musik schufen.",
@@ -422,13 +422,13 @@ function GearPage() {
       <section className="border-t border-border">
         <div className="max-w-3xl mx-auto px-5 py-14 text-center">
           <p className="text-muted-foreground">
-            {tr(lang, { no: "Mangler vi et merke? Si fra.", en: "Missing a brand? Let us know.", sv: "Saknar vi ett märke? Säg till.", de: "Fehlt eine Marke? Sag uns Bescheid." })}
+            {tr(lang, { no: "Mangler vi et merke? Si fra.", en: "Missing a brand? Let us know.", pl: "Brakuje marki? Daj nam znać.", sv: "Saknar vi ett märke? Säg till.", de: "Fehlt eine Marke? Sag uns Bescheid." })}
           </p>
           <Link
             to="/contact"
             className="inline-block mt-4 px-6 py-3 rounded-full bg-gold text-primary-foreground font-semibold hover:opacity-90 transition"
           >
-            {tr(lang, { no: "Kontakt oss", en: "Contact us", sv: "Kontakta oss", de: "Kontakt aufnehmen" })}
+            {tr(lang, { no: "Kontakt oss", en: "Contact us", pl: "Skontaktuj się z nami", sv: "Kontakta oss", de: "Kontakt aufnehmen" })}
           </Link>
         </div>
       </section>
@@ -463,7 +463,7 @@ function BrandCard({ brand, lang }: { brand: Brand; lang: ReturnType<typeof useI
             <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mt-2">{tr(lang, brand.founded)}</p>
             {brand.founder && (
               <p className="text-[11px] text-muted-foreground/80 mt-1">
-                {tr(lang, { no: "Grunnlegger", en: "Founder", sv: "Grundare", de: "Gründer" })}:{" "}
+                {tr(lang, { no: "Grunnlegger", en: "Founder", pl: "Założyciel", sv: "Grundare", de: "Gründer" })}:{" "}
                 <Link to="/learn/gear/$id" params={{ id: brand.id }} className="text-gold hover:underline">
                   {brand.founder.name}
                 </Link>
@@ -475,7 +475,7 @@ function BrandCard({ brand, lang }: { brand: Brand; lang: ReturnType<typeof useI
               params={{ id: brand.id }}
               className="inline-block mt-2 text-[11px] uppercase tracking-[0.18em] text-gold hover:underline"
             >
-              {tr(lang, { no: "Les hele historien →", en: "Read the full story →", sv: "Läs hela historien →", de: "Die ganze Geschichte →" })}
+              {tr(lang, { no: "Les hele historien →", en: "Read the full story →", pl: "Przeczytaj całą historię →", sv: "Läs hela historien →", de: "Die ganze Geschichte →" })}
             </Link>
           </div>
         </div>
@@ -484,7 +484,7 @@ function BrandCard({ brand, lang }: { brand: Brand; lang: ReturnType<typeof useI
           className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-gold transition px-3 py-1.5 rounded-full border border-border"
           aria-label="Share"
         >
-          <Share2 className="size-3.5" /> {tr(lang, { no: "Del", en: "Share", sv: "Dela", de: "Teilen" })}
+          <Share2 className="size-3.5" /> {tr(lang, { no: "Del", en: "Share", pl: "Udostępnij", sv: "Dela", de: "Teilen" })}
         </button>
       </header>
 
@@ -509,7 +509,7 @@ function BrandCard({ brand, lang }: { brand: Brand; lang: ReturnType<typeof useI
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-border text-muted-foreground hover:text-gold hover:border-gold/40 transition text-sm"
             >
-              {tr(lang, { no: "YouTube-søk", en: "YouTube search", sv: "YouTube-sökning", de: "YouTube-Suche" })} <ExternalLink className="size-3.5" />
+              {tr(lang, { no: "YouTube-søk", en: "YouTube search", pl: "Wyszukiwanie YouTube", sv: "YouTube-sökning", de: "YouTube-Suche" })} <ExternalLink className="size-3.5" />
             </a>
           </div>
         </div>
@@ -517,7 +517,7 @@ function BrandCard({ brand, lang }: { brand: Brand; lang: ReturnType<typeof useI
         <aside className="space-y-5">
           <div>
             <h3 className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-2">
-              {tr(lang, { no: "Nøkkelmodeller", en: "Key models", sv: "Nyckelmodeller", de: "Schlüsselmodelle" })}
+              {tr(lang, { no: "Nøkkelmodeller", en: "Key models", pl: "Kluczowe modele", sv: "Nyckelmodeller", de: "Schlüsselmodelle" })}
             </h3>
             <ul className="space-y-1 text-sm">
               {brand.models.map((m) => (
@@ -528,7 +528,7 @@ function BrandCard({ brand, lang }: { brand: Brand; lang: ReturnType<typeof useI
           {brand.artists.length > 0 && (
             <div>
               <h3 className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-2">
-                {tr(lang, { no: "Brukt av", en: "Used by", sv: "Används av", de: "Verwendet von" })}
+                {tr(lang, { no: "Brukt av", en: "Used by", pl: "Używane przez", sv: "Används av", de: "Verwendet von" })}
               </h3>
               <ul className="space-y-1 text-sm">
                 {brand.artists.map((a) => (
