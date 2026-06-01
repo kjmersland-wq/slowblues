@@ -1,20 +1,34 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n, type Lang } from "@/i18n";
 import { Search, ChevronDown, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import logoSB from "@/assets/logo-slowblues.png";
 
-const LANGS: { code: Lang; label: string }[] = [
-  { code: "no", label: "NO" },
-  { code: "en", label: "EN" },
-  { code: "sv", label: "SV" },
-  { code: "de", label: "DE" },
+const LANGS: { code: Lang; label: string; flag: string }[] = [
+  { code: "no", label: "NO", flag: "🇳🇴" },
+  { code: "en", label: "EN", flag: "🇬🇧" },
+  { code: "sv", label: "SV", flag: "🇸🇪" },
+  { code: "de", label: "DE", flag: "🇩🇪" },
+  { code: "pl", label: "PL", flag: "🇵🇱" },
 ];
 
 export function SiteHeader() {
   const { lang, setLang, t } = useI18n();
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState<string | null>(null);
+  const [langOpen, setLangOpen] = useState(false);
+  const langRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!langOpen) return;
+    const onDoc = (e: MouseEvent) => {
+      if (langRef.current && !langRef.current.contains(e.target as Node)) setLangOpen(false);
+    };
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
+  }, [langOpen]);
+
+  const activeLang = LANGS.find((l) => l.code === lang) ?? LANGS[1];
 
   type Item = { to: string; label: string };
   const groups: { key: string; label: string; items: Item[] }[] = [
@@ -89,17 +103,37 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <div className="flex items-center gap-0.5 text-[11px] sm:text-xs">
-            {LANGS.map((l) => (
-              <button
-                key={l.code}
-                onClick={() => setLang(l.code)}
-                aria-label={`Språk: ${l.label}`}
-                className={`px-1.5 sm:px-2 py-1 rounded transition ${lang === l.code ? "bg-gold text-primary-foreground font-semibold" : "text-muted-foreground hover:text-foreground"}`}
-              >
-                {l.label}
-              </button>
-            ))}
+          <div ref={langRef} className="relative">
+            <button
+              type="button"
+              aria-haspopup="listbox"
+              aria-expanded={langOpen}
+              aria-label="Language"
+              onClick={() => setLangOpen((o) => !o)}
+              className="inline-flex items-center gap-1 px-2 py-1 rounded border border-border/60 hover:border-gold/60 text-xs sm:text-sm transition"
+            >
+              <span className="text-base leading-none">{activeLang.flag}</span>
+              <span className="font-semibold">{activeLang.label}</span>
+              <ChevronDown className="size-3" />
+            </button>
+            {langOpen && (
+              <ul role="listbox" className="absolute right-0 top-full mt-1 min-w-[120px] bg-card border border-border rounded-md py-1 shadow-xl z-50">
+                {LANGS.map((l) => (
+                  <li key={l.code}>
+                    <button
+                      type="button"
+                      role="option"
+                      aria-selected={lang === l.code}
+                      onClick={() => { setLang(l.code); setLangOpen(false); }}
+                      className={`w-full flex items-center gap-2 px-3 py-1.5 text-sm hover:bg-gold/10 hover:text-gold transition ${lang === l.code ? "text-gold font-semibold" : ""}`}
+                    >
+                      <span className="text-base leading-none">{l.flag}</span>
+                      <span>{l.label}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
           <button className="hidden sm:flex items-center gap-1.5 text-sm text-muted-foreground hover:text-gold">
             <Search className="size-4" /> {t.nav.search}

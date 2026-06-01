@@ -9,13 +9,15 @@ type Ctx = {
 
 const I18nContext = createContext<Ctx | null>(null);
 
+const VALID: Lang[] = ["no", "en", "sv", "de", "pl"];
+
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("en");
 
   useEffect(() => {
     try {
       const stored = localStorage.getItem("slowblues-lang") as Lang | null;
-      if (stored && (stored === "no" || stored === "en" || stored === "sv" || stored === "de")) {
+      if (stored && VALID.includes(stored)) {
         setLangState(stored);
         try { document.documentElement.lang = stored; } catch {}
       }
@@ -45,15 +47,15 @@ export type { Lang };
 
 /**
  * Tiny inline translator for strings that don't live in dict.ts.
- * Provides graceful fallbacks: sv → no, de → en, missing → en → no.
+ * Provides graceful fallbacks: pl → en, sv → no, de → en, missing → en → no.
  */
 export function tr(
   lang: Lang,
-  variants: { no: string; en: string; sv?: string; de?: string }
+  variants: { no: string; en: string; sv?: string; de?: string; pl?: string }
 ): string {
   if (lang === "no") return variants.no;
   if (lang === "sv") return variants.sv ?? variants.no;
   if (lang === "de") return variants.de ?? variants.en;
+  if (lang === "pl") return variants.pl ?? variants.en;
   return variants.en;
 }
-

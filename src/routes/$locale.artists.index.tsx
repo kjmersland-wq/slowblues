@@ -9,6 +9,7 @@ export const HERO = {
   sv: { eyebrow: "Hall of Fame", title: "Artister", lead: "330+ artistprofiler — pionjärerna, mästarna och dagens röster." },
   de: { eyebrow: "Hall of Fame", title: "Künstler", lead: "330+ Blues-Künstlerprofile — Pioniere, Meister und heutige Stimmen." },
   no: { eyebrow: "Hall of Fame", title: "Artister", lead: "330+ bluesartist-profiler — pionerene, mestrene og dagens stemmer." },
+  pl: { eyebrow: "Hall of Fame", title: "Artyści", lead: "330+ profili bluesmanów — pionierzy, mistrzowie i głosy dnia dzisiejszego." },
 } as const;
 
 export const Route = createFileRoute("/$locale/artists/")({

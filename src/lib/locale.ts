@@ -1,4 +1,4 @@
-export const SUPPORTED_LOCALES = ["no", "en", "sv", "de"] as const;
+export const SUPPORTED_LOCALES = ["no", "en", "sv", "de", "pl"] as const;
 export type ArtistLocale = (typeof SUPPORTED_LOCALES)[number];
 export const DEFAULT_LOCALE: ArtistLocale = "no";
 
@@ -23,6 +23,7 @@ const LOCALE_LABELS: Record<ArtistLocale, string> = {
   en: "English",
   sv: "Svenska",
   de: "Deutsch",
+  pl: "Polski",
 };
 
 export function localeLabel(l: ArtistLocale): string {

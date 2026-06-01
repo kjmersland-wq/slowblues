@@ -22,7 +22,7 @@ export const Route = createFileRoute("/watch")({
 });
 
 type Preset = { q: string; label: string };
-type Category = { key: string; label: { no: string; en: string; sv: string; de: string }; presets: Preset[] };
+type Category = { key: string; label: { no: string; en: string; sv: string; de: string; pl?: string }; presets: Preset[] };
 
 const CATEGORIES: Category[] = [
   {
@@ -190,7 +190,7 @@ function WatchPage() {
         <div className="space-y-6 mb-10">
           {CATEGORIES.map((cat) => (
             <div key={cat.key}>
-              <h2 className="text-xs uppercase tracking-[0.18em] text-gold/80 mb-2">{cat.label[lang]}</h2>
+              <h2 className="text-xs uppercase tracking-[0.18em] text-gold/80 mb-2">{cat.label[lang] ?? cat.label.en}</h2>
               <div className="flex flex-wrap gap-2">
                 {cat.presets.map((p) => {
                   const active = query === p.q;
