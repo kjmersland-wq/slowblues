@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { SafeImage } from "@/components/SafeImage";
-import { useArtist, useArtists, pickLang, type ArtistRecord, type Lang } from "@/lib/artists";
+import { useArtist, useArtists, pickLang, pickLangArray, pickLangJsonb, type ArtistRecord, type Lang, type FamilyEntry, type InstrumentEntry, type CollaboratorEntry, type DiscographyEntry, type AwardEntry, type PressQuote } from "@/lib/artists";
 import { resolveArtistImage } from "@/lib/artistImageMap";
 import { computeRelated } from "@/lib/relatedArtists";
 import { IMG } from "@/data/images";
