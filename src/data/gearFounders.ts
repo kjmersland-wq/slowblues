@@ -1,8 +1,8 @@
 // Founder profiles for /learn/gear/$id pages.
 // Personal-tone editorial in NO/EN/SV/DE — same voice as the gear page.
 
-export type L10n = { no: string; en: string; sv: string; de: string };
-export type L10nList = { no: string[]; en: string[]; sv: string[]; de: string[] };
+export type L10n = { no: string; en: string; sv: string; de: string; pl?: string };
+export type L10nList = { no: string[]; en: string[]; sv: string[]; de: string[]; pl?: string[] };
 
 export type ExternalRef = { label: string; url: string };
 
