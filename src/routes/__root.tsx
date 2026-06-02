@@ -10,6 +10,7 @@ import {
 
 import appCss from "../styles.css?url";
 import { I18nProvider } from "@/i18n";
+import { MigrationAnnouncement } from "@/components/MigrationAnnouncement";
 
 function NotFoundComponent() {
   return (
