@@ -58,6 +58,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "google-site-verification", content: "1s4Ig_bViTBVaJafjzP_SAdF2ICILJe9LM0efyxFULY" },
+      { name: "google-site-verification", content: "LKSMqnEoH-9HEbLJOlcWtNrAUbGMzwE14C7UBBFHj1s" },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "SlowBlues" },
       { name: "twitter:card", content: "summary_large_image" },
