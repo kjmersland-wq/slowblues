@@ -12,9 +12,9 @@ export const Route = createFileRoute("/about/merch/collection/$slug")({
       { title: `${prettify(params.slug)} Collection — SlowBlues Merch` },
       { name: "description", content: `Browse the ${prettify(params.slug)} collection — official SlowBlues apparel and prints.` },
       { property: "og:title", content: `${prettify(params.slug)} — SlowBlues Merch` },
-      { property: "og:url", content: `https://sslow-blues.lovable.app/about/merch/collection/${params.slug}` },
+      { property: "og:url", content: `https://www.slow-blues.com/about/merch/collection/${params.slug}` },
     ],
-    links: [{ rel: "canonical", href: `https://sslow-blues.lovable.app/about/merch/collection/${params.slug}` }],
+    links: [{ rel: "canonical", href: `https://www.slow-blues.com/about/merch/collection/${params.slug}` }],
   }),
 });
 

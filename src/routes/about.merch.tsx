@@ -48,9 +48,9 @@ export const Route = createFileRoute("/about/merch")({
         content: "Wear the blues. Official SlowBlues apparel and prints, shipped worldwide.",
       },
       { property: "og:image", content: IMG.vinyl },
-      { property: "og:url", content: "https://sslow-blues.lovable.app/about/merch" },
+      { property: "og:url", content: "https://www.slow-blues.com/about/merch" },
     ],
-    links: [{ rel: "canonical", href: "https://sslow-blues.lovable.app/about/merch" }],
+    links: [{ rel: "canonical", href: "https://www.slow-blues.com/about/merch" }],
   }),
 });
 
