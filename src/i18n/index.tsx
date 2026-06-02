@@ -34,10 +34,18 @@ function routeLangFromPath(pathname: string): Lang | null {
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const location = useLocation();
-  const [lang, setLangState] = useState<Lang>(() => {
-    if (typeof window === "undefined") return "en";
-    return routeLangFromPath(window.location.pathname) ?? readStoredLang() ?? "en";
-  });
+  // Always start with the route-derived language (deterministic on server & client)
+  // so the first client render matches SSR. Stored preference is applied in an effect.
+  const [lang, setLangState] = useState<Lang>(() => routeLangFromPath(location.pathname) ?? "en");
+
+  useEffect(() => {
+    const stored = readStoredLang();
+    if (stored && stored !== lang && !routeLangFromPath(location.pathname)) {
+      setLangState(stored);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
 
   useEffect(() => {
     const routeLang = routeLangFromPath(location.pathname);
