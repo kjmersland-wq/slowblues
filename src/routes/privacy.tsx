@@ -2,14 +2,20 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n } from "@/i18n";
 
+const PRIVACY_DESCRIPTION =
+  "Learn how SlowBlues handles your personal data, including our commitment to privacy, cookie usage, and your rights under data protection laws.";
+
 export const Route = createFileRoute("/privacy")({
   component: PrivacyPage,
   head: () => ({ meta: [
     { title: "Privacy — SlowBlues" },
-    { name: "description", content: "How we handle your data on slowblues.no." },
+    { name: "description", content: PRIVACY_DESCRIPTION },
     { property: "og:title", content: "Privacy — SlowBlues" },
+    { property: "og:description", content: PRIVACY_DESCRIPTION },
+    { property: "og:url", content: "https://www.slow-blues.com/privacy" },
   ]}),
 });
+
 
 function PrivacyPage() {
   const { t, lang } = useI18n();
