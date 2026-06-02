@@ -3,12 +3,16 @@ import { LegalPage, Section } from "@/components/LegalPage";
 
 export const Route = createFileRoute("/gdpr")({
   component: GdprPage,
-  head: () => ({ meta: [
-    { title: "GDPR & Data Protection — SlowBlues" },
-    { name: "description", content: "Hvordan SlowBlues.no og KM TECH LABS oppfyller GDPR: behandlingsgrunnlag, lagring, dine rettigheter og databehandlere." },
-    { property: "og:title", content: "GDPR & Data Protection — SlowBlues" },
-    { property: "og:description", content: "GDPR-erklæring fra KM TECH LABS." },
-  ]}),
+  head: () => ({
+    meta: [
+      { title: "GDPR & Data Protection — SlowBlues" },
+      { name: "description", content: "Hvordan SlowBlues.no og KM TECH LABS oppfyller GDPR: behandlingsgrunnlag, lagring, dine rettigheter og databehandlere." },
+      { property: "og:title", content: "GDPR & Data Protection — SlowBlues" },
+      { property: "og:description", content: "GDPR-erklæring fra KM TECH LABS." },
+      { property: "og:url", content: "https://www.slowblues.no/gdpr" },
+    ],
+    links: [{ rel: "canonical", href: "https://www.slowblues.no/gdpr" }],
+  }),
 });
 
 function GdprPage() {

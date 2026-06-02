@@ -11,11 +11,16 @@ const VIPPS_NUMBER = "47255113"; // +47 47255113
 
 export const Route = createFileRoute("/support")({
   component: SupportPage,
-  head: () => ({ meta: [
-    { title: "Support SlowBlues" },
-    { name: "description", content: "Keep the blues alive — merch, donations and sharing." },
-    { property: "og:title", content: "Support SlowBlues" },
-  ]}),
+  head: () => ({
+    meta: [
+      { title: "Support SlowBlues" },
+      { name: "description", content: "Keep the blues alive — support SlowBlues through merch, donations, Vipps, or by sharing with fellow blues fans." },
+      { property: "og:title", content: "Support SlowBlues" },
+      { property: "og:description", content: "Keep the blues alive — support SlowBlues through merch, donations, Vipps, or by sharing with fellow blues fans." },
+      { property: "og:url", content: "https://www.slowblues.no/support" },
+    ],
+    links: [{ rel: "canonical", href: "https://www.slowblues.no/support" }],
+  }),
 });
 
 function SupportPage() {

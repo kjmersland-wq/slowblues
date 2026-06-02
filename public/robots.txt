@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /login
 
-Sitemap: https://www.slow-blues.com/sitemap.xml
+Sitemap: https://www.slowblues.no/sitemap.xml
