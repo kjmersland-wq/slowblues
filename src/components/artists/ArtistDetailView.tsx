@@ -460,10 +460,15 @@ function Fact({ icon: Icon, label, value }: { icon: any; label: string; value: s
 function Card({ title, icon: Icon, children }: { title: string; icon?: any; children: React.ReactNode }) {
   return (
     <div className="bg-card/60 border border-border rounded-xl p-6 max-w-3xl mx-auto">
-      <h3 className="font-display text-xl mb-3 text-gold flex items-center gap-2">{Icon && <Icon className="size-5" />}{title}</h3>
+      <h2 className="font-display text-xl mb-3 text-gold flex items-center gap-2">{Icon && <Icon className="size-5" />}{title}</h2>
       {children}
     </div>
   );
+}
+
+// keep the helper rendered as a section with proper heading hierarchy
+function _h2Spacer() {
+  return null;
 }
 
 function VideoGrid({ videos, fallbackIds, featuredLabel }: { videos: ArtistRecord["videos"]; fallbackIds: string[]; featuredLabel: string }) {
@@ -490,7 +495,7 @@ function VideoGrid({ videos, fallbackIds, featuredLabel }: { videos: ArtistRecor
       {list.length > 0 && (
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {list.map((v, i) => (
-            <a key={`${v.youtube_id}-${i}`} href={`https://www.youtube.com/watch?v=${v.youtube_id}`} target="_blank" rel="noopener noreferrer" className="group block border border-border rounded-lg overflow-hidden bg-card/40 hover:border-gold/60 transition">
+            <a key={`${v.youtube_id}-${i}`} href={`https://www.youtube.com/watch?v=${v.youtube_id}`} target="_blank" rel="noopener noreferrer" aria-label={v.title ? `Watch on YouTube: ${v.title}` : "Watch video on YouTube"} className="group block border border-border rounded-lg overflow-hidden bg-card/40 hover:border-gold/60 transition">
               <div className="relative aspect-video bg-black">
                 <img src={`https://i.ytimg.com/vi/${v.youtube_id}/hqdefault.jpg`} alt={v.title || ""} loading="lazy" className="size-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition duration-500" />
               </div>
