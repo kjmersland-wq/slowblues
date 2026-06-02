@@ -74,7 +74,7 @@ function TranslationsAdmin() {
 
   return (
     <PageShell>
-      <PageHero title="Oversettelser" subtitle="Bulk AI-oversettelse — fremdrift" />
+      <PageHero eyebrow="Admin" title="Oversettelser" lead="Bulk AI-oversettelse — fremdrift" />
       <div className="container max-w-5xl py-8 space-y-6">
         <div className="flex items-center justify-between">
           <Link to="/admin" className="text-sm text-muted-foreground hover:text-gold inline-flex items-center gap-1">
