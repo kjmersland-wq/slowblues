@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { useLocation } from "@tanstack/react-router";
 import { dict, type Lang, type Dict } from "./dict";
 
 type Ctx = {
@@ -11,18 +12,41 @@ const I18nContext = createContext<Ctx | null>(null);
 
 const VALID: Lang[] = ["no", "en", "sv", "de", "pl"];
 
+function readStoredLang(): Lang | null {
+  try {
+    const stored = localStorage.getItem("slowblues-lang") as Lang | null;
+    return stored && VALID.includes(stored) ? stored : null;
+  } catch {
+    return null;
+  }
+}
+
+function routeLangFromPath(pathname: string): Lang | null {
+  const parts = pathname.split("/").filter(Boolean);
+  const first = parts[0] as Lang | undefined;
+  if (first && VALID.includes(first)) return first;
+
+  const isDefaultArtistRoute = parts[0] === "artists";
+  if (isDefaultArtistRoute) return "no";
+
+  return null;
+}
+
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("en");
+  const location = useLocation();
+  const [lang, setLangState] = useState<Lang>(() => {
+    if (typeof window === "undefined") return "en";
+    return routeLangFromPath(window.location.pathname) ?? readStoredLang() ?? "en";
+  });
 
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem("slowblues-lang") as Lang | null;
-      if (stored && VALID.includes(stored)) {
-        setLangState(stored);
-        try { document.documentElement.lang = stored; } catch {}
-      }
-    } catch {}
-  }, []);
+    const routeLang = routeLangFromPath(location.pathname);
+    const nextLang = routeLang ?? readStoredLang() ?? lang;
+    if (nextLang !== lang) {
+      setLangState(nextLang);
+    }
+    try { document.documentElement.lang = nextLang; } catch {}
+  }, [location.pathname, lang]);
 
   const setLang = (l: Lang) => {
     setLangState(l);

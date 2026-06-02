@@ -1,8 +1,9 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useI18n, type Lang } from "@/i18n";
 import { Search, ChevronDown, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import logoSB from "@/assets/logo-slowblues.png";
+import { artistDetailPath } from "@/lib/locale";
 
 const LANGS: { code: Lang; label: string; flag: string }[] = [
   { code: "no", label: "NO", flag: "🇳🇴" },
@@ -14,6 +15,8 @@ const LANGS: { code: Lang; label: string; flag: string }[] = [
 
 export function SiteHeader() {
   const { lang, setLang, t } = useI18n();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState<string | null>(null);
   const [langOpen, setLangOpen] = useState(false);
@@ -29,6 +32,17 @@ export function SiteHeader() {
   }, [langOpen]);
 
   const activeLang = LANGS.find((l) => l.code === lang) ?? LANGS[1];
+
+  const switchLanguage = (nextLang: Lang) => {
+    setLang(nextLang);
+    setLangOpen(false);
+
+    const match = location.pathname.match(/^\/(?:([a-z]{2})\/)?artists\/([^/]+)$/i);
+    if (!match) return;
+
+    const slug = match[2];
+    void navigate({ to: artistDetailPath(nextLang, slug) as any });
+  };
 
   type Item = { to: string; label: string };
   const groups: { key: string; label: string; items: Item[] }[] = [
@@ -124,7 +138,7 @@ export function SiteHeader() {
                       type="button"
                       role="option"
                       aria-selected={lang === l.code}
-                      onClick={() => { setLang(l.code); setLangOpen(false); }}
+                       onClick={() => switchLanguage(l.code)}
                       className={`w-full flex items-center gap-2 px-3 py-1.5 text-sm hover:bg-gold/10 hover:text-gold transition ${lang === l.code ? "text-gold font-semibold" : ""}`}
                     >
                       <span className="text-base leading-none">{l.flag}</span>
