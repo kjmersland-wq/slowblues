@@ -3,7 +3,7 @@ import type {} from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { SUPPORTED_LOCALES, artistDetailPath, artistsListPath, DEFAULT_LOCALE } from "@/lib/locale";
 
-const BASE_URL = "https://www.slowblues.no";
+const BASE_URL = "https://www.slow-blues.com";
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
