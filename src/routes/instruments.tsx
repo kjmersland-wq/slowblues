@@ -12,9 +12,11 @@ export const Route = createFileRoute("/instruments")({
       { title: "Blues Instruments & Gear — SlowBlues" },
       { name: "description", content: "Gitarer, munnspill, forsterkere og utstyret som formet bluesens lyd — fra National-resonatoren til Fender Tweed." },
       { property: "og:title", content: "Blues Instruments & Gear — SlowBlues" },
+      { property: "og:description", content: "Gitarer, munnspill, forsterkere og utstyret som formet bluesens lyd — fra National-resonatoren til Fender Tweed." },
+      { property: "og:url", content: "https://www.slow-blues.com/instruments" },
       { property: "og:image", content: IMG.guitar },
     ],
-    links: [{ rel: "canonical", href: "https://sslow-blues.lovable.app/instruments" }],
+    links: [{ rel: "canonical", href: "https://www.slow-blues.com/instruments" }],
   }),
 });
 

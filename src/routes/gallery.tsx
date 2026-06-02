@@ -9,12 +9,17 @@ import { Lightbox, useLightbox, type LightboxPhoto } from "@/components/Lightbox
 
 export const Route = createFileRoute("/gallery")({
   component: GalleryPage,
-  head: () => ({ meta: [
-    { title: "Gallery — SlowBlues" },
-    { name: "description", content: "Historic blues photography from the Library of Congress FSA/OWI Collection, Wikimedia Commons, plus contemporary stage and gear photography from Unsplash, Pexels and Pixabay — fully credited." },
-    { property: "og:title", content: "Gallery — SlowBlues" },
-    { property: "og:image", content: IMG.jukeJoint },
-  ]}),
+  head: () => ({
+    meta: [
+      { title: "Gallery — SlowBlues" },
+      { name: "description", content: "Historic blues photography from the Library of Congress, Wikimedia Commons and contemporary stage and gear shots — fully credited." },
+      { property: "og:title", content: "Gallery — SlowBlues" },
+      { property: "og:description", content: "Historic blues photography from the Library of Congress, Wikimedia Commons and contemporary stage and gear shots — fully credited." },
+      { property: "og:url", content: "https://www.slow-blues.com/gallery" },
+      { property: "og:image", content: IMG.jukeJoint },
+    ],
+    links: [{ rel: "canonical", href: "https://www.slow-blues.com/gallery" }],
+  }),
 });
 
 const EXTRA_PHOTOS = [
