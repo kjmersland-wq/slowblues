@@ -134,7 +134,9 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
         <Outlet />
+        <MigrationAnnouncement />
       </I18nProvider>
     </QueryClientProvider>
   );
 }
+
