@@ -7,13 +7,16 @@ const PRIVACY_DESCRIPTION =
 
 export const Route = createFileRoute("/privacy")({
   component: PrivacyPage,
-  head: () => ({ meta: [
-    { title: "Privacy — SlowBlues" },
-    { name: "description", content: PRIVACY_DESCRIPTION },
-    { property: "og:title", content: "Privacy — SlowBlues" },
-    { property: "og:description", content: PRIVACY_DESCRIPTION },
-    { property: "og:url", content: "https://www.slow-blues.com/privacy" },
-  ]}),
+  head: () => ({
+    meta: [
+      { title: "Privacy — SlowBlues" },
+      { name: "description", content: PRIVACY_DESCRIPTION },
+      { property: "og:title", content: "Privacy — SlowBlues" },
+      { property: "og:description", content: PRIVACY_DESCRIPTION },
+      { property: "og:url", content: "https://www.slowblues.no/privacy" },
+    ],
+    links: [{ rel: "canonical", href: "https://www.slowblues.no/privacy" }],
+  }),
 });
 
 
