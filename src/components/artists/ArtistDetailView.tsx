@@ -466,10 +466,7 @@ function Card({ title, icon: Icon, children }: { title: string; icon?: any; chil
   );
 }
 
-// keep the helper rendered as a section with proper heading hierarchy
-function _h2Spacer() {
-  return null;
-}
+
 
 function VideoGrid({ videos, fallbackIds, featuredLabel }: { videos: ArtistRecord["videos"]; fallbackIds: string[]; featuredLabel: string }) {
   const featured = videos.find((v) => v.kind === "featured");
