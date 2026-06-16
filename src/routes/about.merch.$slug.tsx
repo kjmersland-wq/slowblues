@@ -5,6 +5,7 @@ import { PageShell } from "@/components/PageShell";
 import { ShoppingBag, ExternalLink, Loader2, ArrowLeft, Check } from "lucide-react";
 import { useState, useMemo } from "react";
 import { fetchMerchProduct, type MerchProduct, type MerchVariant } from "@/lib/fourthwall.functions";
+import { sanitizeHtml } from "@/lib/sanitizeHtml";
 
 export const Route = createFileRoute("/about/merch/$slug")({
   component: ProductPage,
@@ -218,7 +219,7 @@ function ProductPage() {
             {p.descriptionHtml && (
               <div
                 className="prose prose-invert max-w-none text-foreground/80 leading-relaxed mb-8 [&_p]:mb-3 [&_strong]:text-foreground"
-                dangerouslySetInnerHTML={{ __html: p.descriptionHtml }}
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(p.descriptionHtml) }}
               />
             )}
 

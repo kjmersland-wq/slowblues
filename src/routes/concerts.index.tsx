@@ -68,7 +68,10 @@ export const Route = createFileRoute("/concerts/")({
       }],
     };
   },
-  errorComponent: ({ error }) => <div className="p-10 text-foreground/70">Failed to load concerts: {error.message}</div>,
+  errorComponent: ({ error }) => {
+    if (typeof console !== "undefined") console.error("concerts list load failed", error);
+    return <div className="p-10 text-foreground/70">Concerts are temporarily unavailable — please try again later.</div>;
+  },
   notFoundComponent: () => <div className="p-10">No concerts yet.</div>,
   component: ConcertsList,
 });

@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { PageShell } from "@/components/PageShell";
 import { fetchNewsletter } from "@/lib/mailerlite.functions";
+import { sanitizeHtml } from "@/lib/sanitizeHtml";
 import { ArrowLeft, Calendar } from "lucide-react";
 import logoSB from "@/assets/logo-slowblues.png";
 
@@ -67,7 +68,7 @@ function NewsletterDetailPage() {
             {item.html ? (
               <div
                 className="newsletter-body prose prose-invert max-w-none"
-                dangerouslySetInnerHTML={{ __html: item.html }}
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.html) }}
               />
             ) : item.plain ? (
               <pre className="whitespace-pre-wrap text-sm text-foreground/90 font-sans leading-relaxed">

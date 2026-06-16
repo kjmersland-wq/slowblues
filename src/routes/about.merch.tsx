@@ -24,6 +24,7 @@ import {
   type MerchProduct,
   type MerchVariant,
 } from "@/lib/fourthwall.functions";
+import { sanitizeHtml } from "@/lib/sanitizeHtml";
 import {
   activePartners,
   partnerForProduct,
@@ -563,7 +564,7 @@ function ProductModal({
 
           <div
             className="prose prose-invert prose-sm max-w-none text-foreground/80 mb-5 max-h-48 overflow-y-auto"
-            dangerouslySetInnerHTML={{ __html: product.descriptionHtml || product.description }}
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(product.descriptionHtml || product.description) }}
           />
 
           {partner && (
