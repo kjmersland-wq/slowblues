@@ -149,8 +149,8 @@ export function SiteHeader() {
               </ul>
             )}
           </div>
-          <button className="hidden sm:flex items-center gap-1.5 text-sm text-muted-foreground hover:text-gold">
-            <Search className="size-4" /> {t.nav.search}
+          <button type="button" aria-label={t.nav.search} className="hidden sm:flex items-center gap-1.5 text-sm text-muted-foreground hover:text-gold">
+            <Search className="size-4" aria-hidden="true" /> {t.nav.search}
           </button>
           <button className="lg:hidden p-1 -mr-1" aria-label="Menu" onClick={() => setOpen((o) => !o)}>
             {open ? <X className="size-6" /> : <Menu className="size-6" />}
