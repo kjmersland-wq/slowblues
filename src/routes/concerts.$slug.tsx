@@ -46,11 +46,14 @@ export const Route = createFileRoute("/concerts/$slug")({
       links: [{ rel: "canonical", href: canonical }],
     };
   },
-  errorComponent: ({ error }) => (
-    <div className="min-h-screen flex items-center justify-center text-foreground/70">
-      Failed to load concert: {error.message}
-    </div>
-  ),
+  errorComponent: ({ error }) => {
+    if (typeof console !== "undefined") console.error("concert detail load failed", error);
+    return (
+      <div className="min-h-screen flex items-center justify-center text-foreground/70">
+        This concert is temporarily unavailable — please try again later.
+      </div>
+    );
+  },
   notFoundComponent: () => (
     <div className="min-h-screen flex flex-col items-center justify-center gap-4 text-foreground/70">
       <p>Concert not found.</p>
