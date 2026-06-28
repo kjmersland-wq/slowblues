@@ -35,22 +35,17 @@ import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ReviewsIndexRouteImport } from './routes/reviews.index'
 import { Route as QuizIndexRouteImport } from './routes/quiz.index'
-import { Route as NewsletterIndexRouteImport } from './routes/newsletter.index'
 import { Route as ConcertsIndexRouteImport } from './routes/concerts.index'
-import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as ArtistsIndexRouteImport } from './routes/artists.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AboutIndexRouteImport } from './routes/about.index'
 import { Route as ReviewsSlugRouteImport } from './routes/reviews.$slug'
 import { Route as QuizArchiveRouteImport } from './routes/quiz.archive'
-import { Route as NewsletterTemplateRouteImport } from './routes/newsletter.template'
-import { Route as NewsletterIdRouteImport } from './routes/newsletter.$id'
 import { Route as LearnStylesRouteImport } from './routes/learn.styles'
 import { Route as LearnGearRouteImport } from './routes/learn.gear'
 import { Route as ExperienceMediaRouteImport } from './routes/experience.media'
 import { Route as EditorialImagesRouteImport } from './routes/editorial.images'
 import { Route as ConcertsSlugRouteImport } from './routes/concerts.$slug'
-import { Route as BlogIdRouteImport } from './routes/blog.$id'
 import { Route as ArtistsSlugRouteImport } from './routes/artists.$slug'
 import { Route as AdminWikidataRouteImport } from './routes/admin.wikidata'
 import { Route as AdminTranslationsRouteImport } from './routes/admin.translations'
@@ -62,7 +57,6 @@ import { Route as AdminLinksRouteImport } from './routes/admin.links'
 import { Route as AdminArtistsRouteImport } from './routes/admin.artists'
 import { Route as AboutMerchRouteImport } from './routes/about.merch'
 import { Route as AboutGuestbookRouteImport } from './routes/about.guestbook'
-import { Route as AboutBlogRouteImport } from './routes/about.blog'
 import { Route as AboutAdvertiseRouteImport } from './routes/about.advertise'
 import { Route as LocaleArtistsIndexRouteImport } from './routes/$locale.artists.index'
 import { Route as QuizCycleCycleRouteImport } from './routes/quiz.cycle.$cycle'
@@ -205,19 +199,9 @@ const QuizIndexRoute = QuizIndexRouteImport.update({
   path: '/quiz/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const NewsletterIndexRoute = NewsletterIndexRouteImport.update({
-  id: '/newsletter/',
-  path: '/newsletter/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ConcertsIndexRoute = ConcertsIndexRouteImport.update({
   id: '/concerts/',
   path: '/concerts/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BlogIndexRoute = BlogIndexRouteImport.update({
-  id: '/blog/',
-  path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArtistsIndexRoute = ArtistsIndexRouteImport.update({
@@ -245,16 +229,6 @@ const QuizArchiveRoute = QuizArchiveRouteImport.update({
   path: '/quiz/archive',
   getParentRoute: () => rootRouteImport,
 } as any)
-const NewsletterTemplateRoute = NewsletterTemplateRouteImport.update({
-  id: '/newsletter/template',
-  path: '/newsletter/template',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NewsletterIdRoute = NewsletterIdRouteImport.update({
-  id: '/newsletter/$id',
-  path: '/newsletter/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LearnStylesRoute = LearnStylesRouteImport.update({
   id: '/learn/styles',
   path: '/learn/styles',
@@ -278,11 +252,6 @@ const EditorialImagesRoute = EditorialImagesRouteImport.update({
 const ConcertsSlugRoute = ConcertsSlugRouteImport.update({
   id: '/concerts/$slug',
   path: '/concerts/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BlogIdRoute = BlogIdRouteImport.update({
-  id: '/blog/$id',
-  path: '/blog/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArtistsSlugRoute = ArtistsSlugRouteImport.update({
@@ -338,11 +307,6 @@ const AboutMerchRoute = AboutMerchRouteImport.update({
 const AboutGuestbookRoute = AboutGuestbookRouteImport.update({
   id: '/about/guestbook',
   path: '/about/guestbook',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutBlogRoute = AboutBlogRouteImport.update({
-  id: '/about/blog',
-  path: '/about/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutAdvertiseRoute = AboutAdvertiseRouteImport.update({
@@ -429,7 +393,6 @@ export interface FileRoutesByFullPath {
   '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
   '/about/advertise': typeof AboutAdvertiseRoute
-  '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
   '/admin/artists': typeof AdminArtistsRouteWithChildren
@@ -441,22 +404,17 @@ export interface FileRoutesByFullPath {
   '/admin/translations': typeof AdminTranslationsRoute
   '/admin/wikidata': typeof AdminWikidataRoute
   '/artists/$slug': typeof ArtistsSlugRoute
-  '/blog/$id': typeof BlogIdRoute
   '/concerts/$slug': typeof ConcertsSlugRoute
   '/editorial/images': typeof EditorialImagesRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/gear': typeof LearnGearRouteWithChildren
   '/learn/styles': typeof LearnStylesRoute
-  '/newsletter/$id': typeof NewsletterIdRoute
-  '/newsletter/template': typeof NewsletterTemplateRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/reviews/$slug': typeof ReviewsSlugRoute
   '/about/': typeof AboutIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/artists/': typeof ArtistsIndexRoute
-  '/blog/': typeof BlogIndexRoute
   '/concerts/': typeof ConcertsIndexRoute
-  '/newsletter/': typeof NewsletterIndexRoute
   '/quiz/': typeof QuizIndexRoute
   '/reviews/': typeof ReviewsIndexRoute
   '/$locale/about/advertise': typeof LocaleAboutAdvertiseRoute
@@ -496,7 +454,6 @@ export interface FileRoutesByTo {
   '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
   '/about/advertise': typeof AboutAdvertiseRoute
-  '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
   '/admin/artists': typeof AdminArtistsRouteWithChildren
@@ -508,22 +465,17 @@ export interface FileRoutesByTo {
   '/admin/translations': typeof AdminTranslationsRoute
   '/admin/wikidata': typeof AdminWikidataRoute
   '/artists/$slug': typeof ArtistsSlugRoute
-  '/blog/$id': typeof BlogIdRoute
   '/concerts/$slug': typeof ConcertsSlugRoute
   '/editorial/images': typeof EditorialImagesRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/gear': typeof LearnGearRouteWithChildren
   '/learn/styles': typeof LearnStylesRoute
-  '/newsletter/$id': typeof NewsletterIdRoute
-  '/newsletter/template': typeof NewsletterTemplateRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/reviews/$slug': typeof ReviewsSlugRoute
   '/about': typeof AboutIndexRoute
   '/admin': typeof AdminIndexRoute
   '/artists': typeof ArtistsIndexRoute
-  '/blog': typeof BlogIndexRoute
   '/concerts': typeof ConcertsIndexRoute
-  '/newsletter': typeof NewsletterIndexRoute
   '/quiz': typeof QuizIndexRoute
   '/reviews': typeof ReviewsIndexRoute
   '/$locale/about/advertise': typeof LocaleAboutAdvertiseRoute
@@ -564,7 +516,6 @@ export interface FileRoutesById {
   '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
   '/about/advertise': typeof AboutAdvertiseRoute
-  '/about/blog': typeof AboutBlogRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
   '/admin/artists': typeof AdminArtistsRouteWithChildren
@@ -576,22 +527,17 @@ export interface FileRoutesById {
   '/admin/translations': typeof AdminTranslationsRoute
   '/admin/wikidata': typeof AdminWikidataRoute
   '/artists/$slug': typeof ArtistsSlugRoute
-  '/blog/$id': typeof BlogIdRoute
   '/concerts/$slug': typeof ConcertsSlugRoute
   '/editorial/images': typeof EditorialImagesRoute
   '/experience/media': typeof ExperienceMediaRoute
   '/learn/gear': typeof LearnGearRouteWithChildren
   '/learn/styles': typeof LearnStylesRoute
-  '/newsletter/$id': typeof NewsletterIdRoute
-  '/newsletter/template': typeof NewsletterTemplateRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/reviews/$slug': typeof ReviewsSlugRoute
   '/about/': typeof AboutIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/artists/': typeof ArtistsIndexRoute
-  '/blog/': typeof BlogIndexRoute
   '/concerts/': typeof ConcertsIndexRoute
-  '/newsletter/': typeof NewsletterIndexRoute
   '/quiz/': typeof QuizIndexRoute
   '/reviews/': typeof ReviewsIndexRoute
   '/$locale/about/advertise': typeof LocaleAboutAdvertiseRoute
@@ -633,7 +579,6 @@ export interface FileRouteTypes {
     | '/watch'
     | '/worldmap'
     | '/about/advertise'
-    | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
     | '/admin/artists'
@@ -645,22 +590,17 @@ export interface FileRouteTypes {
     | '/admin/translations'
     | '/admin/wikidata'
     | '/artists/$slug'
-    | '/blog/$id'
     | '/concerts/$slug'
     | '/editorial/images'
     | '/experience/media'
     | '/learn/gear'
     | '/learn/styles'
-    | '/newsletter/$id'
-    | '/newsletter/template'
     | '/quiz/archive'
     | '/reviews/$slug'
     | '/about/'
     | '/admin/'
     | '/artists/'
-    | '/blog/'
     | '/concerts/'
-    | '/newsletter/'
     | '/quiz/'
     | '/reviews/'
     | '/$locale/about/advertise'
@@ -700,7 +640,6 @@ export interface FileRouteTypes {
     | '/watch'
     | '/worldmap'
     | '/about/advertise'
-    | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
     | '/admin/artists'
@@ -712,22 +651,17 @@ export interface FileRouteTypes {
     | '/admin/translations'
     | '/admin/wikidata'
     | '/artists/$slug'
-    | '/blog/$id'
     | '/concerts/$slug'
     | '/editorial/images'
     | '/experience/media'
     | '/learn/gear'
     | '/learn/styles'
-    | '/newsletter/$id'
-    | '/newsletter/template'
     | '/quiz/archive'
     | '/reviews/$slug'
     | '/about'
     | '/admin'
     | '/artists'
-    | '/blog'
     | '/concerts'
-    | '/newsletter'
     | '/quiz'
     | '/reviews'
     | '/$locale/about/advertise'
@@ -767,7 +701,6 @@ export interface FileRouteTypes {
     | '/watch'
     | '/worldmap'
     | '/about/advertise'
-    | '/about/blog'
     | '/about/guestbook'
     | '/about/merch'
     | '/admin/artists'
@@ -779,22 +712,17 @@ export interface FileRouteTypes {
     | '/admin/translations'
     | '/admin/wikidata'
     | '/artists/$slug'
-    | '/blog/$id'
     | '/concerts/$slug'
     | '/editorial/images'
     | '/experience/media'
     | '/learn/gear'
     | '/learn/styles'
-    | '/newsletter/$id'
-    | '/newsletter/template'
     | '/quiz/archive'
     | '/reviews/$slug'
     | '/about/'
     | '/admin/'
     | '/artists/'
-    | '/blog/'
     | '/concerts/'
-    | '/newsletter/'
     | '/quiz/'
     | '/reviews/'
     | '/$locale/about/advertise'
@@ -835,7 +763,6 @@ export interface RootRouteChildren {
   WatchRoute: typeof WatchRoute
   WorldmapRoute: typeof WorldmapRoute
   AboutAdvertiseRoute: typeof AboutAdvertiseRoute
-  AboutBlogRoute: typeof AboutBlogRoute
   AboutGuestbookRoute: typeof AboutGuestbookRoute
   AboutMerchRoute: typeof AboutMerchRouteWithChildren
   AdminArtistsRoute: typeof AdminArtistsRouteWithChildren
@@ -847,22 +774,17 @@ export interface RootRouteChildren {
   AdminTranslationsRoute: typeof AdminTranslationsRoute
   AdminWikidataRoute: typeof AdminWikidataRoute
   ArtistsSlugRoute: typeof ArtistsSlugRoute
-  BlogIdRoute: typeof BlogIdRoute
   ConcertsSlugRoute: typeof ConcertsSlugRoute
   EditorialImagesRoute: typeof EditorialImagesRoute
   ExperienceMediaRoute: typeof ExperienceMediaRoute
   LearnGearRoute: typeof LearnGearRouteWithChildren
   LearnStylesRoute: typeof LearnStylesRoute
-  NewsletterIdRoute: typeof NewsletterIdRoute
-  NewsletterTemplateRoute: typeof NewsletterTemplateRoute
   QuizArchiveRoute: typeof QuizArchiveRoute
   ReviewsSlugRoute: typeof ReviewsSlugRoute
   AboutIndexRoute: typeof AboutIndexRoute
   AdminIndexRoute: typeof AdminIndexRoute
   ArtistsIndexRoute: typeof ArtistsIndexRoute
-  BlogIndexRoute: typeof BlogIndexRoute
   ConcertsIndexRoute: typeof ConcertsIndexRoute
-  NewsletterIndexRoute: typeof NewsletterIndexRoute
   QuizIndexRoute: typeof QuizIndexRoute
   ReviewsIndexRoute: typeof ReviewsIndexRoute
   LocaleAboutAdvertiseRoute: typeof LocaleAboutAdvertiseRoute
@@ -1056,25 +978,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuizIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/newsletter/': {
-      id: '/newsletter/'
-      path: '/newsletter'
-      fullPath: '/newsletter/'
-      preLoaderRoute: typeof NewsletterIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/concerts/': {
       id: '/concerts/'
       path: '/concerts'
       fullPath: '/concerts/'
       preLoaderRoute: typeof ConcertsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/': {
-      id: '/blog/'
-      path: '/blog'
-      fullPath: '/blog/'
-      preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/artists/': {
@@ -1112,20 +1020,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuizArchiveRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/newsletter/template': {
-      id: '/newsletter/template'
-      path: '/newsletter/template'
-      fullPath: '/newsletter/template'
-      preLoaderRoute: typeof NewsletterTemplateRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/newsletter/$id': {
-      id: '/newsletter/$id'
-      path: '/newsletter/$id'
-      fullPath: '/newsletter/$id'
-      preLoaderRoute: typeof NewsletterIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/learn/styles': {
       id: '/learn/styles'
       path: '/learn/styles'
@@ -1159,13 +1053,6 @@ declare module '@tanstack/react-router' {
       path: '/concerts/$slug'
       fullPath: '/concerts/$slug'
       preLoaderRoute: typeof ConcertsSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/$id': {
-      id: '/blog/$id'
-      path: '/blog/$id'
-      fullPath: '/blog/$id'
-      preLoaderRoute: typeof BlogIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/artists/$slug': {
@@ -1243,13 +1130,6 @@ declare module '@tanstack/react-router' {
       path: '/about/guestbook'
       fullPath: '/about/guestbook'
       preLoaderRoute: typeof AboutGuestbookRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about/blog': {
-      id: '/about/blog'
-      path: '/about/blog'
-      fullPath: '/about/blog'
-      preLoaderRoute: typeof AboutBlogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about/advertise': {
@@ -1398,7 +1278,6 @@ const rootRouteChildren: RootRouteChildren = {
   WatchRoute: WatchRoute,
   WorldmapRoute: WorldmapRoute,
   AboutAdvertiseRoute: AboutAdvertiseRoute,
-  AboutBlogRoute: AboutBlogRoute,
   AboutGuestbookRoute: AboutGuestbookRoute,
   AboutMerchRoute: AboutMerchRouteWithChildren,
   AdminArtistsRoute: AdminArtistsRouteWithChildren,
@@ -1410,22 +1289,17 @@ const rootRouteChildren: RootRouteChildren = {
   AdminTranslationsRoute: AdminTranslationsRoute,
   AdminWikidataRoute: AdminWikidataRoute,
   ArtistsSlugRoute: ArtistsSlugRoute,
-  BlogIdRoute: BlogIdRoute,
   ConcertsSlugRoute: ConcertsSlugRoute,
   EditorialImagesRoute: EditorialImagesRoute,
   ExperienceMediaRoute: ExperienceMediaRoute,
   LearnGearRoute: LearnGearRouteWithChildren,
   LearnStylesRoute: LearnStylesRoute,
-  NewsletterIdRoute: NewsletterIdRoute,
-  NewsletterTemplateRoute: NewsletterTemplateRoute,
   QuizArchiveRoute: QuizArchiveRoute,
   ReviewsSlugRoute: ReviewsSlugRoute,
   AboutIndexRoute: AboutIndexRoute,
   AdminIndexRoute: AdminIndexRoute,
   ArtistsIndexRoute: ArtistsIndexRoute,
-  BlogIndexRoute: BlogIndexRoute,
   ConcertsIndexRoute: ConcertsIndexRoute,
-  NewsletterIndexRoute: NewsletterIndexRoute,
   QuizIndexRoute: QuizIndexRoute,
   ReviewsIndexRoute: ReviewsIndexRoute,
   LocaleAboutAdvertiseRoute: LocaleAboutAdvertiseRoute,

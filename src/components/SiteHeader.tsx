@@ -67,8 +67,6 @@ export function SiteHeader() {
       { to: "/quiz", label: "Blues Quiz" },
     ]},
     { key: "about", label: t.nav.about, items: [
-      { to: "/blog", label: t.nav.blog },
-      { to: "/newsletter", label: "Newsletter" },
       { to: "/guestbook", label: t.nav.guestbook },
       { to: "/about/merch", label: "Merch" },
       { to: "/about/advertise", label: t.nav.advertise },

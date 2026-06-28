@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { getNewsTicker, type TickerItem } from "@/lib/newsfeed.functions";
-import { blogArticles } from "@/data/blogArticles";
+
 import {
   ShoppingBag, HelpCircle, BookOpen, Music, Radio, Mic,
   ChevronDown, ChevronLeft, ChevronRight, Play, ArrowRight,
@@ -390,32 +390,16 @@ function Ticker() {
     refetchOnWindowFocus: true,
   });
 
-  const blogItems: TickerItem[] = useMemo(() => {
-    return [...blogArticles]
-      .sort((a, b) => (b.publishedDate ?? "").localeCompare(a.publishedDate ?? ""))
-      .slice(0, 6)
-      .map((b) => ({
-        id: `blog-${b.id}`,
-        kind: "blog" as const,
-        label: "BLOG",
-        text: b.titleEn,
-        href: `/blog/${b.id}`,
-        timestamp: b.publishedDate ?? "2026-01-01T00:00:00.000Z",
-        priority: 50,
-      }));
-  }, []);
-
   const merged: TickerItem[] = useMemo(() => {
     const base = data?.items?.length ? data.items : FALLBACK_TICKER;
-    const all = [...base, ...blogItems];
     const seen = new Set<string>();
-    const unique = all.filter((i) => (seen.has(i.id) ? false : (seen.add(i.id), true)));
+    const unique = base.filter((i) => (seen.has(i.id) ? false : (seen.add(i.id), true)));
     unique.sort((a, b) => {
       if (b.priority !== a.priority) return b.priority - a.priority;
       return (b.timestamp ?? "").localeCompare(a.timestamp ?? "");
     });
     return unique.slice(0, 36);
-  }, [data, blogItems]);
+  }, [data]);
 
   const loop = [...merged, ...merged];
 
@@ -589,9 +573,6 @@ function SupportBanner() {
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <a href="#" className="px-7 py-3 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 flex items-center gap-2">
             <ShoppingBag className="size-4" /> {tr(lang, { no: "Kjøp merch", en: "Shop merch", pl: "Kup gadżety", sv: "Köp merch", de: "Merch kaufen" })}
-          </a>
-          <a href="#" className="px-7 py-3 rounded-md border border-border text-foreground hover:border-gold/60 flex items-center gap-2">
-            <BookOpen className="size-4" /> {tr(lang, { no: "Les bloggen", en: "Read the blog", pl: "Przeczytaj bloga", sv: "Läs bloggen", de: "Blog lesen" })}
           </a>
         </div>
       </div>

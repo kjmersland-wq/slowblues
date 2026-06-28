@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { SUPPORTED_LOCALES, artistDetailPath, artistsListPath, DEFAULT_LOCALE } from "@/lib/locale";
-import { blogArticles } from "@/data/blogArticles";
+
 import { FOUNDERS } from "@/data/gearFounders";
 
 const BASE_URL = "https://www.slow-blues.com";
@@ -57,7 +57,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         // Static, single-locale pages
         const staticPaths: Array<{ p: string; cf?: string; pr?: string }> = [
           { p: "/artists", cf: "weekly", pr: "0.9" },
-          { p: "/blog", cf: "weekly", pr: "0.8" },
+          
           { p: "/history", cf: "monthly", pr: "0.7" },
           { p: "/styles", cf: "monthly", pr: "0.7" },
           { p: "/festivals", cf: "weekly", pr: "0.7" },
@@ -75,13 +75,11 @@ export const Route = createFileRoute("/sitemap.xml")({
           { p: "/concerts", cf: "weekly", pr: "0.7" },
           { p: "/editorial/images", cf: "monthly", pr: "0.4" },
           { p: "/about", cf: "monthly", pr: "0.6" },
-          { p: "/about/blog", cf: "monthly", pr: "0.5" },
           { p: "/about/merch", cf: "monthly", pr: "0.5" },
           { p: "/about/guestbook", cf: "monthly", pr: "0.4" },
           { p: "/guestbook", cf: "weekly", pr: "0.5" },
           { p: "/contact", cf: "yearly", pr: "0.4" },
           { p: "/support", cf: "yearly", pr: "0.4" },
-          { p: "/newsletter", cf: "weekly", pr: "0.5" },
           { p: "/quiz", cf: "monthly", pr: "0.5" },
           { p: "/quiz/archive", cf: "monthly", pr: "0.4" },
           { p: "/updates", cf: "weekly", pr: "0.4" },
@@ -150,16 +148,6 @@ export const Route = createFileRoute("/sitemap.xml")({
           }
         }
 
-        // Blog posts (single-locale)
-        for (const post of blogArticles) {
-          urls.push(
-            buildUrl({
-              path: `/blog/${post.id}`,
-              changefreq: "monthly",
-              priority: "0.6",
-            }),
-          );
-        }
 
         // Gear founder profiles
         for (const id of Object.keys(FOUNDERS)) {
