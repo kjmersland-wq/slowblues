@@ -1,38 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/i18n";
-import { BookOpen, ExternalLink, Heart, Mail, Building2, MessageSquare } from "lucide-react";
-import { useState } from "react";
-import { useServerFn } from "@tanstack/react-start";
-import { subscribeNewsletter } from "@/lib/mailerlite.functions";
+import { BookOpen, ExternalLink, Heart, Building2, MessageSquare } from "lucide-react";
 import logoSB from "@/assets/logo-slowblues.png";
 
 export function SiteFooter() {
   const { t } = useI18n();
-
-  const subscribe = useServerFn(subscribeNewsletter);
-  const [email, setEmail] = useState("");
-  const [subState, setSubState] = useState<"idle" | "loading" | "ok" | "err">("idle");
-  const [subMsg, setSubMsg] = useState("");
-
-  async function handleSubscribe(e: React.FormEvent) {
-    e.preventDefault();
-    if (!email) return;
-    setSubState("loading");
-    try {
-      const res = await subscribe({ data: { email } });
-      if (res.ok) {
-        setSubState("ok");
-        setSubMsg("You're on the list. Next letter: Monday 21:00 CET.");
-        setEmail("");
-      } else {
-        setSubState("err");
-        setSubMsg(res.error);
-      }
-    } catch {
-      setSubState("err");
-      setSubMsg("Something went wrong. Please try again.");
-    }
-  }
 
   const explore: { to: any; label: string }[] = [
     { to: "/history", label: t.nav.history },
@@ -45,10 +17,8 @@ export function SiteFooter() {
     { to: "/worldmap", label: t.nav.worldmap },
     { to: "/radio", label: t.nav.radio },
     { to: "/guestbook", label: t.nav.guestbook },
-    { to: "/blog", label: t.nav.blog },
     { to: "/quiz", label: "Blues Quiz" },
     { to: "/about/merch", label: "Merch" },
-    { to: "/newsletter", label: "Newsletter" },
     { to: "/support", label: t.nav.support },
   ];
 
@@ -133,35 +103,6 @@ export function SiteFooter() {
               </li>
             ))}
           </ul>
-        </div>
-      </div>
-
-      <div className="border-t border-border">
-        <div className="max-w-7xl mx-auto px-6 py-10">
-          <div className="flex items-center gap-2 text-gold mb-2"><Mail className="size-4" aria-hidden="true" /> <span className="font-display text-lg">{t.footer.newsletterTitle}</span></div>
-          <p className="text-sm text-muted-foreground mb-4">{t.footer.newsletterDesc}</p>
-          <form className="flex flex-col sm:flex-row gap-2 max-w-2xl" onSubmit={handleSubscribe} aria-label="Newsletter signup">
-            <label htmlFor="footer-newsletter-email" className="sr-only">{t.footer.emailPlaceholder}</label>
-            <input
-              id="footer-newsletter-email"
-              required
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder={t.footer.emailPlaceholder}
-              maxLength={255}
-              className="flex-1 px-4 py-2.5 rounded-md bg-card border border-border focus:border-gold outline-none text-sm"
-            />
-            <button
-              disabled={subState === "loading"}
-              className="px-5 py-2.5 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 text-sm disabled:opacity-60"
-            >
-              {subState === "loading" ? "…" : t.footer.subscribe}
-            </button>
-          </form>
-          {subState === "ok" && <p className="mt-3 text-sm text-gold" role="status">{subMsg}</p>}
-          {subState === "err" && <p className="mt-3 text-sm text-destructive" role="alert">{subMsg}</p>}
-          <p className="mt-3 text-xs text-muted-foreground">{t.footer.privacyNote} <Link to="/privacy" className="text-gold hover:underline">Personvern →</Link></p>
         </div>
       </div>
 
