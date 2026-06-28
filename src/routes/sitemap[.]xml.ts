@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { SUPPORTED_LOCALES, artistDetailPath, artistsListPath, DEFAULT_LOCALE } from "@/lib/locale";
-import { blogArticles } from "@/data/blogArticles";
+
 import { FOUNDERS } from "@/data/gearFounders";
 
 const BASE_URL = "https://www.slow-blues.com";
