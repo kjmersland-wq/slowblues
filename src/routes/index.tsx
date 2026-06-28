@@ -574,9 +574,6 @@ function SupportBanner() {
           <a href="#" className="px-7 py-3 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 flex items-center gap-2">
             <ShoppingBag className="size-4" /> {tr(lang, { no: "Kjøp merch", en: "Shop merch", pl: "Kup gadżety", sv: "Köp merch", de: "Merch kaufen" })}
           </a>
-          <a href="#" className="px-7 py-3 rounded-md border border-border text-foreground hover:border-gold/60 flex items-center gap-2">
-            <BookOpen className="size-4" /> {tr(lang, { no: "Les bloggen", en: "Read the blog", pl: "Przeczytaj bloga", sv: "Läs bloggen", de: "Blog lesen" })}
-          </a>
         </div>
       </div>
     </section>
