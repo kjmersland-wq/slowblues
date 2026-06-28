@@ -57,7 +57,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         // Static, single-locale pages
         const staticPaths: Array<{ p: string; cf?: string; pr?: string }> = [
           { p: "/artists", cf: "weekly", pr: "0.9" },
-          { p: "/blog", cf: "weekly", pr: "0.8" },
+          
           { p: "/history", cf: "monthly", pr: "0.7" },
           { p: "/styles", cf: "monthly", pr: "0.7" },
           { p: "/festivals", cf: "weekly", pr: "0.7" },
