@@ -150,16 +150,6 @@ export const Route = createFileRoute("/sitemap.xml")({
           }
         }
 
-        // Blog posts (single-locale)
-        for (const post of blogArticles) {
-          urls.push(
-            buildUrl({
-              path: `/blog/${post.id}`,
-              changefreq: "monthly",
-              priority: "0.6",
-            }),
-          );
-        }
 
         // Gear founder profiles
         for (const id of Object.keys(FOUNDERS)) {
