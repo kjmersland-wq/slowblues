@@ -863,45 +863,6 @@ export type Database = {
         }
         Relationships: []
       }
-      newsletter_runs: {
-        Row: {
-          created_at: string
-          draft_html: string | null
-          error: string | null
-          id: string
-          mailerlite_campaign_id: string | null
-          scheduled_for: string
-          source_summary: Json
-          status: string
-          subject: string | null
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          draft_html?: string | null
-          error?: string | null
-          id?: string
-          mailerlite_campaign_id?: string | null
-          scheduled_for: string
-          source_summary?: Json
-          status?: string
-          subject?: string | null
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          draft_html?: string | null
-          error?: string | null
-          id?: string
-          mailerlite_campaign_id?: string | null
-          scheduled_for?: string
-          source_summary?: Json
-          status?: string
-          subject?: string | null
-          updated_at?: string
-        }
-        Relationships: []
-      }
       ticker_items: {
         Row: {
           created_at: string
