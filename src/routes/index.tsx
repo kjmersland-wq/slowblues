@@ -390,32 +390,16 @@ function Ticker() {
     refetchOnWindowFocus: true,
   });
 
-  const blogItems: TickerItem[] = useMemo(() => {
-    return [...blogArticles]
-      .sort((a, b) => (b.publishedDate ?? "").localeCompare(a.publishedDate ?? ""))
-      .slice(0, 6)
-      .map((b) => ({
-        id: `blog-${b.id}`,
-        kind: "blog" as const,
-        label: "BLOG",
-        text: b.titleEn,
-        href: `/blog/${b.id}`,
-        timestamp: b.publishedDate ?? "2026-01-01T00:00:00.000Z",
-        priority: 50,
-      }));
-  }, []);
-
   const merged: TickerItem[] = useMemo(() => {
     const base = data?.items?.length ? data.items : FALLBACK_TICKER;
-    const all = [...base, ...blogItems];
     const seen = new Set<string>();
-    const unique = all.filter((i) => (seen.has(i.id) ? false : (seen.add(i.id), true)));
+    const unique = base.filter((i) => (seen.has(i.id) ? false : (seen.add(i.id), true)));
     unique.sort((a, b) => {
       if (b.priority !== a.priority) return b.priority - a.priority;
       return (b.timestamp ?? "").localeCompare(a.timestamp ?? "");
     });
     return unique.slice(0, 36);
-  }, [data, blogItems]);
+  }, [data]);
 
   const loop = [...merged, ...merged];
 
