@@ -1,76 +1,95 @@
-# SlowBlues — Berik artistprofiler fra zip-data
 
-Berik alle 353 artistprofiler med rikere data fra den opplastede zip-en, gjør strukturelle endringer som gjelder universelt, og bygg verktøy for lenkeverifikasjon. Jeg fabrikkerer ikke data — artister som ikke finnes i zip-en eller andre verifiserbare kilder beholder tomme felter til du fyller dem inn manuelt.
+## Scope
 
-## Hva zip-en faktisk inneholder
+Four workstreams. Built in this order so the highest-value automation lands first.
 
-Zip-en har detaljerte data for ca. 70–120 artister fordelt på `scandinavianArtists.ts`, `britishArtists.ts`, `europeanArtists.ts`, `africanArtists.ts`, `australianArtists.ts`, `canadianArtists.ts`, `modernAmericanArtists.ts` og `artists.ts` (US). Datastrukturen inkluderer for hver innspilling: `musicians[]`, `chartPosition`, `sales`, `producer`, `composers[]`, `spotifyTrackId`. På artistnivå finnes `family[]`, `collaborators[]`, `socialLinks` (website/facebook/instagram/youtube/spotify) og `youtubeVideoIds[]`.
+---
 
-Pressitater/kritikersitater finnes som fritekst inne i `biographyEn` (f.eks. "Blueprint magazine called him..."), ikke som strukturerte felt. Disse må jeg ekstrahere manuelt eller la deg legge til via admin.
+### 1. Weekly newsletter automation (MailerLite + Lovable AI)
 
-## Fase 1 — Skjemaendringer (universelt)
+**Pipeline (runs Monday 20:30 CET via pg_cron → `/api/public/hooks/weekly-newsletter`):**
 
-Ett migrationsskritt mot `artists`-tabellen:
+1. Gather inputs:
+   - Latest blues news (Firecrawl search: "blues music news", festivals, obituaries — last 7 days, English sources).
+   - New reviews from `blues_reviews` published since last edition.
+   - New guestbook entries (count, for "welcome to new readers" line).
+   - New MailerLite subscribers since last edition (welcome block).
+2. Lovable AI (`google/gemini-3-flash-preview`) drafts the edition in Kjell's voice (personal, warm, English only). System prompt enforces:
+   - Editor's personal tone (sample tone seeded from existing newsletters).
+   - News-with-context, never just headlines.
+   - Editor note about Warsaw move included in every edition until move date (configurable; auto-stops after 31 Aug 2026).
+   - Internal links to slow-blues.com reviews/artist pages + external links to sources.
+3. Render via existing `renderNewsletterHTML` template in `src/lib/newsletterTemplate.ts` (no new template).
+4. POST to MailerLite Campaigns API: create campaign → schedule for Monday 21:00 Europe/Oslo. No send if no content gathered (logged to `newsletter_runs` table).
 
-- Legg til kolonne `press_quotes jsonb NOT NULL DEFAULT '[]'` med form `[{ quote, author, role, source_title, source_url, year }]`.
-- Legg til kolonne `website_url text` og `facebook_url text` (utledet fra `social_links`, men eksplisitte felter gjør lenkesjekken enklere).
-- Legg til kolonne `link_check jsonb DEFAULT '{}'` for resultat av siste HEAD-sjekk: `{ website: { status, checked_at }, facebook: { status, checked_at } }`.
+**Admin page** `/admin/newsletter` — list scheduled/sent runs, "preview next edition now" button, "force send" override.
 
-Discography-strukturen utvider jeg via koden (jsonb krever ingen schema-endring). Hver discography-entry kan nå inneholde `musicians[]`, `chart_position`, `sales_estimate`, `youtube_id` i tillegg til eksisterende felter.
+**Tables:**
+- `newsletter_runs` (id, scheduled_for, status, mailerlite_campaign_id, draft_html, source_summary, created_at).
 
-## Fase 2 — Dataimport fra zip
+---
 
-Skriv `scripts/import-zip-enrichment.ts` som:
+### 2. Ticker (auto news feed + admin)
 
-1. Leser alle artist-arrays fra zip-en
-2. For hver artist matcher mot eksisterende `slug` i Supabase
-3. **Beriker uten å overskrive eksisterende verdier**:
-   - `discography` → erstatter med zip-versjon kun hvis zip har flere entries eller flere felter per entry (musicians/chartPosition/sales/producer/composers)
-   - `family` → erstatter hvis zip har flere entries
-   - `collaborators` → merge
-   - `social_links` → fyller inn manglende felter (website, facebook, instagram, youtube) — fjerner spotify
-   - `youtube_video_ids` → merge unike IDs
-4. Kjører som server-funksjon, ikke som vilkårlig migrasjon, så du ser logg over hva som ble oppdatert.
+**Table** `ticker_items`: id, text (jsonb i18n: en/no/de/fr/es/pl), href, source (`admin`|`auto`), pinned, expires_at, created_at.
 
-## Fase 3 — Fjern Spotify og legg til YouTube-embed på album
+**Admin page** `/admin/ticker` — create/edit/delete items, pin, set expiry, multilingual text fields. Auto-translates EN → NO/DE/FR/ES/PL via Lovable AI on save.
 
-I `ArtistDetailView.tsx`:
+**Auto job** runs 3×/day (08:00, 13:00, 18:00 CET) via pg_cron → `/api/public/hooks/ticker-refresh`: Firecrawl search blues news headlines, dedupe vs existing, insert top 3 as `source='auto'` with 48h expiry, auto-translated.
 
-- Fjern Spotify-knapp/lenke helt fra Diskografi-seksjonen og hero
-- Behold andre lyttelenker (Bandcamp, Apple Music på reviews-objekter)
-- For hver discography-entry: hvis `youtube_id` finnes, vis "Spill på YouTube"-lenke som åpner `youtube-nocookie.com/embed/<id>` i et innebygd lite preview-vindu (samme COEP-fix som konsertsiden)
-- Vis `musicians[]`, `chart_position`, `sales_estimate` per album når feltene finnes (skjul hvis tomme)
-- Legg til ny seksjon "Pressomtaler" som rendrer `press_quotes[]` med sitat, forfatter/rolle, og klikkbar kildelenke
+**Frontend:** new `<NewsTicker />` component in `SiteHeader.tsx` (slim marquee under nav). Reads from `ticker_items` where not expired, pinned first, then newest. Includes pinned Warsaw-move item.
 
-Konsertsiden (`concerts.$slug.tsx`) har allerede YouTube-embed via `youtube_video_id`. Sjekk at alle konsertrader har feltet utfylt og merge inn fra zip der mulig.
+---
 
-## Fase 4 — Lenkeverifikasjon (admin-verktøy, ikke auto-slett)
+### 3. /news route + dynamic surfaces refresh
 
-Ny rute `/admin/links` som:
+- New public route `src/routes/news.index.tsx`: lists last 30 days of auto-curated news + recent reviews + recent newsletter editions. SSR with loader-fed OG tags. Hreflang for all locales.
+- New `news_items` table (id, title jsonb i18n, summary jsonb i18n, source_url, image_url, published_at, kind: `news`|`festival`|`obituary`). Populated by the same Firecrawl pipeline that feeds the ticker (one fetch, two outputs).
+- Homepage: add "Latest news" strip pulling top 4 from `news_items`.
+- Sitemap: include /news.
 
-- Lister alle artister med website/facebook fra `social_links`
-- Knapp "Kjør sjekk" → server-funksjon som gjør HEAD-request med 5s timeout for alle 353 artisters lenker (batch på 20 parallelt)
-- Lagrer status (`200`/`404`/`timeout`/`dns_fail`) i `link_check`-kolonnen
-- Viser tabell med "Døde lenker" filtrert
-- Du sletter manuelt via en "Fjern denne lenken"-knapp per rad — ingen auto-sletting
+Evergreen pages (artists, history, styles, etc.) untouched.
 
-## Fase 5 — Pressitater fra zip-biografier
+---
 
-Skriv `scripts/extract-press-quotes.ts` som regex-skanner zip-ens biographyEn-felt etter mønstre som `"X magazine called him 'Y'"`, `"Z said 'W'"`, `"according to Q,"`, og pre-fyller `press_quotes` med utkast som du kan godkjenne i admin (felt `verified: false` til du sjekker av).
+### 4. Guestbook polish
 
-For artister hvor zip ikke har kildebare sitater, lar jeg feltet stå tomt.
+- Update `src/routes/guestbook.tsx` intro copy: warm, personal welcome in Kjell's voice (all locales via i18n dict).
+- Add "Leave a greeting" CTA above the form, more prominent placement.
+- Add link to guestbook in `SiteFooter.tsx` if missing.
 
-## Hva som IKKE skjer i denne runden
+---
 
-- Ingen syntetiske/AI-genererte sitater eller salgstall
-- Ingen auto-sletting av lenker (kun rapportering)
-- Artister utenfor zip-en får kun strukturelle endringer (Spotify fjernet, nye tomme seksjoner), ikke nytt innhold
-- Ingen Wikipedia/Wikidata-scraping i denne runden (kan komme som Fase 6 hvis du ønsker)
+## Technical details
 
-## Tekniske detaljer
+**Secrets:** `MAILERLITE_API_KEY` (✓), `LOVABLE_API_KEY` (✓). Firecrawl needs the connector — I'll link it via `standard_connectors--connect` when we start step 1.
 
-- Migration: én SQL-fil legger til `press_quotes`, `website_url`, `facebook_url`, `link_check`
-- Importer: `scripts/import-zip-enrichment.ts` kjøres lokalt med `bun run` mot service-role-key, ikke via klienten
-- Lenkesjekk: `createServerFn` med `requireSupabaseAuth` + admin-rolle, kjører `Promise.all` i batches
-- Frontend: kun endringer i `src/components/artists/ArtistDetailView.tsx`
-- TypeScript-typer i `src/lib/artists.ts` utvides med `musicians`, `chart_position`, `sales_estimate`, `youtube_id` på `DiscographyEntry` og ny `PressQuote`-type
+**Cron URLs (stable prod):** `https://project--866b24d0-92bc-4065-a1b1-d03f56aa92e9.lovable.app/api/public/hooks/*`. All hook routes verify a shared `apikey` (Supabase anon key) header.
+
+**Auto-translation:** Lovable AI Gateway, batch per item, cached in jsonb columns. Translations happen at write-time so reads stay fast.
+
+**Editor note logic:** hardcoded boolean `now() < '2026-09-01'` in the AI prompt builder; trivially removed later.
+
+**No marketing emails:** newsletter is a personal weekly letter to opted-in subscribers — fits app-email policy.
+
+---
+
+## Build order (one PR each)
+
+1. Tables (`newsletter_runs`, `ticker_items`, `news_items`) + RLS + grants.
+2. Firecrawl connector + shared news-gather server fn.
+3. Ticker: component, admin page, auto-refresh hook, cron.
+4. Newsletter: AI draft fn, MailerLite scheduler, hook route, cron, admin page.
+5. /news route + homepage strip + sitemap entry.
+6. Guestbook copy + footer link.
+
+---
+
+## What I will NOT do without further confirmation
+
+- Touch evergreen content pages (artists, history, styles, instruments, gear, etc.).
+- Change the existing newsletter HTML template design.
+- Add marketing/promotional content to the newsletter.
+- Send a real newsletter — the first scheduled run will sit as a draft in MailerLite for you to approve once, then auto-send weekly.
+
+Approve and I'll start with step 1.
