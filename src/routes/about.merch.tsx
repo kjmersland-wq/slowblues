@@ -196,18 +196,13 @@ function MerchPage() {
         {isLoading && <SkeletonGrid />}
 
         {(error || data?.error) && !isLoading && (
-          <div className="text-center py-16 border border-border rounded-xl bg-card/40">
-            <p className="text-foreground/80 mb-3">
-              Shop is temporarily unavailable —{" "}
-              <a
-                href={SHOP_BASE}
-                target="_blank"
-                rel="noopener"
-                className="text-gold underline hover:text-gold/80"
-              >
-                visit slow-blues-shop.fourthwall.com directly
-              </a>
-            </p>
+          <div className="mb-12">
+            <iframe
+              src="https://slow-blues-shop.fourthwall.com"
+              width="100%"
+              style={{ border: "none", borderRadius: "12px", minHeight: "900px" }}
+              title="SlowBlues Shop"
+            />
           </div>
         )}
 
