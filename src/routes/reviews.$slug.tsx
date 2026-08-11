@@ -105,7 +105,7 @@ export const Route = createFileRoute("/reviews/$slug")({
             reviewRating: r.total_score
               ? { "@type": "Rating", ratingValue: r.total_score, bestRating: 10, worstRating: 0 }
               : undefined,
-            author: { "@type": "Organization", name: r.reviewer || "SlowBlues Editorial" },
+            author: { "@type": "Person", name: r.reviewer || "Kjell Mersland" },
             datePublished: r.published_at,
             reviewBody: r.verdict_en ?? r.body_en?.slice(0, 280),
           }),
@@ -223,6 +223,9 @@ function ReviewDetailPage() {
             {verdict && (
               <p className="mt-6 text-lg italic text-foreground/85 border-l-2 border-gold/50 pl-4">{verdict}</p>
             )}
+            {review.reviewer && (
+              <p className="mt-4 text-xs uppercase tracking-[0.2em] text-gold">Av {review.reviewer}</p>
+            )}
           </div>
         </div>
 
@@ -301,12 +304,16 @@ function ReviewDetailPage() {
             )}
             {review.youtube_playlist_id && (
               <a
-                href={`https://www.youtube.com/playlist?list=${review.youtube_playlist_id}`}
+                href={
+                  review.youtube_playlist_id.length === 11
+                    ? `https://www.youtube.com/watch?v=${review.youtube_playlist_id}`
+                    : `https://www.youtube.com/playlist?list=${review.youtube_playlist_id}`
+                }
                 target="_blank"
                 rel="noreferrer"
                 className="text-xs px-3 py-1.5 rounded border border-border hover:border-gold"
               >
-                YouTube playlist ↗
+                {review.youtube_playlist_id.length === 11 ? "Watch on YouTube ↗" : "YouTube playlist ↗"}
               </a>
             )}
           </section>

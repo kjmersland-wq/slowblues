@@ -35,9 +35,9 @@ export const Route = createFileRoute("/reviews/")({
   head: () => ({
     meta: [
       { title: "Album Reviews — SlowBlues" },
-      { name: "description", content: "In-depth blues album reviews and ratings from the SlowBlues editors." },
+      { name: "description", content: "In-depth blues album reviews, written and rated by editor Kjell Mersland." },
       { property: "og:title", content: "Album Reviews — SlowBlues" },
-      { property: "og:description", content: "Browse SlowBlues' in-depth blues album reviews — Delta, Chicago, Texas and modern blues records rated by our editors." },
+      { property: "og:description", content: "Browse SlowBlues' in-depth blues album reviews — Delta, Chicago, Texas and modern blues records, reviewed personally by editor Kjell Mersland." },
       { property: "og:image", content: IMG.vinyl },
       { property: "og:url", content: "https://www.slowblues.no/reviews" },
     ],
@@ -68,7 +68,7 @@ function ReviewsPage() {
       <PageHero
         eyebrow="Reviews"
         title={t.nav.reviews}
-        lead="Album reviews from the SlowBlues editors — scored out of 10."
+        lead="Album reviews written and scored by editor Kjell Mersland — out of 10."
         img={IMG.vinyl}
       />
       <section className="max-w-6xl mx-auto px-6 py-12">
