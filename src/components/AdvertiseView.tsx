@@ -5,7 +5,7 @@ import { IMG } from "@/data/images";
 import { activePartners, partnerDescription } from "@/data/partners";
 import { Handshake, Mail, Users, Globe, Tag, Mic, Music, ShoppingBag, MapPin, Sparkles, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
+import { submitContactMessage } from "@/lib/contact.functions";
 
 const OFFER_ICONS = [Mail, Sparkles, Tag, Mic, ShoppingBag, MapPin];
 
@@ -22,18 +22,14 @@ export function AdvertiseView() {
     setSending(true);
     const typeLabel = (a.types as Record<string, string>)[form.type] ?? form.type;
     const composed = `Partner inquiry — ${typeLabel}\nOrganisation: ${form.org || "—"}\n\n${form.message}`;
-    const { error } = await supabase.from("contact_messages").insert({
-      name: form.name.trim().slice(0, 100),
-      email: form.email.trim().slice(0, 255),
-      message: composed.slice(0, 2000),
-    });
-    setSending(false);
-    if (error) {
-      toast.error("Could not send. Please try again.");
-    } else {
+    try {
+      await submitContactMessage({ data: { name: form.name, email: form.email, message: composed } });
       toast.success("Thanks! We'll get back to you soon.");
       setForm({ name: "", org: "", email: "", type: "newsletter", message: "" });
+    } catch {
+      toast.error("Could not send. Please try again.");
     }
+    setSending(false);
   }
 
   return (

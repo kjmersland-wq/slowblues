@@ -74,9 +74,8 @@ function GdprPage() {
       <Section heading="Databehandlere">
         <p>Vi benytter følgende databehandlere, alle med databehandleravtale (DPA) og GDPR-egnet behandling:</p>
         <ul className="list-disc pl-5 space-y-1.5">
-          <li><strong>Lovable Cloud / Supabase</strong> — hosting og database (EU-region).</li>
+          <li><strong>Cloudflare</strong> — hosting, database (D1) og sikkerhet.</li>
           <li><strong>MailerLite</strong> — utsendelse av nyhetsbrev.</li>
-          <li><strong>Cloudflare</strong> — CDN og sikkerhet.</li>
         </ul>
         <p>Vi overfører ikke personopplysninger til tredjeland uten gyldig overføringsgrunnlag (SCC eller adekvansbeslutning).</p>
       </Section>

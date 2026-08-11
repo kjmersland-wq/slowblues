@@ -31,7 +31,7 @@ function CookiesPage() {
         <p>SlowBlues.no bruker minst mulig:</p>
         <ul className="list-disc pl-5 space-y-1.5">
           <li><strong>slowblues-lang</strong> (localStorage) — husker språkvalget ditt (no/en/de). Strengt nødvendig.</li>
-          <li><strong>Supabase auth-token</strong> (localStorage) — kun for innloggede admin-brukere, for å holde deg pålogget.</li>
+          <li><strong>admin_session</strong> (HttpOnly-cookie) — kun for innloggede admin-brukere, for å holde deg pålogget.</li>
           <li><strong>Anonymisert besøksstatistikk</strong> — uten identifiserende cookies, ingen profilering.</li>
         </ul>
         <p>Vi bruker <strong>ingen</strong> markedsføringscookies, ingen tredjeparts-sporing, ingen Facebook-pixel, og ingen Google Analytics som identifiserer enkeltpersoner.</p>

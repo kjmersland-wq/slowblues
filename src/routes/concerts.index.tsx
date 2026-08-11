@@ -1,19 +1,32 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { getDB } from "@/integrations/d1/client";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Calendar, MapPin } from "lucide-react";
 
+type ConcertListItem = {
+  slug: string;
+  title: string;
+  artist_name: string | null;
+  event_type: string | null;
+  venue: string | null;
+  city: string | null;
+  country: string | null;
+  event_date: string | null;
+  cover_image: string | null;
+};
+
 const listConcerts = createServerFn({ method: "GET" }).handler(async () => {
-  const { data, error } = await supabaseAdmin
-    .from("concerts")
-    .select("slug, title, artist_name, event_type, venue, city, country, event_date, cover_image")
-    .eq("status", "published")
-    .order("event_date", { ascending: true, nullsFirst: false })
-    .limit(60);
-  if (error) throw error;
-  return { concerts: data ?? [] };
+  const db = getDB();
+  const { results } = await db
+    .prepare(
+      `SELECT slug, title, artist_name, event_type, venue, city, country, event_date, cover_image
+       FROM concerts WHERE status = 'published'
+       ORDER BY event_date IS NULL, event_date ASC LIMIT 60`,
+    )
+    .all<ConcertListItem>();
+  return { concerts: results ?? [] };
 });
 
 export const Route = createFileRoute("/concerts/")({

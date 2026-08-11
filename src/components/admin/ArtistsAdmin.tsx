@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { fetchArtists } from "@/lib/artists";
+import { upsertArtistBySlug, deleteArtistBySlug } from "@/lib/adminArtists.functions";
 import type { ArtistRecord } from "@/lib/artists";
 import { Trash2, Plus, Save, X, ExternalLink } from "lucide-react";
 import { Link } from "@tanstack/react-router";
@@ -44,9 +45,12 @@ export function ArtistsAdmin() {
 
   const refresh = async () => {
     setBusy(true);
-    const { data, error } = await supabase.from("artists").select("*").order("name");
-    if (error) setErr(error.message);
-    else setList((data ?? []) as unknown as ArtistRecord[]);
+    try {
+      const data = await fetchArtists();
+      setList(data as unknown as ArtistRecord[]);
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : "Kunne ikke laste artister");
+    }
     setBusy(false);
   };
   useEffect(() => { void refresh(); }, []);
@@ -60,17 +64,25 @@ export function ArtistsAdmin() {
     delete (payload as any).id;
     delete (payload as any).created_at;
     delete (payload as any).updated_at;
-    const { error } = await supabase.from("artists").upsert(payload as any, { onConflict: "slug" });
-    if (error) setErr(error.message);
-    else { setOk("Lagret."); await refresh(); }
+    try {
+      await upsertArtistBySlug({ data: payload as Record<string, unknown> & { slug: string } });
+      setOk("Lagret.");
+      await refresh();
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : "Lagring feilet");
+    }
     setBusy(false);
   };
 
   const del = async (slug: string) => {
     if (!confirm(`Slette artisten "${slug}"?`)) return;
-    const { error } = await supabase.from("artists").delete().eq("slug", slug);
-    if (error) setErr(error.message);
-    else { setList((l) => l.filter((x) => x.slug !== slug)); if (editing?.slug === slug) setEditing(null); }
+    try {
+      await deleteArtistBySlug({ data: { slug } });
+      setList((l) => l.filter((x) => x.slug !== slug));
+      if (editing?.slug === slug) setEditing(null);
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : "Sletting feilet");
+    }
   };
 
   return (

@@ -4,7 +4,7 @@ import { useI18n } from "@/i18n";
 import { IMG } from "@/data/images";
 import { Building2, MessageSquare, ShieldCheck } from "lucide-react";
 import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { submitContactMessage } from "@/lib/contact.functions";
 
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
@@ -39,17 +39,13 @@ function ContactPage() {
     }
     setStatus("sending");
     setError(null);
-    const { error } = await supabase.from("contact_messages").insert({
-      name: name.trim().slice(0, 100),
-      email: email.trim().slice(0, 255),
-      message: message.trim().slice(0, 2000),
-    });
-    if (error) {
-      setError("Kunne ikke sende meldingen. Sjekk feltene og prøv igjen.");
-      setStatus("error");
-    } else {
+    try {
+      await submitContactMessage({ data: { name, email, message } });
       setStatus("sent");
       setName(""); setEmail(""); setMessage(""); setConsent(false);
+    } catch {
+      setError("Kunne ikke sende meldingen. Sjekk feltene og prøv igjen.");
+      setStatus("error");
     }
   };
 

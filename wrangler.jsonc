@@ -4,4 +4,11 @@
   "compatibility_date": "2025-09-24",
   "compatibility_flags": ["nodejs_compat"],
   "main": "src/server.ts",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "slowblues",
+      "database_id": "f46d1da0-6f38-4629-9b56-b34fe9d8ff2b",
+    },
+  ],
 }

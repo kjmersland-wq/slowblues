@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { createServerFn } from "@tanstack/react-start";
+import { getDB } from "@/integrations/d1/client";
+import { parseArtistRow } from "@/integrations/d1/artistRow";
 
 export type FamilyEntry = { relation: string; name: string; note?: string };
 export type InstrumentEntry = { category: "Gitar" | "Vokal" | "Annet" | string; name: string; years?: string; note?: string };
@@ -186,6 +188,22 @@ function normalise(row: any): ArtistRecord {
   } as ArtistRecord;
 }
 
+export const fetchArtists = createServerFn({ method: "GET" }).handler(async () => {
+  const db = getDB();
+  const { results } = await db
+    .prepare("SELECT * FROM artists ORDER BY sort_order ASC, name ASC")
+    .all();
+  return (results ?? []).map((r) => parseArtistRow(r as Record<string, unknown>));
+});
+
+export const fetchArtistBySlug = createServerFn({ method: "GET" })
+  .inputValidator((d: { slug: string }) => d)
+  .handler(async ({ data }) => {
+    const db = getDB();
+    const row = await db.prepare("SELECT * FROM artists WHERE slug = ?").bind(data.slug).first();
+    return row ? parseArtistRow(row as Record<string, unknown>) : null;
+  });
+
 export function useArtists() {
   const [data, setData] = useState<ArtistRecord[] | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -193,14 +211,15 @@ export function useArtists() {
 
   const refresh = async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from("artists")
-      .select("*")
-      .order("sort_order", { ascending: true })
-      .order("name", { ascending: true });
-    if (error) setError(error.message);
-    else setData((data ?? []).map(normalise));
-    setLoading(false);
+    try {
+      const rows = await fetchArtists();
+      setData(rows.map(normalise));
+      setError(null);
+    } catch (e: any) {
+      setError(e?.message ?? "Failed to load artists");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => { void refresh(); }, []);
@@ -217,12 +236,17 @@ export function useArtist(slug: string) {
     let cancelled = false;
     setLoading(true);
     setError(null);
-    supabase.from("artists").select("*").eq("slug", slug).maybeSingle().then(({ data, error }) => {
-      if (cancelled) return;
-      if (error) setError(error.message);
-      else setData(data ? normalise(data) : null);
-      setLoading(false);
-    });
+    fetchArtistBySlug({ data: { slug } })
+      .then((row) => {
+        if (cancelled) return;
+        setData(row ? normalise(row) : null);
+      })
+      .catch((e: any) => {
+        if (!cancelled) setError(e?.message ?? "Failed to load artist");
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
     return () => { cancelled = true; };
   }, [slug]);
 

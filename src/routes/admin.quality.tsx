@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { fetchQCData } from "@/lib/qc.functions";
 import { useAuth } from "@/lib/useAuth";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
@@ -66,7 +66,7 @@ export const Route = createFileRoute("/admin/quality")({
 type Filter = "all" | "needs_image" | "needs_bio_no" | "needs_bio_de" | "needs_videos" | "needs_seo" | "incomplete";
 
 function QCPage() {
-  const { user, isAdmin, loading } = useAuth();
+  const { isAdmin, loading } = useAuth();
   const navigate = useNavigate();
   const [artists, setArtists] = useState<ArtistRow[]>([]);
   const [verifiedImages, setVerifiedImages] = useState<Set<string>>(new Set());
@@ -75,23 +75,16 @@ function QCPage() {
   const [filter, setFilter] = useState<Filter>("all");
 
   useEffect(() => {
-    if (!loading && !user) navigate({ to: "/login" });
-  }, [loading, user, navigate]);
+    if (!loading && !isAdmin) navigate({ to: "/login" });
+  }, [loading, isAdmin, navigate]);
 
   useEffect(() => {
     if (!isAdmin) return;
     (async () => {
       setBusy(true);
-      const [aRes, iRes] = await Promise.all([
-        supabase
-          .from("artists")
-          .select("slug,name,img,biography_en,biography_no,biography_sv,biography_de,youtube_video_ids,seo_title_en,short,region")
-          .order("name", { ascending: true })
-          .limit(1000),
-        supabase.from("artist_images").select("artist_slug").eq("verified", true).eq("is_primary", true),
-      ]);
-      setArtists((aRes.data ?? []) as ArtistRow[]);
-      setVerifiedImages(new Set((iRes.data ?? []).map((r: any) => r.artist_slug)));
+      const { artists: rows, verifiedSlugs } = await fetchQCData();
+      setArtists(rows as ArtistRow[]);
+      setVerifiedImages(new Set(verifiedSlugs));
       setBusy(false);
     })();
   }, [isAdmin]);
@@ -157,14 +150,6 @@ function QCPage() {
       </PageShell>
     );
   }
-  if (user && !isAdmin) {
-    return (
-      <PageShell>
-        <PageHero eyebrow="Admin" title="Ingen tilgang" lead="Kontoen din har ikke admin-rolle." img={IMG.pianoNight} />
-      </PageShell>
-    );
-  }
-
   const filterChips: Array<[Filter, string, number]> = [
     ["all", "All", stats.total],
     ["needs_image", "Needs image", stats.missing_image + stats.unverified_image],

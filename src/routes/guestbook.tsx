@@ -3,7 +3,7 @@ import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n } from "@/i18n";
 import { IMG } from "@/data/images";
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { fetchGuestbookEntries, submitGuestbookEntry } from "@/lib/guestbook.functions";
 
 export const Route = createFileRoute("/guestbook")({
   component: GuestbookPage,
@@ -29,13 +29,12 @@ function GuestbookPage() {
   const load = async () => {
     setLoading(true);
     setError(null);
-    const { data, error } = await supabase
-      .from("guestbook_entries")
-      .select("id,name,location,message,created_at")
-      .order("created_at", { ascending: false })
-      .limit(100);
-    if (error) setError("Kunne ikke laste gjesteboken. Prøv igjen senere.");
-    else setList((data ?? []) as Entry[]);
+    try {
+      const rows = await fetchGuestbookEntries();
+      setList(rows as Entry[]);
+    } catch {
+      setError("Kunne ikke laste gjesteboken. Prøv igjen senere.");
+    }
     setLoading(false);
   };
 
@@ -46,16 +45,12 @@ function GuestbookPage() {
     if (!name.trim() || !msg.trim() || submitting) return;
     setSubmitting(true);
     setError(null);
-    const { error } = await supabase.from("guestbook_entries").insert({
-      name: name.trim().slice(0, 60),
-      location: location.trim() ? location.trim().slice(0, 80) : null,
-      message: msg.trim().slice(0, 800),
-    });
-    if (error) {
-      setError("Innlegget kunne ikke sendes. Sjekk teksten og prøv igjen.");
-    } else {
+    try {
+      await submitGuestbookEntry({ data: { name, location: location || null, message: msg } });
       setName(""); setLocation(""); setMsg("");
       await load();
+    } catch {
+      setError("Innlegget kunne ikke sendes. Sjekk teksten og prøv igjen.");
     }
     setSubmitting(false);
   };

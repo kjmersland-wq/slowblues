@@ -1,32 +1,18 @@
 import { createServerFn } from "@tanstack/react-start";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { requireAdmin } from "@/lib/adminAuth.server";
+import { getDB } from "@/integrations/d1/client";
 
 const LANGS = ["no", "en", "sv", "de", "pl"] as const;
 const KEY_FIELDS = ["biography", "short", "influence"] as const;
 
 export const getTranslationProgress = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
-  .handler(async ({ context }) => {
-    const isAdmin =
-      (context as any)?.claims?.user_role === "admin" ||
-      (context as any)?.claims?.app_metadata?.roles?.includes?.("admin");
-    // Fall back: rely on RLS — admin client bypasses, so we instead check via user_roles table
-    if (!isAdmin) {
-      const { data: roles } = await context.supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", context.userId);
-      if (!roles?.some((r: any) => r.role === "admin")) {
-        throw new Error("Forbidden");
-      }
-    }
-
+  .middleware([requireAdmin])
+  .handler(async () => {
+    const db = getDB();
     const cols = ["slug", ...LANGS.flatMap((l) => KEY_FIELDS.map((f) => `${f}_${l}`))].join(",");
-    const { data, error } = await supabaseAdmin.from("artists").select(cols);
-    if (error) throw new Error(error.message);
+    const { results } = await db.prepare(`SELECT ${cols} FROM artists`).all();
 
-    const rows = (data ?? []) as any[];
+    const rows = (results ?? []) as any[];
     const total = rows.length;
 
     const perLang: Record<string, { complete: number; partial: number; missing: number }> = {};

@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { fetchSeoData } from "@/lib/seo.functions";
 import { useAuth } from "@/lib/useAuth";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
@@ -49,7 +49,7 @@ function checkSeo(row: any, hasImage: boolean): Issue[] {
 }
 
 function AdminSEO() {
-  const { user, isAdmin, loading } = useAuth();
+  const { isAdmin, loading } = useAuth();
   const [artists, setArtists] = useState<ArtistRow[]>([]);
   const [reviews, setReviews] = useState<ReviewRow[]>([]);
   const [sitemapStatus, setSitemapStatus] = useState<{ ok: boolean; count: number; missing: string[] } | null>(null);
@@ -59,19 +59,15 @@ function AdminSEO() {
 
   const load = async () => {
     setBusy(true);
-    const seoCols = LANGS.flatMap((l) => [`seo_title_${l}`, `seo_description_${l}`]).join(",");
-    const [a, r] = await Promise.all([
-      supabase.from("artists").select(`slug,name,img,og_image,${seoCols}`).order("name"),
-      supabase.from("blues_reviews").select(`slug,artist_name,album_title,status,cover_image,${seoCols}`).order("updated_at", { ascending: false }),
-    ]);
-    setArtists((a.data ?? []) as any);
-    setReviews((r.data ?? []) as any);
+    const { artists: aData, reviews: rData } = await fetchSeoData();
+    setArtists(aData as any);
+    setReviews(rData as any);
 
     // Sitemap check
     try {
       const res = await fetch("/sitemap.xml");
       const xml = await res.text();
-      const slugs = (a.data ?? []).map((x: any) => x.slug);
+      const slugs = (aData ?? []).map((x: any) => x.slug);
       const missing = slugs.filter((s) => !xml.includes(`/artists/${s}`) && !xml.includes(`/no/artister/${s}`));
       const count = (xml.match(/<url>/g) ?? []).length;
       setSitemapStatus({ ok: res.ok, count, missing });
@@ -96,7 +92,6 @@ function AdminSEO() {
   const filtered = (rows: typeof artistRows) => onlyIssues ? rows.filter((r) => r.issues.length > 0) : rows;
 
   if (loading) return <PageShell><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
-  if (user && !isAdmin) return <PageShell><div className="max-w-md mx-auto px-6 py-24 text-center text-muted-foreground">Ingen admin-tilgang.</div></PageShell>;
 
   const artistsWithIssues = artistRows.filter((r) => r.issues.length > 0).length;
   const reviewsWithIssues = reviewRows.filter((r) => r.issues.length > 0).length;

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n } from "@/i18n";
 import { IMG } from "@/data/images";
-import { supabase } from "@/integrations/supabase/client";
+import { fetchPublishedReviews } from "@/lib/reviews.functions";
 import { CoverFallback } from "@/components/reviews/CoverFallback";
 import { Star } from "lucide-react";
 
@@ -52,14 +52,7 @@ function ReviewsPage() {
 
   useEffect(() => {
     (async () => {
-      const { data } = await supabase
-        .from("blues_reviews")
-        .select(
-          "id,slug,artist_slug,artist_name,album_title,release_year,label,blues_style,cover_image,title_en,title_no,title_de,verdict_en,verdict_no,verdict_de,score_songwriting,score_instrumentation,score_production,total_score,published_at",
-        )
-        .eq("status", "published")
-        .order("published_at", { ascending: false })
-        .limit(100);
+      const data = await fetchPublishedReviews();
       setReviews((data ?? []) as Review[]);
       setLoading(false);
     })();

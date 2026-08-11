@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { fetchArtistsWithQuotes, saveArtistQuotes } from "@/lib/quotes.functions";
 import { useAuth } from "@/lib/useAuth";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
@@ -25,7 +25,7 @@ type PressQuote = {
 const empty: PressQuote = { quote: "", author: "", role: "", year: undefined, source_url: "", source_title: "", verified: true };
 
 function QuotesAdminPage() {
-  const { user, isAdmin, loading } = useAuth();
+  const { isAdmin, loading } = useAuth();
   const navigate = useNavigate();
   const [artists, setArtists] = useState<ArtistRow[]>([]);
   const [filter, setFilter] = useState("");
@@ -35,17 +35,17 @@ function QuotesAdminPage() {
   const [msg, setMsg] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!loading && !user) navigate({ to: "/login" });
-  }, [loading, user, navigate]);
+    if (!loading && !isAdmin) navigate({ to: "/login" });
+  }, [loading, isAdmin, navigate]);
 
   const load = async () => {
     setBusy(true);
-    const { data, error } = await supabase
-      .from("artists")
-      .select("id, slug, name, press_quotes")
-      .order("name", { ascending: true });
-    if (error) setMsg("Klarte ikke laste artister.");
-    setArtists((data ?? []) as ArtistRow[]);
+    try {
+      const rows = await fetchArtistsWithQuotes();
+      setArtists(rows as ArtistRow[]);
+    } catch {
+      setMsg("Klarte ikke laste artister.");
+    }
     setBusy(false);
   };
 
@@ -60,13 +60,13 @@ function QuotesAdminPage() {
   const saveQuotes = async (next: PressQuote[]) => {
     if (!current) return;
     setBusy(true);
-    const { error } = await supabase
-      .from("artists")
-      .update({ press_quotes: next as unknown as never })
-      .eq("id", current.id);
-    if (error) { setMsg("Lagring feilet: " + error.message); setBusy(false); return; }
-    setArtists((prev) => prev.map((a) => (a.id === current.id ? { ...a, press_quotes: next } : a)));
-    setMsg("Lagret.");
+    try {
+      await saveArtistQuotes({ data: { id: current.id, press_quotes: next } });
+      setArtists((prev) => prev.map((a) => (a.id === current.id ? { ...a, press_quotes: next } : a)));
+      setMsg("Lagret.");
+    } catch (e) {
+      setMsg("Lagring feilet: " + (e instanceof Error ? e.message : String(e)));
+    }
     setBusy(false);
   };
 
@@ -97,14 +97,6 @@ function QuotesAdminPage() {
   };
 
   if (loading) return <PageShell><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
-
-  if (user && !isAdmin) {
-    return (
-      <PageShell>
-        <PageHero eyebrow="Admin" title="Ingen tilgang" lead="Kontoen din har ikke admin-rolle." img={IMG.pianoNight} />
-      </PageShell>
-    );
-  }
 
   return (
     <PageShell>

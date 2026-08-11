@@ -1,11 +1,11 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { useEffect, useState } from "react";
+import { fetchAllReviews, saveReview, deleteReview } from "@/lib/reviewsAdmin.functions";
 import { useAuth } from "@/lib/useAuth";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
 import { CoverFallback } from "@/components/reviews/CoverFallback";
-import { Trash2, Upload, Save, Plus } from "lucide-react";
+import { Trash2, Save, Plus } from "lucide-react";
 
 type Track = { title: string; personnel: string };
 
@@ -61,25 +61,24 @@ export const Route = createFileRoute("/admin/reviews")({
 });
 
 function AdminReviewsPage() {
-  const { user, isAdmin, loading } = useAuth();
+  const { isAdmin, loading } = useAuth();
   const navigate = useNavigate();
   const [items, setItems] = useState<Review[]>([]);
   const [editing, setEditing] = useState<Partial<Review> | null>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
-  const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (!loading && !user) navigate({ to: "/login" });
-  }, [loading, user, navigate]);
+    if (!loading && !isAdmin) navigate({ to: "/login" });
+  }, [loading, isAdmin, navigate]);
 
   const refresh = async () => {
-    const { data, error } = await supabase
-      .from("blues_reviews")
-      .select("*")
-      .order("published_at", { ascending: false, nullsFirst: false });
-    if (error) setErr(error.message);
-    setItems(((data ?? []) as unknown) as Review[]);
+    try {
+      const data = await fetchAllReviews();
+      setItems((data as unknown) as Review[]);
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : String(e));
+    }
   };
 
   useEffect(() => {
@@ -93,68 +92,27 @@ function AdminReviewsPage() {
     }
     setBusy(true);
     setErr(null);
-    const payload = {
-      ...editing,
-      slug: editing.slug,
-      artist_name: editing.artist_name,
-      album_title: editing.album_title,
-      status: editing.status ?? "draft",
-      published_at:
-        editing.status === "published" && !editing.published_at
-          ? new Date().toISOString()
-          : editing.published_at,
-    };
-    const { error } = editing.id
-      ? await supabase.from("blues_reviews").update(payload).eq("id", editing.id)
-      : await supabase.from("blues_reviews").insert(payload as any);
-
-    setBusy(false);
-    if (error) {
-      setErr(error.message);
-      return;
+    try {
+      await saveReview({ data: editing as any });
+      setEditing(null);
+      await refresh();
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : String(e));
     }
-    setEditing(null);
-    refresh();
+    setBusy(false);
   };
 
   const remove = async (id: string) => {
     if (!confirm("Delete this review?")) return;
-    const { error } = await supabase.from("blues_reviews").delete().eq("id", id);
-    if (error) setErr(error.message);
+    try {
+      await deleteReview({ data: { id } });
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : String(e));
+    }
     refresh();
   };
 
-  const uploadCover = async (file: File) => {
-    if (!editing?.slug) {
-      setErr("Set a slug before uploading a cover.");
-      return;
-    }
-    setBusy(true);
-    setErr(null);
-    const ext = file.name.split(".").pop() || "jpg";
-    const path = `${editing.slug}-${Date.now()}.${ext}`;
-    const { error } = await supabase.storage.from("review-covers").upload(path, file, {
-      upsert: true,
-      contentType: file.type,
-    });
-    if (error) {
-      setErr(error.message);
-      setBusy(false);
-      return;
-    }
-    const { data } = supabase.storage.from("review-covers").getPublicUrl(path);
-    setEditing({ ...editing, cover_image: data.publicUrl });
-    setBusy(false);
-  };
-
   if (loading) return <PageShell><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Loading…</div></PageShell>;
-  if (user && !isAdmin) {
-    return (
-      <PageShell>
-        <PageHero eyebrow="Admin" title="No access" lead="Your account is not an admin." img={IMG.pianoNight} />
-      </PageShell>
-    );
-  }
 
   return (
     <PageShell>
@@ -207,24 +165,9 @@ function AdminReviewsPage() {
                     <CoverFallback artist={editing.artist_name || "Artist"} title={editing.album_title || "Album"} className="w-full aspect-square rounded" />
                   )}
                   <input
-                    ref={fileRef}
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={(e) => e.target.files?.[0] && uploadCover(e.target.files[0])}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => fileRef.current?.click()}
-                    disabled={busy}
-                    className="w-full px-3 py-2 rounded border border-border hover:border-gold text-xs flex items-center justify-center gap-2"
-                  >
-                    <Upload className="size-3" /> Upload cover
-                  </button>
-                  <input
                     value={editing.cover_image ?? ""}
                     onChange={(e) => setEditing({ ...editing, cover_image: e.target.value })}
-                    placeholder="…or paste image URL"
+                    placeholder="Paste cover image URL"
                     className="w-full px-2 py-1.5 rounded bg-background border border-border text-xs"
                   />
                 </div>

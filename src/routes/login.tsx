@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { adminLogin } from "@/lib/adminAuth.server";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
 
@@ -11,8 +11,6 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const navigate = useNavigate();
-  const [mode] = useState<"signin" | "signup">("signin");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -22,17 +20,7 @@ function LoginPage() {
     setErr(null);
     setBusy(true);
     try {
-      if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo: `${window.location.origin}/admin` },
-        });
-        if (error) throw error;
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-      }
+      await adminLogin({ data: { password } });
       navigate({ to: "/admin" });
     } catch (e: any) {
       setErr(e.message ?? "Noe gikk galt");
@@ -47,20 +35,14 @@ function LoginPage() {
       <section className="max-w-md mx-auto px-6 py-12">
         <form onSubmit={submit} className="bg-card/60 border border-border rounded-xl p-6 space-y-4">
           <div>
-            <label className="text-[10px] tracking-[0.25em] text-gold uppercase block mb-1.5">E-post</label>
-            <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="w-full bg-background border border-border rounded-md px-3 py-2 focus:border-gold outline-none" />
-          </div>
-          <div>
-            <label className="text-[10px] tracking-[0.25em] text-gold uppercase block mb-1.5">Passord</label>
+            <label className="text-[10px] tracking-[0.25em] text-gold uppercase block mb-1.5">Admin-passord</label>
             <input type="password" required minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} className="w-full bg-background border border-border rounded-md px-3 py-2 focus:border-gold outline-none" />
           </div>
           {err && <p className="text-sm text-red-400">{err}</p>}
           <button disabled={busy} className="w-full px-5 py-2.5 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 disabled:opacity-60">
-            {busy ? "Jobber…" : mode === "signup" ? "Opprett konto" : "Logg inn"}
+            {busy ? "Jobber…" : "Logg inn"}
           </button>
           <p className="text-xs text-muted-foreground">
-            Registrering er deaktivert.
-            <br />
             <Link to="/" className="text-gold hover:underline">← Tilbake til forsiden</Link>
           </p>
         </form>

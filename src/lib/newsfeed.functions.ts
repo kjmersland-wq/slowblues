@@ -1,5 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { getDB } from "@/integrations/d1/client";
 
 export type TickerItem = {
   id: string;
@@ -23,18 +23,20 @@ const FLAG_BY_COUNTRY: Record<string, string> = {
 
 export const getNewsTicker = createServerFn({ method: "GET" }).handler(
   async () => {
+    const db = getDB();
     const out: TickerItem[] = [];
     const now = Date.now();
 
     // 1) Latest published reviews
     try {
-      const { data: reviews } = await supabaseAdmin
-        .from("blues_reviews")
-        .select("slug, artist_name, album_title, total_score, verdict_en, published_at, updated_at")
-        .eq("status", "published")
-        .order("published_at", { ascending: false, nullsFirst: false })
-        .limit(12);
-      for (const r of reviews ?? []) {
+      const { results: reviews } = await db
+        .prepare(
+          `SELECT slug, artist_name, album_title, total_score, verdict_en, published_at, updated_at
+           FROM blues_reviews WHERE status = 'published'
+           ORDER BY published_at DESC LIMIT 12`,
+        )
+        .all();
+      for (const r of (reviews ?? []) as any[]) {
         if (!r.slug) continue;
         const score = r.total_score ? ` — ${Number(r.total_score).toFixed(1)}/10` : "";
         out.push({
@@ -53,13 +55,14 @@ export const getNewsTicker = createServerFn({ method: "GET" }).handler(
 
     // 2) Approved YouTube videos
     try {
-      const { data: videos } = await supabaseAdmin
-        .from("youtube_videos")
-        .select("video_id, title, artist_slug, category, published_at, created_at, is_official_channel")
-        .eq("status", "approved")
-        .order("created_at", { ascending: false })
-        .limit(10);
-      for (const v of videos ?? []) {
+      const { results: videos } = await db
+        .prepare(
+          `SELECT video_id, title, artist_slug, category, published_at, created_at, is_official_channel
+           FROM youtube_videos WHERE status = 'approved'
+           ORDER BY created_at DESC LIMIT 10`,
+        )
+        .all();
+      for (const v of (videos ?? []) as any[]) {
         if (!v.video_id || !v.artist_slug) continue;
         const tag =
           v.category === "live" ? "LIVE" :
@@ -81,12 +84,13 @@ export const getNewsTicker = createServerFn({ method: "GET" }).handler(
 
     // 3) Recently updated artists with editorial content
     try {
-      const { data: artists } = await supabaseAdmin
-        .from("artists")
-        .select("slug, name, country, era_label_en, short_en, updated_at, died")
-        .order("updated_at", { ascending: false })
-        .limit(20);
-      for (const a of artists ?? []) {
+      const { results: artists } = await db
+        .prepare(
+          `SELECT slug, name, country, era_label_en, short_en, updated_at, died
+           FROM artists ORDER BY updated_at DESC LIMIT 20`,
+        )
+        .all();
+      for (const a of (artists ?? []) as any[]) {
         if (!a.slug || !a.short_en) continue;
         const flag = a.country ? FLAG_BY_COUNTRY[a.country] : undefined;
         const obit = a.died && a.died.trim().length > 0;
@@ -104,21 +108,23 @@ export const getNewsTicker = createServerFn({ method: "GET" }).handler(
     } catch (e) {
       console.error("ticker artists failed:", e);
     }
+
     // 4) Upcoming concerts & festivals
     try {
       const today = new Date().toISOString().slice(0, 10);
-      const { data: concerts } = await (supabaseAdmin as any)
-        .from("concerts")
-        .select("slug, title, artist_name, event_type, venue, city, country, event_date, is_featured, published_at")
-        .eq("status", "published")
-        .gte("event_date", today)
-        .order("event_date", { ascending: true })
-        .limit(15);
+      const { results: concerts } = await db
+        .prepare(
+          `SELECT slug, title, artist_name, event_type, venue, city, country, event_date, is_featured, published_at
+           FROM concerts WHERE status = 'published' AND event_date >= ?
+           ORDER BY event_date ASC LIMIT 15`,
+        )
+        .bind(today)
+        .all();
       for (const c of (concerts ?? []) as Array<{
         slug: string; title: string; artist_name: string | null;
         event_type: string | null; venue: string | null; city: string | null;
         country: string | null; event_date: string | null;
-        is_featured: boolean | null; published_at: string | null;
+        is_featured: number | null; published_at: string | null;
       }>) {
         if (!c.slug) continue;
         const flag = c.country ? FLAG_BY_COUNTRY[c.country] : undefined;

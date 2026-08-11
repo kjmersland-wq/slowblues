@@ -18,7 +18,7 @@ type Progress = Awaited<ReturnType<typeof getTranslationProgress>>;
 type Snap = { t: number; done: number };
 
 function TranslationsAdmin() {
-  const { user, isAdmin, loading } = useAuth();
+  const { isAdmin, loading } = useAuth();
   const navigate = useNavigate();
   const fetchProgress = useServerFn(getTranslationProgress);
   const [data, setData] = useState<Progress | null>(null);
@@ -29,8 +29,8 @@ function TranslationsAdmin() {
   const [rate, setRate] = useState<number | null>(null); // fields/min
 
   useEffect(() => {
-    if (!loading && !user) navigate({ to: "/login" });
-  }, [loading, user, navigate]);
+    if (!loading && !isAdmin) navigate({ to: "/login" });
+  }, [loading, isAdmin, navigate]);
 
   const load = async () => {
     setRefreshing(true);

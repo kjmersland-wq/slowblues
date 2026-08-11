@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
-import { supabase } from "@/integrations/supabase/client";
+import { getDB } from "@/integrations/d1/client";
 import { SUPPORTED_LOCALES, artistDetailPath, artistsListPath, DEFAULT_LOCALE } from "@/lib/locale";
 
 import { FOUNDERS } from "@/data/gearFounders";
@@ -33,10 +33,12 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const [{ data: artists }, { data: reviews }, { data: concerts }] = await Promise.all([
-          supabase.from("artists").select("slug, updated_at").order("name", { ascending: true }),
-          supabase.from("blues_reviews").select("slug, updated_at").order("created_at", { ascending: false }),
-          supabase.from("concerts").select("slug, updated_at").order("event_date", { ascending: false }),
+        const db = getDB();
+        type SlugRow = { slug: string; updated_at: string | null };
+        const [{ results: artists }, { results: reviews }, { results: concerts }] = await Promise.all([
+          db.prepare("SELECT slug, updated_at FROM artists ORDER BY name ASC").all<SlugRow>(),
+          db.prepare("SELECT slug, updated_at FROM blues_reviews ORDER BY created_at DESC").all<SlugRow>(),
+          db.prepare("SELECT slug, updated_at FROM concerts ORDER BY event_date DESC").all<SlugRow>(),
         ]);
 
         const urls: string[] = [];

@@ -1,12 +1,11 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/useAuth";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
 import { Link2Off, CheckCircle2, XCircle, Loader2, RefreshCw } from "lucide-react";
-import { checkArtistLinks, type ArtistLinkReport } from "@/lib/link-check.functions";
+import { checkArtistLinks, clearArtistLink, type ArtistLinkReport } from "@/lib/link-check.functions";
 
 export const Route = createFileRoute("/admin/links")({
   component: LinksAdminPage,
@@ -14,7 +13,7 @@ export const Route = createFileRoute("/admin/links")({
 });
 
 function LinksAdminPage() {
-  const { user, isAdmin, loading } = useAuth();
+  const { isAdmin, loading } = useAuth();
   const navigate = useNavigate();
   const runCheck = useServerFn(checkArtistLinks);
   const [report, setReport] = useState<ArtistLinkReport[] | null>(null);
@@ -22,8 +21,8 @@ function LinksAdminPage() {
   const [msg, setMsg] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!loading && !user) navigate({ to: "/login" });
-  }, [loading, user, navigate]);
+    if (!loading && !isAdmin) navigate({ to: "/login" });
+  }, [loading, isAdmin, navigate]);
 
   const run = async () => {
     setBusy(true); setMsg(null);
@@ -38,14 +37,15 @@ function LinksAdminPage() {
 
   const clearLink = async (id: string, field: "website_url" | "facebook_url") => {
     if (!confirm("Fjern denne lenken fra artisten?")) return;
-    const payload = field === "website_url" ? { website_url: null } : { facebook_url: null };
-    const { error } = await supabase.from("artists").update(payload).eq("id", id);
-    if (error) { setMsg("Sletting feilet: " + error.message); return; }
-    setReport((prev) => prev?.map((r) => r.id === id ? { ...r, [field === "website_url" ? "website" : "facebook"]: null } : r) ?? null);
+    try {
+      await clearArtistLink({ data: { id, field } });
+      setReport((prev) => prev?.map((r) => r.id === id ? { ...r, [field === "website_url" ? "website" : "facebook"]: null } : r) ?? null);
+    } catch (e) {
+      setMsg("Sletting feilet: " + (e instanceof Error ? e.message : String(e)));
+    }
   };
 
   if (loading) return <PageShell><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
-  if (user && !isAdmin) return <PageShell><PageHero eyebrow="Admin" title="Ingen tilgang" lead="Kontoen din har ikke admin-rolle." img={IMG.pianoNight} /></PageShell>;
 
   const dead = (report ?? []).filter((r) => (r.website && !r.website.ok) || (r.facebook && !r.facebook.ok));
   const ok = (report ?? []).filter((r) => (r.website?.ok || r.facebook?.ok));

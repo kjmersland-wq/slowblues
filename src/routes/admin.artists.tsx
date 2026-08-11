@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { fetchArtistsAudit } from "@/lib/adminArtists.functions";
 import { useAuth } from "@/lib/useAuth";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
@@ -55,7 +55,7 @@ function unverifiedFamily(r: Row) {
 }
 
 function AdminArtistsList() {
-  const { user, isAdmin, loading } = useAuth();
+  const { isAdmin, loading } = useAuth();
   const navigate = useNavigate();
   const [rows, setRows] = useState<Row[]>([]);
   const [q, setQ] = useState("");
@@ -63,20 +63,16 @@ function AdminArtistsList() {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    if (!loading && !user) navigate({ to: "/login" });
-  }, [loading, user, navigate]);
+    if (!loading && !isAdmin) navigate({ to: "/login" });
+  }, [loading, isAdmin, navigate]);
 
   useEffect(() => {
     if (!isAdmin) return;
     setBusy(true);
-    supabase
-      .from("artists")
-      .select("slug,name,origin,died,biography_en,biography_no,instruments,instruments_simple,discography,family")
-      .order("name")
-      .then(({ data }) => {
-        setRows((data ?? []) as Row[]);
-        setBusy(false);
-      });
+    fetchArtistsAudit().then((data) => {
+      setRows(data as unknown as Row[]);
+      setBusy(false);
+    });
   }, [isAdmin]);
 
   const filtered = useMemo(() => {
@@ -94,9 +90,6 @@ function AdminArtistsList() {
   }, [rows, q, filter]);
 
   if (loading) return <PageShell><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
-  if (user && !isAdmin) {
-    return <PageShell><div className="max-w-md mx-auto px-6 py-24 text-center text-muted-foreground">Ingen admin-tilgang.</div></PageShell>;
-  }
 
   const counts = {
     all: rows.length,
@@ -116,7 +109,7 @@ function AdminArtistsList() {
 
   return (
     <PageShell>
-      <PageHero eyebrow="Admin" title="Artister" lead={`${rows.length} artister · ${user?.email}`} img={IMG.pianoNight} />
+      <PageHero eyebrow="Admin" title="Artister" lead={`${rows.length} artister`} img={IMG.pianoNight} />
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
         <div className="flex flex-col sm:flex-row gap-3 mb-5">
           <div className="relative flex-1">

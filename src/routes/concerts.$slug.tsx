@@ -1,22 +1,39 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { getDB } from "@/integrations/d1/client";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Calendar, MapPin, Ticket, Play } from "lucide-react";
 
+type Concert = {
+  slug: string;
+  title: string;
+  artist_name: string | null;
+  artist_slug: string | null;
+  event_type: string | null;
+  venue: string | null;
+  city: string | null;
+  country: string | null;
+  event_date: string | null;
+  end_date: string | null;
+  ticket_url: string | null;
+  youtube_video_id: string | null;
+  cover_image: string | null;
+  description_en: string | null;
+  seo_title_en: string | null;
+  seo_description_en: string | null;
+};
+
 const getConcert = createServerFn({ method: "GET" })
   .inputValidator((d) => z.object({ slug: z.string().min(1).max(200) }).parse(d))
   .handler(async ({ data }) => {
-    const { data: row, error } = await supabaseAdmin
-      .from("concerts")
-      .select("*")
-      .eq("slug", data.slug)
-      .eq("status", "published")
-      .maybeSingle();
-    if (error) throw error;
-    return row;
+    const db = getDB();
+    const row = await db
+      .prepare("SELECT * FROM concerts WHERE slug = ? AND status = 'published'")
+      .bind(data.slug)
+      .first<Concert>();
+    return row ?? null;
   });
 
 export const Route = createFileRoute("/concerts/$slug")({

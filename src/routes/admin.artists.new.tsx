@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { createArtist, updateArtistBySlug } from "@/lib/adminArtists.functions";
 import { useAuth } from "@/lib/useAuth";
 import { PageShell } from "@/components/PageShell";
 import { useServerFn } from "@tanstack/react-start";
@@ -27,7 +27,7 @@ const labelCls = "block text-xs uppercase tracking-wide text-muted-foreground mb
 type EnrichLog = { step: string; ok: boolean; note?: string };
 
 function NewArtistPage() {
-  const { user, isAdmin, loading } = useAuth();
+  const { isAdmin, loading } = useAuth();
   const navigate = useNavigate();
   const wdSearch = useServerFn(searchWikidata);
   const wdGet = useServerFn(getWikidataArtist);
@@ -54,7 +54,6 @@ function NewArtistPage() {
   const finalSlug = (slug || slugify(name)).trim();
 
   if (loading) return <PageShell><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
-  if (user && !isAdmin) return <PageShell><div className="max-w-md mx-auto px-6 py-24 text-center text-muted-foreground">Ingen admin-tilgang.</div></PageShell>;
 
   const create = async () => {
     if (!name.trim() || !finalSlug) { setErr("Navn og slug er påkrevd."); return; }
@@ -78,10 +77,13 @@ function NewArtistPage() {
       sort_order: 0,
     };
 
-    const { error } = await supabase.from("artists").insert(row as any);
+    try {
+      await createArtist({ data: row });
+      setCreatedSlug(finalSlug);
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : "Kunne ikke opprette artist");
+    }
     setBusy(false);
-    if (error) { setErr(error.message); return; }
-    setCreatedSlug(finalSlug);
   };
 
   const enrich = async () => {
@@ -154,9 +156,12 @@ function NewArtistPage() {
     add({ step: "SEO-felt (no/sv/en/de)", ok: true, note: "Maler satt — finpuss i admin" });
 
     // Save patch
-    const { error } = await supabase.from("artists").update(patch as any).eq("slug", createdSlug);
-    if (error) add({ step: "Lagring", ok: false, note: error.message });
-    else add({ step: "Lagring", ok: true, note: "Berikelse fullført" });
+    try {
+      await updateArtistBySlug({ data: { slug: createdSlug, patch } });
+      add({ step: "Lagring", ok: true, note: "Berikelse fullført" });
+    } catch (e) {
+      add({ step: "Lagring", ok: false, note: e instanceof Error ? e.message : "Feil" });
+    }
 
     setEnriching(false);
   };

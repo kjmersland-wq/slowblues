@@ -9,174 +9,69 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WorldmapRouteImport } from './routes/worldmap'
-import { Route as WatchRouteImport } from './routes/watch'
-import { Route as UpdatesRouteImport } from './routes/updates'
-import { Route as TermsRouteImport } from './routes/terms'
-import { Route as SupportRouteImport } from './routes/support'
-import { Route as StylesRouteImport } from './routes/styles'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as RadioRouteImport } from './routes/radio'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as ListenRouteImport } from './routes/listen'
-import { Route as InstrumentsRouteImport } from './routes/instruments'
-import { Route as HistoryRouteImport } from './routes/history'
-import { Route as GuestbookRouteImport } from './routes/guestbook'
-import { Route as GdprRouteImport } from './routes/gdpr'
-import { Route as GalleryRouteImport } from './routes/gallery'
-import { Route as FestivalsRouteImport } from './routes/festivals'
-import { Route as DisclaimerRouteImport } from './routes/disclaimer'
-import { Route as CopyrightRouteImport } from './routes/copyright'
-import { Route as CookiesRouteImport } from './routes/cookies'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as CompareRouteImport } from './routes/compare'
-import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ReviewsIndexRouteImport } from './routes/reviews.index'
-import { Route as QuizIndexRouteImport } from './routes/quiz.index'
-import { Route as ConcertsIndexRouteImport } from './routes/concerts.index'
-import { Route as ArtistsIndexRouteImport } from './routes/artists.index'
-import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AccessibilityRouteImport } from './routes/accessibility'
+import { Route as CompareRouteImport } from './routes/compare'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CookiesRouteImport } from './routes/cookies'
+import { Route as CopyrightRouteImport } from './routes/copyright'
+import { Route as DisclaimerRouteImport } from './routes/disclaimer'
+import { Route as FestivalsRouteImport } from './routes/festivals'
+import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as GdprRouteImport } from './routes/gdpr'
+import { Route as GuestbookRouteImport } from './routes/guestbook'
+import { Route as HistoryRouteImport } from './routes/history'
+import { Route as InstrumentsRouteImport } from './routes/instruments'
+import { Route as ListenRouteImport } from './routes/listen'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as RadioRouteImport } from './routes/radio'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as StylesRouteImport } from './routes/styles'
+import { Route as SupportRouteImport } from './routes/support'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as UpdatesRouteImport } from './routes/updates'
+import { Route as WatchRouteImport } from './routes/watch'
+import { Route as WorldmapRouteImport } from './routes/worldmap'
 import { Route as AboutIndexRouteImport } from './routes/about.index'
-import { Route as ReviewsSlugRouteImport } from './routes/reviews.$slug'
-import { Route as QuizArchiveRouteImport } from './routes/quiz.archive'
-import { Route as LearnStylesRouteImport } from './routes/learn.styles'
-import { Route as LearnGearRouteImport } from './routes/learn.gear'
-import { Route as ExperienceMediaRouteImport } from './routes/experience.media'
-import { Route as EditorialImagesRouteImport } from './routes/editorial.images'
-import { Route as ConcertsSlugRouteImport } from './routes/concerts.$slug'
-import { Route as ArtistsSlugRouteImport } from './routes/artists.$slug'
-import { Route as AdminWikidataRouteImport } from './routes/admin.wikidata'
-import { Route as AdminTranslationsRouteImport } from './routes/admin.translations'
-import { Route as AdminSeoRouteImport } from './routes/admin.seo'
-import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
-import { Route as AdminQuotesRouteImport } from './routes/admin.quotes'
-import { Route as AdminQualityRouteImport } from './routes/admin.quality'
-import { Route as AdminLinksRouteImport } from './routes/admin.links'
-import { Route as AdminArtistsRouteImport } from './routes/admin.artists'
-import { Route as AboutMerchRouteImport } from './routes/about.merch'
-import { Route as AboutGuestbookRouteImport } from './routes/about.guestbook'
 import { Route as AboutAdvertiseRouteImport } from './routes/about.advertise'
-import { Route as LocaleArtistsIndexRouteImport } from './routes/$locale.artists.index'
-import { Route as QuizCycleCycleRouteImport } from './routes/quiz.cycle.$cycle'
-import { Route as LearnGearIdRouteImport } from './routes/learn.gear.$id'
-import { Route as ApiPublicFourthwallWebhookRouteImport } from './routes/api/public/fourthwall-webhook'
-import { Route as AdminArtistsNewRouteImport } from './routes/admin.artists.new'
-import { Route as AdminArtistsSlugRouteImport } from './routes/admin.artists.$slug'
-import { Route as AboutMerchSlugRouteImport } from './routes/about.merch.$slug'
-import { Route as LocaleArtistsSlugRouteImport } from './routes/$locale.artists.$slug'
+import { Route as AboutGuestbookRouteImport } from './routes/about.guestbook'
+import { Route as AboutMerchRouteImport } from './routes/about.merch'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminArtistsRouteImport } from './routes/admin.artists'
+import { Route as AdminLinksRouteImport } from './routes/admin.links'
+import { Route as AdminQualityRouteImport } from './routes/admin.quality'
+import { Route as AdminQuotesRouteImport } from './routes/admin.quotes'
+import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
+import { Route as AdminSeoRouteImport } from './routes/admin.seo'
+import { Route as AdminTranslationsRouteImport } from './routes/admin.translations'
+import { Route as AdminWikidataRouteImport } from './routes/admin.wikidata'
+import { Route as ArtistsIndexRouteImport } from './routes/artists.index'
+import { Route as ArtistsSlugRouteImport } from './routes/artists.$slug'
+import { Route as ConcertsIndexRouteImport } from './routes/concerts.index'
+import { Route as ConcertsSlugRouteImport } from './routes/concerts.$slug'
+import { Route as EditorialImagesRouteImport } from './routes/editorial.images'
+import { Route as ExperienceMediaRouteImport } from './routes/experience.media'
+import { Route as LearnGearRouteImport } from './routes/learn.gear'
+import { Route as LearnStylesRouteImport } from './routes/learn.styles'
+import { Route as QuizIndexRouteImport } from './routes/quiz.index'
+import { Route as QuizArchiveRouteImport } from './routes/quiz.archive'
+import { Route as ReviewsIndexRouteImport } from './routes/reviews.index'
+import { Route as ReviewsSlugRouteImport } from './routes/reviews.$slug'
 import { Route as LocaleAboutAdvertiseRouteImport } from './routes/$locale.about.advertise'
+import { Route as LocaleArtistsIndexRouteImport } from './routes/$locale.artists.index'
+import { Route as LocaleArtistsSlugRouteImport } from './routes/$locale.artists.$slug'
+import { Route as AboutMerchSlugRouteImport } from './routes/about.merch.$slug'
+import { Route as AdminArtistsSlugRouteImport } from './routes/admin.artists.$slug'
+import { Route as AdminArtistsNewRouteImport } from './routes/admin.artists.new'
+import { Route as ApiPublicFourthwallWebhookRouteImport } from './routes/api/public/fourthwall-webhook'
+import { Route as LearnGearIdRouteImport } from './routes/learn.gear.$id'
+import { Route as QuizCycleCycleRouteImport } from './routes/quiz.cycle.$cycle'
 import { Route as AboutMerchCollectionSlugRouteImport } from './routes/about.merch.collection.$slug'
 
-const WorldmapRoute = WorldmapRouteImport.update({
-  id: '/worldmap',
-  path: '/worldmap',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const WatchRoute = WatchRouteImport.update({
-  id: '/watch',
-  path: '/watch',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const UpdatesRoute = UpdatesRouteImport.update({
-  id: '/updates',
-  path: '/updates',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TermsRoute = TermsRouteImport.update({
-  id: '/terms',
-  path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SupportRoute = SupportRouteImport.update({
-  id: '/support',
-  path: '/support',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const StylesRoute = StylesRouteImport.update({
-  id: '/styles',
-  path: '/styles',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RadioRoute = RadioRouteImport.update({
-  id: '/radio',
-  path: '/radio',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ListenRoute = ListenRouteImport.update({
-  id: '/listen',
-  path: '/listen',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InstrumentsRoute = InstrumentsRouteImport.update({
-  id: '/instruments',
-  path: '/instruments',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HistoryRoute = HistoryRouteImport.update({
-  id: '/history',
-  path: '/history',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GuestbookRoute = GuestbookRouteImport.update({
-  id: '/guestbook',
-  path: '/guestbook',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GdprRoute = GdprRouteImport.update({
-  id: '/gdpr',
-  path: '/gdpr',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GalleryRoute = GalleryRouteImport.update({
-  id: '/gallery',
-  path: '/gallery',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FestivalsRoute = FestivalsRouteImport.update({
-  id: '/festivals',
-  path: '/festivals',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DisclaimerRoute = DisclaimerRouteImport.update({
-  id: '/disclaimer',
-  path: '/disclaimer',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CopyrightRoute = CopyrightRouteImport.update({
-  id: '/copyright',
-  path: '/copyright',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CookiesRoute = CookiesRouteImport.update({
-  id: '/cookies',
-  path: '/cookies',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CompareRoute = CompareRouteImport.update({
-  id: '/compare',
-  path: '/compare',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AccessibilityRoute = AccessibilityRouteImport.update({
@@ -184,34 +79,114 @@ const AccessibilityRoute = AccessibilityRouteImport.update({
   path: '/accessibility',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const CompareRoute = CompareRouteImport.update({
+  id: '/compare',
+  path: '/compare',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ReviewsIndexRoute = ReviewsIndexRouteImport.update({
-  id: '/reviews/',
-  path: '/reviews/',
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const QuizIndexRoute = QuizIndexRouteImport.update({
-  id: '/quiz/',
-  path: '/quiz/',
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ConcertsIndexRoute = ConcertsIndexRouteImport.update({
-  id: '/concerts/',
-  path: '/concerts/',
+const CopyrightRoute = CopyrightRouteImport.update({
+  id: '/copyright',
+  path: '/copyright',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ArtistsIndexRoute = ArtistsIndexRouteImport.update({
-  id: '/artists/',
-  path: '/artists/',
+const DisclaimerRoute = DisclaimerRouteImport.update({
+  id: '/disclaimer',
+  path: '/disclaimer',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminIndexRoute = AdminIndexRouteImport.update({
-  id: '/admin/',
-  path: '/admin/',
+const FestivalsRoute = FestivalsRouteImport.update({
+  id: '/festivals',
+  path: '/festivals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GdprRoute = GdprRouteImport.update({
+  id: '/gdpr',
+  path: '/gdpr',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuestbookRoute = GuestbookRouteImport.update({
+  id: '/guestbook',
+  path: '/guestbook',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoryRoute = HistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InstrumentsRoute = InstrumentsRouteImport.update({
+  id: '/instruments',
+  path: '/instruments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ListenRoute = ListenRouteImport.update({
+  id: '/listen',
+  path: '/listen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RadioRoute = RadioRouteImport.update({
+  id: '/radio',
+  path: '/radio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StylesRoute = StylesRouteImport.update({
+  id: '/styles',
+  path: '/styles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UpdatesRoute = UpdatesRouteImport.update({
+  id: '/updates',
+  path: '/updates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WatchRoute = WatchRouteImport.update({
+  id: '/watch',
+  path: '/watch',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorldmapRoute = WorldmapRouteImport.update({
+  id: '/worldmap',
+  path: '/worldmap',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutIndexRoute = AboutIndexRouteImport.update({
@@ -219,89 +194,9 @@ const AboutIndexRoute = AboutIndexRouteImport.update({
   path: '/about/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ReviewsSlugRoute = ReviewsSlugRouteImport.update({
-  id: '/reviews/$slug',
-  path: '/reviews/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const QuizArchiveRoute = QuizArchiveRouteImport.update({
-  id: '/quiz/archive',
-  path: '/quiz/archive',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LearnStylesRoute = LearnStylesRouteImport.update({
-  id: '/learn/styles',
-  path: '/learn/styles',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LearnGearRoute = LearnGearRouteImport.update({
-  id: '/learn/gear',
-  path: '/learn/gear',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ExperienceMediaRoute = ExperienceMediaRouteImport.update({
-  id: '/experience/media',
-  path: '/experience/media',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EditorialImagesRoute = EditorialImagesRouteImport.update({
-  id: '/editorial/images',
-  path: '/editorial/images',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConcertsSlugRoute = ConcertsSlugRouteImport.update({
-  id: '/concerts/$slug',
-  path: '/concerts/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ArtistsSlugRoute = ArtistsSlugRouteImport.update({
-  id: '/artists/$slug',
-  path: '/artists/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminWikidataRoute = AdminWikidataRouteImport.update({
-  id: '/admin/wikidata',
-  path: '/admin/wikidata',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminTranslationsRoute = AdminTranslationsRouteImport.update({
-  id: '/admin/translations',
-  path: '/admin/translations',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminSeoRoute = AdminSeoRouteImport.update({
-  id: '/admin/seo',
-  path: '/admin/seo',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminReviewsRoute = AdminReviewsRouteImport.update({
-  id: '/admin/reviews',
-  path: '/admin/reviews',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminQuotesRoute = AdminQuotesRouteImport.update({
-  id: '/admin/quotes',
-  path: '/admin/quotes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminQualityRoute = AdminQualityRouteImport.update({
-  id: '/admin/quality',
-  path: '/admin/quality',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminLinksRoute = AdminLinksRouteImport.update({
-  id: '/admin/links',
-  path: '/admin/links',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminArtistsRoute = AdminArtistsRouteImport.update({
-  id: '/admin/artists',
-  path: '/admin/artists',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutMerchRoute = AboutMerchRouteImport.update({
-  id: '/about/merch',
-  path: '/about/merch',
+const AboutAdvertiseRoute = AboutAdvertiseRouteImport.update({
+  id: '/about/advertise',
+  path: '/about/advertise',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutGuestbookRoute = AboutGuestbookRouteImport.update({
@@ -309,9 +204,119 @@ const AboutGuestbookRoute = AboutGuestbookRouteImport.update({
   path: '/about/guestbook',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AboutAdvertiseRoute = AboutAdvertiseRouteImport.update({
-  id: '/about/advertise',
-  path: '/about/advertise',
+const AboutMerchRoute = AboutMerchRouteImport.update({
+  id: '/about/merch',
+  path: '/about/merch',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminArtistsRoute = AdminArtistsRouteImport.update({
+  id: '/admin/artists',
+  path: '/admin/artists',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLinksRoute = AdminLinksRouteImport.update({
+  id: '/admin/links',
+  path: '/admin/links',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminQualityRoute = AdminQualityRouteImport.update({
+  id: '/admin/quality',
+  path: '/admin/quality',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminQuotesRoute = AdminQuotesRouteImport.update({
+  id: '/admin/quotes',
+  path: '/admin/quotes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminReviewsRoute = AdminReviewsRouteImport.update({
+  id: '/admin/reviews',
+  path: '/admin/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSeoRoute = AdminSeoRouteImport.update({
+  id: '/admin/seo',
+  path: '/admin/seo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminTranslationsRoute = AdminTranslationsRouteImport.update({
+  id: '/admin/translations',
+  path: '/admin/translations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminWikidataRoute = AdminWikidataRouteImport.update({
+  id: '/admin/wikidata',
+  path: '/admin/wikidata',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArtistsIndexRoute = ArtistsIndexRouteImport.update({
+  id: '/artists/',
+  path: '/artists/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArtistsSlugRoute = ArtistsSlugRouteImport.update({
+  id: '/artists/$slug',
+  path: '/artists/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConcertsIndexRoute = ConcertsIndexRouteImport.update({
+  id: '/concerts/',
+  path: '/concerts/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConcertsSlugRoute = ConcertsSlugRouteImport.update({
+  id: '/concerts/$slug',
+  path: '/concerts/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EditorialImagesRoute = EditorialImagesRouteImport.update({
+  id: '/editorial/images',
+  path: '/editorial/images',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExperienceMediaRoute = ExperienceMediaRouteImport.update({
+  id: '/experience/media',
+  path: '/experience/media',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnGearRoute = LearnGearRouteImport.update({
+  id: '/learn/gear',
+  path: '/learn/gear',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnStylesRoute = LearnStylesRouteImport.update({
+  id: '/learn/styles',
+  path: '/learn/styles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuizIndexRoute = QuizIndexRouteImport.update({
+  id: '/quiz/',
+  path: '/quiz/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuizArchiveRoute = QuizArchiveRouteImport.update({
+  id: '/quiz/archive',
+  path: '/quiz/archive',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewsIndexRoute = ReviewsIndexRouteImport.update({
+  id: '/reviews/',
+  path: '/reviews/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewsSlugRoute = ReviewsSlugRouteImport.update({
+  id: '/reviews/$slug',
+  path: '/reviews/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocaleAboutAdvertiseRoute = LocaleAboutAdvertiseRouteImport.update({
+  id: '/$locale/about/advertise',
+  path: '/$locale/about/advertise',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LocaleArtistsIndexRoute = LocaleArtistsIndexRouteImport.update({
@@ -319,15 +324,25 @@ const LocaleArtistsIndexRoute = LocaleArtistsIndexRouteImport.update({
   path: '/$locale/artists/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const QuizCycleCycleRoute = QuizCycleCycleRouteImport.update({
-  id: '/quiz/cycle/$cycle',
-  path: '/quiz/cycle/$cycle',
+const LocaleArtistsSlugRoute = LocaleArtistsSlugRouteImport.update({
+  id: '/$locale/artists/$slug',
+  path: '/$locale/artists/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LearnGearIdRoute = LearnGearIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => LearnGearRoute,
+const AboutMerchSlugRoute = AboutMerchSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => AboutMerchRoute,
+} as any)
+const AdminArtistsSlugRoute = AdminArtistsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => AdminArtistsRoute,
+} as any)
+const AdminArtistsNewRoute = AdminArtistsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => AdminArtistsRoute,
 } as any)
 const ApiPublicFourthwallWebhookRoute =
   ApiPublicFourthwallWebhookRouteImport.update({
@@ -335,29 +350,14 @@ const ApiPublicFourthwallWebhookRoute =
     path: '/api/public/fourthwall-webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AdminArtistsNewRoute = AdminArtistsNewRouteImport.update({
-  id: '/new',
-  path: '/new',
-  getParentRoute: () => AdminArtistsRoute,
+const LearnGearIdRoute = LearnGearIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => LearnGearRoute,
 } as any)
-const AdminArtistsSlugRoute = AdminArtistsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => AdminArtistsRoute,
-} as any)
-const AboutMerchSlugRoute = AboutMerchSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => AboutMerchRoute,
-} as any)
-const LocaleArtistsSlugRoute = LocaleArtistsSlugRouteImport.update({
-  id: '/$locale/artists/$slug',
-  path: '/$locale/artists/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LocaleAboutAdvertiseRoute = LocaleAboutAdvertiseRouteImport.update({
-  id: '/$locale/about/advertise',
-  path: '/$locale/about/advertise',
+const QuizCycleCycleRoute = QuizCycleCycleRouteImport.update({
+  id: '/quiz/cycle/$cycle',
+  path: '/quiz/cycle/$cycle',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutMerchCollectionSlugRoute =
@@ -796,158 +796,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/worldmap': {
-      id: '/worldmap'
-      path: '/worldmap'
-      fullPath: '/worldmap'
-      preLoaderRoute: typeof WorldmapRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/watch': {
-      id: '/watch'
-      path: '/watch'
-      fullPath: '/watch'
-      preLoaderRoute: typeof WatchRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/updates': {
-      id: '/updates'
-      path: '/updates'
-      fullPath: '/updates'
-      preLoaderRoute: typeof UpdatesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/terms': {
-      id: '/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/support': {
-      id: '/support'
-      path: '/support'
-      fullPath: '/support'
-      preLoaderRoute: typeof SupportRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/styles': {
-      id: '/styles'
-      path: '/styles'
-      fullPath: '/styles'
-      preLoaderRoute: typeof StylesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/radio': {
-      id: '/radio'
-      path: '/radio'
-      fullPath: '/radio'
-      preLoaderRoute: typeof RadioRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/listen': {
-      id: '/listen'
-      path: '/listen'
-      fullPath: '/listen'
-      preLoaderRoute: typeof ListenRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/instruments': {
-      id: '/instruments'
-      path: '/instruments'
-      fullPath: '/instruments'
-      preLoaderRoute: typeof InstrumentsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/history': {
-      id: '/history'
-      path: '/history'
-      fullPath: '/history'
-      preLoaderRoute: typeof HistoryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/guestbook': {
-      id: '/guestbook'
-      path: '/guestbook'
-      fullPath: '/guestbook'
-      preLoaderRoute: typeof GuestbookRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/gdpr': {
-      id: '/gdpr'
-      path: '/gdpr'
-      fullPath: '/gdpr'
-      preLoaderRoute: typeof GdprRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/gallery': {
-      id: '/gallery'
-      path: '/gallery'
-      fullPath: '/gallery'
-      preLoaderRoute: typeof GalleryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/festivals': {
-      id: '/festivals'
-      path: '/festivals'
-      fullPath: '/festivals'
-      preLoaderRoute: typeof FestivalsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/disclaimer': {
-      id: '/disclaimer'
-      path: '/disclaimer'
-      fullPath: '/disclaimer'
-      preLoaderRoute: typeof DisclaimerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/copyright': {
-      id: '/copyright'
-      path: '/copyright'
-      fullPath: '/copyright'
-      preLoaderRoute: typeof CopyrightRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/cookies': {
-      id: '/cookies'
-      path: '/cookies'
-      fullPath: '/cookies'
-      preLoaderRoute: typeof CookiesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/compare': {
-      id: '/compare'
-      path: '/compare'
-      fullPath: '/compare'
-      preLoaderRoute: typeof CompareRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/accessibility': {
@@ -957,46 +810,158 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AccessibilityRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/compare': {
+      id: '/compare'
+      path: '/compare'
+      fullPath: '/compare'
+      preLoaderRoute: typeof CompareRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/reviews/': {
-      id: '/reviews/'
-      path: '/reviews'
-      fullPath: '/reviews/'
-      preLoaderRoute: typeof ReviewsIndexRouteImport
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/quiz/': {
-      id: '/quiz/'
-      path: '/quiz'
-      fullPath: '/quiz/'
-      preLoaderRoute: typeof QuizIndexRouteImport
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/concerts/': {
-      id: '/concerts/'
-      path: '/concerts'
-      fullPath: '/concerts/'
-      preLoaderRoute: typeof ConcertsIndexRouteImport
+    '/copyright': {
+      id: '/copyright'
+      path: '/copyright'
+      fullPath: '/copyright'
+      preLoaderRoute: typeof CopyrightRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/artists/': {
-      id: '/artists/'
-      path: '/artists'
-      fullPath: '/artists/'
-      preLoaderRoute: typeof ArtistsIndexRouteImport
+    '/disclaimer': {
+      id: '/disclaimer'
+      path: '/disclaimer'
+      fullPath: '/disclaimer'
+      preLoaderRoute: typeof DisclaimerRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/': {
-      id: '/admin/'
-      path: '/admin'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof AdminIndexRouteImport
+    '/festivals': {
+      id: '/festivals'
+      path: '/festivals'
+      fullPath: '/festivals'
+      preLoaderRoute: typeof FestivalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gdpr': {
+      id: '/gdpr'
+      path: '/gdpr'
+      fullPath: '/gdpr'
+      preLoaderRoute: typeof GdprRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guestbook': {
+      id: '/guestbook'
+      path: '/guestbook'
+      fullPath: '/guestbook'
+      preLoaderRoute: typeof GuestbookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/history': {
+      id: '/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof HistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/instruments': {
+      id: '/instruments'
+      path: '/instruments'
+      fullPath: '/instruments'
+      preLoaderRoute: typeof InstrumentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/listen': {
+      id: '/listen'
+      path: '/listen'
+      fullPath: '/listen'
+      preLoaderRoute: typeof ListenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/radio': {
+      id: '/radio'
+      path: '/radio'
+      fullPath: '/radio'
+      preLoaderRoute: typeof RadioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/styles': {
+      id: '/styles'
+      path: '/styles'
+      fullPath: '/styles'
+      preLoaderRoute: typeof StylesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/updates': {
+      id: '/updates'
+      path: '/updates'
+      fullPath: '/updates'
+      preLoaderRoute: typeof UpdatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/watch': {
+      id: '/watch'
+      path: '/watch'
+      fullPath: '/watch'
+      preLoaderRoute: typeof WatchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/worldmap': {
+      id: '/worldmap'
+      path: '/worldmap'
+      fullPath: '/worldmap'
+      preLoaderRoute: typeof WorldmapRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about/': {
@@ -1006,123 +971,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/reviews/$slug': {
-      id: '/reviews/$slug'
-      path: '/reviews/$slug'
-      fullPath: '/reviews/$slug'
-      preLoaderRoute: typeof ReviewsSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/quiz/archive': {
-      id: '/quiz/archive'
-      path: '/quiz/archive'
-      fullPath: '/quiz/archive'
-      preLoaderRoute: typeof QuizArchiveRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/learn/styles': {
-      id: '/learn/styles'
-      path: '/learn/styles'
-      fullPath: '/learn/styles'
-      preLoaderRoute: typeof LearnStylesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/learn/gear': {
-      id: '/learn/gear'
-      path: '/learn/gear'
-      fullPath: '/learn/gear'
-      preLoaderRoute: typeof LearnGearRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/experience/media': {
-      id: '/experience/media'
-      path: '/experience/media'
-      fullPath: '/experience/media'
-      preLoaderRoute: typeof ExperienceMediaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/editorial/images': {
-      id: '/editorial/images'
-      path: '/editorial/images'
-      fullPath: '/editorial/images'
-      preLoaderRoute: typeof EditorialImagesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/concerts/$slug': {
-      id: '/concerts/$slug'
-      path: '/concerts/$slug'
-      fullPath: '/concerts/$slug'
-      preLoaderRoute: typeof ConcertsSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/artists/$slug': {
-      id: '/artists/$slug'
-      path: '/artists/$slug'
-      fullPath: '/artists/$slug'
-      preLoaderRoute: typeof ArtistsSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/wikidata': {
-      id: '/admin/wikidata'
-      path: '/admin/wikidata'
-      fullPath: '/admin/wikidata'
-      preLoaderRoute: typeof AdminWikidataRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/translations': {
-      id: '/admin/translations'
-      path: '/admin/translations'
-      fullPath: '/admin/translations'
-      preLoaderRoute: typeof AdminTranslationsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/seo': {
-      id: '/admin/seo'
-      path: '/admin/seo'
-      fullPath: '/admin/seo'
-      preLoaderRoute: typeof AdminSeoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/reviews': {
-      id: '/admin/reviews'
-      path: '/admin/reviews'
-      fullPath: '/admin/reviews'
-      preLoaderRoute: typeof AdminReviewsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/quotes': {
-      id: '/admin/quotes'
-      path: '/admin/quotes'
-      fullPath: '/admin/quotes'
-      preLoaderRoute: typeof AdminQuotesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/quality': {
-      id: '/admin/quality'
-      path: '/admin/quality'
-      fullPath: '/admin/quality'
-      preLoaderRoute: typeof AdminQualityRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/links': {
-      id: '/admin/links'
-      path: '/admin/links'
-      fullPath: '/admin/links'
-      preLoaderRoute: typeof AdminLinksRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/artists': {
-      id: '/admin/artists'
-      path: '/admin/artists'
-      fullPath: '/admin/artists'
-      preLoaderRoute: typeof AdminArtistsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about/merch': {
-      id: '/about/merch'
-      path: '/about/merch'
-      fullPath: '/about/merch'
-      preLoaderRoute: typeof AboutMerchRouteImport
+    '/about/advertise': {
+      id: '/about/advertise'
+      path: '/about/advertise'
+      fullPath: '/about/advertise'
+      preLoaderRoute: typeof AboutAdvertiseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about/guestbook': {
@@ -1132,11 +985,165 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutGuestbookRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/about/advertise': {
-      id: '/about/advertise'
-      path: '/about/advertise'
-      fullPath: '/about/advertise'
-      preLoaderRoute: typeof AboutAdvertiseRouteImport
+    '/about/merch': {
+      id: '/about/merch'
+      path: '/about/merch'
+      fullPath: '/about/merch'
+      preLoaderRoute: typeof AboutMerchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/artists': {
+      id: '/admin/artists'
+      path: '/admin/artists'
+      fullPath: '/admin/artists'
+      preLoaderRoute: typeof AdminArtistsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/links': {
+      id: '/admin/links'
+      path: '/admin/links'
+      fullPath: '/admin/links'
+      preLoaderRoute: typeof AdminLinksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/quality': {
+      id: '/admin/quality'
+      path: '/admin/quality'
+      fullPath: '/admin/quality'
+      preLoaderRoute: typeof AdminQualityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/quotes': {
+      id: '/admin/quotes'
+      path: '/admin/quotes'
+      fullPath: '/admin/quotes'
+      preLoaderRoute: typeof AdminQuotesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/reviews': {
+      id: '/admin/reviews'
+      path: '/admin/reviews'
+      fullPath: '/admin/reviews'
+      preLoaderRoute: typeof AdminReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/seo': {
+      id: '/admin/seo'
+      path: '/admin/seo'
+      fullPath: '/admin/seo'
+      preLoaderRoute: typeof AdminSeoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/translations': {
+      id: '/admin/translations'
+      path: '/admin/translations'
+      fullPath: '/admin/translations'
+      preLoaderRoute: typeof AdminTranslationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/wikidata': {
+      id: '/admin/wikidata'
+      path: '/admin/wikidata'
+      fullPath: '/admin/wikidata'
+      preLoaderRoute: typeof AdminWikidataRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/artists/': {
+      id: '/artists/'
+      path: '/artists'
+      fullPath: '/artists/'
+      preLoaderRoute: typeof ArtistsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/artists/$slug': {
+      id: '/artists/$slug'
+      path: '/artists/$slug'
+      fullPath: '/artists/$slug'
+      preLoaderRoute: typeof ArtistsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/concerts/': {
+      id: '/concerts/'
+      path: '/concerts'
+      fullPath: '/concerts/'
+      preLoaderRoute: typeof ConcertsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/concerts/$slug': {
+      id: '/concerts/$slug'
+      path: '/concerts/$slug'
+      fullPath: '/concerts/$slug'
+      preLoaderRoute: typeof ConcertsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/editorial/images': {
+      id: '/editorial/images'
+      path: '/editorial/images'
+      fullPath: '/editorial/images'
+      preLoaderRoute: typeof EditorialImagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/experience/media': {
+      id: '/experience/media'
+      path: '/experience/media'
+      fullPath: '/experience/media'
+      preLoaderRoute: typeof ExperienceMediaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/gear': {
+      id: '/learn/gear'
+      path: '/learn/gear'
+      fullPath: '/learn/gear'
+      preLoaderRoute: typeof LearnGearRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/styles': {
+      id: '/learn/styles'
+      path: '/learn/styles'
+      fullPath: '/learn/styles'
+      preLoaderRoute: typeof LearnStylesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quiz/': {
+      id: '/quiz/'
+      path: '/quiz'
+      fullPath: '/quiz/'
+      preLoaderRoute: typeof QuizIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quiz/archive': {
+      id: '/quiz/archive'
+      path: '/quiz/archive'
+      fullPath: '/quiz/archive'
+      preLoaderRoute: typeof QuizArchiveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reviews/': {
+      id: '/reviews/'
+      path: '/reviews'
+      fullPath: '/reviews/'
+      preLoaderRoute: typeof ReviewsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reviews/$slug': {
+      id: '/reviews/$slug'
+      path: '/reviews/$slug'
+      fullPath: '/reviews/$slug'
+      preLoaderRoute: typeof ReviewsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$locale/about/advertise': {
+      id: '/$locale/about/advertise'
+      path: '/$locale/about/advertise'
+      fullPath: '/$locale/about/advertise'
+      preLoaderRoute: typeof LocaleAboutAdvertiseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$locale/artists/': {
@@ -1146,11 +1153,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleArtistsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/quiz/cycle/$cycle': {
-      id: '/quiz/cycle/$cycle'
-      path: '/quiz/cycle/$cycle'
-      fullPath: '/quiz/cycle/$cycle'
-      preLoaderRoute: typeof QuizCycleCycleRouteImport
+    '/$locale/artists/$slug': {
+      id: '/$locale/artists/$slug'
+      path: '/$locale/artists/$slug'
+      fullPath: '/$locale/artists/$slug'
+      preLoaderRoute: typeof LocaleArtistsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about/merch/$slug': {
+      id: '/about/merch/$slug'
+      path: '/$slug'
+      fullPath: '/about/merch/$slug'
+      preLoaderRoute: typeof AboutMerchSlugRouteImport
+      parentRoute: typeof AboutMerchRoute
+    }
+    '/admin/artists/$slug': {
+      id: '/admin/artists/$slug'
+      path: '/$slug'
+      fullPath: '/admin/artists/$slug'
+      preLoaderRoute: typeof AdminArtistsSlugRouteImport
+      parentRoute: typeof AdminArtistsRoute
+    }
+    '/admin/artists/new': {
+      id: '/admin/artists/new'
+      path: '/new'
+      fullPath: '/admin/artists/new'
+      preLoaderRoute: typeof AdminArtistsNewRouteImport
+      parentRoute: typeof AdminArtistsRoute
+    }
+    '/api/public/fourthwall-webhook': {
+      id: '/api/public/fourthwall-webhook'
+      path: '/api/public/fourthwall-webhook'
+      fullPath: '/api/public/fourthwall-webhook'
+      preLoaderRoute: typeof ApiPublicFourthwallWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/learn/gear/$id': {
@@ -1160,46 +1195,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnGearIdRouteImport
       parentRoute: typeof LearnGearRoute
     }
-    '/api/public/fourthwall-webhook': {
-      id: '/api/public/fourthwall-webhook'
-      path: '/api/public/fourthwall-webhook'
-      fullPath: '/api/public/fourthwall-webhook'
-      preLoaderRoute: typeof ApiPublicFourthwallWebhookRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/artists/new': {
-      id: '/admin/artists/new'
-      path: '/new'
-      fullPath: '/admin/artists/new'
-      preLoaderRoute: typeof AdminArtistsNewRouteImport
-      parentRoute: typeof AdminArtistsRoute
-    }
-    '/admin/artists/$slug': {
-      id: '/admin/artists/$slug'
-      path: '/$slug'
-      fullPath: '/admin/artists/$slug'
-      preLoaderRoute: typeof AdminArtistsSlugRouteImport
-      parentRoute: typeof AdminArtistsRoute
-    }
-    '/about/merch/$slug': {
-      id: '/about/merch/$slug'
-      path: '/$slug'
-      fullPath: '/about/merch/$slug'
-      preLoaderRoute: typeof AboutMerchSlugRouteImport
-      parentRoute: typeof AboutMerchRoute
-    }
-    '/$locale/artists/$slug': {
-      id: '/$locale/artists/$slug'
-      path: '/$locale/artists/$slug'
-      fullPath: '/$locale/artists/$slug'
-      preLoaderRoute: typeof LocaleArtistsSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/$locale/about/advertise': {
-      id: '/$locale/about/advertise'
-      path: '/$locale/about/advertise'
-      fullPath: '/$locale/about/advertise'
-      preLoaderRoute: typeof LocaleAboutAdvertiseRouteImport
+    '/quiz/cycle/$cycle': {
+      id: '/quiz/cycle/$cycle'
+      path: '/quiz/cycle/$cycle'
+      fullPath: '/quiz/cycle/$cycle'
+      preLoaderRoute: typeof QuizCycleCycleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about/merch/collection/$slug': {

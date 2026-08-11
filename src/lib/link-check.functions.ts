@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireAdmin } from "@/lib/adminAuth.server";
+import { getDB } from "@/integrations/d1/client";
 
 type Row = {
   id: string;
@@ -42,16 +43,14 @@ async function checkUrl(url: string): Promise<LinkResult> {
 }
 
 export const checkArtistLinks = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .handler(async ({ context }): Promise<ArtistLinkReport[]> => {
-    const { supabase } = context;
-    const { data, error } = await supabase
-      .from("artists")
-      .select("id, slug, name, website_url, facebook_url")
-      .order("name", { ascending: true });
-    if (error) throw new Error(error.message);
+  .middleware([requireAdmin])
+  .handler(async (): Promise<ArtistLinkReport[]> => {
+    const db = getDB();
+    const { results } = await db
+      .prepare("SELECT id, slug, name, website_url, facebook_url FROM artists ORDER BY name ASC")
+      .all();
 
-    const rows = (data ?? []) as Row[];
+    const rows = (results ?? []) as unknown as Row[];
 
     // Batch in groups of 12 to avoid overwhelming the runtime
     const out: ArtistLinkReport[] = [];
@@ -70,4 +69,14 @@ export const checkArtistLinks = createServerFn({ method: "POST" })
       out.push(...results);
     }
     return out;
+  });
+
+export const clearArtistLink = createServerFn({ method: "POST" })
+  .middleware([requireAdmin])
+  .inputValidator((d: { id: string; field: "website_url" | "facebook_url" }) => d)
+  .handler(async ({ data }) => {
+    const db = getDB();
+    const column = data.field === "website_url" ? "website_url" : "facebook_url";
+    await db.prepare(`UPDATE artists SET ${column} = NULL WHERE id = ?`).bind(data.id).run();
+    return { ok: true as const };
   });

@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { fetchArtistEditData, updateArtistBySlug } from "@/lib/adminArtists.functions";
 import { useAuth } from "@/lib/useAuth";
 import { PageShell } from "@/components/PageShell";
 import { useServerFn } from "@tanstack/react-start";
@@ -56,7 +56,7 @@ function extractYouTubeId(input: string): string | null {
 
 function AdminArtistEdit() {
   const { slug } = Route.useParams();
-  const { user, isAdmin, loading } = useAuth();
+  const { isAdmin, loading } = useAuth();
   const navigate = useNavigate();
   const [a, setA] = useState<Artist | null>(null);
   const [allSlugs, setAllSlugs] = useState<{ slug: string; name: string }[]>([]);
@@ -66,40 +66,30 @@ function AdminArtistEdit() {
   const [lastEdit, setLastEdit] = useState<{ at: string; fields: string[] } | null>(null);
 
   useEffect(() => {
-    if (!loading && !user) navigate({ to: "/login" });
-  }, [loading, user, navigate]);
+    if (!loading && !isAdmin) navigate({ to: "/login" });
+  }, [loading, isAdmin, navigate]);
 
   useEffect(() => {
     if (!isAdmin) return;
     (async () => {
-      const { data, error } = await supabase
-        .from("artists")
-        .select("slug,name,origin,born,died,biography_en,biography_no,biography_sv,biography_de,instruments,discography,family,youtube_video_ids,updated_at")
-        .eq("slug", slug)
-        .maybeSingle();
-      if (error || !data) {
-        setMsg({ kind: "err", text: error?.message || "Artist ikke funnet" });
-        return;
+      try {
+        const { artist, allSlugs: list, lastEdit: log } = await fetchArtistEditData({ data: { slug } });
+        if (!artist) {
+          setMsg({ kind: "err", text: "Artist ikke funnet" });
+          return;
+        }
+        setA({
+          ...(artist as any),
+          instruments: Array.isArray((artist as any).instruments) ? (artist as any).instruments : [],
+          discography: Array.isArray((artist as any).discography) ? (artist as any).discography : [],
+          family: Array.isArray((artist as any).family) ? (artist as any).family : [],
+          youtube_video_ids: Array.isArray((artist as any).youtube_video_ids) ? (artist as any).youtube_video_ids : [],
+        });
+        setAllSlugs((list ?? []) as any);
+        if (log) setLastEdit({ at: (log as any).edited_at, fields: (log as any).fields_changed || [] });
+      } catch (e) {
+        setMsg({ kind: "err", text: e instanceof Error ? e.message : "Kunne ikke laste artist" });
       }
-      setA({
-        ...(data as any),
-        instruments: Array.isArray((data as any).instruments) ? (data as any).instruments : [],
-        discography: Array.isArray((data as any).discography) ? (data as any).discography : [],
-        family: Array.isArray((data as any).family) ? (data as any).family : [],
-        youtube_video_ids: Array.isArray((data as any).youtube_video_ids) ? (data as any).youtube_video_ids : [],
-      });
-
-      const { data: list } = await supabase.from("artists").select("slug,name").order("name");
-      setAllSlugs((list ?? []) as any);
-
-      const { data: log } = await supabase
-        .from("artist_edit_log")
-        .select("edited_at,fields_changed")
-        .eq("artist_slug", slug)
-        .order("edited_at", { ascending: false })
-        .limit(1)
-        .maybeSingle();
-      if (log) setLastEdit({ at: (log as any).edited_at, fields: (log as any).fields_changed || [] });
     })();
   }, [slug, isAdmin]);
 
@@ -111,24 +101,18 @@ function AdminArtistEdit() {
     if (!a) return;
     setBusy(true);
     setMsg(null);
-    const { error } = await supabase.from("artists").update(patch as any).eq("slug", a.slug);
-    if (error) {
-      setMsg({ kind: "err", text: error.message });
-    } else {
+    try {
+      await updateArtistBySlug({ data: { slug: a.slug, patch: patch as Record<string, unknown>, fieldsChanged: fieldNames } });
       setA({ ...a, ...patch });
       setMsg({ kind: "ok", text: "Lagret." });
-      await supabase.from("artist_edit_log").insert({
-        artist_slug: a.slug,
-        fields_changed: fieldNames,
-        edited_by: user?.id ?? null,
-      });
       setLastEdit({ at: new Date().toISOString(), fields: fieldNames });
+    } catch (e) {
+      setMsg({ kind: "err", text: e instanceof Error ? e.message : "Lagring feilet" });
     }
     setBusy(false);
   };
 
   if (loading || !a) return <PageShell><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
-  if (user && !isAdmin) return <PageShell><div className="max-w-md mx-auto px-6 py-24 text-center text-muted-foreground">Ingen admin-tilgang.</div></PageShell>;
 
   const tabs: { key: Tab; label: string }[] = [
     { key: "bio", label: "Biografi" },
