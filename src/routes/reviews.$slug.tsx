@@ -41,6 +41,7 @@ type Review = {
   apple_music_url: string | null;
   youtube_playlist_id: string | null;
   reviewer: string | null;
+  tracks: Array<{ title: string; duration?: string }>;
   published_at: string | null;
   seo_title_en: string | null;
   seo_title_no: string | null;
@@ -263,6 +264,25 @@ function ReviewDetailPage() {
           </section>
         )}
 
+
+        {Array.isArray(review.tracks) && review.tracks.length > 0 && (
+          <section className="mt-10">
+            <h2 className="font-display text-xl mb-3 text-gold">Tracklist</h2>
+            <ol className="rounded-lg border border-border divide-y divide-border overflow-hidden">
+              {review.tracks.map((t, i) => (
+                <li key={i} className="flex items-center justify-between px-4 py-2.5 text-sm bg-card/30">
+                  <span className="text-foreground/85">
+                    <span className="text-muted-foreground mr-3 tabular-nums">{i + 1}.</span>
+                    {t.title}
+                  </span>
+                  {t.duration && (
+                    <span className="text-muted-foreground text-xs tabular-nums">{t.duration}</span>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
 
         {scores.some(([, v]) => typeof v === "number") && (
           <section className="mt-12 p-6 rounded-lg bg-card/40 border border-border">
