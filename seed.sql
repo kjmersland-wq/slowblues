@@ -89,3 +89,9 @@ UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/8
 UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/en/b/b3/Robert_Johnson.png' WHERE slug = 'robert-johnson';
 UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Muddy_Waters_november_1976.jpg' WHERE slug = 'muddy-waters';
 UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/d/d9/Son_House.jpg' WHERE slug = 'son-house';
+
+-- Original guestbook entries recovered from the pre-D1 mock data (git history), never seeded before
+INSERT INTO guestbook_entries (id, name, location, message, created_at) VALUES (lower(hex(randomblob(16))), 'Lars', 'Notodden', 'Heard Muddy on the radio at 14. Never looked back. Thanks for keeping the flame alive.', '2026-04-30 09:00:00');
+INSERT INTO guestbook_entries (id, name, location, message, created_at) VALUES (lower(hex(randomblob(16))), 'Marianne', NULL, 'Tok med datteren min på Mandal Blues for første gang i fjor — nå er hun frelst på 13 år. Bluesen lever videre.', '2026-04-18 09:00:00');
+INSERT INTO guestbook_entries (id, name, location, message, created_at) VALUES (lower(hex(randomblob(16))), 'Tom', 'Hamburg', 'Found this site by accident, lost an entire afternoon in the artist profiles. Beautifully done.', '2026-04-02 09:00:00');
+INSERT INTO guestbook_entries (id, name, location, message, created_at) VALUES (lower(hex(randomblob(16))), 'Anna', 'Bergen', 'Tusen takk for det norske perspektivet — sjelden å se Notodden nevnt i samme setning som Chess Records.', '2026-03-21 09:00:00');
