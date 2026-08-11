@@ -1,15 +1,13 @@
 // Curated public-domain & openly licensed image URLs.
 // Sources: Wikimedia Commons (CC/PD), Library of Congress (PD), Unsplash (free use).
 // We hotlink directly — these CDNs allow it and serve over HTTPS.
-import robertJohnsonImg from "@/assets/robert-johnson.jpg";
-import muddyWatersImg from "@/assets/muddy-waters.jpg";
-import sonHouseImg from "@/assets/son-house.jpg";
 
 export const IMG = {
-  // Historic blues figures — bundled locally (previously hotlinked from Supabase Storage)
-  robertJohnson: robertJohnsonImg,
-  muddyWaters: muddyWatersImg,
-  sonHouse: sonHouseImg,
+  // Historic blues figures — real historical photographs, Wikimedia Commons
+  // (same source images each artist's own Wikipedia infobox currently uses)
+  robertJohnson: "https://upload.wikimedia.org/wikipedia/en/b/b3/Robert_Johnson.png",
+  muddyWaters: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Muddy_Waters_november_1976.jpg",
+  sonHouse: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Son_House.jpg",
   bbKing: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/B.B._King_at_the_Beale_Street_Music_Festival.jpg/640px-B.B._King_at_the_Beale_Street_Music_Festival.jpg",
   howlinWolf: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Howlin%27_Wolf_1972.jpg/640px-Howlin%27_Wolf_1972.jpg",
   johnLeeHooker: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/John_Lee_Hooker_1980.jpg/640px-John_Lee_Hooker_1980.jpg",
