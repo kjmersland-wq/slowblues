@@ -212,28 +212,36 @@ function getTimeline(lang: Lang) {
 function getVoices(lang: Lang) {
   const tag = tr(lang, { no: "Chicago", en: "Chicago", pl: "Chicago", sv: "Chicago", de: "Chicago" });
   return [
-    { tag, name: "Lonnie Johnson", years: tr(lang, { no: "1920-tallet–1970", en: "1920s–1970", pl: "Lata 20. XX wieku–1970", sv: "1920-talet–1970", de: "1920er–1970" }),
+    { tag, name: "Lonnie Johnson", slug: "lonnie-johnson",
+      img: "https://upload.wikimedia.org/wikipedia/commons/8/8f/LonnieJohnsonByRussellLee1941Crop.jpg",
+      years: tr(lang, { no: "1920-tallet–1970", en: "1920s–1970", pl: "Lata 20. XX wieku–1970", sv: "1920-talet–1970", de: "1920er–1970" }),
       desc: tr(lang, {
         no: "Lonnie Johnson var en av de mest innflytelsesrike og nyskapende gitaristene i …",
         en: "Lonnie Johnson was one of the most influential and innovative guitarists in...", pl: "Lonnie Johnson był jednym z najbardziej wpływowych i innowacyjnych gitarzystów w...",
         sv: "Lonnie Johnson var en av de mest inflytelserika och nyskapande gitarristerna i …",
         de: "Lonnie Johnson war einer der einflussreichsten und innovativsten Gitarristen …",
       }), color: "from-amber-900/60 to-stone-900" },
-    { tag, name: "King Biscuit Boy", years: "1961–2003",
+    { tag, name: "King Biscuit Boy", slug: "king-biscuit-boy",
+      img: "https://upload.wikimedia.org/wikipedia/commons/f/ff/KBB.gif",
+      years: "1961–2003",
       desc: tr(lang, {
         no: "King Biscuit Boy, født Richard Alfred Newell i Hamilton, Ontario, var en av Canadas mest …",
         en: "King Biscuit Boy, born Richard Alfred Newell in Hamilton, Ontario, was one of Canada's most...", pl: "King Biscuit Boy, urodzony jako Richard Alfred Newell w Hamilton w Ontario, był jednym z czołowych kanadyjskich...",
         sv: "King Biscuit Boy, född Richard Alfred Newell i Hamilton, Ontario, var en av Kanadas mest …",
         de: "King Biscuit Boy, geboren als Richard Alfred Newell in Hamilton, Ontario, war einer der bekanntesten kanadischen …",
       }), color: "from-stone-800 to-stone-900" },
-    { tag, name: "Sue Foley", years: tr(lang, { no: "1988–i dag", en: "1988–present", pl: "1988–obecnie", sv: "1988–idag", de: "1988–heute" }),
+    { tag, name: "Sue Foley", slug: "sue-foley",
+      img: "https://upload.wikimedia.org/wikipedia/commons/a/a2/Sue_Foley_Live.jpg",
+      years: tr(lang, { no: "1988–i dag", en: "1988–present", pl: "1988–obecnie", sv: "1988–idag", de: "1988–heute" }),
       desc: tr(lang, {
         no: "Sue Foley er en kanadiskfødt bluesgitarist, vokalist og låtskriver som har vært en …",
         en: "Sue Foley is a Canadian-born blues guitarist, vocalist and songwriter who has been a...", pl: "Sue Foley to urodzona w Kanadzie gitarzystka, wokalistka i autorka tekstów bluesowych, która...",
         sv: "Sue Foley är en kanadensiskfödd bluesgitarrist, vokalist och låtskrivare som varit en …",
         de: "Sue Foley ist eine in Kanada geborene Blues-Gitarristin, Sängerin und Songwriterin, die seit …",
       }), color: "from-rose-900/60 to-stone-900" },
-    { tag, name: "Colin James", years: tr(lang, { no: "1985–i dag", en: "1985–present", pl: "1985–obecnie", sv: "1985–idag", de: "1985–heute" }),
+    { tag, name: "Colin James", slug: "colin-james",
+      img: "https://upload.wikimedia.org/wikipedia/commons/8/84/ColinJames_2009.jpg",
+      years: tr(lang, { no: "1985–i dag", en: "1985–present", pl: "1985–obecnie", sv: "1985–idag", de: "1985–heute" }),
       desc: tr(lang, {
         no: "Colin James er en av Canadas mest suksessrike og allsidige blues-rock-artister, med en karriere …",
         en: "Colin James is one of Canada's most successful and versatile blues-rock artists, with a career...", pl: "Colin James to jeden z najbardziej utytułowanych i wszechstronnych kanadyjskich artystów blues-rockowych, z karierą...",
@@ -645,19 +653,25 @@ function Voices() {
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {voices.map((v) => (
-          <article key={v.name} className="group bg-card/40 border border-border rounded-lg overflow-hidden hover:border-gold/50 transition">
+          <Link
+            key={v.name}
+            to="/artists/$slug"
+            params={{ slug: v.slug }}
+            className="group bg-card/40 border border-border rounded-lg overflow-hidden hover:border-gold/50 transition block"
+          >
             <div className={`relative aspect-[3/4] bg-gradient-to-br ${v.color}`}>
               <span className="absolute top-3 left-3 text-xs px-2 py-1 rounded bg-background/70 backdrop-blur text-gold">{v.tag}</span>
-              <div className="absolute inset-0 flex items-center justify-center text-foreground/20 font-display text-7xl">
-                {v.name.charAt(0)}
-              </div>
+              <SafeImage src={v.img} alt={v.name} loading="lazy" className="size-full object-cover group-hover:scale-105 transition duration-700" />
             </div>
             <div className="p-5">
               <h3 className="font-display text-xl">{v.name}</h3>
               <div className="text-sm text-muted-foreground mb-2">{v.years}</div>
               <p className="text-xs text-muted-foreground leading-relaxed">{v.desc}</p>
+              <div className="mt-4 inline-flex items-center gap-1 text-sm text-gold group-hover:gap-2 transition-all">
+                {tr(lang, { no: "Utforsk profil", en: "Explore profile", pl: "Przeglądaj profil", sv: "Utforska profil", de: "Profil entdecken" })} <ArrowRight className="size-4" />
+              </div>
             </div>
-          </article>
+          </Link>
         ))}
       </div>
     </section>
