@@ -11,4 +11,8 @@
       "database_id": "f46d1da0-6f38-4629-9b56-b34fe9d8ff2b",
     },
   ],
+  "routes": [
+    { "pattern": "slow-blues.com", "custom_domain": true },
+  ],
+  "workers_dev": true,
 }
