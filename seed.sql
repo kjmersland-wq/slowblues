@@ -48,3 +48,44 @@ INSERT INTO artists (id, slug, name, tag, era, active_years, img, country, sort_
 INSERT INTO artists (id, slug, name, tag, era, active_years, img, country, sort_order, short_no, short_en, short_sv, short_de, short_pl) VALUES (lower(hex(randomblob(16))), 'colin-james', 'Colin James', 'Modern', '1985–present', '1985–present', 'https://upload.wikimedia.org/wikipedia/commons/8/84/ColinJames_2009.jpg', 'Canada', 902, 'Colin James er en av Canadas mest suksessrike og allsidige blues-rock-artister, med en karriere som spenner over flere tiår og sjangre.', 'Colin James is one of Canada''s most successful and versatile blues-rock artists, with a career spanning decades and genres.', 'Colin James är en av Kanadas mest framgångsrika och mångsidiga blues-rock-artister, med en karriär som sträcker sig över flera årtionden och genrer.', 'Colin James ist einer der erfolgreichsten und vielseitigsten Blues-Rock-Künstler Kanadas, mit einer Karriere über mehrere Jahrzehnte und Genres.', 'Colin James to jeden z najbardziej utytułowanych i wszechstronnych kanadyjskich artystów blues-rockowych, z karierą obejmującą dziesięciolecia i gatunki.');
 -- Lonnie Johnson: set real historical photo
 UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/8/8f/LonnieJohnsonByRussellLee1941Crop.jpg' WHERE slug = 'lonnie-johnson';
+
+-- Lonnie Johnson: replaced dead YouTube video IDs with verified working ones
+UPDATE artists SET videos = '[{"kind":"featured","title":"Lonnie Johnson – Blues By Lonnie Johnson (Full Album)","youtube_id":"OV683YvnCps","channel":"All That Jazz Don Kaart","note":"Guitar, Vocals – Lonnie Johnson · Piano – Claude Hopkins · Tenor Saxophone – Hal Singer · Bass – Wendell Marshall."},{"kind":"more","title":"Lonnie Johnson - Swingin'' The Blues (Full Album)","youtube_id":"W0M1cZi0G3o","channel":"DISCOS REDONDOS (FULL ALBUMS)"},{"kind":"more","title":"Lonnie Johnson with Elmer Snowden - Blues & Ballads (1960, Full Album)","youtube_id":"yJQc1mYWyL4","channel":"DISCOS REDONDOS (FULL ALBUMS)"},{"kind":"more","title":"1948 Hits Archive: Tomorrow Night - Lonnie Johnson (#1 R&B hit)","youtube_id":"c0oeTwUjxDQ","channel":"The 1900s"},{"kind":"more","title":"Lonnie Johnson - Tomorrow Night (Live HD)","youtube_id":"rqpQYLJ_mvM","channel":"YouTube"}]' WHERE slug = 'lonnie-johnson';
+
+-- Backfill real Wikimedia photos for artists whose `img` was never seeded (all URLs HTTP-verified)
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Charley_Patton_(1929_photo_portrait).jpg/500px-Charley_Patton_(1929_photo_portrait).jpg' WHERE slug = 'charley-patton';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/2/22/Blindlemonjeffersoncirca1926.jpg' WHERE slug = 'blind-lemon-jefferson';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/5/52/MaRainey.jpg' WHERE slug = 'ma-rainey';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Bessie_Smith_(1936)_by_Carl_Van_Vechten.jpg/500px-Bessie_Smith_(1936)_by_Carl_Van_Vechten.jpg' WHERE slug = 'bessie-smith';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/3/36/Blind_Willie_Johnson.jpg' WHERE slug = 'blind-willie-johnson';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Leadbelly_with_Accordeon.jpg/500px-Leadbelly_with_Accordeon.jpg' WHERE slug = 'lead-belly';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/en/7/77/Skip_James.jpg' WHERE slug = 'skip-james';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/en/5/5b/American_blues_guitarist_Memphis_Minnie.png' WHERE slug = 'memphis-minnie';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Big_Bill_Broonzy_(1951_publicity_photo).jpg/500px-Big_Bill_Broonzy_(1951_publicity_photo).jpg' WHERE slug = 'big-bill-broonzy';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/en/thumb/0/04/T-Bone_Walker_in_1942.jpg/500px-T-Bone_Walker_in_1942.jpg' WHERE slug = 't-bone-walker';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Lightnin%27_Hopkins.jpg/500px-Lightnin%27_Hopkins.jpg' WHERE slug = 'lightnin-hopkins';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/John_Lee_Hooker_two.jpg/500px-John_Lee_Hooker_two.jpg' WHERE slug = 'john-lee-hooker';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Howlin_Wolf_AABF_1970_JT.jpg/500px-Howlin_Wolf_AABF_1970_JT.jpg' WHERE slug = 'howlin-wolf';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/en/0/01/Elmore_James.gif' WHERE slug = 'elmore-james';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Willie_Dixon.jpg/500px-Willie_Dixon.jpg' WHERE slug = 'willie-dixon';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Little_Walter.jpg/500px-Little_Walter.jpg' WHERE slug = 'little-walter';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Jimmy_Reed_Vee-Jay_press_photo.jpg/500px-Jimmy_Reed_Vee-Jay_press_photo.jpg' WHERE slug = 'jimmy-reed';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Bbking.jpg/500px-Bbking.jpg' WHERE slug = 'bb-king';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Albert_King_1978.jpg/500px-Albert_King_1978.jpg' WHERE slug = 'albert-king';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Freddie_King_1975_4.jpg/500px-Freddie_King_1975_4.jpg' WHERE slug = 'freddie-king';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Otis_Rush_at_Notodden_bluesfestival.jpg/500px-Otis_Rush_at_Notodden_bluesfestival.jpg' WHERE slug = 'otis-rush';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/en/thumb/d/dc/Photo_of_Magic_Sam.jpg/500px-Photo_of_Magic_Sam.jpg' WHERE slug = 'magic-sam';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Junior_Wells%2C_c.1984.jpg/500px-Junior_Wells%2C_c.1984.jpg' WHERE slug = 'junior-wells';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/KokoTaylor2006.jpg/500px-KokoTaylor2006.jpg' WHERE slug = 'koko-taylor';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Etta_James04.JPG/500px-Etta_James04.JPG' WHERE slug = 'etta-james';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Buddy_Guy_2008_(3x4_cropped).jpg/500px-Buddy_Guy_2008_(3x4_cropped).jpg' WHERE slug = 'buddy-guy';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/ClaptonGingerEventim170220-38_(cropped).jpg/500px-ClaptonGingerEventim170220-38_(cropped).jpg' WHERE slug = 'eric-clapton';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/4/43/Stevie_Ray_Vaughan_Live_1983.jpg' WHERE slug = 'stevie-ray-vaughan';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/4/40/Joe_Bonamassa_-_2013_World_Tour_-_Meistersingerhalle_Nuernberg_-_11-03-2013_(-31534407).jpg' WHERE slug = 'joe-bonamassa';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Shemekia_Copeland%2C_Summit_on_Race.jpg/500px-Shemekia_Copeland%2C_Summit_on_Race.jpg' WHERE slug = 'shemekia-copeland';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Samantha_Fish_2019_Zurich_Kaufleuten_Concert.jpg/500px-Samantha_Fish_2019_Zurich_Kaufleuten_Concert.jpg' WHERE slug = 'samantha-fish';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Larkin_Poe_10_24_2017_-17_(38967405851).jpg/500px-Larkin_Poe_10_24_2017_-17_(38967405851).jpg' WHERE slug = 'larkin-poe';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Kingfish_by_Rory_Doyle.jpg/500px-Kingfish_by_Rory_Doyle.jpg' WHERE slug = 'christone-kingfish-ingram';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/en/b/b3/Robert_Johnson.png' WHERE slug = 'robert-johnson';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Muddy_Waters_november_1976.jpg' WHERE slug = 'muddy-waters';
+UPDATE artists SET img = 'https://upload.wikimedia.org/wikipedia/commons/d/d9/Son_House.jpg' WHERE slug = 'son-house';

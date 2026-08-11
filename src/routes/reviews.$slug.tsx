@@ -251,6 +251,7 @@ function ReviewDetailPage() {
                     : `https://www.youtube-nocookie.com/embed/videoseries?list=${review.youtube_playlist_id}&rel=0`
                 }
                 title={`${review.artist_name} — ${review.album_title}`}
+                referrerPolicy="strict-origin-when-cross-origin"
                 allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="absolute inset-0 h-full w-full"
