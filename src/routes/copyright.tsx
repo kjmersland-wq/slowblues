@@ -5,9 +5,9 @@ export const Route = createFileRoute("/copyright")({
   component: CopyrightPage,
   head: () => ({ meta: [
     { title: "Copyright Notice — SlowBlues" },
-    { name: "description", content: "Opphavsrettsinformasjon for slowblues.no — redaksjonelt innhold, bilder, sitatrett og rapportering av brudd." },
+    { name: "description", content: "Opphavsrettsinformasjon for slow-blues.com — redaksjonelt innhold, bilder, sitatrett og rapportering av brudd." },
     { property: "og:title", content: "Copyright Notice — SlowBlues" },
-    { property: "og:description", content: "Opphavsrett og bruksvilkår for slowblues.no." },
+    { property: "og:description", content: "Opphavsrett og bruksvilkår for slow-blues.com." },
   ]}),
 });
 
@@ -22,7 +22,7 @@ function CopyrightPage() {
     >
       <Section heading={`© ${year} KM TECH LABS`}>
         <p>
-          Alt redaksjonelt innhold på slowblues.no — tekster, layout, kildekode, originale illustrasjoner og
+          Alt redaksjonelt innhold på slow-blues.com — tekster, layout, kildekode, originale illustrasjoner og
           struktur — er opphavsrettslig beskyttet © {year} KM TECH LABS — Kjell Mersland, org.nr. 934 044 029.
           Alle rettigheter forbeholdt.
         </p>
@@ -31,7 +31,7 @@ function CopyrightPage() {
       <Section heading="Sitatrett">
         <p>
           Korte sitater er tillatt i tråd med åndsverklovens sitatregel (§ 29), forutsatt at det er
-          tydelig kildehenvisning og lenke tilbake til den relevante siden på slowblues.no.
+          tydelig kildehenvisning og lenke tilbake til den relevante siden på slow-blues.com.
         </p>
       </Section>
 
@@ -53,12 +53,12 @@ function CopyrightPage() {
 
       <Section heading="Varsel om opphavsrettsbrudd">
         <p>
-          Mener du at innhold på slowblues.no krenker dine rettigheter? Send oss en melding via
+          Mener du at innhold på slow-blues.com krenker dine rettigheter? Send oss en melding via
           kontaktskjemaet med følgende informasjon:
         </p>
         <ul className="list-disc pl-5 space-y-1.5">
           <li>Identifikasjon av det opphavsrettsbeskyttede verket.</li>
-          <li>URL til det påståtte krenkende innholdet på slowblues.no.</li>
+          <li>URL til det påståtte krenkende innholdet på slow-blues.com.</li>
           <li>Din kontaktinformasjon og dokumentasjon på at du er rettighetshaver.</li>
         </ul>
         <p>Vi behandler slike henvendelser uten ugrunnet opphold, og fjerner krenkende innhold midlertidig mens saken vurderes.</p>

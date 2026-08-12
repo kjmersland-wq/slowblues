@@ -157,7 +157,7 @@ function AdminSEO() {
             )}
             <p className="text-xs text-muted-foreground">
               Sitemap genereres dynamisk fra databasen. Etter at du legger til en ny artist trenger du ikke gjøre noe — den dukker opp ved neste request.
-              Google leser den fra <code className="text-gold">https://www.slowblues.no/sitemap.xml</code>.
+              Google leser den fra <code className="text-gold">https://www.slow-blues.com/sitemap.xml</code>.
             </p>
           </div>
         )}

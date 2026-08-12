@@ -10,10 +10,10 @@ export const Route = createFileRoute("/about/")({
       { name: "description", content: "SlowBlues.no er et redaksjonelt arkiv for blues — 330+ artistprofiler, anmeldelser og historikk. Utgitt av KM TECH LABS, redigert av Kjell Mersland." },
       { property: "og:title", content: "Om SlowBlues" },
       { property: "og:description", content: "Redaksjonelt blues-arkiv utgitt av KM TECH LABS — 330+ artistprofiler, anmeldelser og historikk." },
-      { property: "og:url", content: "https://www.slowblues.no/about" },
+      { property: "og:url", content: "https://www.slow-blues.com/about" },
       { property: "og:type", content: "website" },
     ],
-    links: [{ rel: "canonical", href: "https://www.slowblues.no/about" }],
+    links: [{ rel: "canonical", href: "https://www.slow-blues.com/about" }],
   }),
 });
 
@@ -48,7 +48,7 @@ function AboutPage() {
             <div className="rounded-lg border border-border bg-card/50 p-4">
               <div className="flex items-center gap-2 text-gold mb-1.5"><Headphones className="size-4" aria-hidden="true" /><span className="text-[10px] tracking-[0.25em] uppercase">Ansvarlig redaktør</span></div>
               <p className="font-medium">Kjell Mersland</p>
-              <p className="text-sm text-muted-foreground">Redaksjonelt ansvar for alt publisert innhold på slowblues.no.</p>
+              <p className="text-sm text-muted-foreground">Redaksjonelt ansvar for alt publisert innhold på slow-blues.com.</p>
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@ function AboutPage() {
         </div>
 
         <div className="text-sm text-muted-foreground border-t border-border pt-6 flex items-center gap-2">
-          <Globe className="size-4" aria-hidden="true" /> slowblues.no — utgitt fra Norge, lest verden over.
+          <Globe className="size-4" aria-hidden="true" /> slow-blues.com — utgitt fra Norge, lest verden over.
         </div>
       </section>
     </PageShell>

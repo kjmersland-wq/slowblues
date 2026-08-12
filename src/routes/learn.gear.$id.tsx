@@ -4,23 +4,62 @@ import { PageShell } from "@/components/PageShell";
 import { useI18n, tr } from "@/i18n";
 import { FOUNDERS } from "@/data/gearFounders";
 
+const SITE = "https://www.slow-blues.com";
+
 export const Route = createFileRoute("/learn/gear/$id")({
   loader: ({ params }) => {
     const f = FOUNDERS[params.id];
     if (!f) throw notFound();
-    return { founder: f };
+    return { founder: f, id: params.id };
   },
   head: ({ loaderData }) => {
     const f = loaderData?.founder;
     const title = f ? `${f.name} — ${f.title.en} | SlowBlues` : "Founder | SlowBlues";
     const desc = f ? f.lede.en : "";
+    if (!f || !loaderData) {
+      return {
+        meta: [{ title }, { name: "description", content: desc }],
+      };
+    }
+    const canonical = `${SITE}/learn/gear/${loaderData.id}`;
     return {
       meta: [
         { title },
         { name: "description", content: desc },
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
-        ...(f?.image ? [{ property: "og:image", content: f.image }] : []),
+        { property: "og:url", content: canonical },
+        { property: "og:type", content: "profile" },
+        ...(f.image ? [{ property: "og:image", content: f.image }] : []),
+      ],
+      links: [{ rel: "canonical", href: canonical }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "@id": canonical,
+            name: f.name,
+            url: canonical,
+            ...(f.image ? { image: f.image } : {}),
+            ...(f.birthplace ? { birthPlace: f.birthplace } : {}),
+            description: f.lede.en,
+            jobTitle: f.title.en,
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+              { "@type": "ListItem", position: 2, name: "Gear", item: `${SITE}/learn/gear` },
+              { "@type": "ListItem", position: 3, name: f.name, item: canonical },
+            ],
+          }),
+        },
       ],
     };
   },

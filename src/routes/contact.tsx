@@ -14,9 +14,9 @@ export const Route = createFileRoute("/contact")({
       { name: "description", content: "Send melding via vårt sikre, GDPR-kompatible kontaktskjema. Tips, korrigeringer, samarbeid — alt går via skjemaet." },
       { property: "og:title", content: "Kontakt — SlowBlues" },
       { property: "og:description", content: "Send melding via vårt sikre kontaktskjema." },
-      { property: "og:url", content: "https://www.slowblues.no/contact" },
+      { property: "og:url", content: "https://www.slow-blues.com/contact" },
     ],
-    links: [{ rel: "canonical", href: "https://www.slowblues.no/contact" }],
+    links: [{ rel: "canonical", href: "https://www.slow-blues.com/contact" }],
   }),
 });
 

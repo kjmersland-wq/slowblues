@@ -39,9 +39,22 @@ export const Route = createFileRoute("/reviews/")({
       { property: "og:title", content: "Album Reviews — SlowBlues" },
       { property: "og:description", content: "Browse SlowBlues' in-depth blues album reviews — Delta, Chicago, Texas and modern blues records, reviewed personally by editor Kjell Mersland." },
       { property: "og:image", content: IMG.vinyl },
-      { property: "og:url", content: "https://www.slowblues.no/reviews" },
+      { property: "og:url", content: "https://www.slow-blues.com/reviews" },
     ],
-    links: [{ rel: "canonical", href: "https://www.slowblues.no/reviews" }],
+    links: [{ rel: "canonical", href: "https://www.slow-blues.com/reviews" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://www.slow-blues.com/" },
+            { "@type": "ListItem", position: 2, name: "Reviews", item: "https://www.slow-blues.com/reviews" },
+          ],
+        }),
+      },
+    ],
   }),
 });
 

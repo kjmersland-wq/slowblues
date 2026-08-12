@@ -13,19 +13,19 @@ export const Route = createFileRoute("/festivals")({
       { name: "description", content: "The blues festivals that matter in 2026 — from Notodden, Mandal and Skånevik to Chicago, Memphis and Helena, Arkansas." },
       { property: "og:title", content: "Blues Festivals 2026 — SlowBlues" },
       { property: "og:description", content: "The blues festivals that matter in 2026 — Notodden, Memphis, Chicago, Cognac and more." },
-      { property: "og:url", content: "https://www.slowblues.no/festivals" },
+      { property: "og:url", content: "https://www.slow-blues.com/festivals" },
       { property: "og:image", content: IMG.crowd },
     ],
-    links: [{ rel: "canonical", href: "https://www.slowblues.no/festivals" }],
+    links: [{ rel: "canonical", href: "https://www.slow-blues.com/festivals" }],
     scripts: [
       {
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "ItemList",
-          "@id": "https://www.slowblues.no/festivals#list",
+          "@id": "https://www.slow-blues.com/festivals#list",
           name: "Blues Festivals 2026",
-          url: "https://www.slowblues.no/festivals",
+          url: "https://www.slow-blues.com/festivals",
           numberOfItems: FESTIVALS.length,
           itemListElement: FESTIVALS.map((f, i) => ({
             "@type": "ListItem",

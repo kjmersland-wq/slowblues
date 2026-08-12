@@ -5,9 +5,9 @@ export const Route = createFileRoute("/disclaimer")({
   component: DisclaimerPage,
   head: () => ({ meta: [
     { title: "Disclaimer — SlowBlues" },
-    { name: "description", content: "Ansvarsfraskrivelse for innhold, eksterne lenker, bilder og kommersielle anbefalinger på slowblues.no." },
+    { name: "description", content: "Ansvarsfraskrivelse for innhold, eksterne lenker, bilder og kommersielle anbefalinger på slow-blues.com." },
     { property: "og:title", content: "Disclaimer — SlowBlues" },
-    { property: "og:description", content: "Ansvarsfraskrivelse for slowblues.no." },
+    { property: "og:description", content: "Ansvarsfraskrivelse for slow-blues.com." },
   ]}),
 });
 
@@ -21,7 +21,7 @@ function DisclaimerPage() {
     >
       <Section heading="Generelt om innholdet">
         <p>
-          Innholdet på slowblues.no er ment som redaksjonell og kulturhistorisk informasjon. Selv om vi
+          Innholdet på slow-blues.com er ment som redaksjonell og kulturhistorisk informasjon. Selv om vi
           tilstreber høy presisjon og faktasjekk, kan det forekomme feil eller utdaterte opplysninger.
           Oppdager du noe — bruk kontaktskjemaet, så retter vi.
         </p>

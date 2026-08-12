@@ -33,11 +33,11 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "A timeless tribute to the raw soul of Delta & Chicago Blues. 330+ artist profiles, reviews, festivals and live news — the real roots of modern music." },
       { property: "og:title", content: "SlowBlues — 330+ Blues Artists, History & Reviews" },
       { property: "og:description", content: "A timeless tribute to the raw soul of Delta & Chicago Blues — 330+ artist profiles, reviews, festivals and live news." },
-      { property: "og:url", content: "https://www.slowblues.no/" },
+      { property: "og:url", content: "https://www.slow-blues.com/" },
       { property: "og:type", content: "website" },
     ],
     links: [
-      { rel: "canonical", href: "https://www.slowblues.no/" },
+      { rel: "canonical", href: "https://www.slow-blues.com/" },
       { rel: "preload", as: "image", href: heroJukeImg, fetchpriority: "high" } as any,
     ],
   }),

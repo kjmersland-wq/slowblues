@@ -9,9 +9,9 @@ export const Route = createFileRoute("/gdpr")({
       { name: "description", content: "Hvordan SlowBlues.no og KM TECH LABS oppfyller GDPR: behandlingsgrunnlag, lagring, dine rettigheter og databehandlere." },
       { property: "og:title", content: "GDPR & Data Protection — SlowBlues" },
       { property: "og:description", content: "GDPR-erklæring fra KM TECH LABS." },
-      { property: "og:url", content: "https://www.slowblues.no/gdpr" },
+      { property: "og:url", content: "https://www.slow-blues.com/gdpr" },
     ],
-    links: [{ rel: "canonical", href: "https://www.slowblues.no/gdpr" }],
+    links: [{ rel: "canonical", href: "https://www.slow-blues.com/gdpr" }],
   }),
 });
 
@@ -25,7 +25,7 @@ function GdprPage() {
     >
       <Section heading="Behandlingsansvarlig">
         <p>
-          Behandlingsansvarlig for opplysninger samlet inn på slowblues.no er
+          Behandlingsansvarlig for opplysninger samlet inn på slow-blues.com er
           <strong> KM TECH LABS — Kjell Mersland</strong>, org.nr. 934 044 029, Norge.
           Ansvarlig redaktør og kontaktperson for personvernspørsmål er Kjell Mersland.
         </p>

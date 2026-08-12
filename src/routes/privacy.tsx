@@ -13,9 +13,9 @@ export const Route = createFileRoute("/privacy")({
       { name: "description", content: PRIVACY_DESCRIPTION },
       { property: "og:title", content: "Privacy — SlowBlues" },
       { property: "og:description", content: PRIVACY_DESCRIPTION },
-      { property: "og:url", content: "https://www.slowblues.no/privacy" },
+      { property: "og:url", content: "https://www.slow-blues.com/privacy" },
     ],
-    links: [{ rel: "canonical", href: "https://www.slowblues.no/privacy" }],
+    links: [{ rel: "canonical", href: "https://www.slow-blues.com/privacy" }],
   }),
 });
 

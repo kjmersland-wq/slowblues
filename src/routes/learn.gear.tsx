@@ -5,40 +5,61 @@ import { ExternalLink, Share2, Music, Guitar, Mic, Speaker, Drum } from "lucide-
 import { PageShell } from "@/components/PageShell";
 
 export const Route = createFileRoute("/learn/gear")({
-  head: () => ({
-    meta: [
-      { title: "Blues Gear & Brands — Fender, Gibson, Hohner & More | SlowBlues" },
-      { name: "description", content: "The instruments, amplifiers, harmonicas and microphones that built the blues sound. Fender, Gibson, Marshall, Hohner, Shure — history, key models and the blues musicians who played them." },
-      { property: "og:title", content: "Blues Gear & Brands | SlowBlues" },
-      { property: "og:description", content: "The tools that shaped the blues sound — guitars, amps, harmonicas, mics." },
-      { property: "og:url", content: "https://www.slowblues.no/learn/gear" },
-    ],
-    links: [{ rel: "canonical", href: "https://www.slowblues.no/learn/gear" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "ItemList",
-          "@id": "https://www.slowblues.no/learn/gear#brands",
-          name: "Blues Gear Brands",
-          url: "https://www.slowblues.no/learn/gear",
-          itemListElement: BRANDS.map((b, i) => ({
-            "@type": "ListItem",
-            position: i + 1,
-            item: {
-              "@type": "Brand",
-              "@id": `https://www.slowblues.no/learn/gear#${b.id}`,
-              name: b.name,
-              url: b.url,
-              description: b.editorial.en.slice(0, 240),
-              ...(b.founder ? { founder: { "@type": "Person", name: b.founder.name } } : {}),
-            },
-          })),
-        }),
-      },
-    ],
-  }),
+  // This route doubles as a layout for /learn/gear/$id (GearRoute below
+  // renders <Outlet /> whenever the path isn't exactly /learn/gear). Since
+  // TanStack Start concatenates `links`/`scripts` from every matched route
+  // without deduping (unlike `meta`, which dedupes by name/property), this
+  // head() must stay silent on child routes — otherwise its canonical/ItemList
+  // leak onto every founder page and collide with that page's own canonical.
+  head: ({ match, matches }) => {
+    const isLeaf = matches[matches.length - 1]?.routeId === match.routeId;
+    if (!isLeaf) return {};
+    return {
+      meta: [
+        { title: "Blues Gear & Brands — Fender, Gibson, Hohner & More | SlowBlues" },
+        { name: "description", content: "The instruments, amplifiers, harmonicas and microphones that built the blues sound. Fender, Gibson, Marshall, Hohner, Shure — history, key models and the blues musicians who played them." },
+        { property: "og:title", content: "Blues Gear & Brands | SlowBlues" },
+        { property: "og:description", content: "The tools that shaped the blues sound — guitars, amps, harmonicas, mics." },
+        { property: "og:url", content: "https://www.slow-blues.com/learn/gear" },
+      ],
+      links: [{ rel: "canonical", href: "https://www.slow-blues.com/learn/gear" }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "@id": "https://www.slow-blues.com/learn/gear#brands",
+            name: "Blues Gear Brands",
+            url: "https://www.slow-blues.com/learn/gear",
+            itemListElement: BRANDS.map((b, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              item: {
+                "@type": "Brand",
+                "@id": `https://www.slow-blues.com/learn/gear#${b.id}`,
+                name: b.name,
+                url: b.url,
+                description: b.editorial.en.slice(0, 240),
+                ...(b.founder ? { founder: { "@type": "Person", name: b.founder.name } } : {}),
+              },
+            })),
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://www.slow-blues.com/" },
+              { "@type": "ListItem", position: 2, name: "Gear", item: "https://www.slow-blues.com/learn/gear" },
+            ],
+          }),
+        },
+      ],
+    };
+  },
   component: GearRoute,
 });
 

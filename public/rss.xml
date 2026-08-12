@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sb="https://slowblues.no/rss-extensions">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sb="https://www.slow-blues.com/rss-extensions">
   <channel>
     <title>SlowBlues.no – Blues Blog</title>
-    <link>https://slowblues.no/blog</link>
-    <atom:link href="https://slowblues.no/rss.xml" rel="self" type="application/rss+xml"/>
+    <link>https://www.slow-blues.com/blog</link>
+    <atom:link href="https://www.slow-blues.com/rss.xml" rel="self" type="application/rss+xml"/>
     <description>In-depth articles about blues history, essential albums, Scandinavian blues, and the music's journey from the Mississippi Delta to the rest of the world. Written with passion by Kjell Mersland.</description>
     <language>en</language>
-    <managingEditor>post@slowblues.no (Kjell Mersland)</managingEditor>
-    <webMaster>post@slowblues.no (Kjell Mersland)</webMaster>
+    <managingEditor>post@slow-blues.com (Kjell Mersland)</managingEditor>
+    <webMaster>post@slow-blues.com (Kjell Mersland)</webMaster>
     <copyright>© 2025–2026 SlowBlues.no. All rights reserved.</copyright>
     <category>Music</category>
     <category>Blues</category>
     <lastBuildDate>Thu, 26 Feb 2026 12:00:00 +0100</lastBuildDate>
     <ttl>1440</ttl>
     <image>
-      <url>https://slowblues.no/images/og-cover.jpg</url>
+      <url>https://www.slow-blues.com/images/og-cover.jpg</url>
       <title>SlowBlues.no – Blues Blog</title>
-      <link>https://slowblues.no/blog</link>
+      <link>https://www.slow-blues.com/blog</link>
       <width>1200</width>
       <height>630</height>
     </image>
 
     <item>
       <title>Weekly Blues Dispatch (Week 09): Blues Music Awards Nominees, BluesGig Launch &amp; Duke Robillard's New Album!</title>
-      <link>https://slowblues.no/blog/weekly-blues-dispatch-week-09-2026</link>
-      <guid isPermaLink="true">https://slowblues.no/blog/weekly-blues-dispatch-week-09-2026</guid>
+      <link>https://www.slow-blues.com/blog/weekly-blues-dispatch-week-09-2026</link>
+      <guid isPermaLink="true">https://www.slow-blues.com/blog/weekly-blues-dispatch-week-09-2026</guid>
       <pubDate>Sun, 23 Feb 2026 08:00:00 +0100</pubDate>
       <dc:creator>Kjell Mersland</dc:creator>
       <category>Weekly Dispatch</category>
@@ -35,8 +35,8 @@
 
     <item>
       <title>Weekly Blues Dispatch: February Birthdays, Oz &amp; The Wizards Release Concert &amp; Your Help Wanted!</title>
-      <link>https://slowblues.no/blog/weekly-blues-dispatch-february-16-2026</link>
-      <guid isPermaLink="true">https://slowblues.no/blog/weekly-blues-dispatch-february-16-2026</guid>
+      <link>https://www.slow-blues.com/blog/weekly-blues-dispatch-february-16-2026</link>
+      <guid isPermaLink="true">https://www.slow-blues.com/blog/weekly-blues-dispatch-february-16-2026</guid>
       <pubDate>Mon, 16 Feb 2026 08:00:00 +0100</pubDate>
       <dc:creator>Kjell Mersland</dc:creator>
       <category>Weekly Dispatch</category>
@@ -47,8 +47,8 @@
 
     <item>
       <title>Buddy Guy Just Won What Might Be His Last Grammy – And I Need a Minute</title>
-      <link>https://slowblues.no/blog/buddy-guys-last-grammy-february-2026</link>
-      <guid isPermaLink="true">https://slowblues.no/blog/buddy-guys-last-grammy-february-2026</guid>
+      <link>https://www.slow-blues.com/blog/buddy-guys-last-grammy-february-2026</link>
+      <guid isPermaLink="true">https://www.slow-blues.com/blog/buddy-guys-last-grammy-february-2026</guid>
       <pubDate>Sat, 07 Feb 2026 08:00:00 +0100</pubDate>
       <dc:creator>Kjell Mersland</dc:creator>
       <category>News</category>
@@ -59,8 +59,8 @@
 
     <item>
       <title>Blues in February 2026 – New Albums, Tours &amp; Festival Announcements</title>
-      <link>https://slowblues.no/blog/blues-february-2026</link>
-      <guid isPermaLink="true">https://slowblues.no/blog/blues-february-2026</guid>
+      <link>https://www.slow-blues.com/blog/blues-february-2026</link>
+      <guid isPermaLink="true">https://www.slow-blues.com/blog/blues-february-2026</guid>
       <pubDate>Sun, 01 Feb 2026 08:00:00 +0100</pubDate>
       <dc:creator>Kjell Mersland</dc:creator>
       <category>News</category>
@@ -71,8 +71,8 @@
 
     <item>
       <title>The Women Who Shaped the Blues</title>
-      <link>https://slowblues.no/blog/women-who-shaped-the-blues</link>
-      <guid isPermaLink="true">https://slowblues.no/blog/women-who-shaped-the-blues</guid>
+      <link>https://www.slow-blues.com/blog/women-who-shaped-the-blues</link>
+      <guid isPermaLink="true">https://www.slow-blues.com/blog/women-who-shaped-the-blues</guid>
       <pubDate>Sun, 01 Jun 2025 08:00:00 +0200</pubDate>
       <dc:creator>Kjell Mersland</dc:creator>
       <category>Blues History</category>
@@ -83,8 +83,8 @@
 
     <item>
       <title>Blues in Scandinavia – How the Delta Sound Traveled North</title>
-      <link>https://slowblues.no/blog/blues-in-scandinavia</link>
-      <guid isPermaLink="true">https://slowblues.no/blog/blues-in-scandinavia</guid>
+      <link>https://www.slow-blues.com/blog/blues-in-scandinavia</link>
+      <guid isPermaLink="true">https://www.slow-blues.com/blog/blues-in-scandinavia</guid>
       <pubDate>Mon, 10 Mar 2025 08:00:00 +0100</pubDate>
       <dc:creator>Kjell Mersland</dc:creator>
       <category>Blues Culture</category>
@@ -95,8 +95,8 @@
 
     <item>
       <title>10 Blues Albums You Must Hear Before You Die</title>
-      <link>https://slowblues.no/blog/10-blues-albums-you-must-hear</link>
-      <guid isPermaLink="true">https://slowblues.no/blog/10-blues-albums-you-must-hear</guid>
+      <link>https://www.slow-blues.com/blog/10-blues-albums-you-must-hear</link>
+      <guid isPermaLink="true">https://www.slow-blues.com/blog/10-blues-albums-you-must-hear</guid>
       <pubDate>Wed, 15 Jan 2025 08:00:00 +0100</pubDate>
       <dc:creator>Kjell Mersland</dc:creator>
       <category>Essential Listening</category>

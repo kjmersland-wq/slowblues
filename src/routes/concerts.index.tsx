@@ -42,16 +42,16 @@ export const Route = createFileRoute("/concerts/")({
         { name: "description", content: "Upcoming blues concerts, tours and festivals from clubs, theatres and festival fields around the world — curated by SlowBlues." },
         { property: "og:title", content: "Concerts & Festivals — Live Blues | SlowBlues" },
         { property: "og:description", content: "Upcoming blues concerts, tours and festivals — curated by SlowBlues." },
-        { property: "og:url", content: "https://www.slowblues.no/concerts" },
+        { property: "og:url", content: "https://www.slow-blues.com/concerts" },
       ],
-      links: [{ rel: "canonical", href: "https://www.slowblues.no/concerts" }],
+      links: [{ rel: "canonical", href: "https://www.slow-blues.com/concerts" }],
       scripts: concerts.length === 0 ? [] : [{
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "ItemList",
           name: "Upcoming blues concerts and festivals",
-          url: "https://www.slowblues.no/concerts",
+          url: "https://www.slow-blues.com/concerts",
           numberOfItems: concerts.length,
           itemListElement: concerts.map((c, i) => ({
             "@type": "ListItem",
@@ -59,7 +59,7 @@ export const Route = createFileRoute("/concerts/")({
             item: {
               "@type": "Event",
               name: c.title,
-              url: `https://www.slowblues.no/concerts/${c.slug}`,
+              url: `https://www.slow-blues.com/concerts/${c.slug}`,
               ...(c.event_date ? { startDate: c.event_date } : {}),
               ...(c.venue || c.city
                 ? {

@@ -15,19 +15,19 @@ export const Route = createFileRoute("/radio")({
       { name: "description", content: "Bluesradio og bluesprogrammer fra Norge, Norden og hele verden — live streams, ukentlige programmer og spillelister." },
       { property: "og:title", content: "Blues Radio — Stations & Shows | SlowBlues" },
       { property: "og:description", content: "Live blues streams and weekly shows from Norway, the Nordics and around the world." },
-      { property: "og:url", content: "https://www.slowblues.no/radio" },
+      { property: "og:url", content: "https://www.slow-blues.com/radio" },
       { property: "og:image", content: IMG.microphone },
     ],
-    links: [{ rel: "canonical", href: "https://www.slowblues.no/radio" }],
+    links: [{ rel: "canonical", href: "https://www.slow-blues.com/radio" }],
     scripts: [
       {
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "ItemList",
-          "@id": "https://www.slowblues.no/radio#shows",
+          "@id": "https://www.slow-blues.com/radio#shows",
           name: "SlowBlues Radio Shows",
-          url: "https://www.slowblues.no/radio",
+          url: "https://www.slow-blues.com/radio",
           numberOfItems: RADIO_SHOWS.length,
           itemListElement: RADIO_SHOWS.map((s, i) => ({
             "@type": "ListItem",

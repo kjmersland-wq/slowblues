@@ -10,7 +10,7 @@
 // must be written by the editorial team.
 
 const API = "https://www.wikidata.org/w/api.php";
-const UA = "SlowBlues/1.0 (https://sslow-blues.lovable.app; editor@slowblues.no) Wikidata-enrichment";
+const UA = "SlowBlues/1.0 (https://www.slow-blues.com; editor@slow-blues.com) Wikidata-enrichment";
 
 type Cached<T> = { value: T; expires: number };
 const cache = new Map<string, Cached<unknown>>();

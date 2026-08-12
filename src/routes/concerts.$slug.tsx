@@ -44,7 +44,7 @@ export const Route = createFileRoute("/concerts/$slug")({
   },
   head: ({ params, loaderData }) => {
     const c = loaderData?.concert;
-    const canonical = `https://www.slowblues.no/concerts/${params.slug}`;
+    const canonical = `https://www.slow-blues.com/concerts/${params.slug}`;
     if (!c) return { meta: [{ title: "Concert — SlowBlues" }], links: [{ rel: "canonical", href: canonical }] };
     const title = c.seo_title_en ?? `${c.title} — SlowBlues`;
     const desc =

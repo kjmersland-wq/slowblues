@@ -17,9 +17,9 @@ export const Route = createFileRoute("/support")({
       { name: "description", content: "Keep the blues alive — support SlowBlues through merch, donations, Vipps, or by sharing with fellow blues fans." },
       { property: "og:title", content: "Support SlowBlues" },
       { property: "og:description", content: "Keep the blues alive — support SlowBlues through merch, donations, Vipps, or by sharing with fellow blues fans." },
-      { property: "og:url", content: "https://www.slowblues.no/support" },
+      { property: "og:url", content: "https://www.slow-blues.com/support" },
     ],
-    links: [{ rel: "canonical", href: "https://www.slowblues.no/support" }],
+    links: [{ rel: "canonical", href: "https://www.slow-blues.com/support" }],
   }),
 });
 
@@ -36,14 +36,14 @@ function SupportPage() {
         await navigator.share({
           title: 'SlowBlues — The Slow, Soulful Roots',
           text: 'Independent blues culture — 360+ artist profiles, reviews and more.',
-          url: 'https://slowblues.no',
+          url: 'https://www.slow-blues.com',
         });
       } catch {
         // User cancelled share — no action needed
       }
     } else {
       try {
-        await navigator.clipboard.writeText('https://slowblues.no');
+        await navigator.clipboard.writeText('https://www.slow-blues.com');
         toast.success('Link copied!');
       } catch {
         toast.error('Could not copy link');

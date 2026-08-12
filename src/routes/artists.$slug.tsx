@@ -8,6 +8,7 @@ import { SUPPORTED_LOCALES, artistDetailPath, DEFAULT_LOCALE } from "@/lib/local
 import { loadArtistForHead } from "@/lib/artistHead.functions";
 
 export const LOCALE: Lang = DEFAULT_LOCALE;
+const SITE = "https://www.slow-blues.com";
 
 export const Route = createFileRoute("/artists/$slug")({
   component: Page,
@@ -21,7 +22,7 @@ function Page() {
 }
 
 export function buildHead(slug: string, a: ArtistRecord | null, locale: Lang) {
-  const canonical = artistDetailPath(locale, slug);
+  const canonical = `${SITE}${artistDetailPath(locale, slug)}`;
   if (!a) {
     const fallbackTitle = `${slug} — Blues artist profile | SlowBlues`;
     const fallbackDesc = `Discover the blues artist ${slug} on SlowBlues — biography, discography, signature songs, videos and historical context from our curated blues archive.`;
@@ -36,8 +37,8 @@ export function buildHead(slug: string, a: ArtistRecord | null, locale: Lang) {
       ],
       links: [
         { rel: "canonical", href: canonical },
-        ...SUPPORTED_LOCALES.map((l) => ({ rel: "alternate", hreflang: l, href: artistDetailPath(l, slug) })),
-        { rel: "alternate", hreflang: "x-default", href: artistDetailPath(DEFAULT_LOCALE, slug) },
+        ...SUPPORTED_LOCALES.map((l) => ({ rel: "alternate", hreflang: l, href: `${SITE}${artistDetailPath(l, slug)}` })),
+        { rel: "alternate", hreflang: "x-default", href: `${SITE}${artistDetailPath(DEFAULT_LOCALE, slug)}` },
       ],
     };
   }
@@ -50,8 +51,8 @@ export function buildHead(slug: string, a: ArtistRecord | null, locale: Lang) {
     `${a.name} — blues artist profile, biography, discography and videos on SlowBlues, the curated archive of blues history and culture.`;
   const description = clampDescription(rawDesc, a.name);
   const heroImg = a.og_image ?? resolveArtistImage(a.img) ?? null;
-  const jsonLd = buildArtistJsonLd(a as any, canonical, heroImg);
-  const breadcrumb = buildBreadcrumb(a as any, "");
+  const jsonLd = buildArtistJsonLd(a as any, canonical, heroImg, locale);
+  const breadcrumb = buildBreadcrumb(a as any, locale);
 
   return {
     meta: [
@@ -68,8 +69,8 @@ export function buildHead(slug: string, a: ArtistRecord | null, locale: Lang) {
     ],
     links: [
       { rel: "canonical", href: canonical },
-      ...SUPPORTED_LOCALES.map((l) => ({ rel: "alternate", hreflang: l, href: artistDetailPath(l, slug) })),
-      { rel: "alternate", hreflang: "x-default", href: artistDetailPath(DEFAULT_LOCALE, slug) },
+      ...SUPPORTED_LOCALES.map((l) => ({ rel: "alternate", hreflang: l, href: `${SITE}${artistDetailPath(l, slug)}` })),
+      { rel: "alternate", hreflang: "x-default", href: `${SITE}${artistDetailPath(DEFAULT_LOCALE, slug)}` },
     ],
     scripts: [
       ...jsonLd.map((node) => ({ type: "application/ld+json", children: JSON.stringify(node) })),

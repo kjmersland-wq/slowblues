@@ -120,7 +120,7 @@ const no = {
     },
     support: {
       eyebrow: "Hold bluesen levende",
-      title: "Støtt slowblues.no",
+      title: "Støtt slow-blues.com",
       lead: "Hver t-skjorte, plate og donasjon holder denne siden i live – og hyller artistene som skapte bluesen.",
       buyMerch: "Kjøp merch",
       donate: "Doner",
@@ -310,7 +310,7 @@ const en: typeof no = {
     },
     support: {
       eyebrow: "Keep the blues alive",
-      title: "Support slowblues.no",
+      title: "Support slow-blues.com",
       lead: "Every t-shirt, record and donation keeps this site alive — and honours the artists who created the blues.",
       buyMerch: "Buy merch",
       donate: "Donate",
@@ -500,7 +500,7 @@ const de: typeof no = {
     },
     support: {
       eyebrow: "Blues am Leben halten",
-      title: "Unterstütze slowblues.no",
+      title: "Unterstütze slow-blues.com",
       lead: "Jedes T-Shirt, jede Platte, jede Spende hält diese Seite lebendig – und ehrt die Künstler, die den Blues schufen.",
       buyMerch: "Merch kaufen",
       donate: "Spenden",
@@ -690,7 +690,7 @@ const sv: typeof no = {
     },
     support: {
       eyebrow: "Håll bluesen levande",
-      title: "Stötta slowblues.no",
+      title: "Stötta slow-blues.com",
       lead: "Varje t-shirt, skiva och donation håller sidan vid liv – och hyllar artisterna som skapade bluesen.",
       buyMerch: "Köp merch",
       donate: "Donera",
@@ -880,7 +880,7 @@ const pl: typeof no = {
     },
     support: {
       eyebrow: "Niech blues żyje",
-      title: "Wesprzyj slowblues.no",
+      title: "Wesprzyj slow-blues.com",
       lead: "Każda koszulka, płyta i darowizna trzyma tę stronę przy życiu — i oddaje hołd artystom, którzy stworzyli bluesa.",
       buyMerch: "Kup merch",
       donate: "Wpłać darowiznę",

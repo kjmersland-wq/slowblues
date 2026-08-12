@@ -5,7 +5,7 @@ export const Route = createFileRoute("/terms")({
   component: TermsPage,
   head: () => ({ meta: [
     { title: "Terms of Service — SlowBlues" },
-    { name: "description", content: "Brukervilkår for slowblues.no — bruk av innhold, ansvar, immaterielle rettigheter og lovvalg." },
+    { name: "description", content: "Brukervilkår for slow-blues.com — bruk av innhold, ansvar, immaterielle rettigheter og lovvalg." },
     { property: "og:title", content: "Terms of Service — SlowBlues" },
     { property: "og:description", content: "Brukervilkår for SlowBlues.no." },
   ]}),
@@ -16,12 +16,12 @@ function TermsPage() {
     <LegalPage
       eyebrow="Brukervilkår"
       title="Terms of Service"
-      lead="Vilkår som regulerer din bruk av slowblues.no, levert av KM TECH LABS."
+      lead="Vilkår som regulerer din bruk av slow-blues.com, levert av KM TECH LABS."
       updated="Mai 2026"
     >
       <Section heading="1. Aksept av vilkår">
         <p>
-          Ved å bruke slowblues.no aksepterer du disse vilkårene. Hvis du ikke aksepterer dem,
+          Ved å bruke slow-blues.com aksepterer du disse vilkårene. Hvis du ikke aksepterer dem,
           ber vi deg om å avstå fra bruk av tjenesten.
         </p>
       </Section>
@@ -43,7 +43,7 @@ function TermsPage() {
 
       <Section heading="4. Immaterielle rettigheter">
         <p>
-          Redaksjonelt innhold (tekst, layout, kode, valgte bilder) på slowblues.no tilhører KM TECH LABS eller
+          Redaksjonelt innhold (tekst, layout, kode, valgte bilder) på slow-blues.com tilhører KM TECH LABS eller
           bidragsytere, og er beskyttet av åndsverkloven. Sitater er tillatt i tråd med god skikk og med
           tydelig kildehenvisning. Se også <a href="/copyright" className="text-gold hover:underline">Copyright Notice</a>.
         </p>
@@ -60,7 +60,7 @@ function TermsPage() {
       <Section heading="6. Ansvarsbegrensning">
         <p>
           KM TECH LABS er ikke ansvarlig for indirekte tap eller følgeskader som måtte oppstå ved bruk av
-          slowblues.no. Se også <a href="/disclaimer" className="text-gold hover:underline">Disclaimer</a>.
+          slow-blues.com. Se også <a href="/disclaimer" className="text-gold hover:underline">Disclaimer</a>.
         </p>
       </Section>
 

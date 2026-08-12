@@ -51,7 +51,7 @@ type Review = {
   seo_description_de: string | null;
 };
 
-const SITE = "https://www.slowblues.no";
+const SITE = "https://www.slow-blues.com";
 
 async function fetchReview(slug: string): Promise<Review | null> {
   const row = await fetchPublishedReviewBySlug({ data: { slug } });
@@ -102,6 +102,9 @@ export const Route = createFileRoute("/reviews/$slug")({
               name: r.album_title,
               byArtist: { "@type": "MusicGroup", name: r.artist_name },
               datePublished: r.release_year?.toString(),
+              ...(r.blues_style ? { genre: r.blues_style } : {}),
+              ...(r.label ? { recordLabel: r.label } : {}),
+              ...(r.cover_image ? { image: r.cover_image } : {}),
             },
             reviewRating: r.total_score
               ? { "@type": "Rating", ratingValue: r.total_score, bestRating: 10, worstRating: 0 }
@@ -109,6 +112,18 @@ export const Route = createFileRoute("/reviews/$slug")({
             author: { "@type": "Person", name: r.reviewer || "Kjell Mersland" },
             datePublished: r.published_at,
             reviewBody: r.verdict_en ?? r.body_en?.slice(0, 280),
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+              { "@type": "ListItem", position: 2, name: "Reviews", item: `${SITE}/reviews` },
+              { "@type": "ListItem", position: 3, name: r.album_title, item: canonical },
+            ],
           }),
         },
       ],

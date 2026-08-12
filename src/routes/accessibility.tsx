@@ -5,7 +5,7 @@ export const Route = createFileRoute("/accessibility")({
   component: AccessibilityPage,
   head: () => ({ meta: [
     { title: "Accessibility Statement — SlowBlues" },
-    { name: "description", content: "Tilgjengelighetserklæring for slowblues.no — WCAG 2.1 AA, kjente begrensninger og hvordan du melder fra om problemer." },
+    { name: "description", content: "Tilgjengelighetserklæring for slow-blues.com — WCAG 2.1 AA, kjente begrensninger og hvordan du melder fra om problemer." },
     { property: "og:title", content: "Accessibility Statement — SlowBlues" },
     { property: "og:description", content: "WCAG-tilgjengelighet på SlowBlues.no." },
   ]}),
@@ -21,7 +21,7 @@ function AccessibilityPage() {
     >
       <Section heading="Vår forpliktelse">
         <p>
-          Vi jobber for at slowblues.no skal være i samsvar med <strong>WCAG 2.1 nivå AA</strong> og kravene
+          Vi jobber for at slow-blues.com skal være i samsvar med <strong>WCAG 2.1 nivå AA</strong> og kravene
           i forskrift om universell utforming av IKT-løsninger (UU-forskriften).
         </p>
       </Section>

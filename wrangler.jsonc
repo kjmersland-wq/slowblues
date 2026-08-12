@@ -13,6 +13,7 @@
   ],
   "routes": [
     { "pattern": "slow-blues.com", "custom_domain": true },
+    { "pattern": "www.slow-blues.com", "custom_domain": true },
   ],
   "workers_dev": true,
 }

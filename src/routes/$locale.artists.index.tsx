@@ -12,6 +12,8 @@ export const HERO = {
   pl: { eyebrow: "Hall of Fame", title: "Artyści", lead: "330+ profili bluesmanów — pionierzy, mistrzowie i głosy dnia dzisiejszego." },
 } as const;
 
+const SITE = "https://www.slow-blues.com";
+
 export const Route = createFileRoute("/$locale/artists/")({
   beforeLoad: ({ params }) => {
     if (!isLocale(params.locale) || params.locale === "no") throw notFound();
@@ -19,7 +21,7 @@ export const Route = createFileRoute("/$locale/artists/")({
   component: Page,
   head: ({ params }) => {
     const locale = (isLocale(params.locale) ? params.locale : "en") as ArtistLocale;
-    const path = artistsListPath(locale);
+    const path = `${SITE}${artistsListPath(locale)}`;
     const h = HERO[locale];
     return {
       meta: [
@@ -33,8 +35,21 @@ export const Route = createFileRoute("/$locale/artists/")({
       ],
       links: [
         { rel: "canonical", href: path },
-        ...SUPPORTED_LOCALES.map((l) => ({ rel: "alternate", hreflang: l, href: artistsListPath(l) })),
-        { rel: "alternate", hreflang: "x-default", href: artistsListPath("no") },
+        ...SUPPORTED_LOCALES.map((l) => ({ rel: "alternate", hreflang: l, href: `${SITE}${artistsListPath(l)}` })),
+        { rel: "alternate", hreflang: "x-default", href: `${SITE}${artistsListPath("no")}` },
+      ],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+              { "@type": "ListItem", position: 2, name: h.title, item: path },
+            ],
+          }),
+        },
       ],
     };
   },
