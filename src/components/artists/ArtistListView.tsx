@@ -55,7 +55,11 @@ export function ArtistListView({ locale }: { locale: ArtistLocale }) {
       return (
         a.name.toLowerCase().includes(term) ||
         (a.search_terms ?? []).some((s) => s.toLowerCase().includes(term)) ||
-        (a.birth_place ?? "").toLowerCase().includes(term)
+        (a.birth_place ?? "").toLowerCase().includes(term) ||
+        (a.country ?? "").toLowerCase().includes(term) ||
+        (a.region ?? "").toLowerCase().includes(term) ||
+        (a.styles ?? []).some((s) => s.toLowerCase().includes(term)) ||
+        (a.instruments_simple ?? []).some((s) => s.toLowerCase().includes(term))
       );
     });
   }, [data, region, country, era, genre, q]);

@@ -15,11 +15,11 @@ import { ArtistYouTube, AlbumYouTubeCell, DiscographyVideos } from "@/components
 import { ArtistInitialsPlaceholder } from "@/components/artists/ArtistInitialsPlaceholder";
 
 const T = {
-  no: { back: "Tilbake til artister", notFound: "Artist ikke funnet", loading: "Laster…", error: "Kunne ikke laste artisten", born: "Født", died: "Død", active: "Aktiv", styles: "Stiler og sjangre", discography: "Diskografi", songs: "Kjente sanger", related: "Relaterte artister", videos: "Se & Lytt", gallery: "Galleri", links: "Eksterne lenker", articles: "Relaterte artikler", influences: "Innflytelser", legacy: "Musikalsk innflytelse", family: "Familie og privatliv", formative: "Formende opplevelser", instruments: "Instrumenter og utstyr", instrumentsShort: "Instrumenter", labelsShort: "Plateselskaper", anecdotes: "Historier og anekdoter", collaborators: "Samarbeidspartnere", awards: "Priser og anerkjennelse", from: "fra", musicians: "Musikere", watch: "Se", press: "Pressomtaler og sitater", source: "Kilde", year: "År", title: "Tittel", producer: "Produsent", label: "Label", chart: "Liste", sales: "Salg", notes: "Notater", featured: "Utvalgt", deceasedBanner: "Denne artisten er ikke lenger blant oss.", share: "Del profil", copied: "Lenke kopiert!" },
-  en: { back: "Back to artists", notFound: "Artist not found", loading: "Loading…", error: "Could not load the artist", born: "Born", died: "Died", active: "Active", styles: "Styles and genres", discography: "Discography", songs: "Famous songs", related: "Related artists", videos: "Watch & Listen", gallery: "Gallery", links: "External links", articles: "Related articles", influences: "Influences", legacy: "Musical Influence", family: "Family and personal life", formative: "Formative experiences", instruments: "Instruments & Equipment", instrumentsShort: "Instruments", labelsShort: "Labels", anecdotes: "Stories & Anecdotes", collaborators: "Collaborators", awards: "Awards & Recognition", from: "from", musicians: "Musicians", watch: "Watch", press: "Press & quotes", source: "Source", year: "Year", title: "Title", producer: "Producer", label: "Label", chart: "Chart", sales: "Sales", notes: "Notes", featured: "Featured", deceasedBanner: "This artist is no longer with us.", share: "Share profile", copied: "Link copied!" },
-  sv: { back: "Tillbaka till artister", notFound: "Artist hittades inte", loading: "Laddar…", error: "Kunde inte ladda artisten", born: "Född", died: "Död", active: "Aktiv", styles: "Stilar och genrer", discography: "Diskografi", songs: "Kända låtar", related: "Relaterade artister", videos: "Se & Lyssna", gallery: "Galleri", links: "Externa länkar", articles: "Relaterade artiklar", influences: "Influenser", legacy: "Musikaliskt inflytande", family: "Familj och privatliv", formative: "Formativa upplevelser", instruments: "Instrument och utrustning", instrumentsShort: "Instrument", labelsShort: "Skivbolag", anecdotes: "Historier & anekdoter", collaborators: "Samarbetspartners", awards: "Utmärkelser", from: "från", musicians: "Musiker", watch: "Se", press: "Press & citat", source: "Källa", year: "År", title: "Titel", producer: "Producent", label: "Label", chart: "Lista", sales: "Försäljning", notes: "Noteringar", featured: "Utvald", deceasedBanner: "Denna artist är inte längre bland oss.", share: "Dela profil", copied: "Länk kopierad!" },
-  de: { back: "Zurück zu den Künstlern", notFound: "Künstler nicht gefunden", loading: "Lädt…", error: "Künstler konnte nicht geladen werden", born: "Geboren", died: "Gestorben", active: "Aktiv", styles: "Stile und Genres", discography: "Diskografie", songs: "Bekannte Lieder", related: "Verwandte Künstler", videos: "Sehen & Hören", gallery: "Galerie", links: "Externe Links", articles: "Verwandte Artikel", influences: "Einflüsse", legacy: "Musikalischer Einfluss", family: "Familie und Privatleben", formative: "Prägende Erlebnisse", instruments: "Instrumente & Ausrüstung", instrumentsShort: "Instrumente", labelsShort: "Labels", anecdotes: "Geschichten & Anekdoten", collaborators: "Kollaborationen", awards: "Auszeichnungen", from: "aus", musicians: "Musiker", watch: "Ansehen", press: "Presse & Zitate", source: "Quelle", year: "Jahr", title: "Titel", producer: "Produzent", label: "Label", chart: "Charts", sales: "Verkauf", notes: "Anmerkungen", featured: "Empfohlen", deceasedBanner: "Dieser Künstler ist verstorben.", share: "Profil teilen", copied: "Link kopiert!" },
-  pl: { back: "Wróć do artystów", notFound: "Nie znaleziono artysty", loading: "Wczytywanie…", error: "Nie udało się wczytać artysty", born: "Urodzony/a", died: "Zmarł/a", active: "Aktywny/a", styles: "Style i gatunki", discography: "Dyskografia", songs: "Znane utwory", related: "Powiązani artyści", videos: "Oglądaj i słuchaj", gallery: "Galeria", links: "Linki zewnętrzne", articles: "Powiązane artykuły", influences: "Inspiracje", legacy: "Wpływ muzyczny", family: "Rodzina i życie prywatne", formative: "Formacyjne doświadczenia", instruments: "Instrumenty i sprzęt", instrumentsShort: "Instrumenty", labelsShort: "Wytwórnie", anecdotes: "Historie i anegdoty", collaborators: "Współpracownicy", awards: "Nagrody i wyróżnienia", from: "z", musicians: "Muzycy", watch: "Oglądaj", press: "Prasa i cytaty", source: "Źródło", year: "Rok", title: "Tytuł", producer: "Producent", label: "Wytwórnia", chart: "Lista przebojów", sales: "Sprzedaż", notes: "Uwagi", featured: "Wyróżnione", deceasedBanner: "Tego artysty nie ma już wśród nas.", share: "Udostępnij profil", copied: "Link skopiowany!" },
+  no: { back: "Tilbake til artister", notFound: "Artist ikke funnet", loading: "Laster…", error: "Kunne ikke laste artisten", born: "Født", died: "Død", active: "Aktiv", styles: "Stiler og sjangre", discography: "Diskografi", songs: "Kjente sanger", related: "Relaterte artister", videos: "Se & Lytt", gallery: "Galleri", links: "Eksterne lenker", articles: "Kilder", influences: "Innflytelser", legacy: "Musikalsk innflytelse", family: "Familie og privatliv", formative: "Formende opplevelser", instruments: "Instrumenter og utstyr", instrumentsShort: "Instrumenter", labelsShort: "Plateselskaper", anecdotes: "Historier og anekdoter", collaborators: "Samarbeidspartnere", awards: "Priser og anerkjennelse", from: "fra", musicians: "Musikere", watch: "Se", press: "Pressomtaler og sitater", source: "Kilde", year: "År", title: "Tittel", producer: "Produsent", label: "Label", chart: "Liste", sales: "Salg", notes: "Notater", featured: "Utvalgt", deceasedBanner: "Denne artisten er ikke lenger blant oss.", share: "Del profil", copied: "Lenke kopiert!" },
+  en: { back: "Back to artists", notFound: "Artist not found", loading: "Loading…", error: "Could not load the artist", born: "Born", died: "Died", active: "Active", styles: "Styles and genres", discography: "Discography", songs: "Famous songs", related: "Related artists", videos: "Watch & Listen", gallery: "Gallery", links: "External links", articles: "Sources", influences: "Influences", legacy: "Musical Influence", family: "Family and personal life", formative: "Formative experiences", instruments: "Instruments & Equipment", instrumentsShort: "Instruments", labelsShort: "Labels", anecdotes: "Stories & Anecdotes", collaborators: "Collaborators", awards: "Awards & Recognition", from: "from", musicians: "Musicians", watch: "Watch", press: "Press & quotes", source: "Source", year: "Year", title: "Title", producer: "Producer", label: "Label", chart: "Chart", sales: "Sales", notes: "Notes", featured: "Featured", deceasedBanner: "This artist is no longer with us.", share: "Share profile", copied: "Link copied!" },
+  sv: { back: "Tillbaka till artister", notFound: "Artist hittades inte", loading: "Laddar…", error: "Kunde inte ladda artisten", born: "Född", died: "Död", active: "Aktiv", styles: "Stilar och genrer", discography: "Diskografi", songs: "Kända låtar", related: "Relaterade artister", videos: "Se & Lyssna", gallery: "Galleri", links: "Externa länkar", articles: "Källor", influences: "Influenser", legacy: "Musikaliskt inflytande", family: "Familj och privatliv", formative: "Formativa upplevelser", instruments: "Instrument och utrustning", instrumentsShort: "Instrument", labelsShort: "Skivbolag", anecdotes: "Historier & anekdoter", collaborators: "Samarbetspartners", awards: "Utmärkelser", from: "från", musicians: "Musiker", watch: "Se", press: "Press & citat", source: "Källa", year: "År", title: "Titel", producer: "Producent", label: "Label", chart: "Lista", sales: "Försäljning", notes: "Noteringar", featured: "Utvald", deceasedBanner: "Denna artist är inte längre bland oss.", share: "Dela profil", copied: "Länk kopierad!" },
+  de: { back: "Zurück zu den Künstlern", notFound: "Künstler nicht gefunden", loading: "Lädt…", error: "Künstler konnte nicht geladen werden", born: "Geboren", died: "Gestorben", active: "Aktiv", styles: "Stile und Genres", discography: "Diskografie", songs: "Bekannte Lieder", related: "Verwandte Künstler", videos: "Sehen & Hören", gallery: "Galerie", links: "Externe Links", articles: "Quellen", influences: "Einflüsse", legacy: "Musikalischer Einfluss", family: "Familie und Privatleben", formative: "Prägende Erlebnisse", instruments: "Instrumente & Ausrüstung", instrumentsShort: "Instrumente", labelsShort: "Labels", anecdotes: "Geschichten & Anekdoten", collaborators: "Kollaborationen", awards: "Auszeichnungen", from: "aus", musicians: "Musiker", watch: "Ansehen", press: "Presse & Zitate", source: "Quelle", year: "Jahr", title: "Titel", producer: "Produzent", label: "Label", chart: "Charts", sales: "Verkauf", notes: "Anmerkungen", featured: "Empfohlen", deceasedBanner: "Dieser Künstler ist verstorben.", share: "Profil teilen", copied: "Link kopiert!" },
+  pl: { back: "Wróć do artystów", notFound: "Nie znaleziono artysty", loading: "Wczytywanie…", error: "Nie udało się wczytać artysty", born: "Urodzony/a", died: "Zmarł/a", active: "Aktywny/a", styles: "Style i gatunki", discography: "Dyskografia", songs: "Znane utwory", related: "Powiązani artyści", videos: "Oglądaj i słuchaj", gallery: "Galeria", links: "Linki zewnętrzne", articles: "Źródła", influences: "Inspiracje", legacy: "Wpływ muzyczny", family: "Rodzina i życie prywatne", formative: "Formacyjne doświadczenia", instruments: "Instrumenty i sprzęt", instrumentsShort: "Instrumenty", labelsShort: "Wytwórnie", anecdotes: "Historie i anegdoty", collaborators: "Współpracownicy", awards: "Nagrody i wyróżnienia", from: "z", musicians: "Muzycy", watch: "Oglądaj", press: "Prasa i cytaty", source: "Źródło", year: "Rok", title: "Tytuł", producer: "Producent", label: "Wytwórnia", chart: "Lista przebojów", sales: "Sprzedaż", notes: "Uwagi", featured: "Wyróżnione", deceasedBanner: "Tego artysty nie ma już wśród nas.", share: "Udostępnij profil", copied: "Link skopiowany!" },
 } as const;
 
 
@@ -147,7 +147,7 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
       <div className="max-w-6xl mx-auto px-6 pb-20 space-y-16">
         {/* Long-form biography (multilingual) */}
         {bio && (
-          <section className="max-w-3xl mx-auto">
+          <section id="biografi" className="max-w-3xl mx-auto scroll-mt-24">
             <article className="prose prose-invert max-w-none text-foreground/85 leading-relaxed text-lg whitespace-pre-line">
               {bio}
             </article>
@@ -201,7 +201,7 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
         )}
 
         {instruments.length > 0 && (
-          <Section icon={Guitar} title={t.instruments} tone="gold">
+          <Section id="instrumenter" icon={Guitar} title={t.instruments} tone="gold">
             <div className="grid md:grid-cols-3 gap-5">
               {["Gitar", "Annet", "Vokal"].map((cat) => {
                 const items = instruments.filter((i) => i.category === cat);
@@ -257,7 +257,7 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
 
         {/* Curated videos (editor-picked featured/more) */}
         {(a.videos.length > 0 || youtubeIds.length > 0) && (
-          <Section icon={PlayCircle} title={t.videos} tone="gold">
+          <Section id="videoer" icon={PlayCircle} title={t.videos} tone="gold">
             <VideoGrid videos={a.videos} fallbackIds={youtubeIds} featuredLabel={t.featured} />
           </Section>
         )}
@@ -294,7 +294,7 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
 
         {/* Discography */}
         {discography.length > 0 && (
-          <Section icon={Disc3} title={t.discography} tone="gold">
+          <Section id="diskografi" icon={Disc3} title={t.discography} tone="gold">
             <DiscographyVideos>
               <div className="overflow-x-auto border border-border rounded-xl bg-card/40">
                 <table className="w-full text-sm">
@@ -413,7 +413,7 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
         )}
 
         {a.article_references.length > 0 && (
-          <Section icon={BookOpen} title={t.articles} tone="amber">
+          <Section id="kilder" icon={BookOpen} title={t.articles} tone="amber">
             <ul className="space-y-2">
               {a.article_references.map((r, i) => (
                 <li key={i}>
@@ -475,10 +475,10 @@ function ShareButton({ locale, slug, label, copiedLabel }: { locale: ArtistLocal
   );
 }
 
-function Section({ icon: Icon, title, tone = "gold", children }: { icon: any; title: string; tone?: "gold" | "rose" | "amber"; children: React.ReactNode }) {
+function Section({ icon: Icon, title, tone = "gold", id, children }: { icon: any; title: string; tone?: "gold" | "rose" | "amber"; id?: string; children: React.ReactNode }) {
   const toneClass = tone === "rose" ? "text-rose-400" : tone === "amber" ? "text-amber-400" : "text-gold";
   return (
-    <section>
+    <section id={id} className={id ? "scroll-mt-24" : undefined}>
       <div className="flex items-center gap-3 mb-6">
         <Icon className={`size-6 ${toneClass}`} />
         <h2 className={`font-display text-3xl ${toneClass}`}>{title}</h2>
