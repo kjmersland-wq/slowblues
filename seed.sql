@@ -5241,3 +5241,7 @@ W 2021 roku gmina Kristiansand przyznała Jacobsenowi swoją Nagrodę Kulturaln�
 WHERE slug = 'tor-einar-daumann-jacobsen';
 
 UPDATE artists SET img = '/images/tor-einar-jacobsen.jpg', image_credit = 'Photo: Jens Anders Ravnaas' WHERE slug = 'tor-einar-daumann-jacobsen';
+
+UPDATE artists SET videos = '[{"kind":"featured","title":"Tor Einar Jacobsen \"Daumann\" forteller historien rundt Moro''n-plata","youtube_id":"iPN4hAo70Iw","channel":"Rune Tengs","note":"Tor Einar forteller selv historien om en av platene sine."},{"kind":"more","title":"Tor Einar Jacobsen — Gammelrock i Kåken","youtube_id":"QNMtGz73_a4","channel":"Irene Gross"}]' WHERE slug = 'tor-einar-daumann-jacobsen';
+
+UPDATE artists SET videos = '[{"kind":"featured","title":"Tor Einar Jacobsen \"Daumann\" forteller historien rundt Moro''n-plata","youtube_id":"iPN4hAo70Iw","channel":"Rune Tengs","note":"Tor Einar forteller selv historien om en av platene sine."},{"kind":"more","title":"Tor Einar Jacobsen — Gammelrock i Kåken","youtube_id":"QNMtGz73_a4","channel":"Irene Gross"},{"kind":"more","title":"Daumann — Steamroller Blues (James Taylor cover)","youtube_id":"aRxQZ4SqJks","channel":"Dag Ringstad"}]' WHERE slug = 'tor-einar-daumann-jacobsen';
