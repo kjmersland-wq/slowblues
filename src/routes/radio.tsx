@@ -97,6 +97,7 @@ function RadioPage() {
             en: `${bluesRadioStations.length} curated blues programs from around the world.`,
             sv: `${bluesRadioStations.length} kurerade bluesprogram från hela världen.`,
             de: `${bluesRadioStations.length} kuratierte Blues-Programme aus aller Welt.`,
+            pl: `${bluesRadioStations.length} wyselekcjonowanych programów bluesowych z całego świata.`,
           })}
         </p>
 

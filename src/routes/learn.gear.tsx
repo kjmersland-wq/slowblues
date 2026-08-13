@@ -522,7 +522,7 @@ function BrandCard({ brand, lang }: { brand: Brand; lang: ReturnType<typeof useI
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gold/15 text-gold border border-gold/40 hover:bg-gold/25 transition text-sm"
             >
-              {tr(lang, { no: `Besøk ${brand.name}`, en: `Visit ${brand.name}`, sv: `Besök ${brand.name}`, de: `${brand.name} besuchen` })} <ExternalLink className="size-3.5" />
+              {tr(lang, { no: `Besøk ${brand.name}`, en: `Visit ${brand.name}`, sv: `Besök ${brand.name}`, de: `${brand.name} besuchen`, pl: `Odwiedź ${brand.name}` })} <ExternalLink className="size-3.5" />
             </a>
             <a
               href={ytUrl}
