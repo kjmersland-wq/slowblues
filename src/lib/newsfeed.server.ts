@@ -192,13 +192,34 @@ export async function buildNewsTicker(db: D1Database): Promise<{ items: TickerIt
     console.error("ticker external failed:", e);
   }
 
-  out.sort((a, b) => {
+  const byRank = (a: TickerItem, b: TickerItem) => {
     if (b.priority !== a.priority) return b.priority - a.priority;
     return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
-  });
+  };
+  out.sort(byRank);
 
-  // Ticker shows a curated top 5, not a long rotating archive — priority
-  // (reviews > memoriam > concerts > artist profiles/external news) then
-  // recency already decide which 5 make the cut.
-  return { items: out.slice(0, 5), generatedAt: new Date(now).toISOString() };
+  // Ticker shows a curated 5, round-robined across content kinds rather
+  // than a flat priority ranking — reviews have the highest priority of
+  // any single kind, so a flat top-5 (or even a naive "one per kind, then
+  // backfill by raw priority") kept landing on mostly-or-all reviews the
+  // moment there were more than 5 published, starving out external news,
+  // artist highlights, concerts and videos entirely. Round-robin: take one
+  // from each kind in turn (already sorted by priority+recency within the
+  // kind), looping back for a 2nd/3rd item from kinds that still have more
+  // once others run dry, until 5 slots are filled.
+  const KIND_ORDER: TickerItem["kind"][] = ["review", "external", "artist", "concert", "youtube"];
+  const byKind = new Map<TickerItem["kind"], TickerItem[]>(KIND_ORDER.map((k) => [k, out.filter((i) => i.kind === k)]));
+  const picked: TickerItem[] = [];
+  let round = 0;
+  while (picked.length < 5 && KIND_ORDER.some((k) => (byKind.get(k)?.length ?? 0) > round)) {
+    for (const kind of KIND_ORDER) {
+      if (picked.length >= 5) break;
+      const item = byKind.get(kind)?.[round];
+      if (item) picked.push(item);
+    }
+    round++;
+  }
+  picked.sort(byRank);
+
+  return { items: picked.slice(0, 5), generatedAt: new Date(now).toISOString() };
 }
