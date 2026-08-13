@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { Archive, Calendar, Star } from "lucide-react";
-import { getCycleNumber, getCycleKey, formatCycleRange, getFeaturedArtist } from "@/data/quizQuestions";
+import { listPublishedCycles, getCycleNumber, formatCycleRange, displayNameFromSlug } from "@/lib/quiz.server";
 
 export const Route = createFileRoute("/quiz/archive")({
   component: QuizArchivePage,
@@ -19,7 +21,14 @@ export const Route = createFileRoute("/quiz/archive")({
 
 function QuizArchivePage() {
   const current = getCycleNumber();
-  const cycles = Array.from({ length: Math.min(current, 24) }, (_, i) => current - i);
+  const fetchCycles = useServerFn(listPublishedCycles);
+  const { data, isLoading } = useQuery({
+    queryKey: ["quiz-cycles", "archive"],
+    queryFn: () => fetchCycles({ data: { limit: 24 } }),
+    staleTime: 10 * 60 * 1000,
+  });
+
+  const cycles = data ?? [];
 
   return (
     <PageShell>
@@ -30,27 +39,30 @@ function QuizArchivePage() {
         img={IMG.vinyl}
       />
       <section className="max-w-4xl mx-auto px-6 py-12">
+        {isLoading && <div className="text-center text-muted-foreground py-12">Loading…</div>}
+        {!isLoading && cycles.length === 0 && (
+          <div className="text-center text-muted-foreground py-12">No published cycles yet.</div>
+        )}
         <div className="grid sm:grid-cols-2 gap-4">
-          {cycles.map((n) => {
-            const featured = getFeaturedArtist(n);
-            const isCurrent = n === current;
+          {cycles.map((c) => {
+            const isCurrent = c.cycleNumber === current;
             return (
               <Link
-                key={n}
+                key={c.cycleNumber}
                 to="/quiz/cycle/$cycle"
-                params={{ cycle: getCycleKey(n) }}
+                params={{ cycle: c.cycleKey }}
                 className="block rounded-xl border border-border bg-card/50 p-5 hover:border-gold/60 hover:bg-card/80 transition"
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="inline-flex items-center gap-2 font-display text-lg text-gold">
-                    <Calendar className="size-4" /> {getCycleKey(n)}
+                    <Calendar className="size-4" /> {c.cycleKey}
                   </span>
                   {isCurrent && <span className="text-[10px] tracking-widest text-gold/90 bg-gold/10 px-2 py-0.5 rounded">LIVE</span>}
                 </div>
-                <div className="text-sm text-muted-foreground mb-3">{formatCycleRange(n)}</div>
-                {featured && (
+                <div className="text-sm text-muted-foreground mb-3">{formatCycleRange(c.cycleNumber)}</div>
+                {c.featuredArtistSlug && (
                   <div className="inline-flex items-center gap-1.5 text-xs text-foreground/80">
-                    <Star className="size-3.5 text-gold" /> Featured: <span className="text-gold">{featured.name}</span>
+                    <Star className="size-3.5 text-gold" /> Featured: <span className="text-gold">{displayNameFromSlug(c.featuredArtistSlug)}</span>
                   </div>
                 )}
               </Link>

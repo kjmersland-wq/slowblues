@@ -4,12 +4,13 @@ import { runWikidataSync } from "./wikidataSync";
 import { runTourSync } from "./tours";
 import { runHealthCheck, checkUrl } from "./healthcheck";
 import { runRssTickerSync } from "./rssTicker";
+import { runQuizPublish } from "./quizPublish";
 import type { Env, RunSummary } from "./types";
 
 // "0 3 * * 1"   = weekly maintenance chain (discography/metadata/tours/link-health)
-// "0 5 * * *" = RSS newsticker sync, once daily
+// "0 5 * * *" = RSS newsticker sync + quiz cycle publish check, once daily
 const WEEKLY_MODULES = ["discogs", "musicbrainz", "wikidata", "tours", "healthcheck"];
-const DAILY_MODULES = ["rss-ticker"];
+const DAILY_MODULES = ["rss-ticker", "quiz-publish"];
 
 // Cloudflare Workers cap subrequests (fetch() + D1 queries combined) at 50
 // per invocation. Running all 5 modules in one invocation blew straight
@@ -27,6 +28,7 @@ const MODULES: Record<string, (env: Env) => Promise<RunSummary>> = {
   tours: runTourSync,
   healthcheck: runHealthCheck,
   "rss-ticker": runRssTickerSync,
+  "quiz-publish": runQuizPublish,
 };
 
 function formatReport(summaries: RunSummary[]): string {

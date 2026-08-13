@@ -2,18 +2,18 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
 import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { Check, X, RotateCcw, Trophy, ExternalLink, Calendar, Star, Archive, Volume2, Music } from "lucide-react";
 import {
-  getWeeklyQuestions,
-  getCurrentWeekKey,
-  addToLeaderboard,
-  getAllTimeLeaderboard,
+  getPublishedCycle,
   getCycleNumber,
   formatCycleRange,
-  getFeaturedArtist,
+  displayNameFromSlug,
   type QuizDifficulty,
-  type QuizQuestion,
-} from "@/data/quizQuestions";
+  type QuizQuestionSnapshot,
+} from "@/lib/quiz.server";
+import { getLeaderboard, addToLeaderboard, getAllTimeLeaderboard, type LeaderboardEntry } from "@/data/quizQuestions";
 import { useI18n, tr } from "@/i18n";
 
 export const Route = createFileRoute("/quiz/")({
@@ -41,29 +41,35 @@ const DIFFICULTIES: { id: QuizDifficulty; label: string }[] = [
 
 function QuizPage() {
   const { lang } = useI18n();
-  const no = lang === "no" || lang === "sv";
-  const localeStr = lang === "no" ? "nb-NO" : lang === "sv" ? "sv-SE" : lang === "de" ? "de-DE" : "en";
+  const localeStr = lang === "no" ? "nb-NO" : lang === "sv" ? "sv-SE" : lang === "de" ? "de-DE" : lang === "pl" ? "pl-PL" : "en";
   const [difficulty, setDifficulty] = useState<QuizDifficulty>("medium");
   const [nickname, setNickname] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const cycle = useMemo(() => getCycleNumber(), []);
-  const cycleKey = useMemo(() => getCurrentWeekKey(), []);
-  const cycleRange = useMemo(() => formatCycleRange(cycle, localeStr), [cycle, localeStr]);
-  const featured = useMemo(() => getFeaturedArtist(cycle), [cycle]);
+  const fetchCycle = useServerFn(getPublishedCycle);
+  const { data, isLoading } = useQuery({
+    queryKey: ["quiz-cycle", "current"],
+    queryFn: () => fetchCycle({ data: {} }),
+    staleTime: 60 * 60 * 1000,
+  });
 
-  const questions = useMemo<QuizQuestion[]>(() => getWeeklyQuestions(difficulty), [difficulty]);
+  const cycle = data?.meta?.cycleNumber ?? getCycleNumber();
+  const cycleKey = data?.meta?.cycleKey ?? `C-${String(cycle).padStart(3, "0")}`;
+  const cycleRange = useMemo(() => formatCycleRange(cycle, localeStr), [cycle, localeStr]);
+  const featuredSlug = data?.meta?.featuredArtistSlug ?? null;
+
+  const questions: QuizQuestionSnapshot[] = data?.questions?.[difficulty] ?? [];
   const [answers, setAnswers] = useState<(number | null)[]>(() => Array(questions.length).fill(null));
   const [done, setDone] = useState(false);
 
-  // Reset when difficulty changes
+  // Reset when difficulty or data changes
   useMemo(() => {
     setAnswers(Array(questions.length).fill(null));
     setDone(false);
     setSubmitted(false);
   }, [questions.length, difficulty]);
 
-  const score = answers.reduce<number>((s, a, i) => s + (a === questions[i]?.correctIndex ? 1 : 0), 0);
+  const score = answers.reduce<number>((sum, a, i) => sum + (a === questions[i]?.correctIndex ? 1 : 0), 0);
 
   const submitScore = () => {
     if (!nickname.trim()) return;
@@ -72,10 +78,30 @@ function QuizPage() {
       score,
       total: questions.length,
       date: new Date().toISOString(),
-      monthKey: getCurrentWeekKey(),
+      monthKey: cycleKey,
     });
     setSubmitted(true);
   };
+
+  if (isLoading) {
+    return (
+      <PageShell>
+        <PageHero eyebrow="Blues Quiz" title="…" lead="" img={IMG.vinyl} />
+        <div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Loading…</div>
+      </PageShell>
+    );
+  }
+
+  if (!data?.meta || questions.length === 0) {
+    return (
+      <PageShell>
+        <PageHero eyebrow="Blues Quiz" title="No quiz published yet" lead="" img={IMG.vinyl} />
+        <div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">
+          This cycle hasn't been published yet — check back soon.
+        </div>
+      </PageShell>
+    );
+  }
 
   if (done) {
     const board = getAllTimeLeaderboard();
@@ -124,7 +150,7 @@ function QuizPage() {
                 {tr(lang, { no: "Leaderboard (topp 10)", en: "Leaderboard (top 10)", pl: "Ranking (top 10)", sv: "Topplista (topp 10)", de: "Bestenliste (Top 10)" })}
               </div>
               <ol className="text-sm space-y-1.5">
-                {board.map((e, i) => (
+                {board.map((e: LeaderboardEntry, i: number) => (
                   <li key={i} className="flex justify-between border-b border-border/40 pb-1">
                     <span><span className="text-gold mr-2">{i + 1}.</span>{e.nickname}</span>
                     <span className="text-muted-foreground">{e.score}/{e.total}</span>
@@ -137,21 +163,21 @@ function QuizPage() {
           <div className="space-y-3">
             {questions.map((q, i) => {
               const correct = answers[i] === q.correctIndex;
-              const opts = no ? q.optionsNo : q.options;
+              const opts = q.options[lang] ?? q.options.en;
               return (
                 <div key={q.id} className="bg-card/60 border border-border rounded-lg p-4">
                   <div className="flex items-start gap-2 mb-2">
                     {correct ? <Check className="size-5 text-gold mt-0.5" /> : <X className="size-5 text-destructive mt-0.5" />}
-                    <div className="font-medium">{i + 1}. {no ? q.questionNo : q.question}</div>
+                    <div className="font-medium">{i + 1}. {q.question[lang] ?? q.question.en}</div>
                   </div>
                   <div className="text-sm text-muted-foreground ml-7 mb-2">
                     {tr(lang, { no: "Riktig svar", en: "Answer", pl: "Odpowiedź", sv: "Rätt svar", de: "Antwort" })}: <span className="text-gold">{opts[q.correctIndex]}</span>
                   </div>
-                  <p className="text-sm text-muted-foreground/90 ml-7 leading-relaxed">{no ? q.explanationNo : q.explanation}</p>
-                  {q.artistLink && (
-                    <a href={q.artistLink} className="ml-7 mt-2 inline-flex items-center gap-1 text-xs text-gold hover:underline">
+                  <p className="text-sm text-muted-foreground/90 ml-7 leading-relaxed">{q.explanation[lang] ?? q.explanation.en}</p>
+                  {q.artistSlug && (
+                    <Link to="/artists/$slug" params={{ slug: q.artistSlug }} className="ml-7 mt-2 inline-flex items-center gap-1 text-xs text-gold hover:underline">
                       {tr(lang, { no: "Les mer om artisten", en: "Read more about the artist", pl: "Przeczytaj więcej o artyście", sv: "Läs mer om artisten", de: "Mehr über den Künstler" })} <ExternalLink className="size-3" />
-                    </a>
+                    </Link>
                   )}
                 </div>
               );
@@ -183,11 +209,11 @@ function QuizPage() {
               <Archive className="size-3.5" /> {tr(lang, { no: "Arkiv", en: "Archive", pl: "Archiwum", sv: "Arkiv", de: "Archiv" })}
             </Link>
           </div>
-          {featured && (
+          {featuredSlug && (
             <div className="mt-3 flex items-center gap-2 text-sm">
               <Star className="size-4 text-gold" />
               <span className="text-muted-foreground">{tr(lang, { no: "Syklusens artist:", en: "Featured artist:", pl: "Polecany artysta:", sv: "Periodens artist:", de: "Künstler des Zyklus:" })}</span>
-              <Link to="/artists/$slug" params={{ slug: featured.slug }} className="text-gold hover:underline font-medium">{featured.name}</Link>
+              <Link to="/artists/$slug" params={{ slug: featuredSlug }} className="text-gold hover:underline font-medium">{displayNameFromSlug(featuredSlug)}</Link>
             </div>
           )}
         </div>
@@ -197,19 +223,18 @@ function QuizPage() {
           ))}
         </div>
 
-
         <div className="space-y-6">
           {questions.map((q, i) => {
-            const opts = no ? q.optionsNo : q.options;
+            const opts = q.options[lang] ?? q.options.en;
             return (
               <div key={q.id} className="bg-card/60 border border-border rounded-xl p-5">
-                <div className="font-display text-lg mb-3"><span className="text-gold mr-2">{i + 1}.</span>{no ? q.questionNo : q.question}</div>
+                <div className="font-display text-lg mb-3"><span className="text-gold mr-2">{i + 1}.</span>{q.question[lang] ?? q.question.en}</div>
                 {q.type === "audio-guess" && q.youtubeVideoId && (
                   <BlindAudioClip
                     videoId={q.youtubeVideoId}
                     start={q.audioStart ?? 0}
                     end={q.audioEnd ?? 30}
-                    hint={no ? q.audioHintNo : q.audioHint}
+                    hint={q.audioHint ? (q.audioHint[lang] ?? q.audioHint.en) : undefined}
                     label={tr(lang, { no: "Spill av lydklipp", en: "Play audio clip", pl: "Odtwórz klip audio", sv: "Spela ljudklipp", de: "Audioclip abspielen" })}
                     playingLabel={tr(lang, { no: "Spiller … lytt nøye", en: "Playing … listen carefully", pl: "Odtwarzanie... słuchaj uważnie", sv: "Spelar … lyssna noga", de: "Wird abgespielt … gut zuhören" })}
                   />

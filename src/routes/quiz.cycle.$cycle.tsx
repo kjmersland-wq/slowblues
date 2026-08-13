@@ -2,15 +2,17 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { Calendar, Star, ExternalLink, ArrowLeft } from "lucide-react";
 import {
+  getPublishedCycle,
   getCycleNumber,
   getCycleKey,
   formatCycleRange,
-  getFeaturedArtist,
-  getCycleQuestions,
+  displayNameFromSlug,
   type QuizDifficulty,
-} from "@/data/quizQuestions";
+} from "@/lib/quiz.server";
 import { useI18n, tr } from "@/i18n";
 
 export const Route = createFileRoute("/quiz/cycle/$cycle")({
@@ -26,11 +28,10 @@ export const Route = createFileRoute("/quiz/cycle/$cycle")({
     const n = loaderData?.cycleNumber ?? 1;
     const key = getCycleKey(n);
     const range = formatCycleRange(n);
-    const featured = getFeaturedArtist(n);
     return {
       meta: [
-        { title: `Blues Quiz ${key} (${range})${featured ? ` · ${featured.name}` : ""} — SlowBlues` },
-        { name: "description", content: `Blues quiz cycle ${key} (${range}). 30 curated questions across easy, medium and hard${featured ? `, featuring ${featured.name}` : ""}.` },
+        { title: `Blues Quiz ${key} (${range}) — SlowBlues` },
+        { name: "description", content: `Blues quiz cycle ${key} (${range}). 30 curated questions across easy, medium and hard.` },
         { property: "og:title", content: `Blues Quiz ${key} — SlowBlues` },
         { property: "og:image", content: IMG.vinyl },
         { name: "robots", content: "index,follow" },
@@ -48,14 +49,41 @@ const DIFFICULTIES: { id: QuizDifficulty; label: string }[] = [
 function CyclePage() {
   const { cycleNumber } = Route.useLoaderData();
   const { lang } = useI18n();
-  const no = lang === "no" || lang === "sv";
-  const localeStr = lang === "no" ? "nb-NO" : lang === "sv" ? "sv-SE" : lang === "de" ? "de-DE" : "en";
+  const localeStr = lang === "no" ? "nb-NO" : lang === "sv" ? "sv-SE" : lang === "de" ? "de-DE" : lang === "pl" ? "pl-PL" : "en";
   const [difficulty, setDifficulty] = useState<QuizDifficulty>("medium");
+
+  const fetchCycle = useServerFn(getPublishedCycle);
+  const { data, isLoading } = useQuery({
+    queryKey: ["quiz-cycle", cycleNumber],
+    queryFn: () => fetchCycle({ data: { cycleNumber } }),
+    staleTime: Infinity, // published cycles are immutable snapshots
+  });
+
   const key = getCycleKey(cycleNumber);
   const range = formatCycleRange(cycleNumber, localeStr);
-  const featured = getFeaturedArtist(cycleNumber);
-  const questions = getCycleQuestions(difficulty, cycleNumber);
+  const featuredSlug = data?.meta?.featuredArtistSlug ?? null;
+  const questions = data?.questions?.[difficulty] ?? [];
   const isCurrent = cycleNumber === getCycleNumber();
+
+  if (isLoading) {
+    return (
+      <PageShell>
+        <PageHero eyebrow={`Cycle ${key}`} title="…" lead="" img={IMG.vinyl} />
+        <div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Loading…</div>
+      </PageShell>
+    );
+  }
+
+  if (!data?.meta) {
+    return (
+      <PageShell>
+        <PageHero eyebrow={`Cycle ${key}`} title="Not published" lead="" img={IMG.vinyl} />
+        <div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">
+          This cycle hasn't been published yet.
+        </div>
+      </PageShell>
+    );
+  }
 
   return (
     <PageShell>
@@ -79,12 +107,12 @@ function CyclePage() {
           )}
         </div>
 
-        {featured && (
+        {featuredSlug && (
           <div className="mb-6 rounded-xl border border-gold/30 bg-gradient-to-br from-card/70 to-card/30 p-5">
             <div className="text-xs tracking-[0.2em] text-gold mb-1 inline-flex items-center gap-1.5">
               <Star className="size-3.5" /> {tr(lang, { no: "SYKLUSENS ARTIST", en: "FEATURED ARTIST", pl: "WYRÓŻNIONY ARTYSTA", sv: "PERIODENS ARTIST", de: "KÜNSTLER DES ZYKLUS" })}
             </div>
-            <Link to="/artists/$slug" params={{ slug: featured.slug }} className="font-display text-2xl gold-gradient-text hover:underline">{featured.name}</Link>
+            <Link to="/artists/$slug" params={{ slug: featuredSlug }} className="font-display text-2xl gold-gradient-text hover:underline">{displayNameFromSlug(featuredSlug)}</Link>
           </div>
         )}
 
@@ -96,18 +124,18 @@ function CyclePage() {
 
         <ol className="space-y-4">
           {questions.map((q, i) => {
-            const opts = no ? q.optionsNo : q.options;
+            const opts = q.options[lang] ?? q.options.en;
             return (
               <li key={q.id} className="bg-card/60 border border-border rounded-xl p-5">
-                <div className="font-display text-lg mb-2"><span className="text-gold mr-2">{i + 1}.</span>{no ? q.questionNo : q.question}</div>
+                <div className="font-display text-lg mb-2"><span className="text-gold mr-2">{i + 1}.</span>{q.question[lang] ?? q.question.en}</div>
                 <div className="text-sm text-muted-foreground mb-2">
                   {tr(lang, { no: "Svar", en: "Answer", pl: "Odpowiedź", sv: "Svar", de: "Antwort" })}: <span className="text-gold">{opts[q.correctIndex]}</span>
                 </div>
-                <p className="text-sm text-muted-foreground/90 leading-relaxed">{no ? q.explanationNo : q.explanation}</p>
-                {q.artistLink && (
-                  <a href={q.artistLink} className="mt-2 inline-flex items-center gap-1 text-xs text-gold hover:underline">
+                <p className="text-sm text-muted-foreground/90 leading-relaxed">{q.explanation[lang] ?? q.explanation.en}</p>
+                {q.artistSlug && (
+                  <Link to="/artists/$slug" params={{ slug: q.artistSlug }} className="mt-2 inline-flex items-center gap-1 text-xs text-gold hover:underline">
                     {tr(lang, { no: "Les mer", en: "Read more", pl: "Czytaj więcej", sv: "Läs mer", de: "Mehr lesen" })} <ExternalLink className="size-3" />
-                  </a>
+                  </Link>
                 )}
               </li>
             );
