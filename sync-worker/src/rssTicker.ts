@@ -2,14 +2,17 @@ import type { Env, RunSummary } from "./types";
 
 const UA = "SlowBlues-SyncEngine/1.0 (+https://www.slow-blues.com; ticker RSS sync)";
 
-// Only feeds that actually exist go here. Bluesnews.no runs a bespoke CMS
-// with no RSS/Atom infrastructure (confirmed: no <link rel=alternate>, no
-// /feed path, not listed in its own sitemap.xml) — there is nothing to
-// parse, so it's deliberately absent rather than silently broken. The
-// Blues Foundation's own site (blues.org) has no feed either; Living
-// Blues magazine (a separate, editorially independent publication) does.
+// Only feeds that actually exist AND publish in English go here. Bluesnews.no
+// runs a bespoke CMS with no RSS/Atom infrastructure (confirmed: no
+// <link rel=alternate>, no /feed path, not listed in its own sitemap.xml)
+// — there is nothing to parse, so it's deliberately absent rather than
+// silently broken. The Blues Foundation's own site (blues.org) has no feed
+// either. Jefferson Blues Magazine has a real, working feed but publishes
+// in Swedish, so it's deliberately excluded too — the ticker is
+// English-only by request. Living Blues (a separate, editorially
+// independent US publication) publishes in English and is the sole
+// external source for now.
 const FEEDS: Array<{ source: string; url: string }> = [
-  { source: "Jefferson Blues Magazine", url: "https://jeffersonbluesmag.com/feed/" },
   { source: "Living Blues", url: "https://livingblues.com/feed/" },
 ];
 

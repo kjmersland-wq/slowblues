@@ -140,8 +140,31 @@ CREATE INDEX idx_artists_country ON artists(country);
 CREATE INDEX idx_artists_region ON artists(region);
 CREATE INDEX idx_artists_era ON artists(era);
 
+-- Only bumps updated_at when an actual content column changes — NOT on
+-- link_check/sync_ids/sync_data, which are housekeeping fields written by
+-- the sync-worker's health checks and metadata refresh. Those must never
+-- make an untouched artist look "recently updated" to the homepage
+-- newsticker or /sitemap.xml's <lastmod> (see migrations/0003).
 CREATE TRIGGER trg_artists_updated_at
-  AFTER UPDATE ON artists
+  AFTER UPDATE OF
+    slug, name, alt_name, tag, era, era_label_en, era_label_no, era_label_sv, era_label_de, era_label_pl,
+    region, country, base_path, route_path, source_file, source_region,
+    img, og_image, image_credit, gallery_images, youtube_video_ids, video_search_query,
+    short, short_en, short_no, short_sv, short_de, short_pl,
+    biography_en, biography_no, biography_sv, biography_de, biography_pl,
+    born, died, birth_name, birth_place, origin, active_years,
+    influence_note, influence_en, influence_no, influence_sv, influence_de, influence_pl,
+    bio, signature_songs, signature_songs_i18n, influences, influences_i18n,
+    labels, instruments_simple, styles, categories, search_terms, legacy,
+    family, family_i18n, formative, formative_i18n, instruments, instruments_i18n,
+    anecdotes, anecdotes_i18n, collaborators, collaborators_i18n, videos,
+    discography, discography_i18n, key_recordings, awards, awards_i18n,
+    press_quotes, press_quotes_i18n,
+    seo_title_en, seo_title_no, seo_title_sv, seo_title_de, seo_title_pl,
+    seo_description_en, seo_description_no, seo_description_sv, seo_description_de, seo_description_pl,
+    social_links, external_links, article_references, website_url, facebook_url,
+    related_slugs, sort_order
+  ON artists
   FOR EACH ROW
   BEGIN
     UPDATE artists SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
