@@ -123,7 +123,15 @@ CREATE TABLE artists (
   related_slugs        TEXT NOT NULL DEFAULT '[]',
   sort_order           INTEGER NOT NULL DEFAULT 0,
   created_at           TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at           TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  updated_at           TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  -- sync_ids: {"mbid":"...", "discogs_artist_id":"...", "wikidata_qid":"..."}
+  -- Written by the sync-worker (see /sync-worker) and by the admin Wikidata
+  -- import flow. Used to know WHAT to query at MusicBrainz/Discogs — the
+  -- worker only ever acts on artists that already have an ID here.
+  sync_ids             TEXT NOT NULL DEFAULT '{}',
+  -- sync_data: {"official_website":"...", "booking_contact":"...",
+  --   "tour_dates_url":"...", "last_run":{"source":"...","at":"...","summary":"..."}}
+  sync_data             TEXT NOT NULL DEFAULT '{}'
 );
 
 CREATE INDEX idx_artists_tag ON artists(tag);

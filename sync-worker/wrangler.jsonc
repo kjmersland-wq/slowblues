@@ -1,0 +1,31 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "slowblues-sync-engine",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-09-24",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "slowblues",
+      "database_id": "f46d1da0-6f38-4629-9b56-b34fe9d8ff2b"
+    }
+  ],
+  // Self-referencing Service Binding: lets the scheduled handler dispatch
+  // each module as its own independent invocation (fresh 50-subrequest
+  // budget apiece). A plain fetch() to our own *.workers.dev URL is
+  // blocked by Cloudflare (error 1042, infinite-loop prevention) — Service
+  // Bindings are the supported way to do this.
+  "services": [
+    { "binding": "SELF", "service": "slowblues-sync-engine" }
+  ],
+  "triggers": {
+    // Every Monday at 03:00 UTC. Cloudflare cron schedules always run in UTC —
+    // there is no timezone field. 03:00 UTC = 04:00 or 05:00 in Norway
+    // depending on daylight saving.
+    "crons": ["0 3 * * 1"]
+  },
+  "observability": {
+    "enabled": true
+  }
+}
