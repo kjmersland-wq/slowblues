@@ -2,22 +2,23 @@ import type { Env, RunSummary } from "./types";
 
 const UA = "SlowBlues-SyncEngine/1.0 (+https://www.slow-blues.com; ticker RSS sync)";
 
-// Only feeds that actually exist AND publish in English go here. Bluesnews.no
-// runs a bespoke CMS with no RSS/Atom infrastructure (confirmed: no
-// <link rel=alternate>, no /feed path, not listed in its own sitemap.xml)
-// — there is nothing to parse, so it's deliberately absent rather than
-// silently broken. The Blues Foundation's own site (blues.org) has no feed
-// either. Jefferson Blues Magazine has a real, working feed but publishes
-// in Swedish, so it's deliberately excluded too — the ticker is
-// English-only by request. Living Blues (a separate, editorially
-// independent US publication) publishes in English and is the sole
-// external source for now.
+// Only feeds that actually exist go here. Bluesnews.no runs a bespoke CMS
+// with no RSS/Atom infrastructure (confirmed: no <link rel=alternate>, no
+// /feed path, not listed in its own sitemap.xml) — there is nothing to
+// parse, so it's deliberately absent rather than silently broken. The
+// Blues Foundation's own site (blues.org) has no feed either.
+//
+// Living Blues publishes in English; Jefferson Blues Magazine publishes in
+// Swedish. Both are kept as-is in their original language — this is a
+// deterministic, non-AI engine, so there's no reliable automated
+// translation step, and a mistranslated headline is worse than a Swedish
+// one. The ticker's [SOURCE] label already makes the origin clear.
 const FEEDS: Array<{ source: string; url: string }> = [
+  { source: "Jefferson Blues Magazine", url: "https://jeffersonbluesmag.com/feed/" },
   { source: "Living Blues", url: "https://livingblues.com/feed/" },
 ];
 
 const ITEMS_PER_FEED = 8;
-const EXPIRES_AFTER_DAYS = 30;
 
 type FeedItem = { title: string; link: string; pubDate?: string; guid?: string };
 
@@ -50,14 +51,17 @@ function extractTag(block: string, tag: string): string | null {
   return plainMatch ? plainMatch[1].trim() : null;
 }
 
+const NAMED_ENTITIES: Record<string, string> = {
+  amp: "&", lt: "<", gt: ">", quot: '"', apos: "'",
+  nbsp: " ", mdash: "—", ndash: "–", hellip: "…",
+  lsquo: "'", rsquo: "'", ldquo: "“", rdquo: "”",
+};
+
 function decodeEntities(s: string): string {
   return s
-    .replace(/&#0?38;/g, "&") // WordPress commonly encodes & as &#038; in feed URLs
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#0?39;/g, "'")
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code))) // numeric, e.g. &#8211; or &#038;
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16))) // hex, e.g. &#x2013;
+    .replace(/&([a-zA-Z]+);/g, (m, name) => NAMED_ENTITIES[name] ?? m) // named
     .trim();
 }
 
@@ -74,11 +78,13 @@ function stableId(source: string, item: FeedItem): string {
 }
 
 /**
- * Fetches Jefferson Blues Magazine and Living Blues RSS feeds, parses
- * items deterministically (no AI), and inserts new ones into ticker_items
- * with `INSERT OR IGNORE` keyed on a stable hash of the item's guid/link —
- * re-running never duplicates a headline already in the ticker. Only ever
- * INSERTs; never updates or deletes an existing row.
+ * Fetches Jefferson Blues Magazine and Living Blues RSS feeds and replaces
+ * each source's ticker_items rows wholesale with today's fetch — a daily
+ * "fresh snapshot" per source (per the '1x per day' request), not an
+ * ever-accumulating archive. Each source's old rows are deleted, then the
+ * current top ITEMS_PER_FEED are inserted; if a feed fetch fails, that
+ * source's existing rows are left untouched rather than wiped with
+ * nothing to replace them.
  */
 export async function runRssTickerSync(env: Env): Promise<RunSummary> {
   const startedAt = new Date().toISOString();
@@ -95,38 +101,27 @@ export async function runRssTickerSync(env: Env): Promise<RunSummary> {
       const items = parseRssItems(xml).slice(0, ITEMS_PER_FEED);
       artistsSeen += items.length;
 
-      let addedForFeed = 0;
+      // Replace, don't accumulate: clear this source's previous snapshot
+      // before inserting today's, so the ticker only ever shows the
+      // current day's top items per source.
+      await env.DB.prepare(`DELETE FROM ticker_items WHERE source = ?`).bind(feed.source).run();
+
       for (const item of items) {
         const id = stableId(feed.source, item);
         const publishedAt = item.pubDate ? safeIso(item.pubDate) : null;
-        const expiresAt = new Date(Date.now() + EXPIRES_AFTER_DAYS * 24 * 60 * 60 * 1000).toISOString();
-
-        const result = await env.DB.prepare(
-          `INSERT OR IGNORE INTO ticker_items (id, text, href, source, pinned, expires_at, published_at)
-           VALUES (?, ?, ?, ?, 0, ?, ?)`
+        await env.DB.prepare(
+          `INSERT INTO ticker_items (id, text, href, source, pinned, published_at)
+           VALUES (?, ?, ?, ?, 0, ?)`
         )
-          .bind(id, item.title, item.link, feed.source, expiresAt, publishedAt)
+          .bind(id, item.title, item.link, feed.source, publishedAt)
           .run();
-
-        if (result.meta.changes > 0) addedForFeed++;
       }
 
-      artistsChanged += addedForFeed;
-      notes.push(`${feed.source}: ${items.length} item(s) checked, ${addedForFeed} new`);
+      artistsChanged += items.length;
+      notes.push(`${feed.source}: replaced with today's ${items.length} item(s)`);
     } catch (e) {
-      errors.push(`${feed.source}: ${e instanceof Error ? e.message : String(e)}`);
+      errors.push(`${feed.source}: ${e instanceof Error ? e.message : String(e)} (existing items left untouched)`);
     }
-  }
-
-  // Housekeeping: drop expired external items so the table doesn't grow
-  // forever. Internal ticker content is never stored here, so this DELETE
-  // can only ever touch RSS-sourced rows.
-  try {
-    await env.DB.prepare(`DELETE FROM ticker_items WHERE expires_at IS NOT NULL AND expires_at < ?`)
-      .bind(new Date().toISOString())
-      .run();
-  } catch (e) {
-    errors.push(`cleanup: ${e instanceof Error ? e.message : String(e)}`);
   }
 
   return {

@@ -7,9 +7,9 @@ import { runRssTickerSync } from "./rssTicker";
 import type { Env, RunSummary } from "./types";
 
 // "0 3 * * 1"   = weekly maintenance chain (discography/metadata/tours/link-health)
-// "0 */6 * * *" = RSS newsticker sync
+// "0 5 * * *" = RSS newsticker sync, once daily
 const WEEKLY_MODULES = ["discogs", "musicbrainz", "wikidata", "tours", "healthcheck"];
-const SIX_HOURLY_MODULES = ["rss-ticker"];
+const DAILY_MODULES = ["rss-ticker"];
 
 // Cloudflare Workers cap subrequests (fetch() + D1 queries combined) at 50
 // per invocation. Running all 5 modules in one invocation blew straight
@@ -89,7 +89,7 @@ async function runAllChained(env: Env, moduleNames: string[] = Object.keys(MODUL
 
 export default {
   async scheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext): Promise<void> {
-    const moduleNames = event.cron === "0 */6 * * *" ? SIX_HOURLY_MODULES : WEEKLY_MODULES;
+    const moduleNames = event.cron === "0 5 * * *" ? DAILY_MODULES : WEEKLY_MODULES;
     ctx.waitUntil(
       (async () => {
         const summaries = await runAllChained(env, moduleNames);
@@ -119,15 +119,15 @@ export default {
     }
 
     // Full manual run, chained exactly like the real cron.
-    // ?chain=six-hourly runs the RSS ticker chain; default is the weekly one.
+    // ?chain=daily runs the RSS ticker chain; default is the weekly one.
     if (url.pathname === "/run" && request.method === "POST") {
-      const moduleNames = url.searchParams.get("chain") === "six-hourly" ? SIX_HOURLY_MODULES : WEEKLY_MODULES;
+      const moduleNames = url.searchParams.get("chain") === "daily" ? DAILY_MODULES : WEEKLY_MODULES;
       const summaries = await runAllChained(env, moduleNames);
       return new Response(formatReport(summaries), { headers: { "Content-Type": "text/plain; charset=utf-8" } });
     }
 
     return new Response(
-      "slowblues-sync-engine: POST /run (or /run?chain=six-hourly) for a chained test run, POST /module/<name> for one module, or wait for the crons (Monday 03:00 UTC weekly; every 6h for RSS ticker).",
+      "slowblues-sync-engine: POST /run (or /run?chain=daily) for a chained test run, POST /module/<name> for one module, or wait for the crons (Monday 03:00 UTC weekly; daily for RSS ticker).",
       { status: 200 }
     );
   },

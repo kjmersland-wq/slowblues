@@ -408,7 +408,7 @@ function Ticker() {
       if (b.priority !== a.priority) return b.priority - a.priority;
       return (b.timestamp ?? "").localeCompare(a.timestamp ?? "");
     });
-    return unique.slice(0, 36);
+    return unique.slice(0, 5);
   }, [data]);
 
   const loop = [...merged, ...merged];

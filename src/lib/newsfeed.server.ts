@@ -197,5 +197,8 @@ export async function buildNewsTicker(db: D1Database): Promise<{ items: TickerIt
     return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
   });
 
-  return { items: out.slice(0, 40), generatedAt: new Date(now).toISOString() };
+  // Ticker shows a curated top 5, not a long rotating archive — priority
+  // (reviews > memoriam > concerts > artist profiles/external news) then
+  // recency already decide which 5 make the cut.
+  return { items: out.slice(0, 5), generatedAt: new Date(now).toISOString() };
 }
