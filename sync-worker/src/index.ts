@@ -3,7 +3,13 @@ import { runMusicBrainzSync } from "./musicbrainz";
 import { runWikidataSync } from "./wikidataSync";
 import { runTourSync } from "./tours";
 import { runHealthCheck, checkUrl } from "./healthcheck";
+import { runRssTickerSync } from "./rssTicker";
 import type { Env, RunSummary } from "./types";
+
+// "0 3 * * 1"   = weekly maintenance chain (discography/metadata/tours/link-health)
+// "0 */6 * * *" = RSS newsticker sync
+const WEEKLY_MODULES = ["discogs", "musicbrainz", "wikidata", "tours", "healthcheck"];
+const SIX_HOURLY_MODULES = ["rss-ticker"];
 
 // Cloudflare Workers cap subrequests (fetch() + D1 queries combined) at 50
 // per invocation. Running all 5 modules in one invocation blew straight
@@ -20,6 +26,7 @@ const MODULES: Record<string, (env: Env) => Promise<RunSummary>> = {
   wikidata: runWikidataSync,
   tours: runTourSync,
   healthcheck: runHealthCheck,
+  "rss-ticker": runRssTickerSync,
 };
 
 function formatReport(summaries: RunSummary[]): string {
@@ -58,9 +65,9 @@ function formatReport(summaries: RunSummary[]): string {
  *     roster rotates through over several weekly runs without ever
  *     exceeding Cloudflare's per-invocation subrequest limit.
  */
-async function runAllChained(env: Env): Promise<RunSummary[]> {
+async function runAllChained(env: Env, moduleNames: string[] = Object.keys(MODULES)): Promise<RunSummary[]> {
   const summaries: RunSummary[] = [];
-  for (const name of Object.keys(MODULES)) {
+  for (const name of moduleNames) {
     try {
       const res = await env.SELF.fetch(`https://internal/module/${name}`, { method: "POST" });
       const summary = (await res.json()) as RunSummary;
@@ -81,11 +88,12 @@ async function runAllChained(env: Env): Promise<RunSummary[]> {
 }
 
 export default {
-  async scheduled(_event: ScheduledEvent, env: Env, ctx: ExecutionContext): Promise<void> {
+  async scheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext): Promise<void> {
+    const moduleNames = event.cron === "0 */6 * * *" ? SIX_HOURLY_MODULES : WEEKLY_MODULES;
     ctx.waitUntil(
       (async () => {
-        const summaries = await runAllChained(env);
-        console.log(formatReport(summaries));
+        const summaries = await runAllChained(env, moduleNames);
+        console.log(`[cron ${event.cron}] ` + formatReport(summaries));
       })()
     );
   },
@@ -96,7 +104,7 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
 
-    const moduleMatch = url.pathname.match(/^\/module\/([a-z]+)$/);
+    const moduleMatch = url.pathname.match(/^\/module\/([a-z-]+)$/);
     if (moduleMatch && request.method === "POST") {
       const fn = MODULES[moduleMatch[1]];
       if (!fn) return new Response("unknown module", { status: 404 });
@@ -110,14 +118,16 @@ export default {
       return new Response(JSON.stringify(r, null, 2), { headers: { "Content-Type": "application/json" } });
     }
 
-    // Full manual run, chained exactly like the real Monday cron.
+    // Full manual run, chained exactly like the real cron.
+    // ?chain=six-hourly runs the RSS ticker chain; default is the weekly one.
     if (url.pathname === "/run" && request.method === "POST") {
-      const summaries = await runAllChained(env);
+      const moduleNames = url.searchParams.get("chain") === "six-hourly" ? SIX_HOURLY_MODULES : WEEKLY_MODULES;
+      const summaries = await runAllChained(env, moduleNames);
       return new Response(formatReport(summaries), { headers: { "Content-Type": "text/plain; charset=utf-8" } });
     }
 
     return new Response(
-      "slowblues-sync-engine: POST /run for a full chained test run, POST /module/<name> for one module, or wait for the Monday 03:00 UTC cron.",
+      "slowblues-sync-engine: POST /run (or /run?chain=six-hourly) for a chained test run, POST /module/<name> for one module, or wait for the crons (Monday 03:00 UTC weekly; every 6h for RSS ticker).",
       { status: 200 }
     );
   },

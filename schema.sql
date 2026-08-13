@@ -414,14 +414,18 @@ CREATE TRIGGER trg_news_items_updated_at
 -- TICKER ITEMS (public read of active items)
 -- =========================================================
 CREATE TABLE ticker_items (
-  id         TEXT PRIMARY KEY,
-  text       TEXT NOT NULL DEFAULT '{}',
-  href       TEXT,
-  source     TEXT NOT NULL DEFAULT 'admin',
-  pinned     INTEGER NOT NULL DEFAULT 0,
-  expires_at TEXT,
-  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  id           TEXT PRIMARY KEY,
+  text         TEXT NOT NULL DEFAULT '{}',
+  href         TEXT,
+  source       TEXT NOT NULL DEFAULT 'admin',
+  pinned       INTEGER NOT NULL DEFAULT 0,
+  expires_at   TEXT,
+  created_at   TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at   TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  -- Real RSS <pubDate>, used for sort order instead of fetch time.
+  -- Written by sync-worker's rssTicker module (external items only —
+  -- internal reviews/artists/concerts are read live, not written here).
+  published_at TEXT
 );
 
 CREATE INDEX idx_ticker_items_active ON ticker_items(pinned DESC, created_at DESC);

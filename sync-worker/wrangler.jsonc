@@ -20,10 +20,13 @@
     { "binding": "SELF", "service": "slowblues-sync-engine" }
   ],
   "triggers": {
-    // Every Monday at 03:00 UTC. Cloudflare cron schedules always run in UTC —
-    // there is no timezone field. 03:00 UTC = 04:00 or 05:00 in Norway
-    // depending on daylight saving.
-    "crons": ["0 3 * * 1"]
+    // Cloudflare cron schedules always run in UTC — there is no timezone
+    // field. 03:00 UTC = 04:00 or 05:00 in Norway depending on DST.
+    //   "0 3 * * 1"   — weekly maintenance chain (discography/metadata/
+    //                    tours/link-health), every Monday 03:00 UTC.
+    //   "0 */6 * * *" — RSS newsticker sync, every 6 hours.
+    // scheduled() branches on event.cron to pick which job runs.
+    "crons": ["0 3 * * 1", "0 */6 * * *"]
   },
   "observability": {
     "enabled": true

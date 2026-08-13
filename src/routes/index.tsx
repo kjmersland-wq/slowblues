@@ -2,8 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SafeImage } from "@/components/SafeImage";
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
-import { getNewsTicker, type TickerItem } from "@/lib/newsfeed.functions";
+import type { TickerItem } from "@/lib/newsfeed.functions";
 
 import {
   ShoppingBag, HelpCircle, BookOpen, Music, Radio, Mic,
@@ -389,10 +388,13 @@ function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showBu
 }
 
 function Ticker() {
-  const fetchTicker = useServerFn(getNewsTicker);
   const { data } = useQuery({
     queryKey: ["news-ticker"],
-    queryFn: () => fetchTicker(),
+    queryFn: async () => {
+      const res = await fetch("/api/ticker");
+      if (!res.ok) throw new Error(`ticker fetch failed: ${res.status}`);
+      return (await res.json()) as { items: TickerItem[]; generatedAt: string };
+    },
     staleTime: 30 * 60 * 1000,
     refetchInterval: 60 * 60 * 1000,
     refetchOnWindowFocus: true,
@@ -418,6 +420,7 @@ function Ticker() {
       case "concert": return "text-amber-300";
       case "artist": return "text-blue-300";
       case "blog": return "text-emerald-300";
+      case "external": return "text-purple-300";
       default: return "text-gold";
     }
   };
@@ -432,6 +435,7 @@ function Ticker() {
           <a
             key={`${t.id}-${i}`}
             href={t.href}
+            {...(t.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
             className="text-sm text-foreground/85 hover:text-foreground inline-flex items-center gap-2 group"
           >
             <span className={`${accent(t.kind)} font-mono text-[10px] tracking-widest uppercase`}>

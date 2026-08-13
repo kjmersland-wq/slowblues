@@ -46,6 +46,7 @@ import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminSeoRouteImport } from './routes/admin.seo'
 import { Route as AdminTranslationsRouteImport } from './routes/admin.translations'
 import { Route as AdminWikidataRouteImport } from './routes/admin.wikidata'
+import { Route as ApiTickerRouteImport } from './routes/api.ticker'
 import { Route as ArtistsIndexRouteImport } from './routes/artists.index'
 import { Route as ArtistsSlugRouteImport } from './routes/artists.$slug'
 import { Route as ConcertsIndexRouteImport } from './routes/concerts.index'
@@ -254,6 +255,11 @@ const AdminWikidataRoute = AdminWikidataRouteImport.update({
   path: '/admin/wikidata',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiTickerRoute = ApiTickerRouteImport.update({
+  id: '/api/ticker',
+  path: '/api/ticker',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ArtistsIndexRoute = ArtistsIndexRouteImport.update({
   id: '/artists/',
   path: '/artists/',
@@ -403,6 +409,7 @@ export interface FileRoutesByFullPath {
   '/admin/seo': typeof AdminSeoRoute
   '/admin/translations': typeof AdminTranslationsRoute
   '/admin/wikidata': typeof AdminWikidataRoute
+  '/api/ticker': typeof ApiTickerRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/concerts/$slug': typeof ConcertsSlugRoute
   '/editorial/images': typeof EditorialImagesRoute
@@ -464,6 +471,7 @@ export interface FileRoutesByTo {
   '/admin/seo': typeof AdminSeoRoute
   '/admin/translations': typeof AdminTranslationsRoute
   '/admin/wikidata': typeof AdminWikidataRoute
+  '/api/ticker': typeof ApiTickerRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/concerts/$slug': typeof ConcertsSlugRoute
   '/editorial/images': typeof EditorialImagesRoute
@@ -526,6 +534,7 @@ export interface FileRoutesById {
   '/admin/seo': typeof AdminSeoRoute
   '/admin/translations': typeof AdminTranslationsRoute
   '/admin/wikidata': typeof AdminWikidataRoute
+  '/api/ticker': typeof ApiTickerRoute
   '/artists/$slug': typeof ArtistsSlugRoute
   '/concerts/$slug': typeof ConcertsSlugRoute
   '/editorial/images': typeof EditorialImagesRoute
@@ -589,6 +598,7 @@ export interface FileRouteTypes {
     | '/admin/seo'
     | '/admin/translations'
     | '/admin/wikidata'
+    | '/api/ticker'
     | '/artists/$slug'
     | '/concerts/$slug'
     | '/editorial/images'
@@ -650,6 +660,7 @@ export interface FileRouteTypes {
     | '/admin/seo'
     | '/admin/translations'
     | '/admin/wikidata'
+    | '/api/ticker'
     | '/artists/$slug'
     | '/concerts/$slug'
     | '/editorial/images'
@@ -711,6 +722,7 @@ export interface FileRouteTypes {
     | '/admin/seo'
     | '/admin/translations'
     | '/admin/wikidata'
+    | '/api/ticker'
     | '/artists/$slug'
     | '/concerts/$slug'
     | '/editorial/images'
@@ -773,6 +785,7 @@ export interface RootRouteChildren {
   AdminSeoRoute: typeof AdminSeoRoute
   AdminTranslationsRoute: typeof AdminTranslationsRoute
   AdminWikidataRoute: typeof AdminWikidataRoute
+  ApiTickerRoute: typeof ApiTickerRoute
   ArtistsSlugRoute: typeof ArtistsSlugRoute
   ConcertsSlugRoute: typeof ConcertsSlugRoute
   EditorialImagesRoute: typeof EditorialImagesRoute
@@ -1055,6 +1068,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminWikidataRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/ticker': {
+      id: '/api/ticker'
+      path: '/api/ticker'
+      fullPath: '/api/ticker'
+      preLoaderRoute: typeof ApiTickerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/artists/': {
       id: '/artists/'
       path: '/artists'
@@ -1288,6 +1308,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminSeoRoute: AdminSeoRoute,
   AdminTranslationsRoute: AdminTranslationsRoute,
   AdminWikidataRoute: AdminWikidataRoute,
+  ApiTickerRoute: ApiTickerRoute,
   ArtistsSlugRoute: ArtistsSlugRoute,
   ConcertsSlugRoute: ConcertsSlugRoute,
   EditorialImagesRoute: EditorialImagesRoute,
