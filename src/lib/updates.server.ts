@@ -5,6 +5,7 @@
 // these tables already runs on sync-worker's existing crons (see
 // sync-worker/wrangler.jsonc — daily RSS sync, weekly discogs/tours/etc.);
 // this file only reads what's already there, on every /updates request.
+import { isActive } from "./freshness";
 
 export type UpdateType = "release" | "tour" | "review" | "video" | "news";
 
@@ -257,7 +258,12 @@ async function fromTourLinks(db: D1Database): Promise<UpdateItem[]> {
   return out;
 }
 
-export async function buildArtistUpdates(db: D1Database): Promise<UpdateItem[]> {
+export type ArtistUpdates = { active: UpdateItem[]; archive: UpdateItem[] };
+
+const MAX_ACTIVE = 8;
+const MAX_ARCHIVE = 60;
+
+export async function buildArtistUpdates(db: D1Database): Promise<ArtistUpdates> {
   const [reviews, videos, concerts, news, releases, tours] = await Promise.all([
     fromReviews(db).catch((e) => { console.error("updates: reviews source failed", e); return []; }),
     fromVideos(db).catch((e) => { console.error("updates: videos source failed", e); return []; }),
@@ -279,5 +285,17 @@ export async function buildArtistUpdates(db: D1Database): Promise<UpdateItem[]> 
   }
 
   deduped.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  return deduped.slice(0, 60);
+
+  // Freshness is a hard gate for the "active" section, same 7-day cutoff as
+  // the ticker (see freshness.ts) — never padded out with old items to hit
+  // a target count. Everything else is still available as archive, newest
+  // first, so history isn't lost, just clearly separated from what's live.
+  const active: UpdateItem[] = [];
+  const archive: UpdateItem[] = [];
+  for (const item of deduped) {
+    if (active.length < MAX_ACTIVE && isActive(item.date)) active.push(item);
+    else archive.push(item);
+  }
+
+  return { active, archive: archive.slice(0, MAX_ARCHIVE) };
 }

@@ -2,6 +2,7 @@
 // server function (src/lib/newsfeed.functions.ts) and the public
 // /api/ticker route (src/routes/api.ticker.ts), so there is exactly one
 // place that knows how to assemble the ticker.
+import { isActive } from "./freshness";
 
 export type TickerItem = {
   id: string;
@@ -196,24 +197,31 @@ export async function buildNewsTicker(db: D1Database): Promise<{ items: TickerIt
     if (b.priority !== a.priority) return b.priority - a.priority;
     return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
   };
-  out.sort(byRank);
 
-  // Ticker shows a curated 5, round-robined across content kinds rather
+  // Freshness is a hard gate, not just a tiebreaker: anything older than 7
+  // days is dropped before selection, so the ticker never pads itself out
+  // with stale items just to hit a target count. If fewer than 5 items pass
+  // the gate, fewer than 5 are shown — never backfilled with old news.
+  const fresh = out.filter((i) => isActive(i.timestamp));
+  fresh.sort(byRank);
+
+  // Ticker shows a curated 5-8, round-robined across content kinds rather
   // than a flat priority ranking — reviews have the highest priority of
-  // any single kind, so a flat top-5 (or even a naive "one per kind, then
+  // any single kind, so a flat top-N (or even a naive "one per kind, then
   // backfill by raw priority") kept landing on mostly-or-all reviews the
-  // moment there were more than 5 published, starving out external news,
-  // artist highlights, concerts and videos entirely. Round-robin: take one
-  // from each kind in turn (already sorted by priority+recency within the
-  // kind), looping back for a 2nd/3rd item from kinds that still have more
-  // once others run dry, until 5 slots are filled.
+  // moment there were more than a handful published, starving out external
+  // news, artist highlights, concerts and videos entirely. Round-robin: take
+  // one from each kind in turn (already sorted by priority+recency within
+  // the kind), looping back for a 2nd/3rd item from kinds that still have
+  // more once others run dry, until 8 slots are filled or fresh items run out.
+  const MAX_TICKER_ITEMS = 8;
   const KIND_ORDER: TickerItem["kind"][] = ["review", "external", "artist", "concert", "youtube"];
-  const byKind = new Map<TickerItem["kind"], TickerItem[]>(KIND_ORDER.map((k) => [k, out.filter((i) => i.kind === k)]));
+  const byKind = new Map<TickerItem["kind"], TickerItem[]>(KIND_ORDER.map((k) => [k, fresh.filter((i) => i.kind === k)]));
   const picked: TickerItem[] = [];
   let round = 0;
-  while (picked.length < 5 && KIND_ORDER.some((k) => (byKind.get(k)?.length ?? 0) > round)) {
+  while (picked.length < MAX_TICKER_ITEMS && KIND_ORDER.some((k) => (byKind.get(k)?.length ?? 0) > round)) {
     for (const kind of KIND_ORDER) {
-      if (picked.length >= 5) break;
+      if (picked.length >= MAX_TICKER_ITEMS) break;
       const item = byKind.get(kind)?.[round];
       if (item) picked.push(item);
     }
@@ -221,5 +229,5 @@ export async function buildNewsTicker(db: D1Database): Promise<{ items: TickerIt
   }
   picked.sort(byRank);
 
-  return { items: picked.slice(0, 5), generatedAt: new Date(now).toISOString() };
+  return { items: picked.slice(0, MAX_TICKER_ITEMS), generatedAt: new Date(now).toISOString() };
 }

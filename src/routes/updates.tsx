@@ -9,7 +9,7 @@ export const Route = createFileRoute("/updates")({
   component: UpdatesPage,
   loader: () => getArtistUpdates(),
   head: ({ loaderData }) => {
-    const items = loaderData?.items ?? [];
+    const items = [...(loaderData?.active ?? []), ...(loaderData?.archive ?? [])];
     return {
       meta: [
         { title: "Artist Updates — Slow-Blues" },
@@ -53,69 +53,94 @@ const TYPE_COLOR: Record<UpdateType, string> = {
 
 const DATE_LOCALE: Record<string, string> = { no: "nb-NO", en: "en-GB", sv: "sv-SE", de: "de-DE", pl: "pl-PL" };
 
+function UpdateCard({ item, lang, u }: { item: UpdateItem; lang: string; u: ReturnType<typeof useI18n>["t"]["pages"]["updates"] }) {
+  return (
+    <article className="bg-card/60 border border-border rounded-lg p-5 hover:border-gold/40 transition">
+      <div className="flex flex-wrap items-center gap-3 mb-2">
+        <span className={`text-[10px] tracking-[0.2em] uppercase border rounded-full px-2 py-0.5 ${TYPE_COLOR[item.type]}`}>
+          {u.types[item.type]}
+        </span>
+        <span className="text-xs text-muted-foreground">
+          {new Date(item.date).toLocaleDateString(DATE_LOCALE[lang] ?? "en-GB", { day: "numeric", month: "short", year: "numeric" })}
+        </span>
+        {item.artistHref && (
+          <Link to={item.artistHref} className="font-display text-lg text-gold ml-auto hover:underline">
+            {item.artistName}
+          </Link>
+        )}
+      </div>
+      <p className="text-foreground/85">
+        {item.external ? (
+          <a href={item.href} target="_blank" rel="noopener noreferrer" className="hover:underline">
+            {item.title}
+          </a>
+        ) : (
+          <Link to={item.href} className="hover:underline">
+            {item.title}
+          </Link>
+        )}
+      </p>
+      {item.autoDetected && <p className="text-[11px] text-muted-foreground italic mt-2">{u.autoDetected}</p>}
+      <div className="flex flex-wrap items-center gap-4 mt-3">
+        {!item.external && item.artistHref && item.href !== item.artistHref && (
+          <Link to={item.artistHref} className="text-xs text-gold hover:underline">
+            {u.viewArtist}
+          </Link>
+        )}
+        {item.sourceUrl && (
+          <a
+            href={item.sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-gold"
+          >
+            <ExternalLink className="size-3" aria-hidden="true" />
+            {item.type === "video" ? u.watchOnYoutube : item.sourceName === "Tickets" ? u.tickets : `${u.source}: ${item.sourceName ?? ""}`}
+          </a>
+        )}
+      </div>
+    </article>
+  );
+}
+
 function UpdatesPage() {
   const { t, lang } = useI18n();
-  const { items } = Route.useLoaderData();
+  const { active, archive } = Route.useLoaderData();
   const u = t.pages.updates;
 
   return (
     <PageShell>
       <PageHero eyebrow={u.eyebrow} title={u.title} lead={u.lead} img={IMG.neon} />
       <section className="max-w-4xl mx-auto px-6 py-12">
-        {items.length === 0 ? (
+        {active.length === 0 && archive.length === 0 ? (
           <p className="text-center text-muted-foreground py-12">{u.empty}</p>
         ) : (
-          <div className="space-y-3">
-            {items.map((item: UpdateItem) => (
-              <article key={item.id} className="bg-card/60 border border-border rounded-lg p-5 hover:border-gold/40 transition">
-                <div className="flex flex-wrap items-center gap-3 mb-2">
-                  <span className={`text-[10px] tracking-[0.2em] uppercase border rounded-full px-2 py-0.5 ${TYPE_COLOR[item.type]}`}>
-                    {u.types[item.type]}
-                  </span>
-                  <span className="text-xs text-muted-foreground">
-                    {new Date(item.date).toLocaleDateString(DATE_LOCALE[lang] ?? "en-GB", { day: "numeric", month: "short", year: "numeric" })}
-                  </span>
-                  {item.artistHref && (
-                    <Link to={item.artistHref} className="font-display text-lg text-gold ml-auto hover:underline">
-                      {item.artistName}
-                    </Link>
-                  )}
+          <>
+            {active.length > 0 && (
+              <div className="mb-12">
+                <h2 className="text-xs tracking-[0.25em] uppercase text-gold mb-4">{u.activeHeading}</h2>
+                <div className="space-y-3">
+                  {active.map((item: UpdateItem) => (
+                    <UpdateCard key={item.id} item={item} lang={lang} u={u} />
+                  ))}
                 </div>
-                <p className="text-foreground/85">
-                  {item.external ? (
-                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                      {item.title}
-                    </a>
-                  ) : (
-                    <Link to={item.href} className="hover:underline">
-                      {item.title}
-                    </Link>
-                  )}
-                </p>
-                {item.autoDetected && (
-                  <p className="text-[11px] text-muted-foreground italic mt-2">{u.autoDetected}</p>
-                )}
-                <div className="flex flex-wrap items-center gap-4 mt-3">
-                  {!item.external && item.artistHref && item.href !== item.artistHref && (
-                    <Link to={item.artistHref} className="text-xs text-gold hover:underline">
-                      {u.viewArtist}
-                    </Link>
-                  )}
-                  {item.sourceUrl && (
-                    <a
-                      href={item.sourceUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-gold"
-                    >
-                      <ExternalLink className="size-3" aria-hidden="true" />
-                      {item.type === "video" ? u.watchOnYoutube : item.sourceName === "Tickets" ? u.tickets : `${u.source}: ${item.sourceName ?? ""}`}
-                    </a>
-                  )}
+              </div>
+            )}
+            {active.length === 0 && (
+              <p className="text-sm text-muted-foreground mb-12">{u.noneFresh}</p>
+            )}
+            {archive.length > 0 && (
+              <div>
+                <h2 className="text-xs tracking-[0.25em] uppercase text-muted-foreground mb-1.5">{u.archiveHeading}</h2>
+                <p className="text-xs text-muted-foreground mb-4">{u.archiveHint}</p>
+                <div className="space-y-3 opacity-80">
+                  {archive.map((item: UpdateItem) => (
+                    <UpdateCard key={item.id} item={item} lang={lang} u={u} />
+                  ))}
                 </div>
-              </article>
-            ))}
-          </div>
+              </div>
+            )}
+          </>
         )}
       </section>
     </PageShell>
