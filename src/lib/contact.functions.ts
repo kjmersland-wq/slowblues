@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getDB } from "@/integrations/d1/client";
+import { sendContactEmail } from "@/lib/email.server";
 
 export const submitContactMessage = createServerFn({ method: "POST" })
   .inputValidator((d: { name: string; email: string; message: string }) => d)
@@ -14,5 +15,15 @@ export const submitContactMessage = createServerFn({ method: "POST" })
       .prepare("INSERT INTO contact_messages (id, name, email, message) VALUES (?, ?, ?, ?)")
       .bind(crypto.randomUUID(), name, email, message)
       .run();
+
+    // Best-effort: the message is already safely stored above, so an email
+    // hiccup (e.g. SMTP not configured, transient failure) must not fail
+    // the user-facing submission.
+    try {
+      await sendContactEmail({ name, email, message, subject: `Ny melding fra ${name} — Slow-Blues kontaktskjema` });
+    } catch (err) {
+      console.error("Failed to send contact notification email:", err);
+    }
+
     return { ok: true as const };
   });
