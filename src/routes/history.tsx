@@ -23,6 +23,14 @@ export const Route = createFileRoute("/history")({
   ]}),
 });
 
+const CATEGORY_LABELS: Record<string, { no: string; en: string; sv: string; de: string; pl: string }> = {
+  origin: { no: "Opphav", en: "Origin", sv: "Ursprung", de: "Ursprung", pl: "Początki" },
+  recording: { no: "Innspilling", en: "Recording", sv: "Inspelning", de: "Aufnahme", pl: "Nagranie" },
+  migration: { no: "Migrasjon", en: "Migration", sv: "Migration", de: "Migration", pl: "Migracja" },
+  artist: { no: "Artist", en: "Artist", sv: "Artist", de: "Künstler", pl: "Artysta" },
+  milestone: { no: "Milepæl", en: "Milestone", sv: "Milstolpe", de: "Meilenstein", pl: "Kamień milowy" },
+};
+
 const ERAS = [
   { years: "1865 — 1890", title: "Emancipation & the Field Holler", body: "After abolition, African-American workers carry call-and-response work songs, spirituals and African scale memory into the Mississippi Delta. The blues form begins to crystallise as a personal lament rather than a communal song.", img: IMG.cottonField },
   { years: "1903", title: "W.C. Handy hears it on a train", body: "Bandleader W.C. Handy is asleep on a platform in Tutwiler, Mississippi when a ragged guitarist plays slide with a knife and sings about \"goin' where the Southern cross the Dog.\" Handy later calls it \"the weirdest music I had ever heard\" — and the first documented description of a blues song.", img: IMG.delta },
@@ -69,11 +77,11 @@ function HistoryPage() {
           </h2>
           <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
             {tr(lang, {
-              no: "Hver dokumenterte milepæl i musikkens historie — fra frigjøringen til dagens nye generasjon. Hver hendelse vises med original engelsk og norsk tittel.",
-              en: "Every documented milestone in the music's history — from emancipation to today's new generation. Each entry is shown with its original English and Norwegian title.",
-              sv: "Varje dokumenterad milstolpe i musikens historia — från frigörelsen till dagens nya generation. Varje händelse visas med originalets engelska och norska titel.",
-              de: "Jeder dokumentierte Meilenstein in der Geschichte der Musik — von der Emanzipation bis zur heutigen neuen Generation. Jeder Eintrag wird mit seinem ursprünglichen englischen und norwegischen Titel angezeigt.",
-              pl: "Każdy udokumentowany kamień milowy w historii tej muzyki — od zniesienia niewolnictwa po dzisiejsze nowe pokolenie. Każdy wpis wyświetlany jest z oryginalnym tytułem angielskim i norweskim.",
+              no: "Hver dokumenterte milepæl i musikkens historie — fra frigjøringen til dagens nye generasjon.",
+              en: "Every documented milestone in the music's history — from emancipation to today's new generation.",
+              sv: "Varje dokumenterad milstolpe i musikens historia — från frigörelsen till dagens nya generation.",
+              de: "Jeder dokumentierte Meilenstein in der Geschichte der Musik — von der Emanzipation bis zur heutigen neuen Generation.",
+              pl: "Każdy udokumentowany kamień milowy w historii tej muzyki — od zniesienia niewolnictwa po dzisiejsze nowe pokolenie.",
             })}
           </p>
         </header>
@@ -81,11 +89,13 @@ function HistoryPage() {
         <ol className="space-y-6">
           {timelineEvents.map((ev) => {
             const img = timelineImageByYear[ev.year];
+            const evTitle = lang === "no" ? ev.titleNo : lang === "sv" ? ev.titleSv : lang === "de" ? ev.titleDe : lang === "pl" ? ev.titlePl : ev.title;
+            const evDescription = lang === "no" ? ev.descriptionNo : lang === "sv" ? ev.descriptionSv : lang === "de" ? ev.descriptionDe : lang === "pl" ? ev.descriptionPl : ev.description;
             return (
               <li key={ev.year} className="bg-card/60 border border-border rounded-lg overflow-hidden grid md:grid-cols-[200px_1fr] gap-0">
                 {img ? (
                   <div className="aspect-[4/3] md:aspect-auto md:h-full overflow-hidden bg-card border-b md:border-b-0 md:border-r border-border">
-                    <SafeImage src={img} alt={ev.title} loading="lazy" className="size-full object-cover" />
+                    <SafeImage src={img} alt={evTitle} loading="lazy" className="size-full object-cover" />
                   </div>
                 ) : (
                   <div className="hidden md:flex items-center justify-center bg-card border-r border-border">
@@ -95,11 +105,10 @@ function HistoryPage() {
                 <div className="p-5">
                   <div className="flex items-baseline gap-3 mb-1">
                     <span className="font-display text-2xl text-gold">{ev.year}</span>
-                    <span className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">{ev.category}</span>
+                    <span className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">{tr(lang, CATEGORY_LABELS[ev.category])}</span>
                   </div>
-                  <h3 className="font-display text-xl">{ev.title} <span className="text-muted-foreground text-base font-sans">· {ev.titleNo}</span></h3>
-                  <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{ev.description}</p>
-                  <p className="text-sm text-muted-foreground/80 mt-2 leading-relaxed italic">{ev.descriptionNo}</p>
+                  <h3 className="font-display text-xl">{evTitle}</h3>
+                  <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{evDescription}</p>
                 </div>
               </li>
             );
