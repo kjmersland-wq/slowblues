@@ -85,12 +85,18 @@ export async function buildNewsTicker(db: D1Database): Promise<{ items: TickerIt
     console.error("ticker youtube failed:", e);
   }
 
-  // 3) Recently updated artists with editorial content
+  // 3) Newly added artist profiles. Deliberately keyed on created_at, not
+  // updated_at: updated_at bumps on any content edit (e.g. fixing a typo,
+  // adding a related_slugs cross-link), which would otherwise let a routine
+  // edit on a decades-old artist page read as fresh breaking news — most
+  // visibly, editing a deceased artist's page relighting an "IN MEMORIAM"
+  // ticker entry for a death that isn't new. A brand-new profile appearing
+  // is the only "artist" event that's genuinely dated news.
   try {
     const { results: artists } = await db
       .prepare(
-        `SELECT slug, name, country, era_label_en, short_en, updated_at, died
-         FROM artists ORDER BY updated_at DESC LIMIT 20`,
+        `SELECT slug, name, country, era_label_en, short_en, created_at, died
+         FROM artists ORDER BY created_at DESC LIMIT 20`,
       )
       .all();
     for (const a of (artists ?? []) as any[]) {
@@ -104,7 +110,7 @@ export async function buildNewsTicker(db: D1Database): Promise<{ items: TickerIt
         label: obit ? "IN MEMORIAM" : a.era_label_en ?? "PROFILE",
         text: `${a.name} — ${a.short_en}`,
         href: `/artists/${a.slug}`,
-        timestamp: a.updated_at ?? new Date().toISOString(),
+        timestamp: a.created_at ?? new Date().toISOString(),
         priority: obit ? 95 : 60,
       });
     }
