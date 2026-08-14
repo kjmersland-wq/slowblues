@@ -152,9 +152,9 @@ export function SiteHeader() {
               </ul>
             )}
           </div>
-          <button type="button" aria-label={t.nav.search} className="hidden sm:flex items-center gap-1.5 text-sm text-muted-foreground hover:text-gold">
+          <Link to="/search" aria-label={t.nav.search} className="hidden sm:flex items-center gap-1.5 text-sm text-muted-foreground hover:text-gold">
             <Search className="size-4" aria-hidden="true" /> {t.nav.search}
-          </button>
+          </Link>
           <button className="lg:hidden p-1 -mr-1" aria-label={t.nav.menu} onClick={() => setOpen((o) => !o)}>
             {open ? <X className="size-6" /> : <Menu className="size-6" />}
           </button>
@@ -170,6 +170,9 @@ export function SiteHeader() {
               </Link>
               <Link to={"/reviews" as any} onClick={() => setOpen(false)} className="px-3 py-1.5 rounded-full bg-gold/15 border border-gold text-gold font-semibold">
                 {t.nav.reviews}
+              </Link>
+              <Link to="/search" onClick={() => setOpen(false)} className="px-3 py-1.5 rounded-full bg-card border border-gold/20 hover:border-gold hover:text-gold flex items-center gap-1.5">
+                <Search className="size-3.5" aria-hidden="true" /> {t.nav.search}
               </Link>
             </div>
             <div className="grid sm:grid-cols-2 gap-x-6 gap-y-4">

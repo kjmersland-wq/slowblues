@@ -26,6 +26,7 @@ import { Route as ListenRouteImport } from './routes/listen'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RadioRouteImport } from './routes/radio'
+import { Route as SearchRouteImport } from './routes/search'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as StylesRouteImport } from './routes/styles'
 import { Route as SupportRouteImport } from './routes/support'
@@ -153,6 +154,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const RadioRoute = RadioRouteImport.update({
   id: '/radio',
   path: '/radio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -391,6 +397,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/radio': typeof RadioRoute
+  '/search': typeof SearchRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
@@ -453,6 +460,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/radio': typeof RadioRoute
+  '/search': typeof SearchRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
@@ -516,6 +524,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/radio': typeof RadioRoute
+  '/search': typeof SearchRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/styles': typeof StylesRoute
   '/support': typeof SupportRoute
@@ -580,6 +589,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/privacy'
     | '/radio'
+    | '/search'
     | '/sitemap.xml'
     | '/styles'
     | '/support'
@@ -642,6 +652,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/privacy'
     | '/radio'
+    | '/search'
     | '/sitemap.xml'
     | '/styles'
     | '/support'
@@ -704,6 +715,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/privacy'
     | '/radio'
+    | '/search'
     | '/sitemap.xml'
     | '/styles'
     | '/support'
@@ -767,6 +779,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   PrivacyRoute: typeof PrivacyRoute
   RadioRoute: typeof RadioRoute
+  SearchRoute: typeof SearchRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StylesRoute: typeof StylesRoute
   SupportRoute: typeof SupportRoute
@@ -926,6 +939,13 @@ declare module '@tanstack/react-router' {
       path: '/radio'
       fullPath: '/radio'
       preLoaderRoute: typeof RadioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -1290,6 +1310,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   PrivacyRoute: PrivacyRoute,
   RadioRoute: RadioRoute,
+  SearchRoute: SearchRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StylesRoute: StylesRoute,
   SupportRoute: SupportRoute,
