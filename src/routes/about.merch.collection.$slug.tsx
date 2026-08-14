@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PageShell } from "@/components/PageShell";
 import { ShoppingBag, ArrowLeft, Loader2 } from "lucide-react";
 import { fetchMerchCollection, type MerchProduct } from "@/lib/fourthwall.functions";
+import { useI18n, tr } from "@/i18n";
 
 export const Route = createFileRoute("/about/merch/collection/$slug")({
   component: CollectionPage,
@@ -29,6 +30,7 @@ function formatPrice(p: MerchProduct["price"]) {
 
 function CollectionPage() {
   const { slug } = Route.useParams();
+  const { lang } = useI18n();
   const fetcher = useServerFn(fetchMerchCollection);
   const { data, isLoading } = useQuery({
     queryKey: ["merch-collection", slug],
@@ -41,10 +43,12 @@ function CollectionPage() {
     <PageShell>
       <div className="max-w-6xl mx-auto px-6 py-10">
         <Link to="/about/merch" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-gold mb-8">
-          <ArrowLeft className="size-4" /> Back to shop
+          <ArrowLeft className="size-4" /> {tr(lang, { no: "Tilbake til butikken", en: "Back to shop", sv: "Tillbaka till butiken", de: "Zurück zum Shop", pl: "Powrót do sklepu" })}
         </Link>
 
-        <div className="text-xs uppercase tracking-[0.2em] text-gold mb-2">Collection</div>
+        <div className="text-xs uppercase tracking-[0.2em] text-gold mb-2">
+          {tr(lang, { no: "Kolleksjon", en: "Collection", sv: "Kollektion", de: "Kollektion", pl: "Kolekcja" })}
+        </div>
         <h1 className="font-display text-4xl md:text-5xl leading-tight mb-3">
           {data?.collection?.name ?? prettify(slug)}
         </h1>
@@ -54,12 +58,20 @@ function CollectionPage() {
 
         {isLoading && (
           <div className="flex items-center justify-center py-20 text-muted-foreground">
-            <Loader2 className="size-5 animate-spin mr-2" /> Loading collection…
+            <Loader2 className="size-5 animate-spin mr-2" /> {tr(lang, { no: "Laster kolleksjon …", en: "Loading collection…", sv: "Läser in kollektion …", de: "Kollektion wird geladen …", pl: "Wczytywanie kolekcji…" })}
           </div>
         )}
 
         {data && data.products.length === 0 && !isLoading && (
-          <p className="text-muted-foreground">No products in this collection right now.</p>
+          <p className="text-muted-foreground">
+            {tr(lang, {
+              no: "Ingen produkter i denne kolleksjonen akkurat nå.",
+              en: "No products in this collection right now.",
+              sv: "Inga produkter i den här kollektionen just nu.",
+              de: "Momentan keine Produkte in dieser Kollektion.",
+              pl: "Obecnie brak produktów w tej kolekcji.",
+            })}
+          </p>
         )}
 
         {data && data.products.length > 0 && (

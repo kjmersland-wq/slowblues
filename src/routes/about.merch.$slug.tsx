@@ -6,6 +6,7 @@ import { ShoppingBag, ExternalLink, Loader2, ArrowLeft, Check } from "lucide-rea
 import { useState, useMemo } from "react";
 import { fetchMerchProduct, type MerchProduct, type MerchVariant } from "@/lib/fourthwall.functions";
 import { sanitizeHtml } from "@/lib/sanitizeHtml";
+import { useI18n, tr } from "@/i18n";
 
 export const Route = createFileRoute("/about/merch/$slug")({
   component: ProductPage,
@@ -19,8 +20,27 @@ export const Route = createFileRoute("/about/merch/$slug")({
     ],
     links: [{ rel: "canonical", href: `https://www.slow-blues.com/about/merch/${params.slug}` }],
   }),
-  errorComponent: () => <PageShell><div className="max-w-3xl mx-auto px-6 py-20 text-center text-muted-foreground">Couldn't load this product.</div></PageShell>,
-  notFoundComponent: () => <PageShell><div className="max-w-3xl mx-auto px-6 py-20 text-center"><p className="text-muted-foreground">Product not found.</p><Link to="/about/merch" className="text-gold underline mt-4 inline-block">Back to shop</Link></div></PageShell>,
+  errorComponent: () => {
+    const { lang } = useI18n();
+    return (
+      <PageShell>
+        <div className="max-w-3xl mx-auto px-6 py-20 text-center text-muted-foreground">
+          {tr(lang, { no: "Kunne ikke laste dette produktet.", en: "Couldn't load this product.", sv: "Kunde inte läsa in den här produkten.", de: "Dieses Produkt konnte nicht geladen werden.", pl: "Nie udało się wczytać tego produktu." })}
+        </div>
+      </PageShell>
+    );
+  },
+  notFoundComponent: () => {
+    const { lang } = useI18n();
+    return (
+      <PageShell>
+        <div className="max-w-3xl mx-auto px-6 py-20 text-center">
+          <p className="text-muted-foreground">{tr(lang, { no: "Fant ikke produktet.", en: "Product not found.", sv: "Produkten hittades inte.", de: "Produkt nicht gefunden.", pl: "Nie znaleziono produktu." })}</p>
+          <Link to="/about/merch" className="text-gold underline mt-4 inline-block">{tr(lang, { no: "Tilbake til butikken", en: "Back to shop", sv: "Tillbaka till butiken", de: "Zurück zum Shop", pl: "Powrót do sklepu" })}</Link>
+        </div>
+      </PageShell>
+    );
+  },
 });
 
 function prettify(slug: string) {
@@ -35,6 +55,7 @@ function formatPrice(p: MerchProduct["price"]) {
 
 function ProductPage() {
   const { slug } = Route.useParams();
+  const { lang } = useI18n();
   const fetcher = useServerFn(fetchMerchProduct);
   const { data, isLoading } = useQuery({
     queryKey: ["merch-product", slug],
@@ -59,14 +80,22 @@ function ProductPage() {
     return matches[0] ?? p.variants[0];
   }, [p, color, size]);
 
-  if (isLoading) return <PageShell><div className="flex items-center justify-center py-32 text-muted-foreground"><Loader2 className="size-5 animate-spin mr-2" />Loading…</div></PageShell>;
+  if (isLoading) return <PageShell><div className="flex items-center justify-center py-32 text-muted-foreground"><Loader2 className="size-5 animate-spin mr-2" />{tr(lang, { no: "Laster …", en: "Loading…", sv: "Läser in …", de: "Wird geladen …", pl: "Wczytywanie…" })}</div></PageShell>;
 
   if (!p) {
     return (
       <PageShell>
         <div className="max-w-3xl mx-auto px-6 py-20 text-center">
-          <p className="text-muted-foreground mb-4">This product isn't available right now.</p>
-          <Link to="/about/merch" className="text-gold underline">← Back to shop</Link>
+          <p className="text-muted-foreground mb-4">
+            {tr(lang, {
+              no: "Dette produktet er ikke tilgjengelig akkurat nå.",
+              en: "This product isn't available right now.",
+              sv: "Den här produkten är inte tillgänglig just nu.",
+              de: "Dieses Produkt ist momentan nicht verfügbar.",
+              pl: "Ten produkt jest obecnie niedostępny.",
+            })}
+          </p>
+          <Link to="/about/merch" className="text-gold underline">← {tr(lang, { no: "Tilbake til butikken", en: "Back to shop", sv: "Tillbaka till butiken", de: "Zurück zum Shop", pl: "Powrót do sklepu" })}</Link>
         </div>
       </PageShell>
     );
@@ -105,7 +134,7 @@ function ProductPage() {
           to="/about/merch"
           className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-gold/40 bg-card/40 text-gold hover:bg-gold/10 hover:border-gold transition text-sm font-medium"
         >
-          <ArrowLeft className="size-4" /> Tilbake til butikken
+          <ArrowLeft className="size-4" /> {tr(lang, { no: "Tilbake til butikken", en: "Back to shop", sv: "Tillbaka till butiken", de: "Zurück zum Shop", pl: "Powrót do sklepu" })}
         </Link>
 
 
@@ -142,7 +171,7 @@ function ProductPage() {
             {p.colors.length > 0 && (
               <div className="mb-5">
                 <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-2">
-                  Color{color ? `: ${color}` : ""}
+                  {tr(lang, { no: "Farge", en: "Color", sv: "Färg", de: "Farbe", pl: "Kolor" })}{color ? `: ${color}` : ""}
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {p.colors.map((c) => {
@@ -166,7 +195,7 @@ function ProductPage() {
             {p.sizes.length > 0 && (
               <div className="mb-6">
                 <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-2">
-                  Size{size ? `: ${size}` : ""}
+                  {tr(lang, { no: "Størrelse", en: "Size", sv: "Storlek", de: "Größe", pl: "Rozmiar" })}{size ? `: ${size}` : ""}
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {p.sizes.map((s) => {
@@ -190,14 +219,16 @@ function ProductPage() {
             {selectedVariant && (
               <div className="mb-5 flex flex-wrap items-center gap-2 text-sm">
                 <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${selectedVariant.inStock ? "border-emerald-500/30 text-emerald-400 bg-emerald-500/10" : "border-destructive/30 text-destructive bg-destructive/10"}`}>
-                  {selectedVariant.inStock ? "In stock" : "Sold out"}
+                  {selectedVariant.inStock
+                    ? tr(lang, { no: "På lager", en: "In stock", sv: "I lager", de: "Auf Lager", pl: "Dostępny" })
+                    : tr(lang, { no: "Utsolgt", en: "Sold out", sv: "Slutsåld", de: "Ausverkauft", pl: "Wyprzedany" })}
                 </span>
                 {selectedVariant.sku && (
                   <span className="text-muted-foreground">SKU: <span className="text-foreground/80 font-mono text-xs">{selectedVariant.sku}</span></span>
                 )}
                 {selectedVariant.compareAt && selectedVariant.compareAt.value > (selectedVariant.price?.value ?? 0) && (
                   <span className="text-muted-foreground">
-                    Was <span className="line-through">{formatPrice(selectedVariant.compareAt)}</span>
+                    {tr(lang, { no: "Før", en: "Was", sv: "Tidigare", de: "Vorher", pl: "Wcześniej" })} <span className="line-through">{formatPrice(selectedVariant.compareAt)}</span>
                   </span>
                 )}
               </div>
@@ -209,11 +240,19 @@ function ProductPage() {
               rel="noopener"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition shadow-lg shadow-gold/20"
             >
-              <ShoppingBag className="size-5" /> {(selectedVariant?.inStock ?? p.inStock) ? "Buy on Fourthwall" : "View on Fourthwall"}
+              <ShoppingBag className="size-5" /> {(selectedVariant?.inStock ?? p.inStock)
+                ? tr(lang, { no: "Kjøp på Fourthwall", en: "Buy on Fourthwall", sv: "Köp på Fourthwall", de: "Bei Fourthwall kaufen", pl: "Kup na Fourthwall" })
+                : tr(lang, { no: "Se på Fourthwall", en: "View on Fourthwall", sv: "Visa på Fourthwall", de: "Bei Fourthwall ansehen", pl: "Zobacz na Fourthwall" })}
               <ExternalLink className="size-4" />
             </a>
             <p className="text-xs text-muted-foreground mt-3 mb-8">
-              Secure checkout on Fourthwall. Shipping calculated at checkout.
+              {tr(lang, {
+                no: "Sikker betaling hos Fourthwall. Frakt beregnes i kassen.",
+                en: "Secure checkout on Fourthwall. Shipping calculated at checkout.",
+                sv: "Säker betalning hos Fourthwall. Frakt beräknas i kassan.",
+                de: "Sichere Bezahlung bei Fourthwall. Versandkosten werden an der Kasse berechnet.",
+                pl: "Bezpieczna płatność w Fourthwall. Koszt wysyłki obliczany przy kasie.",
+              })}
             </p>
 
             {p.descriptionHtml && (
@@ -225,7 +264,9 @@ function ProductPage() {
 
             {p.variants.length > 1 && (
               <details className="mt-6 text-sm">
-                <summary className="cursor-pointer text-muted-foreground hover:text-foreground">All variants & prices ({p.variants.length})</summary>
+                <summary className="cursor-pointer text-muted-foreground hover:text-foreground">
+                  {tr(lang, { no: "Alle varianter & priser", en: "All variants & prices", sv: "Alla varianter & priser", de: "Alle Varianten & Preise", pl: "Wszystkie warianty i ceny" })} ({p.variants.length})
+                </summary>
                 <ul className="mt-3 divide-y divide-border border border-border rounded-lg overflow-hidden">
                   {p.variants.map((v) => (
                     <li key={v.id} className="flex items-center justify-between gap-3 px-3 py-2.5 bg-card/40">
@@ -241,7 +282,7 @@ function ProductPage() {
                           <span className="text-xs line-through text-muted-foreground">{formatPrice(v.compareAt)}</span>
                         )}
                         {v.price ? formatPrice(v.price) : ""}
-                        {!v.inStock && <span className="text-xs text-muted-foreground">Sold out</span>}
+                        {!v.inStock && <span className="text-xs text-muted-foreground">{tr(lang, { no: "Utsolgt", en: "Sold out", sv: "Slutsåld", de: "Ausverkauft", pl: "Wyprzedany" })}</span>}
                       </span>
                     </li>
                   ))}
@@ -253,7 +294,7 @@ function ProductPage() {
 
         {data.related.length > 0 && (
           <div className="mt-20">
-            <h2 className="font-display text-2xl mb-6">You may also like</h2>
+            <h2 className="font-display text-2xl mb-6">{tr(lang, { no: "Du vil kanskje også like", en: "You may also like", sv: "Du kanske också gillar", de: "Das könnte dir auch gefallen", pl: "Może spodoba Ci się również" })}</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {data.related.map((r) => (
                 <Link key={r.id} to="/about/merch/$slug" params={{ slug: r.slug }} className="group block bg-card/40 border border-border rounded-xl overflow-hidden hover:border-gold/50 transition">

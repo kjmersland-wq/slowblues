@@ -5,6 +5,7 @@ import { getDB } from "@/integrations/d1/client";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Calendar, MapPin, Ticket, Play } from "lucide-react";
+import { useI18n, tr } from "@/i18n";
 
 type Concert = {
   slug: string;
@@ -65,25 +66,39 @@ export const Route = createFileRoute("/concerts/$slug")({
   },
   errorComponent: ({ error }) => {
     if (typeof console !== "undefined") console.error("concert detail load failed", error);
+    const { lang } = useI18n();
     return (
       <div className="min-h-screen flex items-center justify-center text-foreground/70">
-        This concert is temporarily unavailable — please try again later.
+        {tr(lang, {
+          no: "Denne konserten er midlertidig utilgjengelig — prøv igjen senere.",
+          en: "This concert is temporarily unavailable — please try again later.",
+          sv: "Den här konserten är tillfälligt otillgänglig — försök igen senare.",
+          de: "Dieses Konzert ist vorübergehend nicht verfügbar — bitte versuchen Sie es später erneut.",
+          pl: "Ten koncert jest tymczasowo niedostępny — spróbuj ponownie później.",
+        })}
       </div>
     );
   },
-  notFoundComponent: () => (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-4 text-foreground/70">
-      <p>Concert not found.</p>
-      <Link to="/" className="text-gold underline">Back home</Link>
-    </div>
-  ),
+  notFoundComponent: () => {
+    const { lang } = useI18n();
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4 text-foreground/70">
+        <p>{tr(lang, { no: "Fant ikke konserten.", en: "Concert not found.", sv: "Konserten hittades inte.", de: "Konzert nicht gefunden.", pl: "Nie znaleziono koncertu." })}</p>
+        <Link to="/" className="text-gold underline">{tr(lang, { no: "Tilbake til forsiden", en: "Back home", sv: "Tillbaka till startsidan", de: "Zurück zur Startseite", pl: "Powrót do strony głównej" })}</Link>
+      </div>
+    );
+  },
   component: ConcertPage,
 });
 
+const CONCERT_LOCALE_MAP: Record<string, string> = { no: "nb-NO", en: "en-GB", sv: "sv-SE", de: "de-DE", pl: "pl-PL" };
+
 function ConcertPage() {
   const { concert: c } = Route.useLoaderData();
+  const { lang } = useI18n();
+  const locale = CONCERT_LOCALE_MAP[lang] ?? "en-GB";
   const dateStr = c.event_date
-    ? new Date(c.event_date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })
+    ? new Date(c.event_date).toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" })
     : null;
 
   return (
@@ -91,7 +106,11 @@ function ConcertPage() {
       <SiteHeader />
       <article className="max-w-4xl mx-auto px-6 py-16">
         <div className="mb-3 text-xs font-mono uppercase tracking-widest text-gold">
-          {c.event_type === "festival" ? "Festival" : c.event_type === "tour" ? "Tour" : "Concert"}
+          {c.event_type === "festival"
+            ? tr(lang, { no: "Festival", en: "Festival", sv: "Festival", de: "Festival", pl: "Festiwal" })
+            : c.event_type === "tour"
+              ? tr(lang, { no: "Turné", en: "Tour", sv: "Turné", de: "Tournee", pl: "Trasa koncertowa" })
+              : tr(lang, { no: "Konsert", en: "Concert", sv: "Konsert", de: "Konzert", pl: "Koncert" })}
         </div>
         <h1 className="font-display text-4xl md:text-5xl mb-4">{c.title}</h1>
         {c.artist_name && (
@@ -112,7 +131,7 @@ function ConcertPage() {
           {dateStr && (
             <div className="flex items-center gap-2 text-foreground/80">
               <Calendar className="size-4 text-gold" />
-              <span>{dateStr}{c.end_date ? ` – ${new Date(c.end_date).toLocaleDateString("en-GB")}` : ""}</span>
+              <span>{dateStr}{c.end_date ? ` – ${new Date(c.end_date).toLocaleDateString(locale)}` : ""}</span>
             </div>
           )}
           {(c.venue || c.city) && (
@@ -132,12 +151,12 @@ function ConcertPage() {
         <div className="mt-10 flex flex-wrap gap-3">
           {c.ticket_url && (
             <a href={c.ticket_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-gold text-background font-medium hover:opacity-90">
-              <Ticket className="size-4" /> Tickets
+              <Ticket className="size-4" /> {tr(lang, { no: "Billetter", en: "Tickets", sv: "Biljetter", de: "Tickets", pl: "Bilety" })}
             </a>
           )}
           {c.youtube_video_id && (
             <a href={`https://www.youtube.com/watch?v=${c.youtube_video_id}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md border border-border hover:border-gold/60">
-              <Play className="size-4" /> Watch on YouTube
+              <Play className="size-4" /> {tr(lang, { no: "Se på YouTube", en: "Watch on YouTube", sv: "Se på YouTube", de: "Auf YouTube ansehen", pl: "Obejrzyj na YouTube" })}
             </a>
           )}
         </div>

@@ -8,6 +8,7 @@ import { searchUnsplash, trackUnsplashDownload, type UnsplashPhoto } from "@/lib
 import { searchPexelsPhotos, searchPixabayPhotos, type PexelsPhoto, type PixabayPhoto } from "@/lib/stockphotos.functions";
 import { IMG } from "@/data/images";
 import { Search, Loader2, Copy, Check, ExternalLink } from "lucide-react";
+import { useI18n, tr } from "@/i18n";
 
 export const Route = createFileRoute("/editorial/images")({
   component: ImagesPage,
@@ -29,13 +30,20 @@ function ImagesPage() {
   const [source, setSource] = useState<Source>("unsplash");
   const [query, setQuery] = useState("blues guitar stage");
   const [orient, setOrient] = useState<Orient>("landscape");
+  const { lang } = useI18n();
 
   return (
     <PageShell>
       <PageHero
-        eyebrow="Editorial"
-        title="Image Library"
-        lead="Search Unsplash, Pexels and Pixabay side by side. Click Use on any photo to copy attribution-ready HTML — and register the use with the source where required."
+        eyebrow={tr(lang, { no: "Redaksjonelt", en: "Editorial", sv: "Redaktionellt", de: "Redaktion", pl: "Redakcja" })}
+        title={tr(lang, { no: "Bildebibliotek", en: "Image Library", sv: "Bildbibliotek", de: "Bildbibliothek", pl: "Biblioteka zdjęć" })}
+        lead={tr(lang, {
+          no: "Søk i Unsplash, Pexels og Pixabay side om side. Klikk Bruk på et bilde for å kopiere attribusjonsklar HTML — og registrer bruken hos kilden der det kreves.",
+          en: "Search Unsplash, Pexels and Pixabay side by side. Click Use on any photo to copy attribution-ready HTML — and register the use with the source where required.",
+          sv: "Sök i Unsplash, Pexels och Pixabay sida vid sida. Klicka på Använd för ett foto för att kopiera attributionsklar HTML — och registrera användningen hos källan där det krävs.",
+          de: "Durchsuche Unsplash, Pexels und Pixabay nebeneinander. Klicke bei einem Foto auf Verwenden, um attributionsfertiges HTML zu kopieren — und registriere die Nutzung bei der Quelle, wo erforderlich.",
+          pl: "Przeszukuj Unsplash, Pexels i Pixabay jednocześnie. Kliknij Użyj przy zdjęciu, aby skopiować gotowy do atrybucji kod HTML — i zarejestruj wykorzystanie u źródła, gdzie jest to wymagane.",
+        })}
         img={IMG.microphone}
       />
 
@@ -69,7 +77,7 @@ function ImagesPage() {
             <input
               name="q"
               defaultValue={query}
-              placeholder={`Search ${source}…`}
+              placeholder={`${tr(lang, { no: "Søk", en: "Search", sv: "Sök", de: "Suchen", pl: "Szukaj" })} ${source}…`}
               className="w-full pl-11 pr-4 py-3 bg-card border border-gold/30 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-gold"
             />
           </div>
@@ -78,12 +86,12 @@ function ImagesPage() {
             onChange={(e) => setOrient(e.target.value as Orient)}
             className="px-4 py-3 bg-card border border-gold/30 rounded-lg text-foreground focus:outline-none focus:border-gold"
           >
-            <option value="landscape">Landscape</option>
-            <option value="portrait">Portrait</option>
-            <option value="square">Square</option>
+            <option value="landscape">{tr(lang, { no: "Liggende", en: "Landscape", sv: "Liggande", de: "Querformat", pl: "Poziomo" })}</option>
+            <option value="portrait">{tr(lang, { no: "Stående", en: "Portrait", sv: "Stående", de: "Hochformat", pl: "Pionowo" })}</option>
+            <option value="square">{tr(lang, { no: "Kvadratisk", en: "Square", sv: "Kvadratisk", de: "Quadratisch", pl: "Kwadratowo" })}</option>
           </select>
           <button type="submit" className="px-6 py-3 bg-gold text-black font-semibold rounded-lg hover:bg-gold/90 transition">
-            Search
+            {tr(lang, { no: "Søk", en: "Search", sv: "Sök", de: "Suchen", pl: "Szukaj" })}
           </button>
         </form>
 
@@ -270,16 +278,17 @@ function ResultsShell({
   empty: boolean | undefined;
   children: React.ReactNode;
 }) {
+  const { lang } = useI18n();
   return (
     <>
       {isFetching && (
         <div className="flex items-center gap-2 text-muted-foreground py-12">
-          <Loader2 className="h-4 w-4 animate-spin" /> Loading photos…
+          <Loader2 className="h-4 w-4 animate-spin" /> {tr(lang, { no: "Laster bilder …", en: "Loading photos…", sv: "Läser in bilder …", de: "Fotos werden geladen …", pl: "Wczytywanie zdjęć…" })}
         </div>
       )}
-      {error && <p className="text-sm text-red-400 py-6">Network error — try again shortly.</p>}
+      {error && <p className="text-sm text-red-400 py-6">{tr(lang, { no: "Nettverksfeil — prøv igjen om litt.", en: "Network error — try again shortly.", sv: "Nätverksfel — försök igen om en stund.", de: "Netzwerkfehler — bitte versuchen Sie es in Kürze erneut.", pl: "Błąd sieci — spróbuj ponownie za chwilę." })}</p>}
       {apiError && <p className="text-sm text-amber-400 py-6">{apiError}</p>}
-      {empty && <p className="text-muted-foreground py-12">No results.</p>}
+      {empty && <p className="text-muted-foreground py-12">{tr(lang, { no: "Ingen resultater.", en: "No results.", sv: "Inga resultat.", de: "Keine Ergebnisse.", pl: "Brak wyników." })}</p>}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">{children}</div>
     </>
   );
@@ -298,24 +307,27 @@ function PhotoCard({
   copied: boolean;
   onUse: () => void;
 }) {
+  const { lang } = useI18n();
   return (
     <div className="flex flex-col gap-3">
       {image}
       <div className="flex items-center gap-2">
         <button
           onClick={onUse}
-          title={`Copy HTML — credit: ${credit}`}
+          title={`${tr(lang, { no: "Kopier HTML", en: "Copy HTML", sv: "Kopiera HTML", de: "HTML kopieren", pl: "Kopiuj HTML" })} — credit: ${credit}`}
           className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md bg-gold text-black text-sm font-semibold hover:bg-gold/90 transition"
         >
           {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-          {copied ? "Copied" : "Use (copy HTML)"}
+          {copied
+            ? tr(lang, { no: "Kopiert", en: "Copied", sv: "Kopierat", de: "Kopiert", pl: "Skopiowano" })
+            : tr(lang, { no: "Bruk (kopier HTML)", en: "Use (copy HTML)", sv: "Använd (kopiera HTML)", de: "Verwenden (HTML kopieren)", pl: "Użyj (kopiuj HTML)" })}
         </button>
         <a
           href={externalUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="p-2 rounded-md border border-gold/30 text-muted-foreground hover:text-gold hover:border-gold transition"
-          aria-label="Open source"
+          aria-label={tr(lang, { no: "Åpne kilde", en: "Open source", sv: "Öppna källa", de: "Quelle öffnen", pl: "Otwórz źródło" })}
         >
           <ExternalLink className="h-4 w-4" />
         </a>

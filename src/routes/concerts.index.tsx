@@ -4,6 +4,7 @@ import { getDB } from "@/integrations/d1/client";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Calendar, MapPin } from "lucide-react";
+import { useI18n, tr } from "@/i18n";
 
 type ConcertListItem = {
   slug: string;
@@ -83,23 +84,58 @@ export const Route = createFileRoute("/concerts/")({
   },
   errorComponent: ({ error }) => {
     if (typeof console !== "undefined") console.error("concerts list load failed", error);
-    return <div className="p-10 text-foreground/70">Concerts are temporarily unavailable — please try again later.</div>;
+    const { lang } = useI18n();
+    return (
+      <div className="p-10 text-foreground/70">
+        {tr(lang, {
+          no: "Konserter er midlertidig utilgjengelige — prøv igjen senere.",
+          en: "Concerts are temporarily unavailable — please try again later.",
+          sv: "Konserter är tillfälligt otillgängliga — försök igen senare.",
+          de: "Konzerte sind vorübergehend nicht verfügbar — bitte versuchen Sie es später erneut.",
+          pl: "Koncerty są tymczasowo niedostępne — spróbuj ponownie później.",
+        })}
+      </div>
+    );
   },
-  notFoundComponent: () => <div className="p-10">No concerts yet.</div>,
+  notFoundComponent: () => {
+    const { lang } = useI18n();
+    return <div className="p-10">{tr(lang, { no: "Ingen konserter ennå.", en: "No concerts yet.", sv: "Inga konserter än.", de: "Noch keine Konzerte.", pl: "Jeszcze brak koncertów." })}</div>;
+  },
   component: ConcertsList,
 });
 
+const LOCALE_MAP: Record<string, string> = { no: "nb-NO", en: "en-GB", sv: "sv-SE", de: "de-DE", pl: "pl-PL" };
+
 function ConcertsList() {
   const { concerts } = Route.useLoaderData();
+  const { lang } = useI18n();
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <main className="max-w-6xl mx-auto px-6 py-16">
-        <h1 className="font-display text-4xl md:text-5xl mb-3 gold-gradient-text">Concerts & Festivals</h1>
-        <p className="text-foreground/70 mb-10">Live blues from clubs, theatres and festival fields around the world.</p>
+        <h1 className="font-display text-4xl md:text-5xl mb-3 gold-gradient-text">
+          {tr(lang, { no: "Konserter & festivaler", en: "Concerts & Festivals", sv: "Konserter & festivaler", de: "Konzerte & Festivals", pl: "Koncerty i festiwale" })}
+        </h1>
+        <p className="text-foreground/70 mb-10">
+          {tr(lang, {
+            no: "Live blues fra klubber, teatre og festivalarenaer over hele verden.",
+            en: "Live blues from clubs, theatres and festival fields around the world.",
+            sv: "Levande blues från klubbar, teatrar och festivalscener över hela världen.",
+            de: "Live-Blues aus Clubs, Theatern und Festivalgeländen auf der ganzen Welt.",
+            pl: "Blues na żywo z klubów, teatrów i terenów festiwalowych na całym świecie.",
+          })}
+        </p>
 
         {concerts.length === 0 ? (
-          <p className="text-foreground/60">No concerts published yet. Check back soon.</p>
+          <p className="text-foreground/60">
+            {tr(lang, {
+              no: "Ingen konserter publisert ennå. Sjekk innom snart.",
+              en: "No concerts published yet. Check back soon.",
+              sv: "Inga konserter publicerade än. Titta förbi snart igen.",
+              de: "Noch keine Konzerte veröffentlicht. Schauen Sie bald wieder vorbei.",
+              pl: "Nie opublikowano jeszcze żadnych koncertów. Zajrzyj wkrótce ponownie.",
+            })}
+          </p>
         ) : (
           <ul className="grid md:grid-cols-2 gap-5">
             {concerts.map((c: any) => (
@@ -110,7 +146,11 @@ function ConcertsList() {
                   className="block bg-card/60 border border-border rounded-lg p-5 hover:border-gold/60 transition"
                 >
                   <div className="text-[10px] font-mono uppercase tracking-widest text-gold mb-2">
-                    {c.event_type === "festival" ? "Festival" : c.event_type === "tour" ? "Tour" : "Concert"}
+                    {c.event_type === "festival"
+                      ? tr(lang, { no: "Festival", en: "Festival", sv: "Festival", de: "Festival", pl: "Festiwal" })
+                      : c.event_type === "tour"
+                        ? tr(lang, { no: "Turné", en: "Tour", sv: "Turné", de: "Tournee", pl: "Trasa koncertowa" })
+                        : tr(lang, { no: "Konsert", en: "Concert", sv: "Konsert", de: "Konzert", pl: "Koncert" })}
                   </div>
                   <h2 className="font-display text-xl mb-1">{c.title}</h2>
                   {c.artist_name && <p className="text-sm text-foreground/70 mb-3">{c.artist_name}</p>}
@@ -118,7 +158,7 @@ function ConcertsList() {
                     {c.event_date && (
                       <span className="inline-flex items-center gap-1">
                         <Calendar className="size-3.5 text-gold" />
-                        {new Date(c.event_date).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
+                        {new Date(c.event_date).toLocaleDateString(LOCALE_MAP[lang] ?? "en-GB", { day: "numeric", month: "short", year: "numeric" })}
                       </span>
                     )}
                     {(c.venue || c.city) && (
