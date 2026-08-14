@@ -391,7 +391,20 @@ function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showBu
   );
 }
 
+// The ticker API is a shared, cross-locale-cached JSON endpoint (see
+// api.ticker.ts's Cache-Control) so it deliberately returns locale-neutral
+// hrefs (default-locale artist paths). Rewrite the /artists/{slug} ones to
+// the viewer's current language client-side rather than baking a locale
+// into a cached response that every visitor shares.
+function localizeHref(href: string, lang: Lang): string {
+  const m = href.match(/^\/artists\/([^/#?]+)/);
+  if (!m) return href;
+  const rest = href.slice(m[0].length);
+  return `${artistDetailPath(lang, m[1])}${rest}`;
+}
+
 function Ticker() {
+  const { lang } = useI18n();
   const { data } = useQuery({
     queryKey: ["news-ticker"],
     queryFn: async () => {
@@ -412,7 +425,9 @@ function Ticker() {
       if (b.priority !== a.priority) return b.priority - a.priority;
       return (b.timestamp ?? "").localeCompare(a.timestamp ?? "");
     });
-    return unique.slice(0, 5);
+    // Server (buildNewsTicker) already freshness-gates and caps at 5-8 —
+    // trust it rather than re-truncating to a fixed 5 here.
+    return unique.slice(0, 8);
   }, [data]);
 
   const loop = [...merged, ...merged];
@@ -432,13 +447,19 @@ function Ticker() {
   return (
     <div
       className="relative border-y border-border bg-card/40 overflow-hidden ticker-mask"
-      aria-label="Live blues news ticker"
+      aria-label={tr(lang, {
+        no: "Direkte bluesnyheter",
+        en: "Live blues news ticker",
+        sv: "Direkta bluesnyheter",
+        de: "Blues-Nachrichtenticker live",
+        pl: "Wiadomości bluesowe na żywo",
+      })}
     >
       <div className="flex gap-10 py-3 animate-ticker whitespace-nowrap will-change-transform">
         {loop.map((t, i) => (
           <a
             key={`${t.id}-${i}`}
-            href={t.href}
+            href={t.external ? t.href : localizeHref(t.href, lang)}
             {...(t.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
             className="text-sm text-foreground/85 hover:text-foreground inline-flex items-center gap-2 group"
           >
