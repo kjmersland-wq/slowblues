@@ -138,7 +138,14 @@ async function fromExternalNews(db: D1Database): Promise<UpdateItem[]> {
   function matchArtist(text: string): { slug: string; name: string } | undefined {
     for (const a of artistList) {
       const escaped = a.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      if (new RegExp(`\\b${escaped}\\b`, "i").test(text)) return a;
+      const match = new RegExp(`\\b${escaped}\\b`, "i").exec(text);
+      if (!match) continue;
+      // Reject e.g. "Elmore James" matching inside "Elmore James Jr." — a
+      // suffix right after the matched name means it's naming a different,
+      // distinct person, not the artist on file.
+      const after = text.slice(match.index + match[0].length);
+      if (/^\s*,?\s*(Jr\.?|Sr\.?|II|III|IV)\b/i.test(after)) continue;
+      return a;
     }
     return undefined;
   }
