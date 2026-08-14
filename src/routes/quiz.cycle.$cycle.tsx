@@ -14,6 +14,7 @@ import {
   type QuizDifficulty,
 } from "@/lib/quiz.server";
 import { useI18n, tr } from "@/i18n";
+import { artistDetailPath } from "@/lib/locale";
 
 export const Route = createFileRoute("/quiz/cycle/$cycle")({
   component: CyclePage,
@@ -131,7 +132,7 @@ function CyclePage() {
             <div className="text-xs tracking-[0.2em] text-gold mb-1 inline-flex items-center gap-1.5">
               <Star className="size-3.5" /> {tr(lang, { no: "SYKLUSENS ARTIST", en: "FEATURED ARTIST", pl: "WYRÓŻNIONY ARTYSTA", sv: "PERIODENS ARTIST", de: "KÜNSTLER DES ZYKLUS" })}
             </div>
-            <Link to="/artists/$slug" params={{ slug: featuredSlug }} className="font-display text-2xl gold-gradient-text hover:underline">{displayNameFromSlug(featuredSlug)}</Link>
+            <Link to={artistDetailPath(lang, featuredSlug) as any} className="font-display text-2xl gold-gradient-text hover:underline">{displayNameFromSlug(featuredSlug)}</Link>
           </div>
         )}
 
@@ -152,7 +153,7 @@ function CyclePage() {
                 </div>
                 <p className="text-sm text-muted-foreground/90 leading-relaxed">{q.explanation[lang] ?? q.explanation.en}</p>
                 {q.artistSlug && (
-                  <Link to="/artists/$slug" params={{ slug: q.artistSlug }} className="mt-2 inline-flex items-center gap-1 text-xs text-gold hover:underline">
+                  <Link to={artistDetailPath(lang, q.artistSlug) as any} className="mt-2 inline-flex items-center gap-1 text-xs text-gold hover:underline">
                     {tr(lang, { no: "Les mer", en: "Read more", pl: "Czytaj więcej", sv: "Läs mer", de: "Mehr lesen" })} <ExternalLink className="size-3" />
                   </Link>
                 )}

@@ -3,7 +3,7 @@ import { useI18n, type Lang } from "@/i18n";
 import { Search, ChevronDown, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import logoSB from "@/assets/logo-slowblues.png";
-import { artistDetailPath } from "@/lib/locale";
+import { artistDetailPath, artistsListPath } from "@/lib/locale";
 
 const LANGS: { code: Lang; label: string; flag: string }[] = [
   { code: "no", label: "NO", flag: "🇳🇴" },
@@ -37,11 +37,16 @@ export function SiteHeader() {
     setLang(nextLang);
     setLangOpen(false);
 
-    const match = location.pathname.match(/^\/(?:([a-z]{2})\/)?artists\/([^/]+)$/i);
-    if (!match) return;
+    const detailMatch = location.pathname.match(/^\/(?:([a-z]{2})\/)?artists\/([^/]+)$/i);
+    if (detailMatch) {
+      void navigate({ to: artistDetailPath(nextLang, detailMatch[2]) as any });
+      return;
+    }
 
-    const slug = match[2];
-    void navigate({ to: artistDetailPath(nextLang, slug) as any });
+    const listMatch = location.pathname.match(/^\/(?:([a-z]{2})\/)?artists\/?$/i);
+    if (listMatch) {
+      void navigate({ to: artistsListPath(nextLang) as any });
+    }
   };
 
   type Item = { to: string; label: string };

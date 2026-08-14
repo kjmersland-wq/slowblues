@@ -5,6 +5,7 @@ import { instrumentsHistory, instrumentCategories, instrumentImages, type Instru
 import { SafeImage } from "@/components/SafeImage";
 import { useState } from "react";
 import { useI18n, tr } from "@/i18n";
+import { artistDetailPath } from "@/lib/locale";
 
 export const Route = createFileRoute("/instruments")({
   component: InstrumentsPage,
@@ -94,7 +95,7 @@ function InstrumentsPage() {
                       {i.famousUsers.map((u) => (
                         <li key={u.name}>
                           {u.slug ? (
-                            <Link to="/artists/$slug" params={{ slug: u.slug }} className="text-gold hover:underline">{u.name}</Link>
+                            <Link to={artistDetailPath(lang, u.slug) as any} className="text-gold hover:underline">{u.name}</Link>
                           ) : (
                             <span>{u.name}</span>
                           )}

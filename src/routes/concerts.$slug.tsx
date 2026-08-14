@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Calendar, MapPin, Ticket, Play } from "lucide-react";
 import { useI18n, tr } from "@/i18n";
+import { artistDetailPath } from "@/lib/locale";
 
 type Concert = {
   slug: string;
@@ -116,7 +117,7 @@ function ConcertPage() {
         {c.artist_name && (
           <p className="text-lg text-foreground/80 mb-6">
             {c.artist_slug ? (
-              <Link to="/artists/$slug" params={{ slug: c.artist_slug }} className="hover:text-gold underline-offset-4 hover:underline">
+              <Link to={artistDetailPath(lang, c.artist_slug) as any} className="hover:text-gold underline-offset-4 hover:underline">
                 {c.artist_name}
               </Link>
             ) : c.artist_name}

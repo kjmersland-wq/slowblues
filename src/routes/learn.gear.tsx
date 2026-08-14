@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { useI18n, tr } from "@/i18n";
 import { ExternalLink, Share2, Music, Guitar, Mic, Speaker, Drum } from "lucide-react";
 import { PageShell } from "@/components/PageShell";
+import { artistDetailPath } from "@/lib/locale";
 
 export const Route = createFileRoute("/learn/gear")({
   // This route doubles as a layout for /learn/gear/$id (GearRoute below
@@ -556,8 +557,7 @@ function BrandCard({ brand, lang }: { brand: Brand; lang: ReturnType<typeof useI
                   <li key={a.name}>
                     {a.slug ? (
                       <Link
-                        to="/artists/$slug"
-                        params={{ slug: a.slug }}
+                        to={artistDetailPath(lang, a.slug) as any}
                         className="text-gold hover:underline"
                       >
                         {a.name}

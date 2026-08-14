@@ -15,6 +15,7 @@ import {
 } from "@/lib/quiz.server";
 import { getLeaderboard, addToLeaderboard, getAllTimeLeaderboard, type LeaderboardEntry } from "@/data/quizQuestions";
 import { useI18n, tr } from "@/i18n";
+import { artistDetailPath } from "@/lib/locale";
 
 export const Route = createFileRoute("/quiz/")({
   component: QuizPage,
@@ -188,7 +189,7 @@ function QuizPage() {
                   </div>
                   <p className="text-sm text-muted-foreground/90 ml-7 leading-relaxed">{q.explanation[lang] ?? q.explanation.en}</p>
                   {q.artistSlug && (
-                    <Link to="/artists/$slug" params={{ slug: q.artistSlug }} className="ml-7 mt-2 inline-flex items-center gap-1 text-xs text-gold hover:underline">
+                    <Link to={artistDetailPath(lang, q.artistSlug) as any} className="ml-7 mt-2 inline-flex items-center gap-1 text-xs text-gold hover:underline">
                       {tr(lang, { no: "Les mer om artisten", en: "Read more about the artist", pl: "Przeczytaj więcej o artyście", sv: "Läs mer om artisten", de: "Mehr über den Künstler" })} <ExternalLink className="size-3" />
                     </Link>
                   )}
@@ -226,7 +227,7 @@ function QuizPage() {
             <div className="mt-3 flex items-center gap-2 text-sm">
               <Star className="size-4 text-gold" />
               <span className="text-muted-foreground">{tr(lang, { no: "Syklusens artist:", en: "Featured artist:", pl: "Polecany artysta:", sv: "Periodens artist:", de: "Künstler des Zyklus:" })}</span>
-              <Link to="/artists/$slug" params={{ slug: featuredSlug }} className="text-gold hover:underline font-medium">{displayNameFromSlug(featuredSlug)}</Link>
+              <Link to={artistDetailPath(lang, featuredSlug) as any} className="text-gold hover:underline font-medium">{displayNameFromSlug(featuredSlug)}</Link>
             </div>
           )}
         </div>

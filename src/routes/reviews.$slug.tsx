@@ -4,6 +4,7 @@ import { PageShell } from "@/components/PageShell";
 import { CoverFallback } from "@/components/reviews/CoverFallback";
 import { fetchPublishedReviewBySlug } from "@/lib/reviews.functions";
 import { useI18n, tr } from "@/i18n";
+import { artistDetailPath } from "@/lib/locale";
 import { Star, ArrowLeft, Calendar, Music } from "lucide-react";
 
 
@@ -215,7 +216,7 @@ function ReviewDetailPage() {
             <h1 className="font-display text-4xl md:text-5xl mb-3">{title}</h1>
             <div className="text-lg text-muted-foreground mb-1">
               {review.artist_slug ? (
-                <Link to="/artists/$slug" params={{ slug: review.artist_slug }} className="hover:text-gold">
+                <Link to={artistDetailPath(lang, review.artist_slug) as any} className="hover:text-gold">
                   {review.artist_name}
                 </Link>
               ) : (

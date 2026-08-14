@@ -50,21 +50,27 @@ function FestivalsPage() {
       <PageHero eyebrow={t.pages.festivals.eyebrow} title={t.pages.festivals.title} lead={t.pages.festivals.lead} img={IMG.crowd} />
       <section className="max-w-5xl mx-auto px-6 py-12">
         <div className="space-y-3">
-          {FESTIVALS.map((f) => (
-            <a key={f.name} href={f.url} target="_blank" rel="noopener" className="block group bg-card/60 border border-border rounded-lg p-5 hover:border-gold/60 transition">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <div className="font-display text-xl">{f.name}</div>
-                  <div className="text-sm text-muted-foreground mt-1 flex items-center gap-4 flex-wrap">
-                    <span className="inline-flex items-center gap-1"><MapPin className="size-3.5 text-gold" /> {f.city}</span>
-                    <span className="inline-flex items-center gap-1"><Calendar className="size-3.5 text-gold" /> {f.month}</span>
-                    <span>{f.country}</span>
+          {FESTIVALS.map((f) => {
+            const Card = f.url ? "a" : "div";
+            const cardProps = f.url ? { href: f.url, target: "_blank", rel: "noopener" } : {};
+            return (
+              <Card key={f.name} {...cardProps} className={`block bg-card/60 border border-border rounded-lg p-5 transition ${f.url ? "group hover:border-gold/60" : ""}`}>
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <div className="font-display text-xl">{f.name}</div>
+                    <div className="text-sm text-muted-foreground mt-1 flex items-center gap-4 flex-wrap">
+                      <span className="inline-flex items-center gap-1"><MapPin className="size-3.5 text-gold" /> {f.city}</span>
+                      <span className="inline-flex items-center gap-1"><Calendar className="size-3.5 text-gold" /> {f.month}</span>
+                      <span>{f.country}</span>
+                    </div>
                   </div>
+                  {f.url && (
+                    <span className="text-gold text-sm inline-flex items-center gap-1">{tr(lang, { no: "Nettside", en: "Website", sv: "Webbplats", de: "Website", pl: "Strona internetowa" })} <ExternalLink className="size-3.5" /></span>
+                  )}
                 </div>
-                <span className="text-gold text-sm inline-flex items-center gap-1">{tr(lang, { no: "Nettside", en: "Website", sv: "Webbplats", de: "Website", pl: "Strona internetowa" })} <ExternalLink className="size-3.5" /></span>
-              </div>
-            </a>
-          ))}
+              </Card>
+            );
+          })}
         </div>
       </section>
     </PageShell>

@@ -12,6 +12,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { IMG } from "@/data/images";
 import { useI18n, tr, type Lang } from "@/i18n";
+import { artistDetailPath, artistsListPath } from "@/lib/locale";
 import heroJukeImg from "@/assets/hero-juke.jpg";
 import heroDeltaImg from "@/assets/hero-delta.jpg";
 import heroGuitarImg from "@/assets/hero-guitar.jpg";
@@ -123,6 +124,7 @@ function getPioneers(lang: Lang) {
       img: robertJohnson, icon: Music,
       tag: tr(lang, { no: "Korsveis-legenden", en: "The Crossroads Legend", pl: "Legenda rozstajów", sv: "Korsvägslegenden", de: "Die Crossroads-Legende" }),
       name: "Robert Johnson",
+      slug: "robert-johnson",
       desc: tr(lang, {
         no: "Kun 29 innspillinger, men han definerte Delta-blueslyden og inspirerte generasjoner av rockemusikere.",
         en: "Only 29 recordings, but he defined the Delta blues sound and inspired generations of rock musicians.", pl: "Tylko 29 nagrań, ale to on zdefiniował brzmienie bluesa Delty i zainspirował pokolenia muzyków rockowych.",
@@ -134,6 +136,7 @@ function getPioneers(lang: Lang) {
       img: muddyWaters, icon: Radio,
       tag: tr(lang, { no: "Chicago-bluesens far", en: "Father of Chicago Blues", pl: "Ojciec Chicago Blues", sv: "Chicago-bluesens fader", de: "Vater des Chicago-Blues" }),
       name: "Muddy Waters",
+      slug: "muddy-waters",
       desc: tr(lang, {
         no: "Elektrifiserte Delta-lyden og ble broen mellom akustiske røtter og moderne bluesrock.",
         en: "Electrified the Delta sound and became the bridge between acoustic roots and modern blues-rock.", pl: "Zelektryzował brzmienie Delta i stał się pomostem między akustycznymi korzeniami a nowoczesnym blues-rockiem.",
@@ -145,6 +148,7 @@ function getPioneers(lang: Lang) {
       img: sonHouse, icon: Mic,
       tag: tr(lang, { no: "Predikantens blues", en: "The Preacher's Blues", pl: "The Preacher's Blues", sv: "Predikantens blues", de: "Der Blues des Predigers" }),
       name: "Son House",
+      slug: "son-house",
       desc: tr(lang, {
         no: "Rå, emosjonell slidegitar og åndelig intensitet som direkte påvirket Robert Johnson.",
         en: "Raw, emotional slide guitar and spiritual intensity that directly influenced Robert Johnson.", pl: "Surowa, emocjonalna gra na slide guitar i duchowa intensywność, która bezpośrednio wpłynęła na Roberta Johnsona.",
@@ -368,9 +372,9 @@ function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showBu
             <a href="#support" className="px-7 py-3.5 rounded-md border border-gold/60 text-foreground hover:bg-gold/10 transition flex items-center gap-2">
               <ShoppingBag className="size-4" /> {tr(lang, { no: "Kjøp blues-merch", en: "Shop Blues Merch", pl: "Kup Blues Merch", sv: "Köp blues-merch", de: "Blues-Merch kaufen" })}
             </a>
-            <a href="#" className="px-7 py-3.5 rounded-md border border-gold/40 text-foreground hover:bg-gold/10 transition flex items-center gap-2">
+            <Link to="/listen" className="px-7 py-3.5 rounded-md border border-gold/40 text-foreground hover:bg-gold/10 transition flex items-center gap-2">
               <Play className="size-4" /> {tr(lang, { no: "Lytt", en: "Listen", pl: "Słuchaj", sv: "Lyssna", de: "Hören" })}
-            </a>
+            </Link>
           </div>
         )}
         {credit && (
@@ -536,17 +540,17 @@ function ThreeNames() {
               <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-2">{p.tag}</div>
               <h3 className="font-display text-2xl mb-3">{p.name}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
-              <a href="#" className="mt-4 inline-flex items-center gap-1 text-sm text-gold hover:gap-2 transition-all">
+              <Link to={artistDetailPath(lang, p.slug) as any} className="mt-4 inline-flex items-center gap-1 text-sm text-gold hover:gap-2 transition-all">
                 {tr(lang, { no: "Utforsk profil", en: "Explore profile", pl: "Przeglądaj profil", sv: "Utforska profil", de: "Profil entdecken" })} <ArrowRight className="size-4" />
-              </a>
+              </Link>
             </div>
           </article>
         ))}
       </div>
       <div className="text-center mt-12">
-        <a href="#" className="inline-flex items-center gap-2 px-7 py-3 rounded-md border border-gold/60 text-gold hover:bg-gold/10 transition">
+        <Link to={artistsListPath(lang) as any} className="inline-flex items-center gap-2 px-7 py-3 rounded-md border border-gold/60 text-gold hover:bg-gold/10 transition">
           {tr(lang, { no: "Se alle artister", en: "See all artists", pl: "Zobacz wszystkich artystów", sv: "Se alla artister", de: "Alle Künstler sehen" })} <ArrowRight className="size-4" />
-        </a>
+        </Link>
       </div>
     </section>
   );
@@ -574,9 +578,9 @@ function SupportBanner() {
           })}
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <a href="#" className="px-7 py-3 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 flex items-center gap-2">
+          <Link to="/about/merch" className="px-7 py-3 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 flex items-center gap-2">
             <ShoppingBag className="size-4" /> {tr(lang, { no: "Kjøp merch", en: "Shop merch", pl: "Kup gadżety", sv: "Köp merch", de: "Merch kaufen" })}
-          </a>
+          </Link>
         </div>
       </div>
     </section>
@@ -626,9 +630,9 @@ function Timeline() {
         </div>
       </div>
       <div className="text-center mt-16">
-        <a href="#" className="inline-flex items-center gap-2 text-gold hover:gap-3 transition-all">
+        <Link to="/history" className="inline-flex items-center gap-2 text-gold hover:gap-3 transition-all">
           {tr(lang, { no: "Utforsk hele tidslinjen", en: "Explore the complete timeline", pl: "Zobacz pełną oś czasu", sv: "Utforska hela tidslinjen", de: "Die ganze Zeitlinie entdecken" })} <ArrowRight className="size-4" />
-        </a>
+        </Link>
       </div>
     </section>
   );
@@ -659,8 +663,7 @@ function Voices() {
         {voices.map((v) => (
           <Link
             key={v.name}
-            to="/artists/$slug"
-            params={{ slug: v.slug }}
+            to={artistDetailPath(lang, v.slug) as any}
             className="group bg-card/40 border border-border rounded-lg overflow-hidden hover:border-gold/50 transition block"
           >
             <div className={`relative aspect-[3/4] bg-gradient-to-br ${v.color}`}>

@@ -150,7 +150,6 @@ export const FOUNDERS: Record<string, FounderProfile> = {
       ],
     },
     links: [
-      { label: "Fender Amplifier History", url: "https://www.fender.com/amps" },
       { label: "Fender Tweed Bassman (Wikipedia)", url: "https://en.wikipedia.org/wiki/Fender_Bassman" },
     ],
   },
@@ -212,7 +211,6 @@ export const FOUNDERS: Record<string, FounderProfile> = {
       ],
     },
     links: [
-      { label: "Gibson History", url: "https://www.gibson.com/en-US/Gibson-Garage" },
       { label: "Orville Gibson (Wikipedia)", url: "https://en.wikipedia.org/wiki/Orville_Gibson" },
     ],
   },
@@ -395,7 +393,6 @@ export const FOUNDERS: Record<string, FounderProfile> = {
       ],
     },
     links: [
-      { label: "Marshall Amplification", url: "https://www.marshallamps.com" },
       { label: "Jim Marshall (Wikipedia)", url: "https://en.wikipedia.org/wiki/Jim_Marshall_(businessman)" },
     ],
   },
@@ -572,7 +569,6 @@ export const FOUNDERS: Record<string, FounderProfile> = {
     },
     links: [
       { label: "Hohner — About", url: "https://www.hohner.de/en/company" },
-      { label: "Matthias Hohner (Wikipedia)", url: "https://en.wikipedia.org/wiki/Matthias_Hohner" },
     ],
   },
 

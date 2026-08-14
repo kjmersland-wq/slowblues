@@ -35,11 +35,6 @@ export const bookingLinks: Record<string, BookingInfo> = {
     labelEn: 'Booking / Contact',
     labelNo: 'Booking / Kontakt',
   },
-  'jason-ricci': {
-    url: 'https://www.jasonricci.com/',
-    labelEn: 'Booking / Contact',
-    labelNo: 'Booking / Kontakt',
-  },
   'billy-gibbons': {
     url: 'https://billygibbons.com/',
     labelEn: 'Booking / Contact',
@@ -62,11 +57,6 @@ export const bookingLinks: Record<string, BookingInfo> = {
     labelEn: 'Booking / Contact',
     labelNo: 'Booking / Kontakt',
   },
-  'jw-jones': {
-    url: 'https://www.jwjonesblues.com/',
-    labelEn: 'Booking / Contact',
-    labelNo: 'Booking / Kontakt',
-  },
   'steve-strongman': {
     url: 'https://www.stevestrongman.com/',
     labelEn: 'Booking / Contact',
@@ -74,11 +64,6 @@ export const bookingLinks: Record<string, BookingInfo> = {
   },
 
   // ==================== BRITISH ARTISTS ====================
-  'robin-trower': {
-    url: 'https://www.robintrower.com/',
-    labelEn: 'Booking / Contact',
-    labelNo: 'Booking / Kontakt',
-  },
   'joanne-shaw-taylor': {
     url: 'https://www.joanneshawtaylor.com/',
     labelEn: 'Booking / Contact',
@@ -100,11 +85,6 @@ export const bookingLinks: Record<string, BookingInfo> = {
     url: 'https://www.facebook.com/paulpersonneofficiel/',
     labelEn: 'Booking via Facebook',
     labelNo: 'Booking via Facebook',
-  },
-  'fabio-treves': {
-    url: 'https://www.fabiotreves.it/',
-    labelEn: 'Booking / Contact',
-    labelNo: 'Booking / Kontakt',
   },
   'bill-deraime': {
     url: 'https://www.facebook.com/BillDeraimeOfficiel/',
@@ -132,16 +112,6 @@ export const bookingLinks: Record<string, BookingInfo> = {
     url: 'https://www.facebook.com/billytband/',
     labelEn: 'Booking via Facebook',
     labelNo: 'Booking via Facebook',
-  },
-  'kid-andersen': {
-    url: 'https://www.kidandersen.com/',
-    labelEn: 'Booking / Contact',
-    labelNo: 'Booking / Kontakt',
-  },
-  'knut-reiersrud': {
-    url: 'https://www.knutreiersrud.com/',
-    labelEn: 'Booking / Contact',
-    labelNo: 'Booking / Kontakt',
   },
   'amund-maarud': {
     url: 'https://www.amundmaarud.com/',
@@ -195,11 +165,6 @@ export const bookingLinks: Record<string, BookingInfo> = {
   },
 
   // ==================== SCANDINAVIAN – SWEDEN ====================
-  'louise-hoffsten': {
-    url: 'https://www.louisehoffsten.com/',
-    labelEn: 'Booking / Contact',
-    labelNo: 'Booking / Kontakt',
-  },
   'bror-gunnar-jansson': {
     url: 'https://www.facebook.com/brorgunnarjansson/',
     labelEn: 'Booking via Facebook',
@@ -227,12 +192,6 @@ export const bookingLinks: Record<string, BookingInfo> = {
     labelEn: 'Booking via Facebook',
     labelNo: 'Booking via Facebook',
   },
-  'mike-andersen': {
-    url: 'https://www.mikeandersen.dk/',
-    labelEn: 'Booking / Contact',
-    labelNo: 'Booking / Kontakt',
-  },
-
   // ==================== SCANDINAVIAN – FINLAND ====================
   'erja-lyytinen': {
     url: 'https://www.erjalyytinen.com/',
