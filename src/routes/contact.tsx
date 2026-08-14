@@ -48,7 +48,7 @@ function ContactPage() {
     setStatus("sending");
     setError(null);
     try {
-      await submitContactMessage({ data: { name, email, message } });
+      await submitContactMessage({ data: { name, email, message, lang, formType: "contact" } });
       setStatus("sent");
       setName(""); setEmail(""); setMessage(""); setConsent(false);
     } catch {

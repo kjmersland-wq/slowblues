@@ -23,7 +23,7 @@ export function AdvertiseView() {
     const typeLabel = (a.types as Record<string, string>)[form.type] ?? form.type;
     const composed = `Partner inquiry — ${typeLabel}\nOrganisation: ${form.org || "—"}\n\n${form.message}`;
     try {
-      await submitContactMessage({ data: { name: form.name, email: form.email, message: composed } });
+      await submitContactMessage({ data: { name: form.name, email: form.email, message: composed, lang, formType: "advertise" } });
       toast.success("Thanks! We'll get back to you soon.");
       setForm({ name: "", org: "", email: "", type: "newsletter", message: "" });
     } catch {
