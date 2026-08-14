@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { PageShell, PageHero } from "@/components/PageShell";
-import { useI18n } from "@/i18n";
+import { useI18n, tr } from "@/i18n";
 import { IMG } from "@/data/images";
 import { fetchPublishedReviews } from "@/lib/reviews.functions";
 import { CoverFallback } from "@/components/reviews/CoverFallback";
@@ -79,16 +79,22 @@ function ReviewsPage() {
   return (
     <PageShell>
       <PageHero
-        eyebrow="Reviews"
+        eyebrow={t.nav.reviews}
         title={t.nav.reviews}
-        lead="Album reviews written and scored by editor Kjell Mersland — out of 10."
+        lead={tr(lang, {
+          no: "Albumanmeldelser skrevet og vurdert av redaktør Kjell Mersland — på en skala til 10.",
+          en: "Album reviews written and scored by editor Kjell Mersland — out of 10.",
+          sv: "Albumrecensioner skrivna och betygsatta av redaktör Kjell Mersland — av 10.",
+          de: "Album-Rezensionen, geschrieben und bewertet von Redakteur Kjell Mersland — von 10.",
+          pl: "Recenzje albumów napisane i ocenione przez redaktora Kjella Merslanda — w skali do 10.",
+        })}
         img={IMG.vinyl}
       />
       <section className="max-w-6xl mx-auto px-6 py-12">
-        {loading && <p className="text-sm text-muted-foreground text-center py-8">Loading…</p>}
+        {loading && <p className="text-sm text-muted-foreground text-center py-8">{tr(lang, { no: "Laster …", en: "Loading…", sv: "Läser in …", de: "Wird geladen …", pl: "Wczytywanie…" })}</p>}
         {!loading && reviews?.length === 0 && (
           <div className="text-center py-16 text-muted-foreground">
-            <p>No reviews published yet.</p>
+            <p>{tr(lang, { no: "Ingen anmeldelser publisert ennå.", en: "No reviews published yet.", sv: "Inga recensioner publicerade än.", de: "Noch keine Rezensionen veröffentlicht.", pl: "Nie opublikowano jeszcze żadnych recenzji." })}</p>
           </div>
         )}
 
@@ -139,9 +145,9 @@ function ReviewsPage() {
                     {verdict && <p className="text-sm text-foreground/80 line-clamp-2 mt-1">{verdict}</p>}
 
                     <div className="mt-auto pt-3 space-y-1.5">
-                      <ScoreBar label="Songwriting" v={r.score_songwriting} />
-                      <ScoreBar label="Performance" v={r.score_instrumentation} />
-                      <ScoreBar label="Production" v={r.score_production} />
+                      <ScoreBar label={tr(lang, { no: "Låtskriving", en: "Songwriting", sv: "Låtskrivande", de: "Songwriting", pl: "Kompozycja" })} v={r.score_songwriting} />
+                      <ScoreBar label={tr(lang, { no: "Fremføring", en: "Performance", sv: "Framförande", de: "Darbietung", pl: "Wykonanie" })} v={r.score_instrumentation} />
+                      <ScoreBar label={tr(lang, { no: "Produksjon", en: "Production", sv: "Produktion", de: "Produktion", pl: "Produkcja" })} v={r.score_production} />
                     </div>
                   </div>
                 </Link>

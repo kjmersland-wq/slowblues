@@ -9,21 +9,30 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
-import { I18nProvider } from "@/i18n";
+import { I18nProvider, useI18n, tr } from "@/i18n";
 import { MigrationAnnouncement } from "@/components/MigrationAnnouncement";
 
 function NotFoundComponent() {
+  const { lang } = useI18n();
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold gold-gradient-text">404</h1>
-        <h2 className="mt-4 text-xl font-semibold">Page not found</h2>
+        <h2 className="mt-4 text-xl font-semibold">
+          {tr(lang, { no: "Fant ikke siden", en: "Page not found", sv: "Sidan hittades inte", de: "Seite nicht gefunden", pl: "Nie znaleziono strony" })}
+        </h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+          {tr(lang, {
+            no: "Siden du leter etter finnes ikke, eller er flyttet.",
+            en: "The page you're looking for doesn't exist or has been moved.",
+            sv: "Sidan du letar efter finns inte, eller har flyttats.",
+            de: "Die gesuchte Seite existiert nicht oder wurde verschoben.",
+            pl: "Strona, której szukasz, nie istnieje lub została przeniesiona.",
+          })}
         </p>
         <div className="mt-6">
           <Link to="/" className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">
-            Go home
+            {tr(lang, { no: "Til forsiden", en: "Go home", sv: "Till startsidan", de: "Zur Startseite", pl: "Strona główna" })}
           </Link>
         </div>
       </div>
@@ -34,17 +43,22 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
+  const { lang } = useI18n();
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold">This page didn't load</h1>
-        <p className="mt-2 text-sm text-muted-foreground">Something went wrong on our end.</p>
+        <h1 className="text-xl font-semibold">
+          {tr(lang, { no: "Denne siden lastet ikke", en: "This page didn't load", sv: "Den här sidan gick inte att ladda", de: "Diese Seite konnte nicht geladen werden", pl: "Ta strona się nie wczytała" })}
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          {tr(lang, { no: "Noe gikk galt hos oss.", en: "Something went wrong on our end.", sv: "Något gick fel hos oss.", de: "Bei uns ist etwas schiefgelaufen.", pl: "Coś poszło nie tak po naszej stronie." })}
+        </p>
         <div className="mt-6 flex justify-center gap-2">
           <button onClick={() => { router.invalidate(); reset(); }} className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90">
-            Try again
+            {tr(lang, { no: "Prøv igjen", en: "Try again", sv: "Försök igen", de: "Erneut versuchen", pl: "Spróbuj ponownie" })}
           </button>
           <a href="/" className="rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground">
-            Go home
+            {tr(lang, { no: "Til forsiden", en: "Go home", sv: "Till startsidan", de: "Zur Startseite", pl: "Strona główna" })}
           </a>
         </div>
       </div>
