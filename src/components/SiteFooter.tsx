@@ -108,7 +108,7 @@ export function SiteFooter() {
 
       <div className="border-t border-border py-5 px-6 text-xs text-muted-foreground flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-2 max-w-7xl mx-auto">
         <div className="flex items-center gap-2 text-center">
-          © {year} <span className="text-foreground/80">KM TECH LABS</span> · SlowBlues.no <Heart className="size-3 text-gold" aria-hidden="true" /> {t.footer.rights}
+          © {year} <span className="text-foreground/80">KM TECH LABS</span> · Slow-Blues.com <Heart className="size-3 text-gold" aria-hidden="true" /> {t.footer.rights}
         </div>
         <div className="flex items-center gap-3">
           <Link to="/copyright" className="hover:text-gold">© Copyright</Link>

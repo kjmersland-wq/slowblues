@@ -6,9 +6,9 @@ export const Route = createFileRoute("/cookies")({
   component: CookiesPage,
   head: () => ({ meta: [
     { title: "Cookie Policy — SlowBlues" },
-    { name: "description", content: "Slik bruker SlowBlues.no informasjonskapsler og lokal lagring. Vi bruker ingen markedsførings- eller sporingscookies." },
+    { name: "description", content: "Slik bruker Slow-Blues.com informasjonskapsler og lokal lagring. Vi bruker ingen markedsførings- eller sporingscookies." },
     { property: "og:title", content: "Cookie Policy — SlowBlues" },
-    { property: "og:description", content: "Cookie-policy for SlowBlues.no." },
+    { property: "og:description", content: "Cookie-policy for Slow-Blues.com." },
   ]}),
 });
 
@@ -42,7 +42,7 @@ function CookiesPage() {
 
       <Section heading={tr(lang, { no: "Hva vi bruker — og ikke bruker", en: "What we use — and don't use", sv: "Vad vi använder — och inte använder", de: "Was wir verwenden — und was nicht", pl: "Czego używamy — i czego nie używamy" })}>
         <p>{tr(lang, {
-          no: "SlowBlues.no bruker minst mulig:",
+          no: "Slow-Blues.com bruker minst mulig:",
           en: "SlowBlues.com uses as little as possible:",
           sv: "SlowBlues.com använder så lite som möjligt:",
           de: "SlowBlues.com verwendet so wenig wie möglich:",

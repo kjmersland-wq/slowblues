@@ -156,7 +156,7 @@ const no = {
     advertise: {
       eyebrow: "Bli partner",
       title: "Nå blues-publikummet",
-      lead: "SlowBlues.no er uavhengig, reklamefri som standard, og leses av blueselskere i hele Europa. Vi samarbeider med et lite antall nøye utvalgte partnere hvis verdier samsvarer med bluesmiljøet.",
+      lead: "Slow-Blues.com er uavhengig, reklamefri som standard, og leses av blueselskere i hele Europa. Vi samarbeider med et lite antall nøye utvalgte partnere hvis verdier samsvarer med bluesmiljøet.",
       audienceTitle: "Vårt publikum",
       audience: [
         "360+ artistprofiler fra alle epoker og kontinenter",
@@ -359,7 +359,7 @@ const en: typeof no = {
     advertise: {
       eyebrow: "Partner with us",
       title: "Reach the Blues Audience",
-      lead: "SlowBlues.no is independent, ad-free by default, and trusted by blues lovers across Europe and beyond. We work with a small number of carefully chosen partners whose values align with the blues community.",
+      lead: "Slow-Blues.com is independent, ad-free by default, and trusted by blues lovers across Europe and beyond. We work with a small number of carefully chosen partners whose values align with the blues community.",
       audienceTitle: "Our audience",
       audience: [
         "360+ artist profiles across all eras and continents",
@@ -562,7 +562,7 @@ const de: typeof no = {
     advertise: {
       eyebrow: "Werde Partner",
       title: "Erreiche das Blues-Publikum",
-      lead: "SlowBlues.no ist unabhängig, standardmäßig werbefrei und wird von Blues-Liebhabern in ganz Europa und darüber hinaus geschätzt. Wir arbeiten mit einer kleinen Auswahl sorgfältig ausgewählter Partner zusammen, deren Werte mit der Blues-Community übereinstimmen.",
+      lead: "Slow-Blues.com ist unabhängig, standardmäßig werbefrei und wird von Blues-Liebhabern in ganz Europa und darüber hinaus geschätzt. Wir arbeiten mit einer kleinen Auswahl sorgfältig ausgewählter Partner zusammen, deren Werte mit der Blues-Community übereinstimmen.",
       audienceTitle: "Unser Publikum",
       audience: [
         "360+ Künstlerprofile aus allen Epochen und Kontinenten",
@@ -765,7 +765,7 @@ const sv: typeof no = {
     advertise: {
       eyebrow: "Bli partner",
       title: "Nå bluespubliken",
-      lead: "SlowBlues.no är oberoende, reklamfri som standard, och läses av blueselskare i hela Europa. Vi samarbetar med ett litet antal noggrant utvalda partners vars värderingar stämmer överens med bluesmiljön.",
+      lead: "Slow-Blues.com är oberoende, reklamfri som standard, och läses av blueselskare i hela Europa. Vi samarbetar med ett litet antal noggrant utvalda partners vars värderingar stämmer överens med bluesmiljön.",
       audienceTitle: "Vår publik",
       audience: [
         "360+ artistprofiler från alla epoker och kontinenter",
@@ -968,7 +968,7 @@ const pl: typeof no = {
     advertise: {
       eyebrow: "Zostań partnerem",
       title: "Dotrzyj do bluesowej publiczności",
-      lead: "SlowBlues.no jest niezależny, domyślnie wolny od reklam i czytany przez miłośników bluesa w całej Europie. Współpracujemy z wąskim, starannie dobranym gronem partnerów, których wartości pasują do bluesowego świata.",
+      lead: "Slow-Blues.com jest niezależny, domyślnie wolny od reklam i czytany przez miłośników bluesa w całej Europie. Współpracujemy z wąskim, starannie dobranym gronem partnerów, których wartości pasują do bluesowego świata.",
       audienceTitle: "Nasza publiczność",
       audience: [
         "360+ profili artystów ze wszystkich epok i kontynentów",

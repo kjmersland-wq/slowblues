@@ -8,7 +8,7 @@ export const Route = createFileRoute("/terms")({
     { title: "Terms of Service — SlowBlues" },
     { name: "description", content: "Brukervilkår for slow-blues.com — bruk av innhold, ansvar, immaterielle rettigheter og lovvalg." },
     { property: "og:title", content: "Terms of Service — SlowBlues" },
-    { property: "og:description", content: "Brukervilkår for SlowBlues.no." },
+    { property: "og:description", content: "Brukervilkår for Slow-Blues.com." },
   ]}),
 });
 
@@ -42,7 +42,7 @@ function TermsPage() {
       <Section heading={tr(lang, { no: "2. Tjenesten", en: "2. The service", sv: "2. Tjänsten", de: "2. Der Dienst", pl: "2. Serwis" })}>
         <p>
           {tr(lang, {
-            no: "SlowBlues.no er et redaksjonelt nettarkiv om blues-musikk, drevet av KM TECH LABS — Kjell Mersland, org.nr. 934 044 029. Tjenesten leveres «som den er», uten garanti for kontinuerlig tilgjengelighet.",
+            no: "Slow-Blues.com er et redaksjonelt nettarkiv om blues-musikk, drevet av KM TECH LABS — Kjell Mersland, org.nr. 934 044 029. Tjenesten leveres «som den er», uten garanti for kontinuerlig tilgjengelighet.",
             en: "SlowBlues.com is an editorial web archive about blues music, run by KM TECH LABS — Kjell Mersland, reg. no. 934 044 029. The service is provided \"as is,\" with no guarantee of continuous availability.",
             sv: "SlowBlues.com är ett redaktionellt webbarkiv om bluesmusik, drivet av KM TECH LABS — Kjell Mersland, org.nr. 934 044 029. Tjänsten tillhandahålls \"i befintligt skick\", utan garanti för kontinuerlig tillgänglighet.",
             de: "SlowBlues.com ist ein redaktionelles Webarchiv über Bluesmusik, betrieben von KM TECH LABS — Kjell Mersland, Handelsreg.-Nr. 934 044 029. Der Dienst wird \"wie besehen\" bereitgestellt, ohne Garantie für durchgehende Verfügbarkeit.",

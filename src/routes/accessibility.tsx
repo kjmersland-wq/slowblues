@@ -8,7 +8,7 @@ export const Route = createFileRoute("/accessibility")({
     { title: "Accessibility Statement — SlowBlues" },
     { name: "description", content: "Tilgjengelighetserklæring for slow-blues.com — WCAG 2.1 AA, kjente begrensninger og hvordan du melder fra om problemer." },
     { property: "og:title", content: "Accessibility Statement — SlowBlues" },
-    { property: "og:description", content: "WCAG-tilgjengelighet på SlowBlues.no." },
+    { property: "og:description", content: "WCAG-tilgjengelighet på Slow-Blues.com." },
   ]}),
 });
 
@@ -19,7 +19,7 @@ function AccessibilityPage() {
       eyebrow={tr(lang, { no: "Tilgjengelighet", en: "Accessibility", sv: "Tillgänglighet", de: "Barrierefreiheit", pl: "Dostępność" })}
       title="Accessibility Statement"
       lead={tr(lang, {
-        no: "SlowBlues.no skal være lett å bruke for alle — uansett hjelpemidler eller funksjonsevne.",
+        no: "Slow-Blues.com skal være lett å bruke for alle — uansett hjelpemidler eller funksjonsevne.",
         en: "SlowBlues.com should be easy to use for everyone — regardless of assistive technology or ability.",
         sv: "SlowBlues.com ska vara lätt att använda för alla — oavsett hjälpmedel eller funktionsförmåga.",
         de: "SlowBlues.com soll für alle leicht nutzbar sein — unabhängig von Hilfsmitteln oder Fähigkeiten.",

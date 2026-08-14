@@ -8,7 +8,7 @@ export const Route = createFileRoute("/about/")({
   head: () => ({
     meta: [
       { title: "Om SlowBlues — Norges blues-arkiv" },
-      { name: "description", content: "SlowBlues.no er et redaksjonelt arkiv for blues — 330+ artistprofiler, anmeldelser og historikk. Utgitt av KM TECH LABS, redigert av Kjell Mersland." },
+      { name: "description", content: "Slow-Blues.com er et redaksjonelt arkiv for blues — 330+ artistprofiler, anmeldelser og historikk. Utgitt av KM TECH LABS, redigert av Kjell Mersland." },
       { property: "og:title", content: "Om SlowBlues" },
       { property: "og:description", content: "Redaksjonelt blues-arkiv utgitt av KM TECH LABS — 330+ artistprofiler, anmeldelser og historikk." },
       { property: "og:url", content: "https://www.slow-blues.com/about" },
@@ -38,11 +38,11 @@ function AboutPage() {
           <h2 className="font-display text-2xl text-gold mb-3">{tr(lang, { no: "Hva vi gjør", en: "What we do", sv: "Vad vi gör", de: "Was wir tun", pl: "Co robimy" })}</h2>
           <p>
             {tr(lang, {
-              no: "SlowBlues.no dokumenterer blues som musikalsk og kulturell tradisjon. Vi har over 330 artistprofiler, ukentlig blogg, festivaloversikt, verdenskart, radio, og en stadig voksende samling med anmeldelser og historiske artikler. Innholdet er kuratert, kildebelagt og ikke-kommersielt i utgangspunktet — merch og donasjoner finansierer drift og hosting.",
-              en: "SlowBlues.no documents the blues as a musical and cultural tradition. We have over 330 artist profiles, a weekly blog, a festival overview, a world map, radio, and a steadily growing collection of reviews and historical articles. The content is curated, sourced and non-commercial at its core — merch and donations fund operations and hosting.",
-              sv: "SlowBlues.no dokumenterar blues som musikalisk och kulturell tradition. Vi har över 330 artistprofiler, veckovis blogg, festivalöversikt, världskarta, radio och en stadigt växande samling recensioner och historiska artiklar. Innehållet är kurerat, källbelagt och i grunden icke-kommersiellt — merch och donationer finansierar drift och hosting.",
-              de: "SlowBlues.no dokumentiert den Blues als musikalische und kulturelle Tradition. Wir haben über 330 Künstlerprofile, einen wöchentlichen Blog, eine Festivalübersicht, eine Weltkarte, Radio und eine stetig wachsende Sammlung von Rezensionen und historischen Artikeln. Der Inhalt ist kuratiert, quellenbelegt und im Kern nicht kommerziell — Merch und Spenden finanzieren Betrieb und Hosting.",
-              pl: "SlowBlues.no dokumentuje blues jako tradycję muzyczną i kulturową. Mamy ponad 330 profili artystów, cotygodniowego bloga, przegląd festiwali, mapę świata, radio oraz stale rosnącą kolekcję recenzji i artykułów historycznych. Treści są kuratorowane, oparte na źródłach i z założenia niekomercyjne — gadżety i darowizny finansują działanie i hosting.",
+              no: "Slow-Blues.com dokumenterer blues som musikalsk og kulturell tradisjon. Vi har over 330 artistprofiler, ukentlig blogg, festivaloversikt, verdenskart, radio, og en stadig voksende samling med anmeldelser og historiske artikler. Innholdet er kuratert, kildebelagt og ikke-kommersielt i utgangspunktet — merch og donasjoner finansierer drift og hosting.",
+              en: "Slow-Blues.com documents the blues as a musical and cultural tradition. We have over 330 artist profiles, a weekly blog, a festival overview, a world map, radio, and a steadily growing collection of reviews and historical articles. The content is curated, sourced and non-commercial at its core — merch and donations fund operations and hosting.",
+              sv: "Slow-Blues.com dokumenterar blues som musikalisk och kulturell tradition. Vi har över 330 artistprofiler, veckovis blogg, festivalöversikt, världskarta, radio och en stadigt växande samling recensioner och historiska artiklar. Innehållet är kurerat, källbelagt och i grunden icke-kommersiellt — merch och donationer finansierar drift och hosting.",
+              de: "Slow-Blues.com dokumentiert den Blues als musikalische und kulturelle Tradition. Wir haben über 330 Künstlerprofile, einen wöchentlichen Blog, eine Festivalübersicht, eine Weltkarte, Radio und eine stetig wachsende Sammlung von Rezensionen und historischen Artikeln. Der Inhalt ist kuratiert, quellenbelegt und im Kern nicht kommerziell — Merch und Spenden finanzieren Betrieb und Hosting.",
+              pl: "Slow-Blues.com dokumentuje blues jako tradycję muzyczną i kulturową. Mamy ponad 330 profili artystów, cotygodniowego bloga, przegląd festiwali, mapę świata, radio oraz stale rosnącą kolekcję recenzji i artykułów historycznych. Treści są kuratorowane, oparte na źródłach i z założenia niekomercyjne — gadżety i darowizny finansują działanie i hosting.",
             })}
           </p>
         </div>

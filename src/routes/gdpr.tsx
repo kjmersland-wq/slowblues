@@ -7,7 +7,7 @@ export const Route = createFileRoute("/gdpr")({
   head: () => ({
     meta: [
       { title: "GDPR & Data Protection — SlowBlues" },
-      { name: "description", content: "Hvordan SlowBlues.no og KM TECH LABS oppfyller GDPR: behandlingsgrunnlag, lagring, dine rettigheter og databehandlere." },
+      { name: "description", content: "Hvordan Slow-Blues.com og KM TECH LABS oppfyller GDPR: behandlingsgrunnlag, lagring, dine rettigheter og databehandlere." },
       { property: "og:title", content: "GDPR & Data Protection — SlowBlues" },
       { property: "og:description", content: "GDPR-erklæring fra KM TECH LABS." },
       { property: "og:url", content: "https://www.slow-blues.com/gdpr" },

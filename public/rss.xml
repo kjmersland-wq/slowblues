@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sb="https://www.slow-blues.com/rss-extensions">
   <channel>
-    <title>SlowBlues.no – Blues Blog</title>
+    <title>Slow-Blues.com – Blues Blog</title>
     <link>https://www.slow-blues.com/blog</link>
     <atom:link href="https://www.slow-blues.com/rss.xml" rel="self" type="application/rss+xml"/>
     <description>In-depth articles about blues history, essential albums, Scandinavian blues, and the music's journey from the Mississippi Delta to the rest of the world. Written with passion by Kjell Mersland.</description>
     <language>en</language>
     <managingEditor>post@slow-blues.com (Kjell Mersland)</managingEditor>
     <webMaster>post@slow-blues.com (Kjell Mersland)</webMaster>
-    <copyright>© 2025–2026 SlowBlues.no. All rights reserved.</copyright>
+    <copyright>© 2025–2026 Slow-Blues.com. All rights reserved.</copyright>
     <category>Music</category>
     <category>Blues</category>
     <lastBuildDate>Thu, 26 Feb 2026 12:00:00 +0100</lastBuildDate>
     <ttl>1440</ttl>
     <image>
       <url>https://www.slow-blues.com/images/og-cover.jpg</url>
-      <title>SlowBlues.no – Blues Blog</title>
+      <title>Slow-Blues.com – Blues Blog</title>
       <link>https://www.slow-blues.com/blog</link>
       <width>1200</width>
       <height>630</height>
@@ -30,7 +30,7 @@
       <category>Weekly Dispatch</category>
       <description>The Blues Foundation just dropped the 2026 Blues Music Awards nominees – and it's a stacked field. Plus: we introduce BluesGig, our new all-in-one tool for Nordic blues clubs, Duke Robillard drops 'Blast Off!', and Oz &amp; The Wizards' release concert is just two weeks away!</description>
       <sb:artists>buddy-guy,kenny-wayne-shepherd,walter-trout,joe-bonamassa,bobby-rush</sb:artists>
-      <sb:sources>The Blues Foundation, Stony Plain Records, SlowBlues.no, Kristiansand Bluesklubb</sb:sources>
+      <sb:sources>The Blues Foundation, Stony Plain Records, Slow-Blues.com, Kristiansand Bluesklubb</sb:sources>
     </item>
 
     <item>
@@ -42,7 +42,7 @@
       <category>Weekly Dispatch</category>
       <description>This week we celebrate the blues legends born in February – from Lonnie Johnson to Knut Reiersrud – hype the upcoming Oz &amp; The Wizards release concert in Kristiansand, spotlight Duke Robillard's brand-new album, and make a heartfelt plea for your help with artist photos and information. Plus: have you tried our Blues Quiz yet?</description>
       <sb:artists>lonnie-johnson,knut-reiersrud,joanne-shaw-taylor,louise-hoffsten,joe-bonamassa</sb:artists>
-      <sb:sources>SlowBlues.no Research, Kristiansand Bluesklubb, Stony Plain Records</sb:sources>
+      <sb:sources>Slow-Blues.com Research, Kristiansand Bluesklubb, Stony Plain Records</sb:sources>
     </item>
 
     <item>
