@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SafeImage } from "@/components/SafeImage";
 import { PageShell, PageHero } from "@/components/PageShell";
-import { useI18n } from "@/i18n";
+import { useI18n, tr } from "@/i18n";
 import { IMG } from "@/data/images";
 import { timelineEvents } from "@/data/timeline";
 
@@ -37,7 +37,7 @@ const ERAS = [
 ];
 
 function HistoryPage() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <PageShell>
       <PageHero eyebrow={t.pages.history.eyebrow} title={t.pages.history.title} lead={t.pages.history.lead} img={IMG.cottonField} />
@@ -61,10 +61,20 @@ function HistoryPage() {
 
       <section className="max-w-6xl mx-auto px-6 pb-20">
         <header className="mb-10 text-center">
-          <div className="text-xs tracking-[0.25em] text-gold uppercase mb-2">Year by year</div>
-          <h2 className="font-display text-3xl md:text-4xl">Detailed Timeline · 1865 — 2025</h2>
+          <div className="text-xs tracking-[0.25em] text-gold uppercase mb-2">
+            {tr(lang, { no: "År for år", en: "Year by year", sv: "År för år", de: "Jahr für Jahr", pl: "Rok po roku" })}
+          </div>
+          <h2 className="font-display text-3xl md:text-4xl">
+            {tr(lang, { no: "Detaljert tidslinje · 1865 — 2025", en: "Detailed Timeline · 1865 — 2025", sv: "Detaljerad tidslinje · 1865 — 2025", de: "Detaillierte Zeitleiste · 1865 — 2025", pl: "Szczegółowa oś czasu · 1865 — 2025" })}
+          </h2>
           <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
-            Every documented milestone in the music's history — from emancipation to today's new generation. Bilingual: English &amp; norsk.
+            {tr(lang, {
+              no: "Hver dokumenterte milepæl i musikkens historie — fra frigjøringen til dagens nye generasjon. Hver hendelse vises med original engelsk og norsk tittel.",
+              en: "Every documented milestone in the music's history — from emancipation to today's new generation. Each entry is shown with its original English and Norwegian title.",
+              sv: "Varje dokumenterad milstolpe i musikens historia — från frigörelsen till dagens nya generation. Varje händelse visas med originalets engelska och norska titel.",
+              de: "Jeder dokumentierte Meilenstein in der Geschichte der Musik — von der Emanzipation bis zur heutigen neuen Generation. Jeder Eintrag wird mit seinem ursprünglichen englischen und norwegischen Titel angezeigt.",
+              pl: "Każdy udokumentowany kamień milowy w historii tej muzyki — od zniesienia niewolnictwa po dzisiejsze nowe pokolenie. Każdy wpis wyświetlany jest z oryginalnym tytułem angielskim i norweskim.",
+            })}
           </p>
         </header>
 

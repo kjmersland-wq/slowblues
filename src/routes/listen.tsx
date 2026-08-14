@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
-import { useI18n } from "@/i18n";
+import { useI18n, tr } from "@/i18n";
 import { IMG } from "@/data/images";
 import { ExternalLink, Play } from "lucide-react";
 
@@ -33,12 +33,12 @@ const ESSENTIAL_ALBUMS = [
 ];
 
 function ListenPage() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <PageShell>
       <PageHero eyebrow={t.pages.listen.eyebrow} title={t.pages.listen.title} lead={t.pages.listen.lead} img={IMG.vinyl} />
       <section className="max-w-6xl mx-auto px-6 py-12">
-        <h2 className="font-display text-3xl mb-6">Curated playlists</h2>
+        <h2 className="font-display text-3xl mb-6">{tr(lang, { no: "Kuraterte spillelister", en: "Curated playlists", sv: "Utvalda spellistor", de: "Kuratierte Playlists", pl: "Wyselekcjonowane playlisty" })}</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
           {PLAYLISTS.map((p) => (
             <a key={p.title} href={p.spotify} target="_blank" rel="noopener" className="group bg-card/60 border border-border rounded-lg p-6 hover:border-gold/60 transition">
@@ -50,7 +50,7 @@ function ListenPage() {
           ))}
         </div>
 
-        <h2 className="font-display text-3xl mb-6">Essential albums</h2>
+        <h2 className="font-display text-3xl mb-6">{tr(lang, { no: "Uunnværlige album", en: "Essential albums", sv: "Oumbärliga album", de: "Unverzichtbare Alben", pl: "Niezbędne albumy" })}</h2>
         <div className="space-y-2">
           {ESSENTIAL_ALBUMS.map((a) => (
             <div key={a.album} className="grid md:grid-cols-3 gap-2 p-4 border-b border-border">

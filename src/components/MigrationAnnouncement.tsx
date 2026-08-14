@@ -29,6 +29,7 @@ type Copy = {
   copyLink: string;
   copied: string;
   bookmarkHint: string;
+  personalNote: string;
 };
 
 const COPY: Record<Lang, Copy> = {
@@ -55,6 +56,7 @@ const COPY: Record<Lang, Copy> = {
     copyLink: "Copy link",
     copied: "Copied!",
     bookmarkHint: "Press Ctrl+D (or ⌘+D on Mac) to bookmark this page.",
+    personalNote: "A personal note",
   },
   no: {
     title: "Et nytt kapittel for Slow-Blues",
@@ -79,6 +81,7 @@ const COPY: Record<Lang, Copy> = {
     copyLink: "Kopier lenke",
     copied: "Kopiert!",
     bookmarkHint: "Trykk Ctrl+D (eller ⌘+D på Mac) for å bokmerke denne siden.",
+    personalNote: "En personlig hilsen",
   },
   sv: {
     title: "Ett nytt kapitel för Slow-Blues",
@@ -103,6 +106,7 @@ const COPY: Record<Lang, Copy> = {
     copyLink: "Kopiera länk",
     copied: "Kopierad!",
     bookmarkHint: "Tryck Ctrl+D (eller ⌘+D på Mac) för att bokmärka denna sida.",
+    personalNote: "En personlig hälsning",
   },
   de: {
     title: "Ein neues Kapitel für Slow-Blues",
@@ -127,6 +131,7 @@ const COPY: Record<Lang, Copy> = {
     copyLink: "Link kopieren",
     copied: "Kopiert!",
     bookmarkHint: "Drücke Strg+D (oder ⌘+D auf Mac), um diese Seite zu speichern.",
+    personalNote: "Eine persönliche Nachricht",
   },
   pl: {
     title: "Nowy rozdział Slow-Blues",
@@ -151,6 +156,7 @@ const COPY: Record<Lang, Copy> = {
     copyLink: "Skopiuj link",
     copied: "Skopiowano!",
     bookmarkHint: "Naciśnij Ctrl+D (lub ⌘+D na Macu), aby dodać tę stronę do zakładek.",
+    personalNote: "Osobista wiadomość",
   },
 };
 
@@ -293,7 +299,7 @@ export function MigrationAnnouncement() {
               {/* Eyebrow */}
               <div className="flex items-center justify-center gap-3 mb-4">
                 <span className="h-px w-8 bg-gold/50" />
-                <span className="text-[10px] tracking-[0.32em] uppercase text-gold/90">A personal note</span>
+                <span className="text-[10px] tracking-[0.32em] uppercase text-gold/90">{t.personalNote}</span>
                 <span className="h-px w-8 bg-gold/50" />
               </div>
 

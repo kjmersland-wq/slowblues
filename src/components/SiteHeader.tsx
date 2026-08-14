@@ -54,21 +54,21 @@ export function SiteHeader() {
       { to: "/history", label: t.nav.history },
       { to: "/styles", label: t.nav.styles },
       { to: "/compare", label: t.nav.compareStyles },
-      { to: "/instruments", label: "Instruments & Gear" },
+      { to: "/instruments", label: t.nav.instruments },
       { to: "/learn/gear", label: t.nav.gear },
     ]},
     { key: "experience", label: t.nav.experience, items: [
       { to: "/listen", label: t.nav.listen },
-      { to: "/watch", label: "Watch (YouTube)" },
+      { to: "/watch", label: t.nav.watch },
       { to: "/radio", label: t.nav.radio },
       { to: "/gallery", label: t.nav.gallery },
       { to: "/festivals", label: t.nav.festivals },
       { to: "/worldmap", label: t.nav.worldmap },
-      { to: "/quiz", label: "Blues Quiz" },
+      { to: "/quiz", label: t.nav.quiz },
     ]},
     { key: "about", label: t.nav.about, items: [
       { to: "/guestbook", label: t.nav.guestbook },
-      { to: "/about/merch", label: "Merch" },
+      { to: "/about/merch", label: t.nav.merch },
       { to: "/about/advertise", label: t.nav.advertise },
       { to: "/support", label: t.nav.support },
       { to: "/contact", label: t.nav.contact },
@@ -120,7 +120,7 @@ export function SiteHeader() {
               type="button"
               aria-haspopup="listbox"
               aria-expanded={langOpen}
-              aria-label="Language"
+              aria-label={t.nav.language}
               onClick={() => setLangOpen((o) => !o)}
               className="inline-flex items-center gap-1 px-2 py-1 rounded border border-border/60 hover:border-gold/60 text-xs sm:text-sm transition"
             >
@@ -150,7 +150,7 @@ export function SiteHeader() {
           <button type="button" aria-label={t.nav.search} className="hidden sm:flex items-center gap-1.5 text-sm text-muted-foreground hover:text-gold">
             <Search className="size-4" aria-hidden="true" /> {t.nav.search}
           </button>
-          <button className="lg:hidden p-1 -mr-1" aria-label="Menu" onClick={() => setOpen((o) => !o)}>
+          <button className="lg:hidden p-1 -mr-1" aria-label={t.nav.menu} onClick={() => setOpen((o) => !o)}>
             {open ? <X className="size-6" /> : <Menu className="size-6" />}
           </button>
         </div>

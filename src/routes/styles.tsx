@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
-import { useI18n } from "@/i18n";
+import { useI18n, tr } from "@/i18n";
 import { STYLES } from "@/data/blues";
 import { IMG } from "@/data/images";
 
@@ -15,7 +15,7 @@ export const Route = createFileRoute("/styles")({
 });
 
 function StylesPage() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <PageShell>
       <PageHero eyebrow={t.pages.styles.eyebrow} title={t.pages.styles.title} lead={t.pages.styles.lead} img={IMG.guitar} />
@@ -31,15 +31,15 @@ function StylesPage() {
               <p className="text-foreground/85 leading-relaxed">{s.desc}</p>
               <div className="grid sm:grid-cols-2 gap-4 pt-2">
                 <div>
-                  <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-1.5">Instruments</div>
+                  <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-1.5">{tr(lang, { no: "Instrumenter", en: "Instruments", sv: "Instrument", de: "Instrumente", pl: "Instrumenty" })}</div>
                   <ul className="text-sm space-y-0.5">
                     {s.instruments.map((i) => <li key={i} className="text-muted-foreground">• {i}</li>)}
                   </ul>
                 </div>
                 <div>
-                  <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-1.5">Sound</div>
+                  <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-1.5">{tr(lang, { no: "Lyd", en: "Sound", sv: "Ljud", de: "Klang", pl: "Brzmienie" })}</div>
                   <p className="text-sm text-muted-foreground italic">{s.feel}</p>
-                  <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-1.5 mt-3">Key artists</div>
+                  <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-1.5 mt-3">{tr(lang, { no: "Sentrale artister", en: "Key artists", sv: "Centrala artister", de: "Wichtige Künstler", pl: "Kluczowi artyści" })}</div>
                   <p className="text-sm text-muted-foreground">{s.artists.join(" · ")}</p>
                 </div>
               </div>

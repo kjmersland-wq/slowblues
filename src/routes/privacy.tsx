@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
-import { useI18n } from "@/i18n";
+import { useI18n, tr } from "@/i18n";
 
 const PRIVACY_DESCRIPTION =
   "Learn how SlowBlues handles your personal data, including our commitment to privacy, cookie usage, and your rights under data protection laws.";
@@ -19,18 +19,29 @@ export const Route = createFileRoute("/privacy")({
   }),
 });
 
-
 function PrivacyPage() {
   const { t, lang } = useI18n();
-  const content = lang === "no" ? NO : lang === "de" ? DE : EN;
+  const content = CONTENT[lang];
   return (
     <PageShell>
       <PageHero eyebrow={t.pages.privacy.eyebrow} title={t.pages.privacy.title} lead={t.pages.privacy.lead} />
       <section className="max-w-3xl mx-auto px-6 py-12 prose prose-invert">
         <div className="mb-8 rounded-lg border border-border bg-card/50 p-5 text-sm not-italic">
-          <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-2">Behandlingsansvarlig</div>
-          <p className="text-foreground/90 m-0">KM TECH LABS — Kjell Mersland · Org.nr. 934 044 029 · Ansvarlig redaktør: Kjell Mersland</p>
-          <p className="text-muted-foreground m-0 mt-1">All kontakt skjer via <a href="/contact" className="text-gold hover:underline">kontaktskjemaet</a>. Se også <a href="/gdpr" className="text-gold hover:underline">GDPR-erklæringen</a>.</p>
+          <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-2">
+            {tr(lang, { no: "Behandlingsansvarlig", en: "Data controller", sv: "Personuppgiftsansvarig", de: "Verantwortlicher", pl: "Administrator danych" })}
+          </div>
+          <p className="text-foreground/90 m-0">
+            KM TECH LABS — Kjell Mersland · {t.footer.orgNr} 934 044 029 · {t.footer.editorInCharge} Kjell Mersland
+          </p>
+          <p className="text-muted-foreground m-0 mt-1">
+            {tr(lang, {
+              no: <>All kontakt skjer via <a href="/contact" className="text-gold hover:underline">kontaktskjemaet</a>. Se også <a href="/gdpr" className="text-gold hover:underline">GDPR-erklæringen</a>.</>,
+              en: <>All contact happens via the <a href="/contact" className="text-gold hover:underline">contact form</a>. See also the <a href="/gdpr" className="text-gold hover:underline">GDPR statement</a>.</>,
+              sv: <>All kontakt sker via <a href="/contact" className="text-gold hover:underline">kontaktformuläret</a>. Se även <a href="/gdpr" className="text-gold hover:underline">GDPR-förklaringen</a>.</>,
+              de: <>Jeder Kontakt erfolgt über das <a href="/contact" className="text-gold hover:underline">Kontaktformular</a>. Siehe auch die <a href="/gdpr" className="text-gold hover:underline">DSGVO-Erklärung</a>.</>,
+              pl: <>Cały kontakt odbywa się przez <a href="/contact" className="text-gold hover:underline">formularz kontaktowy</a>. Zobacz także <a href="/gdpr" className="text-gold hover:underline">oświadczenie RODO</a>.</>,
+            } as any)}
+          </p>
         </div>
         <div className="space-y-6 text-foreground/85 leading-relaxed">
           {content.map((b, i) => (
@@ -45,7 +56,9 @@ function PrivacyPage() {
   );
 }
 
-const NO = [
+type Block = { h: string; p: string };
+
+const NO: Block[] = [
   { h: "Hvilke data lagrer vi?", p: "Vi lagrer kun e-postadressen din hvis du melder deg på nyhetsbrevet, og navn + melding hvis du skriver i gjesteboken eller kontaktskjemaet. Vi bruker en cookie for å huske språkvalget ditt." },
   { h: "Hva bruker vi dataene til?", p: "E-postadressen brukes utelukkende til å sende deg nyhetsbrevet du har bedt om. Gjestebok-innlegg publiseres synlig på siden. Vi selger ikke data til tredjeparter, noensinne." },
   { h: "Analyse", p: "Vi bruker anonymisert besøksstatistikk (uten cookies som identifiserer deg) for å forstå hvilke artikler folk leser. Ingen personlig profil bygges." },
@@ -54,7 +67,7 @@ const NO = [
   { h: "Cookies", p: "Kun én lokal lagring brukes: språkvalget ditt (\"slowblues-lang\"). Ingen sporings-cookies." },
 ];
 
-const EN: typeof NO = [
+const EN: Block[] = [
   { h: "What data do we store?", p: "We only store your email address if you subscribe to the newsletter, and name + message if you sign the guestbook or use the contact form. We use a single local-storage value to remember your language choice." },
   { h: "What do we use it for?", p: "Email is used exclusively for the newsletter you signed up for. Guestbook entries are visibly published on the site. We never sell data to third parties." },
   { h: "Analytics", p: "We use anonymised page-view statistics (no identifying cookies) to understand which articles people read. No personal profile is built." },
@@ -63,7 +76,7 @@ const EN: typeof NO = [
   { h: "Cookies", p: "Only one local-storage value is used: your language choice (\"slowblues-lang\"). No tracking cookies." },
 ];
 
-const DE: typeof NO = [
+const DE: Block[] = [
   { h: "Welche Daten speichern wir?", p: "Wir speichern nur deine E-Mail-Adresse, wenn du den Newsletter abonnierst, und Name + Nachricht, wenn du das Gästebuch oder Kontaktformular nutzt. Eine lokale Speicherung merkt sich deine Sprachwahl." },
   { h: "Wofür verwenden wir die Daten?", p: "Die E-Mail-Adresse wird ausschließlich für den abonnierten Newsletter verwendet. Gästebuch-Einträge werden sichtbar veröffentlicht. Wir verkaufen niemals Daten an Dritte." },
   { h: "Analyse", p: "Wir nutzen anonymisierte Besucherstatistiken (keine identifizierenden Cookies). Es wird kein persönliches Profil erstellt." },
@@ -71,3 +84,23 @@ const DE: typeof NO = [
   { h: "Deine Rechte", p: "Du kannst jederzeit Auskunft, Korrektur oder Löschung der über dich gespeicherten Daten verlangen. Sende uns deine Anfrage über das Kontaktformular — Antwort innerhalb von 14 Tagen." },
   { h: "Cookies", p: "Nur ein lokaler Speicherwert wird verwendet: deine Sprachwahl (\"slowblues-lang\"). Keine Tracking-Cookies." },
 ];
+
+const SV: Block[] = [
+  { h: "Vilka uppgifter sparar vi?", p: "Vi sparar bara din e-postadress om du prenumererar på nyhetsbrevet, och namn + meddelande om du skriver i gästboken eller kontaktformuläret. Vi använder en cookie för att komma ihåg ditt språkval." },
+  { h: "Vad använder vi uppgifterna till?", p: "E-postadressen används uteslutande för att skicka det nyhetsbrev du bett om. Gästboksinlägg publiceras synligt på sidan. Vi säljer aldrig uppgifter till tredje part." },
+  { h: "Analys", p: "Vi använder anonymiserad besöksstatistik (utan cookies som identifierar dig) för att förstå vilka artiklar folk läser. Ingen personlig profil byggs upp." },
+  { h: "Bilder och upphovsrätt", p: "Alla historiska bilder hämtas från Library of Congress, Wikimedia Commons och andra offentliga arkiv under Public Domain eller Creative Commons. Atmosfärbilder kommer från Unsplash under deras fria licens. Attribution visas där det krävs." },
+  { h: "Dina rättigheter", p: "Du kan när som helst begära insyn i, rättelse av eller radering av uppgifter vi har om dig. Hör av dig via kontaktformuläret, så svarar vi inom 14 dagar." },
+  { h: "Cookies", p: "Endast en lokal lagring används: ditt språkval (\"slowblues-lang\"). Inga spårningscookies." },
+];
+
+const PL: Block[] = [
+  { h: "Jakie dane przechowujemy?", p: "Przechowujemy wyłącznie Twój adres e-mail, jeśli zapiszesz się na newsletter, oraz imię i wiadomość, jeśli wpiszesz się do księgi gości lub użyjesz formularza kontaktowego. Używamy jednej lokalnej wartości, aby zapamiętać wybrany przez Ciebie język." },
+  { h: "Do czego wykorzystujemy te dane?", p: "Adres e-mail jest wykorzystywany wyłącznie do wysyłania newslettera, na który się zapisałeś/aś. Wpisy w księdze gości są publikowane jawnie na stronie. Nigdy nie sprzedajemy danych stronom trzecim." },
+  { h: "Statystyki", p: "Korzystamy z anonimowych statystyk odwiedzin (bez plików cookie identyfikujących Cię), aby zrozumieć, które artykuły czytają użytkownicy. Nie tworzymy żadnego profilu osobowego." },
+  { h: "Zdjęcia i prawa autorskie", p: "Wszystkie zdjęcia historyczne pochodzą z Library of Congress, Wikimedia Commons i innych publicznych archiwów w ramach domeny publicznej lub Creative Commons. Zdjęcia klimatyczne pochodzą z Unsplash na podstawie ich darmowej licencji. Podanie autora widnieje tam, gdzie jest to wymagane." },
+  { h: "Twoje prawa", p: "W każdej chwili możesz poprosić o dostęp do, poprawienie lub usunięcie danych, które o Tobie przechowujemy. Napisz do nas przez formularz kontaktowy, a odpowiemy w ciągu 14 dni." },
+  { h: "Pliki cookie", p: "Wykorzystywana jest tylko jedna lokalna wartość: Twój wybór języka (\"slowblues-lang\"). Brak plików cookie śledzących." },
+];
+
+const CONTENT: Record<"no" | "en" | "sv" | "de" | "pl", Block[]> = { no: NO, en: EN, sv: SV, de: DE, pl: PL };

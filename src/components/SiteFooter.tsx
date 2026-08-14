@@ -10,22 +10,22 @@ export function SiteFooter() {
     { to: "/history", label: t.nav.history },
     { to: "/artists", label: t.nav.artists },
     { to: "/styles", label: t.nav.styles },
-    { to: "/instruments", label: "Instruments & Gear" },
+    { to: "/instruments", label: t.nav.instruments },
     { to: "/listen", label: t.nav.listen },
     { to: "/gallery", label: t.nav.gallery },
     { to: "/festivals", label: t.nav.festivals },
     { to: "/worldmap", label: t.nav.worldmap },
     { to: "/radio", label: t.nav.radio },
     { to: "/guestbook", label: t.nav.guestbook },
-    { to: "/quiz", label: "Blues Quiz" },
-    { to: "/about/merch", label: "Merch" },
+    { to: "/quiz", label: t.nav.quiz },
+    { to: "/about/merch", label: t.nav.merch },
     { to: "/support", label: t.nav.support },
   ];
 
   const legal: { to: any; label: string }[] = [
-    { to: "/about", label: "About SlowBlues" },
-    { to: "/contact", label: "Contact" },
-    { to: "/privacy", label: "Privacy Policy" },
+    { to: "/about", label: t.footer.aboutLink },
+    { to: "/contact", label: t.nav.contact },
+    { to: "/privacy", label: t.nav.privacy },
     { to: "/gdpr", label: "GDPR & Data Protection" },
     { to: "/cookies", label: "Cookie Policy" },
     { to: "/terms", label: "Terms of Service" },
@@ -57,15 +57,15 @@ export function SiteFooter() {
           <div className="text-xs text-muted-foreground/90 space-y-1 not-italic" itemScope itemType="https://schema.org/Organization">
             <div className="flex items-center gap-1.5 text-gold mb-1.5">
               <Building2 className="size-3.5" aria-hidden="true" />
-              <span className="tracking-[0.2em] text-[10px] uppercase">Utgiver</span>
+              <span className="tracking-[0.2em] text-[10px] uppercase">{t.footer.publisher}</span>
             </div>
             <div itemProp="parentOrganization" className="font-medium text-foreground/90">KM TECH LABS — Kjell Mersland</div>
-            <div>Org.nr. <span itemProp="taxID">934 044 029</span></div>
-            <div>Ansvarlig redaktør: <span itemProp="publisher">Kjell Mersland</span></div>
+            <div>{t.footer.orgNr} <span itemProp="taxID">934 044 029</span></div>
+            <div>{t.footer.editorInCharge} <span itemProp="publisher">Kjell Mersland</span></div>
           </div>
         </div>
 
-        <nav aria-label="Explore">
+        <nav aria-label={t.footer.explore}>
           <h3 className="font-display text-lg mb-4">{t.footer.explore}</h3>
           <ul className="space-y-1.5 text-sm">
             {explore.map((l) => (
@@ -74,8 +74,8 @@ export function SiteFooter() {
           </ul>
         </nav>
 
-        <nav aria-label="Legal and information">
-          <h3 className="font-display text-lg mb-4">Informasjon</h3>
+        <nav aria-label={t.footer.legalAriaLabel}>
+          <h3 className="font-display text-lg mb-4">{t.footer.legalHeading}</h3>
           <ul className="space-y-1.5 text-sm">
             {legal.map((l) => (
               <li key={l.to}><Link to={l.to as any} className="text-muted-foreground hover:text-gold transition focus:outline-none focus-visible:text-gold focus-visible:underline">{l.label}</Link></li>
@@ -86,7 +86,7 @@ export function SiteFooter() {
             className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-md border border-gold/40 text-gold hover:bg-gold hover:text-primary-foreground transition text-xs font-medium tracking-wide"
           >
             <MessageSquare className="size-3.5" aria-hidden="true" />
-            Send melding via kontaktskjema
+            {t.footer.contactCta}
           </Link>
         </nav>
 
@@ -113,7 +113,7 @@ export function SiteFooter() {
         <div className="flex items-center gap-3">
           <Link to="/copyright" className="hover:text-gold">© Copyright</Link>
           <span aria-hidden="true">·</span>
-          <Link to="/privacy" className="hover:text-gold">Privacy</Link>
+          <Link to="/privacy" className="hover:text-gold">{t.nav.privacy}</Link>
           <span aria-hidden="true">·</span>
           <Link to="/login" className="hover:text-gold">Admin</Link>
         </div>

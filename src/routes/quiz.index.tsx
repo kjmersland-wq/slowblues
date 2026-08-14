@@ -86,8 +86,10 @@ function QuizPage() {
   if (isLoading) {
     return (
       <PageShell>
-        <PageHero eyebrow="Blues Quiz" title="…" lead="" img={IMG.vinyl} />
-        <div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Loading…</div>
+        <PageHero eyebrow={tr(lang, { no: "Blues-quiz", en: "Blues Quiz", sv: "Bluesquiz", de: "Blues-Quiz", pl: "Quiz bluesowy" })} title="…" lead="" img={IMG.vinyl} />
+        <div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">
+          {tr(lang, { no: "Laster …", en: "Loading…", sv: "Läser in …", de: "Wird geladen …", pl: "Wczytywanie…" })}
+        </div>
       </PageShell>
     );
   }
@@ -95,9 +97,20 @@ function QuizPage() {
   if (!data?.meta || questions.length === 0) {
     return (
       <PageShell>
-        <PageHero eyebrow="Blues Quiz" title="No quiz published yet" lead="" img={IMG.vinyl} />
+        <PageHero
+          eyebrow={tr(lang, { no: "Blues-quiz", en: "Blues Quiz", sv: "Bluesquiz", de: "Blues-Quiz", pl: "Quiz bluesowy" })}
+          title={tr(lang, { no: "Ingen quiz publisert ennå", en: "No quiz published yet", sv: "Ingen quiz publicerad än", de: "Noch kein Quiz veröffentlicht", pl: "Nie opublikowano jeszcze quizu" })}
+          lead=""
+          img={IMG.vinyl}
+        />
         <div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">
-          This cycle hasn't been published yet — check back soon.
+          {tr(lang, {
+            no: "Denne runden er ikke publisert ennå — sjekk innom snart.",
+            en: "This cycle hasn't been published yet — check back soon.",
+            sv: "Den här omgången är inte publicerad än — titta förbi snart igen.",
+            de: "Diese Runde wurde noch nicht veröffentlicht — schau bald wieder vorbei.",
+            pl: "Ten cykl nie został jeszcze opublikowany — zajrzyj wkrótce ponownie.",
+          })}
         </div>
       </PageShell>
     );
@@ -194,7 +207,7 @@ function QuizPage() {
   return (
     <PageShell>
       <PageHero
-        eyebrow="Blues Quiz"
+        eyebrow={tr(lang, { no: "Blues-quiz", en: "Blues Quiz", sv: "Bluesquiz", de: "Blues-Quiz", pl: "Quiz bluesowy" })}
         title={tr(lang, { no: "Hvor godt kan du bluesen?", en: "Think you know the blues?", pl: "Myślisz, że znasz bluesa?", sv: "Hur bra kan du bluesen?", de: "Wie gut kennst du den Blues?" })}
         lead={tr(lang, { no: "Ti spørsmål fra Deltaen til i dag. Velg vanskelighetsgrad.", en: "Ten questions from the Delta to today. Pick your difficulty.", pl: "Dziesięć pytań od Delty do dziś. Wybierz swój poziom trudności.", sv: "Tio frågor från Deltat till idag. Välj svårighetsgrad.", de: "Zehn Fragen vom Delta bis heute. Wähle den Schwierigkeitsgrad." })}
         img={IMG.vinyl}

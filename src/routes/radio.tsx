@@ -70,7 +70,9 @@ function RadioPage() {
             <span className="size-2 rounded-full bg-destructive animate-pulse" /> {t.pages.radio.live}
           </div>
           <div className="font-display text-3xl mb-2 gold-gradient-text">Slow Blues Radio</div>
-          <div className="text-sm text-muted-foreground mb-6">Now playing — Muddy Waters · "Mannish Boy"</div>
+          <div className="text-sm text-muted-foreground mb-6">
+            {tr(lang, { no: "Spilles nå", en: "Now playing", sv: "Spelas nu", de: "Läuft gerade", pl: "Teraz gra" })} — Muddy Waters · "Mannish Boy"
+          </div>
           <button className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-gold text-primary-foreground font-medium hover:bg-gold/90">
             <Play className="size-5" /> {t.common.listenNow}
           </button>

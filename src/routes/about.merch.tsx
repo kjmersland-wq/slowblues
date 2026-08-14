@@ -31,7 +31,7 @@ import {
   partnerDescription,
   type Partner,
 } from "@/data/partners";
-import { useI18n } from "@/i18n";
+import { useI18n, tr, type Lang } from "@/i18n";
 
 export const Route = createFileRoute("/about/merch")({
   component: MerchPage,
@@ -153,26 +153,32 @@ function MerchPage() {
   return (
     <PageShell>
       <PageHero
-        eyebrow="Official Merch"
-        title="Wear the Blues"
-        lead="Hand-picked SlowBlues apparel and prints. Premium print-on-demand, shipped worldwide — every purchase keeps the music alive."
+        eyebrow={tr(lang, { no: "Offisiell merch", en: "Official Merch", sv: "Officiell merch", de: "Offizieller Merch", pl: "Oficjalne gadżety" })}
+        title={tr(lang, { no: "Bær bluesen", en: "Wear the Blues", sv: "Bär bluesen", de: "Trag den Blues", pl: "Noś bluesa" })}
+        lead={tr(lang, {
+          no: "Håndplukkede SlowBlues-klær og -plakater. Premium print-on-demand, sendt over hele verden — hvert kjøp holder musikken i live.",
+          en: "Hand-picked SlowBlues apparel and prints. Premium print-on-demand, shipped worldwide — every purchase keeps the music alive.",
+          sv: "Handplockade SlowBlues-kläder och tryck. Premium print-on-demand, skickas över hela världen — varje köp håller musiken vid liv.",
+          de: "Handverlesene SlowBlues-Kleidung und -Drucke. Premium-Print-on-Demand, weltweiter Versand — jeder Kauf hält die Musik am Leben.",
+          pl: "Starannie wybrana odzież i grafiki SlowBlues. Wysokiej jakości druk na żądanie, wysyłka na cały świat — każdy zakup podtrzymuje muzykę przy życiu.",
+        })}
         img={IMG.vinyl}
       />
 
       <section className="max-w-6xl mx-auto px-6 py-12 relative">
         <div className="flex items-center justify-between mb-8">
           <div className="grid sm:grid-cols-3 gap-4 flex-1">
-            <Pill icon={Award} label="Premium print-on-demand" />
-            <Pill icon={Globe} label="Shipped worldwide" />
-            <Pill icon={ShoppingBag} label="Designs made with love" />
+            <Pill icon={Award} label={tr(lang, { no: "Premium print-on-demand", en: "Premium print-on-demand", sv: "Premium print-on-demand", de: "Premium-Print-on-Demand", pl: "Druk na żądanie premium" })} />
+            <Pill icon={Globe} label={tr(lang, { no: "Sendes verden over", en: "Shipped worldwide", sv: "Skickas över hela världen", de: "Weltweiter Versand", pl: "Wysyłka na cały świat" })} />
+            <Pill icon={ShoppingBag} label={tr(lang, { no: "Design laget med kjærlighet", en: "Designs made with love", sv: "Design skapad med kärlek", de: "Designs mit Liebe gemacht", pl: "Projekty stworzone z pasją" })} />
           </div>
           <button
             onClick={() => setCartOpen(true)}
             className="relative ml-4 shrink-0 inline-flex items-center gap-2 px-4 py-3 rounded-full bg-card border border-gold/30 hover:border-gold transition"
-            aria-label="Open cart"
+            aria-label={tr(lang, { no: "Åpne handlekurv", en: "Open cart", sv: "Öppna kundvagn", de: "Warenkorb öffnen", pl: "Otwórz koszyk" })}
           >
             <ShoppingCart className="size-5 text-gold" />
-            <span className="font-medium hidden sm:inline">Cart</span>
+            <span className="font-medium hidden sm:inline">{tr(lang, { no: "Handlekurv", en: "Cart", sv: "Kundvagn", de: "Warenkorb", pl: "Koszyk" })}</span>
             {cart.count > 0 && (
               <span className="absolute -top-1.5 -right-1.5 bg-gold text-primary-foreground text-xs font-bold rounded-full size-6 flex items-center justify-center">
                 {cart.count}
@@ -183,13 +189,22 @@ function MerchPage() {
 
         <div className="prose prose-invert max-w-3xl space-y-5 text-foreground/85 leading-relaxed mb-12">
           <p>
-            This isn't just clothing. It's a way to show that you belong to the same universe as us
-            — where slow, soulful blues still means something deep.
+            {tr(lang, {
+              no: "Dette er ikke bare klær. Det er en måte å vise at du hører til samme univers som oss — der langsom, sjelfull blues fortsatt betyr noe dypt.",
+              en: "This isn't just clothing. It's a way to show that you belong to the same universe as us — where slow, soulful blues still means something deep.",
+              sv: "Det här är inte bara kläder. Det är ett sätt att visa att du hör hemma i samma universum som oss — där långsam, själfull blues fortfarande betyder något djupt.",
+              de: "Das ist nicht nur Kleidung. Es ist eine Art zu zeigen, dass du zum selben Universum gehörst wie wir — wo langsamer, seelenvoller Blues noch etwas Tiefes bedeutet.",
+              pl: "To nie jest zwykłe ubranie. To sposób, by pokazać, że należysz do tego samego świata co my — gdzie powolny, pełen duszy blues wciąż znaczy coś głębokiego.",
+            })}
           </p>
           <p>
-            Every product is premium print-on-demand: quality fabric, careful prints, and artwork
-            made with respect for the blues tradition. When you buy something here, you keep
-            SlowBlues alive — more articles, more stories, more music.
+            {tr(lang, {
+              no: "Hvert produkt er premium print-on-demand: kvalitetsstoff, nøye trykk og illustrasjoner laget med respekt for bluestradisjonen. Når du kjøper noe her, holder du SlowBlues i live — flere artikler, flere historier, mer musikk.",
+              en: "Every product is premium print-on-demand: quality fabric, careful prints, and artwork made with respect for the blues tradition. When you buy something here, you keep SlowBlues alive — more articles, more stories, more music.",
+              sv: "Varje produkt är premium print-on-demand: kvalitetstyg, noggranna tryck och illustrationer skapade med respekt för bluestraditionen. När du köper något här håller du SlowBlues vid liv — fler artiklar, fler historier, mer musik.",
+              de: "Jedes Produkt ist Premium-Print-on-Demand: hochwertiger Stoff, sorgfältige Drucke und Artwork mit Respekt vor der Blues-Tradition gestaltet. Wenn du hier etwas kaufst, hältst du SlowBlues am Leben — mehr Artikel, mehr Geschichten, mehr Musik.",
+              pl: "Każdy produkt to druk na żądanie w wysokiej jakości: solidna tkanina, staranny nadruk i grafiki stworzone z szacunkiem dla tradycji bluesa. Kupując coś tutaj, utrzymujesz SlowBlues przy życiu — więcej artykułów, więcej historii, więcej muzyki.",
+            })}
           </p>
         </div>
 
@@ -218,10 +233,13 @@ function MerchPage() {
 
         {!isLoading && !error && !data?.error && featured.length > 0 && (
           <div className="mb-16">
-            <SectionHeading kicker="Featured" title="This cycle's picks" />
+            <SectionHeading
+              kicker={tr(lang, { no: "Utvalgt", en: "Featured", sv: "Utvalt", de: "Empfohlen", pl: "Wyróżnione" })}
+              title={tr(lang, { no: "Denne rundens utvalg", en: "This cycle's picks", sv: "Den här omgångens urval", de: "Die Auswahl dieser Runde", pl: "Wybór tego cyklu" })}
+            />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {featured.map((p) => (
-                <ProductCard key={p.id} p={p} onOpen={() => setActive(p)} onAdd={cart.add} />
+                <ProductCard key={p.id} p={p} lang={lang} onOpen={() => setActive(p)} onAdd={cart.add} />
               ))}
             </div>
           </div>
@@ -229,10 +247,13 @@ function MerchPage() {
 
         {!isLoading && !error && !data?.error && products.length > 0 && (
           <div id="merch-grid" className="mb-12 scroll-mt-24">
-            <SectionHeading kicker="All products" title="The full shop" />
+            <SectionHeading
+              kicker={tr(lang, { no: "Alle produkter", en: "All products", sv: "Alla produkter", de: "Alle Produkte", pl: "Wszystkie produkty" })}
+              title={tr(lang, { no: "Hele butikken", en: "The full shop", sv: "Hela butiken", de: "Der ganze Shop", pl: "Cały sklep" })}
+            />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {products.map((p) => (
-                <ProductCard key={p.id} p={p} onOpen={() => setActive(p)} onAdd={cart.add} />
+                <ProductCard key={p.id} p={p} lang={lang} onOpen={() => setActive(p)} onAdd={cart.add} />
               ))}
             </div>
           </div>
@@ -245,19 +266,30 @@ function MerchPage() {
             rel="noopener"
             className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition"
           >
-            <ShoppingBag className="size-5" /> Open the full shop on Fourthwall
+            <ShoppingBag className="size-5" />
+            {tr(lang, { no: "Åpne hele butikken på Fourthwall", en: "Open the full shop on Fourthwall", sv: "Öppna hela butiken på Fourthwall", de: "Den ganzen Shop auf Fourthwall öffnen", pl: "Otwórz cały sklep na Fourthwall" })}
             <ExternalLink className="size-4" />
           </a>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6 mt-12">
-          <Note icon={Truck} title="Shipping & duties">
-            Prices are in NOK and don't include shipping. Shipping is added at checkout. Outside the
-            EU/EEA customs and VAT may apply.
+          <Note icon={Truck} title={tr(lang, { no: "Frakt & avgifter", en: "Shipping & duties", sv: "Frakt & avgifter", de: "Versand & Zölle", pl: "Wysyłka i cła" })}>
+            {tr(lang, {
+              no: "Priser er i NOK og inkluderer ikke frakt. Frakt legges til i kassen. Utenfor EU/EØS kan toll og moms tilkomme.",
+              en: "Prices are in NOK and don't include shipping. Shipping is added at checkout. Outside the EU/EEA customs and VAT may apply.",
+              sv: "Priser är i NOK och inkluderar inte frakt. Frakt läggs till i kassan. Utanför EU/EES kan tull och moms tillkomma.",
+              de: "Preise sind in NOK und beinhalten keinen Versand. Versandkosten werden an der Kasse hinzugefügt. Außerhalb der EU/des EWR können Zoll und Mehrwertsteuer anfallen.",
+              pl: "Ceny podane są w NOK i nie obejmują wysyłki. Koszt wysyłki jest doliczany przy kasie. Poza UE/EOG mogą obowiązywać cło i VAT.",
+            })}
           </Note>
-          <Note icon={Info} title="Secure checkout">
-            Cart and payment happen securely on Fourthwall. Cards (Visa / Mastercard / AmEx /
-            Discover), PayPal, and Apple/Google Pay where supported.
+          <Note icon={Info} title={tr(lang, { no: "Sikker betaling", en: "Secure checkout", sv: "Säker betalning", de: "Sichere Bezahlung", pl: "Bezpieczna płatność" })}>
+            {tr(lang, {
+              no: "Handlekurv og betaling skjer sikkert hos Fourthwall. Kort (Visa / Mastercard / AmEx / Discover), PayPal, og Apple/Google Pay der det støttes.",
+              en: "Cart and payment happen securely on Fourthwall. Cards (Visa / Mastercard / AmEx / Discover), PayPal, and Apple/Google Pay where supported.",
+              sv: "Kundvagn och betalning sker säkert hos Fourthwall. Kort (Visa / Mastercard / AmEx / Discover), PayPal, och Apple/Google Pay där det stöds.",
+              de: "Warenkorb und Zahlung erfolgen sicher über Fourthwall. Karten (Visa / Mastercard / AmEx / Discover), PayPal und Apple/Google Pay, wo unterstützt.",
+              pl: "Koszyk i płatność odbywają się bezpiecznie w Fourthwall. Karty (Visa / Mastercard / AmEx / Discover), PayPal oraz Apple/Google Pay tam, gdzie są obsługiwane.",
+            })}
           </Note>
         </div>
       </section>
@@ -270,6 +302,7 @@ function MerchPage() {
         open={cartOpen}
         onClose={() => setCartOpen(false)}
         cart={cart}
+        lang={lang}
       />
 
       {/* Fixed back-to-grid button */}
@@ -278,7 +311,7 @@ function MerchPage() {
           href="#merch-grid"
           className="fixed bottom-6 right-6 z-30 inline-flex items-center gap-2 px-5 py-3 rounded-full bg-card/95 border border-gold/40 text-gold hover:bg-gold/10 hover:border-gold transition shadow-xl backdrop-blur"
         >
-          <ArrowLeft className="size-4 rotate-90" /> Se alle produkter
+          <ArrowLeft className="size-4 rotate-90" /> {tr(lang, { no: "Se alle produkter", en: "See all products", sv: "Se alla produkter", de: "Alle Produkte ansehen", pl: "Zobacz wszystkie produkty" })}
         </a>
       )}
     </PageShell>
@@ -313,10 +346,12 @@ function SkeletonGrid() {
 
 function ProductCard({
   p,
+  lang,
   onOpen,
   onAdd,
 }: {
   p: MerchProduct;
+  lang: Lang;
   onOpen: () => void;
   onAdd: (i: CartItem) => void;
 }) {
@@ -372,7 +407,7 @@ function ProductCard({
               className="absolute top-2 left-2 z-10 inline-flex items-center gap-1 rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-primary-foreground shadow"
               style={{ background: partner.accentColor }}
             >
-              Partner Edition
+              {PARTNER_BADGE[lang] ?? PARTNER_BADGE.en}
             </div>
             <div
               className="absolute bottom-2 left-2 z-10 h-8 rounded-md bg-white/95 px-2 flex items-center shadow"
@@ -429,7 +464,7 @@ function ProductCard({
           >
             {p.sizes.map((s) => (
               <option key={s} value={s}>
-                Size: {s}
+                {tr(lang, { no: "Størrelse", en: "Size", sv: "Storlek", de: "Größe", pl: "Rozmiar" })}: {s}
               </option>
             ))}
           </select>
@@ -440,7 +475,9 @@ function ProductCard({
           disabled={!variant?.inStock}
           className="mt-auto w-full bg-gold text-primary-foreground font-medium py-2.5 rounded-md hover:bg-gold/90 transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {variant?.inStock === false ? "Sold out" : "Add to cart"}
+          {variant?.inStock === false
+            ? tr(lang, { no: "Utsolgt", en: "Sold out", sv: "Slutsåld", de: "Ausverkauft", pl: "Wyprzedany" })
+            : tr(lang, { no: "Legg i handlekurv", en: "Add to cart", sv: "Lägg i kundvagn", de: "In den Warenkorb", pl: "Dodaj do koszyka" })}
         </button>
       </div>
     </div>
@@ -467,7 +504,7 @@ function ProductModal({
   product: MerchProduct;
   onClose: () => void;
   onAdd: (i: CartItem) => void;
-  lang: string;
+  lang: Lang;
 }) {
   const partner = partnerForProduct(product.slug);
   const [color, setColor] = useState(product.colors[0]?.name ?? "");
@@ -517,7 +554,7 @@ function ProductModal({
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-2 rounded-full hover:bg-muted transition z-10"
-          aria-label="Close"
+          aria-label={tr(lang, { no: "Lukk", en: "Close", sv: "Stäng", de: "Schließen", pl: "Zamknij" })}
         >
           <X className="size-5" />
         </button>
@@ -525,7 +562,7 @@ function ProductModal({
           onClick={onClose}
           className="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold/40 bg-card/60 text-gold hover:bg-gold/10 hover:border-gold transition text-xs font-medium z-10"
         >
-          <ArrowLeft className="size-3.5" /> Tilbake til butikken
+          <ArrowLeft className="size-3.5" /> {tr(lang, { no: "Tilbake til butikken", en: "Back to shop", sv: "Tillbaka till butiken", de: "Zurück zum Shop", pl: "Powrót do sklepu" })}
         </button>
 
         <div>
@@ -579,7 +616,7 @@ function ProductModal({
               )}
               <div className="flex-1 min-w-0 text-sm">
                 <div className="font-medium mb-0.5">
-                  🤝 Partner Edition — made in collaboration with{" "}
+                  🤝 {tr(lang, { no: "Partner-utgave — laget i samarbeid med", en: "Partner Edition — made in collaboration with", sv: "Partnerupplaga — skapad i samarbete med", de: "Partner-Edition — in Zusammenarbeit mit", pl: "Edycja partnerska — stworzona we współpracy z" })}{" "}
                   <a
                     href={partner.website}
                     target="_blank"
@@ -590,7 +627,7 @@ function ProductModal({
                   </a>
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  Part of the proceeds supports {partner.name}.{" "}
+                  {tr(lang, { no: "En del av inntektene støtter", en: "Part of the proceeds supports", sv: "En del av intäkterna stödjer", de: "Ein Teil des Erlöses unterstützt", pl: "Część dochodu wspiera" })} {partner.name}.{" "}
                   <span className="italic">{partnerDescription(partner, lang)}</span>
                 </div>
               </div>
@@ -601,7 +638,7 @@ function ProductModal({
           {product.colors.length > 0 && (
             <div className="mb-4">
               <div className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
-                Color: <span className="text-foreground">{color}</span>
+                {tr(lang, { no: "Farge", en: "Color", sv: "Färg", de: "Farbe", pl: "Kolor" })}: <span className="text-foreground">{color}</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {product.colors.map((c) => (
@@ -621,7 +658,7 @@ function ProductModal({
 
           {product.sizes.length > 0 && (
             <div className="mb-4">
-              <div className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Size</div>
+              <div className="text-xs uppercase tracking-wider text-muted-foreground mb-2">{tr(lang, { no: "Størrelse", en: "Size", sv: "Storlek", de: "Größe", pl: "Rozmiar" })}</div>
               <div className="flex flex-wrap gap-2">
                 {product.sizes.map((s) => (
                   <button
@@ -642,13 +679,13 @@ function ProductModal({
 
           <div className="mb-5">
             <div className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
-              Quantity
+              {tr(lang, { no: "Antall", en: "Quantity", sv: "Antal", de: "Menge", pl: "Ilość" })}
             </div>
             <div className="inline-flex items-center border border-border rounded-md">
               <button
                 onClick={() => setQty((q) => Math.max(1, q - 1))}
                 className="px-3 py-2 hover:bg-muted transition"
-                aria-label="Decrease"
+                aria-label={tr(lang, { no: "Reduser", en: "Decrease", sv: "Minska", de: "Verringern", pl: "Zmniejsz" })}
               >
                 <Minus className="size-4" />
               </button>
@@ -656,7 +693,7 @@ function ProductModal({
               <button
                 onClick={() => setQty((q) => q + 1)}
                 className="px-3 py-2 hover:bg-muted transition"
-                aria-label="Increase"
+                aria-label={tr(lang, { no: "Øk", en: "Increase", sv: "Öka", de: "Erhöhen", pl: "Zwiększ" })}
               >
                 <Plus className="size-4" />
               </button>
@@ -669,7 +706,7 @@ function ProductModal({
               disabled={!variant?.inStock}
               className="flex-1 bg-card border-2 border-gold text-gold font-medium py-3 rounded-md hover:bg-gold/10 transition disabled:opacity-50"
             >
-              Add to cart
+              {tr(lang, { no: "Legg i handlekurv", en: "Add to cart", sv: "Lägg i kundvagn", de: "In den Warenkorb", pl: "Dodaj do koszyka" })}
             </button>
             <a
               href={buyNowUrl}
@@ -677,7 +714,7 @@ function ProductModal({
               rel="noopener"
               className="flex-1 text-center bg-gold text-primary-foreground font-medium py-3 rounded-md hover:bg-gold/90 transition inline-flex items-center justify-center gap-2"
             >
-              Buy now <ExternalLink className="size-4" />
+              {tr(lang, { no: "Kjøp nå", en: "Buy now", sv: "Köp nu", de: "Jetzt kaufen", pl: "Kup teraz" })} <ExternalLink className="size-4" />
             </a>
           </div>
         </div>
@@ -690,10 +727,12 @@ function CartDrawer({
   open,
   onClose,
   cart,
+  lang,
 }: {
   open: boolean;
   onClose: () => void;
   cart: ReturnType<typeof useCart>;
+  lang: Lang;
 }) {
   useEffect(() => {
     if (!open) return;
@@ -717,9 +756,9 @@ function CartDrawer({
       >
         <div className="flex items-center justify-between p-5 border-b border-border">
           <h2 className="font-display text-xl flex items-center gap-2">
-            <ShoppingCart className="size-5 text-gold" /> Your cart ({cart.count})
+            <ShoppingCart className="size-5 text-gold" /> {tr(lang, { no: "Handlekurv", en: "Your cart", sv: "Din kundvagn", de: "Dein Warenkorb", pl: "Twój koszyk" })} ({cart.count})
           </h2>
-          <button onClick={onClose} className="p-2 rounded-md hover:bg-muted" aria-label="Close cart">
+          <button onClick={onClose} className="p-2 rounded-md hover:bg-muted" aria-label={tr(lang, { no: "Lukk handlekurv", en: "Close cart", sv: "Stäng kundvagn", de: "Warenkorb schließen", pl: "Zamknij koszyk" })}>
             <X className="size-5" />
           </button>
         </div>
@@ -728,7 +767,7 @@ function CartDrawer({
           {cart.items.length === 0 ? (
             <div className="text-center text-muted-foreground py-12">
               <ShoppingBag className="size-10 mx-auto mb-3 opacity-50" />
-              Your cart is empty.
+              {tr(lang, { no: "Handlekurven er tom.", en: "Your cart is empty.", sv: "Din kundvagn är tom.", de: "Dein Warenkorb ist leer.", pl: "Twój koszyk jest pusty." })}
             </div>
           ) : (
             cart.items.map((item) => (
@@ -770,7 +809,7 @@ function CartDrawer({
                 <button
                   onClick={() => cart.remove(item.variantId)}
                   className="text-muted-foreground hover:text-destructive p-1 self-start"
-                  aria-label="Remove"
+                  aria-label={tr(lang, { no: "Fjern", en: "Remove", sv: "Ta bort", de: "Entfernen", pl: "Usuń" })}
                 >
                   <Trash2 className="size-4" />
                 </button>
@@ -782,11 +821,17 @@ function CartDrawer({
         {cart.items.length > 0 && (
           <div className="p-5 border-t border-border space-y-3">
             <div className="flex items-center justify-between text-base">
-              <span className="text-muted-foreground">Subtotal</span>
+              <span className="text-muted-foreground">{tr(lang, { no: "Delsum", en: "Subtotal", sv: "Delsumma", de: "Zwischensumme", pl: "Suma częściowa" })}</span>
               <span className="font-display text-xl">{formatNOK(cart.subtotal)}</span>
             </div>
             <p className="text-xs text-muted-foreground">
-              Shipping and any taxes are calculated at checkout on Fourthwall.
+              {tr(lang, {
+                no: "Frakt og eventuelle avgifter beregnes i kassen hos Fourthwall.",
+                en: "Shipping and any taxes are calculated at checkout on Fourthwall.",
+                sv: "Frakt och eventuella avgifter beräknas i kassan hos Fourthwall.",
+                de: "Versand und etwaige Abgaben werden an der Kasse bei Fourthwall berechnet.",
+                pl: "Koszty wysyłki i ewentualne podatki są obliczane przy kasie w Fourthwall.",
+              })}
             </p>
             <a
               href={`${SHOP_BASE}/en-nok/cart`}
@@ -794,14 +839,14 @@ function CartDrawer({
               rel="noopener"
               className="block text-center bg-gold text-primary-foreground font-medium py-3 rounded-md hover:bg-gold/90 transition"
             >
-              Go to checkout
+              {tr(lang, { no: "Gå til kassen", en: "Go to checkout", sv: "Gå till kassan", de: "Zur Kasse gehen", pl: "Przejdź do kasy" })}
               <ExternalLink className="size-4 inline ml-2" />
             </a>
             <button
               onClick={cart.clear}
               className="w-full text-xs text-muted-foreground hover:text-foreground transition"
             >
-              Clear cart
+              {tr(lang, { no: "Tøm handlekurv", en: "Clear cart", sv: "Töm kundvagn", de: "Warenkorb leeren", pl: "Wyczyść koszyk" })}
             </button>
           </div>
         )}
@@ -860,6 +905,19 @@ const PARTNER_SECTION_COPY: Record<string, { heading: string; sub: string; partn
     sub: "Utvalda produkter skapade tillsammans med bluespartners. Varje köp stödjer både SlowBlues och våra partners.",
     partnersLabel: "Våra partners",
   },
+  pl: {
+    heading: "Edycje partnerskie",
+    sub: "Wybrane produkty stworzone we współpracy z bluesowymi partnerami. Każdy zakup wspiera zarówno SlowBlues, jak i naszych partnerów.",
+    partnersLabel: "Nasi partnerzy",
+  },
+};
+
+const PARTNER_BADGE: Record<string, string> = {
+  no: "Partner-utgave",
+  en: "Partner Edition",
+  sv: "Partnerupplaga",
+  de: "Partner-Edition",
+  pl: "Edycja partnerska",
 };
 
 function PartnerEditionsSection({
@@ -871,7 +929,7 @@ function PartnerEditionsSection({
 }: {
   partners: Partner[];
   products: MerchProduct[];
-  lang: string;
+  lang: Lang;
   onOpen: (p: MerchProduct) => void;
   onAdd: (i: CartItem) => void;
 }) {
@@ -883,7 +941,7 @@ function PartnerEditionsSection({
     >
       <div className="mb-6">
         <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-gold mb-3">
-          <Handshake className="size-4" /> Partner Edition
+          <Handshake className="size-4" /> {PARTNER_BADGE[lang] ?? PARTNER_BADGE.en}
         </div>
         <h2 id="partner-editions-heading" className="font-display text-3xl md:text-4xl mb-3">
           {copy.heading}
@@ -925,7 +983,7 @@ function PartnerEditionsSection({
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {products.map((p) => (
-          <ProductCard key={p.id} p={p} onOpen={() => onOpen(p)} onAdd={onAdd} />
+          <ProductCard key={p.id} p={p} lang={lang} onOpen={() => onOpen(p)} onAdd={onAdd} />
         ))}
       </div>
     </section>

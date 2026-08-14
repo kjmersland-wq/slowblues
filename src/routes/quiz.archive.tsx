@@ -67,7 +67,11 @@ function QuizArchivePage() {
                   <span className="inline-flex items-center gap-2 font-display text-lg text-gold">
                     <Calendar className="size-4" /> {c.cycleKey}
                   </span>
-                  {isCurrent && <span className="text-[10px] tracking-widest text-gold/90 bg-gold/10 px-2 py-0.5 rounded">LIVE</span>}
+                  {isCurrent && (
+                    <span className="text-[10px] tracking-widest text-gold/90 bg-gold/10 px-2 py-0.5 rounded">
+                      {tr(lang, { no: "AKTUELL", en: "LIVE", sv: "AKTUELL", de: "AKTUELL", pl: "AKTUALNY" })}
+                    </span>
+                  )}
                 </div>
                 <div className="text-sm text-muted-foreground mb-3">{formatCycleRange(c.cycleNumber)}</div>
                 {c.featuredArtistSlug && (

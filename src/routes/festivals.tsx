@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
-import { useI18n } from "@/i18n";
+import { useI18n, tr } from "@/i18n";
 import { FESTIVALS } from "@/data/blues";
 import { IMG } from "@/data/images";
 import { ExternalLink, MapPin, Calendar } from "lucide-react";
@@ -44,7 +44,7 @@ export const Route = createFileRoute("/festivals")({
 });
 
 function FestivalsPage() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <PageShell>
       <PageHero eyebrow={t.pages.festivals.eyebrow} title={t.pages.festivals.title} lead={t.pages.festivals.lead} img={IMG.crowd} />
@@ -61,7 +61,7 @@ function FestivalsPage() {
                     <span>{f.country}</span>
                   </div>
                 </div>
-                <span className="text-gold text-sm inline-flex items-center gap-1">Website <ExternalLink className="size-3.5" /></span>
+                <span className="text-gold text-sm inline-flex items-center gap-1">{tr(lang, { no: "Nettside", en: "Website", sv: "Webbplats", de: "Website", pl: "Strona internetowa" })} <ExternalLink className="size-3.5" /></span>
               </div>
             </a>
           ))}
