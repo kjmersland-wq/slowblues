@@ -1,0 +1,14 @@
+-- Editorial decision change: the client wants every quote (press quotes and
+-- concert/festival review quotes) translated into all 5 site languages, not
+-- kept only in the source language. Purpose: readable review excerpts are
+-- meant to spark interest from concert/festival bookers abroad, so a
+-- Norwegian, Swedish, or Polish organiser needs to be able to read them.
+-- This reverses the original migration 0006 design note on concert_reviews
+-- (which kept quote_text single-language, matching the general "quotes are
+-- never translated" editorial rule) -- that rule now applies to biography
+-- prose only, not to press_quotes/concert_reviews.
+--
+-- quote_text remains as the historical/original-language record (and a
+-- NOT NULL fallback). quote_text_i18n holds the 5 translations, keyed by
+-- locale, with the source-language entry equal to the verbatim original.
+ALTER TABLE concert_reviews ADD COLUMN quote_text_i18n TEXT NOT NULL DEFAULT '{}';

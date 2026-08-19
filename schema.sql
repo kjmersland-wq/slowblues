@@ -187,10 +187,13 @@ CREATE TRIGGER trg_artists_updated_at
 -- =========================================================
 -- CONCERT REVIEWS (artist-agnostic, many per artist)
 -- Distinct from blues_reviews (album reviews) and concerts (event
--- listings, no verdict/quote fields). quote_text/quote_language are
--- deliberately NOT i18n: a review's language belongs to its source
--- publication, not the site visitor's locale, matching the site rule that
--- direct quotes are always kept verbatim in their original language.
+-- listings, no verdict/quote fields). quote_text holds the original,
+-- source-language quote (quote_language records what that language is);
+-- quote_text_i18n (added in migration 0007) holds the same quote
+-- translated into all 5 site locales, so review excerpts are readable by
+-- concert/festival bookers abroad regardless of viewer language -- unlike
+-- biography prose, quotes here are deliberately translated, not kept
+-- verbatim-only.
 -- =========================================================
 CREATE TABLE concert_reviews (
   id                TEXT PRIMARY KEY,
@@ -203,6 +206,7 @@ CREATE TABLE concert_reviews (
   event_date        TEXT,
   event_year        INTEGER,
   quote_text        TEXT NOT NULL,
+  quote_text_i18n   TEXT NOT NULL DEFAULT '{}',
   quote_language    TEXT NOT NULL DEFAULT 'en',
   review_author     TEXT,
   publication_name  TEXT,
