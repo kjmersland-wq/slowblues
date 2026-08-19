@@ -2,25 +2,25 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n, tr } from "@/i18n";
 import { IMG } from "@/data/images";
-import { ExternalLink, Play } from "lucide-react";
+import { ExternalLink, Youtube } from "lucide-react";
 
 export const Route = createFileRoute("/listen")({
   component: ListenPage,
   head: () => ({ meta: [
     { title: "Listen — Essential Blues Recordings" },
-    { name: "description", content: "Spotify playlists, classic cuts and new favourites curated by SlowBlues." },
+    { name: "description", content: "YouTube playlists, classic cuts and new favourites curated by SlowBlues." },
     { property: "og:title", content: "Listen — Essential Blues Recordings" },
     { property: "og:image", content: IMG.vinyl },
   ]}),
 });
 
 const PLAYLISTS = [
-  { title: "Delta Essentials", desc: "30 acoustic cuts from Patton to Johnson.", spotify: "https://open.spotify.com/genre/delta-blues" },
-  { title: "Chess Records: The Golden Years", desc: "Muddy, Wolf, Walter, Sonny Boy, Etta.", spotify: "https://open.spotify.com/playlist/37i9dQZF1DXd9rSDyQguIk" },
-  { title: "British Blues Boom", desc: "Mayall, Cream, Stones, Zeppelin — the response from across the Atlantic.", spotify: "https://open.spotify.com/genre/british-blues" },
-  { title: "Modern Voices", desc: "Gary Clark Jr., Larkin Poe, Kingfish, Joanne Shaw Taylor.", spotify: "https://open.spotify.com/genre/modern-blues" },
-  { title: "Slow Blues After Midnight", desc: "Late-night, low-volume, deep mood.", spotify: "https://open.spotify.com/genre/blues" },
-  { title: "Norwegian Blues", desc: "Notodden, Mandal og alt det norske blueslandskapet.", spotify: "https://open.spotify.com/search/norwegian%20blues" },
+  { title: "Delta Essentials", desc: "30 acoustic cuts from Patton to Johnson.", youtube: "https://www.youtube.com/results?search_query=delta+blues+essentials+playlist" },
+  { title: "Chess Records: The Golden Years", desc: "Muddy, Wolf, Walter, Sonny Boy, Etta.", youtube: "https://www.youtube.com/results?search_query=chess+records+blues+golden+years+playlist" },
+  { title: "British Blues Boom", desc: "Mayall, Cream, Stones, Zeppelin — the response from across the Atlantic.", youtube: "https://www.youtube.com/results?search_query=british+blues+boom+playlist" },
+  { title: "Modern Voices", desc: "Gary Clark Jr., Larkin Poe, Kingfish, Joanne Shaw Taylor.", youtube: "https://www.youtube.com/results?search_query=modern+blues+Gary+Clark+Jr+Larkin+Poe+Kingfish+Joanne+Shaw+Taylor" },
+  { title: "Slow Blues After Midnight", desc: "Late-night, low-volume, deep mood.", youtube: "https://www.youtube.com/results?search_query=slow+blues+late+night+playlist" },
+  { title: "Norwegian Blues", desc: "Notodden, Mandal og alt det norske blueslandskapet.", youtube: "https://www.youtube.com/results?search_query=norwegian+blues+Notodden+Mandal" },
 ];
 
 const ESSENTIAL_ALBUMS = [
@@ -41,8 +41,8 @@ function ListenPage() {
         <h2 className="font-display text-3xl mb-6">{tr(lang, { no: "Kuraterte spillelister", en: "Curated playlists", sv: "Utvalda spellistor", de: "Kuratierte Playlists", pl: "Wyselekcjonowane playlisty" })}</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
           {PLAYLISTS.map((p) => (
-            <a key={p.title} href={p.spotify} target="_blank" rel="noopener" className="group bg-card/60 border border-border rounded-lg p-6 hover:border-gold/60 transition">
-              <div className="size-12 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center mb-4 group-hover:bg-gold/20"><Play className="size-5 text-gold" /></div>
+            <a key={p.title} href={p.youtube} target="_blank" rel="noopener" className="group bg-card/60 border border-border rounded-lg p-6 hover:border-gold/60 transition">
+              <div className="size-12 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center mb-4 group-hover:bg-gold/20"><Youtube className="size-5 text-gold" /></div>
               <h3 className="font-display text-xl mb-2">{p.title}</h3>
               <p className="text-sm text-muted-foreground mb-3">{p.desc}</p>
               <div className="text-xs text-gold inline-flex items-center gap-1">{t.common.listenNow} <ExternalLink className="size-3" /></div>
