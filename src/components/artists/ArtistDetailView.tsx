@@ -463,30 +463,28 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
           </Section>
         )}
 
-        {/* Booking / contact — shown for every living artist/band, with an
+        {/* Booking / contact — shown on every artist profile page, with an
             invitation to submit or correct booking details via the contact
             form, even before any booking_info has been researched. */}
-        {!a.died && (
-          <Card title={t.booking} icon={Phone}>
-            {a.booking_info && Object.keys(a.booking_info).length > 0 && (
-              <div className="grid sm:grid-cols-2 gap-4 text-sm mb-4">
-                <BookingField label={t.bookingAgency} value={a.booking_info.booking_agency} notAvailableLabel={t.notPubliclyAvailable} />
-                <BookingField label={t.bookingAgent} value={a.booking_info.agent_name} notAvailableLabel={t.notPubliclyAvailable} />
-                <BookingField label={t.bookingEmail} value={a.booking_info.booking_email} href={a.booking_info.booking_email ? `mailto:${a.booking_info.booking_email}` : undefined} notAvailableLabel={t.notPubliclyAvailable} />
-                <BookingField label={t.bookingPhone} value={a.booking_info.booking_phone} href={a.booking_info.booking_phone ? `tel:${a.booking_info.booking_phone}` : undefined} notAvailableLabel={t.notPubliclyAvailable} />
-                <BookingField label={t.bookingUrl} value={a.booking_info.booking_url} href={a.booking_info.booking_url ?? undefined} notAvailableLabel={t.notPubliclyAvailable} />
-              </div>
-            )}
-            {a.booking_info?.note && <p className="text-xs text-muted-foreground mb-3 italic">{a.booking_info.note}</p>}
-            {a.booking_info?.source_url && (
-              <a href={a.booking_info.source_url} target="_blank" rel="noopener noreferrer" className="text-xs text-gold hover:underline mb-3 inline-block">{t.source}</a>
-            )}
-            <p className="text-sm text-muted-foreground leading-relaxed border-t border-border pt-3 mt-1">
-              {t.bookingUpdateNote}{" "}
-              <Link to="/contact" className="text-gold hover:underline">{t.contactLink}</Link>
-            </p>
-          </Card>
-        )}
+        <Card title={t.booking} icon={Phone}>
+          {a.booking_info && Object.keys(a.booking_info).length > 0 && (
+            <div className="grid sm:grid-cols-2 gap-4 text-sm mb-4">
+              <BookingField label={t.bookingAgency} value={a.booking_info.booking_agency} notAvailableLabel={t.notPubliclyAvailable} />
+              <BookingField label={t.bookingAgent} value={a.booking_info.agent_name} notAvailableLabel={t.notPubliclyAvailable} />
+              <BookingField label={t.bookingEmail} value={a.booking_info.booking_email} href={a.booking_info.booking_email ? `mailto:${a.booking_info.booking_email}` : undefined} notAvailableLabel={t.notPubliclyAvailable} />
+              <BookingField label={t.bookingPhone} value={a.booking_info.booking_phone} href={a.booking_info.booking_phone ? `tel:${a.booking_info.booking_phone}` : undefined} notAvailableLabel={t.notPubliclyAvailable} />
+              <BookingField label={t.bookingUrl} value={a.booking_info.booking_url} href={a.booking_info.booking_url ?? undefined} notAvailableLabel={t.notPubliclyAvailable} />
+            </div>
+          )}
+          {a.booking_info?.note && <p className="text-xs text-muted-foreground mb-3 italic">{a.booking_info.note}</p>}
+          {a.booking_info?.source_url && (
+            <a href={a.booking_info.source_url} target="_blank" rel="noopener noreferrer" className="text-xs text-gold hover:underline mb-3 inline-block">{t.source}</a>
+          )}
+          <p className="text-sm text-muted-foreground leading-relaxed border-t border-border pt-3 mt-1">
+            {t.bookingUpdateNote}{" "}
+            <Link to="/contact" className="text-gold hover:underline">{t.contactLink}</Link>
+          </p>
+        </Card>
 
         {a.article_references.length > 0 && (
           <Section id="kilder" icon={BookOpen} title={t.articles} tone="amber">
