@@ -110,8 +110,8 @@ function NewArtistPage() {
           if (facts.instruments.length) patch.instruments_simple = facts.instruments.map((i) => i.label).slice(0, 6);
           if (facts.recordLabels.length) patch.labels = facts.recordLabels.map((l) => l.label).slice(0, 8);
           if (facts.imageUrl) { patch.img = facts.imageUrl; patch.og_image = facts.imageUrl; patch.image_credit = "Wikimedia Commons"; }
+          if (facts.officialWebsite) patch.website_url = facts.officialWebsite;
           const social: Record<string, string> = {};
-          if (facts.officialWebsite) social.website = facts.officialWebsite;
           if (facts.externalIds.spotify) social.spotify = `https://open.spotify.com/artist/${facts.externalIds.spotify}`;
           if (facts.externalIds.youtubeChannel) social.youtube = `https://www.youtube.com/channel/${facts.externalIds.youtubeChannel}`;
           if (facts.externalIds.musicBrainz) social.musicbrainz = `https://musicbrainz.org/artist/${facts.externalIds.musicBrainz}`;

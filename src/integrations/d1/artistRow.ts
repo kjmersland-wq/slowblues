@@ -23,7 +23,7 @@ const I18N_JSON_FIELDS = [
   "press_quotes",
 ];
 
-const JSON_OBJECT_COLUMNS = new Set(["social_links", "link_check", ...I18N_JSON_FIELDS.map((f) => `${f}_i18n`)]);
+const JSON_OBJECT_COLUMNS = new Set(["social_links", "link_check", "booking_info", ...I18N_JSON_FIELDS.map((f) => `${f}_i18n`)]);
 
 const JSON_ARRAY_COLUMNS = new Set([
   "bio",

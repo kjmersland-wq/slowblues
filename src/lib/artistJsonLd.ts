@@ -26,6 +26,7 @@ function pickAnyLocale<T>(a: Record<string, any>, field: string, locale: ArtistL
 
 export function buildArtistJsonLd(a: ArtistRecord, canonicalUrl: string, imageUrl?: string | null, locale: ArtistLocale = "en") {
   const sameAs = Object.values(a.social_links ?? {}).filter(Boolean) as string[];
+  if (a.website_url) sameAs.push(a.website_url);
   for (const ex of a.external_links ?? []) if (ex?.url) sameAs.push(ex.url);
 
   const isBand = /band|brothers|orchestra|combo|trio|quartet|quintet/i.test(a.name);

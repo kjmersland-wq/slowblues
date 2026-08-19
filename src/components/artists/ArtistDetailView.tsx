@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { SafeImage } from "@/components/SafeImage";
 import { useArtist, useArtists, pickLang, pickLangArray, pickLangJsonb, type ArtistRecord, type Lang, type FamilyEntry, type InstrumentEntry, type CollaboratorEntry, type DiscographyEntry, type AwardEntry, type PressQuote } from "@/lib/artists";
+import { fetchConcertReviewsByArtistSlug, type ConcertReview } from "@/lib/concertReviews.functions";
 import { resolveArtistImage } from "@/lib/artistImageMap";
 import { computeRelated } from "@/lib/relatedArtists";
 import { IMG } from "@/data/images";
@@ -9,17 +10,17 @@ import { artistDetailPath, artistsListPath, type ArtistLocale } from "@/lib/loca
 import { NameLink, useNameIndex } from "@/components/artists/NameLink";
 import {
   ArrowLeft, Music, MapPin, Disc3, Calendar, Users, Star, Quote, Guitar,
-  PlayCircle, Mic, Award, Sparkles, Globe, ExternalLink, Image as ImageIcon, BookOpen, Link2, Check,
+  PlayCircle, Mic, Award, Sparkles, Globe, ExternalLink, Image as ImageIcon, BookOpen, Link2, Check, Phone,
 } from "lucide-react";
 import { ArtistYouTube, AlbumYouTubeCell, DiscographyVideos } from "@/components/artists/ArtistYouTube";
 import { ArtistInitialsPlaceholder } from "@/components/artists/ArtistInitialsPlaceholder";
 
 const T = {
-  no: { back: "Tilbake til artister", notFound: "Artist ikke funnet", loading: "Laster…", error: "Kunne ikke laste artisten", born: "Født", aka: "Også kjent som", died: "Død", active: "Aktiv", styles: "Stiler og sjangre", discography: "Diskografi", songs: "Kjente sanger", related: "Relaterte artister", videos: "Se & Lytt", gallery: "Galleri", links: "Eksterne lenker", articles: "Kilder", influences: "Innflytelser", legacy: "Musikalsk innflytelse", family: "Familie og privatliv", formative: "Formende opplevelser", instruments: "Instrumenter og utstyr", instrumentsShort: "Instrumenter", labelsShort: "Plateselskaper", anecdotes: "Historier og anekdoter", collaborators: "Samarbeidspartnere", awards: "Priser og anerkjennelse", from: "fra", musicians: "Musikere", watch: "Se", press: "Pressomtaler og sitater", source: "Kilde", year: "År", title: "Tittel", producer: "Produsent", label: "Label", chart: "Liste", sales: "Salg", notes: "Notater", featured: "Utvalgt", deceasedBanner: "Denne artisten er ikke lenger blant oss.", share: "Del profil", copied: "Lenke kopiert!", aiImageNote: "KI-generert historisk tolkning — ingen original fotografi tilgjengelig", catGuitar: "Gitar", catOther: "Annet", catVocals: "Vokal", watchOnYoutubePrefix: "Se på YouTube:", watchVideoGeneric: "Se video på YouTube" },
-  en: { back: "Back to artists", notFound: "Artist not found", loading: "Loading…", error: "Could not load the artist", born: "Born", aka: "Also known as", died: "Died", active: "Active", styles: "Styles and genres", discography: "Discography", songs: "Famous songs", related: "Related artists", videos: "Watch & Listen", gallery: "Gallery", links: "External links", articles: "Sources", influences: "Influences", legacy: "Musical Influence", family: "Family and personal life", formative: "Formative experiences", instruments: "Instruments & Equipment", instrumentsShort: "Instruments", labelsShort: "Labels", anecdotes: "Stories & Anecdotes", collaborators: "Collaborators", awards: "Awards & Recognition", from: "from", musicians: "Musicians", watch: "Watch", press: "Press & quotes", source: "Source", year: "Year", title: "Title", producer: "Producer", label: "Label", chart: "Chart", sales: "Sales", notes: "Notes", featured: "Featured", deceasedBanner: "This artist is no longer with us.", share: "Share profile", copied: "Link copied!", aiImageNote: "AI-generated historical interpretation — no original photograph available", catGuitar: "Guitar", catOther: "Other", catVocals: "Vocals", watchOnYoutubePrefix: "Watch on YouTube:", watchVideoGeneric: "Watch video on YouTube" },
-  sv: { back: "Tillbaka till artister", notFound: "Artist hittades inte", loading: "Laddar…", error: "Kunde inte ladda artisten", born: "Född", aka: "Även känd som", died: "Död", active: "Aktiv", styles: "Stilar och genrer", discography: "Diskografi", songs: "Kända låtar", related: "Relaterade artister", videos: "Se & Lyssna", gallery: "Galleri", links: "Externa länkar", articles: "Källor", influences: "Influenser", legacy: "Musikaliskt inflytande", family: "Familj och privatliv", formative: "Formativa upplevelser", instruments: "Instrument och utrustning", instrumentsShort: "Instrument", labelsShort: "Skivbolag", anecdotes: "Historier & anekdoter", collaborators: "Samarbetspartners", awards: "Utmärkelser", from: "från", musicians: "Musiker", watch: "Se", press: "Press & citat", source: "Källa", year: "År", title: "Titel", producer: "Producent", label: "Label", chart: "Lista", sales: "Försäljning", notes: "Noteringar", featured: "Utvald", deceasedBanner: "Denna artist är inte längre bland oss.", share: "Dela profil", copied: "Länk kopierad!", aiImageNote: "AI-genererad historisk tolkning — inget originalfotografi tillgängligt", catGuitar: "Gitarr", catOther: "Annat", catVocals: "Sång", watchOnYoutubePrefix: "Se på YouTube:", watchVideoGeneric: "Se video på YouTube" },
-  de: { back: "Zurück zu den Künstlern", notFound: "Künstler nicht gefunden", loading: "Lädt…", error: "Künstler konnte nicht geladen werden", born: "Geboren", aka: "Auch bekannt als", died: "Gestorben", active: "Aktiv", styles: "Stile und Genres", discography: "Diskografie", songs: "Bekannte Lieder", related: "Verwandte Künstler", videos: "Sehen & Hören", gallery: "Galerie", links: "Externe Links", articles: "Quellen", influences: "Einflüsse", legacy: "Musikalischer Einfluss", family: "Familie und Privatleben", formative: "Prägende Erlebnisse", instruments: "Instrumente & Ausrüstung", instrumentsShort: "Instrumente", labelsShort: "Labels", anecdotes: "Geschichten & Anekdoten", collaborators: "Kollaborationen", awards: "Auszeichnungen", from: "aus", musicians: "Musiker", watch: "Ansehen", press: "Presse & Zitate", source: "Quelle", year: "Jahr", title: "Titel", producer: "Produzent", label: "Label", chart: "Charts", sales: "Verkauf", notes: "Anmerkungen", featured: "Empfohlen", deceasedBanner: "Dieser Künstler ist verstorben.", share: "Profil teilen", copied: "Link kopiert!", aiImageNote: "KI-generierte historische Interpretation — kein Originalfoto verfügbar", catGuitar: "Gitarre", catOther: "Sonstiges", catVocals: "Gesang", watchOnYoutubePrefix: "Auf YouTube ansehen:", watchVideoGeneric: "Video auf YouTube ansehen" },
-  pl: { back: "Wróć do artystów", notFound: "Nie znaleziono artysty", loading: "Wczytywanie…", error: "Nie udało się wczytać artysty", born: "Urodzony/a", aka: "Znany również jako", died: "Zmarł/a", active: "Aktywny/a", styles: "Style i gatunki", discography: "Dyskografia", songs: "Znane utwory", related: "Powiązani artyści", videos: "Oglądaj i słuchaj", gallery: "Galeria", links: "Linki zewnętrzne", articles: "Źródła", influences: "Inspiracje", legacy: "Wpływ muzyczny", family: "Rodzina i życie prywatne", formative: "Formacyjne doświadczenia", instruments: "Instrumenty i sprzęt", instrumentsShort: "Instrumenty", labelsShort: "Wytwórnie", anecdotes: "Historie i anegdoty", collaborators: "Współpracownicy", awards: "Nagrody i wyróżnienia", from: "z", musicians: "Muzycy", watch: "Oglądaj", press: "Prasa i cytaty", source: "Źródło", year: "Rok", title: "Tytuł", producer: "Producent", label: "Wytwórnia", chart: "Lista przebojów", sales: "Sprzedaż", notes: "Uwagi", featured: "Wyróżnione", deceasedBanner: "Tego artysty nie ma już wśród nas.", share: "Udostępnij profil", copied: "Link skopiowany!", aiImageNote: "Wygenerowana przez AI interpretacja historyczna — brak oryginalnej fotografii", catGuitar: "Gitara", catOther: "Inne", catVocals: "Wokal", watchOnYoutubePrefix: "Obejrzyj na YouTube:", watchVideoGeneric: "Obejrzyj wideo na YouTube" },
+  no: { back: "Tilbake til artister", notFound: "Artist ikke funnet", loading: "Laster…", error: "Kunne ikke laste artisten", born: "Født", aka: "Også kjent som", died: "Død", active: "Aktiv", styles: "Stiler og sjangre", discography: "Diskografi", songs: "Kjente sanger", related: "Relaterte artister", videos: "Se & Lytt", gallery: "Galleri", links: "Eksterne lenker", articles: "Kilder", influences: "Innflytelser", legacy: "Musikalsk innflytelse", family: "Familie og privatliv", formative: "Formende opplevelser", instruments: "Instrumenter og utstyr", instrumentsShort: "Instrumenter", labelsShort: "Plateselskaper", anecdotes: "Historier og anekdoter", collaborators: "Samarbeidspartnere", awards: "Priser og anerkjennelse", from: "fra", musicians: "Musikere", watch: "Se", press: "Pressomtaler og sitater", source: "Kilde", year: "År", title: "Tittel", producer: "Produsent", label: "Label", chart: "Liste", sales: "Salg", notes: "Notater", featured: "Utvalgt", deceasedBanner: "Denne artisten er ikke lenger blant oss.", share: "Del profil", copied: "Lenke kopiert!", aiImageNote: "KI-generert historisk tolkning — ingen original fotografi tilgjengelig", catGuitar: "Gitar", catOther: "Annet", catVocals: "Vokal", watchOnYoutubePrefix: "Se på YouTube:", watchVideoGeneric: "Se video på YouTube", officialWebsite: "Offisiell hjemmeside", concertReviews: "Konsert- og festivalanmeldelser", booking: "Booking / kontakt", bookingAgency: "Bookingbyrå", bookingAgent: "Agent/management", bookingEmail: "Booking-e-post", bookingPhone: "Bookingtelefon", bookingUrl: "Booking-URL", notPubliclyAvailable: "Ikke offentlig tilgjengelig" },
+  en: { back: "Back to artists", notFound: "Artist not found", loading: "Loading…", error: "Could not load the artist", born: "Born", aka: "Also known as", died: "Died", active: "Active", styles: "Styles and genres", discography: "Discography", songs: "Famous songs", related: "Related artists", videos: "Watch & Listen", gallery: "Gallery", links: "External links", articles: "Sources", influences: "Influences", legacy: "Musical Influence", family: "Family and personal life", formative: "Formative experiences", instruments: "Instruments & Equipment", instrumentsShort: "Instruments", labelsShort: "Labels", anecdotes: "Stories & Anecdotes", collaborators: "Collaborators", awards: "Awards & Recognition", from: "from", musicians: "Musicians", watch: "Watch", press: "Press & quotes", source: "Source", year: "Year", title: "Title", producer: "Producer", label: "Label", chart: "Chart", sales: "Sales", notes: "Notes", featured: "Featured", deceasedBanner: "This artist is no longer with us.", share: "Share profile", copied: "Link copied!", aiImageNote: "AI-generated historical interpretation — no original photograph available", catGuitar: "Guitar", catOther: "Other", catVocals: "Vocals", watchOnYoutubePrefix: "Watch on YouTube:", watchVideoGeneric: "Watch video on YouTube", officialWebsite: "Official website", concertReviews: "Concert & festival reviews", booking: "Booking / Contact", bookingAgency: "Booking agency", bookingAgent: "Agent/management", bookingEmail: "Booking email", bookingPhone: "Booking phone", bookingUrl: "Booking URL", notPubliclyAvailable: "Not publicly available" },
+  sv: { back: "Tillbaka till artister", notFound: "Artist hittades inte", loading: "Laddar…", error: "Kunde inte ladda artisten", born: "Född", aka: "Även känd som", died: "Död", active: "Aktiv", styles: "Stilar och genrer", discography: "Diskografi", songs: "Kända låtar", related: "Relaterade artister", videos: "Se & Lyssna", gallery: "Galleri", links: "Externa länkar", articles: "Källor", influences: "Influenser", legacy: "Musikaliskt inflytande", family: "Familj och privatliv", formative: "Formativa upplevelser", instruments: "Instrument och utrustning", instrumentsShort: "Instrument", labelsShort: "Skivbolag", anecdotes: "Historier & anekdoter", collaborators: "Samarbetspartners", awards: "Utmärkelser", from: "från", musicians: "Musiker", watch: "Se", press: "Press & citat", source: "Källa", year: "År", title: "Titel", producer: "Producent", label: "Label", chart: "Lista", sales: "Försäljning", notes: "Noteringar", featured: "Utvald", deceasedBanner: "Denna artist är inte längre bland oss.", share: "Dela profil", copied: "Länk kopierad!", aiImageNote: "AI-genererad historisk tolkning — inget originalfotografi tillgängligt", catGuitar: "Gitarr", catOther: "Annat", catVocals: "Sång", watchOnYoutubePrefix: "Se på YouTube:", watchVideoGeneric: "Se video på YouTube", officialWebsite: "Officiell webbplats", concertReviews: "Konsert- och festivalrecensioner", booking: "Booking / Kontakt", bookingAgency: "Bookingbyrå", bookingAgent: "Agent/management", bookingEmail: "Booking-e-post", bookingPhone: "Bookingtelefon", bookingUrl: "Booking-URL", notPubliclyAvailable: "Inte offentligt tillgängligt" },
+  de: { back: "Zurück zu den Künstlern", notFound: "Künstler nicht gefunden", loading: "Lädt…", error: "Künstler konnte nicht geladen werden", born: "Geboren", aka: "Auch bekannt als", died: "Gestorben", active: "Aktiv", styles: "Stile und Genres", discography: "Diskografie", songs: "Bekannte Lieder", related: "Verwandte Künstler", videos: "Sehen & Hören", gallery: "Galerie", links: "Externe Links", articles: "Quellen", influences: "Einflüsse", legacy: "Musikalischer Einfluss", family: "Familie und Privatleben", formative: "Prägende Erlebnisse", instruments: "Instrumente & Ausrüstung", instrumentsShort: "Instrumente", labelsShort: "Labels", anecdotes: "Geschichten & Anekdoten", collaborators: "Kollaborationen", awards: "Auszeichnungen", from: "aus", musicians: "Musiker", watch: "Ansehen", press: "Presse & Zitate", source: "Quelle", year: "Jahr", title: "Titel", producer: "Produzent", label: "Label", chart: "Charts", sales: "Verkauf", notes: "Anmerkungen", featured: "Empfohlen", deceasedBanner: "Dieser Künstler ist verstorben.", share: "Profil teilen", copied: "Link kopiert!", aiImageNote: "KI-generierte historische Interpretation — kein Originalfoto verfügbar", catGuitar: "Gitarre", catOther: "Sonstiges", catVocals: "Gesang", watchOnYoutubePrefix: "Auf YouTube ansehen:", watchVideoGeneric: "Video auf YouTube ansehen", officialWebsite: "Offizielle Website", concertReviews: "Konzert- und Festivalkritiken", booking: "Booking / Kontakt", bookingAgency: "Booking-Agentur", bookingAgent: "Agent/Management", bookingEmail: "Booking-E-Mail", bookingPhone: "Booking-Telefon", bookingUrl: "Booking-URL", notPubliclyAvailable: "Nicht öffentlich verfügbar" },
+  pl: { back: "Wróć do artystów", notFound: "Nie znaleziono artysty", loading: "Wczytywanie…", error: "Nie udało się wczytać artysty", born: "Urodzony/a", aka: "Znany również jako", died: "Zmarł/a", active: "Aktywny/a", styles: "Style i gatunki", discography: "Dyskografia", songs: "Znane utwory", related: "Powiązani artyści", videos: "Oglądaj i słuchaj", gallery: "Galeria", links: "Linki zewnętrzne", articles: "Źródła", influences: "Inspiracje", legacy: "Wpływ muzyczny", family: "Rodzina i życie prywatne", formative: "Formacyjne doświadczenia", instruments: "Instrumenty i sprzęt", instrumentsShort: "Instrumenty", labelsShort: "Wytwórnie", anecdotes: "Historie i anegdoty", collaborators: "Współpracownicy", awards: "Nagrody i wyróżnienia", from: "z", musicians: "Muzycy", watch: "Oglądaj", press: "Prasa i cytaty", source: "Źródło", year: "Rok", title: "Tytuł", producer: "Producent", label: "Wytwórnia", chart: "Lista przebojów", sales: "Sprzedaż", notes: "Uwagi", featured: "Wyróżnione", deceasedBanner: "Tego artysty nie ma już wśród nas.", share: "Udostępnij profil", copied: "Link skopiowany!", aiImageNote: "Wygenerowana przez AI interpretacja historyczna — brak oryginalnej fotografii", catGuitar: "Gitara", catOther: "Inne", catVocals: "Wokal", watchOnYoutubePrefix: "Obejrzyj na YouTube:", watchVideoGeneric: "Obejrzyj wideo na YouTube", officialWebsite: "Oficjalna strona", concertReviews: "Recenzje koncertów i festiwali", booking: "Booking / Kontakt", bookingAgency: "Agencja bookingowa", bookingAgent: "Agent/management", bookingEmail: "E-mail bookingowy", bookingPhone: "Telefon bookingowy", bookingUrl: "URL bookingowy", notPubliclyAvailable: "Niedostępne publicznie" },
 } as const;
 
 
@@ -30,6 +31,15 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
   const { data: a, loading, error } = useArtist(slug);
   const { data: all } = useArtists();
   const nameIndex = useNameIndex(all);
+  const [concertReviews, setConcertReviews] = useState<ConcertReview[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchConcertReviewsByArtistSlug({ data: { slug } })
+      .then((rows) => { if (!cancelled) setConcertReviews(rows); })
+      .catch(() => { if (!cancelled) setConcertReviews([]); });
+    return () => { cancelled = true; };
+  }, [slug]);
 
   if (loading) return <div className="max-w-3xl mx-auto px-6 py-32 text-center text-muted-foreground">{t.loading}</div>;
   if (error) return (
@@ -293,6 +303,41 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
           </Section>
         )}
 
+        {/* Concert & festival reviews */}
+        {concertReviews.length > 0 && (
+          <Section icon={Calendar} title={t.concertReviews} tone="amber">
+            <div className="grid md:grid-cols-2 gap-5">
+              {concertReviews.map((r) => (
+                <figure key={r.id} className="border border-amber-400/20 rounded-lg p-5 bg-amber-400/5">
+                  <blockquote className="text-foreground/90 italic leading-relaxed mb-3">
+                    "{r.quote_text}"
+                    {r.quote_language && r.quote_language !== lang && (
+                      <span className="ml-2 text-[10px] uppercase text-amber-300/70 not-italic">({r.quote_language})</span>
+                    )}
+                  </blockquote>
+                  <figcaption className="text-sm text-muted-foreground">
+                    <span className="text-amber-200 font-medium">{r.event_name}</span>
+                    {(r.venue || r.city) && <span> · {[r.venue, r.city].filter(Boolean).join(", ")}</span>}
+                    {(r.event_date || r.event_year) && <span> · {r.event_date ?? r.event_year}</span>}
+                    <br />
+                    {r.review_author && <span>{r.review_author}</span>}
+                    {r.source_url ? (
+                      <>
+                        {" — "}
+                        <a href={r.source_url} target="_blank" rel="noopener noreferrer" className="text-amber-300 hover:text-amber-100 underline underline-offset-4">
+                          {r.publication_name ?? t.source}
+                        </a>
+                      </>
+                    ) : (
+                      r.publication_name && <span> — {r.publication_name}</span>
+                    )}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </Section>
+        )}
+
         {/* Discography */}
         {discography.length > 0 && (
           <Section id="diskografi" icon={Disc3} title={t.discography} tone="gold">
@@ -394,9 +439,14 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
         )}
 
         {/* External links + social */}
-        {(Object.keys(a.social_links ?? {}).length > 0 || a.external_links.length > 0) && (
+        {(a.website_url || Object.keys(a.social_links ?? {}).length > 0 || a.external_links.length > 0) && (
           <Section icon={Globe} title={t.links} tone="gold">
             <div className="flex flex-wrap gap-3">
+              {a.website_url && (
+                <a href={a.website_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gold text-primary-foreground font-medium hover:brightness-110 transition text-sm">
+                  <Globe className="size-3.5" /> {t.officialWebsite}
+                </a>
+              )}
               {Object.entries(a.social_links ?? {})
                 .filter(([k, v]) => k.toLowerCase() !== "spotify" && typeof v === "string" && v.length > 0)
                 .map(([k, v]) => (
@@ -411,6 +461,23 @@ export function ArtistDetailView({ slug, locale }: { slug: string; locale: Artis
               ))}
             </div>
           </Section>
+        )}
+
+        {/* Booking / contact */}
+        {a.booking_info && Object.keys(a.booking_info).length > 0 && (
+          <Card title={t.booking} icon={Phone}>
+            <div className="grid sm:grid-cols-2 gap-4 text-sm">
+              <BookingField label={t.bookingAgency} value={a.booking_info.booking_agency} notAvailableLabel={t.notPubliclyAvailable} />
+              <BookingField label={t.bookingAgent} value={a.booking_info.agent_name} notAvailableLabel={t.notPubliclyAvailable} />
+              <BookingField label={t.bookingEmail} value={a.booking_info.booking_email} href={a.booking_info.booking_email ? `mailto:${a.booking_info.booking_email}` : undefined} notAvailableLabel={t.notPubliclyAvailable} />
+              <BookingField label={t.bookingPhone} value={a.booking_info.booking_phone} href={a.booking_info.booking_phone ? `tel:${a.booking_info.booking_phone}` : undefined} notAvailableLabel={t.notPubliclyAvailable} />
+              <BookingField label={t.bookingUrl} value={a.booking_info.booking_url} href={a.booking_info.booking_url ?? undefined} notAvailableLabel={t.notPubliclyAvailable} />
+            </div>
+            {a.booking_info.note && <p className="text-xs text-muted-foreground mt-3 italic">{a.booking_info.note}</p>}
+            {a.booking_info.source_url && (
+              <a href={a.booking_info.source_url} target="_blank" rel="noopener noreferrer" className="text-xs text-gold hover:underline mt-2 inline-block">{t.source}</a>
+            )}
+          </Card>
         )}
 
         {a.article_references.length > 0 && (
@@ -494,6 +561,22 @@ function Fact({ icon: Icon, label, value }: { icon: any; label: string; value: s
     <div className="bg-card/40 border border-border rounded-md px-4 py-3">
       <div className="flex items-center gap-1.5 text-[10px] tracking-[0.25em] text-gold uppercase mb-1"><Icon className="size-3" /> {label}</div>
       <div className="text-foreground/90">{value}</div>
+    </div>
+  );
+}
+
+function BookingField({ label, value, href, notAvailableLabel }: { label: string; value: string | null | undefined; href?: string; notAvailableLabel: string }) {
+  if (value === undefined) return null; // not yet researched — show nothing
+  return (
+    <div>
+      <div className="text-[10px] tracking-[0.25em] text-gold uppercase mb-1">{label}</div>
+      {value === null ? (
+        <div className="text-muted-foreground italic">{notAvailableLabel}</div>
+      ) : href ? (
+        <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined} className="text-foreground/90 hover:text-gold underline underline-offset-4">{value}</a>
+      ) : (
+        <div className="text-foreground/90">{value}</div>
+      )}
     </div>
   );
 }

@@ -40,6 +40,15 @@ export type PressQuote = {
   year?: number | string;
 };
 export type AwardEntry = { year: number | string; title: string; category?: string; note?: string };
+export type BookingInfo = {
+  booking_agency?: string | null;
+  agent_name?: string | null;
+  booking_email?: string | null;
+  booking_phone?: string | null;
+  booking_url?: string | null;
+  source_url?: string;
+  note?: string;
+};
 
 export type Lang = "en" | "no" | "sv" | "de" | "pl";
 
@@ -53,6 +62,8 @@ export type ArtistRecord = {
   era_label_en: string | null;
   era_label_no: string | null;
   era_label_sv: string | null;
+  era_label_de: string | null;
+  era_label_pl: string | null;
   region: string | null;
   country: string | null;
   base_path: string | null;
@@ -66,19 +77,28 @@ export type ArtistRecord = {
   short_en: string | null;
   short_no: string | null;
   short_sv: string | null;
+  short_de: string | null;
+  short_pl: string | null;
   biography_en: string | null;
   biography_no: string | null;
   biography_sv: string | null;
   biography_de: string | null;
+  biography_pl: string | null;
   influence_en: string | null;
   influence_no: string | null;
   influence_sv: string | null;
+  influence_de: string | null;
+  influence_pl: string | null;
   seo_title_en: string | null;
   seo_title_no: string | null;
   seo_title_sv: string | null;
+  seo_title_de: string | null;
+  seo_title_pl: string | null;
   seo_description_en: string | null;
   seo_description_no: string | null;
   seo_description_sv: string | null;
+  seo_description_de: string | null;
+  seo_description_pl: string | null;
   born: string | null;
   died: string | null;
   birth_place: string | null;
@@ -109,6 +129,7 @@ export type ArtistRecord = {
   press_quotes: PressQuote[];
   website_url: string | null;
   facebook_url: string | null;
+  booking_info: BookingInfo;
   link_check: Record<string, { status?: number | string; checked_at?: string }>;
   related_slugs: string[];
   sort_order: number;
@@ -175,6 +196,7 @@ function normalise(row: any): ArtistRecord {
     press_quotes: Array.isArray(row.press_quotes) ? row.press_quotes : [],
     website_url: row.website_url ?? null,
     facebook_url: row.facebook_url ?? null,
+    booking_info: row.booking_info ?? {},
     link_check: row.link_check ?? {},
     related_slugs: row.related_slugs ?? [],
     gallery_images: row.gallery_images ?? [],

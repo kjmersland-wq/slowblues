@@ -15,7 +15,7 @@ export const fetchArtistsAudit = createServerFn({ method: "GET" })
   });
 
 const EDIT_COLUMNS =
-  "slug,name,origin,born,died,biography_en,biography_no,biography_sv,biography_de,instruments,discography,family,youtube_video_ids,updated_at";
+  "slug,name,origin,born,died,biography_en,biography_no,biography_sv,biography_de,biography_pl,instruments,discography,family,youtube_video_ids,website_url,sync_data,booking_info,updated_at";
 
 export const fetchArtistEditData = createServerFn({ method: "GET" })
   .middleware([requireAdmin])

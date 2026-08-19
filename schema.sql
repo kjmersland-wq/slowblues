@@ -117,9 +117,22 @@ CREATE TABLE artists (
   social_links         TEXT NOT NULL DEFAULT '{}',
   external_links       TEXT NOT NULL DEFAULT '[]',
   article_references   TEXT NOT NULL DEFAULT '[]',
+  -- website_url is the SINGLE canonical field for an artist's official
+  -- site. Do not write official-website values to social_links.website or
+  -- treat sync_data.official_website as authoritative -- that field is
+  -- only an unreviewed Wikidata suggestion staged by the sync-worker (see
+  -- sync-worker/src/wikidataSync.ts) for an editor to promote here manually.
   website_url          TEXT,
   facebook_url         TEXT,
   link_check           TEXT NOT NULL DEFAULT '{}',
+  -- booking_info: single JSON object, NOT i18n (booking facts don't vary
+  -- by viewer locale). Tri-state per subfield: key absent = not yet
+  -- researched; key present with value null = confirmed "not publicly
+  -- documented" (never guess); key present with a string = verified value.
+  -- {"booking_agency":"..."|null, "agent_name":"..."|null,
+  --  "booking_email":"..."|null, "booking_phone":"..."|null,
+  --  "booking_url":"..."|null, "source_url":"...", "note":"..."}
+  booking_info          TEXT NOT NULL DEFAULT '{}',
   related_slugs        TEXT NOT NULL DEFAULT '[]',
   sort_order           INTEGER NOT NULL DEFAULT 0,
   created_at           TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -163,11 +176,50 @@ CREATE TRIGGER trg_artists_updated_at
     seo_title_en, seo_title_no, seo_title_sv, seo_title_de, seo_title_pl,
     seo_description_en, seo_description_no, seo_description_sv, seo_description_de, seo_description_pl,
     social_links, external_links, article_references, website_url, facebook_url,
+    booking_info,
     related_slugs, sort_order
   ON artists
   FOR EACH ROW
   BEGIN
     UPDATE artists SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
+  END;
+
+-- =========================================================
+-- CONCERT REVIEWS (artist-agnostic, many per artist)
+-- Distinct from blues_reviews (album reviews) and concerts (event
+-- listings, no verdict/quote fields). quote_text/quote_language are
+-- deliberately NOT i18n: a review's language belongs to its source
+-- publication, not the site visitor's locale, matching the site rule that
+-- direct quotes are always kept verbatim in their original language.
+-- =========================================================
+CREATE TABLE concert_reviews (
+  id                TEXT PRIMARY KEY,
+  artist_slug       TEXT NOT NULL,
+  artist_name       TEXT NOT NULL,
+  event_name        TEXT NOT NULL,
+  venue             TEXT,
+  city              TEXT,
+  country           TEXT,
+  event_date        TEXT,
+  event_year        INTEGER,
+  quote_text        TEXT NOT NULL,
+  quote_language    TEXT NOT NULL DEFAULT 'en',
+  review_author     TEXT,
+  publication_name  TEXT,
+  source_url        TEXT,
+  status            TEXT NOT NULL DEFAULT 'published' CHECK (status IN ('draft', 'published')),
+  sort_order        INTEGER NOT NULL DEFAULT 0,
+  created_at        TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at        TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_concert_reviews_artist_slug ON concert_reviews(artist_slug, status, sort_order);
+
+CREATE TRIGGER trg_concert_reviews_updated_at
+  AFTER UPDATE ON concert_reviews
+  FOR EACH ROW
+  BEGIN
+    UPDATE concert_reviews SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
   END;
 
 -- =========================================================

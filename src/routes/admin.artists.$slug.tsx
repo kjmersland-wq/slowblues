@@ -1,13 +1,14 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { fetchArtistEditData, updateArtistBySlug } from "@/lib/adminArtists.functions";
+import { fetchConcertReviewsByArtistSlug, type ConcertReview } from "@/lib/concertReviews.functions";
 import { useAuth } from "@/lib/useAuth";
 import { PageShell } from "@/components/PageShell";
 import { useServerFn } from "@tanstack/react-start";
 import { getYouTubeVideos } from "@/lib/youtube.functions";
 import {
   ArrowLeft, ArrowRight, ExternalLink, Save, Plus, Trash2, Eye,
-  AlertTriangle, GripVertical, Loader2, Youtube,
+  AlertTriangle, GripVertical, Loader2, Youtube, Globe, Phone,
 } from "lucide-react";
 
 export const Route = createFileRoute("/admin/artists/$slug")({
@@ -15,7 +16,17 @@ export const Route = createFileRoute("/admin/artists/$slug")({
   head: () => ({ meta: [{ title: "Admin · Rediger artist — SlowBlues" }, { name: "robots", content: "noindex" }] }),
 });
 
-type Tab = "bio" | "instruments" | "discography" | "family" | "youtube";
+type Tab = "bio" | "instruments" | "discography" | "family" | "youtube" | "links";
+
+type BookingInfo = {
+  booking_agency?: string | null;
+  agent_name?: string | null;
+  booking_email?: string | null;
+  booking_phone?: string | null;
+  booking_url?: string | null;
+  source_url?: string;
+  note?: string;
+};
 
 type Artist = {
   slug: string;
@@ -28,11 +39,15 @@ type Artist = {
   biography_no: string | null;
   biography_sv: string | null;
   biography_de: string | null;
+  biography_pl: string | null;
   biography_source?: string | null;
   instruments: any[];
   discography: any[];
   family: any[];
   youtube_video_ids: string[];
+  website_url: string | null;
+  sync_data?: { official_website?: string } | null;
+  booking_info: BookingInfo;
   updated_at: string;
 };
 
@@ -84,6 +99,7 @@ function AdminArtistEdit() {
           discography: Array.isArray((artist as any).discography) ? (artist as any).discography : [],
           family: Array.isArray((artist as any).family) ? (artist as any).family : [],
           youtube_video_ids: Array.isArray((artist as any).youtube_video_ids) ? (artist as any).youtube_video_ids : [],
+          booking_info: (artist as any).booking_info ?? {},
         });
         setAllSlugs((list ?? []) as any);
         if (log) setLastEdit({ at: (log as any).edited_at, fields: (log as any).fields_changed || [] });
@@ -120,6 +136,7 @@ function AdminArtistEdit() {
     { key: "discography", label: "Diskografi" },
     { key: "family", label: "Familie" },
     { key: "youtube", label: "YouTube" },
+    { key: "links", label: "Lenker & booking" },
   ];
 
   return (
@@ -180,6 +197,7 @@ function AdminArtistEdit() {
         {tab === "discography" && <DiscographyTab a={a} busy={busy} onSave={saveFields} />}
         {tab === "family" && <FamilyTab a={a} allSlugs={allSlugs} busy={busy} onSave={saveFields} />}
         {tab === "youtube" && <YouTubeTab a={a} busy={busy} onSave={saveFields} />}
+        {tab === "links" && <LinksBookingTab a={a} busy={busy} onSave={saveFields} />}
 
         {/* Audit log footer */}
         <div className="mt-10 pt-5 border-t border-border text-xs text-muted-foreground">
@@ -203,6 +221,7 @@ function BiographyTab({ a, busy, onSave }: { a: Artist; busy: boolean; onSave: (
   const [no, setNo] = useState(a.biography_no ?? "");
   const [sv, setSv] = useState(a.biography_sv ?? "");
   const [de, setDe] = useState(a.biography_de ?? "");
+  const [pl, setPl] = useState(a.biography_pl ?? "");
   const [source, setSource] = useState((a as any).biography_source ?? "");
   const [died, setDied] = useState(a.died ?? "");
   const [cause, setCause] = useState((a as any).death_cause ?? "");
@@ -214,9 +233,10 @@ function BiographyTab({ a, busy, onSave }: { a: Artist; busy: boolean; onSave: (
       biography_no: no || null,
       biography_sv: sv || null,
       biography_de: de || null,
+      biography_pl: pl || null,
       died: deceased ? (died || null) : null,
     };
-    const fields = ["biography_en", "biography_no", "biography_sv", "biography_de", "died"];
+    const fields = ["biography_en", "biography_no", "biography_sv", "biography_de", "biography_pl", "died"];
     if (!source.trim()) {
       // Warn but still save
     }
@@ -228,6 +248,7 @@ function BiographyTab({ a, busy, onSave }: { a: Artist; busy: boolean; onSave: (
     { label: "NO", val: no, set: setNo },
     { label: "DE", val: de, set: setDe },
     { label: "SV", val: sv, set: setSv },
+    { label: "PL", val: pl, set: setPl },
   ];
 
   return (
@@ -527,6 +548,114 @@ function YouTubeTab({ a, busy, onSave }: { a: Artist; busy: boolean; onSave: (p:
       </div>
 
       <SaveBar busy={busy} onClick={() => onSave({ youtube_video_ids: ids }, ["youtube_video_ids"])} />
+    </div>
+  );
+}
+
+/* ----------------- Links & Booking ----------------- */
+const BOOKING_FIELDS: { key: keyof BookingInfo; label: string; placeholder: string }[] = [
+  { key: "booking_agency", label: "Bookingbyrå", placeholder: "Navn på bookingbyrå" },
+  { key: "agent_name", label: "Agent/management", placeholder: "Navn på agent/management" },
+  { key: "booking_email", label: "Booking-e-post", placeholder: "booking@..." },
+  { key: "booking_phone", label: "Bookingtelefon", placeholder: "+49 ..." },
+  { key: "booking_url", label: "Booking-URL", placeholder: "https://..." },
+];
+
+function LinksBookingTab({ a, busy, onSave }: { a: Artist; busy: boolean; onSave: (p: Partial<Artist>, fields: string[]) => void }) {
+  const [website, setWebsite] = useState(a.website_url ?? "");
+  const [booking, setBooking] = useState<BookingInfo>(a.booking_info ?? {});
+  const [notAvailable, setNotAvailable] = useState<Record<string, boolean>>(
+    Object.fromEntries(BOOKING_FIELDS.map((f) => [f.key, a.booking_info?.[f.key] === null]))
+  );
+  const [reviews, setReviews] = useState<ConcertReview[] | null>(null);
+
+  useEffect(() => {
+    fetchConcertReviewsByArtistSlug({ data: { slug: a.slug } }).then(setReviews).catch(() => setReviews([]));
+  }, [a.slug]);
+
+  const wikidataSuggestion = a.website_url ? null : (a.sync_data?.official_website ?? null);
+
+  const updateBookingField = (key: keyof BookingInfo, value: string) => setBooking((b) => ({ ...b, [key]: value }));
+  const toggleNotAvailable = (key: keyof BookingInfo, checked: boolean) => {
+    setNotAvailable((n) => ({ ...n, [key]: checked }));
+    setBooking((b) => ({ ...b, [key]: checked ? null : "" }));
+  };
+
+  const save = () => {
+    onSave(
+      { website_url: website || null, booking_info: booking },
+      ["website_url", "booking_info"]
+    );
+  };
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <label className={labelCls}>Offisiell hjemmeside</label>
+        <input value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://..." className={inputCls} />
+        {wikidataSuggestion && (
+          <button
+            type="button"
+            onClick={() => setWebsite(wikidataSuggestion)}
+            className="mt-1 text-xs text-gold hover:underline inline-flex items-center gap-1"
+          >
+            <Globe className="size-3" /> Wikidata foreslår: {wikidataSuggestion} — bruk denne
+          </button>
+        )}
+      </div>
+
+      <div>
+        <h3 className="text-sm font-medium mb-2 flex items-center gap-2"><Phone className="size-4" /> Booking / kontakt</h3>
+        <p className="text-xs text-muted-foreground mb-3">Bruk kun offentlig publisert informasjon. Kryss av "ikke offentlig tilgjengelig" fremfor å la feltet stå tomt uten sjekk — det markerer eksplisitt at det er undersøkt.</p>
+        <div className="grid sm:grid-cols-2 gap-4">
+          {BOOKING_FIELDS.map((f) => (
+            <div key={f.key}>
+              <label className={labelCls}>{f.label}</label>
+              <input
+                value={booking[f.key] ?? ""}
+                onChange={(e) => updateBookingField(f.key, e.target.value)}
+                placeholder={f.placeholder}
+                disabled={!!notAvailable[f.key]}
+                className={`${inputCls} disabled:opacity-40`}
+              />
+              <label className="inline-flex items-center gap-1.5 text-xs text-muted-foreground mt-1">
+                <input type="checkbox" checked={!!notAvailable[f.key]} onChange={(e) => toggleNotAvailable(f.key, e.target.checked)} />
+                Bekreftet ikke offentlig tilgjengelig
+              </label>
+            </div>
+          ))}
+        </div>
+        <div className="grid sm:grid-cols-2 gap-4 mt-4">
+          <div>
+            <label className={labelCls}>Kilde-URL (for booking-info)</label>
+            <input value={booking.source_url ?? ""} onChange={(e) => setBooking((b) => ({ ...b, source_url: e.target.value }))} className={inputCls} />
+          </div>
+          <div>
+            <label className={labelCls}>Notat</label>
+            <input value={booking.note ?? ""} onChange={(e) => setBooking((b) => ({ ...b, note: e.target.value }))} className={inputCls} />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-medium mb-2">Konsert-/festivalanmeldelser</h3>
+        <p className="text-xs text-muted-foreground mb-2">Redigeres via SQL (samme som diskografi/familie). Viser hva som er publisert.</p>
+        {reviews === null && <p className="text-sm text-muted-foreground">Laster…</p>}
+        {reviews?.length === 0 && <p className="text-sm text-muted-foreground">Ingen anmeldelser registrert.</p>}
+        {reviews && reviews.length > 0 && (
+          <div className="space-y-2">
+            {reviews.map((r) => (
+              <div key={r.id} className="border border-border rounded-lg p-3 bg-card/40 text-sm">
+                <div className="font-medium">{r.event_name} {(r.venue || r.city) && `— ${[r.venue, r.city].filter(Boolean).join(", ")}`}</div>
+                <div className="text-muted-foreground italic">"{r.quote_text}"</div>
+                <div className="text-xs text-muted-foreground mt-1">{r.review_author} · {r.publication_name} · {r.event_date ?? r.event_year}</div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <SaveBar busy={busy} onClick={save} />
     </div>
   );
 }
