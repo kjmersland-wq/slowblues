@@ -50,7 +50,12 @@ export function buildHead(slug: string, a: ArtistRecord | null, locale: Lang) {
     a.short ??
     `${a.name} — blues artist profile, biography, discography and videos on SlowBlues, the curated archive of blues history and culture.`;
   const description = clampDescription(rawDesc, a.name);
-  const heroImg = a.og_image ?? resolveArtistImage(a.img) ?? null;
+  // resolveArtistImage() returns a root-relative path for bundled assets
+  // (e.g. "/assets/xxx.jpg") -- og:image and JSON-LD `image` must be a fully
+  // qualified URL for Meta/Facebook's scraper to actually fetch it, so
+  // absolutize anything that isn't already http(s).
+  const rawHeroImg = a.og_image ?? resolveArtistImage(a.img) ?? null;
+  const heroImg = rawHeroImg && !/^https?:\/\//.test(rawHeroImg) ? `${SITE}${rawHeroImg}` : rawHeroImg;
   const jsonLd = buildArtistJsonLd(a as any, canonical, heroImg, locale);
   const breadcrumb = buildBreadcrumb(a as any, locale);
 
