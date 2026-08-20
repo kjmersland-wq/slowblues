@@ -227,6 +227,23 @@ function normalise(row: any): ArtistRecord {
   } as ArtistRecord;
 }
 
+export type ArtistStats = { artistCount: number; countryCount: number };
+
+// Powers the homepage hero's "N+ Artists from M+ Countries" line -- both
+// numbers are live counts, never hardcoded. countryCount only counts the
+// normalized `country` column, excluding null/blank values.
+export const fetchArtistStats = createServerFn({ method: "GET" }).handler(async (): Promise<ArtistStats> => {
+  const db = getDB();
+  const row = await db
+    .prepare(
+      `SELECT
+        (SELECT COUNT(*) FROM artists) AS artist_count,
+        (SELECT COUNT(DISTINCT country) FROM artists WHERE country IS NOT NULL AND TRIM(country) != '') AS country_count`,
+    )
+    .first<{ artist_count: number; country_count: number }>();
+  return { artistCount: row?.artist_count ?? 0, countryCount: row?.country_count ?? 0 };
+});
+
 export const fetchArtists = createServerFn({ method: "GET" }).handler(async () => {
   const db = getDB();
   const { results } = await db

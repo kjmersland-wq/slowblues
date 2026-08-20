@@ -3,6 +3,7 @@ import { SafeImage } from "@/components/SafeImage";
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { TickerItem } from "@/lib/newsfeed.functions";
+import { fetchArtistStats, type ArtistStats } from "@/lib/artists";
 
 import {
   ShoppingBag, HelpCircle, BookOpen, Music, Radio, Mic,
@@ -27,20 +28,28 @@ const sonHouse = IMG.sonHouse;
 
 export const Route = createFileRoute("/")({
   component: Home,
-  head: () => ({
-    meta: [
-      { title: "SlowBlues — 330+ Blues Artists, History & Reviews" },
-      { name: "description", content: "A timeless tribute to the raw soul of Delta & Chicago Blues. 330+ artist profiles, reviews, festivals and live news — the real roots of modern music." },
-      { property: "og:title", content: "SlowBlues — 330+ Blues Artists, History & Reviews" },
-      { property: "og:description", content: "A timeless tribute to the raw soul of Delta & Chicago Blues — 330+ artist profiles, reviews, festivals and live news." },
-      { property: "og:url", content: "https://www.slow-blues.com/" },
-      { property: "og:type", content: "website" },
-    ],
-    links: [
-      { rel: "canonical", href: "https://www.slow-blues.com/" },
-      { rel: "preload", as: "image", href: heroJukeImg, fetchpriority: "high" } as any,
-    ],
-  }),
+  loader: () => fetchArtistStats(),
+  head: ({ loaderData }) => {
+    // Falls back to a safe round-number estimate only if the loader itself
+    // failed (e.g. DB unreachable) -- never a hardcoded "current" count.
+    const count = loaderData?.artistCount || 300;
+    const title = `SlowBlues — ${count}+ Blues Artists, History & Reviews`;
+    const description = `A timeless tribute to the raw soul of Delta & Chicago Blues. ${count}+ artist profiles, reviews, festivals and live news — the real roots of modern music.`;
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: `A timeless tribute to the raw soul of Delta & Chicago Blues — ${count}+ artist profiles, reviews, festivals and live news.` },
+        { property: "og:url", content: "https://www.slow-blues.com/" },
+        { property: "og:type", content: "website" },
+      ],
+      links: [
+        { rel: "canonical", href: "https://www.slow-blues.com/" },
+        { rel: "preload", as: "image", href: heroJukeImg, fetchpriority: "high" } as any,
+      ],
+    };
+  },
 });
 
 const FALLBACK_TICKER: TickerItem[] = [
@@ -256,6 +265,7 @@ function getVoices(lang: Lang) {
 
 function Home() {
   const { lang } = useI18n();
+  const stats = Route.useLoaderData();
   const heroSlides = useMemo(() => getHeroSlides(lang), [lang]);
   const [slide, setSlide] = useState(0);
   useEffect(() => {
@@ -274,7 +284,7 @@ function Home() {
             key={i}
             className={`${i === slide ? "opacity-100" : "opacity-0 pointer-events-none absolute inset-0"} transition-opacity duration-1000`}
           >
-            <HeroSlide {...s} active={i === slide} isPrimary={i === 0} lang={lang} />
+            <HeroSlide {...s} active={i === slide} isPrimary={i === 0} lang={lang} stats={stats} />
           </div>
         ))}
         <button
@@ -313,7 +323,7 @@ function Home() {
 
 /* ───────── components ───────── */
 
-function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showButtons, credit, active, isPrimary, lang }: any) {
+function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showButtons, credit, active, isPrimary, lang, stats }: any) {
   const HeadingTag: any = isPrimary ? "h1" : "h2";
   const tributeJsx = (
     <>
@@ -367,7 +377,7 @@ function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showBu
         {showButtons && (
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <a href="#voices" className="px-7 py-3.5 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition">
-              {tr(lang, { no: "Utforsk 330+ artister", en: "Explore 330+ artists", pl: "Odkryj ponad 330 artystów", sv: "Utforska 330+ artister", de: "330+ Künstler entdecken" })}
+              {tr(lang, { no: "Utforsk artister", en: "Explore artists", pl: "Odkryj artystów", sv: "Utforska artister", de: "Künstler entdecken" })}
             </a>
             <a href="#support" className="px-7 py-3.5 rounded-md border border-gold/60 text-foreground hover:bg-gold/10 transition flex items-center gap-2">
               <ShoppingBag className="size-4" /> {tr(lang, { no: "Kjøp blues-merch", en: "Shop Blues Merch", pl: "Kup Blues Merch", sv: "Köp blues-merch", de: "Blues-Merch kaufen" })}
@@ -375,6 +385,13 @@ function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showBu
             <Link to="/listen" className="px-7 py-3.5 rounded-md border border-gold/40 text-foreground hover:bg-gold/10 transition flex items-center gap-2">
               <Play className="size-4" /> {tr(lang, { no: "Lytt", en: "Listen", pl: "Słuchaj", sv: "Lyssna", de: "Hören" })}
             </Link>
+          </div>
+        )}
+        {showButtons && stats && (stats.artistCount > 0 || stats.countryCount > 0) && (
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs sm:text-sm tracking-wide text-muted-foreground">
+            <span className="whitespace-nowrap"><span className="text-gold font-semibold">{stats.artistCount}+</span> {tr(lang, { no: "artister", en: "artists", pl: "artystów", sv: "artister", de: "Künstler" })}</span>
+            <span className="h-3 w-px bg-gold/30 hidden sm:inline-block" aria-hidden="true" />
+            <span className="whitespace-nowrap"><span className="text-gold font-semibold">{stats.countryCount}+</span> {tr(lang, { no: "land", en: "countries", pl: "krajów", sv: "länder", de: "Länder" })}</span>
           </div>
         )}
         {credit && (
