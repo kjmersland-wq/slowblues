@@ -60,7 +60,11 @@ export function buildArtistJsonLd(a: ArtistRecord, canonicalUrl: string, imageUr
     byArtist: { "@type": isBand ? "MusicGroup" : "Person", name: a.name },
   }));
 
-  const signatureSongs = pickAnyLocale<string>(a as any, "signature_songs", locale);
+  // Some rows store signature_songs as {title,year,note} objects rather than
+  // plain strings (see pickLangArray in lib/artists.ts for the same issue on
+  // the render path) -- coerce so JSON-LD `name` is always a string.
+  const signatureSongsRaw = pickAnyLocale<string | { title?: string; name?: string }>(a as any, "signature_songs", locale);
+  const signatureSongs = signatureSongsRaw.map((s) => (typeof s === "string" ? s : s?.title ?? s?.name ?? "")).filter(Boolean);
   const recordings = signatureSongs.slice(0, 20).map((s) => ({
     "@context": "https://schema.org",
     "@type": "MusicRecording",

@@ -146,6 +146,11 @@ export function pickLang(
 }
 
 // Localized array (signature_songs, influences). No fallback.
+// Renders as plain strings (`ArtistRecord[field]: string[]`), but some rows
+// have stored richer { title, year, note } objects in this slot instead --
+// React throws "Objects are not valid as a React child" if one of those
+// reaches JSX directly, so coerce any non-string entry to the same
+// "Title (Year) — Note" string format the editorial template itself uses.
 export function pickLangArray(
   record: ArtistRecord,
   lang: Lang,
@@ -153,7 +158,19 @@ export function pickLangArray(
 ): string[] {
   const r = record as any;
   const v = r[`${field}_${lang}`];
-  return Array.isArray(v) ? v : [];
+  if (!Array.isArray(v)) return [];
+  return v
+    .map((item) => {
+      if (typeof item === "string") return item;
+      if (item && typeof item === "object") {
+        const title = item.title ?? item.name ?? "";
+        const year = item.year ? ` (${item.year})` : "";
+        const note = item.note ? ` — ${item.note}` : "";
+        return `${title}${year}${note}`.trim();
+      }
+      return item == null ? "" : String(item);
+    })
+    .filter(Boolean);
 }
 
 // Localized jsonb array (family, formative, anecdotes, instruments,

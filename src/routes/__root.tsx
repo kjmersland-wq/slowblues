@@ -135,11 +135,28 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+// I18nProvider wraps `children` here (not inside RootComponent) so that it
+// covers EVERY render path the root route can take, not just the happy-path
+// `component`. TanStack Router's root Match renders `shellComponent` as the
+// ancestor of both `component` and the `errorComponent`/`notFoundComponent`
+// boundaries (they're siblings-in-fallback, not nested inside `component`'s
+// own JSX) -- so a provider placed inside RootComponent, as this one used to
+// be, is simply absent from the tree whenever an error or 404 boundary fires,
+// and any descendant of THAT boundary calling useI18n() (both fallback
+// components below do) throws "useI18n must be used within I18nProvider"
+// instead of the real underlying error. See Match.tsx in @tanstack/react-router
+// for the shellComponent/errorComponent/notFoundComponent structure this relies on.
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head><HeadContent /></head>
-      <body>{children}<Scripts /></body>
+      <body>
+        <I18nProvider>
+          {children}
+          <MigrationAnnouncement />
+        </I18nProvider>
+        <Scripts />
+      </body>
     </html>
   );
 }
@@ -148,10 +165,7 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
-      <I18nProvider>
-        <Outlet />
-        <MigrationAnnouncement />
-      </I18nProvider>
+      <Outlet />
     </QueryClientProvider>
   );
 }
