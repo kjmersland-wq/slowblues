@@ -252,6 +252,26 @@ export const fetchArtists = createServerFn({ method: "GET" }).handler(async () =
   return (results ?? []).map((r) => parseArtistRow(r as Record<string, unknown>));
 });
 
+// Lean column subset for the artist LIST view + the cross-artist lookups
+// ArtistDetailView does against the full artist set (related-artist scoring,
+// name-auto-linking index). Neither ever needs another artist's full-language
+// biography/discography/family/etc. blobs -- only fetchArtistBySlug's
+// single-row SELECT * does. At 131+ artists, SELECT * for the whole table
+// (every 5-language text field for every row, ~4MB+) on every /artists page
+// load was enough data volume to trip Cloudflare's Worker resource-limit
+// (Error 1102) -- this lean query is the fix; keep fetchArtists() (SELECT *)
+// only for the admin editor, which genuinely needs every field to edit them.
+const LIST_COLUMNS =
+  "id, slug, name, alt_name, birth_name, tag, era, region, country, img, image_credit, short, short_en, short_no, short_sv, short_de, short_pl, birth_place, styles, search_terms, instruments_simple";
+
+export const fetchArtistsForList = createServerFn({ method: "GET" }).handler(async () => {
+  const db = getDB();
+  const { results } = await db
+    .prepare(`SELECT ${LIST_COLUMNS} FROM artists ORDER BY sort_order ASC, name ASC`)
+    .all();
+  return (results ?? []).map((r) => parseArtistRow(r as Record<string, unknown>));
+});
+
 export const fetchArtistBySlug = createServerFn({ method: "GET" })
   .inputValidator((d: { slug: string }) => d)
   .handler(async ({ data }) => {
@@ -268,7 +288,7 @@ export function useArtists() {
   const refresh = async () => {
     setLoading(true);
     try {
-      const rows = await fetchArtists();
+      const rows = await fetchArtistsForList();
       setData(rows.map(normalise));
       setError(null);
     } catch (e: any) {
