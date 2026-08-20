@@ -53,7 +53,7 @@ export const Route = createFileRoute("/")({
 });
 
 const FALLBACK_TICKER: TickerItem[] = [
-  { id: "fb-1", kind: "editorial", label: "EDITORIAL", text: "SlowBlues — a living archive of 330+ blues artists, reviews & live recordings.", href: "/artists", timestamp: "2026-01-01T00:00:02.000Z", priority: 1 },
+  { id: "fb-1", kind: "editorial", label: "EDITORIAL", text: "SlowBlues — a living archive of blues artists, reviews & live recordings.", href: "/artists", timestamp: "2026-01-01T00:00:02.000Z", priority: 1 },
   { id: "fb-2", kind: "editorial", label: "EXPLORE", text: "Dive into the full artist archive — from Delta to Chicago to Scandinavia.", href: "/artists", timestamp: "2026-01-01T00:00:01.000Z", priority: 1 },
 ];
 
@@ -77,10 +77,10 @@ function getHeroSlides(lang: Lang) {
       }),
       attr: "— Willie Dixon",
       body: tr(lang, {
-        no: "330+ artistprofiler. Tre inn i Chicago. Historien, pionerene og lyden som la grunnlaget for rock, jazz og alt som kom etter.",
-        en: "330+ artist profiles. Step into Chicago. The history, pioneers and sound that laid the foundation for rock, jazz and everything that came after.", pl: "Ponad 330 profili artystów. Wkrocz do Chicago. Historia, pionierzy i brzmienie, które stworzyły podwaliny rocka, jazzu i wszystkiego, co nadeszło później.",
-        sv: "330+ artistprofiler. Stig in i Chicago. Historien, pionjärerna och ljudet som lade grunden för rock, jazz och allt som kom efter.",
-        de: "330+ Künstlerprofile. Tritt ein in Chicago. Die Geschichte, Pioniere und der Klang, der den Grundstein für Rock, Jazz und alles Spätere legte.",
+        no: "Tre inn i Chicago. Historien, pionerene og lyden som la grunnlaget for rock, jazz og alt som kom etter.",
+        en: "Step into Chicago. The history, pioneers and sound that laid the foundation for rock, jazz and everything that came after.", pl: "Wkrocz do Chicago. Historia, pionierzy i brzmienie, które stworzyły podwaliny rocka, jazzu i wszystkiego, co nadeszło później.",
+        sv: "Stig in i Chicago. Historien, pionjärerna och ljudet som lade grunden för rock, jazz och allt som kom efter.",
+        de: "Tritt ein in Chicago. Die Geschichte, Pioniere und der Klang, der den Grundstein für Rock, Jazz und alles Spätere legte.",
       }),
       showButtons: true,
     },
