@@ -11,6 +11,7 @@ import {
 import appCss from "../styles.css?url";
 import { I18nProvider, useI18n, tr } from "@/i18n";
 import { MigrationAnnouncement } from "@/components/MigrationAnnouncement";
+import { BookmarkBanner } from "@/components/BookmarkBanner";
 
 function NotFoundComponent() {
   const { lang } = useI18n();
@@ -157,6 +158,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
         <I18nProvider>
           {children}
           <MigrationAnnouncement />
+          <BookmarkBanner />
         </I18nProvider>
         <Scripts />
       </body>
