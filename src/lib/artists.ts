@@ -21,6 +21,7 @@ export type DiscographyEntry = {
   title: string;
   composers?: string;
   producer?: string;
+  studio?: string;
   label?: string;
   chart?: string;
   chart_position?: string;
