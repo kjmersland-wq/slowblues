@@ -8630,3 +8630,24 @@ INSERT OR REPLACE INTO artist_links (id, artist_slug, url, title, link_type, dom
 INSERT OR REPLACE INTO artist_sources (id, artist_slug, source_url, source_type, label, active) VALUES ('04451dce-bfd6-4035-aa8a-722cb1df1718', 'free-band', 'https://freebandofficial.com/biography/', 'official_website', 'Official website', 1);
 INSERT OR REPLACE INTO artist_sources (id, artist_slug, source_url, source_type, label, active) VALUES ('d083ae74-87ac-4477-8e93-5eab4d492b2e', 'free-band', 'https://en.wikipedia.org/wiki/Free_(band)', 'other', 'Wikipedia', 1);
 INSERT OR REPLACE INTO artist_sources (id, artist_slug, source_url, source_type, label, active) VALUES ('320603f5-ff7c-46ed-ac2f-cb06a9f79355', 'free-band', 'https://www.youtube.com/channel/UCs1lMnTZ5QWnvlSGSaeod2g', 'youtube', 'Official YouTube channel', 1);
+UPDATE artists SET
+  videos = '[{"kind":"featured","title":"Free — All Right Now — Isle of Wight Festival ''70","youtube_id":"bpLv4M4paSI","channel":"Re-Done by ME"},{"kind":"more","title":"Paul Kossoff 1975 Interview","youtube_id":"ghTLPIr7KMI","channel":"Solstice Shadows","note":"Archival interview shortly before his death."},{"kind":"more","title":"Paul Kossoff (Free): The Tragic Fall of Guitar Prodigy","youtube_id":"Z_v-2HI1m0A","channel":"The Legends of Blues & Rock"},{"kind":"more","title":"Free - Fire and Water - Paul Kossoff Guitar Solo with TAB","youtube_id":"taImWMtx-XM","channel":"Jimi Wolf Solos"}]',
+  youtube_video_ids = '["bpLv4M4paSI","ghTLPIr7KMI","Z_v-2HI1m0A","taImWMtx-XM"]',
+  booking_info = '{"booking_agency":null,"agent_name":null,"booking_email":null,"booking_phone":null,"booking_url":null,"source_url":null,"note":"Paul Kossoff died 19 March 1976, aged 25. Historical entry only — no booking applicable."}',
+  seo_title_en = 'Paul Kossoff - Free Guitarist | SlowBlues',
+  seo_title_no = 'Paul Kossoff - Free-gitarist | SlowBlues',
+  seo_title_sv = 'Paul Kossoff - Free-gitarrist | SlowBlues',
+  seo_title_de = 'Paul Kossoff - Free-Gitarrist | SlowBlues',
+  seo_title_pl = 'Paul Kossoff - Gitarzysta Free | SlowBlues',
+  seo_description_en = 'Paul Kossoff, Free''s guitarist behind "All Right Now," known for one of rock''s widest vibratos. Biography and legacy on SlowBlues.',
+  seo_description_no = 'Paul Kossoff, Frees gitarist bak «All Right Now», kjent for et av rockens bredeste vibrato. Biografi og ettermæle hos SlowBlues.',
+  seo_description_sv = 'Paul Kossoff, Frees gitarrist bakom »All Right Now«, känd för ett av rockens bredaste vibrato. Biografi och eftermäle hos SlowBlues.',
+  seo_description_de = 'Paul Kossoff, Frees Gitarrist hinter „All Right Now“, bekannt für eines der breitesten Vibratos im Rock. Biografie und Vermächtnis bei SlowBlues.',
+  seo_description_pl = 'Paul Kossoff, gitarzysta Free odpowiedzialny za „All Right Now”, znany z jednego z najszerszych vibrato w rocku. Biografia i dziedzictwo na SlowBlues.',
+  article_references = '[{"title":"Paul Kossoff — Wikipedia","url":"https://en.wikipedia.org/wiki/Paul_Kossoff"},{"title":"Free (band) — Wikipedia","url":"https://en.wikipedia.org/wiki/Free_(band)"},{"title":"Paul Kossoff - Forgotten Heroes - Premier Guitar","url":"https://www.premierguitar.com/gear/forgotten-heroes-paul-kossoff"}]'
+WHERE slug = 'paul-kossoff';
+INSERT OR REPLACE INTO artist_links (id, artist_slug, url, title, link_type, domain, active, date_added, last_verified, notes) VALUES ('67636d07-2566-4194-884a-6e93e1849c96', 'paul-kossoff', 'https://en.wikipedia.org/wiki/Paul_Kossoff', 'Paul Kossoff — Wikipedia', 'BIOGRAPHY', 'en.wikipedia.org', 1, '2026-08-25', '2026-08-25', NULL);
+INSERT OR REPLACE INTO artist_links (id, artist_slug, url, title, link_type, domain, active, date_added, last_verified, notes) VALUES ('645a822d-cb24-4e6a-8b21-76127a37152b', 'paul-kossoff', 'https://www.premierguitar.com/gear/forgotten-heroes-paul-kossoff', 'Forgotten Heroes: Paul Kossoff — Premier Guitar', 'BLUES', 'premierguitar.com', 1, '2026-08-25', '2026-08-25', NULL);
+INSERT OR REPLACE INTO artist_links (id, artist_slug, url, title, link_type, domain, active, date_added, last_verified, notes) VALUES ('be756ec5-79a6-4042-a851-45aedc05cdc5', 'paul-kossoff', 'https://www.allmusic.com/artist/paul-kossoff-mn0000019354', 'Paul Kossoff — AllMusic', 'REFERENCE', 'allmusic.com', 1, '2026-08-25', '2026-08-25', NULL);
+INSERT OR REPLACE INTO artist_sources (id, artist_slug, source_url, source_type, label, active) VALUES ('38257e60-297b-4988-a14a-f39a64d20c23', 'paul-kossoff', 'https://en.wikipedia.org/wiki/Paul_Kossoff', 'other', 'Wikipedia', 1);
+INSERT OR REPLACE INTO artist_sources (id, artist_slug, source_url, source_type, label, active) VALUES ('23901c69-1110-4beb-ae02-8d3b83e6c706', 'paul-kossoff', 'https://www.premierguitar.com/', 'music_publication', 'Premier Guitar', 1);
