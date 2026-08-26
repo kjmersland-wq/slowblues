@@ -6,17 +6,65 @@ import { useI18n } from "@/i18n";
 import { WORLD_PINS, type WorldPin, type WorldPinCategory } from "@/data/blues";
 import { IMG } from "@/data/images";
 
+const WORLDMAP_URL = "https://www.slow-blues.com/worldmap";
+const WORLDMAP_DESCRIPTION =
+  "Clubs, festivals, gravesites, museums, radio stations and pilgrimages on the global blues map — from Clarksdale to Tokyo, Warsaw to Cape Town.";
+
+// Maps a WorldPin's category to the closest valid schema.org type for the
+// ItemList below. Kept intentionally coarse -- these are map markers, not
+// full venue/event records, so we only assert what we actually know.
+const PIN_SCHEMA_TYPE: Record<WorldPinCategory, string> = {
+  cradle: "Place",
+  club: "MusicVenue",
+  festival: "Festival",
+  museum: "Museum",
+  grave: "Cemetery",
+  label: "Organization",
+  studio: "Place",
+  radio: "RadioStation",
+  pilgrimage: "TouristAttraction",
+};
+
 export const Route = createFileRoute("/worldmap")({
   component: WorldMapPage,
   head: () => ({
     meta: [
       { title: "Blues World Map — SlowBlues" },
-      {
-        name: "description",
-        content:
-          "Clubs, festivals, gravesites, museums, radio stations and pilgrimages on the global blues map — from Clarksdale to Tokyo.",
-      },
+      { name: "description", content: WORLDMAP_DESCRIPTION },
       { property: "og:title", content: "Blues World Map — SlowBlues" },
+      { property: "og:description", content: WORLDMAP_DESCRIPTION },
+      { property: "og:url", content: WORLDMAP_URL },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: IMG.clarksdale },
+    ],
+    links: [{ rel: "canonical", href: WORLDMAP_URL }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "@id": `${WORLDMAP_URL}#list`,
+          name: "Blues World Map",
+          description: WORLDMAP_DESCRIPTION,
+          url: WORLDMAP_URL,
+          numberOfItems: WORLD_PINS.length,
+          itemListElement: WORLD_PINS.map((p, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            item: {
+              "@type": PIN_SCHEMA_TYPE[p.category],
+              name: p.name,
+              ...(p.url ? { url: p.url } : {}),
+              ...(p.description ? { description: p.description } : {}),
+              geo: { "@type": "GeoCoordinates", latitude: p.lat, longitude: p.lng },
+              ...(p.city || p.country
+                ? { address: { "@type": "PostalAddress", ...(p.city ? { addressLocality: p.city } : {}), ...(p.country ? { addressCountry: p.country } : {}) } }
+                : {}),
+            },
+          })),
+        }),
+      },
     ],
   }),
 });
