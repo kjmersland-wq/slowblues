@@ -53,6 +53,38 @@ export const Route = createFileRoute("/concerts/$slug")({
       c.seo_description_en ??
       c.description_en?.slice(0, 160) ??
       `${c.title}${c.venue ? ` at ${c.venue}` : ""}${c.city ? `, ${c.city}` : ""}.`;
+    // Event schema -- only asserted when we actually have a date and venue/
+    // city, since schema.org Event requires startDate/location to validate.
+    const eventJsonLd =
+      c.event_date && (c.venue || c.city)
+        ? {
+            "@context": "https://schema.org",
+            "@type": "Event",
+            name: c.title,
+            startDate: c.event_date,
+            ...(c.end_date ? { endDate: c.end_date } : {}),
+            eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+            eventStatus: "https://schema.org/EventScheduled",
+            url: canonical,
+            ...(c.cover_image ? { image: [c.cover_image] } : {}),
+            description: desc,
+            location: {
+              "@type": "Place",
+              name: c.venue ?? c.city ?? undefined,
+              address: {
+                "@type": "PostalAddress",
+                ...(c.city ? { addressLocality: c.city } : {}),
+                ...(c.country ? { addressCountry: c.country } : {}),
+              },
+            },
+            ...(c.artist_name
+              ? { performer: { "@type": "MusicGroup", name: c.artist_name } }
+              : {}),
+            ...(c.ticket_url
+              ? { offers: { "@type": "Offer", url: c.ticket_url, availability: "https://schema.org/InStock" } }
+              : {}),
+          }
+        : null;
     return {
       meta: [
         { title },
@@ -63,6 +95,9 @@ export const Route = createFileRoute("/concerts/$slug")({
         ...(c.cover_image ? [{ property: "og:image", content: c.cover_image }] : []),
       ],
       links: [{ rel: "canonical", href: canonical }],
+      ...(eventJsonLd
+        ? { scripts: [{ type: "application/ld+json", children: JSON.stringify(eventJsonLd) }] }
+        : {}),
     };
   },
   errorComponent: ({ error }) => {
