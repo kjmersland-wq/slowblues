@@ -435,7 +435,7 @@ export const WORLD_PINS: WorldPin[] = [
   { name: "Helena, AR", lat: 34.53, lng: -90.59, type: "King Biscuit Time birthplace", category: "cradle", url: "https://kingbiscuitfestival.com/" },
   { name: "New Orleans, LA", lat: 29.95, lng: -90.07, type: "Jazz/blues meeting point", category: "cradle", url: "https://www.neworleans.com/things-to-do/music/" },
   { name: "Tutwiler, MS", lat: 33.99, lng: -90.43, type: "W.C. Handy heard the blues, 1903", category: "cradle", url: "https://msbluestrail.org/blues-trail-markers/w-c-handy" },
-  { name: "Dockery Farms, MS", lat: 33.65, lng: -90.62, type: "Charley Patton plantation — birthplace of Delta blues", category: "cradle", url: "https://www.dockeryfarms.org/" },
+  { name: "Dockery Farms, MS", lat: 33.65, lng: -90.62, type: "Charley Patton plantation — birthplace of Delta blues", category: "cradle", url: "https://visitmississippi.org/things-to-do/arts-culture/dockery-farms/" },
   { name: "Stovall, MS", lat: 34.27, lng: -90.66, type: "Muddy Waters' cabin & Lomax 1941 recordings", category: "cradle", url: "https://msbluestrail.org/blues-trail-markers/muddy-waters" },
   { name: "Crossroads, Clarksdale", lat: 34.197, lng: -90.583, type: "Highway 61 × 49 — Robert Johnson myth", category: "pilgrimage", url: "https://www.visitclarksdale.com/blog/crossroads-monument" },
 
@@ -584,10 +584,9 @@ export const WORLD_PINS: WorldPin[] = [
   { name: "Bluestown Radio", lat: 59.56, lng: 9.26, type: "Notodden, NO — Bluestown Records, Nordic blues label & stream", category: "radio", url: "https://www.facebook.com/bluestownrecords/" },
   { name: "Blues Radio UK", lat: 51.51, lng: -0.13, type: "London — 24/7 online blues", category: "radio", url: "https://www.247bluesradio.com/" },
   { name: "Collectif des Radios Blues Francophones", lat: 48.857, lng: 2.352, type: "France/Belgium/Québec — francophone blues radio network, est. 2003", category: "radio", url: "https://radiosblues.com/" },
-  { name: "Houston Blues Radio", lat: 29.760, lng: -95.367, type: "Houston, TX — Houston Blues Society online stream", category: "radio", url: "https://live.mystreamplayer.com/houstonblues" },
+  { name: "Houston Blues Radio", lat: 29.760, lng: -95.367, type: "Houston, TX — Houston Blues Society online stream", category: "radio", url: "https://aardvarkbluesfm.com/" },
   { name: "BBC Radio 2 Blues Show", lat: 51.518, lng: -0.144, type: "London — Cerys Matthews' weekly blues", category: "radio", url: "https://www.bbc.co.uk/radio2" },
   { name: "Radio Caroline Blues", lat: 51.508, lng: 0.711, type: "UK — offshore heritage station", category: "radio", url: "https://www.radiocaroline.co.uk/" },
-  { name: "Blues & Roots Radio (CA)", lat: 43.651, lng: -79.383, type: "Toronto/Melbourne — global independent blues curator", category: "radio", url: "https://www.bluesandrootsradio.com/" },
   { name: "Blues Radio International", lat: 38.907, lng: -77.037, type: "Washington DC — syndicated worldwide", category: "radio", url: "https://www.bluesradiointernational.net/" },
   { name: "WXRV — The River", lat: 42.768, lng: -71.084, type: "Boston/NH — blues programming", category: "radio", url: "https://www.wxrv.com/" },
 
