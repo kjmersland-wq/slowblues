@@ -418,36 +418,41 @@ export type WorldPin = {
   type: string;
   category: WorldPinCategory;
   url?: string;
+  // Optional structured fields — populated on newer entries; older entries
+  // keep city/country/genre folded into `name`/`type` as free text rather
+  // than being retrofitted, to avoid a full-dataset rewrite.
+  genre?: string;
+  city?: string;
+  country?: string;
+  description?: string;
 };
 
 export const WORLD_PINS: WorldPin[] = [
   // ===== Cradle / origin =====
   { name: "Clarksdale, MS", lat: 34.20, lng: -90.57, type: "Cradle of the Delta blues", category: "cradle", url: "https://www.visitclarksdale.com/" },
   { name: "Memphis, TN", lat: 35.15, lng: -90.05, type: "Beale Street, Stax, Sun", category: "cradle", url: "https://www.memphistravel.com/" },
-  { name: "Chicago, IL", lat: 41.85, lng: -87.65, type: "Chess Records, Maxwell Street", category: "cradle", url: "https://www.choosechicago.com/things-to-do/music/blues/" },
+  { name: "Chicago, IL", lat: 41.85, lng: -87.65, type: "Chess Records, Maxwell Street", category: "cradle", url: "https://www.choosechicago.com/articles/chicago-music/explore-chicago-blues/" },
   { name: "Helena, AR", lat: 34.53, lng: -90.59, type: "King Biscuit Time birthplace", category: "cradle", url: "https://kingbiscuitfestival.com/" },
   { name: "New Orleans, LA", lat: 29.95, lng: -90.07, type: "Jazz/blues meeting point", category: "cradle", url: "https://www.neworleans.com/things-to-do/music/" },
-  { name: "Tutwiler, MS", lat: 33.99, lng: -90.43, type: "W.C. Handy heard the blues, 1903", category: "cradle", url: "https://msbluestrail.org/blues-trail-markers/tutwiler-birthplace" },
-  { name: "Dockery Farms, MS", lat: 33.65, lng: -90.62, type: "Charley Patton plantation — birthplace of Delta blues", category: "cradle" },
+  { name: "Tutwiler, MS", lat: 33.99, lng: -90.43, type: "W.C. Handy heard the blues, 1903", category: "cradle", url: "https://msbluestrail.org/blues-trail-markers/w-c-handy" },
+  { name: "Dockery Farms, MS", lat: 33.65, lng: -90.62, type: "Charley Patton plantation — birthplace of Delta blues", category: "cradle", url: "https://www.dockeryfarms.org/" },
   { name: "Stovall, MS", lat: 34.27, lng: -90.66, type: "Muddy Waters' cabin & Lomax 1941 recordings", category: "cradle", url: "https://msbluestrail.org/blues-trail-markers/muddy-waters" },
-  { name: "Crossroads, Clarksdale", lat: 34.197, lng: -90.583, type: "Highway 61 × 49 — Robert Johnson myth", category: "pilgrimage", url: "https://www.visitclarksdale.com/things-to-do/the-crossroads/" },
+  { name: "Crossroads, Clarksdale", lat: 34.197, lng: -90.583, type: "Highway 61 × 49 — Robert Johnson myth", category: "pilgrimage", url: "https://www.visitclarksdale.com/blog/crossroads-monument" },
 
   // ===== Museums & Halls of Fame =====
   { name: "Delta Blues Museum", lat: 34.201, lng: -90.575, type: "Clarksdale, MS", category: "museum", url: "https://www.deltabluesmuseum.org/" },
   { name: "B.B. King Museum", lat: 33.418, lng: -90.180, type: "Indianola, MS", category: "museum", url: "https://bbkingmuseum.org/" },
   { name: "Stax Museum of American Soul", lat: 35.119, lng: -90.067, type: "Memphis, TN", category: "museum", url: "https://staxmuseum.com/" },
   { name: "Blues Hall of Fame", lat: 35.139, lng: -90.052, type: "The Blues Foundation, Memphis", category: "museum", url: "https://blues.org/blues-hall-of-fame/" },
-  { name: "Rock & Blues Museum", lat: 34.200, lng: -90.580, type: "Clarksdale, MS", category: "museum", url: "https://rockandbluesmuseum.com/" },
   { name: "GRAMMY Museum Mississippi", lat: 33.495, lng: -90.730, type: "Cleveland, MS", category: "museum", url: "https://grammymuseumms.org/" },
   { name: "European Blues Hall of Fame", lat: 59.56, lng: 9.26, type: "Notodden, Norway", category: "museum", url: "https://www.bluesfest.no/" },
-  { name: "National Blues Museum", lat: 38.626, lng: -90.193, type: "St. Louis, MO", category: "museum" },
   { name: "Buddy Guy's Legends", lat: 41.872, lng: -87.625, type: "Chicago club & shrine", category: "club", url: "https://buddyguy.com/" },
 
   // ===== Iconic clubs =====
   { name: "Ground Zero Blues Club", lat: 34.201, lng: -90.578, type: "Clarksdale — co-owned by Morgan Freeman", category: "club", url: "https://groundzerobluesclub.com/" },
   { name: "Red's Lounge", lat: 34.204, lng: -90.578, type: "Last true juke joint, Clarksdale", category: "club", url: "https://www.facebook.com/RedsLoungeClarksdale/" },
   { name: "B.B. King's Blues Club", lat: 35.140, lng: -90.052, type: "Beale Street, Memphis", category: "club", url: "https://bbkings.com/memphis/" },
-  { name: "Rum Boogie Café", lat: 35.139, lng: -90.052, type: "Beale Street, Memphis", category: "club" },
+  { name: "Rum Boogie Café", lat: 35.139, lng: -90.052, type: "Beale Street, Memphis", category: "club", url: "https://rumboogie.com/" },
   { name: "Kingston Mines", lat: 41.929, lng: -87.652, type: "Chicago blues institution", category: "club", url: "https://kingstonmines.com/" },
   { name: "Antone's", lat: 30.268, lng: -97.745, type: "Austin's home of the blues", category: "club", url: "https://antonesnightclub.com/" },
   { name: "100 Club", lat: 51.515, lng: -0.137, type: "London — British blues boom HQ", category: "club", url: "https://the100club.co.uk/" },
@@ -484,7 +489,7 @@ export const WORLD_PINS: WorldPin[] = [
 
   // ===== Europe =====
   { name: "Knuckleheads Saloon — n/a", lat: 53.348, lng: -6.260, type: "Dublin — JJ Smyth's heritage venue", category: "club", url: "https://www.jjsmyths.com/" },
-  { name: "Catfish Blues Bar", lat: 53.480, lng: -2.245, type: "Manchester — blues & roots venue", category: "club" },
+  { name: "The Blues Kitchen Manchester", lat: 53.478, lng: -2.251, type: "Manchester — live blues, soul & funk on Quay Street", category: "club", url: "https://theblueskitchen.com/manchester/" },
   { name: "Half Moon Putney", lat: 51.460, lng: -0.213, type: "London — historic blues stage", category: "club", url: "https://www.halfmoon.co.uk/" },
   { name: "Eel Pie Club", lat: 51.447, lng: -0.331, type: "Twickenham — British blues heritage", category: "club", url: "https://www.eelpieclub.com/" },
   { name: "Caveau de la Huchette", lat: 48.853, lng: 2.347, type: "Paris — Latin Quarter jazz/blues cellar", category: "club", url: "https://www.caveaudelahuchette.fr/" },
@@ -505,19 +510,17 @@ export const WORLD_PINS: WorldPin[] = [
   { name: "Nardis Jazz Club", lat: 41.025, lng: 28.974, type: "Istanbul — blues nights overlooking Galata", category: "club", url: "https://www.nardisjazz.com/" },
 
   // ===== Rest of world =====
-  { name: "Rosa's Lounge — Tokyo", lat: 35.661, lng: 139.704, type: "Tokyo — Bright Brown blues bar", category: "club" },
+  { name: "Bright Brown", lat: 35.661, lng: 139.704, type: "Nakano, Tokyo — blues & jazz lounge", category: "club", url: "https://www.facebook.com/blues.BrightBrown/" },
   { name: "Crocodile Blues", lat: 35.660, lng: 139.698, type: "Shibuya, Tokyo — live blues venue", category: "club", url: "https://www.crocodile-live.jp/" },
-  { name: "Blue Note Beijing", lat: 39.908, lng: 116.397, type: "Beijing — jazz & blues club", category: "club" },
-  { name: "Bluesville Sydney", lat: -33.870, lng: 151.209, type: "Sydney — Aussie blues hub", category: "club" },
+  { name: "Blue Note Beijing", lat: 39.908, lng: 116.397, type: "Beijing — jazz & blues club", category: "club", url: "https://bluenotebeijing.com/" },
   { name: "The Basement", lat: -33.860, lng: 151.213, type: "Sydney — Circular Quay blues stage", category: "club", url: "https://thebasement.com.au/" },
   { name: "Bird's Basement", lat: -37.815, lng: 144.962, type: "Melbourne — jazz & blues cellar", category: "club", url: "https://birdsbasement.com/" },
   { name: "Bourbon Street Music Bar", lat: -23.561, lng: -46.625, type: "São Paulo — Brazil's premier blues club", category: "club", url: "https://bourbonstreet.com.br/" },
-  { name: "Thelonious Club", lat: -34.595, lng: -58.398, type: "Buenos Aires — jazz/blues club", category: "club" },
-  { name: "Pizza Express Live (Mumbai)", lat: 19.076, lng: 72.877, type: "Mumbai — blues & jazz nights", category: "club" },
-  { name: "The Orbit", lat: -26.176, lng: 28.044, type: "Johannesburg — jazz & blues venue", category: "club" },
+  { name: "Thelonious Club", lat: -34.595, lng: -58.398, type: "Buenos Aires — jazz/blues club", category: "club", url: "https://thelonious.com.ar/" },
+  { name: "The Orbit", lat: -26.176, lng: 28.044, type: "Johannesburg — jazz & blues venue", category: "club", url: "https://www.theorbit.co.za/" },
   { name: "Cotton Club Tel Aviv", lat: 32.066, lng: 34.778, type: "Tel Aviv — blues & jazz", category: "club", url: "https://cottonclub.co.il/" },
   { name: "Cadillac Ranch", lat: 43.653, lng: -79.383, type: "Toronto — Canadian blues hub", category: "club", url: "https://www.cadillaclounge.com/" },
-  { name: "Yale Saloon", lat: 49.275, lng: -123.122, type: "Vancouver — historic blues bar", category: "club" },
+  { name: "Yale Saloon", lat: 49.275, lng: -123.122, type: "Vancouver — heritage blues, country & BBQ bar", category: "club", url: "https://yalesaloon.com/" },
 
   // ===== Festivals =====
   { name: "Notodden Bluesfestival", lat: 59.56, lng: 9.26, type: "Europe's leading blues festival (Aug)", category: "festival", url: "https://www.bluesfest.no/" },
@@ -569,16 +572,16 @@ export const WORLD_PINS: WorldPin[] = [
   { name: "Highway 61 — The Blues Highway", lat: 33.40, lng: -90.90, type: "Clarksdale → Memphis → New Orleans", category: "pilgrimage", url: "https://msbluestrail.org/" },
   { name: "Beale Street", lat: 35.139, lng: -90.052, type: "Memphis — historic blues district", category: "pilgrimage", url: "https://www.bealestreet.com/" },
   { name: "Maxwell Street Market", lat: 41.866, lng: -87.647, type: "Chicago — electric blues was born here", category: "pilgrimage", url: "https://www.chicago.gov/city/en/depts/dca/supp_info/maxwell_street_market.html" },
-  { name: "Bentonia, MS (Blue Front Café)", lat: 32.165, lng: -90.378, type: "Skip James / Jimmy \"Duck\" Holmes", category: "pilgrimage" },
+  { name: "Bentonia, MS (Blue Front Café)", lat: 32.165, lng: -90.378, type: "Skip James / Jimmy \"Duck\" Holmes", category: "pilgrimage", url: "https://bentoniablues.com/" },
   { name: "Po' Monkey's (former)", lat: 33.679, lng: -90.778, type: "Merigold, MS — legendary juke joint", category: "pilgrimage", url: "https://msbluestrail.org/blues-trail-markers/po-monkeys" },
   { name: "Mississippi Blues Trail", lat: 32.85, lng: -89.95, type: "200+ markers across MS", category: "pilgrimage", url: "https://msbluestrail.org/" },
   { name: "Robert Johnson Hazlehurst birthplace", lat: 31.870, lng: -90.396, type: "Hazlehurst, MS", category: "pilgrimage", url: "https://msbluestrail.org/blues-trail-markers/robert-johnson" },
-  { name: "Bo Diddley Plaza", lat: 29.652, lng: -82.323, type: "Gainesville, FL", category: "pilgrimage" },
+  { name: "Bo Diddley Plaza", lat: 29.652, lng: -82.323, type: "Gainesville, FL", category: "pilgrimage", url: "https://www.gainesvillefl.gov/Venues/Bo-Diddley-Plaza" },
 
   // ===== Radio stations =====
   { name: "KFFA — King Biscuit Time", lat: 34.530, lng: -90.591, type: "Helena, AR — longest-running blues show (since 1941)", category: "radio" },
   { name: "WROX 1450 AM", lat: 34.200, lng: -90.580, type: "Clarksdale, MS — historic Delta blues radio", category: "radio", url: "https://www.wroxradio.com/" },
-  { name: "WDIA 1070 AM", lat: 35.118, lng: -89.991, type: "Memphis — first all-Black format in the US", category: "radio", url: "https://wdia.iheart.com/" },
+  { name: "WDIA 1070 AM", lat: 35.118, lng: -89.991, type: "Memphis — first all-Black format in the US", category: "radio", url: "https://mywdia.iheart.com/" },
   { name: "WMPR 90.1 FM", lat: 32.300, lng: -90.180, type: "Jackson, MS — community blues/gospel", category: "radio", url: "https://www.wmpr901.com/" },
   { name: "WWOZ 90.7 FM", lat: 29.964, lng: -90.063, type: "New Orleans — guardian of NOLA music", category: "radio", url: "https://www.wwoz.org/" },
   { name: "Bluesville (SiriusXM)", lat: 40.758, lng: -73.985, type: "B.B. King's Bluesville, NYC studios", category: "radio", url: "https://www.siriusxm.com/channels/bb-kings-bluesville" },
