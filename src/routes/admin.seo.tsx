@@ -142,7 +142,7 @@ function AdminSEO() {
               Status: {sitemapStatus.ok ? <span className="text-emerald-400">OK</span> : <span className="text-red-400">Feil ved henting</span>}
               {" · "}URL-er: <strong>{sitemapStatus.count}</strong>
             </p>
-            <a href="/sitemap.xml" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm text-gold hover:underline">
+            <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-gold hover:underline">
               Åpne sitemap.xml <ExternalLink className="size-3" />
             </a>
             {sitemapStatus.missing.length > 0 ? (
@@ -197,7 +197,7 @@ function RowList<T extends { slug: string }>({ rows, renderLink, liveHref, subTe
                 {errs > 0 && <span className="px-2 py-1 rounded bg-red-500/10 text-red-300">{errs} feil</span>}
                 {warns > 0 && <span className="px-2 py-1 rounded bg-amber-500/10 text-amber-300">{warns} adv.</span>}
                 {issues.length === 0 && <span className="px-2 py-1 rounded bg-emerald-500/10 text-emerald-300 inline-flex items-center gap-1"><Check className="size-3" /> OK</span>}
-                <a href={liveHref(row)} target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-gold"><ExternalLink className="size-4" /></a>
+                <a href={liveHref(row)} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-gold"><ExternalLink className="size-4" /></a>
               </div>
             </div>
             {issues.length > 0 && (

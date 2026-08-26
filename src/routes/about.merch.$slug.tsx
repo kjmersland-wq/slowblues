@@ -237,7 +237,7 @@ function ProductPage() {
             <a
               href={buyUrl}
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition shadow-lg shadow-gold/20"
             >
               <ShoppingBag className="size-5" /> {(selectedVariant?.inStock ?? p.inStock)

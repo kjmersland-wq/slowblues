@@ -120,10 +120,10 @@ function RadioPage() {
               <h3 className="font-display text-lg mb-2 leading-tight">{s.name}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">{no ? s.descriptionNo : s.descriptionEn}</p>
               <div className="flex flex-wrap gap-3 text-xs">
-                <a href={s.listenUrl} target="_blank" rel="noopener" className="inline-flex items-center gap-1 text-gold hover:underline">
+                <a href={s.listenUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-gold hover:underline">
                   <Play className="size-3" /> {tr(lang, { no: "Lytt", en: "Listen", pl: "Słuchaj", sv: "Lyssna", de: "Hören" })} {s.listenNote && <span className="text-muted-foreground">({s.listenNote})</span>}
                 </a>
-                <a href={s.website} target="_blank" rel="noopener" className="inline-flex items-center gap-1 text-muted-foreground hover:text-gold">
+                <a href={s.website} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-muted-foreground hover:text-gold">
                   {tr(lang, { no: "Nettside", en: "Website", pl: "Strona internetowa", sv: "Webbplats", de: "Webseite" })} <ExternalLink className="size-3" />
                 </a>
               </div>

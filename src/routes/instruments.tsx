@@ -72,7 +72,7 @@ function InstrumentsPage() {
             return (
             <article key={i.id} className="bg-card/60 border border-border rounded-xl overflow-hidden hover:border-gold/40 transition flex flex-col">
               {img && (
-                <a href={img.creditUrl ?? img.url} target="_blank" rel="noreferrer" className="block aspect-[4/3] overflow-hidden bg-black/40 border-b border-border">
+                <a href={img.creditUrl ?? img.url} target="_blank" rel="noopener noreferrer" className="block aspect-[4/3] overflow-hidden bg-black/40 border-b border-border">
                   <SafeImage src={img.url} alt={i.name} loading="lazy" className="size-full object-cover hover:scale-105 transition duration-700" />
                 </a>
               )}
@@ -107,7 +107,7 @@ function InstrumentsPage() {
                 )}
                 {img && (
                   <div className="text-[10px] text-muted-foreground/70 mt-4 pt-3 border-t border-border/50">
-                    {tr(lang, { no: "Foto", en: "Photo", sv: "Foto", de: "Foto", pl: "Zdjęcie" })}: {img.creditUrl ? <a href={img.creditUrl} target="_blank" rel="noreferrer" className="hover:text-gold">{img.credit}</a> : img.credit}
+                    {tr(lang, { no: "Foto", en: "Photo", sv: "Foto", de: "Foto", pl: "Zdjęcie" })}: {img.creditUrl ? <a href={img.creditUrl} target="_blank" rel="noopener noreferrer" className="hover:text-gold">{img.credit}</a> : img.credit}
                   </div>
                 )}
               </div>

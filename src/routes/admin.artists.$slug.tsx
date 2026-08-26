@@ -154,7 +154,7 @@ function AdminArtistEdit() {
           </div>
 
           <div className="flex flex-wrap gap-2">
-            <a href={`/artists/${a.slug}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-border text-sm hover:border-gold">
+            <a href={`/artists/${a.slug}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-border text-sm hover:border-gold">
               <Eye className="size-4" /> Vis live <ExternalLink className="size-3" />
             </a>
             {prev && (

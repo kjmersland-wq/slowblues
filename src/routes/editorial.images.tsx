@@ -136,7 +136,7 @@ function UnsplashResults({ query, orient }: { query: string; orient: Orient }) {
     await track({ data: { downloadLocation: p.links.downloadLocation } });
     const html =
       `<img src="${p.urls.regular}" alt="${esc(p.altDescription ?? p.description ?? "")}" width="${p.width}" height="${p.height}" />\n` +
-      `<p>Photo by <a href="${p.user.profileUrl}" target="_blank" rel="noopener">${p.user.name}</a> on <a href="${p.links.html}" target="_blank" rel="noopener">Unsplash</a></p>`;
+      `<p>Photo by <a href="${p.user.profileUrl}" target="_blank" rel="noopener noreferrer">${p.user.name}</a> on <a href="${p.links.html}" target="_blank" rel="noopener noreferrer">Unsplash</a></p>`;
     await navigator.clipboard.writeText(html);
     setCopied(p.id);
     setTimeout(() => setCopied(null), 1800);
@@ -175,7 +175,7 @@ function PexelsResults({ query, orient }: { query: string; orient: Orient }) {
   const use = async (p: PexelsPhoto) => {
     const html =
       `<img src="${p.src.large}" alt="${esc(p.alt)}" width="${p.width}" height="${p.height}" />\n` +
-      `<p>Photo by <a href="${p.photographerUrl}" target="_blank" rel="noopener">${p.photographer}</a> on <a href="${p.url}" target="_blank" rel="noopener">Pexels</a></p>`;
+      `<p>Photo by <a href="${p.photographerUrl}" target="_blank" rel="noopener noreferrer">${p.photographer}</a> on <a href="${p.url}" target="_blank" rel="noopener noreferrer">Pexels</a></p>`;
     await navigator.clipboard.writeText(html);
     setCopied(p.id);
     setTimeout(() => setCopied(null), 1800);
@@ -228,7 +228,7 @@ function PixabayResults({ query, orient }: { query: string; orient: Orient }) {
   const use = async (p: PixabayPhoto) => {
     const html =
       `<img src="${p.large}" alt="${esc(p.tags)}" width="${p.width}" height="${p.height}" />\n` +
-      `<p>Image by <a href="${p.userUrl}" target="_blank" rel="noopener">${p.user}</a> on <a href="${p.pageUrl}" target="_blank" rel="noopener">Pixabay</a></p>`;
+      `<p>Image by <a href="${p.userUrl}" target="_blank" rel="noopener noreferrer">${p.user}</a> on <a href="${p.pageUrl}" target="_blank" rel="noopener noreferrer">Pixabay</a></p>`;
     await navigator.clipboard.writeText(html);
     setCopied(p.id);
     setTimeout(() => setCopied(null), 1800);

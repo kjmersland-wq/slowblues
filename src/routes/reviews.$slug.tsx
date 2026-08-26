@@ -344,19 +344,19 @@ function ReviewDetailPage() {
               <a
                 href={`https://open.spotify.com/album/${review.spotify_album_id}`}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-xs px-3 py-1.5 rounded border border-border hover:border-gold"
               >
                 Spotify ↗
               </a>
             )}
             {review.bandcamp_url && (
-              <a href={review.bandcamp_url} target="_blank" rel="noreferrer" className="text-xs px-3 py-1.5 rounded border border-border hover:border-gold">
+              <a href={review.bandcamp_url} target="_blank" rel="noopener noreferrer" className="text-xs px-3 py-1.5 rounded border border-border hover:border-gold">
                 Bandcamp ↗
               </a>
             )}
             {review.apple_music_url && (
-              <a href={review.apple_music_url} target="_blank" rel="noreferrer" className="text-xs px-3 py-1.5 rounded border border-border hover:border-gold">
+              <a href={review.apple_music_url} target="_blank" rel="noopener noreferrer" className="text-xs px-3 py-1.5 rounded border border-border hover:border-gold">
                 Apple Music ↗
               </a>
             )}
@@ -368,7 +368,7 @@ function ReviewDetailPage() {
                     : `https://www.youtube.com/playlist?list=${review.youtube_playlist_id}`
                 }
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-xs px-3 py-1.5 rounded border border-border hover:border-gold"
               >
                 {review.youtube_playlist_id.length === 11

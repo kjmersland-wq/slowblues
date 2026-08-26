@@ -41,7 +41,7 @@ function ListenPage() {
         <h2 className="font-display text-3xl mb-6">{tr(lang, { no: "Kuraterte spillelister", en: "Curated playlists", sv: "Utvalda spellistor", de: "Kuratierte Playlists", pl: "Wyselekcjonowane playlisty" })}</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
           {PLAYLISTS.map((p) => (
-            <a key={p.title} href={p.youtube} target="_blank" rel="noopener" className="group bg-card/60 border border-border rounded-lg p-6 hover:border-gold/60 transition">
+            <a key={p.title} href={p.youtube} target="_blank" rel="noopener noreferrer" className="group bg-card/60 border border-border rounded-lg p-6 hover:border-gold/60 transition">
               <div className="size-12 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center mb-4 group-hover:bg-gold/20"><Youtube className="size-5 text-gold" /></div>
               <h3 className="font-display text-xl mb-2">{p.title}</h3>
               <p className="text-sm text-muted-foreground mb-3">{p.desc}</p>

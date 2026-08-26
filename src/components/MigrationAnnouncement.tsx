@@ -360,6 +360,8 @@ export function MigrationAnnouncement() {
               <div className="mt-6 flex flex-col gap-2.5">
                 <a
                   href={NEW_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group inline-flex items-center justify-center gap-2 w-full px-5 py-3 rounded-lg font-semibold text-background transition-all hover:brightness-110 hover:shadow-[0_0_30px_-4px_rgba(212,175,55,0.6)]"
                   style={{ background: "linear-gradient(180deg, #e9c971 0%, #d4af37 55%, #9a7820 100%)" }}
                 >

@@ -263,7 +263,7 @@ function MerchPage() {
           <a
             href={`${SHOP_BASE}/en-nok`}
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition"
           >
             <ShoppingBag className="size-5" />
@@ -620,7 +620,7 @@ function ProductModal({
                   <a
                     href={partner.website}
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     className="underline hover:text-gold"
                   >
                     {partner.name}
@@ -711,7 +711,7 @@ function ProductModal({
             <a
               href={buyNowUrl}
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               className="flex-1 text-center bg-gold text-primary-foreground font-medium py-3 rounded-md hover:bg-gold/90 transition inline-flex items-center justify-center gap-2"
             >
               {tr(lang, { no: "Kjøp nå", en: "Buy now", sv: "Köp nu", de: "Jetzt kaufen", pl: "Kup teraz" })} <ExternalLink className="size-4" />
@@ -836,7 +836,7 @@ function CartDrawer({
             <a
               href={`${SHOP_BASE}/en-nok/cart`}
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               className="block text-center bg-gold text-primary-foreground font-medium py-3 rounded-md hover:bg-gold/90 transition"
             >
               {tr(lang, { no: "Gå til kassen", en: "Go to checkout", sv: "Gå till kassan", de: "Zur Kasse gehen", pl: "Przejdź do kasy" })}
@@ -960,7 +960,7 @@ function PartnerEditionsSection({
                 key={p.id}
                 href={p.website}
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 title={p.name}
                 className="group inline-flex items-center"
               >
