@@ -464,7 +464,7 @@ export const WORLD_PINS: WorldPin[] = [
 
   // ===== Norway =====
   { name: "Herr Nilsen", lat: 59.916, lng: 10.738, type: "Oslo — jazz & blues institution", category: "club", url: "https://herrnilsen.no/" },
-  { name: "Bare Jazz", lat: 59.914, lng: 10.745, type: "Oslo — intimate blues & jazz nights", category: "club", url: "https://www.barejazz.no/" },
+  { name: "Bare Jazz", lat: 59.914, lng: 10.745, type: "Oslo — intimate blues & jazz nights", category: "club", url: "https://www.facebook.com/barejazz/" },
   { name: "Mono", lat: 59.913, lng: 10.747, type: "Oslo — rock & blues bar", category: "club", url: "https://www.cafemono.no/" },
   { name: "Nedre Løkka", lat: 59.923, lng: 10.752, type: "Oslo — live blues & roots", category: "club", url: "https://www.visitoslo.com/en/product/?tlp=3096563&name=Nedre-Lokka-Cocktailbar--Lounge" },
   { name: "Bluesklubben Notodden", lat: 59.560, lng: 9.260, type: "Notodden — home of European Blues HoF", category: "club", url: "https://www.bluesfest.no/" },
@@ -501,7 +501,7 @@ export const WORLD_PINS: WorldPin[] = [
   { name: "Akwarium", lat: 52.236, lng: 21.012, type: "Warsaw — reactivated legendary jazz & blues club", category: "club", url: "https://www.facebook.com/jazzclubakwarium/" },
   { name: "Harlem Jazz Club", lat: 41.382, lng: 2.180, type: "Barcelona — blues & roots Gothic Quarter", category: "club", url: "https://www.harlemjazzclub.es/" },
   { name: "Café Central", lat: 40.418, lng: -3.711, type: "Madrid — jazz & blues classic", category: "club", url: "https://www.cafecentralmadrid.com/" },
-  { name: "Big Mama", lat: 41.886, lng: 12.470, type: "Rome — Trastevere blues club", category: "club", url: "https://www.bigmama.it/" },
+  { name: "Big Mama", lat: 41.886, lng: 12.470, type: "Rome — Trastevere blues club", category: "club", url: "https://www.facebook.com/bigmamaroma" },
   { name: "Bourbon Street Jazz", lat: 45.473, lng: 9.211, type: "Milan — blues, jazz & soul", category: "club", url: "https://www.bourbonstreet.it/" },
   { name: "Half Note Jazz Club", lat: 37.969, lng: 23.730, type: "Athens — jazz/blues hot spot", category: "club", url: "https://www.halfnote.gr/" },
   { name: "Nardis Jazz Club", lat: 41.025, lng: 28.974, type: "Istanbul — blues nights overlooking Galata", category: "club", url: "https://www.nardisjazz.com/" },
@@ -509,12 +509,11 @@ export const WORLD_PINS: WorldPin[] = [
   // ===== Rest of world =====
   { name: "Bright Brown", lat: 35.661, lng: 139.704, type: "Nakano, Tokyo — blues & jazz lounge", category: "club", url: "https://www.facebook.com/blues.BrightBrown/" },
   { name: "Crocodile Blues", lat: 35.660, lng: 139.698, type: "Shibuya, Tokyo — live blues venue", category: "club", url: "https://www.crocodile-live.jp/" },
-  { name: "Blue Note Beijing", lat: 39.908, lng: 116.397, type: "Beijing — jazz & blues club", category: "club", url: "https://bluenotebeijing.com/" },
+  { name: "Blue Note Beijing", lat: 39.908, lng: 116.397, type: "Beijing — jazz & blues club", category: "club", url: "https://www.facebook.com/BlueNoteBeijing/" },
   { name: "The Basement", lat: -33.860, lng: 151.213, type: "Sydney — Circular Quay blues stage", category: "club", url: "https://thebasement.com.au/" },
   { name: "Bird's Basement", lat: -37.815, lng: 144.962, type: "Melbourne — jazz & blues cellar", category: "club", url: "https://birdsbasement.com/" },
   { name: "Bourbon Street Music Bar", lat: -23.561, lng: -46.625, type: "São Paulo — Brazil's premier blues club", category: "club", url: "https://bourbonstreet.com.br/" },
   { name: "Thelonious Club", lat: -34.595, lng: -58.398, type: "Buenos Aires — jazz/blues club", category: "club", url: "https://thelonious.com.ar/" },
-  { name: "The Orbit", lat: -26.176, lng: 28.044, type: "Johannesburg — jazz & blues venue", category: "club", url: "https://www.theorbit.co.za/" },
   { name: "Cotton Club Tel Aviv", lat: 32.066, lng: 34.778, type: "Tel Aviv — blues & jazz", category: "club", url: "https://cottonclub.co.il/" },
   { name: "Cadillac Ranch", lat: 43.653, lng: -79.383, type: "Toronto — Canadian blues hub", category: "club", url: "https://www.cadillaclounge.com/" },
   { name: "Yale Saloon", lat: 49.275, lng: -123.122, type: "Vancouver — heritage blues, country & BBQ bar", category: "club", url: "https://yalesaloon.com/" },
@@ -608,7 +607,7 @@ export const WORLD_PINS: WorldPin[] = [
   { name: "Moscow, RU", lat: 55.755, lng: 37.617, type: "Russian blues — B.B. King Bar", category: "cradle", url: "https://bbkingclub.ru/" },
   { name: "Helsinki, FI", lat: 60.169, lng: 24.938, type: "Finnish blues scene — Finnish Blues Society, est. 1970", category: "cradle", url: "https://www.bluesnews.fi/en/home/" },
   { name: "Stockholm, SE", lat: 59.329, lng: 18.068, type: "Swedish blues — Sven Zetterberg legacy", category: "cradle", url: "https://www.stockholmblues.se/" },
-  { name: "Copenhagen, DK", lat: 55.676, lng: 12.568, type: "Danish blues — Copenhagen Blues Festival", category: "cradle", url: "https://copenhagenbluesfestival.dk/" },
+  { name: "Copenhagen, DK", lat: 55.676, lng: 12.568, type: "Danish blues scene", category: "cradle", url: "https://www.europeanbluesunion.com/" },
   { name: "Reykjavík, IS", lat: 64.147, lng: -21.940, type: "Icelandic blues — Reykjavík Blues Festival", category: "cradle", url: "https://www.blues.is/" },
 ];
 
