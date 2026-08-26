@@ -445,6 +445,7 @@ export const WORLD_PINS: WorldPin[] = [
   { name: "Stax Museum of American Soul", lat: 35.119, lng: -90.067, type: "Memphis, TN", category: "museum", url: "https://staxmuseum.com/" },
   { name: "Blues Hall of Fame", lat: 35.139, lng: -90.052, type: "The Blues Foundation, Memphis", category: "museum", url: "https://blues.org/blues-hall-of-fame/" },
   { name: "GRAMMY Museum Mississippi", lat: 33.495, lng: -90.730, type: "Cleveland, MS", category: "museum", url: "https://grammymuseumms.org/" },
+  { name: "W.C. Handy Home and Museum", lat: 34.7998, lng: -87.6773, type: "Florence, AL — birthplace of the \"Father of the Blues\"", category: "museum", url: "https://www.wchandymuseum.org/", genre: "Blues", city: "Florence", country: "United States", description: "The log cabin where W.C. Handy was born in 1873, now a museum holding his personal papers and instruments." },
   { name: "European Blues Hall of Fame", lat: 59.56, lng: 9.26, type: "Notodden, Norway", category: "museum", url: "https://www.bluesfest.no/" },
   { name: "Buddy Guy's Legends", lat: 41.872, lng: -87.625, type: "Chicago club & shrine", category: "club", url: "https://buddyguy.com/" },
 
@@ -455,6 +456,10 @@ export const WORLD_PINS: WorldPin[] = [
   { name: "Rum Boogie Café", lat: 35.139, lng: -90.052, type: "Beale Street, Memphis", category: "club", url: "https://rumboogie.com/" },
   { name: "Kingston Mines", lat: 41.929, lng: -87.652, type: "Chicago blues institution", category: "club", url: "https://kingstonmines.com/" },
   { name: "Antone's", lat: 30.268, lng: -97.745, type: "Austin's home of the blues", category: "club", url: "https://antonesnightclub.com/" },
+  { name: "Preservation Hall", lat: 29.9587, lng: -90.0656, type: "New Orleans — traditional jazz since 1961", category: "pilgrimage", url: "https://www.preservationhall.com/", genre: "Jazz, Blues", city: "New Orleans", country: "United States", description: "An intimate French Quarter hall presenting acoustic traditional New Orleans jazz nearly every night since 1961." },
+  { name: "Bourbon Street Blues & Boogie Bar", lat: 36.1637, lng: -86.7788, type: "Nashville — Printers Alley blues bar since 1995", category: "club", url: "https://www.bourbonstreetbluesandboogiebar.com/", genre: "Blues", city: "Nashville", country: "United States", description: "A New Orleans-themed Printers Alley blues bar with live music all day, every day, since 1995." },
+  { name: "The Baked Potato", lat: 34.1398, lng: -118.3765, type: "Studio City, LA — oldest jazz room in LA (since 1970)", category: "club", url: "https://www.thebakedpotato.com/", genre: "Jazz, Fusion, Blues", city: "Los Angeles", country: "United States", description: "The oldest continuously operating jazz room in Los Angeles, hosting jazz, fusion and blues nightly since 1970." },
+  { name: "Harvelle's", lat: 34.0141, lng: -118.4964, type: "Santa Monica — the oldest music venue on LA's west side", category: "club", url: "https://santamonica.harvelles.com/", genre: "Blues", city: "Santa Monica", country: "United States", description: "A dark, red-lit blues club open nightly since the 1930s, the oldest surviving music venue on LA's west side." },
   { name: "100 Club", lat: 51.515, lng: -0.137, type: "London — British blues boom HQ", category: "club", url: "https://the100club.co.uk/" },
   { name: "Rosa's Lounge", lat: 41.917, lng: -87.703, type: "Chicago west-side blues", category: "club", url: "https://rosaslounge.com/" },
   { name: "Ain't Nothin' but the Blues", lat: 51.513, lng: -0.137, type: "London — Soho blues bar", category: "club", url: "https://www.aintnothinbut.co.uk/" },
@@ -509,15 +514,20 @@ export const WORLD_PINS: WorldPin[] = [
   { name: "Bourbon Street Jazz", lat: 45.473, lng: 9.211, type: "Milan — blues, jazz & soul", category: "club", url: "https://www.bourbonstreet.it/" },
   { name: "Half Note Jazz Club", lat: 37.969, lng: 23.730, type: "Athens — jazz/blues hot spot", category: "club", url: "https://www.halfnote.gr/" },
   { name: "Nardis Jazz Club", lat: 41.025, lng: 28.974, type: "Istanbul — blues nights overlooking Galata", category: "club", url: "https://www.nardisjazz.com/" },
+  { name: "Whelan's", lat: 53.3350, lng: -6.2634, type: "Dublin — Ireland's best-known live music venue (est. 1989)", category: "club", url: "https://www.whelanslive.com/", genre: "Blues-Rock, Rock", city: "Dublin", country: "Ireland", description: "Dublin's original live music venue, running three stages seven nights a week since 1989." },
+  { name: "Stadtgarten", lat: 50.9364, lng: 6.9385, type: "Cologne — jazz & blues concert hall (400+ events/year)", category: "club", url: "https://www.stadtgarten.de/en", genre: "Jazz, Blues", city: "Cologne", country: "Germany", description: "A purpose-built concert hall run by a musicians' initiative since 1986, a trademark venue for live jazz and blues in Cologne." },
 
   // ===== Rest of world =====
   { name: "Bright Brown", lat: 35.661, lng: 139.704, type: "Nakano, Tokyo — blues & jazz lounge", category: "club", url: "https://www.facebook.com/blues.BrightBrown/" },
   { name: "Crocodile Blues", lat: 35.660, lng: 139.698, type: "Shibuya, Tokyo — live blues venue", category: "club", url: "https://www.crocodile-live.jp/" },
+  { name: "Blue Note Tokyo", lat: 35.6626, lng: 139.7134, type: "Aoyama, Tokyo — Tokyo's premier jazz club since 1988", category: "club", url: "https://www.bluenote.co.jp/jp/", genre: "Jazz, Blues", city: "Tokyo", country: "Japan", description: "The Tokyo branch of the legendary New York Blue Note, hosting top international jazz and blues acts since 1988." },
   { name: "Blue Note Beijing", lat: 39.908, lng: 116.397, type: "Beijing — jazz & blues club", category: "club", url: "https://www.facebook.com/BlueNoteBeijing/" },
   { name: "The Basement", lat: -33.860, lng: 151.213, type: "Sydney — Circular Quay blues stage", category: "club", url: "https://thebasement.com.au/" },
   { name: "Bird's Basement", lat: -37.815, lng: 144.962, type: "Melbourne — jazz & blues cellar", category: "club", url: "https://birdsbasement.com/" },
   { name: "Bourbon Street Music Bar", lat: -23.561, lng: -46.625, type: "São Paulo — Brazil's premier blues club", category: "club", url: "https://bourbonstreet.com.br/" },
   { name: "Thelonious Club", lat: -34.595, lng: -58.398, type: "Buenos Aires — jazz/blues club", category: "club", url: "https://thelonious.com.ar/" },
+  { name: "House of Jazz", lat: 45.5075, lng: -73.5719, type: "Montreal — jazz, blues & soul restaurant-club", category: "club", url: "https://www.houseofjazz.ca/?lang=en", genre: "Jazz, Blues, Soul", city: "Montreal", country: "Canada", description: "A long-running Montreal jazz and blues supper club with nightly live music." },
+  { name: "The Marabi Club", lat: -26.2041, lng: 28.0473, type: "Johannesburg — 1920s-style jazz club in Hallmark House", category: "club", url: "https://www.facebook.com/TheMarabiClub", genre: "Jazz", city: "Johannesburg", country: "South Africa", description: "A globally renowned Jozi jazz club reviving 1920s South African Marabi jazz, with a resident quartet performing nightly." },
   { name: "Cotton Club Tel Aviv", lat: 32.066, lng: 34.778, type: "Tel Aviv — blues & jazz", category: "club", url: "https://cottonclub.co.il/" },
   { name: "Cadillac Ranch", lat: 43.653, lng: -79.383, type: "Toronto — Canadian blues hub", category: "club", url: "https://www.cadillaclounge.com/" },
   { name: "Yale Saloon", lat: 49.275, lng: -123.122, type: "Vancouver — heritage blues, country & BBQ bar", category: "club", url: "https://yalesaloon.com/" },
@@ -542,6 +552,9 @@ export const WORLD_PINS: WorldPin[] = [
   { name: "Festival Bursa Blues", lat: -23.561, lng: -46.625, type: "São Paulo — Brazilian blues", category: "festival", url: "https://bourbonstreet.com.br/" },
   { name: "Tokyo Jazz & Blues", lat: 35.681, lng: 139.767, type: "Tokyo — annual showcase", category: "festival", url: "https://www.tokyo-jazz.com/" },
   { name: "Blues on Broadbeach", lat: -28.030, lng: 153.430, type: "Gold Coast, AU (May)", category: "festival", url: "https://bluesonbroadbeach.com/" },
+  { name: "Montreux Jazz Festival", lat: 46.4312, lng: 6.9107, type: "Switzerland — one of the world's leading jazz & blues festivals (Jul, since 1967)", category: "festival", url: "https://www.montreuxjazzfestival.com/en/", genre: "Jazz, Blues", city: "Montreux", country: "Switzerland", description: "One of the world's most prestigious music festivals, hosted on Lake Geneva since 1967, spanning jazz, blues and beyond." },
+  { name: "North Sea Jazz Festival", lat: 51.8836, lng: 4.4855, type: "Rotterdam — world's largest indoor music festival (Jul)", category: "festival", url: "https://www.northseajazz.com/en/", genre: "Jazz, Blues", city: "Rotterdam", country: "Netherlands", description: "Held at Ahoy Rotterdam since 1976, the world's largest indoor jazz festival with over a thousand musicians across 15 stages." },
+  { name: "Pori Jazz Festival", lat: 61.4851, lng: 21.7974, type: "Finland — one of Europe's oldest jazz festivals (Jul, since 1966)", category: "festival", url: "https://porijazz.fi/en/front-page/", genre: "Jazz, Blues", city: "Pori", country: "Finland", description: "Running every year since 1966, one of the oldest and best-known jazz festivals in Europe, centred on Kirjurinluoto Park." },
 
   // ===== Labels & studios =====
   { name: "Chess Records (2120 S. Michigan)", lat: 41.854, lng: -87.624, type: "Chicago — Willie Dixon Blues Heaven", category: "label", url: "https://www.bluesheaven.com/" },
@@ -577,9 +590,11 @@ export const WORLD_PINS: WorldPin[] = [
   { name: "Mississippi Blues Trail", lat: 32.85, lng: -89.95, type: "200+ markers across MS", category: "pilgrimage", url: "https://msbluestrail.org/" },
   { name: "Robert Johnson Hazlehurst birthplace", lat: 31.870, lng: -90.396, type: "Hazlehurst, MS", category: "pilgrimage", url: "https://msbluestrail.org/blues-trail-markers/robert-johnson" },
   { name: "Bo Diddley Plaza", lat: 29.652, lng: -82.323, type: "Gainesville, FL", category: "pilgrimage", url: "https://www.gainesvillefl.gov/Venues/Bo-Diddley-Plaza" },
+  { name: "Congo Square", lat: 29.9614, lng: -90.0672, type: "New Orleans — birthplace of American music tradition", category: "pilgrimage", url: "https://en.wikipedia.org/wiki/Congo_Square", genre: "Blues, Jazz", city: "New Orleans", country: "United States", description: "The Tremé square where enslaved and free Black New Orleanians gathered for music and dance for over a century — widely regarded as the root of jazz and American vernacular music." },
 
   // ===== Radio stations =====
   { name: "KFFA — King Biscuit Time", lat: 34.530, lng: -90.591, type: "Helena, AR — longest-running blues show (since 1941)", category: "radio", url: "https://www.kffa.com/" },
+  { name: "WFPK 91.9 FM", lat: 38.2527, lng: -85.7585, type: "Louisville, KY — public radio with Saturday Night Blues Party", category: "radio", url: "https://www.lpm.org/music", genre: "Blues, Roots", city: "Louisville", country: "United States", description: "Louisville Public Media's music station, known among other things for its long-running Saturday Night Blues Party." },
   { name: "WROX 1450 AM", lat: 34.200, lng: -90.580, type: "Clarksdale, MS — historic Delta blues radio", category: "radio", url: "https://www.wroxradio.com/" },
   { name: "WDIA 1070 AM", lat: 35.118, lng: -89.991, type: "Memphis — first all-Black format in the US", category: "radio", url: "https://mywdia.iheart.com/" },
   { name: "WMPR 90.1 FM", lat: 32.300, lng: -90.180, type: "Jackson, MS — community blues/gospel", category: "radio", url: "https://www.wmpr901.com/" },
