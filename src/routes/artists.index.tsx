@@ -1,20 +1,30 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
-import { useI18n } from "@/i18n";
 import { IMG } from "@/data/images";
 import { ArtistListView } from "@/components/artists/ArtistListView";
-import { SUPPORTED_LOCALES, artistsListPath, DEFAULT_LOCALE } from "@/lib/locale";
+import { SUPPORTED_LOCALES, artistsListPath, artistDetailPath, DEFAULT_LOCALE } from "@/lib/locale";
+import { fetchArtistsForList, fetchArtistStats, type ArtistRecord } from "@/lib/artists";
+import { artistListCopy, buildArtistItemList } from "@/lib/artistCopy";
 
 const SITE = "https://www.slow-blues.com";
 
 export const Route = createFileRoute("/artists/")({
   component: ArtistsPage,
-  head: () => ({
+  // Full list + live counts are fetched server-side so crawlers get real
+  // artist cards in the first HTML (no "…" placeholder).
+  loader: async () => {
+    const [artists, stats] = await Promise.all([fetchArtistsForList(), fetchArtistStats()]);
+    return { artists: artists as unknown as ArtistRecord[], count: stats.artistCount || artists.length };
+  },
+  head: ({ loaderData }) => {
+    const count = loaderData?.count ?? 0;
+    const copy = artistListCopy(DEFAULT_LOCALE, count);
+    return {
     meta: [
       { title: "Artister — SlowBlues" },
-      { name: "description", content: "330+ bluesartist-profiler. Pionerene, mestrene og dagens stemmer i bluesen." },
+      { name: "description", content: copy.lead },
       { property: "og:title", content: "Artister — SlowBlues" },
-      { property: "og:description", content: "330+ bluesartist-profiler — biografier, diskografi, video og mer." },
+      { property: "og:description", content: `${copy.lead} Biografier, diskografi, video og mer.` },
       { property: "og:url", content: `${SITE}${artistsListPath(DEFAULT_LOCALE)}` },
       { property: "og:type", content: "website" },
     ],
@@ -35,16 +45,24 @@ export const Route = createFileRoute("/artists/")({
           ],
         }),
       },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(
+          buildArtistItemList(SITE, loaderData?.artists ?? [], (slug) => artistDetailPath(DEFAULT_LOCALE, slug), "Artister — SlowBlues"),
+        ),
+      },
     ],
-  }),
+    };
+  },
 });
 
 function ArtistsPage() {
-  const { t } = useI18n();
+  const { artists, count } = Route.useLoaderData();
+  const copy = artistListCopy(DEFAULT_LOCALE, count);
   return (
     <PageShell>
-      <PageHero eyebrow={t.pages.artists.eyebrow} title={t.pages.artists.title} lead={t.pages.artists.lead} img={IMG.bbKing} />
-      <ArtistListView locale={DEFAULT_LOCALE} />
+      <PageHero eyebrow={copy.eyebrow} title={copy.title} lead={copy.lead} img={IMG.bbKing} />
+      <ArtistListView locale={DEFAULT_LOCALE} initial={artists} />
     </PageShell>
   );
 }

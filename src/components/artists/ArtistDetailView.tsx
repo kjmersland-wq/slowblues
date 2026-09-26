@@ -25,10 +25,10 @@ const T = {
 
 
 
-export function ArtistDetailView({ slug, locale }: { slug: string; locale: ArtistLocale }) {
+export function ArtistDetailView({ slug, locale, initial }: { slug: string; locale: ArtistLocale; initial?: ArtistRecord | null }) {
   const lang = locale as Lang;
   const t = T[locale];
-  const { data: a, loading, error } = useArtist(slug);
+  const { data: a, loading, error } = useArtist(slug, initial);
   const { data: all } = useArtists();
   const nameIndex = useNameIndex(all);
   const [concertReviews, setConcertReviews] = useState<ConcertReview[]>([]);

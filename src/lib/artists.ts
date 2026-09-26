@@ -245,6 +245,21 @@ export const fetchArtistStats = createServerFn({ method: "GET" }).handler(async 
   return { artistCount: row?.artist_count ?? 0, countryCount: row?.country_count ?? 0 };
 });
 
+// Homepage "Voices from the Delta" cards: name/photo/credit come from the same
+// `artists` rows as the profile pages, so the card and profile always agree.
+export type VoiceRow = { slug: string; name: string; img: string | null; image_credit: string | null; born: string | null; died: string | null };
+export const VOICE_SLUGS = ["charley-patton", "skip-james", "memphis-minnie", "john-lee-hooker"] as const;
+export const fetchVoiceArtists = createServerFn({ method: "GET" }).handler(async (): Promise<VoiceRow[]> => {
+  const db = getDB();
+  const { results } = await db
+    .prepare(`SELECT slug, name, img, image_credit, born, died FROM artists WHERE slug IN (${VOICE_SLUGS.map(() => "?").join(",")})`)
+    .bind(...VOICE_SLUGS)
+    .all<VoiceRow>();
+  const rows = (results ?? []) as VoiceRow[];
+  // keep the editorial order, drop any slug that is missing from the DB
+  return VOICE_SLUGS.map((slug) => rows.find((r) => r.slug === slug)).filter((r): r is VoiceRow => !!r);
+});
+
 export const fetchArtists = createServerFn({ method: "GET" }).handler(async () => {
   const db = getDB();
   const { results } = await db
@@ -281,10 +296,12 @@ export const fetchArtistBySlug = createServerFn({ method: "GET" })
     return row ? parseArtistRow(row as Record<string, unknown>) : null;
   });
 
-export function useArtists() {
-  const [data, setData] = useState<ArtistRecord[] | null>(null);
+// `initial` is the list already fetched by the route loader, so the first
+// server-rendered HTML contains the artist cards instead of a "…" placeholder.
+export function useArtists(initial?: ArtistRecord[] | null) {
+  const [data, setData] = useState<ArtistRecord[] | null>(() => (initial ? initial.map(normalise) : null));
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!initial);
 
   const refresh = async () => {
     setLoading(true);
@@ -299,17 +316,26 @@ export function useArtists() {
     }
   };
 
-  useEffect(() => { void refresh(); }, []);
+  useEffect(() => { if (!initial) void refresh(); }, []);
 
   return { data, error, loading, refresh };
 }
 
-export function useArtist(slug: string) {
-  const [data, setData] = useState<ArtistRecord | null>(null);
+// `initial` is the full row already fetched by the route loader (SSR), used
+// as-is while it matches the requested slug; otherwise the client fetches.
+export function useArtist(slug: string, initial?: ArtistRecord | null) {
+  const seeded = initial && initial.slug === slug ? normalise(initial) : null;
+  const [data, setData] = useState<ArtistRecord | null>(seeded);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!seeded);
 
   useEffect(() => {
+    if (initial && initial.slug === slug) {
+      setData(normalise(initial));
+      setError(null);
+      setLoading(false);
+      return;
+    }
     let cancelled = false;
     setLoading(true);
     setError(null);
@@ -325,7 +351,7 @@ export function useArtist(slug: string) {
         if (!cancelled) setLoading(false);
       });
     return () => { cancelled = true; };
-  }, [slug]);
+  }, [slug, initial]);
 
   return { data, error, loading };
 }

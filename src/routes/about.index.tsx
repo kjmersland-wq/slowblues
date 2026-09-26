@@ -2,24 +2,33 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { Building2, Mail, Globe, Headphones } from "lucide-react";
 import { useI18n, tr } from "@/i18n";
+import { fetchArtistStats } from "@/lib/artists";
+import { MigrationNotice } from "@/components/MigrationAnnouncement";
 
 export const Route = createFileRoute("/about/")({
   component: AboutPage,
-  head: () => ({
+  loader: () => fetchArtistStats(),
+  head: ({ loaderData }) => {
+    const n = loaderData?.artistCount ? `${loaderData.artistCount}+ ` : "";
+    return {
     meta: [
       { title: "Om SlowBlues — Norges blues-arkiv" },
-      { name: "description", content: "Slow-Blues.com er et redaksjonelt arkiv for blues — 330+ artistprofiler, anmeldelser og historikk. Utgitt av KM TECH LABS, redigert av Kjell Mersland." },
+      { name: "description", content: `Slow-Blues.com er et redaksjonelt arkiv for blues — ${n}artistprofiler, anmeldelser og historikk. Utgitt av KM TECH LABS, redigert av Kjell Mersland.` },
       { property: "og:title", content: "Om SlowBlues" },
-      { property: "og:description", content: "Redaksjonelt blues-arkiv utgitt av KM TECH LABS — 330+ artistprofiler, anmeldelser og historikk." },
+      { property: "og:description", content: `Redaksjonelt blues-arkiv utgitt av KM TECH LABS — ${n}artistprofiler, anmeldelser og historikk.` },
       { property: "og:url", content: "https://www.slow-blues.com/about" },
       { property: "og:type", content: "website" },
     ],
     links: [{ rel: "canonical", href: "https://www.slow-blues.com/about" }],
-  }),
+    };
+  },
 });
 
 function AboutPage() {
   const { lang } = useI18n();
+  const { artistCount } = Route.useLoaderData();
+  // Live count from the artists table (unique artists; locales are columns, not rows).
+  const n = artistCount > 0 ? String(artistCount) : "";
   return (
     <PageShell>
       <PageHero
@@ -38,14 +47,16 @@ function AboutPage() {
           <h2 className="font-display text-2xl text-gold mb-3">{tr(lang, { no: "Hva vi gjør", en: "What we do", sv: "Vad vi gör", de: "Was wir tun", pl: "Co robimy" })}</h2>
           <p>
             {tr(lang, {
-              no: "Slow-Blues.com dokumenterer blues som musikalsk og kulturell tradisjon. Vi har over 330 artistprofiler, ukentlig blogg, festivaloversikt, verdenskart, radio, og en stadig voksende samling med anmeldelser og historiske artikler. Innholdet er kuratert, kildebelagt og ikke-kommersielt i utgangspunktet — merch og donasjoner finansierer drift og hosting.",
-              en: "Slow-Blues.com documents the blues as a musical and cultural tradition. We have over 330 artist profiles, a weekly blog, a festival overview, a world map, radio, and a steadily growing collection of reviews and historical articles. The content is curated, sourced and non-commercial at its core — merch and donations fund operations and hosting.",
-              sv: "Slow-Blues.com dokumenterar blues som musikalisk och kulturell tradition. Vi har över 330 artistprofiler, veckovis blogg, festivalöversikt, världskarta, radio och en stadigt växande samling recensioner och historiska artiklar. Innehållet är kurerat, källbelagt och i grunden icke-kommersiellt — merch och donationer finansierar drift och hosting.",
-              de: "Slow-Blues.com dokumentiert den Blues als musikalische und kulturelle Tradition. Wir haben über 330 Künstlerprofile, einen wöchentlichen Blog, eine Festivalübersicht, eine Weltkarte, Radio und eine stetig wachsende Sammlung von Rezensionen und historischen Artikeln. Der Inhalt ist kuratiert, quellenbelegt und im Kern nicht kommerziell — Merch und Spenden finanzieren Betrieb und Hosting.",
-              pl: "Slow-Blues.com dokumentuje blues jako tradycję muzyczną i kulturową. Mamy ponad 330 profili artystów, cotygodniowego bloga, przegląd festiwali, mapę świata, radio oraz stale rosnącą kolekcję recenzji i artykułów historycznych. Treści są kuratorowane, oparte na źródłach i z założenia niekomercyjne — gadżety i darowizny finansują działanie i hosting.",
+              no: `Slow-Blues.com er min samling av alt jeg er glad i med bluesen: over ${n} artister, festivaler, et verdenskart, radio, anmeldelser og historier — med kilder, så du kan grave videre selv. Merch og donasjoner betaler for drift og hosting.`,
+              en: `Slow-Blues.com is my collection of everything I love about the blues: over ${n} artists, festivals, a world map, radio, reviews and stories — with sources, so you can keep digging yourself. Merch and donations pay for running and hosting the site.`,
+              sv: `Slow-Blues.com är min samling av allt jag älskar med bluesen: över ${n} artister, festivaler, en världskarta, radio, recensioner och berättelser — med källor, så att du kan gräva vidare själv. Merch och donationer betalar för drift och hosting.`,
+              de: `Slow-Blues.com ist meine Sammlung von allem, was ich am Blues liebe: über ${n} Künstler, Festivals, eine Weltkarte, Radio, Rezensionen und Geschichten — mit Quellen, damit du selbst weitergraben kannst. Merch und Spenden bezahlen Betrieb und Hosting.`,
+              pl: `Slow-Blues.com to moja kolekcja wszystkiego, co kocham w bluesie: ponad ${n} artystów, festiwale, mapa świata, radio, recenzje i opowieści — ze źródłami, żebyś mógł/mogła kopać dalej na własną rękę. Gadżety i darowizny opłacają utrzymanie i hosting.`,
             })}
           </p>
         </div>
+
+        <MigrationNotice />
 
         <div>
           <h2 className="font-display text-2xl text-gold mb-3">{tr(lang, { no: "Redaksjon og utgiver", en: "Editorial staff and publisher", sv: "Redaktion och utgivare", de: "Redaktion und Herausgeber", pl: "Redakcja i wydawca" })}</h2>
@@ -80,6 +91,15 @@ function AboutPage() {
             <li>{tr(lang, { no: "Rett til tilsvar: oppdager du feil — bruk kontaktskjemaet, så retter vi.", en: "Right of reply: if you spot an error, use the contact form and we'll correct it.", sv: "Rätt till genmäle: upptäcker du ett fel — använd kontaktformuläret, så rättar vi det.", de: "Recht auf Gegendarstellung: Entdecken Sie einen Fehler — nutzen Sie das Kontaktformular, dann korrigieren wir ihn.", pl: "Prawo do sprostowania: jeśli zauważysz błąd — skorzystaj z formularza kontaktowego, a poprawimy go." })}</li>
             <li>{tr(lang, { no: "Bilder brukes under Public Domain, Creative Commons eller med eksplisitt tillatelse, med attribusjon der det kreves.", en: "Images are used under Public Domain, Creative Commons or with explicit permission, with attribution where required.", sv: "Bilder används under Public Domain, Creative Commons eller med uttryckligt tillstånd, med attribution där det krävs.", de: "Bilder werden im Rahmen von Public Domain, Creative Commons oder mit ausdrücklicher Genehmigung verwendet, mit Namensnennung, wo erforderlich.", pl: "Zdjęcia wykorzystywane są w ramach domeny publicznej, Creative Commons lub za wyraźną zgodą, z podaniem autora tam, gdzie jest to wymagane." })}</li>
           </ul>
+          <p className="mt-4 text-sm text-muted-foreground">
+            {tr(lang, {
+              no: "Noen portretter er merket «AI-generert tolkning». Da finnes det ikke noe godt bilde av artisten, og jeg har latt et verktøy tegne en tolkning ut fra historiske kilder. Det er ikke et fotografi, og det står alltid på profilsiden sammen med bildekreditten.",
+              en: "Some portraits are marked “AI-generated interpretation”. That means there’s no good photograph of the artist, so I’ve had a tool draw an interpretation from historical sources. It isn’t a photo, and it’s always labelled on the profile page together with the image credit.",
+              sv: "Vissa porträtt är märkta «AI-genererad tolkning». Då finns det inget bra foto av artisten, och jag har låtit ett verktyg teckna en tolkning utifrån historiska källor. Det är inget fotografi, och det står alltid på profilsidan tillsammans med bildkrediten.",
+              de: "Manche Porträts tragen den Hinweis „KI-generierte Interpretation“. Dann gibt es kein gutes Foto des Künstlers, und ich habe mir aus historischen Quellen eine Zeichnung anfertigen lassen. Das ist kein Foto und steht immer auf der Profilseite, zusammen mit dem Bildnachweis.",
+              pl: "Niektóre portrety mają dopisek „interpretacja wygenerowana przez AI”. To znaczy, że nie ma dobrego zdjęcia artysty, więc na podstawie źródeł historycznych kazałem narzędziu narysować interpretację. To nie fotografia i zawsze jest to opisane na stronie profilu, razem z informacją o autorze obrazu.",
+            })}
+          </p>
         </div>
 
         <div>

@@ -3,7 +3,8 @@ import { SafeImage } from "@/components/SafeImage";
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { TickerItem } from "@/lib/newsfeed.functions";
-import { fetchArtistStats, type ArtistStats } from "@/lib/artists";
+import { fetchArtistStats, fetchVoiceArtists, type ArtistStats, type VoiceRow } from "@/lib/artists";
+import { resolveArtistImage } from "@/lib/artistImageMap";
 
 import {
   ShoppingBag, HelpCircle, BookOpen, Music, Radio, Mic,
@@ -28,19 +29,19 @@ const sonHouse = IMG.sonHouse;
 
 export const Route = createFileRoute("/")({
   component: Home,
-  loader: () => fetchArtistStats(),
+  loader: async () => ({ ...(await fetchArtistStats()), voices: await fetchVoiceArtists() }),
   head: ({ loaderData }) => {
-    // Falls back to a safe round-number estimate only if the loader itself
-    // failed (e.g. DB unreachable) -- never a hardcoded "current" count.
-    const count = loaderData?.artistCount || 300;
-    const title = `SlowBlues — ${count}+ Blues Artists, History & Reviews`;
-    const description = `A timeless tribute to the raw soul of Delta & Chicago Blues. ${count}+ artist profiles, reviews, festivals and live news — the real roots of modern music.`;
+    // Live count from the artists table; if the loader failed (DB unreachable)
+    // the number is simply omitted -- never a hardcoded fallback.
+    const n = loaderData?.artistCount ? `${loaderData.artistCount}+ ` : "";
+    const title = `SlowBlues — ${n}Blues Artists, History & Reviews`;
+    const description = `A timeless tribute to the raw soul of Delta & Chicago Blues. ${n}artist profiles, reviews, festivals and live news — the real roots of modern music.`;
     return {
       meta: [
         { title },
         { name: "description", content: description },
         { property: "og:title", content: title },
-        { property: "og:description", content: `A timeless tribute to the raw soul of Delta & Chicago Blues — ${count}+ artist profiles, reviews, festivals and live news.` },
+        { property: "og:description", content: `A timeless tribute to the raw soul of Delta & Chicago Blues — ${n}artist profiles, reviews, festivals and live news.` },
         { property: "og:url", content: "https://www.slow-blues.com/" },
         { property: "og:type", content: "website" },
       ],
@@ -103,6 +104,7 @@ function getHeroSlides(lang: Lang) {
       attr: "",
       body: "",
       showButtons: false,
+      tribute: true,
     },
     {
       img: heroGuitar,
@@ -221,46 +223,52 @@ function getTimeline(lang: Lang) {
   ];
 }
 
-function getVoices(lang: Lang) {
-  const tag = tr(lang, { no: "Chicago", en: "Chicago", pl: "Chicago", sv: "Chicago", de: "Chicago" });
+// "1891–1934"; prefixed "c. " when the stored birth text says the date is disputed.
+function lifespan(born: string | null, died: string | null) {
+  const y = (t: string | null) => t?.match(/\b(1[89]\d\d|20\d\d)\b/)?.[1];
+  const b = y(born), d = y(died);
+  if (!b) return "";
+  const approx = /disputed|variously|reported as|^c\./i.test(born ?? "") ? "c. " : "";
+  return `${approx}${b}–${d ?? ""}`;
+}
+
+function getVoices(lang: Lang, rows: VoiceRow[]) {
+  const tag = tr(lang, { no: "Delta", en: "Delta", pl: "Delta", sv: "Delta", de: "Delta" });
+  const base = (slug: string) => {
+    const r = rows.find((x) => x.slug === slug);
+    if (!r) return null;
+    return { tag, name: r.name, slug, img: resolveArtistImage(r.img) ?? "", credit: r.image_credit, years: lifespan(r.born, r.died) };
+  };
   return [
-    { tag, name: "Lonnie Johnson", slug: "lonnie-johnson",
-      img: "https://upload.wikimedia.org/wikipedia/commons/8/8f/LonnieJohnsonByRussellLee1941Crop.jpg",
-      years: tr(lang, { no: "1920-tallet–1970", en: "1920s–1970", pl: "Lata 20. XX wieku–1970", sv: "1920-talet–1970", de: "1920er–1970" }),
+    { ...base("charley-patton")!,
       desc: tr(lang, {
-        no: "Lonnie Johnson var en av de mest innflytelsesrike og nyskapende gitaristene i …",
-        en: "Lonnie Johnson was one of the most influential and innovative guitarists in...", pl: "Lonnie Johnson był jednym z najbardziej wpływowych i innowacyjnych gitarzystów w...",
-        sv: "Lonnie Johnson var en av de mest inflytelserika och nyskapande gitarristerna i …",
-        de: "Lonnie Johnson war einer der einflussreichsten und innovativsten Gitarristen …",
+        no: "Deltabluesens første store stjerne, fra Dockery-plantasjen. Sett på «Pony Blues», så hører du hvorfor alle fulgte etter.",
+        en: "The first big star of the Delta, out of Dockery Plantation. Put on “Pony Blues” and you’ll hear why everyone followed him.", pl: "Pierwsza wielka gwiazda bluesa z Delty, z plantacji Dockery. Włącz „Pony Blues” i posłuchaj, dlaczego wszyscy szli jego śladem.",
+        sv: "Deltabluesens första stora stjärna, från Dockery-plantagen. Sätt på «Pony Blues», så hör du varför alla följde efter.",
+        de: "Der erste große Star des Delta-Blues, von der Dockery-Plantage. Leg „Pony Blues“ auf, dann hörst du, warum ihm alle folgten.",
       }), color: "from-amber-900/60 to-stone-900" },
-    { tag, name: "King Biscuit Boy", slug: "king-biscuit-boy",
-      img: "https://upload.wikimedia.org/wikipedia/commons/f/ff/KBB.gif",
-      years: "1961–2003",
+    { ...base("skip-james")!,
       desc: tr(lang, {
-        no: "King Biscuit Boy, født Richard Alfred Newell i Hamilton, Ontario, var en av Canadas mest …",
-        en: "King Biscuit Boy, born Richard Alfred Newell in Hamilton, Ontario, was one of Canada's most...", pl: "King Biscuit Boy, urodzony jako Richard Alfred Newell w Hamilton w Ontario, był jednym z czołowych kanadyjskich...",
-        sv: "King Biscuit Boy, född Richard Alfred Newell i Hamilton, Ontario, var en av Kanadas mest …",
-        de: "King Biscuit Boy, geboren als Richard Alfred Newell in Hamilton, Ontario, war einer der bekanntesten kanadischen …",
+        no: "Falsetten hans går rett gjennom marg og bein. Hør «Hard Time Killing Floor Blues» en sen kveld — du glemmer den ikke.",
+        en: "That falsetto goes straight through you. Play “Hard Time Killing Floor Blues” late at night and you won’t forget it.", pl: "Ten falset przenika na wskroś. Włącz „Hard Time Killing Floor Blues” późnym wieczorem — nie zapomnisz go.",
+        sv: "Den där falsetten går rakt igenom en. Sätt på «Hard Time Killing Floor Blues» en sen kväll — du glömmer den inte.",
+        de: "Dieser Falsett geht durch und durch. Hör „Hard Time Killing Floor Blues“ spät abends — du vergisst ihn nicht.",
       }), color: "from-stone-800 to-stone-900" },
-    { tag, name: "Sue Foley", slug: "sue-foley",
-      img: "https://upload.wikimedia.org/wikipedia/commons/a/a2/Sue_Foley_Live.jpg",
-      years: tr(lang, { no: "1988–i dag", en: "1988–present", pl: "1988–obecnie", sv: "1988–idag", de: "1988–heute" }),
+    { ...base("memphis-minnie")!,
       desc: tr(lang, {
-        no: "Sue Foley er en kanadiskfødt bluesgitarist, vokalist og låtskriver som har vært en …",
-        en: "Sue Foley is a Canadian-born blues guitarist, vocalist and songwriter who has been a...", pl: "Sue Foley to urodzona w Kanadzie gitarzystka, wokalistka i autorka tekstów bluesowych, która...",
-        sv: "Sue Foley är en kanadensiskfödd bluesgitarrist, vokalist och låtskrivare som varit en …",
-        de: "Sue Foley ist eine in Kanada geborene Blues-Gitarristin, Sängerin und Songwriterin, die seit …",
+        no: "Hun spilte høyt og hardt, og skrev sangene selv. «Bumble Bee» er et fint sted å begynne.",
+        en: "She played loud, played hard and wrote her own songs. “Bumble Bee” is a good place to start.", pl: "Grała głośno i mocno, a piosenki pisała sama. „Bumble Bee” to dobry początek.",
+        sv: "Hon spelade högt och hårt och skrev sina egna låtar. «Bumble Bee» är ett bra ställe att börja.",
+        de: "Sie spielte laut und hart und schrieb ihre Songs selbst. „Bumble Bee“ ist ein guter Einstieg.",
       }), color: "from-rose-900/60 to-stone-900" },
-    { tag, name: "Colin James", slug: "colin-james",
-      img: "https://upload.wikimedia.org/wikipedia/commons/8/84/ColinJames_2009.jpg",
-      years: tr(lang, { no: "1985–i dag", en: "1985–present", pl: "1985–obecnie", sv: "1985–idag", de: "1985–heute" }),
+    { ...base("john-lee-hooker")!,
       desc: tr(lang, {
-        no: "Colin James er en av Canadas mest suksessrike og allsidige blues-rock-artister, med en karriere …",
-        en: "Colin James is one of Canada's most successful and versatile blues-rock artists, with a career...", pl: "Colin James to jeden z najbardziej utytułowanych i wszechstronnych kanadyjskich artystów blues-rockowych, z karierą...",
-        sv: "Colin James är en av Kanadas mest framgångsrika och mångsidiga blues-rock-artister, med en karriär …",
-        de: "Colin James ist einer der erfolgreichsten und vielseitigsten Blues-Rock-Künstler Kanadas, mit einer Karriere …",
+        no: "Fra Clarksdale til verdens scener på ett groove og en fot som aldri sto stille. Start med «Boogie Chillen».",
+        en: "From Clarksdale to stages around the world on one groove and a foot that never sat still. Start with “Boogie Chillen.”", pl: "Z Clarksdale na sceny całego świata — z jednym groove’em i stopą, która nigdy nie stała w miejscu. Zacznij od „Boogie Chillen”.",
+        sv: "Från Clarksdale till världens scener på ett enda groove och en fot som aldrig stod stilla. Börja med «Boogie Chillen».",
+        de: "Von Clarksdale auf die Bühnen der Welt — mit einem Groove und einem Fuß, der nie stillstand. Fang mit „Boogie Chillen“ an.",
       }), color: "from-stone-800 to-stone-900" },
-  ];
+  ].filter((v) => v.name);
 }
 
 function Home() {
@@ -323,7 +331,7 @@ function Home() {
 
 /* ───────── components ───────── */
 
-function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showButtons, credit, active, isPrimary, lang, stats }: any) {
+function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showButtons, tribute, credit, active, isPrimary, lang, stats }: any) {
   const HeadingTag: any = isPrimary ? "h1" : "h2";
   const tributeJsx = (
     <>
@@ -364,9 +372,9 @@ function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showBu
           </div>
         )}
         <HeadingTag className="font-display font-black tracking-tight text-6xl md:text-8xl gold-gradient-text leading-none">
-          {showButtons ? title : tributeJsx}
+          {tribute ? tributeJsx : title}
         </HeadingTag>
-        {showButtons && (
+        {!tribute && (
           <div className="mt-4 font-display text-2xl md:text-3xl text-foreground/90">{titleAccent}</div>
         )}
         {quote && (
@@ -678,7 +686,8 @@ function Timeline() {
 
 function Voices() {
   const { lang } = useI18n();
-  const voices = useMemo(() => getVoices(lang), [lang]);
+  const { voices: voiceRows } = Route.useLoaderData();
+  const voices = useMemo(() => getVoices(lang, voiceRows), [lang, voiceRows]);
   return (
     <section id="voices" className="py-24 px-6 max-w-7xl mx-auto">
       <div className="text-center mb-14">
@@ -707,6 +716,15 @@ function Voices() {
             <div className={`relative aspect-[3/4] bg-gradient-to-br ${v.color}`}>
               <span className="absolute top-3 left-3 text-xs px-2 py-1 rounded bg-background/70 backdrop-blur text-gold">{v.tag}</span>
               <SafeImage src={v.img} alt={v.name} loading="lazy" className="size-full object-cover group-hover:scale-105 transition duration-700" />
+              {v.credit && (
+                <span
+                  title={`Photo: ${v.credit}`}
+                  aria-label={`Photo: ${v.credit}`}
+                  className="absolute bottom-1.5 right-1.5 size-5 rounded-full bg-black/60 text-gold text-[11px] font-bold flex items-center justify-center opacity-0 group-hover:opacity-100 transition"
+                >
+                  i
+                </span>
+              )}
             </div>
             <div className="p-5">
               <h3 className="font-display text-xl">{v.name}</h3>

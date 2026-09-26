@@ -10,7 +10,6 @@ import {
 
 import appCss from "../styles.css?url";
 import { I18nProvider, useI18n, tr } from "@/i18n";
-import { MigrationAnnouncement } from "@/components/MigrationAnnouncement";
 import { BookmarkBanner } from "@/components/BookmarkBanner";
 
 function NotFoundComponent() {
@@ -124,9 +123,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               "@id": "https://www.slow-blues.com/#website",
               url: "https://www.slow-blues.com",
               name: "SlowBlues",
-              description: "Redaksjonelt blues-arkiv med 330+ artistprofiler, historikk, anmeldelser og festivaler.",
+              description: "Redaksjonelt blues-arkiv med artistprofiler, historikk, anmeldelser og festivaler.",
               publisher: { "@id": "https://www.slow-blues.com/#organization" },
-              inLanguage: ["no", "en", "de", "sv"],
+              inLanguage: ["no", "en", "de", "sv", "pl"],
             },
           ],
         }),
@@ -157,7 +156,6 @@ function RootShell({ children }: { children: React.ReactNode }) {
       <body>
         <I18nProvider>
           {children}
-          <MigrationAnnouncement />
           <BookmarkBanner />
         </I18nProvider>
         <Scripts />

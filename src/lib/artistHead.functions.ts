@@ -3,15 +3,15 @@ import { getDB } from "@/integrations/d1/client";
 import { parseArtistRow } from "@/integrations/d1/artistRow";
 import type { ArtistRecord } from "./artists";
 
-const COLUMNS =
-  "id, slug, name, alt_name, tag, short, short_en, short_no, short_sv, seo_title_en, seo_title_no, seo_title_sv, seo_description_en, seo_description_no, seo_description_sv, biography_en, biography_no, biography_sv, biography_de, img, og_image, born, died, birth_place, country, region, styles, instruments_simple, social_links, external_links, signature_songs_i18n, discography_i18n, instruments_i18n";
-
+// Despite the name this returns the FULL row: the same loader feeds both <head>
+// (meta/JSON-LD, all 5 locales) and the server-rendered profile body, so
+// crawlers see the complete biography in the first HTML instead of "Loading…".
 export const loadArtistForHead = createServerFn({ method: "GET" })
   .inputValidator((d: { slug: string }) => d)
   .handler(async ({ data }) => {
     const db = getDB();
     const row = await db
-      .prepare(`SELECT ${COLUMNS} FROM artists WHERE slug = ?`)
+      .prepare("SELECT * FROM artists WHERE slug = ?")
       .bind(data.slug)
       .first();
     return { artist: (row ? parseArtistRow(row) : null) as ArtistRecord | null };

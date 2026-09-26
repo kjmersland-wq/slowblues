@@ -2,15 +2,9 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
 import { ArtistListView } from "@/components/artists/ArtistListView";
-import { SUPPORTED_LOCALES, artistsListPath, isLocale, type ArtistLocale } from "@/lib/locale";
-
-export const HERO = {
-  en: { eyebrow: "Hall of Fame", title: "Artists", lead: "330+ blues artist profiles — pioneers, masters and today's voices." },
-  sv: { eyebrow: "Hall of Fame", title: "Artister", lead: "330+ artistprofiler — pionjärerna, mästarna och dagens röster." },
-  de: { eyebrow: "Hall of Fame", title: "Künstler", lead: "330+ Blues-Künstlerprofile — Pioniere, Meister und heutige Stimmen." },
-  no: { eyebrow: "Hall of Fame", title: "Artister", lead: "330+ bluesartist-profiler — pionerene, mestrene og dagens stemmer." },
-  pl: { eyebrow: "Hall of Fame", title: "Artyści", lead: "330+ profili bluesmanów — pionierzy, mistrzowie i głosy dnia dzisiejszego." },
-} as const;
+import { SUPPORTED_LOCALES, artistsListPath, artistDetailPath, isLocale, type ArtistLocale } from "@/lib/locale";
+import { fetchArtistsForList, fetchArtistStats, type ArtistRecord } from "@/lib/artists";
+import { artistListCopy, buildArtistItemList } from "@/lib/artistCopy";
 
 const SITE = "https://www.slow-blues.com";
 
@@ -19,10 +13,14 @@ export const Route = createFileRoute("/$locale/artists/")({
     if (!isLocale(params.locale) || params.locale === "no") throw notFound();
   },
   component: Page,
-  head: ({ params }) => {
+  loader: async () => {
+    const [artists, stats] = await Promise.all([fetchArtistsForList(), fetchArtistStats()]);
+    return { artists: artists as unknown as ArtistRecord[], count: stats.artistCount || artists.length };
+  },
+  head: ({ params, loaderData }) => {
     const locale = (isLocale(params.locale) ? params.locale : "en") as ArtistLocale;
     const path = `${SITE}${artistsListPath(locale)}`;
-    const h = HERO[locale];
+    const h = artistListCopy(locale, loaderData?.count ?? 0);
     return {
       meta: [
         { title: `${h.title} — SlowBlues` },
@@ -50,6 +48,12 @@ export const Route = createFileRoute("/$locale/artists/")({
             ],
           }),
         },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(
+            buildArtistItemList(SITE, loaderData?.artists ?? [], (slug) => artistDetailPath(locale, slug), `${h.title} — SlowBlues`),
+          ),
+        },
       ],
     };
   },
@@ -57,12 +61,13 @@ export const Route = createFileRoute("/$locale/artists/")({
 
 function Page() {
   const { locale } = Route.useParams();
+  const { artists, count } = Route.useLoaderData();
   const loc = (isLocale(locale) ? locale : "en") as ArtistLocale;
-  const h = HERO[loc];
+  const h = artistListCopy(loc, count);
   return (
     <PageShell>
-      <PageHero eyebrow={h.eyebrow} title={h.title} lead={h.lead} img={IMG.bbKing} />
-      <ArtistListView locale={loc} />
+      <PageHero eyebrow="Hall of Fame" title={h.title} lead={h.lead} img={IMG.bbKing} />
+      <ArtistListView locale={loc} initial={artists} />
     </PageShell>
   );
 }

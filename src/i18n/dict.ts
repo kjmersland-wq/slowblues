@@ -67,7 +67,7 @@ const no = {
       lead: "Fra Mississippi-deltaets bomullsmarker til Chicagos elektriske klubber – over hundre års musikalsk evolusjon.",
     },
     artists: {
-      eyebrow: "330+ profiler",
+      eyebrow: "Hall of Fame",
       title: "Artister",
       lead: "Pionerene, mestrene og dagens stemmer. Bla, søk og oppdag bluesens sjel gjennom de menneskene som skapte den.",
       filterAll: "Alle",
@@ -295,7 +295,7 @@ const en: typeof no = {
       lead: "From the cotton fields of the Mississippi Delta to the electric clubs of Chicago — over a century of musical evolution.",
     },
     artists: {
-      eyebrow: "330+ profiles",
+      eyebrow: "Hall of Fame",
       title: "Artists",
       lead: "The pioneers, the masters and today's voices. Browse, search and discover the soul of the blues through the people who made it.",
       filterAll: "All",
@@ -523,7 +523,7 @@ const de: typeof no = {
       lead: "Von den Baumwollfeldern des Mississippi-Deltas bis zu den elektrischen Clubs Chicagos – über hundert Jahre musikalische Entwicklung.",
     },
     artists: {
-      eyebrow: "330+ Profile",
+      eyebrow: "Hall of Fame",
       title: "Künstler",
       lead: "Die Pioniere, die Meister und die Stimmen von heute. Stöbere und entdecke die Seele des Blues.",
       filterAll: "Alle",
@@ -751,7 +751,7 @@ const sv: typeof no = {
       lead: "Från bomullsfälten i Mississippideltat till Chicagos elektriska klubbar – över hundra år av musikalisk utveckling.",
     },
     artists: {
-      eyebrow: "330+ profiler",
+      eyebrow: "Hall of Fame",
       title: "Artister",
       lead: "Pionjärerna, mästarna och dagens röster. Bläddra, sök och upptäck bluesens själ genom människorna som skapade den.",
       filterAll: "Alla",
@@ -979,7 +979,7 @@ const pl: typeof no = {
       lead: "Od bawełnianych pól delty Missisipi po elektryczne kluby Chicago — ponad sto lat muzycznej ewolucji.",
     },
     artists: {
-      eyebrow: "330+ profili",
+      eyebrow: "Hall of Fame",
       title: "Artyści",
       lead: "Pionierzy, mistrzowie i głosy dnia dzisiejszego. Przeglądaj, szukaj i odkrywaj duszę bluesa przez ludzi, którzy go stworzyli.",
       filterAll: "Wszyscy",

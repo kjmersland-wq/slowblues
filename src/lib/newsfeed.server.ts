@@ -181,6 +181,8 @@ export async function buildNewsTicker(db: D1Database): Promise<{ items: TickerIt
       pinned: number | null; published_at: string | null; created_at: string;
     }>) {
       if (!t.href) continue;
+      // Rows saved before the domain move may hold absolute slowblues.no links.
+      const href = t.href.replace(/^https?:\/\/(www\.)?slowblues\.no(?=[/?#]|$)/i, "https://www.slow-blues.com");
       out.push({
         // t.id is already prefixed "ext-..." by sync-worker's rssTicker
         // module — don't double it.
@@ -188,7 +190,7 @@ export async function buildNewsTicker(db: D1Database): Promise<{ items: TickerIt
         kind: "external",
         label: `[${t.source.toUpperCase()}]`,
         text: t.text,
-        href: t.href,
+        href,
         timestamp: t.published_at ?? t.created_at,
         priority: t.pinned ? 110 : 70,
         external: true,

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Batch-sjekk: verifiserer at alle artistprofiler svarer og at slug-en finnes i DB.
-// Bruk:  node scripts/check-artists.mjs [--base=https://slowblues.no] [--timeout=15000] [--concurrency=6]
+// Bruk:  node scripts/check-artists.mjs [--base=https://www.slow-blues.com] [--timeout=15000] [--concurrency=6]
 //
 // Rapport: OK / NOT_FOUND_IN_DB / HTTP_<code> / TIMEOUT / NETWORK_ERROR
 // Skriver også /mnt/documents/artist-check-report.{json,csv}
@@ -14,7 +14,7 @@ const args = Object.fromEntries(
     return [k, v];
   }),
 );
-const BASE = args.base ?? "https://slowblues.no";
+const BASE = args.base ?? "https://www.slow-blues.com";
 const TIMEOUT = Number(args.timeout ?? 15000);
 const CONCURRENCY = Number(args.concurrency ?? 6);
 

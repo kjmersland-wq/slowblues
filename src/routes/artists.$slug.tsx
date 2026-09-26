@@ -18,7 +18,8 @@ export const Route = createFileRoute("/artists/$slug")({
 
 function Page() {
   const { slug } = Route.useParams();
-  return <PageShell><ArtistDetailView slug={slug} locale={LOCALE} /></PageShell>;
+  const { artist } = Route.useLoaderData();
+  return <PageShell><ArtistDetailView slug={slug} locale={LOCALE} initial={artist} /></PageShell>;
 }
 
 export function buildHead(slug: string, a: ArtistRecord | null, locale: Lang) {

@@ -1,6 +1,6 @@
 # Slow Blues
 
-Kan du gjenoppbygge slowblues.no 100%?  På engelsk
+Kan du gjenoppbygge slow-blues.com 100%?  På engelsk
 
 This project was built with [Lovable](https://lovable.dev).
 
