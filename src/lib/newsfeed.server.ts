@@ -74,6 +74,32 @@ const HOUSE_LINKS: Array<{
     },
   },
   {
+    id: "house-oz-live",
+    href: "/artists/oz-and-the-wizards",
+    priority: 53,
+    label: { no: "LIVE", en: "LIVE", sv: "LIVE", de: "LIVE", pl: "NA ŻYWO" },
+    text: {
+      no: "OZ & The Wizards: Sandnes Bluesklubb 7. okt · Teateret i Kristiansand 12. des · Mandal 7. feb",
+      en: "OZ & The Wizards: Sandnes Bluesklubb 7 Oct · Teateret Kristiansand 12 Dec · Mandal 7 Feb",
+      sv: "OZ & The Wizards: Sandnes Bluesklubb 7 okt · Teateret i Kristiansand 12 dec · Mandal 7 feb",
+      de: "OZ & The Wizards: Sandnes Bluesklubb 7. Okt. · Teateret Kristiansand 12. Dez. · Mandal 7. Feb.",
+      pl: "OZ & The Wizards: Sandnes Bluesklubb 7 października · Teateret w Kristiansand 12 grudnia · Mandal 7 lutego",
+    },
+  },
+  {
+    id: "house-oz-new-album",
+    href: "/artists/oz-and-the-wizards",
+    priority: 51,
+    label: { no: "NY PLATE", en: "NEW ALBUM", sv: "NY SKIVA", de: "NEUE PLATTE", pl: "NOWA PŁYTA" },
+    text: {
+      no: "OZ & The Wizards har LP/CD på gang — ventes mars 2027",
+      en: "OZ & The Wizards have a new LP/CD in the works — due March 2027",
+      sv: "OZ & The Wizards har en ny skiva på gång — väntas i mars 2027",
+      de: "OZ & The Wizards arbeiten an einer neuen LP/CD — erwartet im März 2027",
+      pl: "OZ & The Wizards pracują nad nową płytą — spodziewana w marcu 2027",
+    },
+  },
+  {
     id: "house-voices-delta",
     href: "/#voices",
     priority: 50,
