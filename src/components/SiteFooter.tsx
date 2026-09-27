@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/i18n";
 import { BookOpen, ExternalLink, Heart, Building2, MessageSquare } from "lucide-react";
-import logoSB from "@/assets/logo-slowblues.png";
+import logoSB from "@/assets/logo-slowblues-448.webp";
 
 export function SiteFooter() {
   const { t } = useI18n();

@@ -66,12 +66,33 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
   return brandedErrorResponse();
 }
 
+// Public, content-only pages: identical HTML for every visitor (language is chosen client-side).
+// Everything else (admin, login, api, server functions, quiz, search, forms) is left uncached.
+const CACHEABLE_PATH =
+  /^\/(?:(?:en|sv|de|pl)\/)?(?:artists(?:\/[^/]+)?|history|styles|instruments|festivals|worldmap|gallery|listen|radio|learn(?:\/.*)?|reviews(?:\/[^/]+)?|concerts(?:\/[^/]+)?|about)?\/?$/;
+
+// Browsers always revalidate (max-age=0); a shared cache (Cloudflare edge, once a Cache Rule marks
+// HTML as eligible) may serve it for 5 min. SWR is kept short because the HTML names hashed
+// /assets files that disappear on the next deploy.
+const HTML_CACHE_CONTROL = "public, max-age=0, s-maxage=300, stale-while-revalidate=60";
+
+function withHtmlCacheHeaders(request: Request, response: Response): Response {
+  if (request.method !== "GET" || response.status !== 200) return response;
+  if (!(response.headers.get("content-type") ?? "").includes("text/html")) return response;
+  if (response.headers.has("set-cookie") || response.headers.has("cache-control")) return response;
+  const { pathname } = new URL(request.url);
+  if (!CACHEABLE_PATH.test(pathname)) return response;
+  const headers = new Headers(response.headers);
+  headers.set("cache-control", HTML_CACHE_CONTROL);
+  return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      return withHtmlCacheHeaders(request, await normalizeCatastrophicSsrResponse(response));
     } catch (error) {
       console.error(error);
       return brandedErrorResponse();

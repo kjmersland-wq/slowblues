@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { SafeImage } from "@/components/SafeImage";
+import { YouTubeEmbed } from "@/components/YouTubeEmbed";
 import { useArtist, useArtists, pickLang, pickLangArray, pickLangJsonb, type ArtistRecord, type Lang, type FamilyEntry, type InstrumentEntry, type CollaboratorEntry, type DiscographyEntry, type AwardEntry, type PressQuote } from "@/lib/artists";
 import { fetchConcertReviewsByArtistSlug, type ConcertReview } from "@/lib/concertReviews.functions";
 import { resolveArtistImage } from "@/lib/artistImageMap";
@@ -614,7 +615,7 @@ function VideoGrid({ videos, fallbackIds, featuredLabel, watchOnYoutubePrefix, w
       {featured && (
         <div className="grid md:grid-cols-[1.4fr_1fr] gap-8 items-start mb-10">
           <div className="aspect-video rounded-xl overflow-hidden border border-gold/30 bg-black">
-            <iframe src={`https://www.youtube-nocookie.com/embed/${featured.youtube_id}?rel=0`} title={featured.title} loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen className="size-full" />
+            <YouTubeEmbed videoId={featured.youtube_id} title={featured.title} className="!rounded-none !border-0" />
           </div>
           <div>
             <div className="text-[10px] tracking-[0.3em] text-gold uppercase mb-2">{featuredLabel}</div>
@@ -645,7 +646,7 @@ function VideoGrid({ videos, fallbackIds, featuredLabel, watchOnYoutubePrefix, w
 }
 
 function RelatedCard({ a, locale }: { a: ArtistRecord; locale: ArtistLocale }) {
-  const img = resolveArtistImage(a.img);
+  const img = resolveArtistImage(a.img, "card");
   return (
     <Link to={artistDetailPath(locale, a.slug)} className="block border border-border rounded-lg overflow-hidden bg-card/40 hover:border-gold/60 transition">
       {img ? (

@@ -9,6 +9,8 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import interLatin from "@/assets/fonts/inter-latin.woff2?url";
+import playfairLatin from "@/assets/fonts/playfair-latin.woff2?url";
 import { I18nProvider, useI18n, tr } from "@/i18n";
 import { BookmarkBanner } from "@/components/BookmarkBanner";
 
@@ -90,9 +92,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", type: "image/png", sizes: "512x512", href: "/favicon.png" },
       { rel: "apple-touch-icon", href: "/favicon.png" },
       { rel: "stylesheet", href: appCss },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" },
+      { rel: "preload", as: "font", type: "font/woff2", href: interLatin, crossOrigin: "anonymous" },
+      { rel: "preload", as: "font", type: "font/woff2", href: playfairLatin, crossOrigin: "anonymous" },
     ],
     scripts: [
       {

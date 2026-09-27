@@ -15,10 +15,10 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { IMG } from "@/data/images";
 import { useI18n, tr, type Lang } from "@/i18n";
 import { artistDetailPath, artistsListPath } from "@/lib/locale";
-import heroJukeImg from "@/assets/hero-juke.jpg";
-import heroDeltaImg from "@/assets/hero-delta.jpg";
-import heroGuitarImg from "@/assets/hero-guitar.jpg";
-import logoSB from "@/assets/logo-slowblues.png";
+import heroJukeImg from "@/assets/hero-juke.webp";
+import heroDeltaImg from "@/assets/hero-delta.webp";
+import heroGuitarImg from "@/assets/hero-guitar.webp";
+import logoSB from "@/assets/logo-slowblues-448.webp";
 
 const heroJuke = heroJukeImg;
 const heroCotton = heroDeltaImg;
@@ -276,6 +276,13 @@ function Home() {
   const stats = Route.useLoaderData();
   const heroSlides = useMemo(() => getHeroSlides(lang), [lang]);
   const [slide, setSlide] = useState(0);
+  // Slides 2-3 sit stacked at opacity-0 inside the viewport, so their <img> would download
+  // immediately even with loading="lazy". Arm them only after the first paint has settled.
+  const [armed, setArmed] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setArmed(true), 4000);
+    return () => clearTimeout(t);
+  }, []);
   useEffect(() => {
     const t = setInterval(() => setSlide((s) => (s + 1) % heroSlides.length), 8000);
     return () => clearInterval(t);
@@ -292,7 +299,7 @@ function Home() {
             key={i}
             className={`${i === slide ? "opacity-100" : "opacity-0 pointer-events-none absolute inset-0"} transition-opacity duration-1000`}
           >
-            <HeroSlide {...s} active={i === slide} isPrimary={i === 0} lang={lang} stats={stats} />
+            <HeroSlide {...s} active={i === slide} load={i === 0 || armed || i === slide} isPrimary={i === 0} lang={lang} stats={stats} />
           </div>
         ))}
         <button
@@ -331,7 +338,7 @@ function Home() {
 
 /* ───────── components ───────── */
 
-function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showButtons, tribute, credit, active, isPrimary, lang, stats }: any) {
+function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showButtons, tribute, credit, active, load, isPrimary, lang, stats }: any) {
   const HeadingTag: any = isPrimary ? "h1" : "h2";
   const tributeJsx = (
     <>
@@ -346,15 +353,18 @@ function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showBu
   );
   return (
     <div className="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
-      <img
-        src={img}
-        alt=""
-        loading={active ? "eager" : "lazy"}
-        {...(isPrimary ? { fetchPriority: "high" as const } : {})}
-        width={1920}
-        height={1080}
-        className="absolute inset-0 size-full object-cover"
-      />
+      {load && (
+        <img
+          src={img}
+          alt=""
+          loading={isPrimary ? "eager" : "lazy"}
+          decoding={isPrimary ? "sync" : "async"}
+          {...(isPrimary ? { fetchPriority: "high" as const } : {})}
+          width={1920}
+          height={1080}
+          className="absolute inset-0 size-full object-cover"
+        />
+      )}
       <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/65 to-background" />
       <div className="relative z-10 text-center max-w-4xl px-6">
         <div className="flex items-center justify-center gap-3 mb-6">
@@ -366,6 +376,8 @@ function HeroSlide({ img, eyebrow, title, titleAccent, quote, attr, body, showBu
           <div className="mx-auto mb-6 flex items-center justify-center">
             <img
               src={logoSB}
+              width={256}
+              height={256}
               alt="SlowBlues — Global Blues Encyclopedia"
               className="size-56 md:size-64 object-contain drop-shadow-[0_6px_24px_rgba(0,0,0,0.55)]"
             />
@@ -576,7 +588,7 @@ function ThreeNames() {
         {pioneers.map((p) => (
           <article key={p.name} className="group bg-card/50 border border-border rounded-lg overflow-hidden hover:border-gold/50 transition">
             <div className="relative aspect-[4/5] overflow-hidden">
-              <SafeImage src={p.img} alt={p.name} loading="lazy" className="size-full object-cover group-hover:scale-105 transition duration-700" />
+              <SafeImage src={p.img} alt={p.name} thumb loading="lazy" className="size-full object-cover group-hover:scale-105 transition duration-700" />
               <div className="absolute top-3 right-3 size-10 rounded-full bg-gold flex items-center justify-center">
                 <p.icon className="size-5 text-primary-foreground" />
               </div>
@@ -715,7 +727,7 @@ function Voices() {
           >
             <div className={`relative aspect-[3/4] bg-gradient-to-br ${v.color}`}>
               <span className="absolute top-3 left-3 text-xs px-2 py-1 rounded bg-background/70 backdrop-blur text-gold">{v.tag}</span>
-              <SafeImage src={v.img} alt={v.name} loading="lazy" className="size-full object-cover group-hover:scale-105 transition duration-700" />
+              <SafeImage src={v.img} alt={v.name} thumb loading="lazy" className="size-full object-cover group-hover:scale-105 transition duration-700" />
               {v.credit && (
                 <span
                   title={`Photo: ${v.credit}`}

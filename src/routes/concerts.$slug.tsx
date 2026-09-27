@@ -1,3 +1,4 @@
+import { YouTubeEmbed } from "@/components/YouTubeEmbed";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
@@ -199,14 +200,7 @@ function ConcertPage() {
 
         {c.youtube_video_id && (
           <div className="mt-10 aspect-video rounded-lg overflow-hidden border border-border">
-            <iframe
-              src={`https://www.youtube-nocookie.com/embed/${c.youtube_video_id}?rel=0`}
-              title={c.title}
-              className="w-full h-full"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+            <YouTubeEmbed videoId={c.youtube_video_id} title={c.title} className="!rounded-none !border-0" />
           </div>
         )}
       </article>

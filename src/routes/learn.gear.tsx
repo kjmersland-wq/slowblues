@@ -206,7 +206,7 @@ const BRANDS: Brand[] = [
       sv: "Jim Marshall var en trumlärare som drev en musikaffär i Hanwell, London. Hans kunder — unga brittiska gitarrister som hade lyssnat på amerikanska bluesskivor — frågade ständigt efter starkare amerikanska förstärkare. Marshall byggde något bättre åt dem. JTM45 var direkt inspirerad av Fender Bassman. Eric Clapton kopplade in en Les Paul i en 1966 och spelade in Beano-plattan. Det ljudet förändrade allt.",
       de: "Jim Marshall war Schlagzeuglehrer und führte einen Musikladen in Hanwell, London. Seine Kunden — junge britische Gitarristen, die amerikanische Blues-Platten gehört hatten — fragten ständig nach lauteren amerikanischen Verstärkern. Marshall baute ihnen etwas Besseres. Der JTM45 war direkt vom Fender Bassman inspiriert. Eric Clapton schloss 1966 eine Les Paul daran an und nahm das Beano-Album auf. Dieser Klang veränderte alles.",
     },
-    url: "https://www.marshallamps.com",
+    url: "https://www.marshall.com/",
     ytQuery: "Marshall Bluesbreaker Eric Clapton John Mayall",
     artists: [
       { name: "Eric Clapton", slug: "eric-clapton" },
@@ -345,7 +345,7 @@ const BRANDS: Brand[] = [
       sv: "Den ursprungliga bluesharpa-mikrofonen, innan Green Bullet ens fanns. Ett kristallelement med en spröd, mellanregister-tung röst som tidiga Chicago-munspelare körde rakt in i en liten rörförstärkare — och historien hände.",
       de: "Das ursprüngliche Blues-Harp-Mikrofon, lange bevor es das Green Bullet gab. Ein Kristallelement mit einer spröden, mittenbetonten Stimme, das frühe Chicagoer Harp-Spieler direkt in einen kleinen Röhrenamp jagten — und so schrieb sich Geschichte.",
     },
-    url: "https://www.astatic.com",
+    url: "https://en.wikipedia.org/wiki/Astatic_Corporation",
     ytQuery: "Astatic JT-30 blues harmonica",
     artists: [],
   },

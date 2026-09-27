@@ -1,0 +1,17 @@
+# Cloudflare static-asset headers (merged with the build's own /assets/* immutable rule).
+# Hashed build output under /assets/* is already immutable; these are the un-hashed files.
+/images/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/favicon.ico
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/favicon.png
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/email-logo.png
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/manifest.json
+  Cache-Control: public, max-age=3600
+/robots.txt
+  Cache-Control: public, max-age=3600
+/rss.xml
+  Cache-Control: public, max-age=900

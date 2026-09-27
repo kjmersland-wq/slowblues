@@ -119,15 +119,15 @@ export function ArtistListView({ locale, initial }: { locale: ArtistLocale; init
 
       <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {filtered.map((a) => {
-          const img = resolveArtistImage(a.img);
+          const img = resolveArtistImage(a.img, "card");
           const short = pickLang(a, lang, "short") ?? a.short;
           return (
             <Link key={a.slug} to={artistDetailPath(locale, a.slug)} className="group bg-card/50 border border-border rounded-lg overflow-hidden hover:border-gold/60 transition">
               <div className="relative aspect-[3/4] overflow-hidden bg-card/60">
                 {img ? (
                   <>
-                    <SafeImage src={img} alt="" className="absolute inset-0 size-full object-cover blur-xl scale-110 opacity-40" loading="lazy" />
-                    <SafeImage src={img} alt={a.name} loading="lazy" className="relative size-full object-contain group-hover:scale-[1.03] transition duration-700" />
+                    <SafeImage src={img} alt="" thumb className="absolute inset-0 size-full object-cover blur-xl scale-110 opacity-40" loading="lazy" />
+                    <SafeImage src={img} alt={a.name} thumb loading="lazy" className="relative size-full object-contain group-hover:scale-[1.03] transition duration-700" />
                     <span
                       title={`Photo: ${a.image_credit ?? "Wikimedia Commons"}`}
                       aria-label={`Photo: ${a.image_credit ?? "Wikimedia Commons"}`}

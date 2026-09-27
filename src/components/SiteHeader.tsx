@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useI18n, type Lang } from "@/i18n";
 import { Search, ChevronDown, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import logoSB from "@/assets/logo-slowblues.png";
+import logoSB from "@/assets/logo-slowblues-448.webp";
 import { artistDetailPath, artistsListPath } from "@/lib/locale";
 
 const LANGS: { code: Lang; label: string; flag: string }[] = [

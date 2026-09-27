@@ -42,7 +42,10 @@ export function YouTubeEmbed({ videoId, title, thumbnail, className }: Props) {
       <img
         src={thumb}
         alt={title || ""}
+        width={480}
+        height={360}
         loading="lazy"
+        decoding="async"
         className="absolute inset-0 h-full w-full object-cover opacity-90 transition group-hover:opacity-100"
       />
       <span className="absolute inset-0 flex items-center justify-center bg-black/30 transition group-hover:bg-black/20">

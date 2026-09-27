@@ -227,19 +227,6 @@ export const bluesRadioStations: BluesRadioStation[] = [
     lat: 51.53,
     lng: -0.11,
   },
-  {
-    id: 'blues-deluxe',
-    name: 'Blues Deluxe',
-    descriptionEn: 'Syndicated blues radio show with Dave Johnson, broadcast on multiple stations.',
-    descriptionNo: 'Syndikert blues-radio-show med Dave Johnson, sendes på flere stasjoner.',
-    website: 'https://www.bluesdeluxe.com/',
-    listenUrl: 'https://www.bluesdeluxe.com/listen',
-    region: 'world',
-    country: 'USA',
-    countryNo: 'USA',
-    lat: 40.75,
-    lng: -73.97,
-  },
 ];
 
 export const getRegionLabelRadio = (region: string, language: string): string => {
