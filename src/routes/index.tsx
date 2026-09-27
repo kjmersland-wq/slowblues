@@ -302,7 +302,14 @@ function Home() {
         {heroSlides.map((s, i) => (
           <div
             key={i}
-            className={`${i === slide ? "opacity-100" : "opacity-0 pointer-events-none absolute inset-0"} transition-opacity duration-1000`}
+            // Duration was 1000ms: during that whole window BOTH the outgoing and
+            // incoming slide render at partial opacity simultaneously (only opacity
+            // animates here, not visibility), so their full text stacks -- title,
+            // quote, CTA buttons, everything -- visibly overlap and interleave into
+            // an illegible jumble for most of a full second on every rotation. A much
+            // shorter crossfade keeps the same fade aesthetic but shrinks that overlap
+            // window enough that it's no longer perceptible as broken/unreadable.
+            className={`${i === slide ? "opacity-100" : "opacity-0 pointer-events-none absolute inset-0"} transition-opacity duration-200`}
           >
             <HeroSlide {...s} active={i === slide} load={i === 0 || armed || i === slide} isPrimary={i === 0} lang={lang} stats={stats} />
           </div>

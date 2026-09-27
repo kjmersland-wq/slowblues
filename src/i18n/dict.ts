@@ -946,7 +946,7 @@ const pl: typeof no = {
     menu: "Menu",
     language: "Język",
   },
-  header: { tagline: "POWOLNE, DUSZNE KORZENIE" },
+  header: { tagline: "POWOLNE, PEŁNE DUSZY KORZENIE" },
   footer: {
     explore: "Odkrywaj",
     archives: "Archiwa",
@@ -962,7 +962,7 @@ const pl: typeof no = {
     emailPlaceholder: "Twój adres e-mail",
     subscribe: "Zapisz się",
     privacyNote: "Przechowujemy tylko Twój e-mail. W każdej chwili możesz się wypisać linkiem na dole każdej wiadomości.",
-    desc: "Hołd dla powolnych, dusznych korzeni bluesa — i dla afroamerykańskich pionierów, którzy z głębi Południa wydobyli tę fundamentalnie amerykańską formę sztuki.",
+    desc: "Hołd dla powolnych, pełnych duszy korzeni bluesa — i dla afroamerykańskich pionierów, którzy z głębi Południa wydobyli tę fundamentalnie amerykańską formę sztuki.",
     rights: "Wszelkie prawa zastrzeżone.",
     legalHeading: "Informacje",
     legalAriaLabel: "Informacje prawne",

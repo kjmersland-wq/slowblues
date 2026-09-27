@@ -158,12 +158,15 @@ export async function buildNewsTicker(db: D1Database, lang: TickerLang = "en"): 
   const now = Date.now();
 
   // 0) House links — always fresh (timestamp = now), never gated by isActive().
+  // Ticker TEXT is English-only on every locale (standing rule); `href` still
+  // resolves against the viewer's real `lang` so a click lands on the same
+  // language the rest of the page is already in, not forced into English.
   for (const h of HOUSE_LINKS) {
     out.push({
       id: h.id,
       kind: "blog",
-      label: h.label[lang] ?? h.label.en,
-      text: h.text[lang] ?? h.text.en,
+      label: h.label.en,
+      text: h.text.en,
       href: typeof h.href === "function" ? h.href(lang) : h.href,
       timestamp: new Date(now).toISOString(),
       priority: h.priority,
@@ -316,11 +319,17 @@ export async function buildNewsTicker(db: D1Database, lang: TickerLang = "en"): 
       )
       .bind(nowIso)
       .all();
+    // ticker_items has no language column, and its rows are RSS content
+    // verbatim in whatever language that outlet publishes in -- "Jefferson
+    // Blues Magazine" is Swedish, "Living Blues" is English. Standing rule is
+    // English-only on the ticker, so only sources actually written in English
+    // are shown; this is a name-keyed allowlist, not a translation.
+    const ENGLISH_SOURCES = new Set(["Living Blues"]);
     for (const t of (external ?? []) as Array<{
       id: string; text: string; href: string | null; source: string;
       pinned: number | null; published_at: string | null; created_at: string;
     }>) {
-      if (!t.href) continue;
+      if (!t.href || !ENGLISH_SOURCES.has(t.source)) continue;
       // Rows saved before the domain move may hold absolute slowblues.no links.
       const href = t.href.replace(/^https?:\/\/(www\.)?slowblues\.no(?=[/?#]|$)/i, "https://www.slow-blues.com");
       out.push({
