@@ -469,9 +469,13 @@ export function ArtistDetailView({ slug, locale, initial }: { slug: string; loca
           </Section>
         )}
 
-        {/* Booking / contact — shown on every artist profile page, with an
-            invitation to submit or correct booking details via the contact
-            form, even before any booking_info has been researched. */}
+        {/* Booking / contact — shown on every LIVING artist's profile page, with
+            an invitation to submit or correct booking details via the contact
+            form, even before any booking_info has been researched. Hidden for
+            deceased artists: an agent/email/phone block (and "update your
+            booking details" prompt) doesn't apply once there's no one left to
+            book. */}
+        {!a.died && (
         <Card title={t.booking} icon={Phone}>
           {a.booking_info && Object.keys(a.booking_info).length > 0 && (
             <div className="grid sm:grid-cols-2 gap-4 text-sm mb-4">
@@ -491,6 +495,7 @@ export function ArtistDetailView({ slug, locale, initial }: { slug: string; loca
             <Link to="/contact" className="text-gold hover:underline">{t.contactLink}</Link>
           </p>
         </Card>
+        )}
 
         {a.article_references.length > 0 && (
           <Section id="kilder" icon={BookOpen} title={t.articles} tone="amber">
