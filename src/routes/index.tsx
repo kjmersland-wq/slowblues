@@ -14,7 +14,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { IMG } from "@/data/images";
 import { useI18n, tr, type Lang } from "@/i18n";
-import { artistDetailPath, artistsListPath } from "@/lib/locale";
+import { artistDetailPath, artistsListPath, SUPPORTED_LOCALES } from "@/lib/locale";
 import heroJukeImg from "@/assets/hero-juke.webp";
 import heroDeltaImg from "@/assets/hero-delta.webp";
 import heroGuitarImg from "@/assets/hero-guitar.webp";
@@ -47,6 +47,11 @@ export const Route = createFileRoute("/")({
       ],
       links: [
         { rel: "canonical", href: "https://www.slow-blues.com/" },
+        // The homepage is one URL that renders all 5 languages client-side (no
+        // /en, /sv, /de, /pl home route exists), so every hreflang variant and
+        // x-default point at this same URL instead of inventing pages that 404.
+        ...SUPPORTED_LOCALES.map((l) => ({ rel: "alternate", hreflang: l, href: "https://www.slow-blues.com/" })),
+        { rel: "alternate", hreflang: "x-default", href: "https://www.slow-blues.com/" },
         { rel: "preload", as: "image", href: heroJukeImg, fetchpriority: "high" } as any,
       ],
     };
@@ -443,9 +448,9 @@ function localizeHref(href: string, lang: Lang): string {
 function Ticker() {
   const { lang } = useI18n();
   const { data } = useQuery({
-    queryKey: ["news-ticker"],
+    queryKey: ["news-ticker", lang],
     queryFn: async () => {
-      const res = await fetch("/api/ticker");
+      const res = await fetch(`/api/ticker?lang=${lang}`);
       if (!res.ok) throw new Error(`ticker fetch failed: ${res.status}`);
       return (await res.json()) as { items: TickerItem[]; generatedAt: string };
     },

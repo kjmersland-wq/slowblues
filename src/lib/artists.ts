@@ -321,17 +321,27 @@ export function useArtists(initial?: ArtistRecord[] | null) {
   return { data, error, loading, refresh };
 }
 
-// `initial` is the full row already fetched by the route loader (SSR), used
-// as-is while it matches the requested slug; otherwise the client fetches.
+// `initial` is the full row already fetched by the route loader (SSR) -- both
+// callers (artists.$slug.tsx, $locale.artists.$slug.tsx) always pass it,
+// explicitly `null` when the loader confirmed the slug doesn't exist. That
+// `hasInitial` distinction matters: previously a not-found slug seeded
+// `loading=true` (since `initial` was falsy) and only flipped to the correct
+// "not found" state in a useEffect, which never runs during SSR -- so the
+// server-rendered HTML for a missing artist was stuck showing "Loading…" as
+// its main content instead of the real not-found state. Now any *explicitly
+// passed* `initial` (object or null) is treated as authoritative immediately,
+// with no fetch and no loading flash; only a caller that omits the argument
+// entirely falls back to the old client-side fetch.
 export function useArtist(slug: string, initial?: ArtistRecord | null) {
-  const seeded = initial && initial.slug === slug ? normalise(initial) : null;
+  const hasInitial = initial !== undefined;
+  const seeded = hasInitial && initial && initial.slug === slug ? normalise(initial) : null;
   const [data, setData] = useState<ArtistRecord | null>(seeded);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(!seeded);
+  const [loading, setLoading] = useState(!hasInitial);
 
   useEffect(() => {
-    if (initial && initial.slug === slug) {
-      setData(normalise(initial));
+    if (hasInitial) {
+      setData(initial && initial.slug === slug ? normalise(initial) : null);
       setError(null);
       setLoading(false);
       return;
@@ -351,7 +361,7 @@ export function useArtist(slug: string, initial?: ArtistRecord | null) {
         if (!cancelled) setLoading(false);
       });
     return () => { cancelled = true; };
-  }, [slug, initial]);
+  }, [slug, hasInitial, initial]);
 
   return { data, error, loading };
 }

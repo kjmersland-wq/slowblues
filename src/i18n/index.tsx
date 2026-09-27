@@ -21,7 +21,9 @@ function readStoredLang(): Lang | null {
   }
 }
 
-function routeLangFromPath(pathname: string): Lang | null {
+// Exported so __root.tsx can set <html lang> to the same value this provider
+// uses for content, instead of a hardcoded locale that disagrees with the page.
+export function routeLangFromPath(pathname: string): Lang | null {
   const parts = pathname.split("/").filter(Boolean);
   const first = parts[0] as Lang | undefined;
   if (first && VALID.includes(first)) return first;

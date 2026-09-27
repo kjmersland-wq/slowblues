@@ -26,9 +26,105 @@ const FLAG_BY_COUNTRY: Record<string, string> = {
   Australia: "🇦🇺", Japan: "🇯🇵",
 };
 
-export async function buildNewsTicker(db: D1Database): Promise<{ items: TickerItem[]; generatedAt: string }> {
+type TickerLang = "no" | "en" | "sv" | "de" | "pl";
+
+// Evergreen internal/"house" links — real site features, never invented news.
+// Text is Kjell's own voice, one line, same [SOURCE] > sentence pattern as the
+// external items. Priority is deliberately below real news (review/concert/
+// artist/youtube) so a busy news day doesn't get crowded out, but each is its
+// own "kind" in KIND_ORDER below, which guarantees a rotation slot regardless
+// of priority — house.guestbook is highest of the five, so it's always the
+// first of these picked. Timestamp is always "now": these don't go stale.
+const HOUSE_LINKS: Array<{
+  id: string;
+  href: string;
+  priority: number;
+  label: Record<TickerLang, string>;
+  text: Record<TickerLang, string>;
+}> = [
+  {
+    id: "house-guestbook",
+    href: "/guestbook",
+    priority: 55,
+    label: { no: "GJESTEBOK", en: "GUESTBOOK", sv: "GÄSTBOK", de: "GÄSTEBUCH", pl: "KSIĘGA GOŚCI" },
+    text: {
+      no: "Skriv en hilsen — vi vil høre din blueshistorie",
+      en: "Leave us a note — we'd love to hear your blues story",
+      sv: "Skriv en hälsning — vi vill höra din bluesberättelse",
+      de: "Hinterlasse einen Gruß — wir hören gern deine Blues-Geschichte",
+      pl: "Zostaw wpis — chętnie poznamy Twoją historię z bluesem",
+    },
+  },
+  {
+    id: "house-voices-delta",
+    href: "/#voices",
+    priority: 50,
+    label: { no: "STEMMER FRA DELTAET", en: "VOICES FROM THE DELTA", sv: "RÖSTER FRÅN DELTAT", de: "STIMMEN AUS DEM DELTA", pl: "GŁOSY Z DELTY" },
+    text: {
+      no: "Fire stemmer fra Mississippi-deltaet — Patton, James, Minnie og Hooker",
+      en: "Four voices from the Mississippi Delta — Patton, James, Minnie and Hooker",
+      sv: "Fyra röster från Mississippideltat — Patton, James, Minnie och Hooker",
+      de: "Vier Stimmen aus dem Mississippi-Delta — Patton, James, Minnie und Hooker",
+      pl: "Cztery głosy z delty Missisipi — Patton, James, Minnie i Hooker",
+    },
+  },
+  {
+    id: "house-archive",
+    href: "/artists",
+    priority: 45,
+    label: { no: "ARKIVET", en: "THE ARCHIVE", sv: "ARKIVET", de: "DAS ARCHIV", pl: "ARCHIWUM" },
+    text: {
+      no: "Bla i hele artistarkivet — pionerene, mestrene og dagens stemmer",
+      en: "Browse the whole artist archive — the pioneers, the masters and today's voices",
+      sv: "Bläddra i hela artistarkivet — pionjärerna, mästarna och dagens röster",
+      de: "Durchstöbere das ganze Künstlerarchiv — die Pioniere, die Meister und die Stimmen von heute",
+      pl: "Przeglądaj całe archiwum artystów — pionierzy, mistrzowie i dzisiejsze głosy",
+    },
+  },
+  {
+    id: "house-learn-styles",
+    href: "/learn/styles",
+    priority: 40,
+    label: { no: "LÆR BLUES", en: "LEARN BLUES", sv: "LÄR DIG BLUES", de: "BLUES LERNEN", pl: "POZNAJ BLUESA" },
+    text: {
+      no: "Delta, Chicago, Texas — hva skiller egentlig blues-stilene?",
+      en: "Delta, Chicago, Texas — what actually sets the blues styles apart?",
+      sv: "Delta, Chicago, Texas — vad skiljer egentligen bluesstilarna åt?",
+      de: "Delta, Chicago, Texas — was unterscheidet die Blues-Stile eigentlich?",
+      pl: "Delta, Chicago, Teksas — co właściwie różni style bluesa?",
+    },
+  },
+  {
+    id: "house-quiz",
+    href: "/quiz",
+    priority: 35,
+    label: { no: "BLUES-QUIZ", en: "BLUES QUIZ", sv: "BLUES-QUIZ", de: "BLUES-QUIZ", pl: "QUIZ BLUESOWY" },
+    text: {
+      no: "Tror du at du kan bluesen? Prøv ukens quiz",
+      en: "Think you know your blues? Try this week's quiz",
+      sv: "Tror du att du kan bluesen? Testa veckans quiz",
+      de: "Glaubst du, du kennst dich mit Blues aus? Probier das Wochenquiz",
+      pl: "Myślisz, że znasz się na bluesie? Sprawdź cotygodniowy quiz",
+    },
+  },
+];
+
+export async function buildNewsTicker(db: D1Database, lang: TickerLang = "no"): Promise<{ items: TickerItem[]; generatedAt: string }> {
   const out: TickerItem[] = [];
   const now = Date.now();
+
+  // 0) House links — always fresh (timestamp = now), never gated by isActive().
+  for (const h of HOUSE_LINKS) {
+    out.push({
+      id: h.id,
+      kind: "blog",
+      label: h.label[lang] ?? h.label.en,
+      text: h.text[lang] ?? h.text.en,
+      href: h.href,
+      timestamp: new Date(now).toISOString(),
+      priority: h.priority,
+    });
+  }
 
   // 1) Latest published reviews
   try {
@@ -223,7 +319,7 @@ export async function buildNewsTicker(db: D1Database): Promise<{ items: TickerIt
   // the kind), looping back for a 2nd/3rd item from kinds that still have
   // more once others run dry, until 8 slots are filled or fresh items run out.
   const MAX_TICKER_ITEMS = 8;
-  const KIND_ORDER: TickerItem["kind"][] = ["review", "external", "artist", "concert", "youtube"];
+  const KIND_ORDER: TickerItem["kind"][] = ["review", "external", "blog", "artist", "concert", "youtube"];
   const byKind = new Map<TickerItem["kind"], TickerItem[]>(KIND_ORDER.map((k) => [k, fresh.filter((i) => i.kind === k)]));
   const picked: TickerItem[] = [];
   let round = 0;

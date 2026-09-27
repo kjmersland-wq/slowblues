@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useLocation,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -11,7 +12,7 @@ import {
 import appCss from "../styles.css?url";
 import interLatin from "@/assets/fonts/inter-latin.woff2?url";
 import playfairLatin from "@/assets/fonts/playfair-latin.woff2?url";
-import { I18nProvider, useI18n, tr } from "@/i18n";
+import { I18nProvider, useI18n, tr, routeLangFromPath } from "@/i18n";
 import { BookmarkBanner } from "@/components/BookmarkBanner";
 
 function NotFoundComponent() {
@@ -151,8 +152,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 // instead of the real underlying error. See Match.tsx in @tanstack/react-router
 // for the shellComponent/errorComponent/notFoundComponent structure this relies on.
 function RootShell({ children }: { children: React.ReactNode }) {
+  // Same fallback I18nProvider uses for its own initial (SSR-safe) language state,
+  // so <html lang> always agrees with what the page actually renders.
+  const location = useLocation();
+  const htmlLang = routeLangFromPath(location.pathname) ?? "en";
   return (
-    <html lang="en">
+    <html lang={htmlLang}>
       <head><HeadContent /></head>
       <body>
         <I18nProvider>

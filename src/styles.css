@@ -130,7 +130,7 @@
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-.animate-ticker { animation: ticker 45s linear infinite; will-change: transform; }
+.animate-ticker { animation: ticker 36s linear infinite; will-change: transform; }
 .animate-ticker:hover { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) { .animate-ticker { animation-duration: 180s; } }
 
