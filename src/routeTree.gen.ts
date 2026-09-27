@@ -36,6 +36,7 @@ import { Route as WatchRouteImport } from './routes/watch'
 import { Route as WorldmapRouteImport } from './routes/worldmap'
 import { Route as AboutIndexRouteImport } from './routes/about.index'
 import { Route as AboutAdvertiseRouteImport } from './routes/about.advertise'
+import { Route as AboutBluesOrganisationsRouteImport } from './routes/about.blues-organisations'
 import { Route as AboutGuestbookRouteImport } from './routes/about.guestbook'
 import { Route as AboutMerchRouteImport } from './routes/about.merch'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
@@ -204,6 +205,11 @@ const AboutIndexRoute = AboutIndexRouteImport.update({
 const AboutAdvertiseRoute = AboutAdvertiseRouteImport.update({
   id: '/about/advertise',
   path: '/about/advertise',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutBluesOrganisationsRoute = AboutBluesOrganisationsRouteImport.update({
+  id: '/about/blues-organisations',
+  path: '/about/blues-organisations',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutGuestbookRoute = AboutGuestbookRouteImport.update({
@@ -406,6 +412,7 @@ export interface FileRoutesByFullPath {
   '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
   '/about/advertise': typeof AboutAdvertiseRoute
+  '/about/blues-organisations': typeof AboutBluesOrganisationsRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
   '/admin/artists': typeof AdminArtistsRouteWithChildren
@@ -469,6 +476,7 @@ export interface FileRoutesByTo {
   '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
   '/about/advertise': typeof AboutAdvertiseRoute
+  '/about/blues-organisations': typeof AboutBluesOrganisationsRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
   '/admin/artists': typeof AdminArtistsRouteWithChildren
@@ -533,6 +541,7 @@ export interface FileRoutesById {
   '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
   '/about/advertise': typeof AboutAdvertiseRoute
+  '/about/blues-organisations': typeof AboutBluesOrganisationsRoute
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
   '/admin/artists': typeof AdminArtistsRouteWithChildren
@@ -598,6 +607,7 @@ export interface FileRouteTypes {
     | '/watch'
     | '/worldmap'
     | '/about/advertise'
+    | '/about/blues-organisations'
     | '/about/guestbook'
     | '/about/merch'
     | '/admin/artists'
@@ -661,6 +671,7 @@ export interface FileRouteTypes {
     | '/watch'
     | '/worldmap'
     | '/about/advertise'
+    | '/about/blues-organisations'
     | '/about/guestbook'
     | '/about/merch'
     | '/admin/artists'
@@ -724,6 +735,7 @@ export interface FileRouteTypes {
     | '/watch'
     | '/worldmap'
     | '/about/advertise'
+    | '/about/blues-organisations'
     | '/about/guestbook'
     | '/about/merch'
     | '/admin/artists'
@@ -788,6 +800,7 @@ export interface RootRouteChildren {
   WatchRoute: typeof WatchRoute
   WorldmapRoute: typeof WorldmapRoute
   AboutAdvertiseRoute: typeof AboutAdvertiseRoute
+  AboutBluesOrganisationsRoute: typeof AboutBluesOrganisationsRoute
   AboutGuestbookRoute: typeof AboutGuestbookRoute
   AboutMerchRoute: typeof AboutMerchRouteWithChildren
   AdminArtistsRoute: typeof AdminArtistsRouteWithChildren
@@ -1009,6 +1022,13 @@ declare module '@tanstack/react-router' {
       path: '/about/advertise'
       fullPath: '/about/advertise'
       preLoaderRoute: typeof AboutAdvertiseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about/blues-organisations': {
+      id: '/about/blues-organisations'
+      path: '/about/blues-organisations'
+      fullPath: '/about/blues-organisations'
+      preLoaderRoute: typeof AboutBluesOrganisationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about/guestbook': {
@@ -1319,6 +1339,7 @@ const rootRouteChildren: RootRouteChildren = {
   WatchRoute: WatchRoute,
   WorldmapRoute: WorldmapRoute,
   AboutAdvertiseRoute: AboutAdvertiseRoute,
+  AboutBluesOrganisationsRoute: AboutBluesOrganisationsRoute,
   AboutGuestbookRoute: AboutGuestbookRoute,
   AboutMerchRoute: AboutMerchRouteWithChildren,
   AdminArtistsRoute: AdminArtistsRouteWithChildren,

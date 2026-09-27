@@ -73,6 +73,7 @@ export function SiteHeader() {
     ]},
     { key: "about", label: t.nav.about, items: [
       { to: "/guestbook", label: t.nav.guestbook },
+      { to: "/about/blues-organisations", label: t.nav.bluesOrganisations },
       { to: "/about/merch", label: t.nav.merch },
       { to: "/about/advertise", label: t.nav.advertise },
       { to: "/support", label: t.nav.support },
