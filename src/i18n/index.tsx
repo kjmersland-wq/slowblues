@@ -51,7 +51,14 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const routeLang = routeLangFromPath(location.pathname);
-    const nextLang = routeLang ?? readStoredLang() ?? lang;
+    // NOT "?? lang": on a client-side SPA navigation (no full reload), falling
+    // back to the *current* lang lets it stick from whatever page you were
+    // just on -- e.g. browse a /sv/artists/... page (routeLang "sv"), then
+    // navigate to "/" (routeLang null, no stored preference) and the
+    // homepage would silently render in Swedish instead of its own "en"
+    // default. Ambiguous routes must always resolve the same way regardless
+    // of navigation history, matching the initial SSR-safe state above.
+    const nextLang = routeLang ?? readStoredLang() ?? "en";
     if (nextLang !== lang) {
       setLangState(nextLang);
     }

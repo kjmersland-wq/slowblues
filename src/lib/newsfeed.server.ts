@@ -3,6 +3,7 @@
 // /api/ticker route (src/routes/api.ticker.ts), so there is exactly one
 // place that knows how to assemble the ticker.
 import { isActive } from "./freshness";
+import { artistsListPath, type ArtistLocale } from "./locale";
 
 export type TickerItem = {
   id: string;
@@ -37,7 +38,11 @@ type TickerLang = "no" | "en" | "sv" | "de" | "pl";
 // first of these picked. Timestamp is always "now": these don't go stale.
 const HOUSE_LINKS: Array<{
   id: string;
-  href: string;
+  // Most house links (guestbook, quiz, learn/styles) are a single URL for
+  // every language, same as the homepage -- a plain string. The artist
+  // archive list *does* have a locale-prefixed variant per language
+  // ($locale.artists.index.tsx), so it takes a function instead.
+  href: string | ((lang: TickerLang) => string);
   priority: number;
   label: Record<TickerLang, string>;
   text: Record<TickerLang, string>;
@@ -56,6 +61,19 @@ const HOUSE_LINKS: Array<{
     },
   },
   {
+    id: "house-in-memoriam-elmore-james-jr",
+    href: "/artists/elmore-james-jr",
+    priority: 52,
+    label: { no: "I MINNET OM", en: "IN MEMORIAM", sv: "TILL MINNE AV", de: "IN MEMORIAM", pl: "KU PAMIĘCI" },
+    text: {
+      no: "Elmore James Jr. gikk bort 15. mai 2026, 86 år gammel. Han tok farens navn med respekt, og spilte slide-gitaren videre i hans ånd.",
+      en: "Elmore James Jr. passed away on May 15, 2026, aged 86. He took his father's name out of respect, and kept playing that slide guitar in his spirit.",
+      sv: "Elmore James Jr. gick bort den 15 maj 2026, 86 år gammal. Han bar sin fars namn med respekt och spelade vidare på slidegitaren i hans anda.",
+      de: "Elmore James Jr. ist am 15. Mai 2026 im Alter von 86 Jahren gestorben. Er trug den Namen seines Vaters aus Respekt und spielte die Slide-Gitarre in seinem Geist weiter.",
+      pl: "Elmore James Jr. odszedł 15 maja 2026 roku w wieku 86 lat. Nosił imię ojca z szacunkiem i dalej grał na gitarze slide w jego duchu.",
+    },
+  },
+  {
     id: "house-voices-delta",
     href: "/#voices",
     priority: 50,
@@ -70,7 +88,7 @@ const HOUSE_LINKS: Array<{
   },
   {
     id: "house-archive",
-    href: "/artists",
+    href: (lang) => artistsListPath(lang as ArtistLocale),
     priority: 45,
     label: { no: "ARKIVET", en: "THE ARCHIVE", sv: "ARKIVET", de: "DAS ARCHIV", pl: "ARCHIWUM" },
     text: {
@@ -109,7 +127,7 @@ const HOUSE_LINKS: Array<{
   },
 ];
 
-export async function buildNewsTicker(db: D1Database, lang: TickerLang = "no"): Promise<{ items: TickerItem[]; generatedAt: string }> {
+export async function buildNewsTicker(db: D1Database, lang: TickerLang = "en"): Promise<{ items: TickerItem[]; generatedAt: string }> {
   const out: TickerItem[] = [];
   const now = Date.now();
 
@@ -120,7 +138,7 @@ export async function buildNewsTicker(db: D1Database, lang: TickerLang = "no"): 
       kind: "blog",
       label: h.label[lang] ?? h.label.en,
       text: h.text[lang] ?? h.text.en,
-      href: h.href,
+      href: typeof h.href === "function" ? h.href(lang) : h.href,
       timestamp: new Date(now).toISOString(),
       priority: h.priority,
     });
