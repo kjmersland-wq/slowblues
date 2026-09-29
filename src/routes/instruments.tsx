@@ -11,10 +11,10 @@ export const Route = createFileRoute("/instruments")({
   component: InstrumentsPage,
   head: () => ({
     meta: [
-      { title: "Blues Instruments & Gear — SlowBlues" },
-      { name: "description", content: "Gitarer, munnspill, forsterkere og utstyret som formet bluesens lyd — fra National-resonatoren til Fender Tweed." },
-      { property: "og:title", content: "Blues Instruments & Gear — SlowBlues" },
-      { property: "og:description", content: "Gitarer, munnspill, forsterkere og utstyret som formet bluesens lyd — fra National-resonatoren til Fender Tweed." },
+      { title: "The Gear That Built the Blues Sound — SlowBlues" },
+      { name: "description", content: "The guitars, harmonicas, amps and gear that shaped the blues sound — from the National resonator to Fender tweed." },
+      { property: "og:title", content: "The Gear That Built the Blues Sound — SlowBlues" },
+      { property: "og:description", content: "The guitars, harmonicas, amps and gear that shaped the blues sound — from the National resonator to Fender tweed." },
       { property: "og:url", content: "https://www.slow-blues.com/instruments" },
       { property: "og:image", content: IMG.guitar },
     ],

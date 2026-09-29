@@ -70,10 +70,10 @@ function AdminPage() {
     navigate({ to: "/" });
   };
 
-  if (loading) return <PageShell><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
+  if (loading) return <PageShell hideMerchCta><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
 
   return (
-    <PageShell>
+    <PageShell hideMerchCta>
       <PageHero eyebrow="Admin" title="Moderasjonspanel" lead="Innlogget som admin" img={IMG.pianoNight} />
       <section className="max-w-5xl mx-auto px-6 py-10">
         <div className="flex items-center justify-between mb-6">

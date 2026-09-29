@@ -112,10 +112,10 @@ function AdminReviewsPage() {
     refresh();
   };
 
-  if (loading) return <PageShell><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Loading…</div></PageShell>;
+  if (loading) return <PageShell hideMerchCta><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Loading…</div></PageShell>;
 
   return (
-    <PageShell>
+    <PageShell hideMerchCta>
       <PageHero eyebrow="Admin" title="Reviews" lead="Create, edit, and publish album reviews." img={IMG.pianoNight} />
       <section className="max-w-6xl mx-auto px-6 py-10">
         <div className="flex items-center justify-between mb-6">

@@ -7,9 +7,9 @@ import { IMG } from "@/data/images";
 export const Route = createFileRoute("/styles")({
   component: StylesPage,
   head: () => ({ meta: [
-    { title: "Blues Styles — SlowBlues" },
-    { name: "description", content: "Delta, Chicago, Texas, British, Piedmont, Jump, Soul, Modern — the dialects of the blues." },
-    { property: "og:title", content: "Blues Styles — SlowBlues" },
+    { title: "The Dialects of the Blues — SlowBlues" },
+    { name: "description", content: "Delta, Chicago, Texas, British, Piedmont, Jump, Soul, Modern — the dialects of the blues, and what makes each one sing." },
+    { property: "og:title", content: "The Dialects of the Blues — SlowBlues" },
     { property: "og:image", content: IMG.guitar },
   ]}),
 });

@@ -41,7 +41,7 @@ function WikidataAdminPage() {
   });
 
   return (
-    <PageShell>
+    <PageShell hideMerchCta>
       <PageHero
         eyebrow="Admin · Editorial"
         title="Wikidata Enrichment"

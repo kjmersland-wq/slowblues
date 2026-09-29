@@ -9,7 +9,7 @@ export const Route = createFileRoute("/guestbook")({
   component: GuestbookPage,
   head: () => ({ meta: [
     { title: "Guestbook — SlowBlues" },
-    { name: "description", content: "Tell us your blues story." },
+    { name: "description", content: "Tell us your blues story — who turned you on, and why it stuck." },
     { property: "og:title", content: "Guestbook — SlowBlues" },
   ]}),
 });

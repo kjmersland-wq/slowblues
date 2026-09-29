@@ -9,10 +9,10 @@ export const Route = createFileRoute("/support")({
   component: SupportPage,
   head: () => ({
     meta: [
-      { title: "Support SlowBlues" },
-      { name: "description", content: "Keep the blues alive — support SlowBlues by buying merch or sharing with fellow blues fans. No ads, no owners." },
-      { property: "og:title", content: "Support SlowBlues" },
-      { property: "og:description", content: "Keep the blues alive — support SlowBlues by buying merch or sharing with fellow blues fans. No ads, no owners." },
+      { title: "Support SlowBlues — official merch" },
+      { name: "description", content: "No ads, no owners. Official merch is what keeps this archive alive — wear the blues and support the archive with official merch." },
+      { property: "og:title", content: "Support SlowBlues — official merch" },
+      { property: "og:description", content: "No ads, no owners. Official merch is what keeps this archive alive — wear the blues and support the archive with official merch." },
       { property: "og:url", content: "https://www.slow-blues.com/support" },
     ],
     links: [{ rel: "canonical", href: "https://www.slow-blues.com/support" }],

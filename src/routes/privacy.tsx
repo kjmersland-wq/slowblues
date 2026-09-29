@@ -23,7 +23,7 @@ function PrivacyPage() {
   const { t, lang } = useI18n();
   const content = CONTENT[lang];
   return (
-    <PageShell>
+    <PageShell hideMerchCta>
       <PageHero eyebrow={t.pages.privacy.eyebrow} title={t.pages.privacy.title} lead={t.pages.privacy.lead} />
       <section className="max-w-3xl mx-auto px-6 py-12 prose prose-invert">
         <div className="mb-8 rounded-lg border border-border bg-card/50 p-5 text-sm not-italic">

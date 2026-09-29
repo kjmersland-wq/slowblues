@@ -7,9 +7,9 @@ import { ExternalLink, Youtube } from "lucide-react";
 export const Route = createFileRoute("/listen")({
   component: ListenPage,
   head: () => ({ meta: [
-    { title: "Listen — Essential Blues Recordings" },
-    { name: "description", content: "YouTube playlists, classic cuts and new favourites curated by SlowBlues." },
-    { property: "og:title", content: "Listen — Essential Blues Recordings" },
+    { title: "Listen — Essential Blues Recordings | SlowBlues" },
+    { name: "description", content: "Playlists for every mood — classic cuts and new favourites, curated by SlowBlues." },
+    { property: "og:title", content: "Listen — Essential Blues Recordings | SlowBlues" },
     { property: "og:image", content: IMG.vinyl },
   ]}),
 });

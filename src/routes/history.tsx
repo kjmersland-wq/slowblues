@@ -16,9 +16,9 @@ for (const [path, url] of Object.entries(timelineImages)) {
 export const Route = createFileRoute("/history")({
   component: HistoryPage,
   head: () => ({ meta: [
-    { title: "History of the Blues — SlowBlues" },
-    { name: "description", content: "From Mississippi cotton fields to Chicago's electric clubs — the full story of the blues." },
-    { property: "og:title", content: "History of the Blues — SlowBlues" },
+    { title: "The Story of the Blues — SlowBlues" },
+    { name: "description", content: "From Mississippi cotton fields to Chicago's electric clubs — the real story of the blues, one chapter at a time." },
+    { property: "og:title", content: "The Story of the Blues — SlowBlues" },
     { property: "og:image", content: IMG.cottonField },
   ]}),
 });

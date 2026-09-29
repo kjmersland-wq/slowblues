@@ -16,6 +16,7 @@ function AccessibilityPage() {
   const { lang } = useI18n();
   return (
     <LegalPage
+      hideMerchCta={false}
       eyebrow={tr(lang, { no: "Tilgjengelighet", en: "Accessibility", sv: "Tillgänglighet", de: "Barrierefreiheit", pl: "Dostępność" })}
       title="Accessibility Statement"
       lead={tr(lang, {

@@ -12,9 +12,9 @@ export const Route = createFileRoute("/updates")({
     const items = [...(loaderData?.active ?? []), ...(loaderData?.archive ?? [])];
     return {
       meta: [
-        { title: "Artist Updates — Slow-Blues" },
-        { name: "description", content: "New releases, tour dates, reviews and news from blues artists worldwide — updated automatically from our own data and trusted sources." },
-        { property: "og:title", content: "Artist Updates — Slow-Blues" },
+        { title: "Blues Updates — SlowBlues" },
+        { name: "description", content: "New releases, tour dates and reviews from blues artists worldwide — updated automatically, straight from the source." },
+        { property: "og:title", content: "Blues Updates — SlowBlues" },
         { property: "og:description", content: "New releases, tour dates and news from blues artists worldwide." },
         { property: "og:url", content: "https://www.slow-blues.com/updates" },
       ],

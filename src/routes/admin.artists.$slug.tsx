@@ -128,7 +128,7 @@ function AdminArtistEdit() {
     setBusy(false);
   };
 
-  if (loading || !a) return <PageShell><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
+  if (loading || !a) return <PageShell hideMerchCta><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
 
   const tabs: { key: Tab; label: string }[] = [
     { key: "bio", label: "Biografi" },
@@ -140,7 +140,7 @@ function AdminArtistEdit() {
   ];
 
   return (
-    <PageShell>
+    <PageShell hideMerchCta>
       <section className="max-w-5xl mx-auto px-3 sm:px-6 py-6">
         {/* Top nav */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-5">

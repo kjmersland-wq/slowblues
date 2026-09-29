@@ -12,7 +12,7 @@ export const Route = createFileRoute("/radio")({
   head: () => ({
     meta: [
       { title: "Blues Radio — Stations & Shows | SlowBlues" },
-      { name: "description", content: "Bluesradio og bluesprogrammer fra Norge, Norden og hele verden — live streams, ukentlige programmer og spillelister." },
+      { name: "description", content: "Blues radio and shows from Norway, the Nordics and the rest of the world — live streams, weekly programmes and playlists." },
       { property: "og:title", content: "Blues Radio — Stations & Shows | SlowBlues" },
       { property: "og:description", content: "Live blues streams and weekly shows from Norway, the Nordics and around the world." },
       { property: "og:url", content: "https://www.slow-blues.com/radio" },

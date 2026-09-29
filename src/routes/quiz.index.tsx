@@ -25,7 +25,7 @@ export const Route = createFileRoute("/quiz/")({
     return {
       meta: [
         { title: `Blues Quiz · ${key} — SlowBlues` },
-        { name: "description", content: `New blues quiz every 10 days. Cycle ${key} (${formatCycleRange(cycle)}) — 10 curated questions, audio rounds and leaderboard.` },
+        { name: "description", content: `A new blues quiz every 10 days. Cycle ${key} (${formatCycleRange(cycle)}) — 10 questions, audio rounds and a leaderboard for bragging rights.` },
         { property: "og:title", content: `Blues Quiz · ${key} — SlowBlues` },
         { property: "og:description", content: `Cycle ${key} — ${formatCycleRange(cycle)}. Test your blues knowledge with curated questions and audio rounds.` },
         { property: "og:image", content: IMG.vinyl },

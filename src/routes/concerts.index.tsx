@@ -3,6 +3,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { getDB } from "@/integrations/d1/client";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { MerchCta } from "@/components/MerchCta";
 import { Calendar, MapPin } from "lucide-react";
 import { useI18n, tr } from "@/i18n";
 
@@ -174,6 +175,7 @@ function ConcertsList() {
           </ul>
         )}
       </main>
+      <MerchCta />
       <SiteFooter />
     </div>
   );

@@ -89,7 +89,7 @@ function AdminArtistsList() {
     });
   }, [rows, q, filter]);
 
-  if (loading) return <PageShell><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
+  if (loading) return <PageShell hideMerchCta><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
 
   const counts = {
     all: rows.length,
@@ -108,7 +108,7 @@ function AdminArtistsList() {
   ];
 
   return (
-    <PageShell>
+    <PageShell hideMerchCta>
       <PageHero eyebrow="Admin" title="Artister" lead={`${rows.length} artister`} img={IMG.pianoNight} />
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
         <div className="flex flex-col sm:flex-row gap-3 mb-5">

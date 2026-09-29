@@ -30,7 +30,7 @@ function LoginPage() {
   };
 
   return (
-    <PageShell>
+    <PageShell hideMerchCta>
       <PageHero eyebrow="Admin" title="Logg inn" lead="Tilgang for moderatorer av SlowBlues." img={IMG.pianoNight} />
       <section className="max-w-md mx-auto px-6 py-12">
         <form onSubmit={submit} className="bg-card/60 border border-border rounded-xl p-6 space-y-4">

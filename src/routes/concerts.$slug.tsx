@@ -5,6 +5,7 @@ import { z } from "zod";
 import { getDB } from "@/integrations/d1/client";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { MerchCta } from "@/components/MerchCta";
 import { Calendar, MapPin, Ticket, Play } from "lucide-react";
 import { useI18n, tr } from "@/i18n";
 import { artistDetailPath } from "@/lib/locale";
@@ -49,11 +50,16 @@ export const Route = createFileRoute("/concerts/$slug")({
     const c = loaderData?.concert;
     const canonical = `https://www.slow-blues.com/concerts/${params.slug}`;
     if (!c) return { meta: [{ title: "Concert — SlowBlues" }], links: [{ rel: "canonical", href: canonical }] };
-    const title = c.seo_title_en ?? `${c.title} — SlowBlues`;
+    const dateLabel = c.event_date
+      ? new Date(c.event_date).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })
+      : null;
+    const fallbackTitleBase =
+      c.artist_name && c.city && dateLabel ? `${c.artist_name} in ${c.city} (${dateLabel})` : c.title;
+    const title = c.seo_title_en ?? `${fallbackTitleBase} | SlowBlues`;
     const desc =
       c.seo_description_en ??
       c.description_en?.slice(0, 160) ??
-      `${c.title}${c.venue ? ` at ${c.venue}` : ""}${c.city ? `, ${c.city}` : ""}.`;
+      `Catch ${c.artist_name ?? c.title} live${c.venue ? ` at ${c.venue}` : ""}${c.city ? `, ${c.city}` : ""} — dates and tickets on SlowBlues.`;
     // Event schema -- only asserted when we actually have a date and venue/
     // city, since schema.org Event requires startDate/location to validate.
     const eventJsonLd =
@@ -204,6 +210,7 @@ function ConcertPage() {
           </div>
         )}
       </article>
+      <MerchCta />
       <SiteFooter />
     </div>
   );

@@ -45,13 +45,13 @@ function LinksAdminPage() {
     }
   };
 
-  if (loading) return <PageShell><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
+  if (loading) return <PageShell hideMerchCta><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
 
   const dead = (report ?? []).filter((r) => (r.website && !r.website.ok) || (r.facebook && !r.facebook.ok));
   const ok = (report ?? []).filter((r) => (r.website?.ok || r.facebook?.ok));
 
   return (
-    <PageShell>
+    <PageShell hideMerchCta>
       <PageHero eyebrow="Admin" title="Lenkesjekk" lead="Kontrollerer website- og Facebook-lenker for alle artister. Manuell fjerning per rad." img={IMG.pianoNight} />
       <section className="max-w-6xl mx-auto px-6 py-10">
         <div className="flex items-center justify-between mb-6 gap-4 flex-wrap">

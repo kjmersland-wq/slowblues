@@ -10,16 +10,19 @@ export function LegalPage({
   lead,
   updated,
   children,
+  hideMerchCta = true,
 }: {
   eyebrow: string;
   title: string;
   lead: string;
   updated?: string;
   children: ReactNode;
+  /** Legal pages hide the merch CTA by default; accessibility.tsx opts back in. */
+  hideMerchCta?: boolean;
 }) {
   const { lang } = useI18n();
   return (
-    <PageShell>
+    <PageShell hideMerchCta={hideMerchCta}>
       <PageHero eyebrow={eyebrow} title={title} lead={lead} />
       <article className="max-w-3xl mx-auto px-6 py-12">
         {updated && (

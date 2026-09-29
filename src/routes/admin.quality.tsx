@@ -145,7 +145,7 @@ function QCPage() {
 
   if (loading) {
     return (
-      <PageShell>
+      <PageShell hideMerchCta>
         <div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div>
       </PageShell>
     );
@@ -161,7 +161,7 @@ function QCPage() {
   ];
 
   return (
-    <PageShell>
+    <PageShell hideMerchCta>
       <PageHero
         eyebrow="Admin · QC"
         title="Quality Control"

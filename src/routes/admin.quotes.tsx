@@ -96,10 +96,10 @@ function QuotesAdminPage() {
     await saveQuotes(next);
   };
 
-  if (loading) return <PageShell><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
+  if (loading) return <PageShell hideMerchCta><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
 
   return (
-    <PageShell>
+    <PageShell hideMerchCta>
       <PageHero eyebrow="Admin" title="Pressomtaler & sitater" lead="Legg til kritikersitater og uttalelser med kilde for hver artist." img={IMG.pianoNight} />
       <div className="max-w-6xl mx-auto px-6 pt-6">
         <Link to="/admin" className="text-sm text-muted-foreground hover:text-gold">← Tilbake til admin</Link>

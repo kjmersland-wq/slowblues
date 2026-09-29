@@ -2,12 +2,23 @@ import { ReactNode } from "react";
 import { SafeImage } from "@/components/SafeImage";
 import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
+import { MerchCta } from "./MerchCta";
 
-export function PageShell({ children, hideHeader }: { children: ReactNode; hideHeader?: boolean }) {
+export function PageShell({
+  children,
+  hideHeader,
+  hideMerchCta,
+}: {
+  children: ReactNode;
+  hideHeader?: boolean;
+  /** Opt out of the shared merch CTA banner — legal pages, login, admin only. */
+  hideMerchCta?: boolean;
+}) {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       {!hideHeader && <SiteHeader />}
       <main className="flex-1">{children}</main>
+      {!hideMerchCta && <MerchCta />}
       <SiteFooter />
     </div>
   );

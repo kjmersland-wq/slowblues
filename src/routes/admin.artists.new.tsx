@@ -53,7 +53,7 @@ function NewArtistPage() {
 
   const finalSlug = (slug || slugify(name)).trim();
 
-  if (loading) return <PageShell><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
+  if (loading) return <PageShell hideMerchCta><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
 
   const create = async () => {
     if (!name.trim() || !finalSlug) { setErr("Navn og slug er påkrevd."); return; }
@@ -167,7 +167,7 @@ function NewArtistPage() {
   };
 
   return (
-    <PageShell>
+    <PageShell hideMerchCta>
       <section className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
         <div className="flex items-center gap-2 mb-5">
           <Link to="/admin" className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-border text-sm hover:border-gold">

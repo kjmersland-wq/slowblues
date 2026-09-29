@@ -13,9 +13,9 @@ export const Route = createFileRoute("/watch")({
   component: WatchPage,
   head: () => ({
     meta: [
-      { title: "Watch — Blues on YouTube — SlowBlues" },
-      { name: "description", content: "Live performances, interviews, sessions and rare blues footage — curated from YouTube." },
-      { property: "og:title", content: "Watch — Blues on YouTube" },
+      { title: "Watch the Blues — SlowBlues" },
+      { name: "description", content: "Live performances, interviews and rare footage — the blues on film, curated from YouTube." },
+      { property: "og:title", content: "Watch the Blues — SlowBlues" },
       { property: "og:image", content: IMG.microphone },
     ],
   }),

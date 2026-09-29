@@ -69,11 +69,11 @@ function TranslationsAdmin() {
     return () => clearInterval(id);
   }, [isAdmin, autoRefresh]);
 
-  if (loading) return <PageShell><div className="p-8 text-muted-foreground">Laster…</div></PageShell>;
-  if (!isAdmin) return <PageShell><div className="p-8 text-muted-foreground">Krever admin-tilgang.</div></PageShell>;
+  if (loading) return <PageShell hideMerchCta><div className="p-8 text-muted-foreground">Laster…</div></PageShell>;
+  if (!isAdmin) return <PageShell hideMerchCta><div className="p-8 text-muted-foreground">Krever admin-tilgang.</div></PageShell>;
 
   return (
-    <PageShell>
+    <PageShell hideMerchCta>
       <PageHero eyebrow="Admin" title="Oversettelser" lead="Bulk AI-oversettelse — fremdrift" />
       <div className="container max-w-5xl py-8 space-y-6">
         <div className="flex items-center justify-between">

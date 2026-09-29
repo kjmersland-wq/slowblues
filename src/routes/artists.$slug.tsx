@@ -10,6 +10,23 @@ import { loadArtistForHead } from "@/lib/artistHead.functions";
 export const LOCALE: Lang = DEFAULT_LOCALE;
 const SITE = "https://www.slow-blues.com";
 
+// Generic, tone-matched fallback used only when an artist has no custom
+// seo_title_<locale> / seo_description_<locale> set in the DB yet.
+const BLUES_ARTIST_LABEL: Record<Lang, string> = {
+  no: "blues-artist",
+  en: "blues artist",
+  sv: "blues-artist",
+  de: "Blues-Künstler",
+  pl: "artysta blues",
+};
+const FALLBACK_DESC: Record<Lang, (name: string) => string> = {
+  no: (name) => `${name} på SlowBlues — historien, platene og lyden som holder tradisjonen levende.`,
+  en: (name) => `${name} on SlowBlues — the story, the records and the sound that keep the tradition alive.`,
+  sv: (name) => `${name} på SlowBlues — historien, skivorna och ljudet som håller traditionen vid liv.`,
+  de: (name) => `${name} auf SlowBlues — die Geschichte, die Platten und der Sound, der die Tradition am Leben hält.`,
+  pl: (name) => `${name} na SlowBlues — historia, płyty i brzmienie, które podtrzymuje tę tradycję przy życiu.`,
+};
+
 export const Route = createFileRoute("/artists/$slug")({
   component: Page,
   loader: ({ params }) => loadArtistForHead({ data: { slug: params.slug } }),
@@ -25,8 +42,8 @@ function Page() {
 export function buildHead(slug: string, a: ArtistRecord | null, locale: Lang) {
   const canonical = `${SITE}${artistDetailPath(locale, slug)}`;
   if (!a) {
-    const fallbackTitle = `${slug} — Blues artist profile | SlowBlues`;
-    const fallbackDesc = `Discover the blues artist ${slug} on SlowBlues — biography, discography, signature songs, videos and historical context from our curated blues archive.`;
+    const fallbackTitle = `${slug} — ${BLUES_ARTIST_LABEL[locale]} | SlowBlues`;
+    const fallbackDesc = FALLBACK_DESC[locale](slug);
     return {
       meta: [
         { title: fallbackTitle },
@@ -44,12 +61,12 @@ export function buildHead(slug: string, a: ArtistRecord | null, locale: Lang) {
     };
   }
 
-  const title = pickLang(a as any, locale, "seo_title") ?? `${a.name} — Blues artist | SlowBlues`;
+  const title = pickLang(a as any, locale, "seo_title") ?? `${a.name} — ${BLUES_ARTIST_LABEL[locale]} | SlowBlues`;
   const rawDesc =
     pickLang(a as any, locale, "seo_description") ??
     pickLang(a as any, locale, "short") ??
     a.short ??
-    `${a.name} — blues artist profile, biography, discography and videos on SlowBlues, the curated archive of blues history and culture.`;
+    FALLBACK_DESC[locale](a.name);
   const description = clampDescription(rawDesc, a.name);
   // resolveArtistImage() returns a root-relative path for bundled assets
   // (e.g. "/assets/xxx.jpg") -- og:image and JSON-LD `image` must be a fully

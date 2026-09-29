@@ -91,13 +91,13 @@ function AdminSEO() {
 
   const filtered = (rows: typeof artistRows) => onlyIssues ? rows.filter((r) => r.issues.length > 0) : rows;
 
-  if (loading) return <PageShell><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
+  if (loading) return <PageShell hideMerchCta><div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">Laster…</div></PageShell>;
 
   const artistsWithIssues = artistRows.filter((r) => r.issues.length > 0).length;
   const reviewsWithIssues = reviewRows.filter((r) => r.issues.length > 0).length;
 
   return (
-    <PageShell>
+    <PageShell hideMerchCta>
       <PageHero eyebrow="Admin" title="SEO-sjekk" lead="Validerer title/description per språk (no/sv/en/de), bilde, lengder og sitemap-coverage. Viktig for Google." img={IMG.microphone} />
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
         <div className="flex flex-wrap items-center gap-2 mb-6">

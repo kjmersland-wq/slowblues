@@ -73,9 +73,10 @@ export const Route = createFileRoute("/reviews/$slug")({
     if (!r) {
       return { meta: [{ title: "Review — SlowBlues" }], links: [{ rel: "canonical", href: canonical }] };
     }
-    const title = r.seo_title_en || `${r.album_title} — ${r.artist_name} | SlowBlues Review`;
+    const scoreLabel = r.total_score != null ? ` (${r.total_score.toFixed(1)})` : "";
+    const title = r.seo_title_en || `${r.artist_name} — ${r.album_title}${scoreLabel} | SlowBlues`;
     const description =
-      r.seo_description_en || r.verdict_en || `${r.album_title} by ${r.artist_name} — reviewed by SlowBlues.`;
+      r.seo_description_en || r.verdict_en || `${r.artist_name}'s ${r.album_title} — the verdict, on SlowBlues.`;
     return {
       meta: [
         { title },

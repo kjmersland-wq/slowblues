@@ -9,10 +9,10 @@ export const Route = createFileRoute("/festivals")({
   component: FestivalsPage,
   head: () => ({
     meta: [
-      { title: "Blues Festivals 2026 — SlowBlues" },
-      { name: "description", content: "The blues festivals that matter in 2026 — from Notodden, Mandal and Skånevik to Chicago, Memphis and Helena, Arkansas." },
-      { property: "og:title", content: "Blues Festivals 2026 — SlowBlues" },
-      { property: "og:description", content: "The blues festivals that matter in 2026 — Notodden, Memphis, Chicago, Cognac and more." },
+      { title: "The Blues Festivals of 2026 — SlowBlues" },
+      { name: "description", content: "The festivals worth packing a bag for in 2026 — from Notodden, Mandal and Skånevik to Chicago, Memphis and Helena, Arkansas." },
+      { property: "og:title", content: "The Blues Festivals of 2026 — SlowBlues" },
+      { property: "og:description", content: "The festivals worth packing a bag for in 2026 — Notodden, Memphis, Chicago, Cognac and more." },
       { property: "og:url", content: "https://www.slow-blues.com/festivals" },
       { property: "og:image", content: IMG.crowd },
     ],
