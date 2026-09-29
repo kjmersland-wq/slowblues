@@ -111,7 +111,7 @@ const BRANDS: Brand[] = [
     url: "https://www.fender.com",
     ytQuery: "Fender Telecaster blues history",
     artists: [
-      { name: "Albert Collins", slug: "albert-collins", note: "Telecaster" },
+      { name: "Albert Collins", note: "Telecaster" },
       { name: "Buddy Guy", slug: "buddy-guy", note: "Stratocaster" },
       { name: "Stevie Ray Vaughan", slug: "stevie-ray-vaughan", note: "Stratocaster" },
       { name: "Rory Gallagher", slug: "rory-gallagher", note: "Stratocaster" },
@@ -137,7 +137,7 @@ const BRANDS: Brand[] = [
       { name: "Albert King", slug: "albert-king", note: "Flying V" },
       { name: "Gary Moore", slug: "gary-moore", note: "Les Paul" },
       { name: "Eric Clapton", slug: "eric-clapton", note: "Les Paul" },
-      { name: "Duane Allman", slug: "duane-allman", note: "Les Paul" },
+      { name: "Duane Allman", note: "Les Paul" },
     ],
   },
   {
@@ -173,8 +173,8 @@ const BRANDS: Brand[] = [
     ytQuery: "National resonator guitar blues",
     artists: [
       { name: "Son House", slug: "son-house" },
-      { name: "Bukka White", slug: "bukka-white" },
-      { name: "Tampa Red", slug: "tampa-red" },
+      { name: "Bukka White" },
+      { name: "Tampa Red" },
     ],
   },
   {
@@ -227,7 +227,7 @@ const BRANDS: Brand[] = [
     },
     url: "https://www.voxamps.com",
     ytQuery: "Vox AC30 blues British",
-    artists: [{ name: "John Mayall", slug: "john-mayall" }],
+    artists: [{ name: "John Mayall" }],
   },
   {
     id: "dumble", cat: "amps", name: "Dumble",
@@ -261,9 +261,9 @@ const BRANDS: Brand[] = [
     ytQuery: "Hohner Marine Band blues",
     artists: [
       { name: "Little Walter", slug: "little-walter" },
-      { name: "Sonny Boy Williamson II", slug: "sonny-boy-williamson-ii" },
-      { name: "Charlie Musselwhite", slug: "charlie-musselwhite" },
-      { name: "Paul Butterfield", slug: "paul-butterfield" },
+      { name: "Sonny Boy Williamson II" },
+      { name: "Charlie Musselwhite" },
+      { name: "Paul Butterfield" },
       { name: "Big Walter Horton", slug: "big-walter-horton" },
     ],
   },
@@ -330,8 +330,8 @@ const BRANDS: Brand[] = [
     ytQuery: "Shure Green Bullet blues harmonica",
     artists: [
       { name: "Little Walter", slug: "little-walter" },
-      { name: "Sonny Boy Williamson II", slug: "sonny-boy-williamson-ii" },
-      { name: "Charlie Musselwhite", slug: "charlie-musselwhite" },
+      { name: "Sonny Boy Williamson II" },
+      { name: "Charlie Musselwhite" },
       { name: "Kim Wilson" },
     ],
   },

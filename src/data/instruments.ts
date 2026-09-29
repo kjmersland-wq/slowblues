@@ -37,8 +37,8 @@ export const instrumentsHistory: InstrumentHistory[] = [
     bluesSignificance: "Before amplification, resonator guitars provided the volume needed for solo performers in crowded venues. The distinctive 'steel' sound became synonymous with Delta and country blues, influencing slide guitar techniques that remain central to blues today.",
     famousUsers: [
       { name: "Son House", slug: "son-house", notes: "Used a National steel-bodied guitar for his intense slide work" },
-      { name: "Bukka White", slug: "bukka-white", notes: "His National Duolian defined his percussive style" },
-      { name: "Tampa Red", slug: "tampa-red", notes: "Known as the 'Guitar Wizard' on his gold-plated National" },
+      { name: "Bukka White", notes: "His National Duolian defined his percussive style" },
+      { name: "Tampa Red", notes: "Known as the 'Guitar Wizard' on his gold-plated National" },
       { name: "Blind Boy Fuller", notes: "Featured resonator on many Piedmont blues recordings" }
     ]
   },
@@ -66,8 +66,8 @@ export const instrumentsHistory: InstrumentHistory[] = [
     bluesSignificance: "The Telecaster's twangy, cutting tone became essential to Chicago blues. Its ability to handle distortion without feedback made it perfect for the louder, more aggressive electric blues sound that developed in the 1950s and 1960s.",
     famousUsers: [
       { name: "Muddy Waters", slug: "muddy-waters", notes: "His red 1958 Telecaster became iconic" },
-      { name: "Albert Collins", slug: "albert-collins", notes: "'The Master of the Telecaster'" },
-      { name: "Jimmy Rogers", slug: "jimmy-rogers", notes: "Key Muddy Waters sideman" }
+      { name: "Albert Collins", notes: "'The Master of the Telecaster'" },
+      { name: "Jimmy Rogers", notes: "Key Muddy Waters sideman" }
     ]
   },
   {
@@ -127,9 +127,9 @@ export const instrumentsHistory: InstrumentHistory[] = [
     bluesSignificance: "The Marine Band shaped the very definition of blues harmonica. From country blues field hollers to amplified Chicago harp, this instrument has been present at every major development in blues harmonica history.",
     famousUsers: [
       { name: "Little Walter", slug: "little-walter", notes: "Revolutionized amplified blues harp" },
-      { name: "Sonny Boy Williamson I", slug: "sonny-boy-williamson-i", notes: "Pre-war blues harp master" },
-      { name: "Sonny Boy Williamson II", slug: "sonny-boy-williamson-ii", notes: "Rice Miller" },
-      { name: "James Cotton", slug: "james-cotton" },
+      { name: "Sonny Boy Williamson I", notes: "Pre-war blues harp master" },
+      { name: "Sonny Boy Williamson II", notes: "Rice Miller" },
+      { name: "James Cotton" },
       { name: "Junior Wells", slug: "junior-wells" }
     ]
   },
@@ -142,7 +142,7 @@ export const instrumentsHistory: InstrumentHistory[] = [
     description: "The Special 20 introduced a plastic comb to the blues harmonica, making it more comfortable to play for extended periods and more resistant to moisture. It maintains the classic Hohner tone while being easier on the lips.",
     bluesSignificance: "The Special 20 made blues harmonica more accessible to new players while maintaining professional quality. Many modern blues harpists prefer it for its consistent playability across all keys.",
     famousUsers: [
-      { name: "Charlie Musselwhite", slug: "charlie-musselwhite", notes: "White blues harp master" },
+      { name: "Charlie Musselwhite", notes: "White blues harp master" },
       { name: "Kim Wilson", notes: "Fabulous Thunderbirds" },
       { name: "Rod Piazza", notes: "West Coast blues harp" }
     ]
@@ -160,7 +160,7 @@ export const instrumentsHistory: InstrumentHistory[] = [
     famousUsers: [
       { name: "Buddy Guy", slug: "buddy-guy", notes: "Used tweed Bassman for his aggressive tone" },
       { name: "Stevie Ray Vaughan", slug: "stevie-ray-vaughan", notes: "Part of his legendary rig" },
-      { name: "Jimmie Vaughan", slug: "jimmie-vaughan" }
+      { name: "Jimmie Vaughan" }
     ]
   },
   {
@@ -173,7 +173,7 @@ export const instrumentsHistory: InstrumentHistory[] = [
     bluesSignificance: "The Super Reverb became the quintessential blues club amp. Its lush reverb and creamy overdrive at stage volumes made it a favorite for blues guitarists who needed a versatile, great-sounding amp for live work.",
     famousUsers: [
       { name: "Stevie Ray Vaughan", slug: "stevie-ray-vaughan", notes: "Used multiple Super Reverbs" },
-      { name: "Jimmie Vaughan", slug: "jimmie-vaughan" },
+      { name: "Jimmie Vaughan" },
       { name: "Anson Funderburgh", notes: "Texas blues stalwart" }
     ]
   },
@@ -204,7 +204,7 @@ export const instrumentsHistory: InstrumentHistory[] = [
     famousUsers: [
       { name: "Little Walter", slug: "little-walter", notes: "Pioneer of the amplified harp sound" },
       { name: "Junior Wells", slug: "junior-wells" },
-      { name: "James Cotton", slug: "james-cotton" },
+      { name: "James Cotton" },
       { name: "Big Walter Horton", slug: "big-walter-horton" }
     ]
   },
@@ -218,8 +218,8 @@ export const instrumentsHistory: InstrumentHistory[] = [
     bluesSignificance: "The Green Bullet became synonymous with blues harmonica alongside the JT-30. Its consistent quality and rugged construction made it a reliable choice for touring musicians.",
     famousUsers: [
       { name: "Big Walter Horton", slug: "big-walter-horton" },
-      { name: "Carey Bell", slug: "carey-bell" },
-      { name: "Paul Butterfield", slug: "paul-butterfield" }
+      { name: "Carey Bell" },
+      { name: "Paul Butterfield" }
     ]
   },
   {
