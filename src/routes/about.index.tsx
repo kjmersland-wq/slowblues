@@ -4,6 +4,7 @@ import { Building2, Mail, Globe, Headphones } from "lucide-react";
 import { useI18n, tr } from "@/i18n";
 import { fetchArtistStats } from "@/lib/artists";
 import { MigrationNotice } from "@/components/MigrationAnnouncement";
+import { HomeFilmSection } from "@/components/HomeFilmSection";
 
 export const Route = createFileRoute("/about/")({
   component: AboutPage,
@@ -42,6 +43,7 @@ function AboutPage() {
           pl: "Redakcyjne archiwum celebrujące powolne, pełne duszy korzenie bluesa — od delty Missisipi po dzisiejszą scenę nordycką.",
         })}
       />
+      <HomeFilmSection compact />
       <section className="max-w-3xl mx-auto px-6 py-12 space-y-10 text-foreground/85 leading-relaxed">
         <div>
           <h2 className="font-display text-2xl text-gold mb-3">{tr(lang, { no: "Hva vi gjør", en: "What we do", sv: "Vad vi gör", de: "Was wir tun", pl: "Co robimy" })}</h2>

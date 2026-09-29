@@ -13,6 +13,7 @@ import {
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { MerchCta } from "@/components/MerchCta";
+import { HomeFilmSection } from "@/components/HomeFilmSection";
 import { IMG } from "@/data/images";
 import { useI18n, tr, type Lang } from "@/i18n";
 import { artistDetailPath, artistsListPath, SUPPORTED_LOCALES } from "@/lib/locale";
@@ -338,6 +339,7 @@ function Home() {
       </section>
 
       <Ticker />
+      <HomeFilmSection />
       <Join />
       <ThreeNames />
       <MerchDrop />
