@@ -1,9 +1,11 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n, tr } from "@/i18n";
 import { IMG } from "@/data/images";
 import { Heart, ShoppingBag, Share2, ArrowRight, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
+
+const WEAR_THE_BLUES_PRODUCT_URL = "https://merch.slow-blues.com/products/wear-the-blues-tee";
 
 export const Route = createFileRoute("/support")({
   component: SupportPage,
@@ -89,12 +91,14 @@ function SupportPage() {
               pl: "Koszulki, plakaty, winyle i torby — druk na żądanie premium, wysyłka na cały świat.",
             })}
           </p>
-          <Link
-            to="/about/merch"
+          <a
+            href={WEAR_THE_BLUES_PRODUCT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition shadow-lg shadow-gold/20"
           >
             {t.pages.support.buyMerch} <ArrowRight className="size-4" />
-          </Link>
+          </a>
         </div>
       </section>
 
