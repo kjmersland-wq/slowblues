@@ -131,11 +131,11 @@ export async function getProductBySlug(slug: string): Promise<FwProduct | null> 
 }
 
 // Public Fourthwall storefront base used for redirect-checkout links.
-// Override via env if your store URL differs (e.g. once merch.slow-blues.com's
-// TLS is confirmed live, set FOURTHWALL_SHOP_URL=https://merch.slow-blues.com
-// as a secret — no code change needed).
+// merch.slow-blues.com is the real store domain (old slow-blues-shop.fourthwall.com
+// name is dead after the domain switch). Override via the FOURTHWALL_SHOP_URL
+// secret if the store URL ever changes again — no code change needed.
 export function shopBaseUrl(): string {
-  return process.env.FOURTHWALL_SHOP_URL ?? "https://slow-blues-shop.fourthwall.com";
+  return process.env.FOURTHWALL_SHOP_URL ?? "https://merch.slow-blues.com";
 }
 
 async function fwPost<T>(path: string, body: unknown, params: Record<string, string> = {}): Promise<T> {

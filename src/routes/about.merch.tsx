@@ -57,7 +57,7 @@ export const Route = createFileRoute("/about/merch")({
   }),
 });
 
-const SHOP_BASE = "https://slow-blues-shop.fourthwall.com";
+const SHOP_BASE = "https://merch.slow-blues.com";
 const CART_STORAGE_KEY = "slowblues_cart_v1";
 
 type CartItem = {
@@ -215,7 +215,7 @@ function MerchPage() {
         {(error || data?.error) && !isLoading && (
           <div className="mb-12">
             <iframe
-              src="https://slow-blues-shop.fourthwall.com"
+              src="https://merch.slow-blues.com"
               width="100%"
               style={{ border: "none", borderRadius: "12px", minHeight: "900px" }}
               title="SlowBlues Shop"
