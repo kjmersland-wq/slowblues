@@ -39,16 +39,16 @@ export const Route = createFileRoute("/about/merch")({
   component: MerchPage,
   head: () => ({
     meta: [
-      { title: "Blues Merch — SlowBlues" },
+      { title: "Official SlowBlues merch" },
       {
         name: "description",
         content:
-          "Official SlowBlues merch — t-shirts, hoodies, posters and more. Premium print-on-demand, shipped worldwide.",
+          "Wear the blues and keep the archive alive. T-shirts, posters and prints, premium print-on-demand, shipped worldwide. Support the archive with official merch.",
       },
-      { property: "og:title", content: "Blues Merch — SlowBlues" },
+      { property: "og:title", content: "Official SlowBlues merch" },
       {
         property: "og:description",
-        content: "Wear the blues. Official SlowBlues apparel and prints, shipped worldwide.",
+        content: "Wear the blues. Official SlowBlues apparel and prints, shipped worldwide — every purchase keeps the archive alive.",
       },
       { property: "og:image", content: IMG.vinyl },
       { property: "og:url", content: "https://www.slow-blues.com/about/merch" },
@@ -59,6 +59,7 @@ export const Route = createFileRoute("/about/merch")({
 
 const SHOP_BASE = "https://merch.slow-blues.com";
 const CART_STORAGE_KEY = "slowblues_cart_v1";
+const WEAR_THE_BLUES_PRODUCT_URL = "https://merch.slow-blues.com/products/wear-the-blues-tee";
 
 type CartItem = {
   productId: string;
@@ -208,6 +209,44 @@ function MerchPage() {
               pl: "Każdy produkt to druk na żądanie w wysokiej jakości: solidna tkanina, staranny nadruk i grafiki stworzone z szacunkiem dla tradycji bluesa. Kupując coś tutaj, utrzymujesz SlowBlues przy życiu — więcej artykułów, więcej historii, więcej muzyki.",
             })}
           </p>
+        </div>
+
+        <div className="mb-12">
+          <SectionHeading
+            kicker={tr(lang, { no: "Nyhet", en: "New", sv: "Nytt", de: "Neu", pl: "Nowość" })}
+            title="Wear the Blues Tee"
+          />
+          <a
+            href={WEAR_THE_BLUES_PRODUCT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group grid sm:grid-cols-2 items-stretch gap-0 rounded-xl overflow-hidden border border-gold/30 bg-card/60 hover:border-gold/60 transition"
+          >
+            <div className="aspect-square sm:aspect-auto bg-neutral-900 overflow-hidden">
+              <img
+                src="/images/merch/wear-the-blues-mockup.jpg"
+                alt="Wear the Blues Tee — SlowBlues merch, front and back"
+                loading="lazy"
+                className="w-full h-full object-cover transition duration-500 group-hover:scale-[1.02]"
+              />
+            </div>
+            <div className="p-6 sm:p-8 flex flex-col justify-center">
+              <h3 className="font-display text-2xl mb-2">Wear the Blues Tee</h3>
+              <p className="text-sm text-muted-foreground mb-5">
+                {tr(lang, {
+                  no: "Ikke logo-merch. Front: The slow, soulful roots. Bak: Slow-Blues.com — Global Blues Encyclopedia.",
+                  en: "Not logo merch. Front: The slow, soulful roots. Back: Slow-Blues.com — Global Blues Encyclopedia.",
+                  sv: "Inte logomerch. Fram: The slow, soulful roots. Bak: Slow-Blues.com — Global Blues Encyclopedia.",
+                  de: "Kein Logo-Merch. Vorne: The slow, soulful roots. Hinten: Slow-Blues.com — Global Blues Encyclopedia.",
+                  pl: "To nie merch z logo. Przód: The slow, soulful roots. Tył: Slow-Blues.com — Global Blues Encyclopedia.",
+                })}
+              </p>
+              <span className="inline-flex w-fit items-center gap-2 px-6 py-2.5 rounded-md bg-gold text-primary-foreground font-medium group-hover:bg-gold/90 transition">
+                <ShoppingBag className="size-4" />
+                {tr(lang, { no: "Kjøp t-skjorten", en: "Buy the shirt", sv: "Köp t-shirten", de: "Shirt kaufen", pl: "Kup koszulkę" })}
+              </span>
+            </div>
+          </a>
         </div>
 
         {isLoading && <SkeletonGrid />}

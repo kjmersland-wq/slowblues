@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { MerchCta } from "@/components/MerchCta";
 import { IMG } from "@/data/images";
 import { useI18n, tr, type Lang } from "@/i18n";
 import { artistDetailPath, artistsListPath, SUPPORTED_LOCALES } from "@/lib/locale";
@@ -34,14 +35,14 @@ export const Route = createFileRoute("/")({
     // Live count from the artists table; if the loader failed (DB unreachable)
     // the number is simply omitted -- never a hardcoded fallback.
     const n = loaderData?.artistCount ? `${loaderData.artistCount}+ ` : "";
-    const title = `SlowBlues — ${n}Blues Artists, History & Reviews`;
-    const description = `A timeless tribute to the raw soul of Delta & Chicago Blues. ${n}artist profiles, reviews, festivals and live news — the real roots of modern music.`;
+    const title = `SlowBlues — The Blues Encyclopedia: ${n}Artists, History & Reviews`;
+    const description = "From the Delta porch to Chicago electric — artist stories, reviews and the living scene. Independent, no ads. Wear the blues and keep the archive alive.";
     return {
       meta: [
         { title },
         { name: "description", content: description },
         { property: "og:title", content: title },
-        { property: "og:description", content: `A timeless tribute to the raw soul of Delta & Chicago Blues — ${n}artist profiles, reviews, festivals and live news.` },
+        { property: "og:description", content: description },
         { property: "og:url", content: "https://www.slow-blues.com/" },
         { property: "og:type", content: "website" },
       ],
@@ -339,10 +340,11 @@ function Home() {
       <Ticker />
       <Join />
       <ThreeNames />
-      <SupportBanner />
+      <MerchDrop />
       <Timeline />
       <Voices />
       <DeltaVsChicago />
+      <MerchCta />
       <SiteFooter />
     </div>
   );
@@ -532,7 +534,7 @@ function Join() {
     { icon: ShoppingBag,
       title: tr(lang, { no: "Blues-merch", en: "Blues Merch", pl: "Blues Merch", sv: "Blues-merch", de: "Blues-Merch" }),
       desc: tr(lang, { no: "T-skjorter, plakater og vinyl for den ekte bluesfanen.", en: "T-shirts, posters and vinyl for the true blues fan.", pl: "Koszulki, plakaty i winyle dla prawdziwego fana bluesa.", sv: "T-shirts, posters och vinyl för den äkta bluesfantasten.", de: "T-Shirts, Poster und Vinyl für den echten Blues-Fan." }),
-      to: "/about/merch" },
+      href: "https://merch.slow-blues.com/products/wear-the-blues-tee", isNew: true },
     { icon: HelpCircle,
       title: tr(lang, { no: "Blues-quiz", en: "Blues Quiz", pl: "Bluesowy quiz", sv: "Blues-quiz", de: "Blues-Quiz" }),
       desc: tr(lang, { no: "Tror du at du kan bluesen din? Bevis det.", en: "Think you know your blues? Prove it.", pl: "Myślisz, że znasz się na bluesie? Udowodnij.", sv: "Tror du att du kan din blues? Bevisa det.", de: "Glaubst du, du kennst deinen Blues? Beweise es." }),
@@ -553,22 +555,36 @@ function Join() {
         </p>
       </div>
       <div className="grid md:grid-cols-3 gap-6">
-        {items.map((it) => (
-          <Link
-            key={it.title}
-            to={it.to}
-            className="group bg-card/60 border border-border rounded-lg p-8 text-center hover:border-gold/60 transition block"
-          >
-            <div className="mx-auto size-14 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center mb-5 group-hover:bg-gold/20 transition">
-              <it.icon className="size-6 text-gold" />
-            </div>
-            <h3 className="font-display text-2xl mb-2">{it.title}</h3>
-            <p className="text-sm text-muted-foreground">{it.desc}</p>
-            <div className="mt-5 text-sm text-gold flex items-center justify-center gap-1 group-hover:gap-2 transition-all">
-              {tr(lang, { no: "Gå", en: "Go", pl: "Dalej", sv: "Gå", de: "Los" })} <ArrowRight className="size-4" />
-            </div>
-          </Link>
-        ))}
+        {items.map((it) => {
+          const badge = "isNew" in it && it.isNew && (
+            <span className="absolute top-4 right-4 px-2 py-0.5 rounded-full bg-gold text-primary-foreground text-[10px] font-semibold tracking-wide uppercase">
+              {tr(lang, { no: "Nyhet", en: "New", pl: "Nowość", sv: "Nytt", de: "Neu" })}
+            </span>
+          );
+          const cardClass = "group relative bg-card/60 border border-border rounded-lg p-8 text-center hover:border-gold/60 transition block";
+          const inner = (
+            <>
+              {badge}
+              <div className="mx-auto size-14 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center mb-5 group-hover:bg-gold/20 transition">
+                <it.icon className="size-6 text-gold" />
+              </div>
+              <h3 className="font-display text-2xl mb-2">{it.title}</h3>
+              <p className="text-sm text-muted-foreground">{it.desc}</p>
+              <div className="mt-5 text-sm text-gold flex items-center justify-center gap-1 group-hover:gap-2 transition-all">
+                {tr(lang, { no: "Gå", en: "Go", pl: "Dalej", sv: "Gå", de: "Los" })} <ArrowRight className="size-4" />
+              </div>
+            </>
+          );
+          return "href" in it && it.href ? (
+            <a key={it.title} href={it.href} target="_blank" rel="noopener noreferrer" className={cardClass}>
+              {inner}
+            </a>
+          ) : (
+            <Link key={it.title} to={(it as { to: string }).to} className={cardClass}>
+              {inner}
+            </Link>
+          );
+        })}
       </div>
     </section>
   );
@@ -626,31 +642,77 @@ function ThreeNames() {
   );
 }
 
-function SupportBanner() {
+const MERCH_SHOP_URL = "https://merch.slow-blues.com/en-nok";
+const WEAR_THE_BLUES_PRODUCT_URL = "https://merch.slow-blues.com/products/wear-the-blues-tee";
+
+function MerchDrop() {
   const { lang } = useI18n();
   return (
-    <section id="support" className="relative py-24 px-6 bg-gradient-to-b from-background via-card/30 to-background">
-      <div className="max-w-3xl mx-auto text-center">
-        <h2 className="font-display text-4xl md:text-5xl">
-          {tr(lang, {
-            no: "Støtt bluesen. Bær bluesen.",
-            en: "Support the blues. Wear the blues.", pl: "Wspieraj bluesa. Noś bluesa.",
-            sv: "Stötta bluesen. Bär bluesen.",
-            de: "Unterstütze den Blues. Trag den Blues.",
-          })}
-        </h2>
-        <p className="mt-4 text-muted-foreground">
-          {tr(lang, {
-            no: "Hver t-skjorte, plakat og vinyl som selges, holder denne siden i live — og bluesen i live.",
-            en: "Every t-shirt, poster and vinyl sold keeps this site running and the blues alive.", pl: "Każda sprzedana koszulka, plakat i płyta winylowa utrzymuje tę stronę i bluesa przy życiu.",
-            sv: "Varje t-shirt, poster och vinyl som säljs håller den här sidan vid liv — och bluesen vid liv.",
-            de: "Jedes verkaufte T-Shirt, Poster und Vinyl hält diese Seite am Laufen und den Blues lebendig.",
-          })}
-        </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <Link to="/about/merch" className="px-7 py-3 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 flex items-center gap-2">
-            <ShoppingBag className="size-4" /> {tr(lang, { no: "Kjøp merch", en: "Shop merch", pl: "Kup gadżety", sv: "Köp merch", de: "Merch kaufen" })}
-          </Link>
+    <section id="support" className="py-20 px-6 max-w-6xl mx-auto">
+      <div className="grid md:grid-cols-2 items-stretch gap-0 rounded-2xl overflow-hidden border border-gold/25 bg-neutral-950 shadow-[0_0_80px_-40px_var(--color-gold)]">
+        <a
+          href={WEAR_THE_BLUES_PRODUCT_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative bg-neutral-900 block"
+        >
+          <img
+            src="/images/merch/wear-the-blues-mockup.jpg"
+            alt="Wear the Blues Tee — SlowBlues merch, front and back"
+            loading="lazy"
+            className="w-full h-full object-cover transition duration-500 group-hover:scale-[1.02]"
+          />
+        </a>
+
+        <div className="flex flex-col justify-center p-8 md:p-12 text-center md:text-left">
+          <span className="inline-flex items-center gap-2 mb-4 mx-auto md:mx-0">
+            <span className="text-[11px] tracking-[0.3em] uppercase text-gold">
+              {tr(lang, {
+                no: "Nyhet i butikken",
+                en: "New in the shop",
+                sv: "Nytt i butiken",
+                de: "Neu im Shop",
+                pl: "Nowość w sklepie",
+              })}
+            </span>
+          </span>
+
+          <h2 className="font-display text-4xl md:text-5xl text-white leading-tight">
+            Support the blues. Wear the blues.
+          </h2>
+          <div className="mt-2 text-sm tracking-[0.2em] uppercase text-gold/90">
+            Wear the Blues
+          </div>
+
+          <p className="mt-5 text-neutral-300 leading-relaxed max-w-md mx-auto md:mx-0">
+            {tr(lang, {
+              no: "Ikke logo-merch. Et plagg for folk som faktisk hører på røttene. Front: The slow, soulful roots. Bak: Slow-Blues.com — Global Blues Encyclopedia. Hvert kjøp holder leksikonet i live.",
+              en: "Not logo merch. A shirt for people who actually listen to the roots. Front: The slow, soulful roots. Back: Slow-Blues.com — Global Blues Encyclopedia. Every purchase keeps this archive alive.",
+              sv: "Inte logomerch. En tröja för dem som faktiskt lyssnar på rötterna. Fram: The slow, soulful roots. Bak: Slow-Blues.com — Global Blues Encyclopedia. Varje köp håller arkivet vid liv.",
+              de: "Kein Logo-Merch. Ein Shirt für Leute, die den Wurzeln wirklich zuhören. Vorne: The slow, soulful roots. Hinten: Slow-Blues.com — Global Blues Encyclopedia. Jeder Kauf hält dieses Archiv am Leben.",
+              pl: "To nie merch z logo. Koszulka dla tych, którzy naprawdę słuchają korzeni. Przód: The slow, soulful roots. Tył: Slow-Blues.com — Global Blues Encyclopedia. Każdy zakup utrzymuje to archiwum przy życiu.",
+            })}
+          </p>
+
+          <div className="mt-8 flex flex-col items-center md:items-start gap-3">
+            <a
+              href={WEAR_THE_BLUES_PRODUCT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition"
+            >
+              <ShoppingBag className="size-4" />
+              {tr(lang, { no: "Kjøp t-skjorten", en: "Buy the shirt", sv: "Köp t-shirten", de: "Shirt kaufen", pl: "Kup koszulkę" })}
+            </a>
+            <a
+              href={MERCH_SHOP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-neutral-400 underline underline-offset-4 decoration-neutral-600 hover:text-gold hover:decoration-gold/50 transition"
+            >
+              {tr(lang, { no: "Se hele butikken", en: "See the full shop", sv: "Se hela butiken", de: "Zum ganzen Shop", pl: "Zobacz cały sklep" })}
+            </a>
+          </div>
         </div>
       </div>
     </section>
