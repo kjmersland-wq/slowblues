@@ -131,7 +131,47 @@ export async function getProductBySlug(slug: string): Promise<FwProduct | null> 
 }
 
 // Public Fourthwall storefront base used for redirect-checkout links.
-// Override via env if your store URL differs.
+// Override via env if your store URL differs (e.g. once merch.slow-blues.com's
+// TLS is confirmed live, set FOURTHWALL_SHOP_URL=https://merch.slow-blues.com
+// as a secret — no code change needed).
 export function shopBaseUrl(): string {
   return process.env.FOURTHWALL_SHOP_URL ?? "https://slow-blues-shop.fourthwall.com";
+}
+
+async function fwPost<T>(path: string, body: unknown, params: Record<string, string> = {}): Promise<T> {
+  const url = new URL(`${API_BASE}${path}`);
+  url.searchParams.set("storefront_token", token());
+  for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
+  const res = await fetch(url.toString(), {
+    method: "POST",
+    headers: { "content-type": "application/json", accept: "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const b = await res.text().catch(() => "");
+    throw new Error(`Fourthwall API ${res.status}: ${b.slice(0, 200)}`);
+  }
+  return (await res.json()) as T;
+}
+
+export interface FwCartLineItem {
+  variantId: string;
+  quantity: number;
+}
+
+/**
+ * Creates a real Fourthwall cart, adds the given line items to it via the
+ * Storefront API, and returns a checkout URL that lands the customer in
+ * Fourthwall's own hosted checkout with those exact items — instead of our
+ * local (browser-only) cart, which Fourthwall never sees.
+ * Pattern per Fourthwall's own reference implementation (vercel-commerce):
+ * POST /carts → POST /carts/{id}/add → redirect to {shop}/checkout/?cartId=...
+ */
+export async function createCartCheckoutUrl(items: FwCartLineItem[], currency = "NOK"): Promise<string> {
+  if (!items.length) throw new Error("Cart is empty");
+  const cart = await fwPost<{ id: string }>("/carts", { items: [] }, { currency });
+  if (!cart?.id) throw new Error("Fourthwall did not return a cart id");
+  await fwPost(`/carts/${encodeURIComponent(cart.id)}/add`, { items }, { currency });
+  const shop = shopBaseUrl().replace(/\/$/, "");
+  return `${shop}/checkout/?cartId=${encodeURIComponent(cart.id)}&cartCurrency=${encodeURIComponent(currency)}`;
 }

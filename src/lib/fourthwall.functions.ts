@@ -6,6 +6,7 @@ import {
   listCollectionProducts,
   getProductBySlug,
   shopBaseUrl,
+  createCartCheckoutUrl,
   type FwProduct,
   type FwCollection,
 } from "./fourthwall.server";
@@ -155,6 +156,29 @@ export const fetchMerchProduct = createServerFn({ method: "GET" })
     } catch (e) {
       console.error("[fourthwall] product failed:", e);
       return { product: null, related: [], shopUrl: shop };
+    }
+  });
+
+// Syncs the local (browser-only) cart to a real Fourthwall cart and returns
+// a checkout URL for it — so "Go to checkout" lands the customer in a
+// Fourthwall checkout that actually has their items, not an empty one.
+export const startFourthwallCheckout = createServerFn({ method: "POST" })
+  .inputValidator(
+    z.object({
+      items: z
+        .array(z.object({ variantId: z.string().min(1), quantity: z.number().int().min(1).max(99) }))
+        .min(1)
+        .max(50),
+      currency: z.string().min(1).max(10).default("NOK"),
+    }),
+  )
+  .handler(async ({ data }): Promise<{ checkoutUrl: string | null; error: string | null }> => {
+    try {
+      const checkoutUrl = await createCartCheckoutUrl(data.items, data.currency);
+      return { checkoutUrl, error: null };
+    } catch (e) {
+      console.error("[fourthwall] checkout failed:", e);
+      return { checkoutUrl: null, error: e instanceof Error ? e.message : "Failed to start checkout" };
     }
   });
 

@@ -21,10 +21,12 @@ import {
 } from "lucide-react";
 import {
   fetchMerchOverview,
+  startFourthwallCheckout,
   type MerchProduct,
   type MerchVariant,
 } from "@/lib/fourthwall.functions";
 import { sanitizeHtml } from "@/lib/sanitizeHtml";
+import { toast } from "sonner";
 import {
   activePartners,
   partnerForProduct,
@@ -734,12 +736,54 @@ function CartDrawer({
   cart: ReturnType<typeof useCart>;
   lang: Lang;
 }) {
+  const startCheckout = useServerFn(startFourthwallCheckout);
+  const [checkingOut, setCheckingOut] = useState(false);
+
   useEffect(() => {
     if (!open) return;
     const handler = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
   }, [open, onClose]);
+
+  async function handleCheckout() {
+    if (!cart.items.length || checkingOut) return;
+    setCheckingOut(true);
+    try {
+      const res = await startCheckout({
+        data: {
+          items: cart.items.map((i) => ({ variantId: i.variantId, quantity: i.qty })),
+          currency: cart.currency,
+        },
+      });
+      if (res?.checkoutUrl) {
+        window.location.href = res.checkoutUrl;
+      } else {
+        toast.error(
+          tr(lang, {
+            no: "Kunne ikke åpne kassen. Prøv igjen.",
+            en: "Could not open checkout. Please try again.",
+            sv: "Det gick inte att öppna kassan. Försök igen.",
+            de: "Die Kasse konnte nicht geöffnet werden. Bitte versuchen Sie es erneut.",
+            pl: "Nie udało się otworzyć kasy. Spróbuj ponownie.",
+          }),
+        );
+        setCheckingOut(false);
+      }
+    } catch (err) {
+      console.error("Checkout error:", err);
+      toast.error(
+        tr(lang, {
+          no: "Kunne ikke åpne kassen. Prøv igjen.",
+          en: "Could not open checkout. Please try again.",
+          sv: "Det gick inte att öppna kassan. Försök igen.",
+          de: "Die Kasse konnte nicht geöffnet werden. Bitte versuchen Sie es erneut.",
+          pl: "Nie udało się otworzyć kasy. Spróbuj ponownie.",
+        }),
+      );
+      setCheckingOut(false);
+    }
+  }
 
   return (
     <>
@@ -833,15 +877,15 @@ function CartDrawer({
                 pl: "Koszty wysyłki i ewentualne podatki są obliczane przy kasie w Fourthwall.",
               })}
             </p>
-            <a
-              href={`${SHOP_BASE}/en-nok/cart`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block text-center bg-gold text-primary-foreground font-medium py-3 rounded-md hover:bg-gold/90 transition"
+            <button
+              onClick={handleCheckout}
+              disabled={checkingOut}
+              className="block w-full text-center bg-gold text-primary-foreground font-medium py-3 rounded-md hover:bg-gold/90 transition disabled:opacity-60 disabled:cursor-wait"
             >
-              {tr(lang, { no: "Gå til kassen", en: "Go to checkout", sv: "Gå till kassan", de: "Zur Kasse gehen", pl: "Przejdź do kasy" })}
-              <ExternalLink className="size-4 inline ml-2" />
-            </a>
+              {checkingOut
+                ? tr(lang, { no: "Åpner kassen …", en: "Opening checkout …", sv: "Öppnar kassan …", de: "Kasse wird geöffnet …", pl: "Otwieranie kasy …" })
+                : tr(lang, { no: "Gå til kassen", en: "Go to checkout", sv: "Gå till kassan", de: "Zur Kasse gehen", pl: "Przejdź do kasy" })}
+            </button>
             <button
               onClick={cart.clear}
               className="w-full text-xs text-muted-foreground hover:text-foreground transition"
