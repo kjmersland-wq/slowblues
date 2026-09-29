@@ -36,7 +36,7 @@ export const Route = createFileRoute("/")({
     // the number is simply omitted -- never a hardcoded fallback.
     const n = loaderData?.artistCount ? `${loaderData.artistCount}+ ` : "";
     const title = `SlowBlues — The Blues Encyclopedia: ${n}Artists, History & Reviews`;
-    const description = "From the Delta porch to Chicago electric — artist stories, reviews and the living scene. Independent, no ads. Wear the blues and keep the archive alive.";
+    const description = "From the Delta porch to Chicago electric — artist stories, reviews and the living scene. Independent archive, no display ads in the articles. Wear the blues and keep the archive alive.";
     return {
       meta: [
         { title },
@@ -269,10 +269,10 @@ function getVoices(lang: Lang, rows: VoiceRow[]) {
       }), color: "from-rose-900/60 to-stone-900" },
     { ...base("john-lee-hooker")!,
       desc: tr(lang, {
-        no: "Fra Clarksdale til verdens scener på ett groove og en fot som aldri sto stille. Start med «Boogie Chillen».",
-        en: "From Clarksdale to stages around the world on one groove and a foot that never sat still. Start with “Boogie Chillen.”", pl: "Z Clarksdale na sceny całego świata — z jednym groove’em i stopą, która nigdy nie stała w miejscu. Zacznij od „Boogie Chillen”.",
-        sv: "Från Clarksdale till världens scener på ett enda groove och en fot som aldrig stod stilla. Börja med «Boogie Chillen».",
-        de: "Von Clarksdale auf die Bühnen der Welt — mit einem Groove und einem Fuß, der nie stillstand. Fang mit „Boogie Chillen“ an.",
+        no: "Født i Mississippi-deltaet, men lyden hans hører hjemme i Detroit-boogien — ett groove og en fot som aldri sto stille. Start med «Boogie Chillen».",
+        en: "Born in the Mississippi Delta, but his sound belongs to Detroit boogie — one groove and a foot that never sat still. Start with “Boogie Chillen.”", pl: "Urodzony w Delcie Missisipi, ale jego brzmienie należy do detroit boogie — jeden groove i stopa, która nigdy nie stała w miejscu. Zacznij od „Boogie Chillen”.",
+        sv: "Född i Mississippideltat, men hans sound hör hemma i Detroit-boogien — ett enda groove och en fot som aldrig stod stilla. Börja med «Boogie Chillen».",
+        de: "Geboren im Mississippi-Delta, aber sein Sound gehört zum Detroit-Boogie — ein Groove und ein Fuß, der nie stillstand. Fang mit „Boogie Chillen“ an.",
       }), color: "from-stone-800 to-stone-900" },
   ].filter((v) => v.name);
 }

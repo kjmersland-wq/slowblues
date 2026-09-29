@@ -56,13 +56,20 @@ export function NameLink({
   }
   const wikiLang = locale === "en" ? "en" : locale === "de" ? "de" : locale === "sv" ? "sv" : locale === "pl" ? "pl" : "no";
   const href = `https://${wikiLang}.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(name)}`;
+  const searchLabel: Record<ArtistLocale, string> = {
+    no: "Søk Wikipedia",
+    en: "Search Wikipedia",
+    sv: "Sök på Wikipedia",
+    de: "Wikipedia durchsuchen",
+    pl: "Szukaj w Wikipedii",
+  };
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       className={`${className} inline-flex items-center gap-0.5`}
-      title={`Søk Wikipedia: ${name}`}
+      title={`${searchLabel[locale]}: ${name}`}
     >
       {name}
       <ExternalLink className="size-3 opacity-60" />

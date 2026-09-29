@@ -12,9 +12,9 @@ export const Route = createFileRoute("/support")({
   head: () => ({
     meta: [
       { title: "Support SlowBlues — official merch" },
-      { name: "description", content: "No ads, no owners. Official merch is what keeps this archive alive — wear the blues and support the archive with official merch." },
+      { name: "description", content: "Independent archive, no owners. No display ads in artist articles. Merch funds hosting and research — wear the blues and support the archive." },
       { property: "og:title", content: "Support SlowBlues — official merch" },
-      { property: "og:description", content: "No ads, no owners. Official merch is what keeps this archive alive — wear the blues and support the archive with official merch." },
+      { property: "og:description", content: "Independent archive, no owners. No display ads in artist articles. Merch funds hosting and research — wear the blues and support the archive." },
       { property: "og:url", content: "https://www.slow-blues.com/support" },
     ],
     links: [{ rel: "canonical", href: "https://www.slow-blues.com/support" }],
@@ -64,11 +64,11 @@ function SupportPage() {
         </div>
         <p className="text-muted-foreground leading-relaxed">
           {tr(lang, {
-            no: "SlowBlues har ingen annonser og ingen eiere bak seg. Vi driver dette fordi vi elsker bluesen. Merch er det som faktisk holder arkivet i gang — hvert kjøp går rett til server, research og nye artistprofiler.",
-            en: "SlowBlues has no ads and no owners behind it. We run this because we love the blues. Merch is what actually keeps the archive going — every purchase goes straight to hosting, research and new artist profiles.",
-            sv: "SlowBlues har inga annonser och inga ägare bakom sig. Vi driver det här för att vi älskar bluesen. Merch är det som faktiskt håller arkivet igång — varje köp går direkt till hosting, research och nya artistprofiler.",
-            de: "Hinter SlowBlues stehen keine Werbung und keine Eigentümer. Wir betreiben das, weil wir den Blues lieben. Merch ist es, was das Archiv tatsächlich am Laufen hält — jeder Kauf fließt direkt in Hosting, Recherche und neue Künstlerprofile.",
-            pl: "Za SlowBlues nie stoją żadne reklamy ani właściciele. Prowadzimy to, bo kochamy bluesa. To merch faktycznie utrzymuje archiwum przy życiu — każdy zakup trafia bezpośrednio na hosting, research i nowe profile artystów.",
+            no: "SlowBlues er et uavhengig arkiv — ingen eiere bak seg, og ingen displayannonser i artistartiklene. Vi driver dette fordi vi elsker bluesen. Merch er det som faktisk holder arkivet i gang — hvert kjøp går rett til drift, research og nye artistprofiler.",
+            en: "SlowBlues is an independent archive — no owners behind it, and no display ads in the artist articles. We run this because we love the blues. Merch is what actually keeps the archive going — every purchase goes straight to hosting, research and new artist profiles.",
+            sv: "SlowBlues är ett oberoende arkiv — inga ägare bakom sig, och inga displayannonser i artistartiklarna. Vi driver det här för att vi älskar bluesen. Merch är det som faktiskt håller arkivet igång — varje köp går direkt till drift, research och nya artistprofiler.",
+            de: "SlowBlues ist ein unabhängiges Archiv — keine Eigentümer dahinter und keine Display-Werbung in den Künstlerartikeln. Wir betreiben das, weil wir den Blues lieben. Merch ist es, was das Archiv tatsächlich am Laufen hält — jeder Kauf fließt direkt in Hosting, Recherche und neue Künstlerprofile.",
+            pl: "SlowBlues to niezależne archiwum — bez właścicieli i bez reklam displayowych w artykułach o artystach. Prowadzimy to, bo kochamy bluesa. To merch faktycznie utrzymuje archiwum przy życiu — każdy zakup trafia bezpośrednio na hosting, research i nowe profile artystów.",
           })}
         </p>
       </section>

@@ -43,23 +43,25 @@ export const Route = createFileRoute("/sitemap.xml")({
 
         const urls: string[] = [];
 
-        // Home with hreflang declaring all supported languages (single canonical URL)
+        // Home: no /en, /sv, /de, /pl homepage route exists (one URL renders
+        // all 5 languages client-side) -- so there is nothing for a
+        // per-language hreflang alternate to actually point at. Emitting 5
+        // identical URLs as if they were distinct language variants is
+        // invalid/misleading to crawlers; x-default is the only honest
+        // annotation here.
         urls.push(
           buildUrl({
             path: "/",
             changefreq: "daily",
             priority: "1.0",
-            alternates: [
-              ...SUPPORTED_LOCALES.map((l) => ({ hreflang: l, path: "/" })),
-              { hreflang: "x-default", path: "/" },
-            ],
+            alternates: [{ hreflang: "x-default", path: "/" }],
           }),
         );
 
         // Static, single-locale pages
+        // Note: /artists is intentionally NOT listed here -- it's emitted
+        // once below, with full hreflang alternates, by the artist-list loop.
         const staticPaths: Array<{ p: string; cf?: string; pr?: string }> = [
-          { p: "/artists", cf: "weekly", pr: "0.9" },
-          
           { p: "/history", cf: "monthly", pr: "0.7" },
           { p: "/styles", cf: "monthly", pr: "0.7" },
           { p: "/festivals", cf: "weekly", pr: "0.7" },

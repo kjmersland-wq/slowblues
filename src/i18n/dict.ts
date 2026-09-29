@@ -160,7 +160,7 @@ const no = {
     support: {
       eyebrow: "Hold bluesen levende",
       title: "Støtt slow-blues.com",
-      lead: "Ingen annonser, ingen eiere. Hver t-skjorte og hver plate holder dette arkivet i live — og hyller artistene som skapte bluesen.",
+      lead: "Uavhengig arkiv, ingen eiere. Ingen displayannonser i artistartiklene — hver t-skjorte og hver plate holder dette arkivet i live, og hyller artistene som skapte bluesen.",
       buyMerch: "Kjøp merch",
       donate: "Doner",
       shareTitle: "Del siden",
@@ -396,7 +396,7 @@ const en: typeof no = {
     support: {
       eyebrow: "Keep the blues alive",
       title: "Support slow-blues.com",
-      lead: "No ads, no owners. Every t-shirt and record keeps this archive alive — and honours the artists who created the blues.",
+      lead: "Independent archive, no owners. No display ads in artist articles — every t-shirt and record keeps this archive alive, and honours the artists who created the blues.",
       buyMerch: "Buy merch",
       donate: "Donate",
       shareTitle: "Share the site",
@@ -632,7 +632,7 @@ const de: typeof no = {
     support: {
       eyebrow: "Blues am Leben halten",
       title: "Unterstütze slow-blues.com",
-      lead: "Keine Werbung, keine Eigentümer. Jedes T-Shirt und jede Platte hält dieses Archiv lebendig – und ehrt die Künstler, die den Blues schufen.",
+      lead: "Unabhängiges Archiv, keine Eigentümer. Keine Display-Werbung in den Künstlerartikeln – jedes T-Shirt und jede Platte hält dieses Archiv lebendig und ehrt die Künstler, die den Blues schufen.",
       buyMerch: "Merch kaufen",
       donate: "Spenden",
       shareTitle: "Seite teilen",
@@ -868,7 +868,7 @@ const sv: typeof no = {
     support: {
       eyebrow: "Håll bluesen levande",
       title: "Stötta slow-blues.com",
-      lead: "Inga annonser, inga ägare. Varje t-shirt och skiva håller detta arkiv vid liv – och hyllar artisterna som skapade bluesen.",
+      lead: "Oberoende arkiv, inga ägare. Inga displayannonser i artistartiklarna – varje t-shirt och skiva håller detta arkiv vid liv och hyllar artisterna som skapade bluesen.",
       buyMerch: "Köp merch",
       donate: "Donera",
       shareTitle: "Dela sidan",
@@ -1104,7 +1104,7 @@ const pl: typeof no = {
     support: {
       eyebrow: "Niech blues żyje",
       title: "Wesprzyj slow-blues.com",
-      lead: "Żadnych reklam, żadnych właścicieli. Każda koszulka i płyta utrzymuje to archiwum przy życiu — i oddaje hołd artystom, którzy stworzyli bluesa.",
+      lead: "Niezależne archiwum, żadnych właścicieli. Żadnych reklam displayowych w artykułach o artystach — każda koszulka i płyta utrzymuje to archiwum przy życiu, i oddaje hołd artystom, którzy stworzyli bluesa.",
       buyMerch: "Kup merch",
       donate: "Wpłać darowiznę",
       shareTitle: "Podziel się stroną",

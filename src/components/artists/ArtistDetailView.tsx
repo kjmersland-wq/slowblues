@@ -652,6 +652,10 @@ function VideoGrid({ videos, fallbackIds, featuredLabel, watchOnYoutubePrefix, w
 
 function RelatedCard({ a, locale }: { a: ArtistRecord; locale: ArtistLocale }) {
   const img = resolveArtistImage(a.img, "card");
+  // Was rendering the raw a.short column (the default-locale bio) on every
+  // language -- an /en/artists/x page would show Norwegian text in the
+  // Related Artists cards. pickLang() resolves short_<locale> instead.
+  const short = pickLang(a, locale as Lang, "short");
   return (
     <Link to={artistDetailPath(locale, a.slug)} className="block border border-border rounded-lg overflow-hidden bg-card/40 hover:border-gold/60 transition">
       {img ? (
@@ -665,7 +669,7 @@ function RelatedCard({ a, locale }: { a: ArtistRecord; locale: ArtistLocale }) {
       <div className="p-4">
         <div className="font-display text-lg text-gold mb-1">{a.name}</div>
         <div className="text-xs text-muted-foreground mb-2">{a.country ?? a.tag}{a.era && ` · ${a.era}`}</div>
-        {a.short && <p className="text-sm text-muted-foreground line-clamp-2">{a.short}</p>}
+        {short && <p className="text-sm text-muted-foreground line-clamp-2">{short}</p>}
       </div>
     </Link>
   );
