@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Play } from "lucide-react";
+import { useMemo, useState } from "react";
+import { Play, Repeat } from "lucide-react";
 import type { YTVideo } from "@/lib/youtube.functions";
 
 type Props = {
@@ -7,30 +7,67 @@ type Props = {
   title?: string;
   thumbnail?: string;
   className?: string;
-  /** Optional start time in seconds — trims playback without claiming a
-   * verified "highlight" clip beyond what start= genuinely supports. */
+  /** Optional start/end in seconds — trims playback. Neither claims a
+   * by-ear-verified "highlight" clip beyond what YouTube's own start=/end=
+   * genuinely support; see docs/media-candidates.md for which are guesses. */
   start?: number;
+  end?: number;
+  /** Interface language passed to YouTube (hl=) so its own UI and, where
+   * available, auto captions default to the viewer's locale. Captions are
+   * not guaranteed to exist in every language -- written steps stay the
+   * primary teaching content, video is support. */
+  locale?: "en" | "no" | "sv" | "de" | "pl";
+  /** Shows a "loop this section" toggle under the player (only meaningful
+   * alongside start/end -- loops the whole video otherwise). */
+  loopable?: boolean;
 };
+
+const LOCALE_TO_YT: Record<string, string> = { en: "en", no: "no", sv: "sv", de: "de", pl: "pl" };
 
 /**
  * Lite-style YouTube embed: shows thumbnail until clicked, then loads the
  * privacy-enhanced iframe. Saves bandwidth and avoids YouTube cookies on load.
  */
-export function YouTubeEmbed({ videoId, title, thumbnail, className, start }: Props) {
+export function YouTubeEmbed({ videoId, title, thumbnail, className, start, end, locale, loopable }: Props) {
   const [active, setActive] = useState(false);
+  const [loop, setLoop] = useState(false);
   const thumb = thumbnail || `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+
+  const src = useMemo(() => {
+    const params = new URLSearchParams({ autoplay: "1", rel: "0", cc_load_policy: "1" });
+    if (start) params.set("start", String(start));
+    if (end) params.set("end", String(end));
+    if (locale) {
+      params.set("hl", LOCALE_TO_YT[locale] ?? "en");
+      params.set("cc_lang_pref", LOCALE_TO_YT[locale] ?? "en");
+    }
+    if (loop) {
+      params.set("loop", "1");
+      params.set("playlist", videoId); // YouTube requires playlist= to loop a single video
+    }
+    return `https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}`;
+  }, [videoId, start, end, locale, loop]);
 
   if (active) {
     return (
-      <div className={`relative aspect-video overflow-hidden rounded-lg border border-gold/20 bg-black ${className ?? ""}`}>
-        <iframe
-          src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0${start ? `&start=${start}` : ""}`}
-          title={title || "YouTube video"}
-          referrerPolicy="strict-origin-when-cross-origin"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="absolute inset-0 h-full w-full"
-        />
+      <div className={className}>
+        <div className="relative aspect-video overflow-hidden rounded-lg border border-gold/20 bg-black">
+          <iframe
+            key={src}
+            src={src}
+            title={title || "YouTube video"}
+            referrerPolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 h-full w-full"
+          />
+        </div>
+        {loopable && (start !== undefined || end !== undefined) && (
+          <label className="mt-2 inline-flex items-center gap-2 text-xs text-muted-foreground cursor-pointer select-none">
+            <input type="checkbox" checked={loop} onChange={(e) => setLoop(e.target.checked)} className="accent-gold" />
+            <Repeat className="size-3.5" /> Loop this section
+          </label>
+        )}
       </div>
     );
   }

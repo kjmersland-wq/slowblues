@@ -5,14 +5,17 @@ type Dot = { string: number; fret: number }; // string 1 = low E (left) .. 6 = h
 type ChordShape = { name: string; dots: Dot[]; open: number[]; muted: number[] };
 
 // String 1 = low E .. string 6 = high e. Standard open-position fingerings:
-// E = 022100, A = x02220, B7 = x21202.
+// E = 022100, A = x02220, B7 = x21202, A7 = x02020, D7 = xx0212.
 const SHAPES: Record<string, ChordShape> = {
   E: { name: "E", dots: [{ string: 2, fret: 2 }, { string: 3, fret: 2 }, { string: 4, fret: 1 }], open: [1, 5, 6], muted: [] },
   A: { name: "A", dots: [{ string: 3, fret: 2 }, { string: 4, fret: 2 }, { string: 5, fret: 2 }], open: [2, 6], muted: [1] },
   B7: { name: "B7", dots: [{ string: 2, fret: 2 }, { string: 3, fret: 1 }, { string: 4, fret: 2 }, { string: 6, fret: 2 }], open: [5], muted: [1] },
+  A7: { name: "A7", dots: [{ string: 3, fret: 2 }, { string: 5, fret: 2 }], open: [2, 4, 6], muted: [1] },
+  D7: { name: "D7", dots: [{ string: 4, fret: 2 }, { string: 5, fret: 1 }, { string: 6, fret: 2 }], open: [3], muted: [1, 2] },
+  E7: { name: "E7", dots: [{ string: 2, fret: 2 }, { string: 4, fret: 1 }], open: [1, 3, 5, 6], muted: [] },
 };
 
-export function ChordDiagram({ chord, className, label }: { chord: "E" | "A" | "B7"; className?: string; label?: string }) {
+export function ChordDiagram({ chord, className, label }: { chord: "E" | "A" | "B7" | "A7" | "D7" | "E7"; className?: string; label?: string }) {
   const shape = SHAPES[chord];
   const stringX = (s: number) => 12 + (s - 1) * 16; // 6 strings across 92px
   const fretY = (f: number) => 24 + f * 24;
