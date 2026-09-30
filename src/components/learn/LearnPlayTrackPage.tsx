@@ -9,18 +9,15 @@ import { ChordDiagram } from "@/components/learn/ChordDiagram";
 import { HarpMap } from "@/components/learn/HarpMap";
 import { getTrack, type Media, type Illustration } from "@/data/learnPlay";
 
+// No "coming soon" state: a lesson either has a real Media object for a
+// slot, or the field is omitted and LearnPlayTrackPage never renders that
+// section's header at all — never an empty framed box.
 function MediaBlock({ media, lang }: { media: Media; lang: "en" | "no" | "sv" | "de" | "pl" }) {
-  if (media.type === "video") {
-    return (
-      <div>
-        <YouTubeEmbed videoId={media.videoId} title={media.caption[lang] ?? media.caption.en} />
-        <p className="mt-2 text-sm text-muted-foreground">{media.caption[lang] ?? media.caption.en}</p>
-      </div>
-    );
-  }
   return (
-    <div className="rounded-lg border border-dashed border-border bg-card/30 aspect-video flex items-center justify-center p-4 text-center">
-      <p className="text-sm text-muted-foreground italic">{media.caption[lang] ?? media.caption.en}</p>
+    <div>
+      <YouTubeEmbed videoId={media.videoId} title={media.caption[lang] ?? media.caption.en} start={media.start} />
+      <p className="mt-2 text-sm text-muted-foreground">{media.caption[lang] ?? media.caption.en}</p>
+      <p className="text-xs text-muted-foreground/70">{media.credit}</p>
     </div>
   );
 }
@@ -133,19 +130,23 @@ export function LearnPlayTrackPage({ trackId }: { trackId: "guitar" | "harmonica
             <p className="text-muted-foreground leading-relaxed">{lesson.steps[lang] ?? lesson.steps.en}</p>
           </div>
 
-          <div>
-            <div className="text-xs uppercase tracking-widest text-gold mb-1.5">
-              {tr(lang, { en: "Listen", no: "Lytt", sv: "Lyssna", de: "Hör zu", pl: "Posłuchaj" })}
+          {lesson.listen && (
+            <div>
+              <div className="text-xs uppercase tracking-widest text-gold mb-1.5">
+                {tr(lang, { en: "Listen", no: "Lytt", sv: "Lyssna", de: "Hör zu", pl: "Posłuchaj" })}
+              </div>
+              <MediaBlock media={lesson.listen} lang={lang} />
             </div>
-            <MediaBlock media={lesson.listen} lang={lang} />
-          </div>
+          )}
 
-          <div>
-            <div className="text-xs uppercase tracking-widest text-gold mb-1.5">
-              {tr(lang, { en: "Play to backing", no: "Spill til backing", sv: "Spela till backing", de: "Zum Backing spielen", pl: "Graj do podkładu" })}
+          {lesson.backing && (
+            <div>
+              <div className="text-xs uppercase tracking-widest text-gold mb-1.5">
+                {tr(lang, { en: "Play to backing", no: "Spill til backing", sv: "Spela till backing", de: "Zum Backing spielen", pl: "Graj do podkładu" })}
+              </div>
+              <MediaBlock media={lesson.backing} lang={lang} />
             </div>
-            <MediaBlock media={lesson.backing} lang={lang} />
-          </div>
+          )}
 
           <div className="pt-2 border-t border-border">
             <p className="text-sm text-muted-foreground mb-2">{lesson.nextTip[lang] ?? lesson.nextTip.en}</p>

@@ -3,21 +3,23 @@
 // plain — someone sitting next to you showing the grip, not a textbook.
 //
 // Video honesty rule (same as the quiz audio-guess fixes): every videoId
-// here is a REAL video, already verified via YouTube oEmbed AND already
-// linked on that artist's own SlowBlues profile (artists.youtube_video_ids)
-// — never a guessed ID. Where no verified, technique-appropriate video
-// exists yet, the slot is `{ type: "comingSoon" }` and rendered as warm
-// "coming soon" copy, never a dead iframe. See the delivery notes for the
-// exact TODO list of what's still needed (mainly: generic instrumental
-// backing tracks, which by nature aren't tied to any artist profile and
-// need a human pick, not a guessed search result).
+// here is a REAL video, verified via YouTube oEmbed before use. `listen`
+// videos are further confirmed as already linked on that artist's own
+// SlowBlues profile (artists.youtube_video_ids). `backing` videos are the
+// two generic instrumental tracks the site owner picked and gave the IDs
+// for directly (Cliff Smith Backing Tracks in E, Quist in G) — verified
+// via oEmbed here too, just not tied to an artist profile, since a
+// backing track isn't a performance by anyone in the archive.
+//
+// No placeholder/"coming soon" state exists in this data on purpose: both
+// `listen` and `backing` are OPTIONAL. A lesson that has no real video for
+// a slot simply omits that field, and the page renders no section for it
+// at all — never an empty box.
 
 export type LearnLang = "en" | "no" | "sv" | "de" | "pl";
 export type LangText = Record<LearnLang, string>;
 
-export type Media =
-  | { type: "video"; videoId: string; caption: LangText }
-  | { type: "comingSoon"; caption: LangText };
+export type Media = { videoId: string; start?: number; credit: string; caption: LangText };
 
 export type Illustration =
   | { kind: "chord"; chord: "E" | "A" | "B7" }
@@ -29,12 +31,38 @@ export type Lesson = {
   title: LangText;
   goal: LangText;
   steps: LangText;
-  listen: Media;
-  backing: Media;
+  listen?: Media;
+  backing?: Media;
   nextTip: LangText;
   artistSlug: string;
   illustration: Illustration;
 };
+
+const GUITAR_BACKING = (): Media => ({
+  videoId: "JBFMvizGDiI",
+  start: 0,
+  credit: "Cliff Smith Backing Tracks",
+  caption: {
+    en: "Backing in E — guitar: E–A–B7. About 60 BPM.",
+    no: "Backing i E — gitar: E–A–B7. Ca. 60 BPM.",
+    sv: "Backing i E — gitarr: E–A–B7. Cirka 60 BPM.",
+    de: "Backing in E — Gitarre: E–A–B7. Etwa 60 BPM.",
+    pl: "Podkład w E — gitara: E–A–B7. Około 60 BPM.",
+  },
+});
+
+const HARMONICA_BACKING = (): Media => ({
+  videoId: "KASgnQXLZrw",
+  start: 120,
+  credit: "Quist",
+  caption: {
+    en: "Backing in G — C harmonica, 2nd position.",
+    no: "Backing i G — C-harp, andre posisjon.",
+    sv: "Backing i G — C-munspel, andra positionen.",
+    de: "Backing in G — C-Harp, 2. Position.",
+    pl: "Podkład w G — harmonijka C, druga pozycja.",
+  },
+});
 
 export type Track = {
   id: "guitar" | "harmonica";
@@ -64,13 +92,6 @@ const EARS_SHARED = {
     de: "12 Takte, vier Schläge in jedem. Zähl die Takte laut, 1 bis 12, während du klatschst oder den Takt stampfst — das ist die ganze Form, und die meisten je geschriebenen Bluessongs leben in ihr. Drei Akkorde erledigen die Arbeit: der Heimatakkord, der, der dich hochhebt, und der, der wieder nach Hause will. Das ist alles — das sind I, IV und V, und du brauchst die römischen Zahlen nie wieder. Noch etwas, bevor du auch nur einen Ton spielst: Lass den letzten Ton einer Zeile ausklingen. Hetz nicht in die nächste. Die Stille gehört zur Musik.",
     pl: "12 taktów, cztery uderzenia w każdym. Licz takty głośno, od 1 do 12, klaszcząc albo stukając stopą w rytm — to cała forma, i większość bluesowych utworów mieści się w niej. Trzy akordy robią całą robotę: akord domowy, ten, który cię unosi, i ten, który chce wrócić do domu. To wszystko — to I, IV i V, i rzymskich cyfr nigdy więcej nie potrzebujesz. Jeszcze jedno, zanim zagrasz choć jedną nutę: pozwól ostatniej nucie frazy wybrzmieć. Nie wpadaj od razu w kolejną. Cisza też jest częścią muzyki.",
   } satisfies LangText,
-  backing: { type: "comingSoon", caption: {
-    en: "Nothing to play yet. Just listen and count.",
-    no: "Ingenting å spille ennå. Bare lytt og tell.",
-    sv: "Inget att spela än. Bara lyssna och räkna.",
-    de: "Noch nichts zum Spielen. Nur zuhören und zählen.",
-    pl: "Jeszcze nic do grania. Po prostu słuchaj i licz.",
-  }} satisfies Media,
   illustration: { kind: "none" } satisfies Illustration,
 };
 
@@ -82,30 +103,65 @@ const EARS_LISTEN_CAPTION: LangText = {
   pl: "Licz razem do 12 taktów i posłuchaj, jak fraza sama sobie odpowiada.",
 };
 
-function makeEarsLesson(videoId: string, artistSlug: string, nextTip: LangText): Lesson {
+function makeEarsLesson(listenVideoId: string, listenCredit: string, artistSlug: string, backing: Media, nextTip: LangText): Lesson {
   return {
     ...EARS_SHARED,
-    listen: { type: "video", videoId, caption: EARS_LISTEN_CAPTION },
+    listen: { videoId: listenVideoId, credit: listenCredit, caption: EARS_LISTEN_CAPTION },
+    backing,
     nextTip,
     artistSlug,
   };
 }
 
-const EARS_GUITAR = makeEarsLesson("i0hVIrQm0KM", "stevie-ray-vaughan", {
-  en: "That's a full 12-bar right there — Stevie Ray Vaughan's profile is where this course ends up.",
-  no: "Det er en hel 12-takter rett der — profilen til Stevie Ray Vaughan er der dette kurset ender opp.",
-  sv: "Det är en hel 12-takt rakt där — Stevie Ray Vaughans profil är dit den här kursen leder.",
-  de: "Das ist genau dort ein voller 12-Takter — Stevie Ray Vaughans Profil ist, wo dieser Kurs hinführt.",
-  pl: "To właśnie tam masz cały 12-takt — profil Stevie'ego Raya Vaughana to miejsce, do którego zmierza ten kurs.",
-});
+const EARS_GUITAR = makeEarsLesson(
+  "i0hVIrQm0KM",
+  "Stevie Ray Vaughan",
+  "stevie-ray-vaughan",
+  {
+    videoId: "JBFMvizGDiI",
+    start: 0,
+    credit: "Cliff Smith Backing Tracks",
+    caption: {
+      en: "Backing in E. Count 1–12 out loud. Don't play yet.",
+      no: "Backing i E. Tell 1–12 høyt. Ikke spill ennå.",
+      sv: "Backing i E. Räkna 1–12 högt. Spela inte än.",
+      de: "Backing in E. Zähl 1–12 laut. Spiel noch nicht.",
+      pl: "Podkład w E. Licz głośno 1–12. Jeszcze nie graj.",
+    },
+  },
+  {
+    en: "That's a full 12-bar right there — Stevie Ray Vaughan's profile is where this course ends up.",
+    no: "Det er en hel 12-takter rett der — profilen til Stevie Ray Vaughan er der dette kurset ender opp.",
+    sv: "Det är en hel 12-takt rakt där — Stevie Ray Vaughans profil är dit den här kursen leder.",
+    de: "Das ist genau dort ein voller 12-Takter — Stevie Ray Vaughans Profil ist, wo dieser Kurs hinführt.",
+    pl: "To właśnie tam masz cały 12-takt — profil Stevie'ego Raya Vaughana to miejsce, do którego zmierza ten kurs.",
+  }
+);
 
-const EARS_HARMONICA = makeEarsLesson("HxkqDe7DN8g", "little-walter", {
-  en: "That's a full 12-bar right there — Little Walter's profile is where this course ends up.",
-  no: "Det er en hel 12-takter rett der — profilen til Little Walter er der dette kurset ender opp.",
-  sv: "Det är en hel 12-takt rakt där — Little Walters profil är dit den här kursen leder.",
-  de: "Das ist genau dort ein voller 12-Takter — Little Walters Profil ist, wo dieser Kurs hinführt.",
-  pl: "To właśnie tam masz cały 12-takt — profil Little Waltera to miejsce, do którego zmierza ten kurs.",
-});
+const EARS_HARMONICA = makeEarsLesson(
+  "HxkqDe7DN8g",
+  "Little Walter",
+  "little-walter",
+  {
+    videoId: "KASgnQXLZrw",
+    start: 120,
+    credit: "Quist",
+    caption: {
+      en: "Backing in G. C harp later. For now just count 1–12.",
+      no: "Backing i G. C-harp kommer. Nå bare tell 1–12.",
+      sv: "Backing i G. C-munspel kommer senare. Räkna bara 1–12 nu.",
+      de: "Backing in G. C-Harp kommt später. Zähl jetzt einfach 1–12.",
+      pl: "Podkład w G. Harmonijka C później. Na razie po prostu licz 1–12.",
+    },
+  },
+  {
+    en: "That's a full 12-bar right there — Little Walter's profile is where this course ends up.",
+    no: "Det er en hel 12-takter rett der — profilen til Little Walter er der dette kurset ender opp.",
+    sv: "Det är en hel 12-takt rakt där — Little Walters profil är dit den här kursen leder.",
+    de: "Das ist genau dort ein voller 12-Takter — Little Walters Profil ist, wo dieser Kurs hinführt.",
+    pl: "To właśnie tam masz cały 12-takt — profil Little Waltera to miejsce, do którego zmierza ten kurs.",
+  }
+);
 
 export const TRACKS: Track[] = [
   {
@@ -137,20 +193,7 @@ export const TRACKS: Track[] = [
           de: "Setz dich hin, der Gitarrenkorpus liegt am Bauch, der Hals zeigt leicht nach oben — nicht flach, nicht zur Decke. Nutze vorerst eine Stimm-App, dein Ohr holt später auf. Die Anschlaghand ruht locker nahe dem Schalloch oder Steg, Schultern entspannt, kein Todesgriff am Hals. Tut die Hand weh, drückst du zu fest.",
           pl: "Usiądź, korpus gitary opiera się o brzuch, gryf lekko uniesiony — nie płasko, nie w sufit. Na razie używaj tunera w telefonie, ucho dogoni później. Ręka od uderzania spoczywa luźno blisko otworu rezonansowego albo mostka, ramiona opuszczone, żadnego zaciskania na gryfie. Jeśli boli cię ręka, ściskasz za mocno.",
         },
-        listen: { type: "comingSoon", caption: {
-          en: "A hold/posture demo clip is coming here.",
-          no: "Et demoklipp om hold/sittestilling kommer her.",
-          sv: "Ett demoklipp om hållning kommer hit.",
-          de: "Ein Demo-Clip zur Haltung folgt hier.",
-          pl: "Klip demonstracyjny o postawie pojawi się tutaj.",
-        }},
-        backing: { type: "comingSoon", caption: {
-          en: "Nothing to play yet — get comfortable first.",
-          no: "Ingenting å spille ennå — bli komfortabel først.",
-          sv: "Inget att spela än — bli bekväm först.",
-          de: "Noch nichts zum Spielen — erst mal wohlfühlen.",
-          pl: "Jeszcze nic do grania — najpierw poczuj się swobodnie.",
-        }},
+        backing: GUITAR_BACKING(),
         nextTip: {
           en: "One man, one guitar, 29 recordings — the whole genre owes him something.",
           no: "Én mann, én gitar, 29 innspillinger — hele sjangeren skylder ham noe.",
@@ -178,20 +221,7 @@ export const TRACKS: Track[] = [
           de: "Finger für E setzen, vier langsame Abschläge. Wechsel zu A, gleiche vier Schläge. Zurück zu E. Ziel ist nicht Tempo — jeder Finger soll jedes Mal an derselben Stelle landen. Schnarrt eine Saite, muss der Finger näher an den Bund, nicht fester drücken.",
           pl: "Ustaw palce na E, cztery powolne uderzenia w dół. Przejdź do A, te same cztery uderzenia. Wróć do E. Celem nie jest szybkość — chodzi o to, by każdy palec za każdym razem trafiał w to samo miejsce. Jeśli struna brzęczy, palec musi być bliżej progu, nie mocniej dociśnięty.",
         },
-        listen: { type: "comingSoon", caption: {
-          en: "A clean E/A switch demo is coming here.",
-          no: "En demo av rent bytte mellom E/A kommer her.",
-          sv: "En demo av rent byte mellan E/A kommer hit.",
-          de: "Eine Demo des sauberen E/A-Wechsels folgt hier.",
-          pl: "Demo czystego przełączania E/A pojawi się tutaj.",
-        }},
-        backing: { type: "comingSoon", caption: {
-          en: "A simple two-chord loop to play along to is coming here.",
-          no: "En enkel to-akkords-løkke å spille til kommer her.",
-          sv: "En enkel tvåackordsloop att spela till kommer hit.",
-          de: "Eine einfache Zwei-Akkord-Schleife zum Mitspielen folgt hier.",
-          pl: "Prosta pętla dwóch akordów do grania razem pojawi się tutaj.",
-        }},
+        backing: GUITAR_BACKING(),
         nextTip: {
           en: "Muddy Waters plugged this exact vocabulary into an amplifier and changed everything.",
           no: "Muddy Waters plugget akkurat dette vokabularet inn i en forsterker og endret alt.",
@@ -219,20 +249,14 @@ export const TRACKS: Track[] = [
           de: "Erinnerst du dich an I-IV-V aus der Ohren-Lektion? Hier mit Namen: E (4 Takte), A (2 Takte), E (2 Takte), B7 (1 Takt), A (1 Takt), E (2 Takte). Zähl laut mit, während du wechselst — das Zählen zählt gerade mehr als die Akkorde. Langsam genug, dass du nie in Panik gerätst, ist das richtige Tempo.",
           pl: "Pamiętasz I-IV-V z lekcji o uszach? Oto ono z nazwami: E (4 takty), A (2 takty), E (2 takty), B7 (1 takt), A (1 takt), E (2 takty). Licz głośno, zmieniając akordy — teraz liczenie liczy się bardziej niż akordy. Właściwe tempo to takie, przy którym nigdy nie wpadasz w panikę.",
         },
-        listen: { type: "video", videoId: "ClpR3fOKPRA", caption: {
+        listen: { videoId: "ClpR3fOKPRA", credit: "Buddy Guy", caption: {
           en: "Buddy Guy — \"Feels Like Rain\". Notice how unhurried it is.",
           no: "Buddy Guy — «Feels Like Rain». Legg merke til hvor uhastig den er.",
           sv: "Buddy Guy — \"Feels Like Rain\". Lägg märke till hur ohastig den är.",
           de: "Buddy Guy — „Feels Like Rain“. Achte darauf, wie unaufgeregt das ist.",
           pl: "Buddy Guy — „Feels Like Rain”. Zwróć uwagę, jak bardzo bez pośpiechu to brzmi.",
         }},
-        backing: { type: "comingSoon", caption: {
-          en: "A slow backing track in E is coming here.",
-          no: "Et sakte backing-spor i E kommer her.",
-          sv: "Ett långsamt backingspår i E kommer hit.",
-          de: "Ein langsames Backing-Track in E folgt hier.",
-          pl: "Wolny podkład w E pojawi się tutaj.",
-        }},
+        backing: GUITAR_BACKING(),
         nextTip: {
           en: "Buddy Guy is still playing this feeling live today — his profile has more.",
           no: "Buddy Guy spiller fortsatt denne følelsen live i dag — profilen har mer.",
@@ -260,20 +284,14 @@ export const TRACKS: Track[] = [
           de: "Lang-kurz, lang-kurz — das ist ein Shuffle, nicht lang-lang-lang-lang. Spiel ihn zuerst auf einem einzigen E-Akkord: zwei Töne pro Schlag, aber der erste bekommt mehr Zeit als der zweite, wie ein hinkender Gang. Fühlt sich der Groove auf einem Akkord natürlich an, nimm ihn mit in den vollen 12-Takter aus Lektion 3.",
           pl: "Długo-krótko, długo-krótko — to jest shuffle, nie długo-długo-długo-długo. Zagraj to najpierw na samym akordzie E: dwie nuty na uderzenie, ale pierwsza trwa dłużej niż druga, jak kulawy chód. Gdy to kołysanie stanie się naturalne na jednym akordzie, przenieś je do całego 12-taktu z lekcji 3.",
         },
-        listen: { type: "video", videoId: "i0hVIrQm0KM", caption: {
+        listen: { videoId: "i0hVIrQm0KM", credit: "Stevie Ray Vaughan", caption: {
           en: "Stevie Ray Vaughan — \"Pride and Joy\". The shuffle that taught a generation.",
           no: "Stevie Ray Vaughan — «Pride and Joy». Shufflen som lærte opp en generasjon.",
           sv: "Stevie Ray Vaughan — \"Pride and Joy\". Shuffeln som lärde upp en generation.",
           de: "Stevie Ray Vaughan — „Pride and Joy“. Der Shuffle, der eine Generation lehrte.",
           pl: "Stevie Ray Vaughan — „Pride and Joy”. Shuffle, który uczył całe pokolenie.",
         }},
-        backing: { type: "comingSoon", caption: {
-          en: "A shuffle backing track in E is coming here.",
-          no: "Et shuffle-backingspor i E kommer her.",
-          sv: "Ett shuffle-backingspår i E kommer hit.",
-          de: "Ein Shuffle-Backing-Track in E folgt hier.",
-          pl: "Podkład shuffle w E pojawi się tutaj.",
-        }},
+        backing: GUITAR_BACKING(),
         nextTip: {
           en: "Stevie Ray Vaughan's whole catalogue lives on this same bounce — his profile is next.",
           no: "Hele katalogen til Stevie Ray Vaughan lever på denne samme gyngen — profilen er neste steg.",
@@ -301,20 +319,7 @@ export const TRACKS: Track[] = [
           de: "Setz einen Slide auf Ring- oder kleinen Finger — die anderen Finger bleiben frei. Lass ihn locker direkt über dem Bundstäbchen liegen, nicht dahinter wie beim normalen Greifen, und berühre die Saite nur leicht. Zupf eine Saite, gleite langsam zwei Bünde hoch und zurück, und lass jedes Ende ausklingen, bevor du weitermachst. Zu viel Druck tötet den singenden Ton — hier gilt: weniger ist mehr.",
           pl: "Załóż slide na palec serdeczny lub mały — pozostałe palce zostają wolne. Oprzyj go lekko dokładnie nad progiem, nie za nim jak przy zwykłym chwycie, i ledwo dotykaj struny. Uderz jedną strunę, przesuń powoli o dwa progi w górę i z powrotem, pozwalając każdemu końcowi wybrzmieć zanim ruszysz dalej. Zbyt duży nacisk zabija śpiewny ton — to jedna lekcja, w której mniej znaczy więcej.",
         },
-        listen: { type: "comingSoon", caption: {
-          en: "A slide demo clip is coming here.",
-          no: "Et slide-demoklipp kommer her.",
-          sv: "Ett slide-demoklipp kommer hit.",
-          de: "Ein Slide-Demo-Clip folgt hier.",
-          pl: "Klip demonstracyjny slide'a pojawi się tutaj.",
-        }},
-        backing: { type: "comingSoon", caption: {
-          en: "A slow one-chord drone to slide over is coming here.",
-          no: "En sakte enkeltakkord-dronelyd å slide over kommer her.",
-          sv: "En långsam enackordsdrone att slida över kommer hit.",
-          de: "Ein langsamer Ein-Akkord-Drone zum Slide-Üben folgt hier.",
-          pl: "Wolny jednoakordowy dron do ślizgania się po nim pojawi się tutaj.",
-        }},
+        backing: GUITAR_BACKING(),
         nextTip: {
           en: "Nobody owns this sound more than Elmore James — his profile is where it lives.",
           no: "Ingen eier denne lyden mer enn Elmore James — profilen hans er der den bor.",
@@ -356,20 +361,7 @@ export const TRACKS: Track[] = [
           de: "Nimm die Harp in eine Hand, Zahlen nach oben, tiefe Töne links. Führe die Harmonika zum Mund — nicht den Kopf zur Harp. Leg die Lippen locker darum, als wolltest du „oh“ sagen, kein enger Kussmund. Atme sanft durch Loch 4 ein und aus; nicht fest blasen, das ist kein Partyknaller.",
           pl: "Trzymaj harmonijkę w jednej ręce, cyfry do góry, niskie dźwięki po lewej. Przybliż harmonijkę do ust — nie głowę do harmonijki. Oprzyj usta wokół niej tak, jakbyś miał powiedzieć „oo”, nie ściśnięte dzióbkiem. Oddychaj spokojnie przez otwór 4; nie dmuchaj mocno, to nie dmuchawka na przyjęciu.",
         },
-        listen: { type: "comingSoon", caption: {
-          en: "A hold/seal demo clip is coming here.",
-          no: "Et demoklipp om hold og forsegling kommer her.",
-          sv: "Ett demoklipp om hållning och försegling kommer hit.",
-          de: "Ein Demo-Clip zu Haltung und Dichtsitz folgt hier.",
-          pl: "Klip demonstracyjny o trzymaniu i szczelności pojawi się tutaj.",
-        }},
-        backing: { type: "comingSoon", caption: {
-          en: "Nothing to play yet — get the seal comfortable first.",
-          no: "Ingenting å spille ennå — bli komfortabel med forseglingen først.",
-          sv: "Inget att spela än — bli bekväm med förseglingen först.",
-          de: "Noch nichts zum Spielen — erst den Dichtsitz gewöhnen.",
-          pl: "Jeszcze nic do grania — najpierw przyzwyczaj się do szczelności.",
-        }},
+        backing: HARMONICA_BACKING(),
         nextTip: {
           en: "Little Walter turned this small instrument into a lead voice — his profile is ahead.",
           no: "Little Walter gjorde dette lille instrumentet til en ledestemme — profilen hans venter.",
@@ -397,20 +389,7 @@ export const TRACKS: Track[] = [
           de: "Spiel Loch 4 zuerst als breiten Akkord — atme normal, du hörst 3-4 Töne gleichzeitig. Verenge nun die Lippen und ziel die Luft genau auf Loch 4 allein, wie durch einen Strohhalm pfeifen. Wechsle hin und her: Akkord, Einzelton, Akkord, Einzelton. Diese Kontrolle macht das meiste dessen aus, was Blues-Harp von bloßem Reinatmen unterscheidet.",
           pl: "Zagraj otwór 4 najpierw jako szeroki akord — oddychaj normalnie, usłyszysz 3-4 dźwięki naraz. Teraz zwęź usta i skieruj powietrze dokładnie na sam otwór 4, jakbyś gwizdał przez słomkę. Przełączaj się: akord, pojedynczy dźwięk, akord, pojedynczy dźwięk. Ta kontrola to większość tego, co odróżnia bluesową harmonijkę od zwykłego oddychania w nią.",
         },
-        listen: { type: "comingSoon", caption: {
-          en: "A single-note-vs-chord demo clip is coming here.",
-          no: "Et demoklipp om enkelttone vs. akkord kommer her.",
-          sv: "Ett demoklipp om enton vs. ackord kommer hit.",
-          de: "Ein Demo-Clip zu Einzelton vs. Akkord folgt hier.",
-          pl: "Klip demonstracyjny pojedynczy dźwięk vs. akord pojawi się tutaj.",
-        }},
-        backing: { type: "comingSoon", caption: {
-          en: "A slow drone on hole 4 to practice against is coming here.",
-          no: "En sakte drone på hull 4 å øve mot kommer her.",
-          sv: "En långsam drone på hål 4 att öva mot kommer hit.",
-          de: "Ein langsamer Drone auf Loch 4 zum Üben folgt hier.",
-          pl: "Wolny dron na otworze 4 do ćwiczeń pojawi się tutaj.",
-        }},
+        backing: HARMONICA_BACKING(),
         nextTip: {
           en: "This is the control every Big Walter Horton solo is built on.",
           no: "Dette er kontrollen enhver Big Walter Horton-solo er bygget på.",
@@ -438,20 +417,14 @@ export const TRACKS: Track[] = [
           de: "Das nennt man Cross Harp oder 2. Position: Eine C-Mundharmonika liefert dir eigentlich den Blues in G, nicht in C. Heimatbasis sind die Löcher 1 bis 4 beim Ziehen (Einatmen), nicht beim Blasen. Setz dich hin und atme einfach langsam auf den Löchern 1-2-3-4 zusammen ein — lass diesen Klang wirken, das ist der Sound, den du schon von jeder Bluesplatte kennst.",
           pl: "Nazywa się to cross harp, czyli druga pozycja: harmonijka C daje ci właściwie bluesa w tonacji G, nie C. Bazą domową są otwory od 1 do 4 na wdechu (draw), nie na wydechu. Usiądź i po prostu wdychaj powietrze przez otwory 1-2-3-4 razem, powoli, i pozwól temu brzmieniu wsiąknąć — to dźwięk, który już znasz z każdej płyty bluesowej.",
         },
-        listen: { type: "video", videoId: "HxkqDe7DN8g", caption: {
+        listen: { videoId: "HxkqDe7DN8g", credit: "Little Walter", caption: {
           en: "Little Walter — \"Juke\". Built entirely on this position.",
           no: "Little Walter — «Juke». Bygget helt og holdent på denne posisjonen.",
           sv: "Little Walter — \"Juke\". Byggd helt och hållet på den här positionen.",
           de: "Little Walter — „Juke“. Vollständig auf dieser Position aufgebaut.",
           pl: "Little Walter — „Juke”. Zbudowane w całości na tej pozycji.",
         }},
-        backing: { type: "comingSoon", caption: {
-          en: "A slow 12-bar backing track in G (for your C harp) is coming here.",
-          no: "Et sakte 12-takters backing-spor i G (for ditt C-munnspill) kommer her.",
-          sv: "Ett långsamt 12-takters backingspår i G (för ditt C-munspel) kommer hit.",
-          de: "Ein langsames 12-Takt-Backing-Track in G (für deine C-Harp) folgt hier.",
-          pl: "Wolny 12-taktowy podkład w G (dla twojej harmonijki C) pojawi się tutaj.",
-        }},
+        backing: HARMONICA_BACKING(),
         nextTip: {
           en: "\"Juke\" is the harmonica instrumental — Little Walter's profile has the story.",
           no: "«Juke» er munnspill-instrumentalen — profilen til Little Walter har historien.",
@@ -479,20 +452,14 @@ export const TRACKS: Track[] = [
           de: "Hier ein kleines Original-Riff, in Zieh- (ein) und Blastönen (aus): ziehen 4, ziehen 3, blasen 2, ziehen 2. Vier Töne, etwa zwei Sekunden. Loop es langsam, gleichmäßig, bis es langweilig wird — langweilig heißt bereit. Sitzt es, hast du schon etwas, das du über den ganzen 12-Takter aus der Ohren-Lektion spielen kannst.",
           pl: "Oto mały autorski riff, na wdechu (draw) i wydechu (blow): draw 4, draw 3, blow 2, draw 2. Cztery dźwięki, około dwóch sekund. Powtarzaj go powoli, równo, aż stanie się nudny — nudny znaczy gotowy. Gdy już siądzie, masz już coś do zagrania przez cały 12-takt z lekcji o uszach.",
         },
-        listen: { type: "video", videoId: "HxkqDe7DN8g", caption: {
+        listen: { videoId: "HxkqDe7DN8g", credit: "Little Walter", caption: {
           en: "Little Walter — \"Juke\" again. Listen for how a riff can carry a whole song.",
           no: "Little Walter — «Juke» igjen. Legg merke til hvordan en riff kan bære en hel sang.",
           sv: "Little Walter — \"Juke\" igen. Lyssna på hur en riff kan bära en hel låt.",
           de: "Little Walter — noch einmal „Juke“. Hör, wie ein Riff einen ganzen Song tragen kann.",
           pl: "Little Walter — ponownie „Juke”. Posłuchaj, jak riff może udźwignąć cały utwór.",
         }},
-        backing: { type: "comingSoon", caption: {
-          en: "A slow 12-bar backing track in G is coming here.",
-          no: "Et sakte 12-takters backing-spor i G kommer her.",
-          sv: "Ett långsamt 12-takters backingspår i G kommer hit.",
-          de: "Ein langsames 12-Takt-Backing-Track in G folgt hier.",
-          pl: "Wolny 12-taktowy podkład w G pojawi się tutaj.",
-        }},
+        backing: HARMONICA_BACKING(),
         nextTip: {
           en: "Ready to try your first bend? It's next — no rush if not.",
           no: "Klar for din første bend? Den er neste — ingen hast om ikke.",
@@ -520,20 +487,14 @@ export const TRACKS: Track[] = [
           de: "Beim Bend formst du das Innere deines Mundes, um die Tonhöhe beim Ziehen abzusenken. Sag laut „iii“, gleite dann zu „aah“, während du Loch 2 ziehst — du zielst Zunge und Kiefer nach unten und hinten, nicht fester blasen. Beim ersten Versuch klappt es nicht. Ändert sich nach ein paar ehrlichen Versuchen nichts, komm nach einer Woche Übung mit Lektion 4 hierher zurück — völlig normal, kein Scheitern.",
           pl: "Bend polega na kształtowaniu wnętrza ust, by obniżyć wysokość dźwięku podczas wdechu. Powiedz głośno „iii”, a potem przejdź w stronę „aaa”, wciągając powietrze przez otwór 2 — kierujesz język i żuchwę w dół i do tyłu, nie dmuchasz mocniej. Za pierwszym razem się nie uda. Jeśli po kilku szczerych próbach nic się nie zmienia, wróć tu po tygodniu ćwiczenia lekcji 4 — to zupełnie normalne, nie porażka.",
         },
-        listen: { type: "video", videoId: "a2vlNCK18L8", caption: {
+        listen: { videoId: "a2vlNCK18L8", credit: "Big Walter Horton", caption: {
           en: "Big Walter Horton — \"Walking By Myself\". One of the greatest bent solos ever recorded.",
           no: "Big Walter Horton — «Walking By Myself». Én av de beste bend-soloene som er spilt inn.",
           sv: "Big Walter Horton — \"Walking By Myself\". Ett av de bästa bend-solon som spelats in.",
           de: "Big Walter Horton — „Walking By Myself“. Eines der besten je aufgenommenen Bend-Solos.",
           pl: "Big Walter Horton — „Walking By Myself”. Jedna z najlepszych solówek z bendami, jakie nagrano.",
         }},
-        backing: { type: "comingSoon", caption: {
-          en: "A slow drone on hole 2 to bend against is coming here.",
-          no: "En sakte drone på hull 2 å bende mot kommer her.",
-          sv: "En långsam drone på hål 2 att böja mot kommer hit.",
-          de: "Ein langsamer Drone auf Loch 2 zum Bend-Üben folgt hier.",
-          pl: "Wolny dron na otworze 2 do ćwiczenia bendu pojawi się tutaj.",
-        }},
+        backing: HARMONICA_BACKING(),
         nextTip: {
           en: "Big Walter Horton's own profile has the full story behind that solo.",
           no: "Profilen til Big Walter Horton har hele historien bak den soloen.",
