@@ -1,7 +1,66 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Guitar, Wind } from "lucide-react";
 import { PageShell, PageHero } from "@/components/PageShell";
-import { useI18n, tr } from "@/i18n";
+import { useI18n, tr, type Lang } from "@/i18n";
+import { artistDetailPath } from "@/lib/locale";
+
+// Two real, sourced quotes — a third (harmonica-as-voice, from Little
+// Walter or Big Walter Horton) was researched and dropped: no verified
+// first-person quote on that theme turned up for either, and Charlie
+// Musselwhite's well-documented one ("The harmonica is the most
+// voice-like instrument... it's like singing the blues without words")
+// has no SlowBlues profile to link to. Better two real ones than three
+// with a guess in the mix.
+const IGNITION_QUOTES: { quote: string; artistSlug: string; attribution: string; gloss: Record<Lang, string> }[] = [
+  {
+    quote: "Playing guitar is like telling the truth.",
+    artistSlug: "bb-king",
+    attribution: "B.B. King",
+    gloss: {
+      en: "Play what you feel, not what you think you're supposed to.",
+      no: "Spill det du føler, ikke det du tror du skal.",
+      sv: "Spela det du känner, inte det du tror att du ska.",
+      de: "Spiel, was du fühlst, nicht das, was du meinst spielen zu müssen.",
+      pl: "Graj to, co czujesz, nie to, co myślisz, że powinieneś.",
+    },
+  },
+  {
+    quote: "My blues look so simple, so easy to do, but it's not.",
+    artistSlug: "muddy-waters",
+    attribution: "Muddy Waters",
+    gloss: {
+      en: "Simple isn't the same as easy. Start there anyway.",
+      no: "Enkelt er ikke det samme som lett. Start der likevel.",
+      sv: "Enkelt är inte samma sak som lätt. Börja där ändå.",
+      de: "Einfach ist nicht dasselbe wie leicht. Fang trotzdem dort an.",
+      pl: "Proste to nie to samo co łatwe. Zacznij mimo to właśnie tam.",
+    },
+  },
+];
+
+const HOUSE_TIPS: Record<Lang, string>[] = [
+  {
+    en: "Count 12 bars before you chase chord shapes.",
+    no: "Tell 12 takter før du jager grep.",
+    sv: "Räkna 12 takter innan du jagar ackordgrepp.",
+    de: "Zähl 12 Takte, bevor du Akkordgriffen hinterherjagst.",
+    pl: "Policz 12 taktów, zanim zaczniesz gonić za chwytami.",
+  },
+  {
+    en: "You don't need to wait for \"the right mood.\" Just sit down.",
+    no: "Du trenger ikke vente på «riktig stemning». Sett deg ned.",
+    sv: "Du behöver inte vänta på \"rätt stämning\". Sätt dig ner.",
+    de: "Du musst nicht auf die „richtige Stimmung“ warten. Setz dich einfach hin.",
+    pl: "Nie musisz czekać na „odpowiedni nastrój”. Po prostu usiądź.",
+  },
+  {
+    en: "Let the last note ring. That's where the blues lives.",
+    no: "La siste tonen stå. Det er der bluesen sitter.",
+    sv: "Låt sista tonen klinga. Det är där bluesen bor.",
+    de: "Lass den letzten Ton stehen. Da wohnt der Blues.",
+    pl: "Pozwól ostatniej nucie wybrzmieć. Tam właśnie mieszka blues.",
+  },
+];
 
 export const Route = createFileRoute("/learn/play/")({
   component: LearnPlayIndex,
@@ -79,6 +138,30 @@ function LearnPlayIndex() {
               })}
             </p>
           </Link>
+        </div>
+
+        <div className="mt-16 pt-10 border-t border-border">
+          <div className="grid sm:grid-cols-2 gap-4 mb-10">
+            {IGNITION_QUOTES.map((q) => (
+              <Link
+                key={q.artistSlug}
+                to={artistDetailPath(lang, q.artistSlug) as any}
+                className="block bg-card/40 border border-border rounded-lg p-5 hover:border-gold/50 transition"
+              >
+                <p className="text-foreground/90 leading-relaxed">{q.quote}</p>
+                <p className="mt-2 text-[11px] uppercase tracking-widest text-gold">{q.attribution}</p>
+                <p className="mt-2 text-sm text-muted-foreground">{q.gloss[lang] ?? q.gloss.en}</p>
+              </Link>
+            ))}
+          </div>
+
+          <ul className="space-y-2.5 max-w-xl mx-auto text-center">
+            {HOUSE_TIPS.map((tip, i) => (
+              <li key={i} className="text-muted-foreground">
+                {tip[lang] ?? tip.en}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
     </PageShell>
