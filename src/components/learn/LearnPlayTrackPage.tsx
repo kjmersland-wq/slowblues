@@ -1,0 +1,181 @@
+import { useEffect, useMemo, useState } from "react";
+import { Link } from "@tanstack/react-router";
+import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { PageShell, PageHero } from "@/components/PageShell";
+import { useI18n, tr } from "@/i18n";
+import { artistDetailPath } from "@/lib/locale";
+import { YouTubeEmbed } from "@/components/YouTubeEmbed";
+import { ChordDiagram } from "@/components/learn/ChordDiagram";
+import { HarpMap } from "@/components/learn/HarpMap";
+import { getTrack, type Media, type Illustration } from "@/data/learnPlay";
+
+function MediaBlock({ media, lang }: { media: Media; lang: "en" | "no" | "sv" | "de" | "pl" }) {
+  if (media.type === "video") {
+    return (
+      <div>
+        <YouTubeEmbed videoId={media.videoId} title={media.caption[lang] ?? media.caption.en} />
+        <p className="mt-2 text-sm text-muted-foreground">{media.caption[lang] ?? media.caption.en}</p>
+      </div>
+    );
+  }
+  return (
+    <div className="rounded-lg border border-dashed border-border bg-card/30 aspect-video flex items-center justify-center p-4 text-center">
+      <p className="text-sm text-muted-foreground italic">{media.caption[lang] ?? media.caption.en}</p>
+    </div>
+  );
+}
+
+function IllustrationBlock({ illustration }: { illustration: Illustration }) {
+  if (illustration.kind === "chord") return <ChordDiagram chord={illustration.chord} />;
+  if (illustration.kind === "harp") return <HarpMap highlight={illustration.highlight} direction={illustration.direction} />;
+  return null;
+}
+
+type StoredProgress = { lessonIndex: number; done: string[] };
+
+export function LearnPlayTrackPage({ trackId }: { trackId: "guitar" | "harmonica" }) {
+  const { lang } = useI18n();
+  const track = getTrack(trackId)!;
+  const storageKey = `slowblues-learn-play-${trackId}`;
+
+  const [lessonIndex, setLessonIndex] = useState(0);
+  const [done, setDone] = useState<Set<string>>(new Set());
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(storageKey);
+      if (raw) {
+        const parsed = JSON.parse(raw) as StoredProgress;
+        if (typeof parsed.lessonIndex === "number" && parsed.lessonIndex < track.lessons.length) setLessonIndex(parsed.lessonIndex);
+        if (Array.isArray(parsed.done)) setDone(new Set(parsed.done));
+      }
+    } catch {
+      // ignore -- start fresh
+    }
+    setHydrated(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [trackId]);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    try {
+      localStorage.setItem(storageKey, JSON.stringify({ lessonIndex, done: [...done] } satisfies StoredProgress));
+    } catch {
+      // best-effort only
+    }
+  }, [lessonIndex, done, hydrated, storageKey]);
+
+  const lesson = track.lessons[lessonIndex];
+  const total = track.lessons.length;
+
+  const goNext = () => {
+    setDone((d) => new Set(d).add(lesson.id));
+    if (lessonIndex + 1 < total) setLessonIndex((i) => i + 1);
+  };
+  const goPrev = () => {
+    if (lessonIndex > 0) setLessonIndex((i) => i - 1);
+  };
+
+  const progressLabel = useMemo(
+    () =>
+      tr(lang, {
+        en: `${track.title.en} ${lessonIndex + 1} of ${total}`,
+        no: `${track.title.no} ${lessonIndex + 1} av ${total}`,
+        sv: `${track.title.sv} ${lessonIndex + 1} av ${total}`,
+        de: `${track.title.de} ${lessonIndex + 1} von ${total}`,
+        pl: `${track.title.pl} ${lessonIndex + 1} z ${total}`,
+      }),
+    [lang, lessonIndex, total, track.title]
+  );
+
+  return (
+    <PageShell>
+      <PageHero
+        eyebrow={tr(lang, { en: "Play Blues", no: "Spill blues", sv: "Spela blues", de: "Blues spielen", pl: "Graj bluesa" })}
+        title={track.title[lang] ?? track.title.en}
+        lead={track.intro[lang] ?? track.intro.en}
+        img={undefined}
+      />
+      <section className="max-w-2xl mx-auto px-6 py-12">
+        <div className="mb-6">
+          <div className="flex justify-between text-xs text-muted-foreground mb-1.5">
+            <span>{progressLabel}</span>
+            <Link to="/learn/play" className="hover:text-gold">
+              {tr(lang, { en: "Switch track", no: "Bytt spor", sv: "Byt spår", de: "Spur wechseln", pl: "Zmień ścieżkę" })}
+            </Link>
+          </div>
+          <div className="h-1.5 rounded-full bg-border overflow-hidden">
+            <div className="h-full bg-gold transition-all" style={{ width: `${((lessonIndex + 1) / total) * 100}%` }} />
+          </div>
+        </div>
+
+        <div className="bg-card/60 border border-border rounded-xl p-5 sm:p-7 space-y-6">
+          <h2 className="font-display text-2xl gold-gradient-text">{lesson.title[lang] ?? lesson.title.en}</h2>
+
+          <div>
+            <div className="text-xs uppercase tracking-widest text-gold mb-1.5">
+              {tr(lang, { en: "You'll be able to", no: "Du skal kunne", sv: "Du ska kunna", de: "Du wirst können", pl: "Będziesz umiał/a" })}
+            </div>
+            <p className="text-foreground/90">{lesson.goal[lang] ?? lesson.goal.en}</p>
+          </div>
+
+          {lesson.illustration.kind !== "none" && (
+            <div className="flex justify-center py-2">
+              <IllustrationBlock illustration={lesson.illustration} />
+            </div>
+          )}
+
+          <div>
+            <div className="text-xs uppercase tracking-widest text-gold mb-1.5">
+              {tr(lang, { en: "Do this", no: "Gjør dette", sv: "Gör detta", de: "Mach das", pl: "Zrób to" })}
+            </div>
+            <p className="text-muted-foreground leading-relaxed">{lesson.steps[lang] ?? lesson.steps.en}</p>
+          </div>
+
+          <div>
+            <div className="text-xs uppercase tracking-widest text-gold mb-1.5">
+              {tr(lang, { en: "Listen", no: "Lytt", sv: "Lyssna", de: "Hör zu", pl: "Posłuchaj" })}
+            </div>
+            <MediaBlock media={lesson.listen} lang={lang} />
+          </div>
+
+          <div>
+            <div className="text-xs uppercase tracking-widest text-gold mb-1.5">
+              {tr(lang, { en: "Play to backing", no: "Spill til backing", sv: "Spela till backing", de: "Zum Backing spielen", pl: "Graj do podkładu" })}
+            </div>
+            <MediaBlock media={lesson.backing} lang={lang} />
+          </div>
+
+          <div className="pt-2 border-t border-border">
+            <p className="text-sm text-muted-foreground mb-2">{lesson.nextTip[lang] ?? lesson.nextTip.en}</p>
+            <Link to={artistDetailPath(lang, lesson.artistSlug) as any} className="inline-flex items-center gap-1 text-sm text-gold hover:underline">
+              {tr(lang, { en: "Open the artist profile", no: "Åpne artistprofilen", sv: "Öppna artistprofilen", de: "Künstlerprofil öffnen", pl: "Otwórz profil artysty" })}
+              <ExternalLink className="size-3.5" />
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-6 flex items-center justify-between gap-3">
+          <button
+            type="button"
+            onClick={goPrev}
+            disabled={lessonIndex === 0}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md border border-border hover:border-gold/50 disabled:opacity-30 disabled:pointer-events-none transition"
+          >
+            <ChevronLeft className="size-4" /> {tr(lang, { en: "Previous", no: "Forrige", sv: "Föregående", de: "Zurück", pl: "Poprzednia" })}
+          </button>
+          {lessonIndex + 1 < total ? (
+            <button type="button" onClick={goNext} className="inline-flex items-center gap-1.5 px-5 py-2 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition">
+              {tr(lang, { en: "Next", no: "Neste", sv: "Nästa", de: "Weiter", pl: "Następna" })} <ChevronRight className="size-4" />
+            </button>
+          ) : (
+            <button type="button" onClick={goNext} className="inline-flex items-center gap-1.5 px-5 py-2 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition">
+              {tr(lang, { en: "Done — that went!", no: "Ferdig — det gikk an!", sv: "Klart — det gick!", de: "Fertig — das ging!", pl: "Gotowe — udało się!" })}
+            </button>
+          )}
+        </div>
+      </section>
+    </PageShell>
+  );
+}

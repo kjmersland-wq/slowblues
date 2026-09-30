@@ -69,6 +69,9 @@ import { Route as AdminArtistsSlugRouteImport } from './routes/admin.artists.$sl
 import { Route as AdminArtistsNewRouteImport } from './routes/admin.artists.new'
 import { Route as ApiPublicFourthwallWebhookRouteImport } from './routes/api/public/fourthwall-webhook'
 import { Route as LearnGearIdRouteImport } from './routes/learn.gear.$id'
+import { Route as LearnPlayIndexRouteImport } from './routes/learn.play.index'
+import { Route as LearnPlayGuitarRouteImport } from './routes/learn.play.guitar'
+import { Route as LearnPlayHarmonicaRouteImport } from './routes/learn.play.harmonica'
 import { Route as QuizCycleCycleRouteImport } from './routes/quiz.cycle.$cycle'
 import { Route as AboutMerchCollectionSlugRouteImport } from './routes/about.merch.collection.$slug'
 
@@ -373,6 +376,21 @@ const LearnGearIdRoute = LearnGearIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => LearnGearRoute,
 } as any)
+const LearnPlayIndexRoute = LearnPlayIndexRouteImport.update({
+  id: '/learn/play/',
+  path: '/learn/play/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnPlayGuitarRoute = LearnPlayGuitarRouteImport.update({
+  id: '/learn/play/guitar',
+  path: '/learn/play/guitar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnPlayHarmonicaRoute = LearnPlayHarmonicaRouteImport.update({
+  id: '/learn/play/harmonica',
+  path: '/learn/play/harmonica',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const QuizCycleCycleRoute = QuizCycleCycleRouteImport.update({
   id: '/quiz/cycle/$cycle',
   path: '/quiz/cycle/$cycle',
@@ -445,8 +463,11 @@ export interface FileRoutesByFullPath {
   '/admin/artists/new': typeof AdminArtistsNewRoute
   '/api/public/fourthwall-webhook': typeof ApiPublicFourthwallWebhookRoute
   '/learn/gear/$id': typeof LearnGearIdRoute
+  '/learn/play/guitar': typeof LearnPlayGuitarRoute
+  '/learn/play/harmonica': typeof LearnPlayHarmonicaRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
   '/$locale/artists/': typeof LocaleArtistsIndexRoute
+  '/learn/play/': typeof LearnPlayIndexRoute
   '/about/merch/collection/$slug': typeof AboutMerchCollectionSlugRoute
 }
 export interface FileRoutesByTo {
@@ -509,8 +530,11 @@ export interface FileRoutesByTo {
   '/admin/artists/new': typeof AdminArtistsNewRoute
   '/api/public/fourthwall-webhook': typeof ApiPublicFourthwallWebhookRoute
   '/learn/gear/$id': typeof LearnGearIdRoute
+  '/learn/play/guitar': typeof LearnPlayGuitarRoute
+  '/learn/play/harmonica': typeof LearnPlayHarmonicaRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
   '/$locale/artists': typeof LocaleArtistsIndexRoute
+  '/learn/play': typeof LearnPlayIndexRoute
   '/about/merch/collection/$slug': typeof AboutMerchCollectionSlugRoute
 }
 export interface FileRoutesById {
@@ -574,8 +598,11 @@ export interface FileRoutesById {
   '/admin/artists/new': typeof AdminArtistsNewRoute
   '/api/public/fourthwall-webhook': typeof ApiPublicFourthwallWebhookRoute
   '/learn/gear/$id': typeof LearnGearIdRoute
+  '/learn/play/guitar': typeof LearnPlayGuitarRoute
+  '/learn/play/harmonica': typeof LearnPlayHarmonicaRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
   '/$locale/artists/': typeof LocaleArtistsIndexRoute
+  '/learn/play/': typeof LearnPlayIndexRoute
   '/about/merch/collection/$slug': typeof AboutMerchCollectionSlugRoute
 }
 export interface FileRouteTypes {
@@ -640,8 +667,11 @@ export interface FileRouteTypes {
     | '/admin/artists/new'
     | '/api/public/fourthwall-webhook'
     | '/learn/gear/$id'
+    | '/learn/play/guitar'
+    | '/learn/play/harmonica'
     | '/quiz/cycle/$cycle'
     | '/$locale/artists/'
+    | '/learn/play/'
     | '/about/merch/collection/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -704,8 +734,11 @@ export interface FileRouteTypes {
     | '/admin/artists/new'
     | '/api/public/fourthwall-webhook'
     | '/learn/gear/$id'
+    | '/learn/play/guitar'
+    | '/learn/play/harmonica'
     | '/quiz/cycle/$cycle'
     | '/$locale/artists'
+    | '/learn/play'
     | '/about/merch/collection/$slug'
   id:
     | '__root__'
@@ -768,8 +801,11 @@ export interface FileRouteTypes {
     | '/admin/artists/new'
     | '/api/public/fourthwall-webhook'
     | '/learn/gear/$id'
+    | '/learn/play/guitar'
+    | '/learn/play/harmonica'
     | '/quiz/cycle/$cycle'
     | '/$locale/artists/'
+    | '/learn/play/'
     | '/about/merch/collection/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -829,8 +865,11 @@ export interface RootRouteChildren {
   LocaleAboutAdvertiseRoute: typeof LocaleAboutAdvertiseRoute
   LocaleArtistsSlugRoute: typeof LocaleArtistsSlugRoute
   ApiPublicFourthwallWebhookRoute: typeof ApiPublicFourthwallWebhookRoute
+  LearnPlayGuitarRoute: typeof LearnPlayGuitarRoute
+  LearnPlayHarmonicaRoute: typeof LearnPlayHarmonicaRoute
   QuizCycleCycleRoute: typeof QuizCycleCycleRoute
   LocaleArtistsIndexRoute: typeof LocaleArtistsIndexRoute
+  LearnPlayIndexRoute: typeof LearnPlayIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1255,6 +1294,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnGearIdRouteImport
       parentRoute: typeof LearnGearRoute
     }
+    '/learn/play/': {
+      id: '/learn/play/'
+      path: '/learn/play'
+      fullPath: '/learn/play/'
+      preLoaderRoute: typeof LearnPlayIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/play/guitar': {
+      id: '/learn/play/guitar'
+      path: '/learn/play/guitar'
+      fullPath: '/learn/play/guitar'
+      preLoaderRoute: typeof LearnPlayGuitarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/play/harmonica': {
+      id: '/learn/play/harmonica'
+      path: '/learn/play/harmonica'
+      fullPath: '/learn/play/harmonica'
+      preLoaderRoute: typeof LearnPlayHarmonicaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/quiz/cycle/$cycle': {
       id: '/quiz/cycle/$cycle'
       path: '/quiz/cycle/$cycle'
@@ -1368,8 +1428,11 @@ const rootRouteChildren: RootRouteChildren = {
   LocaleAboutAdvertiseRoute: LocaleAboutAdvertiseRoute,
   LocaleArtistsSlugRoute: LocaleArtistsSlugRoute,
   ApiPublicFourthwallWebhookRoute: ApiPublicFourthwallWebhookRoute,
+  LearnPlayGuitarRoute: LearnPlayGuitarRoute,
+  LearnPlayHarmonicaRoute: LearnPlayHarmonicaRoute,
   QuizCycleCycleRoute: QuizCycleCycleRoute,
   LocaleArtistsIndexRoute: LocaleArtistsIndexRoute,
+  LearnPlayIndexRoute: LearnPlayIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

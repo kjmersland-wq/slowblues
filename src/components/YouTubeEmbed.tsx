@@ -7,13 +7,16 @@ type Props = {
   title?: string;
   thumbnail?: string;
   className?: string;
+  /** Optional start time in seconds — trims playback without claiming a
+   * verified "highlight" clip beyond what start= genuinely supports. */
+  start?: number;
 };
 
 /**
  * Lite-style YouTube embed: shows thumbnail until clicked, then loads the
  * privacy-enhanced iframe. Saves bandwidth and avoids YouTube cookies on load.
  */
-export function YouTubeEmbed({ videoId, title, thumbnail, className }: Props) {
+export function YouTubeEmbed({ videoId, title, thumbnail, className, start }: Props) {
   const [active, setActive] = useState(false);
   const thumb = thumbnail || `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 
@@ -21,7 +24,7 @@ export function YouTubeEmbed({ videoId, title, thumbnail, className }: Props) {
     return (
       <div className={`relative aspect-video overflow-hidden rounded-lg border border-gold/20 bg-black ${className ?? ""}`}>
         <iframe
-          src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`}
+          src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0${start ? `&start=${start}` : ""}`}
           title={title || "YouTube video"}
           referrerPolicy="strict-origin-when-cross-origin"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n, tr } from "@/i18n";
 import { FESTIVALS } from "@/data/blues";
@@ -49,6 +49,18 @@ function FestivalsPage() {
     <PageShell>
       <PageHero eyebrow={t.pages.festivals.eyebrow} title={t.pages.festivals.title} lead={t.pages.festivals.lead} img={IMG.crowd} />
       <section className="max-w-5xl mx-auto px-6 py-12">
+        <p className="text-center text-sm text-muted-foreground mb-8">
+          {tr(lang, {
+            no: "Vil du heller lage lyden selv enn å bare høre den på festival? ",
+            en: "Would rather make that sound yourself than just hear it at a festival? ",
+            sv: "Vill du hellre skapa ljudet själv än bara höra det på festival? ",
+            de: "Willst du den Sound lieber selbst machen, statt ihn nur auf einem Festival zu hören? ",
+            pl: "Wolisz sam/a tworzyć to brzmienie zamiast tylko słuchać go na festiwalu? ",
+          })}
+          <Link to="/learn/play" className="text-gold hover:underline font-medium">
+            {tr(lang, { no: "Prøv gitar eller munnspill fra bunnen av", en: "Try guitar or harmonica from scratch", sv: "Prova gitarr eller munspel från grunden", de: "Probier Gitarre oder Mundharmonika von Grund auf", pl: "Spróbuj gitary lub harmonijki od podstaw" })}
+          </Link>
+        </p>
         <div className="space-y-3">
           {FESTIVALS.map((f) => {
             const Card = f.url ? "a" : "div";
