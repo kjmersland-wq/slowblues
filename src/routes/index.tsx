@@ -62,8 +62,8 @@ export const Route = createFileRoute("/")({
 });
 
 const FALLBACK_TICKER: TickerItem[] = [
-  { id: "fb-1", kind: "editorial", label: "EDITORIAL", text: "SlowBlues — a living archive of blues artists, reviews & live recordings.", href: "/artists", timestamp: "2026-01-01T00:00:02.000Z", priority: 1 },
-  { id: "fb-2", kind: "editorial", label: "EXPLORE", text: "Dive into the full artist archive — from Delta to Chicago to Scandinavia.", href: "/artists", timestamp: "2026-01-01T00:00:01.000Z", priority: 1 },
+  { id: "fb-1", kind: "house", label: "SLOWBLUES", text: "SlowBlues — a living archive of blues artists, reviews & live recordings.", href: "/artists" },
+  { id: "fb-2", kind: "house", label: "EXPLORE", text: "Dive into the full artist archive — from Delta to Chicago to Scandinavia.", href: "/artists" },
 ];
 
 function getHeroSlides(lang: Lang) {
@@ -457,6 +457,21 @@ function localizeHref(href: string, lang: Lang): string {
   return `${artistDetailPath(lang, m[1])}${rest}`;
 }
 
+const TICKER_ITEM_SECONDS = 8;
+
+function usePrefersReducedMotion(): boolean {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduced(mq.matches);
+    const onChange = () => setReduced(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+  return reduced;
+}
+
 function Ticker() {
   const { lang } = useI18n();
   const { data } = useQuery({
@@ -471,36 +486,57 @@ function Ticker() {
     refetchOnWindowFocus: true,
   });
 
-  const merged: TickerItem[] = useMemo(() => {
+  const items: TickerItem[] = useMemo(() => {
     const base = data?.items?.length ? data.items : FALLBACK_TICKER;
     const seen = new Set<string>();
-    const unique = base.filter((i) => (seen.has(i.id) ? false : (seen.add(i.id), true)));
-    unique.sort((a, b) => {
-      if (b.priority !== a.priority) return b.priority - a.priority;
-      return (b.timestamp ?? "").localeCompare(a.timestamp ?? "");
-    });
-    // Server (buildNewsTicker) already freshness-gates and caps at 5-8 —
-    // trust it rather than re-truncating to a fixed 5 here.
-    return unique.slice(0, 8);
+    return base.filter((i) => (seen.has(i.id) ? false : (seen.add(i.id), true)));
   }, [data]);
 
-  const loop = [...merged, ...merged];
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const reducedMotion = usePrefersReducedMotion();
+
+  // Reset to the first item whenever the underlying batch changes (new
+  // language, or a fresh batch came back from the server) so we never point
+  // past the end of a shorter list.
+  useEffect(() => setIndex(0), [items.length]);
+
+  useEffect(() => {
+    if (paused || items.length <= 1) return;
+    if (typeof document !== "undefined" && document.hidden) return;
+    const id = setTimeout(() => setIndex((i) => (i + 1) % items.length), TICKER_ITEM_SECONDS * 1000);
+    return () => clearTimeout(id);
+  }, [index, paused, items.length]);
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const onVisibility = () => setPaused(document.hidden);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, []);
 
   const accent = (k: TickerItem["kind"]) => {
     switch (k) {
-      case "review": return "text-gold";
+      case "release": return "text-gold";
       case "youtube": return "text-red-400";
       case "concert": return "text-amber-300";
-      case "artist": return "text-blue-300";
-      case "blog": return "text-emerald-300";
+      case "birthday": return "text-blue-300";
+      case "onthisday": return "text-cyan-300";
+      case "memoriam": return "text-rose-300";
+      case "house": return "text-emerald-300";
       case "external": return "text-purple-300";
       default: return "text-gold";
     }
   };
 
+  if (items.length === 0) return null;
+  const t = items[Math.min(index, items.length - 1)];
+
   return (
     <div
-      className="relative border-y border-border bg-card/40 overflow-hidden ticker-mask"
+      className="relative border-y border-border bg-card/40"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
       aria-label={tr(lang, {
         no: "Direkte bluesnyheter",
         en: "Live blues news ticker",
@@ -509,23 +545,42 @@ function Ticker() {
         pl: "Wiadomości bluesowe na żywo",
       })}
     >
-      <div className="flex gap-10 py-3 animate-ticker whitespace-nowrap will-change-transform">
-        {loop.map((t, i) => (
-          <a
-            key={`${t.id}-${i}`}
-            href={t.external ? t.href : localizeHref(t.href, lang)}
-            {...(t.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            className="text-sm text-foreground/85 hover:text-foreground inline-flex items-center gap-2 group"
-          >
-            <span className={`${accent(t.kind)} font-mono text-[10px] tracking-widest uppercase`}>
-              {t.flag ? `${t.flag} ` : ""}{t.label}
-            </span>
-            <span className="opacity-40">›</span>
-            <span className="group-hover:underline underline-offset-4 decoration-gold/60">
-              {t.text}
-            </span>
-          </a>
-        ))}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-3">
+        <a
+          key={t.id}
+          href={t.external ? t.href : localizeHref(t.href, lang)}
+          {...(t.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          className={`min-w-0 flex-1 text-sm text-foreground/85 hover:text-foreground inline-flex items-center gap-2 group ${reducedMotion ? "" : "transition-opacity duration-300"}`}
+        >
+          <span className={`${accent(t.kind)} font-mono text-[10px] tracking-widest uppercase shrink-0`}>
+            {t.flag ? `${t.flag} ` : ""}{t.label}
+          </span>
+          <span className="opacity-40 shrink-0">›</span>
+          <span className="truncate group-hover:underline underline-offset-4 decoration-gold/60">
+            {t.text}
+          </span>
+        </a>
+        {items.length > 1 && (
+          <div className="shrink-0 flex items-center gap-2">
+            {items.length <= 12 ? (
+              <div className="flex items-center gap-1" role="tablist" aria-label={tr(lang, { no: "Saker i stripen", en: "Ticker items", sv: "Poster i listan", de: "Ticker-Einträge", pl: "Pozycje na pasku" })}>
+                {items.map((it, i) => (
+                  <button
+                    key={it.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={i === index}
+                    aria-label={`${i + 1} / ${items.length}`}
+                    onClick={() => setIndex(i)}
+                    className={`size-1.5 rounded-full transition-colors ${i === index ? "bg-gold" : "bg-border hover:bg-gold/50"}`}
+                  />
+                ))}
+              </div>
+            ) : (
+              <span className="text-[11px] font-mono text-muted-foreground tabular-nums">{index + 1} / {items.length}</span>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

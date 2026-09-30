@@ -5,12 +5,18 @@ import { runTourSync } from "./tours";
 import { runHealthCheck, checkUrl } from "./healthcheck";
 import { runRssTickerSync } from "./rssTicker";
 import { runQuizPublish } from "./quizPublish";
+import { runTickerBatch } from "./tickerBatch";
 import type { Env, RunSummary } from "./types";
 
 // "0 3 * * 1"   = weekly maintenance chain (discography/metadata/tours/link-health)
-// "0 5 * * *" = RSS newsticker sync + quiz cycle publish check, once daily
+// "0 5 * * *" = RSS newsticker sync + quiz cycle publish check + ticker
+//               batch check, once daily. ticker-batch is idempotent and
+//               only actually builds something on the first run after a
+//               new Mon/Thu (Europe/Oslo) half-week starts -- see
+//               tickerBatch.ts for why it's checked daily rather than
+//               cron-scheduled directly at that boundary.
 const WEEKLY_MODULES = ["discogs", "musicbrainz", "wikidata", "tours", "healthcheck"];
-const DAILY_MODULES = ["rss-ticker", "quiz-publish"];
+const DAILY_MODULES = ["rss-ticker", "quiz-publish", "ticker-batch"];
 
 // Cloudflare Workers cap subrequests (fetch() + D1 queries combined) at 50
 // per invocation. Running all 5 modules in one invocation blew straight
@@ -29,6 +35,7 @@ const MODULES: Record<string, (env: Env) => Promise<RunSummary>> = {
   healthcheck: runHealthCheck,
   "rss-ticker": runRssTickerSync,
   "quiz-publish": runQuizPublish,
+  "ticker-batch": runTickerBatch,
 };
 
 function formatReport(summaries: RunSummary[]): string {
