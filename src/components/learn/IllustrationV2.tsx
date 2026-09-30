@@ -82,12 +82,33 @@ function PentatonicBoxDiagram({ label }: { label?: string }) {
   );
 }
 
+function SlidePositionDiagram({ label }: { label?: string }) {
+  // One string, one fret wire, slide resting just above it (not behind it
+  // like normal fretting) — the one thing beginners get backwards first.
+  return (
+    <figure className="inline-flex flex-col items-center gap-2">
+      <svg viewBox="0 0 160 70" width="200" height="88" role="img" aria-label={label ?? "Slide position diagram"} className="text-gold">
+        <line x1="10" y1="40" x2="150" y2="40" stroke="currentColor" strokeOpacity={0.6} strokeWidth={1.5} />
+        {[40, 80, 120].map((x) => (
+          <line key={x} x1={x} y1="30" x2={x} y2="50" stroke="currentColor" strokeOpacity={0.35} strokeWidth={1.5} />
+        ))}
+        {/* slide barrel, resting just above (left of) the fret wire, not behind it */}
+        <rect x="66" y="18" width="22" height="44" rx="8" fill="none" stroke="currentColor" strokeWidth={2} />
+        <text x="77" y="12" textAnchor="middle" fontSize="8" fill="currentColor" opacity={0.7}>slide</text>
+        <text x="80" y="66" textAnchor="middle" fontSize="8" fill="currentColor" opacity={0.6}>fret wire →</text>
+      </svg>
+      {label && <figcaption className="text-xs text-muted-foreground text-center max-w-[180px]">{label}</figcaption>}
+    </figure>
+  );
+}
+
 export type IllustrationV2 =
   | { kind: "chord"; chord: "A7" | "D7" | "E7" | "B7" | "A" | "E" }
   | { kind: "harp"; highlight: number[]; direction?: "blow" | "draw" }
   | { kind: "hold-guitar" }
   | { kind: "hold-harmonica" }
-  | { kind: "pentatonic-box" };
+  | { kind: "pentatonic-box" }
+  | { kind: "slide-position" };
 
 export function IllustrationBlockV2({ illustration, label }: { illustration: IllustrationV2; label?: string }) {
   switch (illustration.kind) {
@@ -97,6 +118,8 @@ export function IllustrationBlockV2({ illustration, label }: { illustration: Ill
       return <HarpMap highlight={illustration.highlight} direction={illustration.direction} label={label} />;
     case "hold-guitar":
       return <HoldGuitarDiagram label={label} />;
+    case "slide-position":
+      return <SlidePositionDiagram label={label} />;
     case "hold-harmonica":
       return <HoldHarmonicaDiagram label={label} />;
     case "pentatonic-box":

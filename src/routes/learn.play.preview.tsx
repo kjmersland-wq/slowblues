@@ -3,23 +3,23 @@ import { useState } from "react";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n } from "@/i18n";
 import { StepLessonRenderer } from "@/components/learn/StepLessonRenderer";
-import { L0_EARS, G1_HOLD, H1_HOLD, type StepLesson } from "@/data/learnPlayV2";
+import { ALL_LESSONS } from "@/data/learnPlayV2";
 
-// PHASE 1 REVIEW SLICE — not linked from the site nav, not wired into the
-// live /learn/play/guitar or /learn/play/harmonica routes. Deliberately
+// PHASE 1+2 REVIEW SLICE — not linked from the site nav, not wired into
+// the live /learn/play/guitar or /learn/play/harmonica routes. Deliberately
 // isolated so this can be reviewed without touching the currently-live,
-// working course. Once approved, L0/G1/H1 replace their old-format
-// counterparts in learnPlay.ts and this route goes away.
+// working course. Once approved, these 11 lessons replace their old-format
+// counterparts in learnPlay.ts (Phase 3: translation) and this route goes
+// away.
 export const Route = createFileRoute("/learn/play/preview")({
   component: PreviewPage,
-  head: () => ({ meta: [{ name: "robots", content: "noindex" }, { title: "Learn to Play — Phase 1 preview" }] }),
+  head: () => ({ meta: [{ name: "robots", content: "noindex" }, { title: "Learn to Play — Phase 1+2 preview" }] }),
 });
 
-const LESSONS: { key: string; lesson: StepLesson }[] = [
-  { key: "L0", lesson: L0_EARS },
-  { key: "G1", lesson: G1_HOLD },
-  { key: "H1", lesson: H1_HOLD },
-];
+const LESSONS = ALL_LESSONS.map((lesson) => ({
+  key: lesson.instrument === "shared" ? "L0" : `${lesson.instrument === "guitar" ? "G" : "H"}${lesson.order}`,
+  lesson,
+}));
 
 function PreviewPage() {
   const { lang } = useI18n();
@@ -29,9 +29,9 @@ function PreviewPage() {
   return (
     <PageShell>
       <PageHero
-        eyebrow="Phase 1 review — not live"
+        eyebrow="Phase 1+2 review — not live"
         title={current.title}
-        lead="New lesson structure: Goal → Watch → Understand → Try → Check → Fix → Play → Record. English only this phase; noindex, not linked from the nav."
+        lead="New lesson structure: Goal → Watch → Understand → Try → Check → Fix → Play → Record. English only (Phase 3 = translation); noindex, not linked from the nav."
       />
       <section className="max-w-2xl mx-auto px-6 py-12">
         <div className="flex justify-center gap-2 mb-8">
