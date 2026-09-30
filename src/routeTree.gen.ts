@@ -34,6 +34,7 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as UpdatesRouteImport } from './routes/updates'
 import { Route as WatchRouteImport } from './routes/watch'
 import { Route as WorldmapRouteImport } from './routes/worldmap'
+import { Route as LocaleIndexRouteImport } from './routes/$locale.index'
 import { Route as AboutIndexRouteImport } from './routes/about.index'
 import { Route as AboutAdvertiseRouteImport } from './routes/about.advertise'
 import { Route as AboutBluesOrganisationsRouteImport } from './routes/about.blues-organisations'
@@ -200,6 +201,11 @@ const WatchRoute = WatchRouteImport.update({
 const WorldmapRoute = WorldmapRouteImport.update({
   id: '/worldmap',
   path: '/worldmap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocaleIndexRoute = LocaleIndexRouteImport.update({
+  id: '/$locale/',
+  path: '/$locale/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutIndexRoute = AboutIndexRouteImport.update({
@@ -464,6 +470,7 @@ export interface FileRoutesByFullPath {
   '/learn/styles': typeof LearnStylesRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/reviews/$slug': typeof ReviewsSlugRoute
+  '/$locale/': typeof LocaleIndexRoute
   '/about/': typeof AboutIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/artists/': typeof ArtistsIndexRoute
@@ -533,6 +540,7 @@ export interface FileRoutesByTo {
   '/learn/styles': typeof LearnStylesRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/reviews/$slug': typeof ReviewsSlugRoute
+  '/$locale': typeof LocaleIndexRoute
   '/about': typeof AboutIndexRoute
   '/admin': typeof AdminIndexRoute
   '/artists': typeof ArtistsIndexRoute
@@ -603,6 +611,7 @@ export interface FileRoutesById {
   '/learn/styles': typeof LearnStylesRoute
   '/quiz/archive': typeof QuizArchiveRoute
   '/reviews/$slug': typeof ReviewsSlugRoute
+  '/$locale/': typeof LocaleIndexRoute
   '/about/': typeof AboutIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/artists/': typeof ArtistsIndexRoute
@@ -674,6 +683,7 @@ export interface FileRouteTypes {
     | '/learn/styles'
     | '/quiz/archive'
     | '/reviews/$slug'
+    | '/$locale/'
     | '/about/'
     | '/admin/'
     | '/artists/'
@@ -743,6 +753,7 @@ export interface FileRouteTypes {
     | '/learn/styles'
     | '/quiz/archive'
     | '/reviews/$slug'
+    | '/$locale'
     | '/about'
     | '/admin'
     | '/artists'
@@ -812,6 +823,7 @@ export interface FileRouteTypes {
     | '/learn/styles'
     | '/quiz/archive'
     | '/reviews/$slug'
+    | '/$locale/'
     | '/about/'
     | '/admin/'
     | '/artists/'
@@ -882,6 +894,7 @@ export interface RootRouteChildren {
   LearnStylesRoute: typeof LearnStylesRoute
   QuizArchiveRoute: typeof QuizArchiveRoute
   ReviewsSlugRoute: typeof ReviewsSlugRoute
+  LocaleIndexRoute: typeof LocaleIndexRoute
   AboutIndexRoute: typeof AboutIndexRoute
   AdminIndexRoute: typeof AdminIndexRoute
   ArtistsIndexRoute: typeof ArtistsIndexRoute
@@ -1074,6 +1087,13 @@ declare module '@tanstack/react-router' {
       path: '/worldmap'
       fullPath: '/worldmap'
       preLoaderRoute: typeof WorldmapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$locale/': {
+      id: '/$locale/'
+      path: '/$locale'
+      fullPath: '/$locale/'
+      preLoaderRoute: typeof LocaleIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about/': {
@@ -1461,6 +1481,7 @@ const rootRouteChildren: RootRouteChildren = {
   LearnStylesRoute: LearnStylesRoute,
   QuizArchiveRoute: QuizArchiveRoute,
   ReviewsSlugRoute: ReviewsSlugRoute,
+  LocaleIndexRoute: LocaleIndexRoute,
   AboutIndexRoute: AboutIndexRoute,
   AdminIndexRoute: AdminIndexRoute,
   ArtistsIndexRoute: ArtistsIndexRoute,

@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { SafeImage } from "@/components/SafeImage";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n, tr } from "@/i18n";
@@ -114,6 +114,21 @@ function HistoryPage() {
             );
           })}
         </ol>
+      </section>
+
+      <section className="max-w-2xl mx-auto px-6 pb-20 text-center">
+        <p className="text-muted-foreground">
+          {tr(lang, {
+            no: "Vil du spille det selv? ",
+            en: "Want to play it yourself? ",
+            sv: "Vill du spela det själv? ",
+            de: "Willst du es selbst spielen? ",
+            pl: "Chcesz zagrać to sam? ",
+          })}
+          <Link to="/learn/play" className="text-gold hover:underline underline-offset-4">
+            {tr(lang, { no: "Start her.", en: "Start here.", sv: "Börja här.", de: "Hier anfangen.", pl: "Zacznij tutaj." })}
+          </Link>
+        </p>
       </section>
     </PageShell>
   );

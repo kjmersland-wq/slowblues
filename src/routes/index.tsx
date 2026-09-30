@@ -17,7 +17,7 @@ import { MerchCta } from "@/components/MerchCta";
 import { HomeFilmSection } from "@/components/HomeFilmSection";
 import { IMG } from "@/data/images";
 import { useI18n, tr, type Lang } from "@/i18n";
-import { artistDetailPath, artistsListPath, SUPPORTED_LOCALES } from "@/lib/locale";
+import { artistDetailPath, artistsListPath } from "@/lib/locale";
 import heroJukeImg from "@/assets/hero-juke.webp";
 import heroDeltaImg from "@/assets/hero-delta.webp";
 import heroGuitarImg from "@/assets/hero-guitar.webp";
@@ -30,8 +30,26 @@ const robertJohnson = IMG.robertJohnson;
 const muddyWaters = IMG.muddyWaters;
 const sonHouse = IMG.sonHouse;
 
+const SITE = "https://www.slow-blues.com";
+// English lives unprefixed at "/" (the SSR default language whenever no
+// locale is signalled by the URL -- see routeLangFromPath in src/i18n).
+// The other four now have real documents at /no, /sv, /de, /pl (see
+// $locale.index.tsx), so hreflang can finally point at genuine per-language
+// URLs instead of five identical links to the same English HTML.
+const HOME_HREFLANG: { hreflang: string; href: string }[] = [
+  { hreflang: "en", href: `${SITE}/` },
+  { hreflang: "no", href: `${SITE}/no` },
+  { hreflang: "sv", href: `${SITE}/sv` },
+  { hreflang: "de", href: `${SITE}/de` },
+  { hreflang: "pl", href: `${SITE}/pl` },
+  { hreflang: "x-default", href: `${SITE}/` },
+];
+
 export const Route = createFileRoute("/")({
-  component: Home,
+  component: () => {
+    const stats = Route.useLoaderData();
+    return <Home stats={stats} />;
+  },
   loader: async () => ({ ...(await fetchArtistStats()), voices: await fetchVoiceArtists(), hasQuiz: await hasPublishedQuizCycle() }),
   head: ({ loaderData }) => {
     // Live count from the artists table; if the loader failed (DB unreachable)
@@ -47,14 +65,11 @@ export const Route = createFileRoute("/")({
         { property: "og:description", content: description },
         { property: "og:url", content: "https://www.slow-blues.com/" },
         { property: "og:type", content: "website" },
+        { property: "og:locale", content: "en" },
       ],
       links: [
         { rel: "canonical", href: "https://www.slow-blues.com/" },
-        // The homepage is one URL that renders all 5 languages client-side (no
-        // /en, /sv, /de, /pl home route exists), so every hreflang variant and
-        // x-default point at this same URL instead of inventing pages that 404.
-        ...SUPPORTED_LOCALES.map((l) => ({ rel: "alternate", hreflang: l, href: "https://www.slow-blues.com/" })),
-        { rel: "alternate", hreflang: "x-default", href: "https://www.slow-blues.com/" },
+        ...HOME_HREFLANG.map((a) => ({ rel: "alternate", hreflang: a.hreflang, href: a.href })),
         { rel: "preload", as: "image", href: heroJukeImg, fetchpriority: "high" } as any,
       ],
     };
@@ -279,9 +294,15 @@ function getVoices(lang: Lang, rows: VoiceRow[]) {
   ].filter((v) => v.name);
 }
 
-function Home() {
+type HomeStats = ArtistStats & { voices: VoiceRow[]; hasQuiz: boolean };
+
+// Exported so $locale.index.tsx (the real /no, /sv, /de, /pl homepage
+// documents) can render the exact same page -- only the loader call site
+// and the URL differ; the language itself already comes from routing
+// (routeLangFromPath resolves /no, /sv, /de, /pl before I18nProvider ever
+// renders a child), not from a prop, so there's no forceLang to thread.
+export function Home({ stats }: { stats: HomeStats }) {
   const { lang } = useI18n();
-  const stats = Route.useLoaderData();
   const heroSlides = useMemo(() => getHeroSlides(lang), [lang]);
   const [slide, setSlide] = useState(0);
   // Slides 2-3 sit stacked at opacity-0 inside the viewport, so their <img> would download
@@ -341,11 +362,11 @@ function Home() {
 
       <Ticker />
       <HomeFilmSection />
-      <Join />
+      <Join hasQuiz={stats.hasQuiz} />
       <ThreeNames />
       <MerchDrop />
       <Timeline />
-      <Voices />
+      <Voices voices={stats.voices} />
       <DeltaVsChicago />
       <MerchCta />
       <SiteFooter />
@@ -586,9 +607,8 @@ function Ticker() {
   );
 }
 
-function Join() {
+function Join({ hasQuiz }: { hasQuiz: boolean }) {
   const { lang } = useI18n();
-  const { hasQuiz } = Route.useLoaderData();
   const items = [
     { icon: ShoppingBag,
       title: tr(lang, { no: "Blues-merch", en: "Blues Merch", pl: "Blues Merch", sv: "Blues-merch", de: "Blues-Merch" }),
@@ -836,9 +856,8 @@ function Timeline() {
   );
 }
 
-function Voices() {
+function Voices({ voices: voiceRows }: { voices: VoiceRow[] }) {
   const { lang } = useI18n();
-  const { voices: voiceRows } = Route.useLoaderData();
   const voices = useMemo(() => getVoices(lang, voiceRows), [lang, voiceRows]);
   return (
     <section id="voices" className="py-24 px-6 max-w-7xl mx-auto">

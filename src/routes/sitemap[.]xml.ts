@@ -43,20 +43,31 @@ export const Route = createFileRoute("/sitemap.xml")({
 
         const urls: string[] = [];
 
-        // Home: no /en, /sv, /de, /pl homepage route exists (one URL renders
-        // all 5 languages client-side) -- so there is nothing for a
-        // per-language hreflang alternate to actually point at. Emitting 5
-        // identical URLs as if they were distinct language variants is
-        // invalid/misleading to crawlers; x-default is the only honest
-        // annotation here.
-        urls.push(
-          buildUrl({
-            path: "/",
-            changefreq: "daily",
-            priority: "1.0",
-            alternates: [{ hreflang: "x-default", path: "/" }],
-          }),
-        );
+        // Home: English lives unprefixed at "/"; the other four locales now
+        // have real documents at /no, /sv, /de, /pl (see $locale.index.tsx,
+        // which reuses the same Home component). Each gets its own <url>
+        // entry below, all five cross-referencing each other via hreflang.
+        const HOME_ALTS = [
+          { hreflang: "en", path: "/" },
+          { hreflang: "no", path: "/no" },
+          { hreflang: "sv", path: "/sv" },
+          { hreflang: "de", path: "/de" },
+          { hreflang: "pl", path: "/pl" },
+          { hreflang: "x-default", path: "/" },
+        ];
+        urls.push(buildUrl({ path: "/", changefreq: "weekly", priority: "1.0", alternates: HOME_ALTS }));
+        for (const p of ["/no", "/sv", "/de", "/pl"]) {
+          urls.push(buildUrl({ path: p, changefreq: "weekly", priority: "1.0", alternates: HOME_ALTS }));
+        }
+
+        // Learn to Play: guitar + harmonica beginner course. Each is a
+        // single URL that renders all 5 languages client-side (same model
+        // as the old homepage) -- no per-locale hreflang alternates exist
+        // to point at, so these get one honest entry each, same as any
+        // other single-URL static page below.
+        for (const p of ["/learn/play", "/learn/play/guitar", "/learn/play/harmonica"]) {
+          urls.push(buildUrl({ path: p, changefreq: "monthly", priority: "0.6" }));
+        }
 
         // Static, single-locale pages
         // Note: /artists is intentionally NOT listed here -- it's emitted
