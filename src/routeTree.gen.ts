@@ -41,6 +41,7 @@ import { Route as AboutGuestbookRouteImport } from './routes/about.guestbook'
 import { Route as AboutMerchRouteImport } from './routes/about.merch'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminArtistsRouteImport } from './routes/admin.artists'
+import { Route as AdminCourseFeedbackRouteImport } from './routes/admin.course-feedback'
 import { Route as AdminLinksRouteImport } from './routes/admin.links'
 import { Route as AdminQualityRouteImport } from './routes/admin.quality'
 import { Route as AdminQuotesRouteImport } from './routes/admin.quotes'
@@ -75,6 +76,7 @@ import { Route as LearnPlayHarmonicaRouteImport } from './routes/learn.play.harm
 import { Route as LearnPlayPreviewRouteImport } from './routes/learn.play.preview'
 import { Route as QuizCycleCycleRouteImport } from './routes/quiz.cycle.$cycle'
 import { Route as AboutMerchCollectionSlugRouteImport } from './routes/about.merch.collection.$slug'
+import { Route as LearnPlayFeedbackDeleteTokenRouteImport } from './routes/learn.play.feedback.delete.$token'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -234,6 +236,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
 const AdminArtistsRoute = AdminArtistsRouteImport.update({
   id: '/admin/artists',
   path: '/admin/artists',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminCourseFeedbackRoute = AdminCourseFeedbackRouteImport.update({
+  id: '/admin/course-feedback',
+  path: '/admin/course-feedback',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminLinksRoute = AdminLinksRouteImport.update({
@@ -408,6 +415,12 @@ const AboutMerchCollectionSlugRoute =
     path: '/collection/$slug',
     getParentRoute: () => AboutMerchRoute,
   } as any)
+const LearnPlayFeedbackDeleteTokenRoute =
+  LearnPlayFeedbackDeleteTokenRouteImport.update({
+    id: '/learn/play/feedback/delete/$token',
+    path: '/learn/play/feedback/delete/$token',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -440,6 +453,7 @@ export interface FileRoutesByFullPath {
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
   '/admin/artists': typeof AdminArtistsRouteWithChildren
+  '/admin/course-feedback': typeof AdminCourseFeedbackRoute
   '/admin/links': typeof AdminLinksRoute
   '/admin/quality': typeof AdminQualityRoute
   '/admin/quotes': typeof AdminQuotesRoute
@@ -476,6 +490,7 @@ export interface FileRoutesByFullPath {
   '/$locale/artists/': typeof LocaleArtistsIndexRoute
   '/learn/play/': typeof LearnPlayIndexRoute
   '/about/merch/collection/$slug': typeof AboutMerchCollectionSlugRoute
+  '/learn/play/feedback/delete/$token': typeof LearnPlayFeedbackDeleteTokenRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -508,6 +523,7 @@ export interface FileRoutesByTo {
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
   '/admin/artists': typeof AdminArtistsRouteWithChildren
+  '/admin/course-feedback': typeof AdminCourseFeedbackRoute
   '/admin/links': typeof AdminLinksRoute
   '/admin/quality': typeof AdminQualityRoute
   '/admin/quotes': typeof AdminQuotesRoute
@@ -544,6 +560,7 @@ export interface FileRoutesByTo {
   '/$locale/artists': typeof LocaleArtistsIndexRoute
   '/learn/play': typeof LearnPlayIndexRoute
   '/about/merch/collection/$slug': typeof AboutMerchCollectionSlugRoute
+  '/learn/play/feedback/delete/$token': typeof LearnPlayFeedbackDeleteTokenRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -577,6 +594,7 @@ export interface FileRoutesById {
   '/about/guestbook': typeof AboutGuestbookRoute
   '/about/merch': typeof AboutMerchRouteWithChildren
   '/admin/artists': typeof AdminArtistsRouteWithChildren
+  '/admin/course-feedback': typeof AdminCourseFeedbackRoute
   '/admin/links': typeof AdminLinksRoute
   '/admin/quality': typeof AdminQualityRoute
   '/admin/quotes': typeof AdminQuotesRoute
@@ -613,6 +631,7 @@ export interface FileRoutesById {
   '/$locale/artists/': typeof LocaleArtistsIndexRoute
   '/learn/play/': typeof LearnPlayIndexRoute
   '/about/merch/collection/$slug': typeof AboutMerchCollectionSlugRoute
+  '/learn/play/feedback/delete/$token': typeof LearnPlayFeedbackDeleteTokenRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -647,6 +666,7 @@ export interface FileRouteTypes {
     | '/about/guestbook'
     | '/about/merch'
     | '/admin/artists'
+    | '/admin/course-feedback'
     | '/admin/links'
     | '/admin/quality'
     | '/admin/quotes'
@@ -683,6 +703,7 @@ export interface FileRouteTypes {
     | '/$locale/artists/'
     | '/learn/play/'
     | '/about/merch/collection/$slug'
+    | '/learn/play/feedback/delete/$token'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -715,6 +736,7 @@ export interface FileRouteTypes {
     | '/about/guestbook'
     | '/about/merch'
     | '/admin/artists'
+    | '/admin/course-feedback'
     | '/admin/links'
     | '/admin/quality'
     | '/admin/quotes'
@@ -751,6 +773,7 @@ export interface FileRouteTypes {
     | '/$locale/artists'
     | '/learn/play'
     | '/about/merch/collection/$slug'
+    | '/learn/play/feedback/delete/$token'
   id:
     | '__root__'
     | '/'
@@ -783,6 +806,7 @@ export interface FileRouteTypes {
     | '/about/guestbook'
     | '/about/merch'
     | '/admin/artists'
+    | '/admin/course-feedback'
     | '/admin/links'
     | '/admin/quality'
     | '/admin/quotes'
@@ -819,6 +843,7 @@ export interface FileRouteTypes {
     | '/$locale/artists/'
     | '/learn/play/'
     | '/about/merch/collection/$slug'
+    | '/learn/play/feedback/delete/$token'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -852,6 +877,7 @@ export interface RootRouteChildren {
   AboutGuestbookRoute: typeof AboutGuestbookRoute
   AboutMerchRoute: typeof AboutMerchRouteWithChildren
   AdminArtistsRoute: typeof AdminArtistsRouteWithChildren
+  AdminCourseFeedbackRoute: typeof AdminCourseFeedbackRoute
   AdminLinksRoute: typeof AdminLinksRoute
   AdminQualityRoute: typeof AdminQualityRoute
   AdminQuotesRoute: typeof AdminQuotesRoute
@@ -883,6 +909,7 @@ export interface RootRouteChildren {
   QuizCycleCycleRoute: typeof QuizCycleCycleRoute
   LocaleArtistsIndexRoute: typeof LocaleArtistsIndexRoute
   LearnPlayIndexRoute: typeof LearnPlayIndexRoute
+  LearnPlayFeedbackDeleteTokenRoute: typeof LearnPlayFeedbackDeleteTokenRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1109,6 +1136,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/artists'
       fullPath: '/admin/artists'
       preLoaderRoute: typeof AdminArtistsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/course-feedback': {
+      id: '/admin/course-feedback'
+      path: '/admin/course-feedback'
+      fullPath: '/admin/course-feedback'
+      preLoaderRoute: typeof AdminCourseFeedbackRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/links': {
@@ -1349,6 +1383,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutMerchCollectionSlugRouteImport
       parentRoute: typeof AboutMerchRoute
     }
+    '/learn/play/feedback/delete/$token': {
+      id: '/learn/play/feedback/delete/$token'
+      path: '/learn/play/feedback/delete/$token'
+      fullPath: '/learn/play/feedback/delete/$token'
+      preLoaderRoute: typeof LearnPlayFeedbackDeleteTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -1423,6 +1464,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutGuestbookRoute: AboutGuestbookRoute,
   AboutMerchRoute: AboutMerchRouteWithChildren,
   AdminArtistsRoute: AdminArtistsRouteWithChildren,
+  AdminCourseFeedbackRoute: AdminCourseFeedbackRoute,
   AdminLinksRoute: AdminLinksRoute,
   AdminQualityRoute: AdminQualityRoute,
   AdminQuotesRoute: AdminQuotesRoute,
@@ -1454,6 +1496,7 @@ const rootRouteChildren: RootRouteChildren = {
   QuizCycleCycleRoute: QuizCycleCycleRoute,
   LocaleArtistsIndexRoute: LocaleArtistsIndexRoute,
   LearnPlayIndexRoute: LearnPlayIndexRoute,
+  LearnPlayFeedbackDeleteTokenRoute: LearnPlayFeedbackDeleteTokenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

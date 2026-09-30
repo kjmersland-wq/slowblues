@@ -8,6 +8,7 @@ import { YouTubeEmbed } from "@/components/YouTubeEmbed";
 import { ChordDiagram } from "@/components/learn/ChordDiagram";
 import { HarpMap } from "@/components/learn/HarpMap";
 import { getTrack, type Media, type Illustration } from "@/data/learnPlay";
+import { CourseFeedbackWidget } from "@/components/learn/CourseFeedbackWidget";
 
 // No "coming soon" state: a lesson either has a real Media object for a
 // slot, or the field is omitted and LearnPlayTrackPage never renders that
@@ -176,6 +177,8 @@ export function LearnPlayTrackPage({ trackId }: { trackId: "guitar" | "harmonica
             </button>
           )}
         </div>
+
+        <CourseFeedbackWidget instrument={trackId} lessonId={lesson.id} />
       </section>
     </PageShell>
   );

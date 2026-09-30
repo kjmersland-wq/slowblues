@@ -164,6 +164,13 @@ function GdprPage() {
             pl: "Księga gości: przechowywana tak długo, jak wpis jest opublikowany (możesz poprosić o usunięcie).",
           })}</li>
           <li>{tr(lang, {
+            no: "Kursbakemelding (Spill blues): en egen datakilde, atskilt fra gjesteboken. Lagres til du sletter den selv via engangslenken du får ved innsending, eller ber om sletting via kontaktskjemaet.",
+            en: "Course feedback (Learn to Play): a separate data store from the Guestbook. Stored until you delete it yourself via the one-time link you receive at submission, or request deletion via the contact form.",
+            sv: "Kursfeedback (Spela blues): en egen datakälla, skild från gästboken. Lagras tills du själv raderar den via engångslänken du får vid inskickning, eller begär radering via kontaktformuläret.",
+            de: "Kurs-Feedback (Blues spielen): eine eigene Datenquelle, getrennt vom Gästebuch. Wird gespeichert, bis Sie es selbst über den bei der Einreichung erhaltenen einmaligen Link löschen oder die Löschung über das Kontaktformular beantragen.",
+            pl: "Opinie o kursie (Graj bluesa): odrębne źródło danych, oddzielone od księgi gości. Przechowywane do momentu samodzielnego usunięcia za pomocą jednorazowego linku otrzymanego przy zgłoszeniu, lub do złożenia prośby o usunięcie przez formularz kontaktowy.",
+          })}</li>
+          <li>{tr(lang, {
             no: "Sikkerhetslogger: maks 90 dager.",
             en: "Security logs: max 90 days.",
             sv: "Säkerhetsloggar: max 90 dagar.",

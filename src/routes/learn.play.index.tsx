@@ -3,6 +3,7 @@ import { Guitar, Wind } from "lucide-react";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n, tr, type Lang } from "@/i18n";
 import { artistDetailPath } from "@/lib/locale";
+import { CourseFeedbackWidget } from "@/components/learn/CourseFeedbackWidget";
 
 // Two real, sourced quotes — a third (harmonica-as-voice, from Little
 // Walter or Big Walter Horton) was researched and dropped: no verified
@@ -163,6 +164,8 @@ function LearnPlayIndex() {
             ))}
           </ul>
         </div>
+
+        <CourseFeedbackWidget instrument="shared" lessonId={null} />
       </section>
     </PageShell>
   );

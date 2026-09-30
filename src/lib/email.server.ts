@@ -144,3 +144,19 @@ export async function sendAutoReply(input: AutoReplyInput): Promise<void> {
     html: autoReplyHtml(input.name, input.formType, input.lang),
   });
 }
+
+// Course Feedback (Learn to Play) — a one-time delete link, sent only if
+// the submitter chose to give an email address (it's optional on the
+// form). This is a convenience on top of the link already shown once in
+// the browser right after submitting; nothing breaks if it never sends.
+export async function sendCourseFeedbackDeleteLink(email: string, deleteToken: string): Promise<void> {
+  const user = process.env.GMAIL_USER;
+  if (!user) return;
+  const link = `https://www.slow-blues.com/learn/play/feedback/delete/${deleteToken}`;
+  await sendGmail({
+    from: { name: "Slow-Blues", email: user },
+    to: { email },
+    subject: "Your Learn to Play feedback — delete link",
+    text: `Thanks for your feedback on the Slow-Blues Learn to Play course.\n\nIf you ever want to remove it, use this link:\n${link}\n\nThis link works once. Keep it somewhere safe if you might want it later.`,
+  });
+}
