@@ -43,47 +43,69 @@ export type Track = {
   lessons: Lesson[]; // [0] is always the shared "ears first" lesson
 };
 
-const EARS: Lesson = {
+// Shared across both tracks except `listen`/`backing`, which need a
+// track-appropriate video (a guitarist for the guitar track, a harp player
+// for the harmonica track) rather than one generic pick — see
+// makeEarsLesson() below.
+const EARS_SHARED = {
   id: "ears",
-  title: { en: "Ears First", no: "Ørene først", sv: "Öronen först", de: "Erst die Ohren", pl: "Najpierw uszy" },
+  title: { en: "Ears First", no: "Ørene først", sv: "Öronen först", de: "Erst die Ohren", pl: "Najpierw uszy" } satisfies LangText,
   goal: {
     en: "Know what a 12-bar blues actually is — in your body, not on paper — before you touch an instrument.",
     no: "Kjenne hva en 12-takters blues faktisk er — i kroppen, ikke på papiret — før du rører et instrument.",
     sv: "Känna vad en 12-takters blues faktiskt är — i kroppen, inte på papper — innan du rör ett instrument.",
     de: "Spüren, was ein 12-Takt-Blues wirklich ist — im Körper, nicht auf dem Papier — bevor du ein Instrument anfasst.",
     pl: "Poczuć, czym naprawdę jest 12-taktowy blues — w ciele, nie na papierze — zanim dotkniesz instrumentu.",
-  },
+  } satisfies LangText,
   steps: {
-    en: "Clap or tap your foot and count out loud to 12, on a loop. That's the whole form — most blues songs ever written live inside those 12 beats-of-four. Three chords do the work: the home chord, the one that lifts you up, and the one that wants to come back home. That's it — that's I, IV and V, and you never need the Roman numerals again. One more thing before you play a single note: let the last note of a line ring out. Don't rush into the next one. The silence is part of the music.",
-    no: "Klapp eller tramp takten og tell høyt til 12, i en løkke. Det er hele formen — de fleste blueslåter som noen gang er skrevet bor inni de 12 firetaktene. Tre akkorder gjør jobben: hjemmeakkorden, den som løfter deg opp, og den som vil hjem igjen. Det er alt — det er I, IV og V, og du trenger aldri romertallene igjen. Én ting til før du spiller en eneste tone: la siste tonen i en linje få stå. Ikke rush inn i den neste. Stillheten er en del av musikken.",
-    sv: "Klappa eller stampa takten och räkna högt till 12, i en loop. Det är hela formen — de flesta blueslåtar som någonsin skrivits bor inuti de 12 fyrtakterna. Tre ackord gör jobbet: hemackordet, det som lyfter dig upp, och det som vill hem igen. Det är allt — det är I, IV och V, och du behöver aldrig romerska siffror igen. En sak till innan du spelar en enda ton: låt sista tonen i en rad klinga ut. Skynda inte in i nästa. Tystnaden är en del av musiken.",
-    de: "Klatsche oder stampfe den Takt und zähle laut bis 12, in einer Schleife. Das ist die ganze Form — die meisten je geschriebenen Bluessongs leben in diesen 12 Vierertakten. Drei Akkorde erledigen die Arbeit: der Heimatakkord, der, der dich hochhebt, und der, der wieder nach Hause will. Das ist alles — das sind I, IV und V, und du brauchst die römischen Zahlen nie wieder. Noch etwas, bevor du auch nur einen Ton spielst: Lass den letzten Ton einer Zeile ausklingen. Hetz nicht in die nächste. Die Stille gehört zur Musik.",
-    pl: "Klaszcz albo stukaj stopą i licz głośno do 12, w pętli. To cała forma — większość bluesowych utworów mieści się w tych 12 taktach po cztery. Trzy akordy robią całą robotę: akord domowy, ten, który cię unosi, i ten, który chce wrócić do domu. To wszystko — to I, IV i V, i rzymskich cyfr nigdy więcej nie potrzebujesz. Jeszcze jedno, zanim zagrasz choć jedną nutę: pozwól ostatniej nucie frazy wybrzmieć. Nie wpadaj od razu w kolejną. Cisza też jest częścią muzyki.",
-  },
-  listen: { type: "comingSoon", caption: {
-    en: "A call-and-response listening example is coming here.",
-    no: "Et lytte-eksempel med call-and-response kommer her.",
-    sv: "Ett lyssningsexempel med call-and-response kommer hit.",
-    de: "Ein Hörbeispiel mit Call-and-Response folgt hier.",
-    pl: "Przykład call-and-response do posłuchania pojawi się tutaj.",
-  }},
+    en: "12 bars, four beats in each. Count the bars out loud, 1 to 12, clapping or tapping your foot along — that's the whole form, and most blues songs ever written live inside it. Three chords do the work: the home chord, the one that lifts you up, and the one that wants to come back home. That's it — that's I, IV and V, and you never need the Roman numerals again. One more thing before you play a single note: let the last note of a line ring out. Don't rush into the next one. The silence is part of the music.",
+    no: "12 takter, fire slag i hver. Tell taktene høyt, 1 til 12, mens du klapper eller tramper takten — det er hele formen, og de fleste blueslåter som noen gang er skrevet bor inni den. Tre akkorder gjør jobben: hjemmeakkorden, den som løfter deg opp, og den som vil hjem igjen. Det er alt — det er I, IV og V, og du trenger aldri romertallene igjen. Én ting til før du spiller en eneste tone: la siste tonen i en linje få stå. Ikke rush inn i den neste. Stillheten er en del av musikken.",
+    sv: "12 takter, fyra slag i varje. Räkna takterna högt, 1 till 12, medan du klappar eller stampar takten — det är hela formen, och de flesta blueslåtar som någonsin skrivits bor inuti den. Tre ackord gör jobbet: hemackordet, det som lyfter dig upp, och det som vill hem igen. Det är allt — det är I, IV och V, och du behöver aldrig romerska siffror igen. En sak till innan du spelar en enda ton: låt sista tonen i en rad klinga ut. Skynda inte in i nästa. Tystnaden är en del av musiken.",
+    de: "12 Takte, vier Schläge in jedem. Zähl die Takte laut, 1 bis 12, während du klatschst oder den Takt stampfst — das ist die ganze Form, und die meisten je geschriebenen Bluessongs leben in ihr. Drei Akkorde erledigen die Arbeit: der Heimatakkord, der, der dich hochhebt, und der, der wieder nach Hause will. Das ist alles — das sind I, IV und V, und du brauchst die römischen Zahlen nie wieder. Noch etwas, bevor du auch nur einen Ton spielst: Lass den letzten Ton einer Zeile ausklingen. Hetz nicht in die nächste. Die Stille gehört zur Musik.",
+    pl: "12 taktów, cztery uderzenia w każdym. Licz takty głośno, od 1 do 12, klaszcząc albo stukając stopą w rytm — to cała forma, i większość bluesowych utworów mieści się w niej. Trzy akordy robią całą robotę: akord domowy, ten, który cię unosi, i ten, który chce wrócić do domu. To wszystko — to I, IV i V, i rzymskich cyfr nigdy więcej nie potrzebujesz. Jeszcze jedno, zanim zagrasz choć jedną nutę: pozwól ostatniej nucie frazy wybrzmieć. Nie wpadaj od razu w kolejną. Cisza też jest częścią muzyki.",
+  } satisfies LangText,
   backing: { type: "comingSoon", caption: {
-    en: "Nothing to play along to yet — this lesson is all ears.",
-    no: "Ingenting å spille til ennå — denne leksjonen er bare ører.",
-    sv: "Inget att spela till än — den här lektionen är bara öron.",
-    de: "Hier gibt es noch nichts zum Mitspielen — diese Lektion ist reines Zuhören.",
-    pl: "Nie ma tu jeszcze nic do grania — ta lekcja to sama słuchanie.",
-  }},
-  nextTip: {
-    en: "This whole feeling starts at Dockery Plantation with one man and a guitar.",
-    no: "Hele denne følelsen starter på Dockery Plantation med én mann og en gitar.",
-    sv: "Hela den här känslan börjar på Dockery Plantation med en man och en gitarr.",
-    de: "Dieses ganze Gefühl beginnt auf der Dockery Plantation mit einem Mann und einer Gitarre.",
-    pl: "Całe to uczucie zaczyna się na plantacji Dockery, z jednym człowiekiem i gitarą.",
-  },
-  artistSlug: "charley-patton",
-  illustration: { kind: "none" },
+    en: "Nothing to play yet. Just listen and count.",
+    no: "Ingenting å spille ennå. Bare lytt og tell.",
+    sv: "Inget att spela än. Bara lyssna och räkna.",
+    de: "Noch nichts zum Spielen. Nur zuhören und zählen.",
+    pl: "Jeszcze nic do grania. Po prostu słuchaj i licz.",
+  }} satisfies Media,
+  illustration: { kind: "none" } satisfies Illustration,
 };
+
+const EARS_LISTEN_CAPTION: LangText = {
+  en: "Count along to 12 bars and hear how the line answers itself.",
+  no: "Tell med til 12 takter og hør hvordan linjen svarer seg selv.",
+  sv: "Räkna med till 12 takter och hör hur linjen svarar sig själv.",
+  de: "Zähl die 12 Takte mit und hör, wie die Zeile sich selbst antwortet.",
+  pl: "Licz razem do 12 taktów i posłuchaj, jak fraza sama sobie odpowiada.",
+};
+
+function makeEarsLesson(videoId: string, artistSlug: string, nextTip: LangText): Lesson {
+  return {
+    ...EARS_SHARED,
+    listen: { type: "video", videoId, caption: EARS_LISTEN_CAPTION },
+    nextTip,
+    artistSlug,
+  };
+}
+
+const EARS_GUITAR = makeEarsLesson("i0hVIrQm0KM", "stevie-ray-vaughan", {
+  en: "That's a full 12-bar right there — Stevie Ray Vaughan's profile is where this course ends up.",
+  no: "Det er en hel 12-takter rett der — profilen til Stevie Ray Vaughan er der dette kurset ender opp.",
+  sv: "Det är en hel 12-takt rakt där — Stevie Ray Vaughans profil är dit den här kursen leder.",
+  de: "Das ist genau dort ein voller 12-Takter — Stevie Ray Vaughans Profil ist, wo dieser Kurs hinführt.",
+  pl: "To właśnie tam masz cały 12-takt — profil Stevie'ego Raya Vaughana to miejsce, do którego zmierza ten kurs.",
+});
+
+const EARS_HARMONICA = makeEarsLesson("HxkqDe7DN8g", "little-walter", {
+  en: "That's a full 12-bar right there — Little Walter's profile is where this course ends up.",
+  no: "Det er en hel 12-takter rett der — profilen til Little Walter er der dette kurset ender opp.",
+  sv: "Det är en hel 12-takt rakt där — Little Walters profil är dit den här kursen leder.",
+  de: "Das ist genau dort ein voller 12-Takter — Little Walters Profil ist, wo dieser Kurs hinführt.",
+  pl: "To właśnie tam masz cały 12-takt — profil Little Waltera to miejsce, do którego zmierza ten kurs.",
+});
 
 export const TRACKS: Track[] = [
   {
@@ -97,7 +119,7 @@ export const TRACKS: Track[] = [
       pl: "Pięć krótkich lekcji od pierwszego chwytu po twój pierwszy shuffle i pierwszy smak slide'a.",
     },
     lessons: [
-      EARS,
+      EARS_GUITAR,
       {
         id: "guitar-1",
         title: { en: "Tuning & Hold", no: "Stemming og hold", sv: "Stämning och hållning", de: "Stimmen & Haltung", pl: "Strojenie i trzymanie" },
@@ -316,7 +338,7 @@ export const TRACKS: Track[] = [
       pl: "Pięć krótkich lekcji od pierwszej szczelności ust po pierwszy bend, wszystko na harmonijce C.",
     },
     lessons: [
-      EARS,
+      EARS_HARMONICA,
       {
         id: "harmonica-1",
         title: { en: "Hold & Seal", no: "Hold og forsegling", sv: "Hållning och försegling", de: "Halten & Dichtsitz", pl: "Trzymanie i szczelność" },
