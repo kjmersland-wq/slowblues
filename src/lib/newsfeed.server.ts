@@ -4,6 +4,7 @@
 // place that knows how to assemble the ticker.
 import { isActive } from "./freshness";
 import { artistsListPath, type ArtistLocale } from "./locale";
+import { getCycleNumber as getQuizCycleNumber } from "./quiz.server";
 
 export type TickerItem = {
   id: string;
@@ -161,7 +162,18 @@ export async function buildNewsTicker(db: D1Database, lang: TickerLang = "en"): 
   // Ticker TEXT is English-only on every locale (standing rule); `href` still
   // resolves against the viewer's real `lang` so a click lands on the same
   // language the rest of the page is already in, not forced into English.
+  // house-quiz is the one exception: it's skipped entirely when there's no
+  // published cycle covering today, so the ticker never points at an empty
+  // /quiz page.
+  let quizIsPublished = true;
+  try {
+    const row = await db.prepare(`SELECT 1 FROM quiz_cycles WHERE cycle_number = ? AND status = 'published'`).bind(getQuizCycleNumber()).first();
+    quizIsPublished = !!row;
+  } catch (e) {
+    console.error("ticker quiz-gate check failed:", e);
+  }
   for (const h of HOUSE_LINKS) {
+    if (h.id === "house-quiz" && !quizIsPublished) continue;
     out.push({
       id: h.id,
       kind: "blog",

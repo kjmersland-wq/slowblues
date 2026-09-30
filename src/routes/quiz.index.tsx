@@ -1,143 +1,176 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
-import { useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
+import { useEffect, useMemo, useState } from "react";
 import { Check, X, RotateCcw, Trophy, ExternalLink, Calendar, Star, Archive, Volume2, Music } from "lucide-react";
 import {
   getPublishedCycle,
   getCycleNumber,
   formatCycleRange,
   displayNameFromSlug,
-  type QuizDifficulty,
   type QuizQuestionSnapshot,
 } from "@/lib/quiz.server";
-import { getLeaderboard, addToLeaderboard, getAllTimeLeaderboard, type LeaderboardEntry } from "@/data/quizQuestions";
-import { useI18n, tr } from "@/i18n";
+import { getAllTimeLeaderboard, addToLeaderboard, type LeaderboardEntry } from "@/data/quizQuestions";
+import { useI18n, tr, type Lang } from "@/i18n";
 import { artistDetailPath } from "@/lib/locale";
 
 export const Route = createFileRoute("/quiz/")({
   component: QuizPage,
-  head: () => {
-    const cycle = getCycleNumber();
-    const key = `C-${String(cycle).padStart(3, "0")}`;
-    return {
-      meta: [
-        { title: `Blues Quiz · ${key} — SlowBlues` },
-        { name: "description", content: `A new blues quiz every 10 days. Cycle ${key} (${formatCycleRange(cycle)}) — 10 questions, audio rounds and a leaderboard for bragging rights.` },
-        { property: "og:title", content: `Blues Quiz · ${key} — SlowBlues` },
-        { property: "og:description", content: `Cycle ${key} — ${formatCycleRange(cycle)}. Test your blues knowledge with curated questions and audio rounds.` },
-        { property: "og:image", content: IMG.vinyl },
-      ],
-    };
+  loader: async () => getPublishedCycle({ data: {} }),
+  head: ({ loaderData }) => {
+    const cycle = loaderData?.meta?.cycleNumber ?? getCycleNumber();
+    const key = loaderData?.meta?.cycleKey ?? `C-${String(cycle).padStart(3, "0")}`;
+    const published = !!loaderData?.meta;
+    const base = [
+      { title: published ? `Blues Quiz · ${key} — SlowBlues` : "Blues Quiz — SlowBlues" },
+      {
+        name: "description",
+        content: published
+          ? `A new blues quiz every 10 days. Cycle ${key} (${formatCycleRange(cycle)}) — multiple-choice and audio rounds, straight from the SlowBlues archive.`
+          : "A new blues quiz every 10 days, built from the SlowBlues archive. The next round is being lined up.",
+      },
+      { property: "og:title", content: published ? `Blues Quiz · ${key} — SlowBlues` : "Blues Quiz — SlowBlues" },
+      { property: "og:image", content: IMG.vinyl },
+    ];
+    // Nothing published yet -- don't send crawlers to an empty page.
+    return { meta: published ? base : [...base, { name: "robots", content: "noindex" }] };
   },
 });
 
-const DIFFICULTIES: { id: QuizDifficulty; label: string }[] = [
-  { id: "easy", label: "Easy" },
-  { id: "medium", label: "Medium" },
-  { id: "hard", label: "Hard" },
-];
+type FlatQuestion = QuizQuestionSnapshot;
+
+function flattenQuestions(data: { easy: FlatQuestion[]; medium: FlatQuestion[]; hard: FlatQuestion[] } | null): FlatQuestion[] {
+  if (!data) return [];
+  return [...data.easy, ...data.medium, ...data.hard];
+}
+
+const COMING_SOON: Record<Lang, string> = {
+  no: "Neste runde er på vei. Kom innom igjen om noen dager.",
+  en: "Next round is being lined up. Check back in a few days.",
+  sv: "Nästa omgång är på gång. Titta förbi igen om några dagar.",
+  de: "Die nächste Runde ist schon in Vorbereitung. Schau in ein paar Tagen wieder vorbei.",
+  pl: "Kolejna runda już się szykuje. Zajrzyj ponownie za kilka dni.",
+};
 
 function QuizPage() {
   const { lang } = useI18n();
   const localeStr = lang === "no" ? "nb-NO" : lang === "sv" ? "sv-SE" : lang === "de" ? "de-DE" : lang === "pl" ? "pl-PL" : "en";
-  const [difficulty, setDifficulty] = useState<QuizDifficulty>("medium");
-  const [nickname, setNickname] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  const fetchCycle = useServerFn(getPublishedCycle);
-  const { data, isLoading } = useQuery({
-    queryKey: ["quiz-cycle", "current"],
-    queryFn: () => fetchCycle({ data: {} }),
-    staleTime: 60 * 60 * 1000,
-  });
+  const data = Route.useLoaderData();
 
   const cycle = data?.meta?.cycleNumber ?? getCycleNumber();
   const cycleKey = data?.meta?.cycleKey ?? `C-${String(cycle).padStart(3, "0")}`;
   const cycleRange = useMemo(() => formatCycleRange(cycle, localeStr), [cycle, localeStr]);
   const featuredSlug = data?.meta?.featuredArtistSlug ?? null;
 
-  const questions: QuizQuestionSnapshot[] = data?.questions?.[difficulty] ?? [];
-  const [answers, setAnswers] = useState<(number | null)[]>(() => Array(questions.length).fill(null));
-  const [done, setDone] = useState(false);
+  const questions = useMemo(() => flattenQuestions(data?.questions ?? null), [data]);
 
-  // Reset when difficulty or data changes
-  useMemo(() => {
+  const [index, setIndex] = useState(0);
+  const [answers, setAnswers] = useState<(number | null)[]>(() => Array(questions.length).fill(null));
+  const [revealed, setRevealed] = useState(false);
+  const [finished, setFinished] = useState(false);
+  const [nickname, setNickname] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  // Reset the run only when the cycle itself changes -- never on a language
+  // switch, so swapping the locale-switcher mid-round keeps progress/answers
+  // and just changes the displayed text.
+  useEffect(() => {
+    setIndex(0);
     setAnswers(Array(questions.length).fill(null));
-    setDone(false);
+    setRevealed(false);
+    setFinished(false);
     setSubmitted(false);
-  }, [questions.length, difficulty]);
+  }, [cycleKey, questions.length]);
 
   const score = answers.reduce<number>((sum, a, i) => sum + (a === questions[i]?.correctIndex ? 1 : 0), 0);
 
+  useEffect(() => {
+    if (!finished || questions.length === 0) return;
+    try {
+      localStorage.setItem(
+        `slowblues-quiz-last-${cycleKey}`,
+        JSON.stringify({ score, total: questions.length, date: new Date().toISOString() }),
+      );
+    } catch {
+      // best-effort only
+    }
+  }, [finished, cycleKey, score, questions.length]);
+
   const submitScore = () => {
     if (!nickname.trim()) return;
-    addToLeaderboard({
-      nickname: nickname.trim().slice(0, 24),
-      score,
-      total: questions.length,
-      date: new Date().toISOString(),
-      monthKey: cycleKey,
-    });
+    addToLeaderboard({ nickname: nickname.trim().slice(0, 24), score, total: questions.length, date: new Date().toISOString(), monthKey: cycleKey });
     setSubmitted(true);
   };
 
-  if (isLoading) {
-    return (
-      <PageShell>
-        <PageHero eyebrow={tr(lang, { no: "Blues-quiz", en: "Blues Quiz", sv: "Bluesquiz", de: "Blues-Quiz", pl: "Quiz bluesowy" })} title="…" lead="" img={IMG.vinyl} />
-        <div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">
-          {tr(lang, { no: "Laster …", en: "Loading…", sv: "Läser in …", de: "Wird geladen …", pl: "Wczytywanie…" })}
-        </div>
-      </PageShell>
-    );
-  }
+  const pickAnswer = (ci: number) => {
+    if (revealed) return;
+    setAnswers((a) => a.map((v, i) => (i === index ? ci : v)));
+    setRevealed(true);
+  };
 
+  const goNext = () => {
+    if (index + 1 >= questions.length) {
+      setFinished(true);
+    } else {
+      setIndex((i) => i + 1);
+      setRevealed(false);
+    }
+  };
+
+  const restart = () => {
+    setIndex(0);
+    setAnswers(Array(questions.length).fill(null));
+    setRevealed(false);
+    setFinished(false);
+    setSubmitted(false);
+  };
+
+  // ----- Empty state: no published cycle yet -----
   if (!data?.meta || questions.length === 0) {
     return (
       <PageShell>
         <PageHero
           eyebrow={tr(lang, { no: "Blues-quiz", en: "Blues Quiz", sv: "Bluesquiz", de: "Blues-Quiz", pl: "Quiz bluesowy" })}
-          title={tr(lang, { no: "Ingen quiz publisert ennå", en: "No quiz published yet", sv: "Ingen quiz publicerad än", de: "Noch kein Quiz veröffentlicht", pl: "Nie opublikowano jeszcze quizu" })}
+          title={tr(lang, { no: "Hvor godt kan du bluesen?", en: "Think you know the blues?", pl: "Myślisz, że znasz bluesa?", sv: "Hur bra kan du bluesen?", de: "Wie gut kennst du den Blues?" })}
           lead=""
           img={IMG.vinyl}
         />
-        <div className="max-w-3xl mx-auto px-6 py-24 text-center text-muted-foreground">
-          {tr(lang, {
-            no: "Denne runden er ikke publisert ennå — sjekk innom snart.",
-            en: "This cycle hasn't been published yet — check back soon.",
-            sv: "Den här omgången är inte publicerad än — titta förbi snart igen.",
-            de: "Diese Runde wurde noch nicht veröffentlicht — schau bald wieder vorbei.",
-            pl: "Ten cykl nie został jeszcze opublikowany — zajrzyj wkrótce ponownie.",
-          })}
+        <div className="max-w-2xl mx-auto px-6 py-24 text-center text-muted-foreground">
+          {tr(lang, COMING_SOON)}
         </div>
       </PageShell>
     );
   }
 
-  if (done) {
+  // ----- Results -----
+  if (finished) {
+    const total = questions.length;
     const board = getAllTimeLeaderboard();
+    const wrong = questions
+      .map((q, i) => ({ q, i, yourIndex: answers[i] }))
+      .filter(({ q, yourIndex }) => yourIndex !== q.correctIndex);
+
+    const verdict =
+      score / total >= 0.8
+        ? tr(lang, { no: "Du kom inn og kjente platene.", en: "You came in knowing the records.", pl: "Wszedłeś/aś, znając te płyty.", sv: "Du klev in och kunde skivorna.", de: "Du kanntest die Platten schon." })
+        : score / total >= 0.5
+        ? tr(lang, { no: "Godt øre. Du kan katalogen.", en: "Solid ear. You know this catalogue.", pl: "Dobre ucho. Znasz ten katalog.", sv: "Bra öra. Du kan katalogen.", de: "Gutes Ohr. Du kennst den Katalog." })
+        : tr(lang, { no: "God start. Neste runde sitter bedre.", en: "Good start. The next round will sit better.", pl: "Dobry start. Kolejna runda pójdzie lepiej.", sv: "Bra start. Nästa omgång sitter bättre.", de: "Guter Start. Die nächste Runde sitzt besser." });
+
     return (
       <PageShell>
         <PageHero
           eyebrow={tr(lang, { no: "Resultat", en: "Result", pl: "Wynik", sv: "Resultat", de: "Ergebnis" })}
           title={tr(lang, { no: "Hvor godt gikk det?", en: "How did you do?", pl: "Jak Ci poszło?", sv: "Hur gick det?", de: "Wie ist es gelaufen?" })}
-          lead={tr(lang, { no: "Hvert svar viser riktig valg og forklaring.", en: "Every answer below shows the correct choice and explanation.", pl: "Każda odpowiedź poniżej przedstawia poprawny wybór i wyjaśnienie.", sv: "Varje svar visar rätt val och förklaring.", de: "Jede Antwort zeigt die richtige Wahl und Erklärung." })}
+          lead=""
           img={IMG.vinyl}
         />
         <section className="max-w-3xl mx-auto px-6 py-12">
           <div className="text-center mb-8 bg-gradient-to-br from-card to-card/30 border border-gold/40 rounded-xl p-8">
             <Trophy className="size-12 text-gold mx-auto mb-3" />
-            <div className="font-display text-5xl gold-gradient-text mb-1">{score} / {questions.length}</div>
-            <div className="text-muted-foreground mb-5">
-              {score >= 8
-                ? tr(lang, { no: "Bluesforsker.", en: "Blues scholar.", pl: "Znawca bluesa.", sv: "Bluesforskare.", de: "Blues-Kenner." })
-                : score >= 5
-                ? tr(lang, { no: "Solid bluesfan.", en: "Solid blues fan.", pl: "Prawdziwy fan bluesa.", sv: "Stadig bluesfan.", de: "Solider Blues-Fan." })
-                : tr(lang, { no: "På tide å grave dypere.", en: "Time to dig deeper.", pl: "Czas zagłębić się w temat.", sv: "Dags att gräva djupare.", de: "Zeit, tiefer zu graben." })}
-            </div>
+            <div className="font-display text-5xl gold-gradient-text mb-1">{score} / {total}</div>
+            <div className="text-muted-foreground mb-5">{verdict}</div>
+
             {!submitted ? (
               <div className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
                 <input
@@ -174,51 +207,87 @@ function QuizPage() {
             </div>
           )}
 
-          <div className="space-y-3">
-            {questions.map((q, i) => {
-              const correct = answers[i] === q.correctIndex;
-              const opts = q.options[lang] ?? q.options.en;
-              return (
-                <div key={q.id} className="bg-card/60 border border-border rounded-lg p-4">
-                  <div className="flex items-start gap-2 mb-2">
-                    {correct ? <Check className="size-5 text-gold mt-0.5" /> : <X className="size-5 text-destructive mt-0.5" />}
-                    <div className="font-medium">{i + 1}. {q.question[lang] ?? q.question.en}</div>
+          {wrong.length > 0 ? (
+            <div className="space-y-3">
+              <div className="text-sm text-muted-foreground mb-1">
+                {tr(lang, { no: "Disse kan være verdt et nytt blikk:", en: "These are worth a second look:", pl: "Warto na nie ponownie zerknąć:", sv: "De här kan vara värda en ny titt:", de: "Diese lohnen einen zweiten Blick:" })}
+              </div>
+              {wrong.map(({ q, i, yourIndex }) => {
+                const opts = q.options[lang] ?? q.options.en;
+                return (
+                  <div key={q.id} className="bg-card/60 border border-border rounded-lg p-4">
+                    <div className="flex items-start gap-2 mb-2">
+                      <X className="size-5 text-destructive mt-0.5 shrink-0" />
+                      <div className="font-medium">{i + 1}. {q.question[lang] ?? q.question.en}</div>
+                    </div>
+                    {q.type === "audio-guess" && q.youtubeVideoId && (
+                      <div className="ml-7 mb-2 max-w-xs">
+                        <BlindAudioClip
+                          videoId={q.youtubeVideoId}
+                          start={q.audioStart ?? 0}
+                          end={q.audioEnd ?? 20}
+                          label={tr(lang, { no: "Hør igjen", en: "Listen again", pl: "Posłuchaj ponownie", sv: "Lyssna igen", de: "Nochmal hören" })}
+                          playingLabel={tr(lang, { no: "Spiller …", en: "Playing …", pl: "Odtwarzanie…", sv: "Spelar …", de: "Wird abgespielt …" })}
+                        />
+                      </div>
+                    )}
+                    <div className="text-sm ml-7 mb-1">
+                      <span className="text-muted-foreground">{tr(lang, { no: "Ditt svar", en: "Your answer", pl: "Twoja odpowiedź", sv: "Ditt svar", de: "Deine Antwort" })}: </span>
+                      <span>{yourIndex !== null ? opts[yourIndex] : "—"}</span>
+                    </div>
+                    <div className="text-sm text-muted-foreground ml-7 mb-2">
+                      {tr(lang, { no: "Riktig svar", en: "Correct answer", pl: "Poprawna odpowiedź", sv: "Rätt svar", de: "Richtige Antwort" })}: <span className="text-gold">{opts[q.correctIndex]}</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground/90 ml-7 leading-relaxed">{q.explanation[lang] ?? q.explanation.en}</p>
+                    {q.artistSlug && (
+                      <Link to={artistDetailPath(lang, q.artistSlug) as any} className="ml-7 mt-2 inline-flex items-center gap-1 text-xs text-gold hover:underline">
+                        {tr(lang, { no: "Les mer om artisten", en: "Read more about the artist", pl: "Przeczytaj więcej o artyście", sv: "Läs mer om artisten", de: "Mehr über den Künstler" })} <ExternalLink className="size-3" />
+                      </Link>
+                    )}
                   </div>
-                  <div className="text-sm text-muted-foreground ml-7 mb-2">
-                    {tr(lang, { no: "Riktig svar", en: "Answer", pl: "Odpowiedź", sv: "Rätt svar", de: "Antwort" })}: <span className="text-gold">{opts[q.correctIndex]}</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground/90 ml-7 leading-relaxed">{q.explanation[lang] ?? q.explanation.en}</p>
-                  {q.artistSlug && (
-                    <Link to={artistDetailPath(lang, q.artistSlug) as any} className="ml-7 mt-2 inline-flex items-center gap-1 text-xs text-gold hover:underline">
-                      {tr(lang, { no: "Les mer om artisten", en: "Read more about the artist", pl: "Przeczytaj więcej o artyście", sv: "Läs mer om artisten", de: "Mehr über den Künstler" })} <ExternalLink className="size-3" />
-                    </Link>
-                  )}
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+          ) : (
+            <div className="text-center text-gold font-medium mb-4">
+              {tr(lang, { no: "Full pott. Ingen å rette opp i.", en: "Clean sweep — nothing to correct.", pl: "Komplet punktów — nic do poprawy.", sv: "Full pott. Inget att rätta till.", de: "Alles richtig — nichts zu korrigieren." })}
+            </div>
+          )}
+
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <button onClick={restart} className="flex items-center gap-2 px-5 py-2.5 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90">
+              <RotateCcw className="size-4" /> {tr(lang, { no: "Spill igjen", en: "Play again", pl: "Zagraj ponownie", sv: "Spela igen", de: "Nochmal spielen" })}
+            </button>
+            <Link to="/artists" className="px-5 py-2.5 rounded-md border border-border hover:border-gold/50 transition">
+              {tr(lang, { no: "Til artistene", en: "To the artists", pl: "Do artystów", sv: "Till artisterna", de: "Zu den Künstlern" })}
+            </Link>
+            <Link to="/" className="px-5 py-2.5 rounded-md border border-border hover:border-gold/50 transition">
+              {tr(lang, { no: "Forsiden", en: "Homepage", pl: "Strona główna", sv: "Startsidan", de: "Startseite" })}
+            </Link>
           </div>
-          <button onClick={() => { setAnswers(Array(questions.length).fill(null)); setDone(false); setSubmitted(false); }} className="mt-8 mx-auto flex items-center gap-2 px-5 py-2.5 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90">
-            <RotateCcw className="size-4" /> {tr(lang, { no: "Prøv igjen", en: "Try again", pl: "Spróbuj ponownie", sv: "Försök igen", de: "Nochmal versuchen" })}
-          </button>
         </section>
       </PageShell>
     );
   }
+
+  // ----- One question at a time -----
+  const q = questions[index];
+  const opts = q.options[lang] ?? q.options.en;
+  const picked = answers[index];
 
   return (
     <PageShell>
       <PageHero
         eyebrow={tr(lang, { no: "Blues-quiz", en: "Blues Quiz", sv: "Bluesquiz", de: "Blues-Quiz", pl: "Quiz bluesowy" })}
         title={tr(lang, { no: "Hvor godt kan du bluesen?", en: "Think you know the blues?", pl: "Myślisz, że znasz bluesa?", sv: "Hur bra kan du bluesen?", de: "Wie gut kennst du den Blues?" })}
-        lead={tr(lang, { no: "Ti spørsmål fra Deltaen til i dag. Velg vanskelighetsgrad.", en: "Ten questions from the Delta to today. Pick your difficulty.", pl: "Dziesięć pytań od Delty do dziś. Wybierz swój poziom trudności.", sv: "Tio frågor från Deltat till idag. Välj svårighetsgrad.", de: "Zehn Fragen vom Delta bis heute. Wähle den Schwierigkeitsgrad." })}
+        lead=""
         img={IMG.vinyl}
       />
-      <section className="max-w-3xl mx-auto px-6 py-12">
-        <div className="mb-8 rounded-xl border border-gold/30 bg-gradient-to-br from-card/70 to-card/30 p-5">
+      <section className="max-w-2xl mx-auto px-6 py-12">
+        <div className="mb-6 rounded-xl border border-gold/30 bg-gradient-to-br from-card/70 to-card/30 p-5">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
             <span className="inline-flex items-center gap-1.5 text-gold font-medium"><Calendar className="size-4" /> {cycleKey}</span>
-            <span className="text-muted-foreground">{cycleRange}</span>
-            <span className="text-xs text-muted-foreground/80">· {tr(lang, { no: "Nytt sett hver 10. dag", en: "New set every 10 days", pl: "Nowy zestaw co 10 dni", sv: "Nya frågor var 10:e dag", de: "Neue Fragen alle 10 Tage" })}</span>
+            <span className="text-muted-foreground">{tr(lang, { no: "Denne runden:", en: "This round:", pl: "Ta runda:", sv: "Denna runda:", de: "Diese Runde:" })} {cycleRange}</span>
             <Link to={"/quiz/archive" as any} className="ml-auto inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-gold">
               <Archive className="size-3.5" /> {tr(lang, { no: "Arkiv", en: "Archive", pl: "Archiwum", sv: "Arkiv", de: "Archiv" })}
             </Link>
@@ -231,50 +300,78 @@ function QuizPage() {
             </div>
           )}
         </div>
-        <div className="flex justify-center gap-2 mb-8">
-          {DIFFICULTIES.map((d) => (
-            <button key={d.id} onClick={() => setDifficulty(d.id)} className={`px-4 py-1.5 rounded-full text-sm transition ${difficulty === d.id ? "bg-gold text-primary-foreground" : "bg-card border border-border hover:border-gold/50"}`}>{d.label}</button>
-          ))}
+
+        {/* Progress */}
+        <div className="mb-6">
+          <div className="flex justify-between text-xs text-muted-foreground mb-1.5">
+            <span>{tr(lang, { no: `Spørsmål ${index + 1} av ${questions.length}`, en: `Question ${index + 1} of ${questions.length}`, pl: `Pytanie ${index + 1} z ${questions.length}`, sv: `Fråga ${index + 1} av ${questions.length}`, de: `Frage ${index + 1} von ${questions.length}` })}</span>
+            <span className="uppercase tracking-wide">{q.difficulty}</span>
+          </div>
+          <div className="h-1.5 rounded-full bg-border overflow-hidden">
+            <div className="h-full bg-gold transition-all" style={{ width: `${((index + (revealed ? 1 : 0)) / questions.length) * 100}%` }} />
+          </div>
         </div>
 
-        <div className="space-y-6">
-          {questions.map((q, i) => {
-            const opts = q.options[lang] ?? q.options.en;
-            return (
-              <div key={q.id} className="bg-card/60 border border-border rounded-xl p-5">
-                <div className="font-display text-lg mb-3"><span className="text-gold mr-2">{i + 1}.</span>{q.question[lang] ?? q.question.en}</div>
-                {q.type === "audio-guess" && q.youtubeVideoId && (
-                  <BlindAudioClip
-                    videoId={q.youtubeVideoId}
-                    start={q.audioStart ?? 0}
-                    end={q.audioEnd ?? 30}
-                    hint={q.audioHint ? (q.audioHint[lang] ?? q.audioHint.en) : undefined}
-                    label={tr(lang, { no: "Spill av lydklipp", en: "Play audio clip", pl: "Odtwórz klip audio", sv: "Spela ljudklipp", de: "Audioclip abspielen" })}
-                    playingLabel={tr(lang, { no: "Spiller … lytt nøye", en: "Playing … listen carefully", pl: "Odtwarzanie... słuchaj uważnie", sv: "Spelar … lyssna noga", de: "Wird abgespielt … gut zuhören" })}
-                  />
-                )}
-                <div className="grid sm:grid-cols-2 gap-2">
-                  {opts.map((c, ci) => (
-                    <button
-                      key={ci}
-                      onClick={() => setAnswers((a) => a.map((v, j) => (j === i ? ci : v)))}
-                      className={`text-left text-sm px-3 py-2 rounded-md border transition ${answers[i] === ci ? "bg-gold/15 border-gold text-foreground" : "bg-background/40 border-border hover:border-gold/50"}`}
-                    >
-                      {c}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
+        <div className="bg-card/60 border border-border rounded-xl p-5">
+          <div className="font-display text-lg mb-3">{q.question[lang] ?? q.question.en}</div>
+
+          {q.type === "audio-guess" && q.youtubeVideoId && (
+            <BlindAudioClip
+              videoId={q.youtubeVideoId}
+              start={q.audioStart ?? 0}
+              end={q.audioEnd ?? 30}
+              hint={q.audioHint ? (q.audioHint[lang] ?? q.audioHint.en) : undefined}
+              label={tr(lang, { no: "Spill av lydklipp", en: "Play audio clip", pl: "Odtwórz klip audio", sv: "Spela ljudklipp", de: "Audioclip abspielen" })}
+              playingLabel={tr(lang, { no: "Spiller … lytt nøye", en: "Playing … listen carefully", pl: "Odtwarzanie... słuchaj uważnie", sv: "Spelar … lyssna noga", de: "Wird abgespielt … gut zuhören" })}
+            />
+          )}
+
+          <div className="grid sm:grid-cols-2 gap-2" role="group" aria-label={q.question[lang] ?? q.question.en}>
+            {opts.map((c, ci) => {
+              const isCorrect = ci === q.correctIndex;
+              const isPicked = ci === picked;
+              let cls = "bg-background/40 border-border hover:border-gold/50";
+              if (revealed) {
+                if (isCorrect) cls = "bg-gold/15 border-gold text-foreground";
+                else if (isPicked) cls = "bg-destructive/10 border-destructive/60 text-foreground";
+                else cls = "bg-background/20 border-border/60 opacity-70";
+              } else if (isPicked) {
+                cls = "bg-gold/15 border-gold text-foreground";
+              }
+              return (
+                <button
+                  key={ci}
+                  onClick={() => pickAnswer(ci)}
+                  disabled={revealed}
+                  className={`text-left text-sm px-3 py-2.5 rounded-md border transition flex items-center justify-between gap-2 ${cls}`}
+                >
+                  <span>{c}</span>
+                  {revealed && isCorrect && <Check className="size-4 text-gold shrink-0" />}
+                  {revealed && isPicked && !isCorrect && <X className="size-4 text-destructive shrink-0" />}
+                </button>
+              );
+            })}
+          </div>
+
+          {revealed && (
+            <div className="mt-4 pt-4 border-t border-border">
+              <p className="text-sm text-muted-foreground leading-relaxed">{q.explanation[lang] ?? q.explanation.en}</p>
+              {q.artistSlug && (
+                <Link to={artistDetailPath(lang, q.artistSlug) as any} className="mt-2 inline-flex items-center gap-1 text-xs text-gold hover:underline">
+                  {tr(lang, { no: "Les mer om artisten", en: "Read more about the artist", pl: "Przeczytaj więcej o artyście", sv: "Läs mer om artisten", de: "Mehr über den Künstler" })} <ExternalLink className="size-3" />
+                </Link>
+              )}
+              <button
+                onClick={goNext}
+                className="mt-4 w-full sm:w-auto px-6 py-2.5 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90"
+              >
+                {index + 1 >= questions.length
+                  ? tr(lang, { no: "Se resultatet", en: "See my result", pl: "Pokaż mój wynik", sv: "Visa resultatet", de: "Ergebnis anzeigen" })
+                  : tr(lang, { no: "Neste spørsmål", en: "Next question", pl: "Następne pytanie", sv: "Nästa fråga", de: "Nächste Frage" })}
+              </button>
+            </div>
+          )}
         </div>
-        <button
-          disabled={answers.some((a) => a === null)}
-          onClick={() => setDone(true)}
-          className="mt-8 w-full sm:w-auto mx-auto block px-7 py-3 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90 disabled:opacity-40 disabled:cursor-not-allowed"
-        >
-          {tr(lang, { no: "Vis resultatet", en: "Show my result", pl: "Pokaż mój wynik", sv: "Visa resultatet", de: "Ergebnis anzeigen" })}
-        </button>
       </section>
     </PageShell>
   );

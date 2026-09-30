@@ -105,6 +105,17 @@ export const getPublishedCycle = createServerFn({ method: "GET" })
     };
   });
 
+// Cheap existence check for the homepage teaser card -- no snapshot rows,
+// just "is there a cycle covering right now".
+export const hasPublishedQuizCycle = createServerFn({ method: "GET" }).handler(async (): Promise<boolean> => {
+  const db = getDB();
+  const row = await db
+    .prepare(`SELECT 1 FROM quiz_cycles WHERE cycle_number = ? AND status = 'published'`)
+    .bind(getCycleNumber())
+    .first();
+  return !!row;
+});
+
 export const listPublishedCycles = createServerFn({ method: "GET" })
   .inputValidator((d: { limit?: number }) => d)
   .handler(async ({ data }): Promise<CycleMeta[]> => {

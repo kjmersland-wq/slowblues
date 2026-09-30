@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { TickerItem } from "@/lib/newsfeed.functions";
 import { fetchArtistStats, fetchVoiceArtists, type ArtistStats, type VoiceRow } from "@/lib/artists";
+import { hasPublishedQuizCycle } from "@/lib/quiz.server";
 import { resolveArtistImage } from "@/lib/artistImageMap";
 
 import {
@@ -31,7 +32,7 @@ const sonHouse = IMG.sonHouse;
 
 export const Route = createFileRoute("/")({
   component: Home,
-  loader: async () => ({ ...(await fetchArtistStats()), voices: await fetchVoiceArtists() }),
+  loader: async () => ({ ...(await fetchArtistStats()), voices: await fetchVoiceArtists(), hasQuiz: await hasPublishedQuizCycle() }),
   head: ({ loaderData }) => {
     // Live count from the artists table; if the loader failed (DB unreachable)
     // the number is simply omitted -- never a hardcoded fallback.
@@ -532,6 +533,7 @@ function Ticker() {
 
 function Join() {
   const { lang } = useI18n();
+  const { hasQuiz } = Route.useLoaderData();
   const items = [
     { icon: ShoppingBag,
       title: tr(lang, { no: "Blues-merch", en: "Blues Merch", pl: "Blues Merch", sv: "Blues-merch", de: "Blues-Merch" }),
@@ -539,8 +541,13 @@ function Join() {
       href: "https://merch.slow-blues.com/products/wear-the-blues-tee", isNew: true },
     { icon: HelpCircle,
       title: tr(lang, { no: "Blues-quiz", en: "Blues Quiz", pl: "Bluesowy quiz", sv: "Blues-quiz", de: "Blues-Quiz" }),
-      desc: tr(lang, { no: "Tror du at du kan bluesen din? Bevis det.", en: "Think you know your blues? Prove it.", pl: "Myślisz, że znasz się na bluesie? Udowodnij.", sv: "Tror du att du kan din blues? Bevisa det.", de: "Glaubst du, du kennst deinen Blues? Beweise es." }),
-      to: "/quiz" },
+      desc: hasQuiz
+        ? tr(lang, { no: "Tror du at du kan bluesen din? Bevis det.", en: "Think you know your blues? Prove it.", pl: "Myślisz, że znasz się na bluesie? Udowodnij.", sv: "Tror du att du kan din blues? Bevisa det.", de: "Glaubst du, du kennst deinen Blues? Beweise es." })
+        : tr(lang, { no: "Neste runde er på vei — kom innom igjen snart.", en: "Next round is on its way — check back soon.", pl: "Kolejna runda już w drodze — zajrzyj wkrótce.", sv: "Nästa omgång är på väg — titta förbi snart.", de: "Die nächste Runde ist unterwegs — schau bald wieder vorbei." }),
+      to: "/quiz", muted: !hasQuiz,
+      cta: hasQuiz
+        ? tr(lang, { no: "Ta quizen", en: "Take the quiz", pl: "Rozwiąż quiz", sv: "Ta quizet", de: "Quiz starten" })
+        : tr(lang, { no: "Kommer snart", en: "Coming soon", pl: "Już wkrótce", sv: "Kommer snart", de: "Demnächst" }) },
     { icon: BookOpen,
       title: tr(lang, { no: "Gjestebok", en: "Guestbook", pl: "Księga gości", sv: "Gästbok", de: "Gästebuch" }),
       desc: tr(lang, { no: "Sett ditt avtrykk. Fortell oss din blues-historie.", en: "Leave your mark. Tell us your blues story.", pl: "Zostaw swój ślad. Opowiedz nam swoją bluesową historię.", sv: "Sätt ditt avtryck. Berätta din blues-historia.", de: "Hinterlasse deine Spur. Erzähl uns deine Blues-Geschichte." }),
@@ -563,7 +570,9 @@ function Join() {
               {tr(lang, { no: "Nyhet", en: "New", pl: "Nowość", sv: "Nytt", de: "Neu" })}
             </span>
           );
-          const cardClass = "group relative bg-card/60 border border-border rounded-lg p-8 text-center hover:border-gold/60 transition block";
+          const isMuted = "muted" in it && it.muted;
+          const cardClass = `group relative bg-card/60 border border-border rounded-lg p-8 text-center transition block ${isMuted ? "opacity-60" : "hover:border-gold/60"}`;
+          const ctaLabel = "cta" in it && it.cta ? it.cta : tr(lang, { no: "Gå", en: "Go", pl: "Dalej", sv: "Gå", de: "Los" });
           const inner = (
             <>
               {badge}
@@ -573,7 +582,7 @@ function Join() {
               <h3 className="font-display text-2xl mb-2">{it.title}</h3>
               <p className="text-sm text-muted-foreground">{it.desc}</p>
               <div className="mt-5 text-sm text-gold flex items-center justify-center gap-1 group-hover:gap-2 transition-all">
-                {tr(lang, { no: "Gå", en: "Go", pl: "Dalej", sv: "Gå", de: "Los" })} <ArrowRight className="size-4" />
+                {ctaLabel} <ArrowRight className="size-4" />
               </div>
             </>
           );
