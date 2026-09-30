@@ -129,7 +129,7 @@ function SupportPage() {
 
       <section className="max-w-3xl mx-auto px-6 pb-16 text-center">
         <Heart className="size-6 text-gold mx-auto mb-3" />
-        <p className="text-muted-foreground italic">"The blues are the roots, everything else is the fruits." — Willie Dixon</p>
+        <p className="text-muted-foreground italic">"The blues are the roots and the other musics are the fruits." — Willie Dixon</p>
       </section>
     </PageShell>
   );
