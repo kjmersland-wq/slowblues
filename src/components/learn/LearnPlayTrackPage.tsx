@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { ChevronLeft, ChevronRight, ExternalLink, CircleCheck } from "lucide-react";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n, tr } from "@/i18n";
 import { artistDetailPath } from "@/lib/locale";
 import { YouTubeEmbed } from "@/components/YouTubeEmbed";
 import { ChordDiagram } from "@/components/learn/ChordDiagram";
 import { HarpMap } from "@/components/learn/HarpMap";
-import { getTrack, type Media, type Illustration } from "@/data/learnPlay";
+import { getTrack, type Media, type Illustration, type LearnLang } from "@/data/learnPlay";
 import { CourseFeedbackWidget } from "@/components/learn/CourseFeedbackWidget";
 
 // No "coming soon" state: a lesson either has a real Media object for a
@@ -23,9 +23,19 @@ function MediaBlock({ media, lang }: { media: Media; lang: "en" | "no" | "sv" | 
   );
 }
 
-function IllustrationBlock({ illustration }: { illustration: Illustration }) {
-  if (illustration.kind === "chord") return <ChordDiagram chord={illustration.chord} />;
-  if (illustration.kind === "harp") return <HarpMap highlight={illustration.highlight} direction={illustration.direction} />;
+function IllustrationBlock({ illustration, lang }: { illustration: Illustration; lang: LearnLang }) {
+  if (illustration.kind === "chord") {
+    return (
+      <div className="flex flex-wrap justify-center gap-6">
+        {illustration.chords.map((c) => (
+          <ChordDiagram key={c.chord} chord={c.chord} label={c.label[lang] ?? c.label.en} />
+        ))}
+      </div>
+    );
+  }
+  if (illustration.kind === "harp") {
+    return <HarpMap highlight={illustration.highlight} direction={illustration.direction} label={illustration.label[lang] ?? illustration.label.en} />;
+  }
   return null;
 }
 
@@ -107,7 +117,14 @@ export function LearnPlayTrackPage({ trackId }: { trackId: "guitar" | "harmonica
               {tr(lang, { en: "Switch track", no: "Bytt spor", sv: "Byt spår", de: "Spur wechseln", pl: "Zmień ścieżkę" })}
             </Link>
           </div>
-          <div className="h-1.5 rounded-full bg-border overflow-hidden">
+          <div
+            className="h-1.5 rounded-full bg-border overflow-hidden"
+            role="progressbar"
+            aria-valuemin={1}
+            aria-valuemax={total}
+            aria-valuenow={lessonIndex + 1}
+            aria-valuetext={progressLabel}
+          >
             <div className="h-full bg-gold transition-all" style={{ width: `${((lessonIndex + 1) / total) * 100}%` }} />
           </div>
         </div>
@@ -129,7 +146,7 @@ export function LearnPlayTrackPage({ trackId }: { trackId: "guitar" | "harmonica
 
           {lesson.illustration.kind !== "none" && (
             <div className="flex justify-center py-2">
-              <IllustrationBlock illustration={lesson.illustration} />
+              <IllustrationBlock illustration={lesson.illustration} lang={lang} />
             </div>
           )}
 
@@ -138,6 +155,12 @@ export function LearnPlayTrackPage({ trackId }: { trackId: "guitar" | "harmonica
               {tr(lang, { en: "Do this", no: "Gjør dette", sv: "Gör detta", de: "Mach das", pl: "Zrób to" })}
             </div>
             <p className="text-muted-foreground leading-relaxed">{lesson.steps[lang] ?? lesson.steps.en}</p>
+            {lesson.successTest && (
+              <p className="mt-2.5 flex items-start gap-1.5 text-sm text-gold/90">
+                <CircleCheck className="size-4 mt-0.5 shrink-0" aria-hidden="true" />
+                <span>{lesson.successTest[lang] ?? lesson.successTest.en}</span>
+              </p>
+            )}
           </div>
 
           {lesson.listen && (

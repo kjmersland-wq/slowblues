@@ -26,9 +26,13 @@ export type LangText = Record<LearnLang, string>;
 
 export type Media = { videoId: string; start?: number; credit: string; caption: LangText };
 
+// A chord diagram now always carries its own translated label (was a bare
+// hardcoded "E shape" before) and a lesson can show more than one at once
+// -- needed for guitar-2, which teaches switching between E AND A but used
+// to only ever diagram E, leaving A undemonstrated anywhere in the course.
 export type Illustration =
-  | { kind: "chord"; chord: "E" | "A" | "B7" }
-  | { kind: "harp"; highlight: number[]; direction?: "blow" | "draw" }
+  | { kind: "chord"; chords: { chord: "E" | "A" | "B7" | "A7" | "D7" | "E7"; label: LangText }[] }
+  | { kind: "harp"; highlight: number[]; direction?: "blow" | "draw"; label: LangText }
   | { kind: "none" };
 
 export type Lesson = {
@@ -37,6 +41,9 @@ export type Lesson = {
   badge: LangText; // small per-lesson tag: "Slow 60", "Shuffle", "Cross harp"...
   goal: LangText;
   steps: LangText;
+  /** A short, honest, self-checkable line -- "can you do X yet?" -- not a
+   * score or pass/fail gate. Purely informational, no state is stored. */
+  successTest?: LangText;
   listen?: Media;
   backing?: Media;
   /** Set only when `backing` is a same-tempo stand-in for a faster/different
@@ -110,6 +117,13 @@ const EARS_SHARED = {
     sv: "Känna vad en 12-takters blues faktiskt är — i kroppen, inte på papper — innan du rör ett instrument.",
     de: "Spüren, was ein 12-Takt-Blues wirklich ist — im Körper, nicht auf dem Papier — bevor du ein Instrument anfasst.",
     pl: "Poczuć, czym naprawdę jest 12-taktowy blues — w ciele, nie na papierze — zanim dotkniesz instrumentu.",
+  } satisfies LangText,
+  successTest: {
+    en: "Can you count all 12 bars out loud, in time, without losing your place?",
+    no: "Klarer du å telle alle 12 taktene høyt, i takt, uten å miste tellingen?",
+    sv: "Klarar du att räkna alla 12 takterna högt, i takt, utan att tappa räkningen?",
+    de: "Schaffst du es, alle 12 Takte laut und im Takt zu zählen, ohne den Überblick zu verlieren?",
+    pl: "Czy potrafisz policzyć głośno wszystkie 12 taktów, w rytmie, nie gubiąc się?",
   } satisfies LangText,
   steps: {
     en: "12 bars, four beats in each. Count the bars out loud, 1 to 12, clapping or tapping your foot along — that's the whole form, and most blues songs ever written live inside it. Three chords do the work: the home chord, the one that lifts you up, and the one that wants to come back home. That's it — that's I, IV and V, and you never need the Roman numerals again. One more thing before you play a single note: let the last note of a line ring out. Don't rush into the next one. The silence is part of the music.",
@@ -207,6 +221,13 @@ export const TRACKS: Track[] = [
           de: "Die Gitarre so halten, dass sie sich wie ein Teil von dir anfühlt, und sie grob stimmen.",
           pl: "Trzymać gitarę tak, by czuła się jak część ciebie, i nastroić ją w miarę dokładnie.",
         },
+        successTest: {
+          en: "Can you strum all six strings cleanly, with no buzzing or muted strings?",
+          no: "Klarer du å strumme alle seks strengene rent, uten durring eller dempede strenger?",
+          sv: "Klarar du att strumma alla sex strängarna rent, utan surr eller dämpade strängar?",
+          de: "Schaffst du es, alle sechs Saiten sauber anzuschlagen, ohne Schnarren oder gedämpfte Saiten?",
+          pl: "Czy potrafisz czysto uderzyć we wszystkie sześć strun, bez brzęczenia i stłumionych dźwięków?",
+        },
         steps: {
           en: "Sit down, guitar body resting against your stomach, neck angled up a little — not flat, not pointing at the ceiling. Use a tuner app for now; your ear will catch up later. Rest your picking hand loosely near the sound hole or bridge, shoulders down, no death grip on the neck. If your hand hurts, you're squeezing too hard.",
           no: "Sitt ned, gitarkroppen mot magen, halsen litt vinklet opp — verken flat eller pekende mot taket. Bruk en stemme-app foreløpig, øret ditt tar igjen senere. La plekterhånden hvile løst nær lydhullet eller stolen, skuldrene ned, ikke dødsgrep på halsen. Gjør hånden vondt, klemmer du for hardt.",
@@ -245,6 +266,13 @@ export const TRACKS: Track[] = [
           de: "Sauber zwischen offenem E und offenem A wechseln, ohne runterzuschauen.",
           pl: "Czysto przełączać się między otwartym E i otwartym A, nie patrząc w dół.",
         },
+        successTest: {
+          en: "Can you switch E → A → E four times in a row without stopping?",
+          no: "Klarer du å bytte E → A → E fire ganger på rad uten å stoppe?",
+          sv: "Klarar du att byta E → A → E fyra gånger i rad utan att stanna?",
+          de: "Schaffst du den Wechsel E → A → E viermal hintereinander, ohne anzuhalten?",
+          pl: "Czy potrafisz zmienić E → A → E cztery razy z rzędu, nie zatrzymując się?",
+        },
         steps: {
           en: "Set your fingers for E, strum four slow downstrokes. Move to A, same four strokes. Back to E. The goal isn't speed — it's landing every finger in the same spot every time. If a string buzzes, that finger needs to press closer to the fret wire, not harder.",
           no: "Sett fingrene til E, strum fire sakte nedslag. Flytt til A, samme fire slag. Tilbake til E. Målet er ikke fart — det er at hver finger lander på samme sted hver gang. Durrer en streng, må fingeren nærmere båndet, ikke hardere ned.",
@@ -270,7 +298,13 @@ export const TRACKS: Track[] = [
           pl: "Muddy Waters podłączył dokładnie to samo słownictwo do wzmacniacza i zmienił wszystko.",
         },
         artistSlug: "muddy-waters",
-        illustration: { kind: "chord", chord: "E" },
+        illustration: {
+          kind: "chord",
+          chords: [
+            { chord: "E", label: { en: "E chord", no: "E-akkord", sv: "E-ackord", de: "E-Akkord", pl: "Akord E" } },
+            { chord: "A", label: { en: "A chord", no: "A-akkord", sv: "A-ackord", de: "A-Akkord", pl: "Akord A" } },
+          ],
+        },
       },
       {
         id: "guitar-3",
@@ -282,6 +316,13 @@ export const TRACKS: Track[] = [
           sv: "Spela en hel långsam 12-takter i E-A-B7 utan att tappa räkningen.",
           de: "Einen ganzen langsamen 12-Takter in E-A-B7 spielen, ohne den Überblick zu verlieren.",
           pl: "Zagrać cały powolny 12-taktowy schemat E-A-B7, nie gubiąc liczenia.",
+        },
+        successTest: {
+          en: "Can you play the full 12 bars — chords and counting together — without losing your place?",
+          no: "Klarer du å spille hele 12-takteren — akkorder og telling sammen — uten å miste tellingen?",
+          sv: "Klarar du att spela hela 12-takten — ackord och räkning tillsammans — utan att tappa räkningen?",
+          de: "Schaffst du den ganzen 12-Takter — Akkorde und Zählen zusammen — ohne den Überblick zu verlieren?",
+          pl: "Czy potrafisz zagrać cały 12-takt — akordy i liczenie razem — nie gubiąc się?",
         },
         steps: {
           en: "Remember I-IV-V from the ears lesson? Here it is with names: E (4 bars), A (2 bars), E (2 bars), B7 (1 bar), A (1 bar), E (2 bars). Count out loud while you change chords — the counting matters more than the chords right now. Slow enough that you never panic is the correct speed.",
@@ -306,7 +347,10 @@ export const TRACKS: Track[] = [
           pl: "Buddy Guy wciąż gra to uczucie na żywo — na jego profilu znajdziesz więcej.",
         },
         artistSlug: "buddy-guy",
-        illustration: { kind: "chord", chord: "B7" },
+        illustration: {
+          kind: "chord",
+          chords: [{ chord: "B7", label: { en: "B7 chord", no: "B7-akkord", sv: "B7-ackord", de: "B7-Akkord", pl: "Akord B7" } }],
+        },
       },
       {
         id: "guitar-4",
@@ -318,6 +362,13 @@ export const TRACKS: Track[] = [
           sv: "Känna shuffle-gungan i stället för att spela raka, jämna åttondelar.",
           de: "Den Shuffle-Groove spüren statt gerader, gleichmäßiger Achtel.",
           pl: "Poczuć kołyszący rytm shuffle zamiast prostych, równych ósemek.",
+        },
+        successTest: {
+          en: "Can you hold the long-short shuffle feel for a full minute on one chord?",
+          no: "Klarer du å holde den lang-kort-følelsen i shufflen i ett helt minutt på én akkord?",
+          sv: "Klarar du att hålla den lång-kort-känslan i shufflen i en hel minut på ett ackord?",
+          de: "Schaffst du es, das Lang-kurz-Gefühl des Shuffles eine ganze Minute lang auf einem Akkord zu halten?",
+          pl: "Czy potrafisz utrzymać wyczucie długo-krótko w shufflu przez całą minutę na jednym akordzie?",
         },
         steps: {
           en: "Long-short, long-short — that's a shuffle, not long-long-long-long. Play it on a single E chord first: two notes per beat, but the first one gets more time than the second, like a limping walk. Once that bounce feels natural on one chord, carry it into the full 12-bar from lesson 3.",
@@ -358,7 +409,10 @@ export const TRACKS: Track[] = [
           pl: "Cały katalog Stevie'ego Raya Vaughana żyje tym samym kołysaniem — jego profil to następny krok.",
         },
         artistSlug: "stevie-ray-vaughan",
-        illustration: { kind: "chord", chord: "E" },
+        illustration: {
+          kind: "chord",
+          chords: [{ chord: "E", label: { en: "E chord", no: "E-akkord", sv: "E-ackord", de: "E-Akkord", pl: "Akord E" } }],
+        },
       },
       {
         id: "guitar-5",
@@ -371,6 +425,13 @@ export const TRACKS: Track[] = [
           de: "Einen klaren, singenden Slide-Ton auf einer Saite hinbekommen.",
           pl: "Uzyskać jedną czystą, śpiewną nutę slide na jednej strunie.",
         },
+        successTest: {
+          en: "Can you get one slide note to ring out clean, with no fret buzz or rattle?",
+          no: "Klarer du å få én slide-tone til å ringe rent, uten båndsurr eller klapring?",
+          sv: "Klarar du att få en slide-ton att klinga rent, utan bandsurr eller skrammel?",
+          de: "Schaffst du es, einen Slide-Ton klar ausklingen zu lassen, ohne Bundschnarren oder Klappern?",
+          pl: "Czy potrafisz uzyskać jedną czystą, dźwięczną nutę slide, bez brzęczenia progów czy grzechotania?",
+        },
         steps: {
           en: "Put a slide on your ring or pinky finger — keep your other fingers free. Rest it lightly right over the fret wire, not behind it like normal fretting, and barely touching the string. Pick one string, slide slowly up two frets and back, and let each end ring before you move. Too much pressure kills the singing tone — this is the one lesson where less is more.",
           no: "Sett en slide på ringfingeren eller lillefingeren — hold de andre fingrene fri. La den hvile lett rett over båndstaget, ikke bak det som ved vanlig grep, og så vidt berøre strengen. Plukk én streng, gli sakte opp to bånd og tilbake, og la hver ende ringe før du beveger deg. For mye trykk dreper den syngende tonen — dette er leksjonen der mindre er mer.",
@@ -378,6 +439,15 @@ export const TRACKS: Track[] = [
           de: "Setz einen Slide auf Ring- oder kleinen Finger — die anderen Finger bleiben frei. Lass ihn locker direkt über dem Bundstäbchen liegen, nicht dahinter wie beim normalen Greifen, und berühre die Saite nur leicht. Zupf eine Saite, gleite langsam zwei Bünde hoch und zurück, und lass jedes Ende ausklingen, bevor du weitermachst. Zu viel Druck tötet den singenden Ton — hier gilt: weniger ist mehr.",
           pl: "Załóż slide na palec serdeczny lub mały — pozostałe palce zostają wolne. Oprzyj go lekko dokładnie nad progiem, nie za nim jak przy zwykłym chwycie, i ledwo dotykaj struny. Uderz jedną strunę, przesuń powoli o dwa progi w górę i z powrotem, pozwalając każdemu końcowi wybrzmieć zanim ruszysz dalej. Zbyt duży nacisk zabija śpiewny ton — to jedna lekcja, w której mniej znaczy więcej.",
         },
+        // TODO(owner): no genuine slide-guitar demonstration video is linked
+        // anywhere in the course. Elmore James's "Dust My Broom" (already
+        // verified and linked on his own artist profile, SOhQP5wHNHQ) was
+        // considered as a replacement here, but sources disagree on whether
+        // he played it in open E or open D -- since this course locks
+        // LISTEN/BACKING to a verified, matching key, an unresolved key
+        // claim isn't safe to ship. Keeping Buddy Guy's clip with an honest
+        // "not a slide demo" caption until a real, key-confirmed slide clip
+        // turns up.
         listen: { videoId: "ClpR3fOKPRA", credit: "Buddy Guy", caption: {
           en: "Buddy Guy again — \"Feels Like Rain\". Not a slide demo, just the same unhurried feel you want here.",
           no: "Buddy Guy igjen — «Feels Like Rain». Ikke en slide-demo, bare den samme uhastige følelsen du vil ha her.",
@@ -387,11 +457,11 @@ export const TRACKS: Track[] = [
         }},
         backing: GUITAR_BACKING(),
         nextTip: {
-          en: "Nobody owns this sound more than Elmore James — his profile is where it lives.",
-          no: "Ingen eier denne lyden mer enn Elmore James — profilen hans er der den bor.",
-          sv: "Ingen äger det här ljudet mer än Elmore James — hans profil är där det bor.",
-          de: "Niemand besitzt diesen Sound mehr als Elmore James — sein Profil ist sein Zuhause.",
-          pl: "Nikt nie jest bardziej właścicielem tego brzmienia niż Elmore James — jego profil to jego dom.",
+          en: "Elmore James built his whole career on this sound — his profile has the story.",
+          no: "Elmore James bygde hele karrieren sin på denne lyden — profilen hans har historien.",
+          sv: "Elmore James byggde hela sin karriär på det här ljudet — hans profil har historien.",
+          de: "Elmore James baute seine gesamte Karriere auf diesem Sound auf — sein Profil erzählt die Geschichte.",
+          pl: "Elmore James zbudował na tym brzmieniu całą swoją karierę — jego profil zawiera tę historię.",
         },
         artistSlug: "elmore-james",
         illustration: { kind: "none" },
@@ -421,6 +491,13 @@ export const TRACKS: Track[] = [
           de: "Eine A-Mundharmonika richtig halten und mit den Lippen einen sauberen Dichtsitz bekommen.",
           pl: "Poprawnie trzymać harmonijkę A i uzyskać szczelne przyleganie ust.",
         },
+        successTest: {
+          en: "Can you hold one steady note on hole 4 for a full breath, in and out, without it squeaking?",
+          no: "Klarer du å holde én stødig tone på hull 4 gjennom et helt pust, inn og ut, uten at den knirker?",
+          sv: "Klarar du att hålla en stadig ton på hål 4 genom ett helt andetag, in och ut, utan att den gnisslar?",
+          de: "Schaffst du es, einen ruhigen Ton auf Loch 4 über einen ganzen Atemzug, ein und aus, ohne Quietschen zu halten?",
+          pl: "Czy potrafisz utrzymać jeden stabilny dźwięk na otworze 4 przez cały oddech, wdech i wydech, bez piszczenia?",
+        },
         steps: {
           en: "Cup the harp in one hand, numbers facing up, low notes to your left. Bring the harmonica to your mouth — not your head down to the harp. Rest your lips around it like you're about to say \"ooh\", not a tight pucker. Breathe gently in and out through hole 4; don't blow hard, this isn't a party favor.",
           no: "Legg munnspillet i den ene hånden, tallene opp, lave toner til venstre. Før munnspillet til munnen — ikke hodet ned til spillet. Hvil leppene rundt det som om du skal si «oj», ikke en stram knip. Pust rolig inn og ut gjennom hull 4; ikke blås hardt, dette er ikke en festfløyte.",
@@ -437,7 +514,7 @@ export const TRACKS: Track[] = [
           pl: "Little Walter zrobił z tego małego instrumentu głos prowadzący — jego profil czeka.",
         },
         artistSlug: "little-walter",
-        illustration: { kind: "harp", highlight: [4] },
+        illustration: { kind: "harp", highlight: [4], label: { en: "Hole 4", no: "Hull 4", sv: "Hål 4", de: "Loch 4", pl: "Otwór 4" } },
       },
       {
         id: "harmonica-2",
@@ -449,6 +526,13 @@ export const TRACKS: Track[] = [
           sv: "Känna skillnad på en ren ton och ett fullt ackord, och välja vilken du spelar.",
           de: "Einen einzelnen klaren Ton von einem vollen Akkord unterscheiden — und wählen, was du spielst.",
           pl: "Odróżnić pojedynczy czysty dźwięk od pełnego akordu i wybierać, co grasz.",
+        },
+        successTest: {
+          en: "Can you play one clean single note on hole 4, three times in a row?",
+          no: "Klarer du å spille én ren enkelttone på hull 4, tre ganger på rad?",
+          sv: "Klarar du att spela en ren enton på hål 4, tre gånger i rad?",
+          de: "Schaffst du einen klaren Einzelton auf Loch 4, dreimal hintereinander?",
+          pl: "Czy potrafisz zagrać jeden czysty pojedynczy dźwięk na otworze 4, trzy razy z rzędu?",
         },
         steps: {
           en: "Play hole 4 as a wide chord first — breathe normally, you'll hear 3-4 notes at once. Now narrow your lips and aim the air right at hole 4 alone, like whistling through a straw. Go back and forth: chord, single note, chord, single note. That control is most of what separates blues harp from just breathing on the thing.",
@@ -473,7 +557,7 @@ export const TRACKS: Track[] = [
           pl: "To ta kontrola, na której zbudowana jest każda solówka Big Waltera Hortona.",
         },
         artistSlug: "big-walter-horton",
-        illustration: { kind: "harp", highlight: [4] },
+        illustration: { kind: "harp", highlight: [4], label: { en: "Hole 4", no: "Hull 4", sv: "Hål 4", de: "Loch 4", pl: "Otwór 4" } },
       },
       {
         id: "harmonica-3",
@@ -485,6 +569,13 @@ export const TRACKS: Track[] = [
           sv: "Förstå varför bluesmunspelare medvetet spelar ett A-munspel i \"fel\" tonart.",
           de: "Verstehen, warum Blues-Harp-Spieler eine A-Harp absichtlich in der „falschen“ Tonart spielen.",
           pl: "Zrozumieć, dlaczego bluesowi harmonijkarze celowo grają na harmonijce A w „złej” tonacji.",
+        },
+        successTest: {
+          en: "Can you hold the draw chord on holes 1–4 for four full breaths without it sounding thin or splitting?",
+          no: "Klarer du å holde drag-akkorden på hull 1–4 gjennom fire fulle pust uten at den høres tynn ut eller splitter seg?",
+          sv: "Klarar du att hålla drag-ackordet på hål 1–4 genom fyra hela andetag utan att det låter tunt eller splittras?",
+          de: "Schaffst du es, den Zieh-Akkord auf Loch 1–4 über vier volle Atemzüge zu halten, ohne dass er dünn klingt oder auseinanderfällt?",
+          pl: "Czy potrafisz utrzymać akord na wdechu na otworach 1–4 przez cztery pełne oddechy, tak by nie brzmiał cienko i się nie rozpadał?",
         },
         steps: {
           en: "This is called cross harp, or 2nd position: an A harmonica actually gives you the blues in E, not A — the same E this whole track is built around. Home base is holes 1 through 4 on the draw (breathe in), not the blow. Sit there and just breathe in on holes 1-2-3-4 together, slowly, and let that sound sink in — that's the sound you already know from every blues record.",
@@ -509,7 +600,12 @@ export const TRACKS: Track[] = [
           pl: "„Juke” to instrumentalny hit harmonijkowy — profil Little Waltera zawiera tę historię.",
         },
         artistSlug: "little-walter",
-        illustration: { kind: "harp", highlight: [1, 2, 3, 4], direction: "draw" },
+        illustration: {
+          kind: "harp",
+          highlight: [1, 2, 3, 4],
+          direction: "draw",
+          label: { en: "Holes 1–4, draw", no: "Hull 1–4, drag", sv: "Hål 1–4, drag", de: "Löcher 1–4, ziehen", pl: "Otwory 1–4, wdech" },
+        },
       },
       {
         id: "harmonica-4",
@@ -521,6 +617,13 @@ export const TRACKS: Track[] = [
           sv: "Spela en liten, repeterbar riff du kan ta med genom en hel 12-takt.",
           de: "Ein kleines, wiederholbares Riff spielen, das du durch einen ganzen 12-Takter trägst.",
           pl: "Zagrać jeden mały, powtarzalny riff, który przeniesiesz przez cały 12-takt.",
+        },
+        successTest: {
+          en: "Can you loop the riff five times in a row without missing a note?",
+          no: "Klarer du å løkke riffen fem ganger på rad uten å bomme på en tone?",
+          sv: "Klarar du att loopa riffet fem gånger i rad utan att missa en ton?",
+          de: "Schaffst du es, das Riff fünfmal hintereinander zu loopen, ohne einen Ton zu verpassen?",
+          pl: "Czy potrafisz powtórzyć riff pięć razy z rzędu, nie gubiąc żadnej nuty?",
         },
         steps: {
           en: "Here's a tiny original riff, in draw (in) and blow (out): draw 4, draw 3, blow 2, draw 2. Four notes, about two seconds. Loop it slowly, evenly, until it's boring — boring means it's ready. Once it sits, you already have something to play over the whole 12-bar from the ears lesson.",
@@ -561,7 +664,7 @@ export const TRACKS: Track[] = [
           pl: "Gotów spróbować pierwszego bendu? To już następny krok — bez pośpiechu, jeśli nie.",
         },
         artistSlug: "little-walter",
-        illustration: { kind: "harp", highlight: [2, 3, 4] },
+        illustration: { kind: "harp", highlight: [2, 3, 4], label: { en: "Holes 2–4", no: "Hull 2–4", sv: "Hål 2–4", de: "Löcher 2–4", pl: "Otwory 2–4" } },
       },
       {
         id: "harmonica-5",
@@ -573,6 +676,13 @@ export const TRACKS: Track[] = [
           sv: "Få din första drag-bend på hål 2 — bara när lektion 4 känns stabil.",
           de: "Deinen ersten Zieh-Bend auf Loch 2 hinbekommen — erst wenn Lektion 4 sich sicher anfühlt.",
           pl: "Zagrać pierwszy bend na wdechu na otworze 2 — dopiero gdy lekcja 4 czuje się pewnie.",
+        },
+        successTest: {
+          en: "Can you hear the pitch move downward on hole 2, even slightly?",
+          no: "Klarer du å høre tonen bøye seg nedover på hull 2, selv om det bare er litt?",
+          sv: "Klarar du att höra tonen böja nedåt på hål 2, även om det bara är lite?",
+          de: "Kannst du hören, wie sich die Tonhöhe auf Loch 2 nach unten bewegt, und sei es nur leicht?",
+          pl: "Czy słyszysz, jak dźwięk na otworze 2 obniża się, choćby nieznacznie?",
         },
         steps: {
           en: "Bending is shaping the inside of your mouth to bend the pitch down while you draw. Say \"eee\" out loud, then slide toward \"aww\" while drawing on hole 2 — you're aiming your tongue and jaw down and back, not blowing harder. It won't happen on attempt one. If nothing changes after a few honest tries, come back to this after a week of lesson 4 — that's completely normal, not a failure.",
@@ -597,7 +707,12 @@ export const TRACKS: Track[] = [
           pl: "Big Walter Horton bendował dźwięki jak nikt inny — jego profil zawiera tę historię.",
         },
         artistSlug: "big-walter-horton",
-        illustration: { kind: "harp", highlight: [2], direction: "draw" },
+        illustration: {
+          kind: "harp",
+          highlight: [2],
+          direction: "draw",
+          label: { en: "Hole 2, draw", no: "Hull 2, drag", sv: "Hål 2, drag", de: "Loch 2, ziehen", pl: "Otwór 2, wdech" },
+        },
       },
     ],
   },
