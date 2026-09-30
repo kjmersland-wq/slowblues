@@ -73,7 +73,6 @@ import { Route as LearnGearIdRouteImport } from './routes/learn.gear.$id'
 import { Route as LearnPlayIndexRouteImport } from './routes/learn.play.index'
 import { Route as LearnPlayGuitarRouteImport } from './routes/learn.play.guitar'
 import { Route as LearnPlayHarmonicaRouteImport } from './routes/learn.play.harmonica'
-import { Route as LearnPlayPreviewRouteImport } from './routes/learn.play.preview'
 import { Route as QuizCycleCycleRouteImport } from './routes/quiz.cycle.$cycle'
 import { Route as AboutMerchCollectionSlugRouteImport } from './routes/about.merch.collection.$slug'
 import { Route as LearnPlayFeedbackDeleteTokenRouteImport } from './routes/learn.play.feedback.delete.$token'
@@ -399,11 +398,6 @@ const LearnPlayHarmonicaRoute = LearnPlayHarmonicaRouteImport.update({
   path: '/learn/play/harmonica',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LearnPlayPreviewRoute = LearnPlayPreviewRouteImport.update({
-  id: '/learn/play/preview',
-  path: '/learn/play/preview',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const QuizCycleCycleRoute = QuizCycleCycleRouteImport.update({
   id: '/quiz/cycle/$cycle',
   path: '/quiz/cycle/$cycle',
@@ -485,7 +479,6 @@ export interface FileRoutesByFullPath {
   '/learn/gear/$id': typeof LearnGearIdRoute
   '/learn/play/guitar': typeof LearnPlayGuitarRoute
   '/learn/play/harmonica': typeof LearnPlayHarmonicaRoute
-  '/learn/play/preview': typeof LearnPlayPreviewRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
   '/$locale/artists/': typeof LocaleArtistsIndexRoute
   '/learn/play/': typeof LearnPlayIndexRoute
@@ -555,7 +548,6 @@ export interface FileRoutesByTo {
   '/learn/gear/$id': typeof LearnGearIdRoute
   '/learn/play/guitar': typeof LearnPlayGuitarRoute
   '/learn/play/harmonica': typeof LearnPlayHarmonicaRoute
-  '/learn/play/preview': typeof LearnPlayPreviewRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
   '/$locale/artists': typeof LocaleArtistsIndexRoute
   '/learn/play': typeof LearnPlayIndexRoute
@@ -626,7 +618,6 @@ export interface FileRoutesById {
   '/learn/gear/$id': typeof LearnGearIdRoute
   '/learn/play/guitar': typeof LearnPlayGuitarRoute
   '/learn/play/harmonica': typeof LearnPlayHarmonicaRoute
-  '/learn/play/preview': typeof LearnPlayPreviewRoute
   '/quiz/cycle/$cycle': typeof QuizCycleCycleRoute
   '/$locale/artists/': typeof LocaleArtistsIndexRoute
   '/learn/play/': typeof LearnPlayIndexRoute
@@ -698,7 +689,6 @@ export interface FileRouteTypes {
     | '/learn/gear/$id'
     | '/learn/play/guitar'
     | '/learn/play/harmonica'
-    | '/learn/play/preview'
     | '/quiz/cycle/$cycle'
     | '/$locale/artists/'
     | '/learn/play/'
@@ -768,7 +758,6 @@ export interface FileRouteTypes {
     | '/learn/gear/$id'
     | '/learn/play/guitar'
     | '/learn/play/harmonica'
-    | '/learn/play/preview'
     | '/quiz/cycle/$cycle'
     | '/$locale/artists'
     | '/learn/play'
@@ -838,7 +827,6 @@ export interface FileRouteTypes {
     | '/learn/gear/$id'
     | '/learn/play/guitar'
     | '/learn/play/harmonica'
-    | '/learn/play/preview'
     | '/quiz/cycle/$cycle'
     | '/$locale/artists/'
     | '/learn/play/'
@@ -905,7 +893,6 @@ export interface RootRouteChildren {
   ApiPublicFourthwallWebhookRoute: typeof ApiPublicFourthwallWebhookRoute
   LearnPlayGuitarRoute: typeof LearnPlayGuitarRoute
   LearnPlayHarmonicaRoute: typeof LearnPlayHarmonicaRoute
-  LearnPlayPreviewRoute: typeof LearnPlayPreviewRoute
   QuizCycleCycleRoute: typeof QuizCycleCycleRoute
   LocaleArtistsIndexRoute: typeof LocaleArtistsIndexRoute
   LearnPlayIndexRoute: typeof LearnPlayIndexRoute
@@ -1362,13 +1349,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnPlayHarmonicaRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/learn/play/preview': {
-      id: '/learn/play/preview'
-      path: '/learn/play/preview'
-      fullPath: '/learn/play/preview'
-      preLoaderRoute: typeof LearnPlayPreviewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/quiz/cycle/$cycle': {
       id: '/quiz/cycle/$cycle'
       path: '/quiz/cycle/$cycle'
@@ -1492,7 +1472,6 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicFourthwallWebhookRoute: ApiPublicFourthwallWebhookRoute,
   LearnPlayGuitarRoute: LearnPlayGuitarRoute,
   LearnPlayHarmonicaRoute: LearnPlayHarmonicaRoute,
-  LearnPlayPreviewRoute: LearnPlayPreviewRoute,
   QuizCycleCycleRoute: QuizCycleCycleRoute,
   LocaleArtistsIndexRoute: LocaleArtistsIndexRoute,
   LearnPlayIndexRoute: LearnPlayIndexRoute,

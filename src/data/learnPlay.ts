@@ -34,10 +34,17 @@ export type Illustration =
 export type Lesson = {
   id: string;
   title: LangText;
+  badge: LangText; // small per-lesson tag: "Slow 60", "Shuffle", "Cross harp"...
   goal: LangText;
   steps: LangText;
   listen?: Media;
   backing?: Media;
+  /** Set only when `backing` is a same-tempo stand-in for a faster/different
+   * feel the lesson is actually named after (currently: the two "Shuffle"/
+   * "Riff" lessons, which have no verified faster E backing track yet —
+   * see docs/media-candidates.md). Rendered as a small visible flag next to
+   * the backing player, never silently implied by the caption alone. */
+  temporaryNote?: LangText;
   nextTip: LangText;
   artistSlug: string;
   illustration: Illustration;
@@ -96,6 +103,7 @@ export type Track = {
 const EARS_SHARED = {
   id: "ears",
   title: { en: "Ears First", no: "Ørene først", sv: "Öronen först", de: "Erst die Ohren", pl: "Najpierw uszy" } satisfies LangText,
+  badge: { en: "Intro", no: "Intro", sv: "Intro", de: "Intro", pl: "Wstęp" } satisfies LangText,
   goal: {
     en: "Know what a 12-bar blues actually is — in your body, not on paper — before you touch an instrument.",
     no: "Kjenne hva en 12-takters blues faktisk er — i kroppen, ikke på papiret — før du rører et instrument.",
@@ -191,6 +199,7 @@ export const TRACKS: Track[] = [
       {
         id: "guitar-1",
         title: { en: "Tuning & Hold", no: "Stemming og hold", sv: "Stämning och hållning", de: "Stimmen & Haltung", pl: "Strojenie i trzymanie" },
+        badge: { en: "Slow 60", no: "Sakte 60", sv: "Långsamt 60", de: "Langsam 60", pl: "Wolno 60" },
         goal: {
           en: "Hold the guitar so it feels like part of you, and get it roughly in tune.",
           no: "Holde gitaren slik at den føles som en del av deg, og få den noenlunde stemt.",
@@ -228,6 +237,7 @@ export const TRACKS: Track[] = [
       {
         id: "guitar-2",
         title: { en: "E and A", no: "E og A", sv: "E och A", de: "E und A", pl: "E i A" },
+        badge: { en: "Two chords", no: "To akkorder", sv: "Två ackord", de: "Zwei Akkorde", pl: "Dwa akordy" },
         goal: {
           en: "Switch cleanly between open E and open A without looking down.",
           no: "Bytte rent mellom åpen E og åpen A uten å se ned.",
@@ -265,6 +275,7 @@ export const TRACKS: Track[] = [
       {
         id: "guitar-3",
         title: { en: "12-Bar, Slow", no: "12-takter, sakte", sv: "12-takter, långsamt", de: "12 Takte, langsam", pl: "12 taktów, powoli" },
+        badge: { en: "Full form", no: "Hele formen", sv: "Hela formen", de: "Ganze Form", pl: "Cała forma" },
         goal: {
           en: "Play a full slow 12-bar in E-A-B7 without losing the count.",
           no: "Spille en hel sakte 12-takter i E-A-B7 uten å miste tellingen.",
@@ -300,6 +311,7 @@ export const TRACKS: Track[] = [
       {
         id: "guitar-4",
         title: { en: "Shuffle", no: "Shuffle", sv: "Shuffle", de: "Shuffle", pl: "Shuffle" },
+        badge: { en: "Shuffle", no: "Shuffle", sv: "Shuffle", de: "Shuffle", pl: "Shuffle" },
         goal: {
           en: "Feel the shuffle bounce instead of playing straight, even eighth notes.",
           no: "Kjenne shuffle-gyngen i stedet for å spille rette, jevne åttendedeler.",
@@ -324,12 +336,19 @@ export const TRACKS: Track[] = [
         backing: {
           ...GUITAR_BACKING(),
           caption: {
-            en: "Backing in E — same key as \"Pride and Joy\", but slower. Lock in the long-short bounce here first, then speed up on your own.",
-            no: "Backing i E — samme toneart som «Pride and Joy», men saktere. Få lang-kort-gyngen på plass her først, øk farten selv etterpå.",
-            sv: "Backing i E — samma tonart som \"Pride and Joy\", men långsammare. Få lång-kort-gungan på plats här först, öka farten själv efteråt.",
-            de: "Backing in E — dieselbe Tonart wie „Pride and Joy“, nur langsamer. Verinnerliche hier erst den lang-kurz-Groove, dann steigere das Tempo selbst.",
-            pl: "Podkład w E — ta sama tonacja co „Pride and Joy”, ale wolniej. Najpierw wyczuj tu kołysanie długo-krótko, tempo zwiększysz sam później.",
+            en: "Same slow track — add the limp in your right hand.",
+            no: "Samme sakte spor — legg til haltingen med høyrehånden selv.",
+            sv: "Samma långsamma spår — lägg till haltandet med högerhanden själv.",
+            de: "Derselbe langsame Track — den hinkenden Groove fügst du selbst mit der rechten Hand hinzu.",
+            pl: "Ten sam wolny podkład — kulawy rytm dodajesz sam prawą ręką.",
           },
+        },
+        temporaryNote: {
+          en: "Temporary: no verified up-tempo E-shuffle backing track exists yet — this lesson reuses the slow track until one is found.",
+          no: "Midlertidig: det finnes ennå ingen verifisert rask E-shuffle-backing — denne leksjonen gjenbruker det sakte sporet inntil videre.",
+          sv: "Tillfälligt: det finns ännu ingen verifierad snabb E-shuffle-backing — den här lektionen återanvänder det långsamma spåret tills vidare.",
+          de: "Vorübergehend: Es gibt noch kein verifiziertes schnelleres E-Shuffle-Backing — diese Lektion nutzt vorerst weiter den langsamen Track.",
+          pl: "Tymczasowo: nie ma jeszcze zweryfikowanego szybszego podkładu E-shuffle — ta lekcja na razie korzysta z wolnego podkładu.",
         },
         nextTip: {
           en: "Stevie Ray Vaughan's whole catalogue lives on this same bounce — his profile is next.",
@@ -344,6 +363,7 @@ export const TRACKS: Track[] = [
       {
         id: "guitar-5",
         title: { en: "One Taste of Slide", no: "Én smak av slide", sv: "En smak av slide", de: "Ein Geschmack Slide", pl: "Jeden smak slide'a" },
+        badge: { en: "Slide", no: "Slide", sv: "Slide", de: "Slide", pl: "Slide" },
         goal: {
           en: "Get one clean, singing slide note on one string.",
           no: "Få én ren, syngende slide-tone på én streng.",
@@ -393,6 +413,7 @@ export const TRACKS: Track[] = [
       {
         id: "harmonica-1",
         title: { en: "Hold & Seal", no: "Hold og forsegling", sv: "Hållning och försegling", de: "Halten & Dichtsitz", pl: "Trzymanie i szczelność" },
+        badge: { en: "Slow 60", no: "Sakte 60", sv: "Långsamt 60", de: "Langsam 60", pl: "Wolno 60" },
         goal: {
           en: "Hold an A harmonica correctly and get a clean seal with your lips.",
           no: "Holde et A-munnspill riktig og få en ren forsegling med leppene.",
@@ -421,6 +442,7 @@ export const TRACKS: Track[] = [
       {
         id: "harmonica-2",
         title: { en: "Single Note vs. Chord", no: "Enkelttone vs. akkord", sv: "Entoner vs. ackord", de: "Einzelton vs. Akkord", pl: "Pojedynczy dźwięk vs. akord" },
+        badge: { en: "Single note", no: "Enkelttone", sv: "Enton", de: "Einzelton", pl: "Pojedynczy dźwięk" },
         goal: {
           en: "Tell a single clean note apart from a full chord, and choose which one you're playing.",
           no: "Kjenne forskjell på én ren tone og en full akkord, og velge hvilken du spiller.",
@@ -456,6 +478,7 @@ export const TRACKS: Track[] = [
       {
         id: "harmonica-3",
         title: { en: "Second Position", no: "Andre posisjon", sv: "Andra positionen", de: "Zweite Position", pl: "Druga pozycja" },
+        badge: { en: "Cross harp", no: "Cross harp", sv: "Cross harp", de: "Cross Harp", pl: "Cross harp" },
         goal: {
           en: "Understand why blues harp players play an A harp in the \"wrong\" key on purpose.",
           no: "Forstå hvorfor bluesmunnspillere spiller et A-munnspill i «feil» toneart med vilje.",
@@ -491,6 +514,7 @@ export const TRACKS: Track[] = [
       {
         id: "harmonica-4",
         title: { en: "One 12-Bar Riff", no: "Én 12-takters riff", sv: "En 12-takters riff", de: "Ein 12-Takt-Riff", pl: "Jeden riff na 12 taktów" },
+        badge: { en: "Riff", no: "Riff", sv: "Riff", de: "Riff", pl: "Riff" },
         goal: {
           en: "Play one small, repeatable riff you can carry across a full 12-bar.",
           no: "Spille én liten, repeterbar riff du kan ta med gjennom en hel 12-takter.",
@@ -515,12 +539,19 @@ export const TRACKS: Track[] = [
         backing: {
           ...HARMONICA_BACKING(),
           caption: {
-            en: "Backing in E — same key as \"Juke\", but slower. The shuffle bounce sits on top of this same tempo once your riff is solid.",
-            no: "Backing i E — samme toneart som «Juke», men saktere. Shuffle-gyngen legger seg oppå dette tempoet når riffen sitter.",
-            sv: "Backing i E — samma tonart som \"Juke\", men långsammare. Shuffle-gungan lägger sig ovanpå det här tempot när riffen sitter.",
-            de: "Backing in E — dieselbe Tonart wie „Juke“, nur langsamer. Der Shuffle-Groove legt sich auf dieses Tempo, sobald dein Riff sitzt.",
-            pl: "Podkład w E — ta sama tonacja co „Juke”, ale wolniej. Kołysanie shuffle nakłada się na to samo tempo, gdy twój riff już siądzie.",
+            en: "Same slow track — add the limp in your right hand.",
+            no: "Samme sakte spor — legg til haltingen med høyrehånden selv.",
+            sv: "Samma långsamma spår — lägg till haltandet med högerhanden själv.",
+            de: "Derselbe langsame Track — den hinkenden Groove fügst du selbst mit der rechten Hand hinzu.",
+            pl: "Ten sam wolny podkład — kulawy rytm dodajesz sam prawą ręką.",
           },
+        },
+        temporaryNote: {
+          en: "Temporary: no verified up-tempo E-shuffle backing track exists yet — this lesson reuses the slow track until one is found.",
+          no: "Midlertidig: det finnes ennå ingen verifisert rask E-shuffle-backing — denne leksjonen gjenbruker det sakte sporet inntil videre.",
+          sv: "Tillfälligt: det finns ännu ingen verifierad snabb E-shuffle-backing — den här lektionen återanvänder det långsamma spåret tills vidare.",
+          de: "Vorübergehend: Es gibt noch kein verifiziertes schnelleres E-Shuffle-Backing — diese Lektion nutzt vorerst weiter den langsamen Track.",
+          pl: "Tymczasowo: nie ma jeszcze zweryfikowanego szybszego podkładu E-shuffle — ta lekcja na razie korzysta z wolnego podkładu.",
         },
         nextTip: {
           en: "Ready to try your first bend? It's next — no rush if not.",
@@ -535,6 +566,7 @@ export const TRACKS: Track[] = [
       {
         id: "harmonica-5",
         title: { en: "First Bend", no: "Første bend", sv: "Första bend", de: "Erster Bend", pl: "Pierwszy bend" },
+        badge: { en: "Bend", no: "Bend", sv: "Bend", de: "Bend", pl: "Bend" },
         goal: {
           en: "Get your first draw bend on hole 2 — only once lesson 4 feels solid.",
           no: "Få din første drag-bend på hull 2 — først når leksjon 4 føles solid.",

@@ -75,17 +75,21 @@ export function LearnPlayTrackPage({ trackId }: { trackId: "guitar" | "harmonica
     if (lessonIndex > 0) setLessonIndex((i) => i - 1);
   };
 
-  const progressLabel = useMemo(
-    () =>
-      tr(lang, {
-        en: `${track.title.en} ${lessonIndex + 1} of ${total}`,
-        no: `${track.title.no} ${lessonIndex + 1} av ${total}`,
-        sv: `${track.title.sv} ${lessonIndex + 1} av ${total}`,
-        de: `${track.title.de} ${lessonIndex + 1} von ${total}`,
-        pl: `${track.title.pl} ${lessonIndex + 1} z ${total}`,
-      }),
-    [lang, lessonIndex, total, track.title]
-  );
+  // "Guitar 1 of 6" read as if there were 6 guitar lessons -- there are 5
+  // plus one shared intro. The intro gets its own label; every other
+  // lesson counts against the 5, not the raw array length.
+  const progressLabel = useMemo(() => {
+    if (lessonIndex === 0) {
+      return tr(lang, { en: "Intro", no: "Intro", sv: "Intro", de: "Intro", pl: "Wstęp" });
+    }
+    return tr(lang, {
+      en: `Lesson ${lessonIndex} of ${total - 1}`,
+      no: `Leksjon ${lessonIndex} av ${total - 1}`,
+      sv: `Lektion ${lessonIndex} av ${total - 1}`,
+      de: `Lektion ${lessonIndex} von ${total - 1}`,
+      pl: `Lekcja ${lessonIndex} z ${total - 1}`,
+    });
+  }, [lang, lessonIndex, total]);
 
   return (
     <PageShell>
@@ -109,7 +113,12 @@ export function LearnPlayTrackPage({ trackId }: { trackId: "guitar" | "harmonica
         </div>
 
         <div className="bg-card/60 border border-border rounded-xl p-5 sm:p-7 space-y-6">
-          <h2 className="font-display text-2xl gold-gradient-text">{lesson.title[lang] ?? lesson.title.en}</h2>
+          <div className="flex items-center gap-2 flex-wrap">
+            <h2 className="font-display text-2xl gold-gradient-text">{lesson.title[lang] ?? lesson.title.en}</h2>
+            <span className="text-[10px] uppercase tracking-widest text-gold/80 border border-gold/30 rounded-full px-2 py-0.5">
+              {lesson.badge[lang] ?? lesson.badge.en}
+            </span>
+          </div>
 
           <div>
             <div className="text-xs uppercase tracking-widest text-gold mb-1.5">
@@ -142,10 +151,18 @@ export function LearnPlayTrackPage({ trackId }: { trackId: "guitar" | "harmonica
 
           {lesson.backing && (
             <div>
-              <div className="text-xs uppercase tracking-widest text-gold mb-1.5">
+              <div className="text-xs uppercase tracking-widest text-gold mb-1.5 flex items-center gap-2">
                 {tr(lang, { en: "Play to backing", no: "Spill til backing", sv: "Spela till backing", de: "Zum Backing spielen", pl: "Graj do podkładu" })}
+                {lesson.temporaryNote && (
+                  <span className="normal-case tracking-normal text-[10px] text-amber-400/90 border border-amber-400/30 rounded-full px-2 py-0.5">
+                    {tr(lang, { en: "Temporary", no: "Midlertidig", sv: "Tillfälligt", de: "Vorübergehend", pl: "Tymczasowe" })}
+                  </span>
+                )}
               </div>
               <MediaBlock media={lesson.backing} lang={lang} />
+              {lesson.temporaryNote && (
+                <p className="mt-1.5 text-xs text-amber-400/80 italic">{lesson.temporaryNote[lang] ?? lesson.temporaryNote.en}</p>
+              )}
             </div>
           )}
 
