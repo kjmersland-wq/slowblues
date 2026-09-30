@@ -130,11 +130,16 @@ export function LearnPlayTrackPage({ trackId }: { trackId: "guitar" | "harmonica
         </div>
 
         <div className="bg-card/60 border border-border rounded-xl p-5 sm:p-7 space-y-6">
-          <div className="flex items-center gap-2 flex-wrap">
-            <h2 className="font-display text-2xl gold-gradient-text">{lesson.title[lang] ?? lesson.title.en}</h2>
-            <span className="text-[10px] uppercase tracking-widest text-gold/80 border border-gold/30 rounded-full px-2 py-0.5">
-              {lesson.badge[lang] ?? lesson.badge.en}
-            </span>
+          <div>
+            <div className="text-[11px] uppercase tracking-widest text-muted-foreground/70 mb-1">
+              {lesson.phase[lang] ?? lesson.phase.en}
+            </div>
+            <div className="flex items-center gap-2 flex-wrap">
+              <h2 className="font-display text-2xl gold-gradient-text">{lesson.title[lang] ?? lesson.title.en}</h2>
+              <span className="text-[10px] uppercase tracking-widest text-gold/80 border border-gold/30 rounded-full px-2 py-0.5">
+                {lesson.badge[lang] ?? lesson.badge.en}
+              </span>
+            </div>
           </div>
 
           <div>
@@ -156,17 +161,22 @@ export function LearnPlayTrackPage({ trackId }: { trackId: "guitar" | "harmonica
             </div>
             <p className="text-muted-foreground leading-relaxed">{lesson.steps[lang] ?? lesson.steps.en}</p>
             {lesson.successTest && (
-              <p className="mt-2.5 flex items-start gap-1.5 text-sm text-gold/90">
-                <CircleCheck className="size-4 mt-0.5 shrink-0" aria-hidden="true" />
-                <span>{lesson.successTest[lang] ?? lesson.successTest.en}</span>
-              </p>
+              <div className="mt-3 pt-3 border-t border-border/60">
+                <div className="text-[11px] uppercase tracking-widest text-muted-foreground/70 mb-1">
+                  {tr(lang, { en: "You're ready when", no: "Du er klar når", sv: "Du är redo när", de: "Du bist bereit, wenn", pl: "Jesteś gotowy, gdy" })}
+                </div>
+                <p className="flex items-start gap-1.5 text-sm text-gold/90">
+                  <CircleCheck className="size-4 mt-0.5 shrink-0" aria-hidden="true" />
+                  <span>{lesson.successTest[lang] ?? lesson.successTest.en}</span>
+                </p>
+              </div>
             )}
           </div>
 
           {lesson.listen && (
             <div>
               <div className="text-xs uppercase tracking-widest text-gold mb-1.5">
-                {tr(lang, { en: "Listen", no: "Lytt", sv: "Lyssna", de: "Hör zu", pl: "Posłuchaj" })}
+                {tr(lang, { en: "Listen for this", no: "Lytt til dette", sv: "Lyssna på det här", de: "Hör dir das an", pl: "Posłuchaj tego" })}
               </div>
               <MediaBlock media={lesson.listen} lang={lang} />
             </div>

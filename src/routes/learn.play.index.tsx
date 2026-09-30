@@ -67,10 +67,10 @@ export const Route = createFileRoute("/learn/play/")({
   component: LearnPlayIndex,
   head: () => ({
     meta: [
-      { title: "Learn to Play Blues — Guitar & Harmonica for Beginners | SlowBlues" },
-      { name: "description", content: "A small, honest beginner course: five short lessons on guitar, five on harmonica. No theory overload — just enough to say \"that went\"." },
+      { title: "Learn to Play Blues Guitar & Harmonica — Beginner Lessons | SlowBlues" },
+      { name: "description", content: "An honest beginner-to-blues-player course: short, practical lessons on guitar and harmonica, from your first sound to bends, shuffle feel and your own blues phrase. No theory overload." },
       { property: "og:title", content: "Learn to Play Blues | SlowBlues" },
-      { property: "og:description", content: "Guitar or harmonica — five short lessons each, from zero." },
+      { property: "og:description", content: "Guitar or harmonica — from zero to your first real blues phrase, one short lesson at a time." },
     ],
     links: [{ rel: "canonical", href: "https://www.slow-blues.com/learn/play" }],
   }),
@@ -90,11 +90,11 @@ function LearnPlayIndex() {
           pl: "Weź do ręki instrument",
         })}
         lead={tr(lang, {
-          en: "Two small courses, five short lessons each. No music-school jargon, no promise you'll master anything by tonight — just enough real technique that you can sit down and say \"that went.\"",
-          no: "To små kurs, fem korte leksjoner hver. Ingen musikkskole-sjargong, ingen løfte om at du mestrer noe i kveld — bare nok ekte teknikk til at du kan sette deg ned og si «det gikk an».",
-          sv: "Två små kurser, fem korta lektioner var. Ingen musikskolejargong, inget löfte om att du bemästrar något i kväll — bara tillräckligt med äkta teknik för att du ska kunna sätta dig ner och säga \"det gick\".",
-          de: "Zwei kleine Kurse, je fünf kurze Lektionen. Kein Musikschul-Fachjargon, kein Versprechen, dass du heute Abend etwas meisterst — nur genug echte Technik, damit du dich hinsetzen und sagen kannst: „das ging.“",
-          pl: "Dwa małe kursy, po pięć krótkich lekcji każdy. Bez szkolnego żargonu, bez obietnicy, że dziś wieczorem opanujesz cokolwiek — po prostu tyle prawdziwej techniki, żebyś mógł usiąść i powiedzieć: „udało się”.",
+          en: "Two courses, guitar and harmonica, built the same way: short lessons that take you from holding the instrument for the first time to bending a note, finding the shuffle, and playing a small blues phrase that's genuinely yours. No music-school jargon, no promise you'll master anything by tonight.",
+          no: "To kurs, gitar og munnspill, bygget på samme måte: korte leksjoner som tar deg fra å holde instrumentet for første gang til å bende en tone, finne shufflen, og spille en liten bluesfrase som virkelig er din. Ingen musikkskole-sjargong, ingen løfte om at du mestrer noe i kveld.",
+          sv: "Två kurser, gitarr och munspel, byggda på samma sätt: korta lektioner som tar dig från att hålla instrumentet för första gången till att benda en ton, hitta shufflen, och spela en liten bluesfras som verkligen är din. Ingen musikskolejargong, inget löfte om att du bemästrar något i kväll.",
+          de: "Zwei Kurse, Gitarre und Mundharmonika, auf dieselbe Art aufgebaut: kurze Lektionen, die dich vom ersten Halten des Instruments bis zum Bend einer Note, dem Shuffle-Gefühl und einer kleinen, wirklich eigenen Blues-Phrase führen. Kein Musikschul-Fachjargon, kein Versprechen, dass du heute Abend etwas meisterst.",
+          pl: "Dwa kursy, gitara i harmonijka, zbudowane w ten sam sposób: krótkie lekcje, które prowadzą cię od pierwszego trzymania instrumentu, przez wygięcie dźwięku i odnalezienie shuffle'a, aż po zagranie małej bluesowej frazy, która naprawdę jest twoja. Bez szkolnego żargonu, bez obietnicy, że dziś wieczorem cokolwiek opanujesz.",
         })}
       />
       <section className="max-w-3xl mx-auto px-6 py-12">
@@ -116,11 +116,11 @@ function LearnPlayIndex() {
             <h2 className="font-display text-2xl mb-2">{tr(lang, { en: "Guitar", no: "Gitar", sv: "Gitarr", de: "Gitarre", pl: "Gitara" })}</h2>
             <p className="text-sm text-muted-foreground">
               {tr(lang, {
-                en: "Two chords, a slow 12-bar, a shuffle, one taste of slide.",
-                no: "To akkorder, en sakte 12-takter, en shuffle, én smak av slide.",
-                sv: "Två ackord, en långsam 12-takt, en shuffle, en smak av slide.",
-                de: "Zwei Akkorde, ein langsamer 12-Takter, ein Shuffle, ein Geschmack Slide.",
-                pl: "Dwa akordy, wolny 12-takt, shuffle, jeden smak slide'a.",
+                en: "Chords, the 12-bar, shuffle, slide, bending — up to your first blues phrase.",
+                no: "Akkorder, 12-takteren, shuffle, slide, bending — helt frem til din første bluesfrase.",
+                sv: "Ackord, 12-takten, shuffle, slide, bending — hela vägen till din första bluesfras.",
+                de: "Akkorde, der 12-Takter, Shuffle, Slide, Bending — bis hin zu deiner ersten Blues-Phrase.",
+                pl: "Akordy, 12-takt, shuffle, slide, bending — aż do twojej pierwszej bluesowej frazy.",
               })}
             </p>
           </Link>
@@ -131,11 +131,11 @@ function LearnPlayIndex() {
             <h2 className="font-display text-2xl mb-2">{tr(lang, { en: "Harmonica", no: "Munnspill", sv: "Munspel", de: "Mundharmonika", pl: "Harmonijka" })}</h2>
             <p className="text-sm text-muted-foreground">
               {tr(lang, {
-                en: "Hold, seal, cross harp, one riff, one first bend.",
-                no: "Hold, forsegling, cross harp, én riff, én første bend.",
-                sv: "Hållning, försegling, cross harp, en riff, en första bend.",
-                de: "Halten, Dichtsitz, Cross Harp, ein Riff, ein erster Bend.",
-                pl: "Trzymanie, szczelność, cross harp, jeden riff, pierwszy bend.",
+                en: "Hold, single notes, cross harp, bending, tone — up to your first blues phrase.",
+                no: "Hold, enkelttoner, cross harp, bending, klang — helt frem til din første bluesfrase.",
+                sv: "Hållning, entoner, cross harp, bending, klang — hela vägen till din första bluesfras.",
+                de: "Halten, Einzeltöne, Cross Harp, Bending, Klang — bis hin zu deiner ersten Blues-Phrase.",
+                pl: "Trzymanie, pojedyncze dźwięki, cross harp, bending, barwa — aż do twojej pierwszej bluesowej frazy.",
               })}
             </p>
           </Link>
