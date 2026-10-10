@@ -97,6 +97,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preload", as: "font", type: "font/woff2", href: playfairLatin, crossOrigin: "anonymous" },
     ],
     scripts: [
+      // KM TECH LABS cookieless traffic counter (feeds the Kommandosentral dashboard).
+      { src: "https://km-techlabs.com/t.js", defer: true, "data-site": "slow-blues.com" },
       {
         type: "application/ld+json",
         children: JSON.stringify({
