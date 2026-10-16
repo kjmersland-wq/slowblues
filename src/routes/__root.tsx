@@ -14,6 +14,7 @@ import interLatin from "@/assets/fonts/inter-latin.woff2?url";
 import playfairLatin from "@/assets/fonts/playfair-latin.woff2?url";
 import { I18nProvider, useI18n, tr, routeLangFromPath } from "@/i18n";
 import { BookmarkBanner } from "@/components/BookmarkBanner";
+import { ConsentBanner } from "@/components/ConsentBanner";
 
 function NotFoundComponent() {
   const { lang } = useI18n();
@@ -99,12 +100,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     scripts: [
       // KM TECH LABS cookieless traffic counter (feeds the Kommandosentral dashboard).
       { src: "https://km-techlabs.com/t.js", defer: true, "data-site": "slow-blues.com" },
-      // Google tag (gtag.js)
-      { src: "https://www.googletagmanager.com/gtag/js?id=G-3PN8SCCST1", async: true },
-      {
-        children:
-          "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-3PN8SCCST1');",
-      },
       {
         type: "application/ld+json",
         children: JSON.stringify({
@@ -171,6 +166,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
         <I18nProvider>
           {children}
           <BookmarkBanner />
+          <ConsentBanner />
         </I18nProvider>
         <Scripts />
       </body>
