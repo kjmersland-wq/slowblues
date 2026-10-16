@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n, tr } from "@/i18n";
 import { IMG } from "@/data/images";
-import { Building2, MessageSquare, ShieldCheck } from "lucide-react";
+import { Building2, Mail, MessageSquare, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { submitContactMessage } from "@/lib/contact.functions";
 
@@ -134,6 +134,10 @@ function ContactPage() {
             <MessageSquare className="size-4" aria-hidden="true" />
             {status === "sending" ? tr(lang, { no: "Sender …", en: "Sending…", sv: "Skickar …", de: "Wird gesendet …", pl: "Wysyłanie…" }) : t.pages.contact.send}
           </button>
+          <p className="text-xs text-muted-foreground text-center">
+            {tr(lang, { no: "Eller send e-post til", en: "Or email us at", sv: "Eller mejla oss på", de: "Oder schreiben Sie uns an", pl: "Lub napisz do nas:" })}{" "}
+            <a href="mailto:support@slow-blues.com" className="text-gold underline underline-offset-4 hover:text-gold/80">support@slow-blues.com</a>
+          </p>
         </form>
         <aside
           className="space-y-5 text-sm"
@@ -146,14 +150,20 @@ function ContactPage() {
             <p className="text-muted-foreground">{t.footer.editorInCharge} Kjell Mersland</p>
           </div>
           <div>
+            <div className="flex items-center gap-2 text-gold mb-1"><Mail className="size-4" aria-hidden="true" /> <span className="font-display text-base">{tr(lang, { no: "Support", en: "Support", sv: "Support", de: "Support", pl: "Wsparcie" })}</span></div>
+            <p>
+              <a href="mailto:support@slow-blues.com" className="text-foreground/90 underline underline-offset-4 hover:text-gold">support@slow-blues.com</a>
+            </p>
+          </div>
+          <div>
             <div className="flex items-center gap-2 text-gold mb-1"><ShieldCheck className="size-4" aria-hidden="true" /> <span className="font-display text-base">GDPR</span></div>
             <p className="text-muted-foreground">
               {tr(lang, {
-                no: "All kontakt skjer via dette skjemaet. Vi publiserer ikke e-postadresser, og deler aldri dine data med tredjeparter.",
-                en: "All contact happens via this form. We don't publish email addresses, and never share your data with third parties.",
-                sv: "All kontakt sker via detta formulär. Vi publicerar inte e-postadresser och delar aldrig dina uppgifter med tredje part.",
-                de: "Jeder Kontakt erfolgt über dieses Formular. Wir veröffentlichen keine E-Mail-Adressen und geben Ihre Daten niemals an Dritte weiter.",
-                pl: "Cały kontakt odbywa się przez ten formularz. Nie publikujemy adresów e-mail i nigdy nie udostępniamy Twoich danych stronom trzecim.",
+                no: "Bruk dette skjemaet eller skriv til support@slow-blues.com. Vi deler aldri dine data med tredjeparter.",
+                en: "Use this form or write to support@slow-blues.com. We never share your data with third parties.",
+                sv: "Använd detta formulär eller skriv till support@slow-blues.com. Vi delar aldrig dina uppgifter med tredje part.",
+                de: "Nutzen Sie dieses Formular oder schreiben Sie an support@slow-blues.com. Wir geben Ihre Daten niemals an Dritte weiter.",
+                pl: "Skorzystaj z formularza lub napisz na support@slow-blues.com. Nigdy nie udostępniamy Twoich danych stronom trzecim.",
               })}
             </p>
           </div>

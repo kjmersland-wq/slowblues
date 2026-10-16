@@ -108,11 +108,11 @@ function AboutPage() {
           <h2 className="font-display text-2xl text-gold mb-3">{tr(lang, { no: "Kontakt", en: "Contact", sv: "Kontakt", de: "Kontakt", pl: "Kontakt" })}</h2>
           <p className="mb-4">
             {tr(lang, {
-              no: "All henvendelse går via vårt sikre kontaktskjema — vi publiserer ikke e-postadresser av personvernhensyn.",
-              en: "All inquiries go through our secure contact form — we don't publish email addresses for privacy reasons.",
-              sv: "All kontakt sker via vårt säkra kontaktformulär — vi publicerar inte e-postadresser av integritetsskäl.",
-              de: "Jede Anfrage läuft über unser sicheres Kontaktformular — aus Datenschutzgründen veröffentlichen wir keine E-Mail-Adressen.",
-              pl: "Wszelkie zapytania przechodzą przez nasz bezpieczny formularz kontaktowy — nie publikujemy adresów e-mail ze względów prywatności.",
+              no: "Du kan bruke kontaktskjemaet vårt eller skrive til support@slow-blues.com.",
+              en: "Use our contact form or write to support@slow-blues.com.",
+              sv: "Använd vårt kontaktformulär eller skriv till support@slow-blues.com.",
+              de: "Nutzen Sie unser Kontaktformular oder schreiben Sie an support@slow-blues.com.",
+              pl: "Skorzystaj z naszego formularza kontaktowego lub napisz na support@slow-blues.com.",
             })}
           </p>
           <Link to="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-gold text-primary-foreground font-medium hover:bg-gold/90">

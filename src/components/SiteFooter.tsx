@@ -1,10 +1,13 @@
 import { Link } from "@tanstack/react-router";
-import { useI18n } from "@/i18n";
-import { BookOpen, ExternalLink, Heart, Building2, MessageSquare } from "lucide-react";
+import { useI18n, tr } from "@/i18n";
+import { BookOpen, ExternalLink, Heart, Building2, MessageSquare, Mail } from "lucide-react";
 import logoSB from "@/assets/logo-slowblues-448.webp";
 
 export function SiteFooter() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
+  const supportLabel = tr(lang, { no: "Support", en: "Support", sv: "Support", de: "Support", pl: "Wsparcie" });
+  const privacyLabel = tr(lang, { no: "Personvernerklæring", en: "Privacy Policy", sv: "Integritetspolicy", de: "Datenschutzerklärung", pl: "Polityka prywatności" });
+  const termsLabel = tr(lang, { no: "Vilkår for bruk", en: "Terms of Service", sv: "Användarvillkor", de: "Nutzungsbedingungen", pl: "Regulamin serwisu" });
 
   const explore: { to: any; label: string }[] = [
     { to: "/history", label: t.nav.history },
@@ -25,10 +28,10 @@ export function SiteFooter() {
   const legal: { to: any; label: string }[] = [
     { to: "/about", label: t.footer.aboutLink },
     { to: "/contact", label: t.nav.contact },
-    { to: "/privacy", label: t.nav.privacy },
+    { to: "/privacy", label: privacyLabel },
+    { to: "/terms", label: termsLabel },
     { to: "/gdpr", label: "GDPR & Data Protection" },
     { to: "/cookies", label: "Cookie Policy" },
-    { to: "/terms", label: "Terms of Service" },
     { to: "/disclaimer", label: "Disclaimer" },
     { to: "/accessibility", label: "Accessibility Statement" },
     { to: "/copyright", label: "Copyright Notice" },
@@ -62,6 +65,11 @@ export function SiteFooter() {
             <div itemProp="parentOrganization" className="font-medium text-foreground/90">KM TECH LABS — Kjell Mersland</div>
             <div>{t.footer.orgNr} <span itemProp="taxID">934 044 029</span></div>
             <div>{t.footer.editorInCharge} <span itemProp="publisher">Kjell Mersland</span></div>
+            <div className="flex items-center gap-1.5 pt-1">
+              <Mail className="size-3.5 text-gold" aria-hidden="true" />
+              <span>{supportLabel}:</span>
+              <a href="mailto:support@slow-blues.com" itemProp="email" className="text-foreground/90 hover:text-gold underline-offset-4 hover:underline">support@slow-blues.com</a>
+            </div>
           </div>
         </div>
 
@@ -110,10 +118,14 @@ export function SiteFooter() {
         <div className="flex items-center gap-2 text-center">
           © {year} <span className="text-foreground/80">KM TECH LABS</span> · Slow-Blues.com <Heart className="size-3 text-gold" aria-hidden="true" /> {t.footer.rights}
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
           <Link to="/copyright" className="hover:text-gold">© Copyright</Link>
           <span aria-hidden="true">·</span>
-          <Link to="/privacy" className="hover:text-gold">{t.nav.privacy}</Link>
+          <Link to="/privacy" className="hover:text-gold">{privacyLabel}</Link>
+          <span aria-hidden="true">·</span>
+          <Link to="/terms" className="hover:text-gold">{termsLabel}</Link>
+          <span aria-hidden="true">·</span>
+          <a href="mailto:support@slow-blues.com" className="hover:text-gold">support@slow-blues.com</a>
           <span aria-hidden="true">·</span>
           <Link to="/login" className="hover:text-gold">Admin</Link>
         </div>
