@@ -7,14 +7,20 @@ import { toast } from "sonner";
 
 const WEAR_THE_BLUES_PRODUCT_URL = "https://merch.slow-blues.com/products/wear-the-blues-tee";
 
-// Creem checkout links for the coffee buttons. PLACEHOLDERS: replace each with the real
-// Creem payment link (one product per amount, plus one pay-what-you-want product for "Choose your own").
-const COFFEE_AMOUNTS = [
+// Creem checkout links for the support buttons. PLACEHOLDERS: replace each with the real
+// Creem payment link. One-time: one product per amount plus one pay-what-you-want product.
+// Monthly: one subscription product per amount.
+const SUPPORT_ONCE = [
   { eur: 3, href: "https://www.creem.io/payment/REPLACE_WITH_3_EUR_LINK" },
   { eur: 5, href: "https://www.creem.io/payment/REPLACE_WITH_5_EUR_LINK" },
   { eur: 10, href: "https://www.creem.io/payment/REPLACE_WITH_10_EUR_LINK" },
 ] as const;
-const COFFEE_CUSTOM_HREF = "https://www.creem.io/payment/REPLACE_WITH_CUSTOM_AMOUNT_LINK";
+const SUPPORT_ONCE_CUSTOM_HREF = "https://www.creem.io/payment/REPLACE_WITH_CUSTOM_AMOUNT_LINK";
+const SUPPORT_MONTHLY = [
+  { eur: 3, href: "https://www.creem.io/payment/REPLACE_WITH_3_EUR_MONTHLY_LINK" },
+  { eur: 5, href: "https://www.creem.io/payment/REPLACE_WITH_5_EUR_MONTHLY_LINK" },
+  { eur: 10, href: "https://www.creem.io/payment/REPLACE_WITH_10_EUR_MONTHLY_LINK" },
+] as const;
 
 export const Route = createFileRoute("/support")({
   component: SupportPage,
@@ -111,14 +117,14 @@ function SupportPage() {
         </div>
       </section>
 
-      {/* Coffee — small, quiet support option under the merch block */}
+      {/* Support — quiet one-time and monthly options under the merch block */}
       <section className="max-w-xl mx-auto px-6 pb-12">
         <div className="bg-card/40 border border-border rounded-2xl p-6 sm:p-8 text-center">
           <Coffee className="size-6 text-gold mx-auto mb-3" />
           <h3 className="font-display text-2xl mb-1">
             {tr(lang, { no: "Støtt SlowBlues", en: "Support SlowBlues", sv: "Stöd SlowBlues", de: "Unterstütze SlowBlues", pl: "Wesprzyj SlowBlues" })}
           </h3>
-          <p className="text-sm text-muted-foreground mb-5">
+          <p className="text-sm text-muted-foreground mb-6">
             {tr(lang, {
               no: "En kaffe holder bluesen i live.",
               en: "A coffee keeps the blues alive.",
@@ -127,8 +133,12 @@ function SupportPage() {
               pl: "Kawa utrzymuje bluesa przy życiu.",
             })}
           </p>
-          <div className="grid grid-cols-3 gap-3">
-            {COFFEE_AMOUNTS.map(({ eur, href }) => (
+
+          <h4 className="text-xs uppercase tracking-[0.2em] text-gold mb-3">
+            {tr(lang, { no: "Støtt én gang", en: "Support once", sv: "Stöd en gång", de: "Einmalig unterstützen", pl: "Wesprzyj jednorazowo" })}
+          </h4>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {SUPPORT_ONCE.map(({ eur, href }) => (
               <a
                 key={eur}
                 href={href}
@@ -139,15 +149,37 @@ function SupportPage() {
                 €{eur}
               </a>
             ))}
+            <a
+              href={SUPPORT_ONCE_CUSTOM_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center min-h-12 px-3 rounded-full border border-border bg-transparent text-sm text-muted-foreground hover:text-gold hover:border-gold/50 transition"
+            >
+              {tr(lang, { no: "Velg selv", en: "Choose your own", sv: "Välj själv", de: "Betrag selbst wählen", pl: "Wybierz kwotę" })}
+            </a>
           </div>
-          <a
-            href={COFFEE_CUSTOM_HREF}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 inline-block text-sm text-muted-foreground underline underline-offset-4 hover:text-gold transition"
-          >
-            {tr(lang, { no: "Velg selv", en: "Choose your own", sv: "Välj själv", de: "Betrag selbst wählen", pl: "Wybierz kwotę" })}
-          </a>
+
+          <div className="my-6 border-t border-border" />
+
+          <h4 className="text-xs uppercase tracking-[0.2em] text-gold mb-3">
+            {tr(lang, { no: "Støtt månedlig", en: "Support monthly", sv: "Stöd varje månad", de: "Monatlich unterstützen", pl: "Wspieraj miesięcznie" })}
+          </h4>
+          <div className="grid grid-cols-3 gap-3">
+            {SUPPORT_MONTHLY.map(({ eur, href }) => (
+              <a
+                key={eur}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center min-h-12 rounded-full border border-gold/40 bg-card/60 font-medium hover:bg-gold/10 hover:border-gold/70 transition"
+              >
+                <span className="text-lg">€{eur}</span>
+                <span className="ml-0.5 text-xs text-muted-foreground">
+                  {tr(lang, { no: "/mnd", en: "/mo", sv: "/mån", de: "/Monat", pl: "/mies." })}
+                </span>
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
