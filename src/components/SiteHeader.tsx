@@ -119,6 +119,9 @@ export function SiteHeader() {
           <Link to={"/reviews" as any} className="px-3 py-1.5 rounded-md hover:text-gold transition" activeProps={{ className: "px-3 py-1.5 rounded-md bg-gold/10 text-gold" }}>
             {t.nav.reviews}
           </Link>
+          <Link to="/support" className="px-3 py-1.5 rounded-md hover:text-gold transition" activeProps={{ className: "px-3 py-1.5 rounded-md bg-gold/10 text-gold" }}>
+            {t.nav.support}
+          </Link>
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
@@ -172,6 +175,9 @@ export function SiteHeader() {
               </Link>
               <Link to={"/reviews" as any} onClick={() => setOpen(false)} className="px-3 py-1.5 rounded-full bg-gold/15 border border-gold text-gold font-semibold">
                 {t.nav.reviews}
+              </Link>
+              <Link to="/support" onClick={() => setOpen(false)} className="px-3 py-1.5 rounded-full bg-card border border-gold/20 hover:border-gold hover:text-gold">
+                {t.nav.support}
               </Link>
               <Link to="/search" onClick={() => setOpen(false)} className="px-3 py-1.5 rounded-full bg-card border border-gold/20 hover:border-gold hover:text-gold flex items-center gap-1.5">
                 <Search className="size-3.5" aria-hidden="true" /> {t.nav.search}

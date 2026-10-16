@@ -91,7 +91,6 @@ export const Route = createFileRoute("/sitemap.xml")({
           { p: "/about/merch", cf: "monthly", pr: "0.5" },
           { p: "/guestbook", cf: "weekly", pr: "0.5" },
           { p: "/contact", cf: "yearly", pr: "0.4" },
-          { p: "/support", cf: "yearly", pr: "0.4" },
           { p: "/quiz", cf: "monthly", pr: "0.5" },
           { p: "/quiz/archive", cf: "monthly", pr: "0.4" },
           { p: "/updates", cf: "weekly", pr: "0.4" },
@@ -105,6 +104,19 @@ export const Route = createFileRoute("/sitemap.xml")({
         ];
         for (const s of staticPaths) {
           urls.push(buildUrl({ path: s.p, changefreq: s.cf, priority: s.pr }));
+        }
+
+        // /support: English at /support, the other four at /no|sv|de|pl/support, all cross-referencing via hreflang
+        const SUPPORT_ALTS = [
+          { hreflang: "en", path: "/support" },
+          { hreflang: "no", path: "/no/support" },
+          { hreflang: "sv", path: "/sv/support" },
+          { hreflang: "de", path: "/de/support" },
+          { hreflang: "pl", path: "/pl/support" },
+          { hreflang: "x-default", path: "/support" },
+        ];
+        for (const p of ["/support", "/no/support", "/sv/support", "/de/support", "/pl/support"]) {
+          urls.push(buildUrl({ path: p, changefreq: "monthly", priority: "0.5", alternates: SUPPORT_ALTS }));
         }
 
         // /about/advertise has $locale variants → declare hreflang alternates

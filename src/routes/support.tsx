@@ -4,6 +4,7 @@ import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n, tr } from "@/i18n";
 import { IMG } from "@/data/images";
 import { createSupportCheckout } from "@/lib/support.functions";
+import { supportHead } from "@/lib/supportSeo";
 import { Coffee, Heart, ShoppingBag, Share2, ArrowRight, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 
@@ -13,19 +14,10 @@ const QUICK_ADD = [5, 10, 20] as const;
 
 export const Route = createFileRoute("/support")({
   component: SupportPage,
-  head: () => ({
-    meta: [
-      { title: "Support SlowBlues — official merch" },
-      { name: "description", content: "Independent archive, no owners. No display ads in artist articles. Merch funds hosting and research — wear the blues and support the archive." },
-      { property: "og:title", content: "Support SlowBlues — official merch" },
-      { property: "og:description", content: "Independent archive, no owners. No display ads in artist articles. Merch funds hosting and research — wear the blues and support the archive." },
-      { property: "og:url", content: "https://www.slow-blues.com/support" },
-    ],
-    links: [{ rel: "canonical", href: "https://www.slow-blues.com/support" }],
-  }),
+  head: () => supportHead("en"),
 });
 
-function SupportPage() {
+export function SupportPage() {
   const { t, lang } = useI18n();
 
   async function handleShare() {

@@ -35,6 +35,7 @@ import { Route as UpdatesRouteImport } from './routes/updates'
 import { Route as WatchRouteImport } from './routes/watch'
 import { Route as WorldmapRouteImport } from './routes/worldmap'
 import { Route as LocaleIndexRouteImport } from './routes/$locale.index'
+import { Route as LocaleSupportRouteImport } from './routes/$locale.support'
 import { Route as AboutIndexRouteImport } from './routes/about.index'
 import { Route as AboutAdvertiseRouteImport } from './routes/about.advertise'
 import { Route as AboutBluesOrganisationsRouteImport } from './routes/about.blues-organisations'
@@ -206,6 +207,11 @@ const WorldmapRoute = WorldmapRouteImport.update({
 const LocaleIndexRoute = LocaleIndexRouteImport.update({
   id: '/$locale/',
   path: '/$locale/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocaleSupportRoute = LocaleSupportRouteImport.update({
+  id: '/$locale/support',
+  path: '/$locale/support',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutIndexRoute = AboutIndexRouteImport.update({
@@ -448,6 +454,7 @@ export interface FileRoutesByFullPath {
   '/updates': typeof UpdatesRoute
   '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
+  '/$locale/support': typeof LocaleSupportRoute
   '/about/advertise': typeof AboutAdvertiseRoute
   '/about/blues-organisations': typeof AboutBluesOrganisationsRoute
   '/about/guestbook': typeof AboutGuestbookRoute
@@ -518,6 +525,7 @@ export interface FileRoutesByTo {
   '/updates': typeof UpdatesRoute
   '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
+  '/$locale/support': typeof LocaleSupportRoute
   '/about/advertise': typeof AboutAdvertiseRoute
   '/about/blues-organisations': typeof AboutBluesOrganisationsRoute
   '/about/guestbook': typeof AboutGuestbookRoute
@@ -589,6 +597,7 @@ export interface FileRoutesById {
   '/updates': typeof UpdatesRoute
   '/watch': typeof WatchRoute
   '/worldmap': typeof WorldmapRoute
+  '/$locale/support': typeof LocaleSupportRoute
   '/about/advertise': typeof AboutAdvertiseRoute
   '/about/blues-organisations': typeof AboutBluesOrganisationsRoute
   '/about/guestbook': typeof AboutGuestbookRoute
@@ -661,6 +670,7 @@ export interface FileRouteTypes {
     | '/updates'
     | '/watch'
     | '/worldmap'
+    | '/$locale/support'
     | '/about/advertise'
     | '/about/blues-organisations'
     | '/about/guestbook'
@@ -731,6 +741,7 @@ export interface FileRouteTypes {
     | '/updates'
     | '/watch'
     | '/worldmap'
+    | '/$locale/support'
     | '/about/advertise'
     | '/about/blues-organisations'
     | '/about/guestbook'
@@ -801,6 +812,7 @@ export interface FileRouteTypes {
     | '/updates'
     | '/watch'
     | '/worldmap'
+    | '/$locale/support'
     | '/about/advertise'
     | '/about/blues-organisations'
     | '/about/guestbook'
@@ -872,6 +884,7 @@ export interface RootRouteChildren {
   UpdatesRoute: typeof UpdatesRoute
   WatchRoute: typeof WatchRoute
   WorldmapRoute: typeof WorldmapRoute
+  LocaleSupportRoute: typeof LocaleSupportRoute
   AboutAdvertiseRoute: typeof AboutAdvertiseRoute
   AboutBluesOrganisationsRoute: typeof AboutBluesOrganisationsRoute
   AboutGuestbookRoute: typeof AboutGuestbookRoute
@@ -1094,6 +1107,13 @@ declare module '@tanstack/react-router' {
       path: '/$locale'
       fullPath: '/$locale/'
       preLoaderRoute: typeof LocaleIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$locale/support': {
+      id: '/$locale/support'
+      path: '/$locale/support'
+      fullPath: '/$locale/support'
+      preLoaderRoute: typeof LocaleSupportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about/': {
@@ -1459,6 +1479,7 @@ const rootRouteChildren: RootRouteChildren = {
   UpdatesRoute: UpdatesRoute,
   WatchRoute: WatchRoute,
   WorldmapRoute: WorldmapRoute,
+  LocaleSupportRoute: LocaleSupportRoute,
   AboutAdvertiseRoute: AboutAdvertiseRoute,
   AboutBluesOrganisationsRoute: AboutBluesOrganisationsRoute,
   AboutGuestbookRoute: AboutGuestbookRoute,
