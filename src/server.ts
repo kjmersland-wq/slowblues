@@ -87,8 +87,22 @@ function withHtmlCacheHeaders(request: Request, response: Response): Response {
   return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
 }
 
+// Canonical host: slow-blues.com and any plain-http request go to https://www.slow-blues.com,
+// keeping path and query. 301 for GET/HEAD; other methods use 308 so the method and body survive.
+function canonicalRedirect(request: Request): Response | null {
+  const url = new URL(request.url);
+  const apex = url.hostname === "slow-blues.com";
+  const insecureWww = url.hostname === "www.slow-blues.com" && url.protocol === "http:";
+  if (!apex && !insecureWww) return null;
+  const target = `https://www.slow-blues.com${url.pathname}${url.search}`;
+  const status = request.method === "GET" || request.method === "HEAD" ? 301 : 308;
+  return new Response(null, { status, headers: { location: target } });
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    const redirect = canonicalRedirect(request);
+    if (redirect) return redirect;
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
