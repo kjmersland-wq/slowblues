@@ -7,19 +7,19 @@ import { toast } from "sonner";
 
 const WEAR_THE_BLUES_PRODUCT_URL = "https://merch.slow-blues.com/products/wear-the-blues-tee";
 
-// Creem checkout links for the support buttons. PLACEHOLDERS: replace each with the real
-// Creem payment link. One-time: one product per amount plus one pay-what-you-want product.
-// Monthly: one subscription product per amount.
+// All support buttons go to Buy Me a Coffee. The amounts are shown on the buttons; the supporter
+// picks the final amount (and one-time vs monthly) there.
+const BUY_ME_A_COFFEE_URL = "https://buymeacoffee.com/slowblues.com";
 const SUPPORT_ONCE = [
-  { eur: 3, href: "https://www.creem.io/payment/REPLACE_WITH_3_EUR_LINK" },
-  { eur: 5, href: "https://www.creem.io/payment/REPLACE_WITH_5_EUR_LINK" },
-  { eur: 10, href: "https://www.creem.io/payment/REPLACE_WITH_10_EUR_LINK" },
+  { eur: 3, href: BUY_ME_A_COFFEE_URL },
+  { eur: 5, href: BUY_ME_A_COFFEE_URL },
+  { eur: 10, href: BUY_ME_A_COFFEE_URL },
 ] as const;
-const SUPPORT_ONCE_CUSTOM_HREF = "https://www.creem.io/payment/REPLACE_WITH_CUSTOM_AMOUNT_LINK";
+const SUPPORT_ONCE_CUSTOM_HREF = BUY_ME_A_COFFEE_URL;
 const SUPPORT_MONTHLY = [
-  { eur: 3, href: "https://www.creem.io/payment/REPLACE_WITH_3_EUR_MONTHLY_LINK" },
-  { eur: 5, href: "https://www.creem.io/payment/REPLACE_WITH_5_EUR_MONTHLY_LINK" },
-  { eur: 10, href: "https://www.creem.io/payment/REPLACE_WITH_10_EUR_MONTHLY_LINK" },
+  { eur: 3, href: BUY_ME_A_COFFEE_URL },
+  { eur: 5, href: BUY_ME_A_COFFEE_URL },
+  { eur: 10, href: BUY_ME_A_COFFEE_URL },
 ] as const;
 
 export const Route = createFileRoute("/support")({
