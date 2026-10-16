@@ -2,10 +2,19 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n, tr } from "@/i18n";
 import { IMG } from "@/data/images";
-import { Heart, ShoppingBag, Share2, ArrowRight, ShieldCheck } from "lucide-react";
+import { Coffee, Heart, ShoppingBag, Share2, ArrowRight, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 
 const WEAR_THE_BLUES_PRODUCT_URL = "https://merch.slow-blues.com/products/wear-the-blues-tee";
+
+// Creem checkout links for the coffee buttons. PLACEHOLDERS: replace each with the real
+// Creem payment link (one product per amount, plus one pay-what-you-want product for "Choose your own").
+const COFFEE_AMOUNTS = [
+  { eur: 3, href: "https://www.creem.io/payment/REPLACE_WITH_3_EUR_LINK" },
+  { eur: 5, href: "https://www.creem.io/payment/REPLACE_WITH_5_EUR_LINK" },
+  { eur: 10, href: "https://www.creem.io/payment/REPLACE_WITH_10_EUR_LINK" },
+] as const;
+const COFFEE_CUSTOM_HREF = "https://www.creem.io/payment/REPLACE_WITH_CUSTOM_AMOUNT_LINK";
 
 export const Route = createFileRoute("/support")({
   component: SupportPage,
@@ -98,6 +107,46 @@ function SupportPage() {
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition shadow-lg shadow-gold/20"
           >
             {t.pages.support.buyMerch} <ArrowRight className="size-4" />
+          </a>
+        </div>
+      </section>
+
+      {/* Coffee — small, quiet support option under the merch block */}
+      <section className="max-w-xl mx-auto px-6 pb-12">
+        <div className="bg-card/40 border border-border rounded-2xl p-6 sm:p-8 text-center">
+          <Coffee className="size-6 text-gold mx-auto mb-3" />
+          <h3 className="font-display text-2xl mb-1">
+            {tr(lang, { no: "Støtt SlowBlues", en: "Support SlowBlues", sv: "Stöd SlowBlues", de: "Unterstütze SlowBlues", pl: "Wesprzyj SlowBlues" })}
+          </h3>
+          <p className="text-sm text-muted-foreground mb-5">
+            {tr(lang, {
+              no: "En kaffe holder bluesen i live.",
+              en: "A coffee keeps the blues alive.",
+              sv: "En kaffe håller bluesen vid liv.",
+              de: "Ein Kaffee hält den Blues am Leben.",
+              pl: "Kawa utrzymuje bluesa przy życiu.",
+            })}
+          </p>
+          <div className="grid grid-cols-3 gap-3">
+            {COFFEE_AMOUNTS.map(({ eur, href }) => (
+              <a
+                key={eur}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center min-h-12 rounded-full border border-gold/40 bg-card/60 text-lg font-medium hover:bg-gold/10 hover:border-gold/70 transition"
+              >
+                €{eur}
+              </a>
+            ))}
+          </div>
+          <a
+            href={COFFEE_CUSTOM_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-block text-sm text-muted-foreground underline underline-offset-4 hover:text-gold transition"
+          >
+            {tr(lang, { no: "Velg selv", en: "Choose your own", sv: "Välj själv", de: "Betrag selbst wählen", pl: "Wybierz kwotę" })}
           </a>
         </div>
       </section>
