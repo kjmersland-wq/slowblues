@@ -31,8 +31,6 @@ export function BookmarkBanner() {
     if (typeof window === "undefined") return;
     try {
       if (localStorage.getItem(STORAGE_KEY)) return;
-      // Stay out of the way until the cookie consent banner has been answered.
-      if (!localStorage.getItem("slowblues-analytics-consent-v1")) return;
     } catch {
       // if storage is unavailable, still show it once per page load
     }
