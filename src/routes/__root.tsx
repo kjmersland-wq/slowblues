@@ -99,6 +99,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     scripts: [
       // KM TECH LABS cookieless traffic counter (feeds the Kommandosentral dashboard).
       { src: "https://km-techlabs.com/t.js", defer: true, "data-site": "slow-blues.com" },
+      // Google tag (gtag.js)
+      { src: "https://www.googletagmanager.com/gtag/js?id=G-3PN8SCCST1", async: true },
+      {
+        children:
+          "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-3PN8SCCST1');",
+      },
       {
         type: "application/ld+json",
         children: JSON.stringify({
