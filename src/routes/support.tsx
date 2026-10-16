@@ -1,17 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n, tr } from "@/i18n";
 import { IMG } from "@/data/images";
+import { createSupportCheckout } from "@/lib/support.functions";
 import { Coffee, Heart, ShoppingBag, Share2, ArrowRight, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 
 const WEAR_THE_BLUES_PRODUCT_URL = "https://merch.slow-blues.com/products/wear-the-blues-tee";
 
-// PLACEHOLDER checkout address for the support box. The chosen amount and interval are added as
-// ?amount=5&interval=once|month. Swap in the real checkout URL (and how it takes the amount) when ready.
-const SUPPORT_CHECKOUT_URL = "https://buymeacoffee.com/slowblues.com";
-const QUICK_AMOUNTS = [5, 10, 20] as const;
+const QUICK_ADD = [5, 10, 20] as const;
 
 export const Route = createFileRoute("/support")({
   component: SupportPage,
@@ -152,17 +150,31 @@ function SupportBox() {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [monthly, setMonthly] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const [thanks, setThanks] = useState(false);
+
+  useEffect(() => {
+    setThanks(new URLSearchParams(window.location.search).get("success") === "true");
+  }, []);
 
   const value = Number(amount.replace(",", "."));
   const valid = Number.isFinite(value) && value >= 1 && value <= 1000;
-  const href = valid
-    ? `${SUPPORT_CHECKOUT_URL}?${new URLSearchParams({
-        amount: String(value),
-        interval: monthly ? "month" : "once",
-        ...(name.trim() ? { name: name.trim() } : {}),
-        ...(message.trim() ? { message: message.trim() } : {}),
-      })}`
-    : undefined;
+
+  async function startCheckout() {
+    if (!valid || busy) return;
+    setBusy(true);
+    setFailed(false);
+    try {
+      const { url } = await createSupportCheckout({
+        data: { amount: value, monthly, name: name.trim(), message: message.trim(), lang },
+      });
+      window.location.assign(url);
+    } catch {
+      setFailed(true);
+      setBusy(false);
+    }
+  }
 
   const field = "w-full rounded-2xl border border-transparent bg-muted/50 px-4 text-base outline-none placeholder:text-muted-foreground focus:border-gold/60";
 
@@ -183,6 +195,12 @@ function SupportBox() {
           pl: "Kawa utrzymuje bluesa przy życiu.",
         })}
       </p>
+
+      {thanks && (
+        <p role="status" className="mb-4 rounded-2xl bg-gold/10 px-4 py-3 text-sm text-gold">
+          {tr(lang, { no: "Takk for støtten!", en: "Thank you for your support!", sv: "Tack för ditt stöd!", de: "Danke für deine Unterstützung!", pl: "Dziękujemy za wsparcie!" })}
+        </p>
+      )}
 
       {/* Amount with quick picks on the same row */}
       <div
@@ -207,18 +225,14 @@ function SupportBox() {
           className="min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-muted-foreground"
         />
         <div className="flex shrink-0 gap-1.5">
-          {QUICK_AMOUNTS.map((n) => (
+          {QUICK_ADD.map((n) => (
             <button
               key={n}
               type="button"
-              onClick={() => setAmount(String(n))}
-              aria-pressed={valid && value === n}
-              className={
-                "min-h-10 min-w-11 px-2.5 rounded-xl border text-sm font-medium transition " +
-                (valid && value === n ? "border-gold bg-gold/15" : "border-border bg-card/70 hover:border-gold/60 hover:bg-gold/10")
-              }
+              onClick={() => setAmount(String(Math.min(1000, Math.round(((Number.isFinite(value) ? value : 0) + n) * 100) / 100)))}
+              className="min-h-10 min-w-11 px-2.5 rounded-xl border border-border bg-card/70 text-sm font-medium transition hover:border-gold/60 hover:bg-gold/10"
             >
-              €{n}
+              +{n}
             </button>
           ))}
         </div>
@@ -261,21 +275,27 @@ function SupportBox() {
         {tr(lang, { no: "Gjør dette månedlig", en: "Make this monthly", sv: "Gör detta månatligt", de: "Monatlich wiederholen", pl: "Wspieraj co miesiąc" })}
       </label>
 
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-disabled={!valid}
-        onClick={(e) => {
-          if (!valid) e.preventDefault();
-        }}
-        className={
-          "mt-5 flex w-full items-center justify-center min-h-12 rounded-full bg-gold text-primary-foreground font-medium transition " +
-          (valid ? "hover:bg-gold/90" : "opacity-50 pointer-events-none")
-        }
+      <button
+        type="button"
+        onClick={startCheckout}
+        disabled={!valid || busy}
+        className="mt-5 flex w-full items-center justify-center min-h-12 rounded-full bg-gold text-primary-foreground font-medium transition hover:bg-gold/90 disabled:opacity-50 disabled:pointer-events-none"
       >
-        {tr(lang, { no: "Støtt", en: "Support", sv: "Stöd", de: "Unterstützen", pl: "Wesprzyj" })}
-      </a>
+        {busy
+          ? tr(lang, { no: "Åpner betaling …", en: "Opening checkout…", sv: "Öppnar betalning …", de: "Zahlung wird geöffnet …", pl: "Otwieranie płatności…" })
+          : tr(lang, { no: "Støtt", en: "Support", sv: "Stöd", de: "Unterstützen", pl: "Wesprzyj" })}
+      </button>
+      {failed && (
+        <p role="alert" className="mt-3 text-center text-sm text-destructive">
+          {tr(lang, {
+            no: "Kunne ikke åpne betalingen. Prøv igjen om litt.",
+            en: "Couldn't open checkout. Please try again shortly.",
+            sv: "Det gick inte att öppna betalningen. Försök igen om en stund.",
+            de: "Die Zahlung konnte nicht geöffnet werden. Bitte versuche es gleich noch einmal.",
+            pl: "Nie udało się otworzyć płatności. Spróbuj ponownie za chwilę.",
+          })}
+        </p>
+      )}
     </div>
   );
 }
