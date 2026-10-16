@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { useI18n, tr } from "@/i18n";
@@ -7,20 +8,10 @@ import { toast } from "sonner";
 
 const WEAR_THE_BLUES_PRODUCT_URL = "https://merch.slow-blues.com/products/wear-the-blues-tee";
 
-// All support buttons go to Buy Me a Coffee. The amounts are shown on the buttons; the supporter
-// picks the final amount (and one-time vs monthly) there.
-const BUY_ME_A_COFFEE_URL = "https://buymeacoffee.com/slowblues.com";
-const SUPPORT_ONCE = [
-  { eur: 3, href: BUY_ME_A_COFFEE_URL },
-  { eur: 5, href: BUY_ME_A_COFFEE_URL },
-  { eur: 10, href: BUY_ME_A_COFFEE_URL },
-] as const;
-const SUPPORT_ONCE_CUSTOM_HREF = BUY_ME_A_COFFEE_URL;
-const SUPPORT_MONTHLY = [
-  { eur: 3, href: BUY_ME_A_COFFEE_URL },
-  { eur: 5, href: BUY_ME_A_COFFEE_URL },
-  { eur: 10, href: BUY_ME_A_COFFEE_URL },
-] as const;
+// PLACEHOLDER checkout address for the support box. The chosen amount and interval are added as
+// ?amount=5&interval=once|month. Swap in the real checkout URL (and how it takes the amount) when ready.
+const SUPPORT_CHECKOUT_URL = "https://buymeacoffee.com/slowblues.com";
+const QUICK_AMOUNTS = [5, 10, 20] as const;
 
 export const Route = createFileRoute("/support")({
   component: SupportPage,
@@ -117,70 +108,9 @@ function SupportPage() {
         </div>
       </section>
 
-      {/* Support — quiet one-time and monthly options under the merch block */}
+      {/* Support box — amount, quick picks, monthly toggle, one button */}
       <section className="max-w-xl mx-auto px-6 pb-12">
-        <div className="bg-card/40 border border-border rounded-2xl p-6 sm:p-8 text-center">
-          <Coffee className="size-6 text-gold mx-auto mb-3" />
-          <h3 className="font-display text-2xl mb-1">
-            {tr(lang, { no: "Støtt SlowBlues", en: "Support SlowBlues", sv: "Stöd SlowBlues", de: "Unterstütze SlowBlues", pl: "Wesprzyj SlowBlues" })}
-          </h3>
-          <p className="text-sm text-muted-foreground mb-6">
-            {tr(lang, {
-              no: "En kaffe holder bluesen i live.",
-              en: "A coffee keeps the blues alive.",
-              sv: "En kaffe håller bluesen vid liv.",
-              de: "Ein Kaffee hält den Blues am Leben.",
-              pl: "Kawa utrzymuje bluesa przy życiu.",
-            })}
-          </p>
-
-          <h4 className="text-xs uppercase tracking-[0.2em] text-gold mb-3">
-            {tr(lang, { no: "Støtt én gang", en: "Support once", sv: "Stöd en gång", de: "Einmalig unterstützen", pl: "Wesprzyj jednorazowo" })}
-          </h4>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {SUPPORT_ONCE.map(({ eur, href }) => (
-              <a
-                key={eur}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center min-h-12 rounded-full border border-gold/40 bg-card/60 text-lg font-medium hover:bg-gold/10 hover:border-gold/70 transition"
-              >
-                €{eur}
-              </a>
-            ))}
-            <a
-              href={SUPPORT_ONCE_CUSTOM_HREF}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center min-h-12 px-3 rounded-full border border-border bg-transparent text-sm text-muted-foreground hover:text-gold hover:border-gold/50 transition"
-            >
-              {tr(lang, { no: "Velg selv", en: "Choose your own", sv: "Välj själv", de: "Betrag selbst wählen", pl: "Wybierz kwotę" })}
-            </a>
-          </div>
-
-          <div className="my-6 border-t border-border" />
-
-          <h4 className="text-xs uppercase tracking-[0.2em] text-gold mb-3">
-            {tr(lang, { no: "Støtt månedlig", en: "Support monthly", sv: "Stöd varje månad", de: "Monatlich unterstützen", pl: "Wspieraj miesięcznie" })}
-          </h4>
-          <div className="grid grid-cols-3 gap-3">
-            {SUPPORT_MONTHLY.map(({ eur, href }) => (
-              <a
-                key={eur}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center min-h-12 rounded-full border border-gold/40 bg-card/60 font-medium hover:bg-gold/10 hover:border-gold/70 transition"
-              >
-                <span className="text-lg">€{eur}</span>
-                <span className="ml-0.5 text-xs text-muted-foreground">
-                  {tr(lang, { no: "/mnd", en: "/mo", sv: "/mån", de: "/Monat", pl: "/mies." })}
-                </span>
-              </a>
-            ))}
-          </div>
-        </div>
+        <SupportBox />
       </section>
 
       {/* Share the site */}
@@ -213,5 +143,139 @@ function SupportPage() {
         <p className="text-muted-foreground italic">"The blues are the roots and the other musics are the fruits." — Willie Dixon</p>
       </section>
     </PageShell>
+  );
+}
+
+function SupportBox() {
+  const { lang } = useI18n();
+  const [amount, setAmount] = useState("5");
+  const [name, setName] = useState("");
+  const [message, setMessage] = useState("");
+  const [monthly, setMonthly] = useState(false);
+
+  const value = Number(amount.replace(",", "."));
+  const valid = Number.isFinite(value) && value >= 1 && value <= 1000;
+  const href = valid
+    ? `${SUPPORT_CHECKOUT_URL}?${new URLSearchParams({
+        amount: String(value),
+        interval: monthly ? "month" : "once",
+        ...(name.trim() ? { name: name.trim() } : {}),
+        ...(message.trim() ? { message: message.trim() } : {}),
+      })}`
+    : undefined;
+
+  const field = "w-full rounded-2xl border border-transparent bg-muted/50 px-4 text-base outline-none placeholder:text-muted-foreground focus:border-gold/60";
+
+  return (
+    <div className="bg-card/40 border border-border rounded-2xl p-5 sm:p-7">
+      <div className="flex items-center gap-2">
+        <Coffee className="size-5 text-gold shrink-0" />
+        <h3 className="font-display text-2xl">
+          {tr(lang, { no: "Støtt SlowBlues", en: "Support SlowBlues", sv: "Stöd SlowBlues", de: "Unterstütze SlowBlues", pl: "Wesprzyj SlowBlues" })}
+        </h3>
+      </div>
+      <p className="mt-1 mb-5 text-sm text-muted-foreground">
+        {tr(lang, {
+          no: "En kaffe holder bluesen i live.",
+          en: "A coffee keeps the blues alive.",
+          sv: "En kaffe håller bluesen vid liv.",
+          de: "Ein Kaffee hält den Blues am Leben.",
+          pl: "Kawa utrzymuje bluesa przy życiu.",
+        })}
+      </p>
+
+      {/* Amount with quick picks on the same row */}
+      <div
+        className={
+          "flex items-center gap-2 rounded-2xl bg-muted/50 pl-4 pr-2 min-h-14 border " +
+          (valid ? "border-transparent focus-within:border-gold/60" : "border-destructive/60")
+        }
+      >
+        <span aria-hidden="true" className="text-lg font-semibold">€</span>
+        <label htmlFor="support-amount" className="sr-only">
+          {tr(lang, { no: "Beløp i euro", en: "Amount in euro", sv: "Belopp i euro", de: "Betrag in Euro", pl: "Kwota w euro" })}
+        </label>
+        <input
+          id="support-amount"
+          type="text"
+          inputMode="decimal"
+          autoComplete="off"
+          value={amount}
+          placeholder={tr(lang, { no: "Skriv inn beløp", en: "Enter amount", sv: "Ange belopp", de: "Betrag eingeben", pl: "Wpisz kwotę" })}
+          onChange={(e) => setAmount(e.target.value.replace(/[^0-9.,]/g, "").slice(0, 6))}
+          aria-invalid={!valid}
+          className="min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-muted-foreground"
+        />
+        <div className="flex shrink-0 gap-1.5">
+          {QUICK_AMOUNTS.map((n) => (
+            <button
+              key={n}
+              type="button"
+              onClick={() => setAmount(String(n))}
+              aria-pressed={valid && value === n}
+              className={
+                "min-h-10 min-w-11 px-2.5 rounded-xl border text-sm font-medium transition " +
+                (valid && value === n ? "border-gold bg-gold/15" : "border-border bg-card/70 hover:border-gold/60 hover:bg-gold/10")
+              }
+            >
+              €{n}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <label htmlFor="support-name" className="sr-only">
+        {tr(lang, { no: "Navn eller sosial konto", en: "Name or social handle", sv: "Namn eller socialt konto", de: "Name oder Social-Handle", pl: "Imię lub profil" })}
+      </label>
+      <input
+        id="support-name"
+        type="text"
+        maxLength={60}
+        autoComplete="off"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder={tr(lang, { no: "Navn eller @sosialt", en: "Name or @yoursocial", sv: "Namn eller @socialt", de: "Name oder @deinprofil", pl: "Imię lub @profil" })}
+        className={field + " mt-3 min-h-14"}
+      />
+
+      <label htmlFor="support-message" className="sr-only">
+        {tr(lang, { no: "Melding", en: "Message", sv: "Meddelande", de: "Nachricht", pl: "Wiadomość" })}
+      </label>
+      <textarea
+        id="support-message"
+        rows={4}
+        maxLength={300}
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        placeholder={tr(lang, { no: "Skriv noe fint …", en: "Say something nice…", sv: "Skriv något fint …", de: "Sag etwas Nettes …", pl: "Napisz coś miłego…" })}
+        className={field + " mt-3 py-3.5 resize-none"}
+      />
+
+      <label className="mt-4 flex items-center gap-3 text-sm cursor-pointer select-none">
+        <input
+          type="checkbox"
+          checked={monthly}
+          onChange={(e) => setMonthly(e.target.checked)}
+          className="size-5 rounded border-border accent-[var(--color-gold)]"
+        />
+        {tr(lang, { no: "Gjør dette månedlig", en: "Make this monthly", sv: "Gör detta månatligt", de: "Monatlich wiederholen", pl: "Wspieraj co miesiąc" })}
+      </label>
+
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-disabled={!valid}
+        onClick={(e) => {
+          if (!valid) e.preventDefault();
+        }}
+        className={
+          "mt-5 flex w-full items-center justify-center min-h-12 rounded-full bg-gold text-primary-foreground font-medium transition " +
+          (valid ? "hover:bg-gold/90" : "opacity-50 pointer-events-none")
+        }
+      >
+        {tr(lang, { no: "Støtt", en: "Support", sv: "Stöd", de: "Unterstützen", pl: "Wesprzyj" })}
+      </a>
+    </div>
   );
 }
