@@ -5,7 +5,7 @@ import { adminLogout } from "@/lib/adminAuth.server";
 import { useAuth } from "@/lib/useAuth";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { IMG } from "@/data/images";
-import { Trash2, LogOut, MessageSquare, BookOpen, ShieldCheck, Database, Quote, Link2, UserPlus, Search, Star } from "lucide-react";
+import { Trash2, LogOut, MessageSquare, BookOpen, ShieldCheck, Database, Quote, Link2, UserPlus, Search, Star, BarChart3 } from "lucide-react";
 
 export const Route = createFileRoute("/admin/")({
   component: AdminPage,
@@ -115,6 +115,9 @@ function AdminPage() {
             </Link>
             <Link to="/admin/course-feedback" className="px-4 py-2 rounded-md border border-border text-sm hover:border-gold flex items-center gap-2">
               <Star className="size-4" /> Course Feedback
+            </Link>
+            <Link to="/admin/traffic" className="px-4 py-2 rounded-md border border-border text-sm hover:border-gold flex items-center gap-2">
+              <BarChart3 className="size-4" /> Trafikk
             </Link>
             <button onClick={refresh} disabled={busy} className="px-4 py-2 rounded-md border border-border text-sm hover:border-gold disabled:opacity-60">Oppdater</button>
             <button onClick={logout} className="px-4 py-2 rounded-md border border-border text-sm hover:border-gold flex items-center gap-2">

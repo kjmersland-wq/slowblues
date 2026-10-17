@@ -97,8 +97,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preload", as: "font", type: "font/woff2", href: playfairLatin, crossOrigin: "anonymous" },
     ],
     scripts: [
-      // KM TECH LABS cookie-free page view counter (feeds the Trafikk page).
-      { src: "https://www.km-techlabs.com/tracker.js", defer: true, "data-site": "slow-blues.com" },
+      // Cookie-free page-view counter (public/tracker.js → /api/collect → /admin/traffic).
+      { src: "/tracker.js", defer: true, "data-site": "slow-blues.com" },
       {
         type: "application/ld+json",
         children: JSON.stringify({

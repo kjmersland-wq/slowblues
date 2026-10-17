@@ -616,3 +616,21 @@ CREATE TRIGGER trg_artist_updates_updated_at
   BEGIN
     UPDATE artist_updates SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
   END;
+
+-- =========================================================
+-- PAGEVIEWS (cookie-free traffic measurement; see migrations/0013_pageviews.sql)
+-- =========================================================
+CREATE TABLE pageviews (
+  id            INTEGER PRIMARY KEY AUTOINCREMENT,
+  site          TEXT NOT NULL,   -- hostname, lower-case, without "www." (data-site on the script tag)
+  path          TEXT NOT NULL,
+  referrer      TEXT,            -- hostname only; NULL = direct / unknown / internal
+  device        TEXT CHECK (device IN ('mobile', 'tablet', 'desktop')),
+  country       TEXT,            -- ISO 3166-1 alpha-2 from CF-IPCountry; NULL = unknown
+  lang          TEXT,            -- navigator.language, e.g. "nb-NO"
+  visitor_hash  TEXT,            -- daily-rotating anonymous hash, used only to count unique visitors per day
+  created_at    TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP  -- UTC
+);
+
+CREATE INDEX idx_pageviews_site_created ON pageviews(site, created_at);
+CREATE INDEX idx_pageviews_created ON pageviews(created_at);
