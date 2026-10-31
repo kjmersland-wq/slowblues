@@ -1,0 +1,325 @@
+{
+  "slug": "chuck-berry",
+  "name": "Chuck Berry",
+  "tag": "Chicago",
+  "era": "Classic Era",
+  "region": "North America",
+  "country": "United States",
+  "base_path": "/artists",
+  "birth_name": "Charles Edward Anderson Berry",
+  "img": "https://commons.wikimedia.org/wiki/Special:FilePath/Chuck_Berry_1957.jpg?width=1200",
+  "image_credit": "Photo: Universal Attractions (management), 1971 (Wikimedia Commons, Public domain)",
+  "born": "October 18, 1926, St. Louis, Missouri",
+  "died": "March 18, 2017, St. Charles, Missouri",
+  "birth_place": "St. Louis, Missouri",
+  "origin": "St. Louis, Missouri",
+  "styles": [
+    "Rock and Roll",
+    "Rhythm and Blues",
+    "Chicago Blues"
+  ],
+  "labels": [
+    "Chess"
+  ],
+  "instruments_simple": [
+    "Guitar",
+    "Vocals"
+  ],
+  "short": "Duckwalk, double-stops and verses sharp as a razor — the man who taught rock and roll to tell stories.",
+  "short_no": "Duckwalk, dobbeltgrep og vers skarpe som barberblader — mannen som lærte rock'n'roll å fortelle historier.",
+  "short_en": "Duckwalk, double-stops and verses sharp as a razor — the man who taught rock and roll to tell stories.",
+  "short_sv": "Duckwalk, dubbelgrepp och verser vassa som rakblad — mannen som lärde rock'n'roll att berätta historier.",
+  "short_de": "Duckwalk, Doppelgriffe und rasiermesserscharfe Verse — der Mann, der dem Rock'n'Roll das Geschichtenerzählen beibrachte.",
+  "short_pl": "Duckwalk, podwójne chwyty i wersy ostre jak brzytwa — człowiek, który nauczył rock'n'rolla opowiadać historie.",
+  "biography_no": "Chuck Berry vokste opp i St. Louis og blandet Chicago-bluesen han hørte på radioen med country og den skarpe, humoristiske historiefortellingen han ble født med. I mai 1955 kjørte han til Chicago, møtte Muddy Waters, som sendte ham til Leonard Chess, og resultatet ble «Maybellene», en bearbeiding av country-låten «Ida Red». Den gikk til førsteplass på R&B-listen og solgte over en million.\n\nSangene som fulgte, «Roll Over Beethoven», «Sweet Little Sixteen» og «Johnny B. Goode», skrev regelboken for rock'n'roll: et drivende gitarriff med blues-dobbeltgrep og tekster om biler, skole og tenåringsliv. «Johnny B. Goode» er den eneste rock'n'roll-sangen på Voyager Golden Record som ble sendt ut i rommet.\n\nI 1986, tretti år etter at han skrev «Maybellene», ble han endelig kreditert som eneste komponist. Han døde i St. Charles, Missouri, 18. mars 2017. Hør åpningstaktene i en hvilken som helst av hitene hans, så hører du bluesen satt i fart.",
+  "biography_en": "Chuck Berry grew up in St. Louis, mixing the Chicago blues he heard on the radio with country and the sharp, humorous storytelling he was born with. In May 1955 he drove to Chicago, met Muddy Waters, who sent him to Leonard Chess, and the result was \"Maybellene\", an adaptation of the country tune \"Ida Red\". It went to number one on the R&B chart and sold over a million copies.\n\nThe songs that followed, \"Roll Over Beethoven\", \"Sweet Little Sixteen\" and \"Johnny B. Goode\", wrote the rulebook for rock and roll: a driving guitar riff with blues double-stops, and lyrics about cars, school and teenage life. \"Johnny B. Goode\" is the only rock and roll song on the Voyager Golden Record sent into space.\n\nIn 1986, thirty years after he wrote \"Maybellene\", he was finally credited as the song's sole composer. He died in St. Charles, Missouri, on March 18, 2017. Listen to the opening bars of any of his hits and you hear the blues put into a hurry.",
+  "biography_sv": "Chuck Berry växte upp i St. Louis och blandade Chicago-bluesen han hörde i radion med country och det vassa, humoristiska berättandet han föddes med. I maj 1955 åkte han till Chicago, träffade Muddy Waters, som skickade honom till Leonard Chess, och resultatet blev \"Maybellene\", en bearbetning av countrylåten \"Ida Red\". Den gick till förstaplats på R&B-listan och sålde över en miljon.\n\nLåtarna som följde, \"Roll Over Beethoven\", \"Sweet Little Sixteen\" och \"Johnny B. Goode\", skrev regelboken för rock'n'roll: ett drivande gitarrriff med blues-dubbelgrepp och texter om bilar, skola och tonårsliv. \"Johnny B. Goode\" är den enda rock'n'roll-låten på Voyager Golden Record som skickades ut i rymden.\n\n1986, trettio år efter att han skrev \"Maybellene\", krediterades han äntligen som ensam kompositör. Han dog i St. Charles, Missouri, den 18 mars 2017. Lyssna på öppningstakterna i vilken som helst av hans hits så hör du bluesen satt i fart.",
+  "biography_de": "Chuck Berry wuchs in St. Louis auf und mischte den Chicago Blues, den er im Radio hörte, mit Country und dem scharfen, humorvollen Erzählen, das ihm angeboren war. Im Mai 1955 fuhr er nach Chicago, traf Muddy Waters, der ihn zu Leonard Chess schickte, und das Ergebnis war \"Maybellene\", eine Bearbeitung des Country-Stücks \"Ida Red\". Es ging an die Spitze der R&B-Charts und verkaufte sich über eine Million Mal.\n\nDie Songs danach, \"Roll Over Beethoven\", \"Sweet Little Sixteen\" und \"Johnny B. Goode\", schrieben das Regelbuch des Rock'n'Roll: ein treibendes Gitarrenriff mit Blues-Doppelgriffen und Texte über Autos, Schule und Teenagerleben. \"Johnny B. Goode\" ist der einzige Rock'n'Roll-Song auf der Voyager Golden Record, die ins All geschickt wurde.\n\n1986, dreißig Jahre nachdem er \"Maybellene\" geschrieben hatte, wurde er endlich als alleiniger Komponist genannt. Er starb am 18. März 2017 in St. Charles, Missouri. Hör dir die ersten Takte irgendeines seiner Hits an, und du hörst den Blues in Eile.",
+  "biography_pl": "Chuck Berry dorastał w St. Louis, mieszając chicagowskiego bluesa z radia z country i ostrą, humorystyczną narracją, z którą się urodził. W maju 1955 roku pojechał do Chicago, spotkał Muddy'ego Watersa, który skierował go do Leonarda Chessa, a efektem było \"Maybellene\", adaptacja country \"Ida Red\". Dotarło na pierwsze miejsce listy R&B i sprzedało się w ponad milionie egzemplarzy.\n\nPiosenki, które nastąpiły, \"Roll Over Beethoven\", \"Sweet Little Sixteen\" i \"Johnny B. Goode\", napisały podręcznik rock'n'rolla: pędzący riff gitarowy z bluesowymi podwójnymi chwytami i teksty o samochodach, szkole i życiu nastolatków. \"Johnny B. Goode\" to jedyny utwór rock'n'rollowy na Voyager Golden Record wysłanym w kosmos.\n\nW 1986 roku, trzydzieści lat po napisaniu \"Maybellene\", został w końcu uznany za jedynego kompozytora. Zmarł w St. Charles w Missouri 18 marca 2017 roku. Posłuchaj pierwszych taktów któregokolwiek z jego hitów, a usłyszysz bluesa w pośpiechu.",
+  "influence_no": "Berrys riff og tekster er ryggraden i rock'n'roll, og han er det manglende leddet mellom Chicago-bluesen og sjangerens første generasjon. Alle fra Beatles til Stones begynte med sangboken hans.",
+  "influence_en": "Berry's riffs and lyrics are the backbone of rock and roll, and he is the missing link between Chicago blues and the genre's first generation. Everybody from the Beatles to the Stones started with his songbook.",
+  "influence_sv": "Berrys riff och texter är ryggraden i rock'n'roll, och han är den saknade länken mellan Chicago-bluesen och genrens första generation. Alla från Beatles till Stones började med hans sångbok.",
+  "influence_de": "Berrys Riffs und Texte sind das Rückgrat des Rock'n'Roll, und er ist das fehlende Glied zwischen Chicago Blues und der ersten Generation des Genres. Von den Beatles bis zu den Stones begannen alle mit seinem Liederbuch.",
+  "influence_pl": "Riffy i teksty Berry'ego są kręgosłupem rock'n'rolla, a on jest brakującym ogniwem między chicagowskim bluesem a pierwszym pokoleniem gatunku. Wszyscy, od Beatlesów po Stonesów, zaczynali od jego śpiewnika.",
+  "signature_songs": [
+    "Maybellene",
+    "Johnny B. Goode",
+    "Roll Over Beethoven",
+    "Sweet Little Sixteen"
+  ],
+  "signature_songs_i18n": {
+    "no": [
+      "Maybellene",
+      "Johnny B. Goode",
+      "Roll Over Beethoven",
+      "Sweet Little Sixteen"
+    ],
+    "en": [
+      "Maybellene",
+      "Johnny B. Goode",
+      "Roll Over Beethoven",
+      "Sweet Little Sixteen"
+    ],
+    "sv": [
+      "Maybellene",
+      "Johnny B. Goode",
+      "Roll Over Beethoven",
+      "Sweet Little Sixteen"
+    ],
+    "de": [
+      "Maybellene",
+      "Johnny B. Goode",
+      "Roll Over Beethoven",
+      "Sweet Little Sixteen"
+    ],
+    "pl": [
+      "Maybellene",
+      "Johnny B. Goode",
+      "Roll Over Beethoven",
+      "Sweet Little Sixteen"
+    ]
+  },
+  "influences_i18n": {
+    "no": [
+      "T-Bone Walker",
+      "Muddy Waters",
+      "Louis Jordan"
+    ],
+    "en": [
+      "T-Bone Walker",
+      "Muddy Waters",
+      "Louis Jordan"
+    ],
+    "sv": [
+      "T-Bone Walker",
+      "Muddy Waters",
+      "Louis Jordan"
+    ],
+    "de": [
+      "T-Bone Walker",
+      "Muddy Waters",
+      "Louis Jordan"
+    ],
+    "pl": [
+      "T-Bone Walker",
+      "Muddy Waters",
+      "Louis Jordan"
+    ]
+  },
+  "formative_i18n": {
+    "no": [
+      "Vokste opp i St. Louis og blandet blues, country og historiefortelling.",
+      "Mai 1955: Møtte Muddy Waters i Chicago, som anbefalte ham til Leonard Chess.",
+      "1955: «Maybellene» gikk til førsteplass på R&B-listen."
+    ],
+    "en": [
+      "Grew up in St. Louis, mixing blues, country and storytelling.",
+      "May 1955: Met Muddy Waters in Chicago, who recommended him to Leonard Chess.",
+      "1955: \"Maybellene\" went to number one on the R&B chart."
+    ],
+    "sv": [
+      "Växte upp i St. Louis och blandade blues, country och berättande.",
+      "Maj 1955: Träffade Muddy Waters i Chicago, som rekommenderade honom till Leonard Chess.",
+      "1955: \"Maybellene\" gick till förstaplats på R&B-listan."
+    ],
+    "de": [
+      "Wuchs in St. Louis auf und mischte Blues, Country und Erzählen.",
+      "Mai 1955: Traf in Chicago Muddy Waters, der ihn Leonard Chess empfahl.",
+      "1955: \"Maybellene\" ging an die Spitze der R&B-Charts."
+    ],
+    "pl": [
+      "Dorastał w St. Louis, łącząc bluesa, country i opowiadanie historii.",
+      "Maj 1955: W Chicago spotkał Muddy'ego Watersa, który polecił go Leonardowi Chessowi.",
+      "1955: \"Maybellene\" dotarło na pierwsze miejsce listy R&B."
+    ]
+  },
+  "anecdotes_i18n": {
+    "no": [
+      "«Johnny B. Goode» er den eneste rock'n'roll-sangen på Voyager Golden Record.",
+      "Han ble først kreditert som eneste komponist av «Maybellene» i 1986."
+    ],
+    "en": [
+      "\"Johnny B. Goode\" is the only rock and roll song on the Voyager Golden Record.",
+      "He was only credited as sole composer of \"Maybellene\" in 1986."
+    ],
+    "sv": [
+      "\"Johnny B. Goode\" är den enda rock'n'roll-låten på Voyager Golden Record.",
+      "Han krediterades först 1986 som ensam kompositör av \"Maybellene\"."
+    ],
+    "de": [
+      "\"Johnny B. Goode\" ist der einzige Rock'n'Roll-Song auf der Voyager Golden Record.",
+      "Erst 1986 wurde er als alleiniger Komponist von \"Maybellene\" genannt."
+    ],
+    "pl": [
+      "\"Johnny B. Goode\" to jedyny utwór rock'n'rollowy na Voyager Golden Record.",
+      "Dopiero w 1986 roku uznano go za jedynego kompozytora \"Maybellene\"."
+    ]
+  },
+  "instruments_i18n": {
+    "no": [
+      {
+        "category": "Gitar",
+        "name": "Elektrisk gitar",
+        "note": "Bluesy dobbeltgrep og et drivende rytmeriff."
+      }
+    ],
+    "en": [
+      {
+        "category": "Guitar",
+        "name": "Electric guitar",
+        "note": "Bluesy double-stops and a driving rhythm riff."
+      }
+    ],
+    "sv": [
+      {
+        "category": "Gitarr",
+        "name": "Elgitarr",
+        "note": "Bluesiga dubbelgrepp och ett drivande kompriff."
+      }
+    ],
+    "de": [
+      {
+        "category": "Gitarre",
+        "name": "E-Gitarre",
+        "note": "Bluesige Doppelgriffe und ein treibendes Rhythmusriff."
+      }
+    ],
+    "pl": [
+      {
+        "category": "Gitara",
+        "name": "Gitara elektryczna",
+        "note": "Bluesowe podwójne chwyty i pędzący riff rytmiczny."
+      }
+    ]
+  },
+  "collaborators_i18n": {
+    "no": [
+      {
+        "name": "Muddy Waters",
+        "note": "Sent Berry to Leonard Chess in 1955."
+      }
+    ],
+    "en": [
+      {
+        "name": "Muddy Waters",
+        "note": "Sent Berry to Leonard Chess in 1955."
+      }
+    ],
+    "sv": [
+      {
+        "name": "Muddy Waters",
+        "note": "Sent Berry to Leonard Chess in 1955."
+      }
+    ],
+    "de": [
+      {
+        "name": "Muddy Waters",
+        "note": "Sent Berry to Leonard Chess in 1955."
+      }
+    ],
+    "pl": [
+      {
+        "name": "Muddy Waters",
+        "note": "Sent Berry to Leonard Chess in 1955."
+      }
+    ]
+  },
+  "discography_i18n": {
+    "no": [
+      {
+        "year": 1955,
+        "title": "Maybellene (single)",
+        "label": "Chess",
+        "notes": "Førsteplass på R&B-listen; bygget på «Ida Red».",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "en": [
+      {
+        "year": 1955,
+        "title": "Maybellene (single)",
+        "label": "Chess",
+        "notes": "Number one on the R&B chart; based on \"Ida Red\".",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "sv": [
+      {
+        "year": 1955,
+        "title": "Maybellene (single)",
+        "label": "Chess",
+        "notes": "Förstaplats på R&B-listan; byggd på \"Ida Red\".",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "de": [
+      {
+        "year": 1955,
+        "title": "Maybellene (single)",
+        "label": "Chess",
+        "notes": "Platz eins der R&B-Charts; basiert auf \"Ida Red\".",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "pl": [
+      {
+        "year": 1955,
+        "title": "Maybellene (single)",
+        "label": "Chess",
+        "notes": "Nr 1 na liście R&B; oparte na \"Ida Red\".",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ]
+  },
+  "videos": [],
+  "external_links": [
+    {
+      "label": "YouTube Music",
+      "url": "https://music.youtube.com/search?q=Chuck+Berry"
+    },
+    {
+      "label": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Chuck_Berry"
+    }
+  ],
+  "article_references": [
+    {
+      "title": "Chuck Berry — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Chuck_Berry"
+    },
+    {
+      "title": "Chuck Berry — Britannica",
+      "url": "https://www.britannica.com/biography/Chuck-Berry"
+    },
+    {
+      "title": "Chuck Berry — BlackPast",
+      "url": "https://new.blackpast.org/african-american-history/berry-charles-edward-anderson-chuck-1926"
+    },
+    {
+      "title": "The story of Chuck Berry's Maybellene — NPR/WAMC",
+      "url": "https://www.npr.org/2000/07/02/1076141/maybellene"
+    }
+  ],
+  "related_slugs": [
+    "muddy-waters",
+    "t-bone-walker",
+    "little-walter"
+  ],
+  "_inactive": true,
+  "_sources": {
+    "death": [
+      "https://www.britannica.com/biography/Chuck-Berry",
+      "https://new.blackpast.org/african-american-history/berry-charles-edward-anderson-chuck-1926"
+    ]
+  },
+  "_todo": [
+    "Rock Hall 1986 induction not confirmed: left out. 'Duckwalk', songs besides Maybellene/Johnny B. Goode and the 1986 'sole composer' reading from search: verify.",
+    "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:Chuck_Berry_1957.jpg",
+    "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug chuck-berry."
+  ]
+}

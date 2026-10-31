@@ -1,0 +1,410 @@
+{
+  "slug": "ray-charles",
+  "name": "Ray Charles",
+  "tag": "Classic",
+  "era": "Classic Era",
+  "region": "North America",
+  "country": "United States",
+  "base_path": "/artists",
+  "birth_name": "Ray Charles Robinson",
+  "img": "https://commons.wikimedia.org/wiki/Special:FilePath/Ray_Charles_classic_piano_pose.jpg?width=1200",
+  "image_credit": "Photo: William Morris Agency (management)/Photo by Maurice Seymour, New York., 1969 (Wikimedia Commons, Public domain)",
+  "born": "September 23, 1930, Albany, Georgia",
+  "died": "June 10, 2004, Beverly Hills, California",
+  "birth_place": "Albany, Georgia",
+  "origin": "Seattle, Washington",
+  "styles": [
+    "Rhythm and Blues",
+    "Soul",
+    "Blues",
+    "Gospel"
+  ],
+  "labels": [
+    "Atlantic",
+    "ABC"
+  ],
+  "instruments_simple": [
+    "Piano",
+    "Vocals",
+    "Saxophone"
+  ],
+  "short": "The Genius — blues, gospel, country and jazz in one piano and one voice.",
+  "short_no": "Geniet — blues, gospel, country og jazz i ett piano og én stemme.",
+  "short_en": "The Genius — blues, gospel, country and jazz in one piano and one voice.",
+  "short_sv": "Geniet — blues, gospel, country och jazz i ett piano och en röst.",
+  "short_de": "Das Genie — Blues, Gospel, Country und Jazz in einem Klavier und einer Stimme.",
+  "short_pl": "Geniusz — blues, gospel, country i jazz w jednym fortepianie i jednym głosie.",
+  "biography_no": "Ray Charles ble født i Albany, Georgia, i 1930 og mistet synet som barn, noe som ikke stoppet ham fra å bli en av de største stemmene i amerikansk musikk. Han tok bluesen, gospelen han vokste opp med og jazzen han elsket og satte dem sammen til noe folk begynte å kalle soul.\n\nPå Atlantic Records spilte han inn «I Got a Woman», hans første førsteplass på R&B-listen, og «What'd I Say» (1959), hans første millionseller. Så kom «Georgia on My Mind» (1960), en Hot 100-nummer-én, og albumet «Modern Sounds in Country and Western Music» (1962), som nådde førsteplass på Billboard 200.\n\nHan ble innlemmet i Rock and Roll Hall of Fame i 1986, i den første klassen. Han døde i 2004 i California. Sett på en av de tidlige Atlantic-platene og hør hvordan han bruker pianoet og stemmen sammen, som om de var ett instrument.",
+  "biography_en": "Ray Charles was born in Albany, Georgia, in 1930 and lost his sight in childhood, which did not stop him from becoming one of the biggest voices in American music. He took the blues, the gospel he grew up on and the jazz he loved and put them together into something people started to call soul.\n\nAt Atlantic Records he cut \"I Got a Woman\", his first number one on the R&B chart, and \"What'd I Say\" (1959), his first million-seller. Then came \"Georgia on My Mind\" (1960), a Hot 100 number one, and the album \"Modern Sounds in Country and Western Music\" (1962), which reached number one on the Billboard 200.\n\nHe was inducted into the Rock and Roll Hall of Fame in 1986, in the first class. He died in 2004 in California. Put on any of the early Atlantic records and listen to how he works the piano and the voice together, like they were one instrument.",
+  "biography_sv": "Ray Charles föddes i Albany, Georgia, 1930 och förlorade synen som barn, vilket inte hindrade honom från att bli en av de största rösterna i amerikansk musik. Han tog bluesen, gospeln han växte upp med och jazzen han älskade och satte ihop dem till något folk började kalla soul.\n\nPå Atlantic Records spelade han in \"I Got a Woman\", hans första etta på R&B-listan, och \"What'd I Say\" (1959), hans första miljonsäljare. Sedan kom \"Georgia on My Mind\" (1960), en Hot 100-etta, och albumet \"Modern Sounds in Country and Western Music\" (1962), som nådde förstaplats på Billboard 200.\n\nHan valdes in i Rock and Roll Hall of Fame 1986, i den första klassen. Han dog 2004 i Kalifornien. Sätt på någon av de tidiga Atlantic-skivorna och lyssna på hur han använder pianot och rösten tillsammans, som om de vore ett instrument.",
+  "biography_de": "Ray Charles wurde 1930 in Albany, Georgia, geboren und verlor als Kind sein Augenlicht, was ihn nicht daran hinderte, eine der größten Stimmen der amerikanischen Musik zu werden. Er nahm den Blues, den Gospel, mit dem er aufwuchs, und den Jazz, den er liebte, und machte daraus etwas, das man bald Soul nannte.\n\nBei Atlantic Records nahm er \"I Got a Woman\" auf, seine erste Nummer eins der R&B-Charts, und \"What'd I Say\" (1959), seinen ersten Millionenseller. Dann kamen \"Georgia on My Mind\" (1960), eine Nummer eins der Hot 100, und das Album \"Modern Sounds in Country and Western Music\" (1962), das Platz eins der Billboard 200 erreichte.\n\n1986 wurde er in die Rock and Roll Hall of Fame aufgenommen, in der ersten Klasse. Er starb 2004 in Kalifornien. Leg eine der frühen Atlantic-Platten auf und hör, wie er Klavier und Stimme zusammen einsetzt, als wären sie ein Instrument.",
+  "biography_pl": "Ray Charles urodził się w 1930 roku w Albany w Georgii i jako dziecko stracił wzrok, co nie przeszkodziło mu stać się jednym z największych głosów amerykańskiej muzyki. Wziął bluesa, gospel, z którym się wychował, i jazz, który kochał, i połączył je w coś, co ludzie zaczęli nazywać soulem.\n\nW Atlantic Records nagrał \"I Got a Woman\", swój pierwszy numer jeden na liście R&B, oraz \"What'd I Say\" (1959), swój pierwszy milion sprzedanych egzemplarzy. Potem przyszło \"Georgia on My Mind\" (1960), numer jeden na Hot 100, i album \"Modern Sounds in Country and Western Music\" (1962), który dotarł na pierwsze miejsce Billboard 200.\n\nW 1986 roku wprowadzono go do Rock and Roll Hall of Fame, w pierwszej klasie. Zmarł w 2004 roku w Kalifornii. Włącz którąś z wczesnych płyt Atlantic i posłuchaj, jak łączy fortepian i głos, jakby były jednym instrumentem.",
+  "influence_no": "Ray Charles fant opp soul like mye som noen. Blandingen av gospel, blues, jazz og country formet Aretha Franklin, Stevie Wonder, Van Morrison og nesten alle sangere som fulgte.",
+  "influence_en": "Ray Charles invented soul as much as anyone. His fusion of gospel, blues, jazz and country shaped Aretha Franklin, Stevie Wonder, Van Morrison and nearly every singer who followed.",
+  "influence_sv": "Ray Charles uppfann soul lika mycket som någon. Hans blandning av gospel, blues, jazz och country formade Aretha Franklin, Stevie Wonder, Van Morrison och nästan alla sångare som följde.",
+  "influence_de": "Ray Charles erfand den Soul so sehr wie jeder andere. Seine Mischung aus Gospel, Blues, Jazz und Country prägte Aretha Franklin, Stevie Wonder, Van Morrison und fast jeden Sänger danach.",
+  "influence_pl": "Ray Charles wynalazł soul jak nikt inny. Jego połączenie gospel, bluesa, jazzu i country ukształtowało Arethę Franklin, Stevie'ego Wondera, Vana Morrisona i niemal każdego późniejszego wokalistę.",
+  "signature_songs": [
+    "I Got a Woman",
+    "What'd I Say",
+    "Georgia on My Mind",
+    "Hit the Road Jack"
+  ],
+  "signature_songs_i18n": {
+    "no": [
+      "I Got a Woman",
+      "What'd I Say",
+      "Georgia on My Mind",
+      "Hit the Road Jack"
+    ],
+    "en": [
+      "I Got a Woman",
+      "What'd I Say",
+      "Georgia on My Mind",
+      "Hit the Road Jack"
+    ],
+    "sv": [
+      "I Got a Woman",
+      "What'd I Say",
+      "Georgia on My Mind",
+      "Hit the Road Jack"
+    ],
+    "de": [
+      "I Got a Woman",
+      "What'd I Say",
+      "Georgia on My Mind",
+      "Hit the Road Jack"
+    ],
+    "pl": [
+      "I Got a Woman",
+      "What'd I Say",
+      "Georgia on My Mind",
+      "Hit the Road Jack"
+    ]
+  },
+  "influences_i18n": {
+    "no": [
+      "Charles Brown",
+      "Nat King Cole",
+      "Gospel"
+    ],
+    "en": [
+      "Charles Brown",
+      "Nat King Cole",
+      "Gospel"
+    ],
+    "sv": [
+      "Charles Brown",
+      "Nat King Cole",
+      "Gospel"
+    ],
+    "de": [
+      "Charles Brown",
+      "Nat King Cole",
+      "Gospel"
+    ],
+    "pl": [
+      "Charles Brown",
+      "Nat King Cole",
+      "Gospel"
+    ]
+  },
+  "formative_i18n": {
+    "no": [
+      "Mistet synet som barn.",
+      "1950-tallet: Spilte inn for Atlantic Records; «I Got a Woman» ble hans første R&B-førsteplass.",
+      "1962: «Modern Sounds in Country and Western Music» toppet Billboard 200."
+    ],
+    "en": [
+      "Lost his sight in childhood.",
+      "1950s: Recorded for Atlantic Records; \"I Got a Woman\" became his first R&B number one.",
+      "1962: \"Modern Sounds in Country and Western Music\" topped the Billboard 200."
+    ],
+    "sv": [
+      "Förlorade synen som barn.",
+      "1950-talet: Spelade in för Atlantic Records; \"I Got a Woman\" blev hans första R&B-etta.",
+      "1962: \"Modern Sounds in Country and Western Music\" toppade Billboard 200."
+    ],
+    "de": [
+      "Verlor als Kind sein Augenlicht.",
+      "1950er: Nahm für Atlantic Records auf; \"I Got a Woman\" wurde seine erste R&B-Nummer-eins.",
+      "1962: \"Modern Sounds in Country and Western Music\" führte die Billboard 200 an."
+    ],
+    "pl": [
+      "Stracił wzrok w dzieciństwie.",
+      "Lata 50.: Nagrywał dla Atlantic Records; \"I Got a Woman\" stało się jego pierwszym numerem jeden R&B.",
+      "1962: \"Modern Sounds in Country and Western Music\" zajęło szczyt Billboard 200."
+    ]
+  },
+  "anecdotes_i18n": {
+    "no": [
+      "«What'd I Say» (1959) var hans første millionselgende plate.",
+      "«Modern Sounds in Country and Western Music» (1962) tok countrylåter inn i soul og gikk til førsteplass på albumlisten."
+    ],
+    "en": [
+      "\"What'd I Say\" (1959) was his first million-selling record.",
+      "\"Modern Sounds in Country and Western Music\" (1962) took country songs into soul and went to number one on the albums chart."
+    ],
+    "sv": [
+      "\"What'd I Say\" (1959) var hans första miljonsäljande skiva.",
+      "\"Modern Sounds in Country and Western Music\" (1962) tog countrylåtar in i soul och gick till förstaplats på albumlistan."
+    ],
+    "de": [
+      "\"What'd I Say\" (1959) war seine erste Millionenseller-Platte.",
+      "\"Modern Sounds in Country and Western Music\" (1962) brachte Countrysongs in den Soul und stieg auf Platz eins der Albumcharts."
+    ],
+    "pl": [
+      "\"What'd I Say\" (1959) było jego pierwszą płytą z milionowym nakładem.",
+      "\"Modern Sounds in Country and Western Music\" (1962) przeniosło piosenki country do soulu i dotarło na pierwsze miejsce listy albumów."
+    ]
+  },
+  "instruments_i18n": {
+    "no": [
+      {
+        "category": "Piano",
+        "name": "Piano og Wurlitzer el-piano",
+        "note": "Gospelmettet piano med blues i ryggraden."
+      }
+    ],
+    "en": [
+      {
+        "category": "Piano",
+        "name": "Piano and Wurlitzer electric piano",
+        "note": "Gospel-drenched piano with a blues backbone."
+      }
+    ],
+    "sv": [
+      {
+        "category": "Piano",
+        "name": "Piano och Wurlitzer el-piano",
+        "note": "Gospeldränkt piano med blues i ryggraden."
+      }
+    ],
+    "de": [
+      {
+        "category": "Klavier",
+        "name": "Klavier und Wurlitzer E-Piano",
+        "note": "Gospel-getränktes Klavier mit Blues im Rückgrat."
+      }
+    ],
+    "pl": [
+      {
+        "category": "Fortepian",
+        "name": "Fortepian i pianino elektryczne Wurlitzer",
+        "note": "Fortepian nasiąknięty gospel z bluesowym kręgosłupem."
+      }
+    ]
+  },
+  "collaborators_i18n": {
+    "no": [
+      {
+        "name": "The Raelettes",
+        "note": "His backing vocal group."
+      }
+    ],
+    "en": [
+      {
+        "name": "The Raelettes",
+        "note": "His backing vocal group."
+      }
+    ],
+    "sv": [
+      {
+        "name": "The Raelettes",
+        "note": "His backing vocal group."
+      }
+    ],
+    "de": [
+      {
+        "name": "The Raelettes",
+        "note": "His backing vocal group."
+      }
+    ],
+    "pl": [
+      {
+        "name": "The Raelettes",
+        "note": "His backing vocal group."
+      }
+    ]
+  },
+  "discography_i18n": {
+    "no": [
+      {
+        "year": 1959,
+        "title": "What'd I Say (single)",
+        "label": "Atlantic",
+        "notes": "Hans første millionseller.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1962,
+        "title": "Modern Sounds in Country and Western Music",
+        "label": "ABC-Paramount",
+        "notes": "Første album som toppet Billboard 200.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "en": [
+      {
+        "year": 1959,
+        "title": "What'd I Say (single)",
+        "label": "Atlantic",
+        "notes": "His first million-seller.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1962,
+        "title": "Modern Sounds in Country and Western Music",
+        "label": "ABC-Paramount",
+        "notes": "First album to top the Billboard 200.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "sv": [
+      {
+        "year": 1959,
+        "title": "What'd I Say (single)",
+        "label": "Atlantic",
+        "notes": "Hans första miljonsäljare.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1962,
+        "title": "Modern Sounds in Country and Western Music",
+        "label": "ABC-Paramount",
+        "notes": "Första albumet som toppade Billboard 200.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "de": [
+      {
+        "year": 1959,
+        "title": "What'd I Say (single)",
+        "label": "Atlantic",
+        "notes": "Sein erster Millionenseller.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1962,
+        "title": "Modern Sounds in Country and Western Music",
+        "label": "ABC-Paramount",
+        "notes": "Erstes Album an der Spitze der Billboard 200.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "pl": [
+      {
+        "year": 1959,
+        "title": "What'd I Say (single)",
+        "label": "Atlantic",
+        "notes": "Jego pierwszy milionowy hit.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1962,
+        "title": "Modern Sounds in Country and Western Music",
+        "label": "ABC-Paramount",
+        "notes": "Pierwszy album na szczycie Billboard 200.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ]
+  },
+  "awards_i18n": {
+    "no": [
+      {
+        "year": 1986,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Innlemmet (første klasse)",
+        "note": ""
+      }
+    ],
+    "en": [
+      {
+        "year": 1986,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Inducted (inaugural class)",
+        "note": ""
+      }
+    ],
+    "sv": [
+      {
+        "year": 1986,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Invald (första klassen)",
+        "note": ""
+      }
+    ],
+    "de": [
+      {
+        "year": 1986,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Aufgenommen (erste Klasse)",
+        "note": ""
+      }
+    ],
+    "pl": [
+      {
+        "year": 1986,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Wprowadzony (pierwsza klasa)",
+        "note": ""
+      }
+    ]
+  },
+  "videos": [],
+  "external_links": [
+    {
+      "label": "YouTube Music",
+      "url": "https://music.youtube.com/search?q=Ray+Charles"
+    },
+    {
+      "label": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Ray_Charles"
+    }
+  ],
+  "article_references": [
+    {
+      "title": "Ray Charles — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Ray_Charles"
+    },
+    {
+      "title": "Ray Charles — Britannica Kids",
+      "url": "https://kids.britannica.com/students/article/Ray-Charles/310645"
+    },
+    {
+      "title": "Ray Charles — TCM",
+      "url": "https://tcm.com/tcmdb/person/32471%7C127676/Ray-Charles"
+    },
+    {
+      "title": "Ray Charles — Amoeba",
+      "url": "https://www.amoeba.com/music/artist/134183/bio"
+    }
+  ],
+  "related_slugs": [
+    "bb-king",
+    "etta-james",
+    "t-bone-walker"
+  ],
+  "_inactive": true,
+  "_sources": {
+    "death": [
+      "https://en.wikipedia.org/wiki/Ray_Charles",
+      "https://kids.britannica.com/students/article/Ray-Charles/310645"
+    ]
+  },
+  "_todo": [
+    "'I Got a Woman' date (1954/55) differs by source: not stated. Place of death (Los Angeles vs Beverly Hills) differs. 'Hit the Road Jack' and Wurlitzer from memory: verify. 'Blind since childhood' not in search results.",
+    "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:Ray_Charles_classic_piano_pose.jpg",
+    "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug ray-charles."
+  ]
+}
