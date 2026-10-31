@@ -63,8 +63,11 @@ def check(d: dict, existing: list[dict]) -> list[str]:
         problems.append("slug already exists in D1")
     for hit in duplicates(d["name"], existing):
         problems.append(f"possible duplicate: {hit}")
-    if d.get("died") and d.get("booking_info"):
-        problems.append("deceased artist must not have booking_info")
+    # CLAUDE.md: dead artists and disbanded/inactive bands carry NO booking info at all.
+    if (d.get("died") or d.get("_inactive")) and "booking_info" in d:
+        problems.append("deceased/inactive artist or band must not have a booking_info key")
+    if not d.get("died") and not d.get("_inactive") and d.get("born") is None and "booking_info" not in d:
+        problems.append("living artist: add booking_info (empty {} = not yet researched) or mark _inactive")
     if d.get("img") and not d.get("image_credit"):
         problems.append("image without credit")
     known = {a["slug"] for a in existing}
@@ -75,6 +78,8 @@ def check(d: dict, existing: list[dict]) -> list[str]:
         problems.append("no sources (article_references)")
     if d.get("died") and len(d.get("_sources", {}).get("death", [])) < 2:
         problems.append("death needs two independent sources in _sources.death")
+    if not d.get("videos"):
+        problems.append("no videos: run new_artist_check.py (needs YouTube quota) and add API-verified ids")
     for v in d.get("videos", []):
         if not v.get("youtube_id"):
             problems.append(f"video without id: {v.get('title')}")

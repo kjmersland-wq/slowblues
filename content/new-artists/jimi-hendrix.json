@@ -1,0 +1,473 @@
+{
+  "slug": "jimi-hendrix",
+  "name": "Jimi Hendrix",
+  "tag": "Blues Rock",
+  "era": "Classic Era",
+  "region": "North America",
+  "country": "United States",
+  "base_path": "/artists",
+  "birth_name": "Johnny Allen Hendrix",
+  "img": "https://commons.wikimedia.org/wiki/Special:FilePath/Jimi_Hendrix_(1967)_(cropped).jpg?width=1200",
+  "image_credit": "Photo: Original photographer unknown, 1967 (Wikimedia Commons, Public domain)",
+  "born": "November 27, 1942, Seattle, Washington",
+  "died": "September 18, 1970, London, England",
+  "birth_place": "Seattle, Washington",
+  "origin": "Seattle, Washington",
+  "active_years": "1962–1970",
+  "styles": [
+    "Blues Rock",
+    "Psychedelic Rock",
+    "Electric Blues"
+  ],
+  "labels": [
+    "Track",
+    "Reprise",
+    "Capitol"
+  ],
+  "instruments_simple": [
+    "Guitar",
+    "Vocals"
+  ],
+  "short": "He took the electric blues somewhere nobody had been — and then he was gone at 27.",
+  "short_no": "Han tok elektrisk blues til et sted ingen hadde vært — og så var han borte som 27-åring.",
+  "short_en": "He took the electric blues somewhere nobody had been — and then he was gone at 27.",
+  "short_sv": "Han tog elektrisk blues till en plats ingen hade varit på — och sedan var han borta som 27-åring.",
+  "short_de": "Er führte den elektrischen Blues an einen Ort, an dem niemand gewesen war — und mit 27 war er fort.",
+  "short_pl": "Zabrał elektryczny blues tam, gdzie nikt nie był — a potem odszedł w wieku 27 lat.",
+  "biography_no": "Jimi Hendrix ble født som Johnny Allen Hendrix i Seattle i 1942, og faren ga ham senere navnet James Marshall. Du hører bluesen i alt han spilte, selv når det låt som det kom fra en annen planet: Muddy Waters, Elmore James, B.B. King, de langsomme bendene, rytme og lead blandet til én linje.\n\nHan jobbet seg opp som kompgitarist for andre, og flyttet til London i 1966, der Jimi Hendrix Experience med Noel Redding og Mitch Mitchell tok scenen med storm. «Are You Experienced» (1967) endret hva en elektrisk gitar kunne gjøre. Monterey i 1967 gjorde ham til stjerne i USA, og på Woodstock i august 1969 spilte han «The Star Spangled Banner» på en måte som fortsatt får hårene i nakken til å reise seg. Band of Gypsys, med Buddy Miles og Billy Cox, kom deretter.\n\nHan døde i London 18. september 1970, 27 år gammel. Bluesen gikk gjennom alt han gjorde, og «Red House» er det tydeligste beviset. Hvis noen sier at han bare handlet om støy, sett på en langsom blues fra katalogen hans og lytt.",
+  "biography_en": "Jimi Hendrix was born Johnny Allen Hendrix in Seattle in 1942, and his father later renamed him James Marshall. You can hear the blues in everything he played, even when it sounded like it came from another planet: Muddy Waters, Elmore James, B.B. King, the slow bends, the rhythm and lead guitar mixed into one line.\n\nHe came up playing backing gigs for other people, then moved to London in 1966, where the Jimi Hendrix Experience with Noel Redding and Mitch Mitchell blew the roof off the scene. \"Are You Experienced\" (1967) changed what an electric guitar could do. Monterey in 1967 made him a star in America, and at Woodstock in August 1969 he played \"The Star Spangled Banner\" in a way that still raises the hair on your neck. The Band of Gypsys, with Buddy Miles and Billy Cox, came next.\n\nHe died in London on September 18, 1970, at 27. The blues ran through everything he did, and \"Red House\" is the clearest proof of that. If someone tells you he was only about the noise, put on a slow blues from his catalogue and listen.",
+  "biography_sv": "Jimi Hendrix föddes som Johnny Allen Hendrix i Seattle 1942, och hans pappa döpte senare om honom till James Marshall. Man hör bluesen i allt han spelade, även när det lät som det kom från en annan planet: Muddy Waters, Elmore James, B.B. King, de långsamma bendarna, komp och sologitarr blandade till en linje.\n\nHan arbetade sig upp som kompgitarrist åt andra och flyttade till London 1966, där Jimi Hendrix Experience med Noel Redding och Mitch Mitchell tog scenen med storm. \"Are You Experienced\" (1967) förändrade vad en elgitarr kunde göra. Monterey 1967 gjorde honom till stjärna i USA, och på Woodstock i augusti 1969 spelade han \"The Star Spangled Banner\" på ett sätt som fortfarande får håren i nacken att resa sig. Band of Gypsys, med Buddy Miles och Billy Cox, kom därefter.\n\nHan dog i London den 18 september 1970, 27 år gammal. Bluesen gick genom allt han gjorde, och \"Red House\" är det tydligaste beviset. Om någon säger att han bara handlade om oväsen, sätt på en långsam blues ur hans katalog och lyssna.",
+  "biography_de": "Jimi Hendrix wurde als Johnny Allen Hendrix 1942 in Seattle geboren, und sein Vater nannte ihn später James Marshall. Den Blues hört man in allem, was er spielte, auch wenn es klang, als käme es von einem anderen Planeten: Muddy Waters, Elmore James, B.B. King, die langsamen Bendings, Rhythmus- und Leadgitarre zu einer Linie verschmolzen.\n\nEr arbeitete sich als Begleitgitarrist anderer hoch und zog 1966 nach London, wo die Jimi Hendrix Experience mit Noel Redding und Mitch Mitchell die Szene im Sturm nahm. \"Are You Experienced\" (1967) veränderte, was eine E-Gitarre konnte. Monterey 1967 machte ihn in Amerika zum Star, und in Woodstock im August 1969 spielte er \"The Star Spangled Banner\" so, dass sich einem noch immer die Nackenhaare aufstellen. Die Band of Gypsys mit Buddy Miles und Billy Cox folgten.\n\nEr starb am 18. September 1970 in London, mit 27. Der Blues zog sich durch alles, was er tat, und \"Red House\" ist der klarste Beweis. Wenn jemand sagt, es sei ihm nur um Lärm gegangen, leg einen langsamen Blues aus seinem Katalog auf und hör zu.",
+  "biography_pl": "Jimi Hendrix urodził się jako Johnny Allen Hendrix w Seattle w 1942 roku, a ojciec później zmienił mu imię na James Marshall. Blues słychać we wszystkim, co grał, nawet gdy brzmiało to jak z innej planety: Muddy Waters, Elmore James, B.B. King, powolne podciągnięcia, rytm i solo zlane w jedną linię.\n\nPrzebijał się jako gitarzysta towarzyszący innym, a w 1966 roku przeniósł się do Londynu, gdzie Jimi Hendrix Experience z Noelem Reddingiem i Mitchem Mitchellem wzięli scenę szturmem. \"Are You Experienced\" (1967) zmieniło to, co może zrobić gitara elektryczna. Monterey w 1967 roku uczyniło go gwiazdą w Ameryce, a na Woodstocku w sierpniu 1969 zagrał \"The Star Spangled Banner\" tak, że do dziś jeżą się włosy na karku. Potem przyszedł Band of Gypsys z Buddym Milesem i Billym Coxem.\n\nZmarł w Londynie 18 września 1970 roku, mając 27 lat. Blues przenikał wszystko, co robił, a \"Red House\" jest tego najczystszym dowodem. Jeśli ktoś mówi, że chodziło mu tylko o hałas, włącz powolnego bluesa z jego katalogu i posłuchaj.",
+  "influence_no": "Hendrix la om den elektriske gitaren og tok bluesen med seg inn i rock, soul og psykedelia. Nesten alle blues-rock-gitarister siden har enten kopiert ham eller løpt fra ham.",
+  "influence_en": "Hendrix rewired the electric guitar and took the blues with him into rock, soul and psychedelia. Almost every blues-rock guitarist since has either copied him or run from him.",
+  "influence_sv": "Hendrix byggde om den elektriska gitarren och tog bluesen med sig in i rock, soul och psykedelia. Nästan alla bluesrockgitarrister sedan dess har antingen kopierat honom eller sprungit från honom.",
+  "influence_de": "Hendrix baute die E-Gitarre um und nahm den Blues mit in Rock, Soul und Psychedelia. Fast jeder Bluesrock-Gitarrist seither hat ihn entweder kopiert oder ist vor ihm weggelaufen.",
+  "influence_pl": "Hendrix przebudował gitarę elektryczną i zabrał bluesa w rock, soul i psychodelię. Prawie każdy gitarzysta bluesrockowy od tamtej pory albo go kopiował, albo przed nim uciekał.",
+  "signature_songs": [
+    "Voodoo Child (Slight Return)",
+    "Red House",
+    "Hey Joe",
+    "Purple Haze",
+    "Little Wing"
+  ],
+  "signature_songs_i18n": {
+    "no": [
+      "Voodoo Child (Slight Return)",
+      "Red House",
+      "Hey Joe",
+      "Purple Haze",
+      "Little Wing"
+    ],
+    "en": [
+      "Voodoo Child (Slight Return)",
+      "Red House",
+      "Hey Joe",
+      "Purple Haze",
+      "Little Wing"
+    ],
+    "sv": [
+      "Voodoo Child (Slight Return)",
+      "Red House",
+      "Hey Joe",
+      "Purple Haze",
+      "Little Wing"
+    ],
+    "de": [
+      "Voodoo Child (Slight Return)",
+      "Red House",
+      "Hey Joe",
+      "Purple Haze",
+      "Little Wing"
+    ],
+    "pl": [
+      "Voodoo Child (Slight Return)",
+      "Red House",
+      "Hey Joe",
+      "Purple Haze",
+      "Little Wing"
+    ]
+  },
+  "influences_i18n": {
+    "no": [
+      "Muddy Waters",
+      "Elmore James",
+      "B.B. King"
+    ],
+    "en": [
+      "Muddy Waters",
+      "Elmore James",
+      "B.B. King"
+    ],
+    "sv": [
+      "Muddy Waters",
+      "Elmore James",
+      "B.B. King"
+    ],
+    "de": [
+      "Muddy Waters",
+      "Elmore James",
+      "B.B. King"
+    ],
+    "pl": [
+      "Muddy Waters",
+      "Elmore James",
+      "B.B. King"
+    ]
+  },
+  "formative_i18n": {
+    "no": [
+      "Født i Seattle, senere omdøpt til James Marshall Hendrix.",
+      "1966: Flyttet til London og dannet Jimi Hendrix Experience.",
+      "1992: The Experience ble innlemmet i Rock and Roll Hall of Fame."
+    ],
+    "en": [
+      "Born in Seattle, later renamed James Marshall Hendrix.",
+      "1966: Moved to London and formed the Jimi Hendrix Experience.",
+      "1992: The Experience was inducted into the Rock and Roll Hall of Fame."
+    ],
+    "sv": [
+      "Född i Seattle, senare omdöpt till James Marshall Hendrix.",
+      "1966: Flyttade till London och bildade Jimi Hendrix Experience.",
+      "1992: The Experience valdes in i Rock and Roll Hall of Fame."
+    ],
+    "de": [
+      "In Seattle geboren, später in James Marshall Hendrix umbenannt.",
+      "1966: Zog nach London und gründete die Jimi Hendrix Experience.",
+      "1992: Die Experience wurde in die Rock and Roll Hall of Fame aufgenommen."
+    ],
+    "pl": [
+      "Urodzony w Seattle, później przemianowany na James Marshall Hendrix.",
+      "1966: Przeniósł się do Londynu i założył Jimi Hendrix Experience.",
+      "1992: The Experience wprowadzono do Rock and Roll Hall of Fame."
+    ]
+  },
+  "anecdotes_i18n": {
+    "no": [
+      "Han brente gitaren sin på Monterey Pop Festival i 1967.",
+      "Woodstock-fremføringen hans av «The Star Spangled Banner» fant sted i august 1969."
+    ],
+    "en": [
+      "He burned his guitar at the Monterey Pop Festival in 1967.",
+      "His Woodstock performance of \"The Star Spangled Banner\" took place in August 1969."
+    ],
+    "sv": [
+      "Han brände sin gitarr på Monterey Pop Festival 1967.",
+      "Hans Woodstock-framförande av \"The Star Spangled Banner\" ägde rum i augusti 1969."
+    ],
+    "de": [
+      "Er verbrannte 1967 beim Monterey Pop Festival seine Gitarre.",
+      "Sein Woodstock-Auftritt mit \"The Star Spangled Banner\" fand im August 1969 statt."
+    ],
+    "pl": [
+      "W 1967 roku spalił gitarę na Monterey Pop Festival.",
+      "Jego występ z \"The Star Spangled Banner\" na Woodstocku odbył się w sierpniu 1969 roku."
+    ]
+  },
+  "instruments_i18n": {
+    "no": [
+      {
+        "category": "Gitar",
+        "name": "Fender Stratocaster",
+        "note": "Venstrehendt, spilt opp ned; høylytt, tilbakekoblingsfylt og uttrykksfull."
+      }
+    ],
+    "en": [
+      {
+        "category": "Guitar",
+        "name": "Fender Stratocaster",
+        "note": "Left-handed, played upside down; loud, feedback-drenched and expressive."
+      }
+    ],
+    "sv": [
+      {
+        "category": "Gitarr",
+        "name": "Fender Stratocaster",
+        "note": "Vänsterhänt, spelad upp och ner; högljudd, återkopplingsdränkt och uttrycksfull."
+      }
+    ],
+    "de": [
+      {
+        "category": "Gitarre",
+        "name": "Fender Stratocaster",
+        "note": "Linkshänder, kopfüber gespielt; laut, feedbackgetränkt und ausdrucksstark."
+      }
+    ],
+    "pl": [
+      {
+        "category": "Gitara",
+        "name": "Fender Stratocaster",
+        "note": "Leworęczny, grał odwróconą gitarą; głośno, ze sprzężeniami i ekspresyjnie."
+      }
+    ]
+  },
+  "collaborators_i18n": {
+    "no": [
+      {
+        "name": "Buddy Miles",
+        "note": "Trommeslager i Band of Gypsys."
+      },
+      {
+        "name": "Billy Cox",
+        "note": "Bassist i Band of Gypsys."
+      }
+    ],
+    "en": [
+      {
+        "name": "Buddy Miles",
+        "note": "Drummer in the Band of Gypsys."
+      },
+      {
+        "name": "Billy Cox",
+        "note": "Bassist in the Band of Gypsys."
+      }
+    ],
+    "sv": [
+      {
+        "name": "Buddy Miles",
+        "note": "Trummis i Band of Gypsys."
+      },
+      {
+        "name": "Billy Cox",
+        "note": "Basist i Band of Gypsys."
+      }
+    ],
+    "de": [
+      {
+        "name": "Buddy Miles",
+        "note": "Schlagzeuger bei Band of Gypsys."
+      },
+      {
+        "name": "Billy Cox",
+        "note": "Bassist bei Band of Gypsys."
+      }
+    ],
+    "pl": [
+      {
+        "name": "Buddy Miles",
+        "note": "Perkusista w Band of Gypsys."
+      },
+      {
+        "name": "Billy Cox",
+        "note": "Basista w Band of Gypsys."
+      }
+    ]
+  },
+  "discography_i18n": {
+    "no": [
+      {
+        "year": 1967,
+        "title": "Are You Experienced",
+        "label": "Track",
+        "notes": "Debutalbum, utgitt først i Storbritannia.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1968,
+        "title": "Electric Ladyland",
+        "label": "Reprise",
+        "notes": "Inneholder «Voodoo Child (Slight Return)».",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1970,
+        "title": "Band of Gypsys",
+        "label": "Capitol",
+        "notes": "Livealbum med Buddy Miles og Billy Cox.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "en": [
+      {
+        "year": 1967,
+        "title": "Are You Experienced",
+        "label": "Track",
+        "notes": "Debut album, released first in the UK.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1968,
+        "title": "Electric Ladyland",
+        "label": "Reprise",
+        "notes": "Includes \"Voodoo Child (Slight Return)\".",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1970,
+        "title": "Band of Gypsys",
+        "label": "Capitol",
+        "notes": "Live album with Buddy Miles and Billy Cox.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "sv": [
+      {
+        "year": 1967,
+        "title": "Are You Experienced",
+        "label": "Track",
+        "notes": "Debutalbum, utgivet först i Storbritannien.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1968,
+        "title": "Electric Ladyland",
+        "label": "Reprise",
+        "notes": "Innehåller \"Voodoo Child (Slight Return)\".",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1970,
+        "title": "Band of Gypsys",
+        "label": "Capitol",
+        "notes": "Livealbum med Buddy Miles och Billy Cox.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "de": [
+      {
+        "year": 1967,
+        "title": "Are You Experienced",
+        "label": "Track",
+        "notes": "Debütalbum, zuerst in Großbritannien veröffentlicht.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1968,
+        "title": "Electric Ladyland",
+        "label": "Reprise",
+        "notes": "Enthält \"Voodoo Child (Slight Return)\".",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1970,
+        "title": "Band of Gypsys",
+        "label": "Capitol",
+        "notes": "Livealbum mit Buddy Miles und Billy Cox.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "pl": [
+      {
+        "year": 1967,
+        "title": "Are You Experienced",
+        "label": "Track",
+        "notes": "Album debiutancki, najpierw wydany w Wielkiej Brytanii.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1968,
+        "title": "Electric Ladyland",
+        "label": "Reprise",
+        "notes": "Zawiera \"Voodoo Child (Slight Return)\".",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1970,
+        "title": "Band of Gypsys",
+        "label": "Capitol",
+        "notes": "Album koncertowy z Buddym Milesem i Billym Coxem.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ]
+  },
+  "awards_i18n": {
+    "no": [
+      {
+        "year": 1992,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Innlemmet med The Jimi Hendrix Experience",
+        "note": "Posthumous"
+      }
+    ],
+    "en": [
+      {
+        "year": 1992,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Inducted with The Jimi Hendrix Experience",
+        "note": "Posthumous"
+      }
+    ],
+    "sv": [
+      {
+        "year": 1992,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Invald med The Jimi Hendrix Experience",
+        "note": "Posthumous"
+      }
+    ],
+    "de": [
+      {
+        "year": 1992,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Mit The Jimi Hendrix Experience aufgenommen",
+        "note": "Posthumous"
+      }
+    ],
+    "pl": [
+      {
+        "year": 1992,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Wprowadzony z The Jimi Hendrix Experience",
+        "note": "Posthumous"
+      }
+    ]
+  },
+  "videos": [],
+  "external_links": [
+    {
+      "label": "YouTube Music",
+      "url": "https://music.youtube.com/search?q=Jimi+Hendrix"
+    },
+    {
+      "label": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Jimi_Hendrix"
+    }
+  ],
+  "article_references": [
+    {
+      "title": "Jimi Hendrix — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Jimi_Hendrix"
+    },
+    {
+      "title": "Jimi Hendrix — Britannica Kids",
+      "url": "https://kids.britannica.com/students/article/Jimi-Hendrix/311656"
+    },
+    {
+      "title": "Jimi Hendrix born — HISTORY",
+      "url": "https://www.history.com/this-day-in-history/november-27/jimi-hendrix-born"
+    }
+  ],
+  "related_slugs": [
+    "buddy-guy",
+    "stevie-ray-vaughan",
+    "albert-king"
+  ],
+  "_inactive": true,
+  "_sources": {
+    "death": [
+      "https://kids.britannica.com/students/article/Jimi-Hendrix/311656",
+      "https://www.history.com/this-day-in-history/november-27/jimi-hendrix-born"
+    ]
+  },
+  "_todo": [
+    "Cause of death is described differently across sources, so it is not stated. Check 'Red House' and album labels (Track/Reprise/Capitol) against Discogs.",
+    "Videos: the Love & Peace Festival clip is a fan upload; the Topic channel video is the official source.",
+    "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:Jimi_Hendrix_%281967%29_%28cropped%29.jpg",
+    "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug jimi-hendrix."
+  ]
+}

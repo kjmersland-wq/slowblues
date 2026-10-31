@@ -412,11 +412,12 @@
     "eric-clapton",
     "bb-king"
   ],
+  "_inactive": true,
   "_sources": {},
   "_todo": [
     "Years of Duane's (1971) and Oakley's (1972) deaths came from my own knowledge, not the search: verify in the Georgia Encyclopedia before publishing; I left years out of the text.",
     "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:Allman_Brothers_Band_1969.jpg",
-    "Defunct band: CLAUDE.md says no Booking box, but the page shows it whenever `died` is empty - needs a code/field decision (not changed here).",
+    "Disbanded band: no booking data written. The page still shows its Booking box whenever `died` is empty - needs a small code decision.",
     "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug the-allman-brothers-band."
   ]
 }
