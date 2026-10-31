@@ -24,3 +24,12 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+## Keeping YouTube links fresh
+
+```
+python scripts/youtube_links.py --all --check-only      # cheap: detect dead links
+python scripts/youtube_links.py --all --emit-sql         # + replacement search, writes out/youtube/
+```
+Review out/youtube/report.md, then (after Kjell says yes) apply with
+`npx wrangler d1 execute slowblues --remote --file out/youtube/update.sql`.
+Requires YOUTUBE_API_KEY in .dev.vars. Details: header of scripts/youtube_links.py.
