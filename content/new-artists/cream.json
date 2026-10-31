@@ -11,7 +11,7 @@
   "died": null,
   "birth_place": "London, England",
   "origin": "London, England",
-  "active_years": "1966–1968, 1993, 2005",
+  "active_years": "1966–1968",
   "styles": [
     "Blues Rock",
     "Psychedelic Rock"
@@ -399,7 +399,27 @@
       }
     ]
   },
-  "videos": [],
+  "videos": [
+    {
+      "kind": "featured",
+      "title": "Cream – Sunshine Of Your Love (Live from Royal Albert Hall 2005) [Official Live Video]",
+      "youtube_id": "yymQaMrb2VA",
+      "channel": "Cream - Band"
+    },
+    {
+      "kind": "more",
+      "title": "Cream – Crossroads (Live from Royal Albert Hall 2005) [Official Live Video]",
+      "youtube_id": "HuN0_MYhUT0",
+      "channel": "Cream - Band"
+    },
+    {
+      "kind": "more",
+      "title": "CREAM Crossroads 1968",
+      "youtube_id": "7HfkSzsyh1E",
+      "channel": "Antonio Cuevas",
+      "note": "Third-party upload; replace with an official source if one turns up."
+    }
+  ],
   "external_links": [
     {
       "label": "YouTube Music",

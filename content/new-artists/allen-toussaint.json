@@ -374,7 +374,21 @@
       }
     ]
   },
-  "videos": [],
+  "videos": [
+    {
+      "kind": "featured",
+      "title": "St. James Infirmary",
+      "youtube_id": "DdZcU4SniIc",
+      "channel": "Allen Toussaint - Topic"
+    },
+    {
+      "kind": "more",
+      "title": "Allen Toussaint - Southern Nights | Later... with Jools Holland (2008)",
+      "youtube_id": "3lY8kmocAjE",
+      "channel": "BBC Music",
+      "note": "Third-party upload; replace with an official source if one turns up."
+    }
+  ],
   "external_links": [
     {
       "label": "YouTube Music",
