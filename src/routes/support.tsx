@@ -22,10 +22,10 @@ export function SupportPage() {
 
   async function handleShare() {
     const shareText = tr(lang, {
-      no: "Uavhengig blueskultur — 360+ artistprofiler, anmeldelser og mer.",
-      en: "Independent blues culture — 360+ artist profiles, reviews and more.",
-      sv: "Oberoende blueskultur — 360+ artistprofiler, recensioner och mer.",
-      de: "Unabhängige Blues-Kultur — 360+ Künstlerprofile, Rezensionen und mehr.",
+      no: "Uavhengig blueskultur — 213+ artistprofiler, anmeldelser og mer.",
+      en: "Independent blues culture — 213+ artist profiles, reviews and more.",
+      sv: "Oberoende blueskultur — 213+ artistprofiler, recensioner och mer.",
+      de: "Unabhängige Blues-Kultur — 213+ Künstlerprofile, Rezensionen und mehr.",
       pl: "Niezależna kultura bluesowa — ponad 360 profili artystów, recenzje i więcej.",
     });
     if (navigator.share) {
