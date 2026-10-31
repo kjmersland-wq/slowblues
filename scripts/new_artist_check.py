@@ -73,7 +73,7 @@ def youtube(yt: YouTube, name: str) -> dict:
         "top": [
             {"id": v["id"], "title": v["snippet"]["title"], "channel": v["snippet"]["channelTitle"],
              "views": v.get("statistics", {}).get("viewCount")}
-            for v in good[:3]
+            for v in good[:5]
         ],
     }
 
@@ -99,7 +99,12 @@ def main() -> None:
     for name in names:
         dup = duplicates(name, existing)
         ment = mentions(name.split(" & ")[0])
-        yres = youtube(yt, name) if yt else None
+        try:
+            yres = youtube(yt, name) if yt else None
+        except SystemExit as e:  # quota exhausted: keep what we have and stop cleanly
+            print(f"
+STOPPED at {name}: {e}")
+            break
         results.append({"name": name, "duplicates": dup, "mentioned_in": ment, "youtube": yres})
         verdict = "DUPLICATE" if dup else ("ok" if (yres is None or yres["ok"]) else "NO VIDEOS")
         print(f"{verdict:10} {name}" + (f"  | matches: {'; '.join(dup)}" if dup else "")
@@ -111,6 +116,13 @@ def main() -> None:
     out = ROOT / "out" / "new-artists"
     out.mkdir(parents=True, exist_ok=True)
     (out / "check.json").write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
+    # accumulate every vetting run (keyed by name) so video ids found once are never lost
+    allf = out / "check_all.json"
+    acc = json.loads(allf.read_text(encoding="utf-8")) if allf.exists() else {}
+    for r in results:
+        if r["youtube"] or r["name"] not in acc:
+            acc[r["name"]] = r
+    allf.write_text(json.dumps(acc, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"\nwrote {out / 'check.json'}  (searches used: {yt.searches if yt else 0})")
 
 
