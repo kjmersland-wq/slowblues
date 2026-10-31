@@ -5,7 +5,7 @@
 export const IMG = {
   // Historic blues figures — real historical photographs, Wikimedia Commons
   // (same source images each artist's own Wikipedia infobox currently uses)
-  robertJohnson: "https://upload.wikimedia.org/wikipedia/commons/b/b3/Robert_Johnson.png",
+  robertJohnson: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Robert_Johnson_self-portrait_original_photograph.jpg",
   muddyWaters: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Muddy_Waters_november_1976.jpg",
   sonHouse: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Son_House.jpg",
   bbKing: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Publicity_photo_of_B.B._King._-_j9602118s_files_7f3e5875-55ee-4389-8eb0-53e6b59f1df3.jpg",
