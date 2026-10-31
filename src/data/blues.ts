@@ -17,7 +17,7 @@ const PORTRAITS = {
   memphisMinnie: W("9/96/Memphis_Minnie.jpg/480px-Memphis_Minnie.jpg"),
   bigBillBroonzy: W("0/02/Big_Bill_Broonzy_1951.jpg/480px-Big_Bill_Broonzy_1951.jpg"),
   blindWillieJohnson: W("3/3a/Blind_Willie_Johnson.jpg/480px-Blind_Willie_Johnson.jpg"),
-  littleWalter: W("9/91/Little_Walter.jpg/480px-Little_Walter.jpg"),
+  littleWalter: "https://upload.wikimedia.org/wikipedia/commons/0/03/Little_Walter_1956.jpg",
   elmoreJames: W("3/36/Elmore_James.jpg/480px-Elmore_James.jpg"),
   tboneWalker: W("d/d3/T-Bone_Walker_1942.jpg/480px-T-Bone_Walker_1942.jpg"),
   albertKing: W("3/31/Albert_King_1981.jpg/480px-Albert_King_1981.jpg"),
