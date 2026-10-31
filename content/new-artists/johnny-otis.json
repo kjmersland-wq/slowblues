@@ -351,7 +351,9 @@
   },
   "_todo": [
     "Labels (Savoy early, Capitol 1958) and 'Double Crossing Blues' from memory: verify. Instruments list partly from memory. Birth date (Dec 28 vs 29) differs in older sources.",
-    "No free Commons photo found - add one from Commons/press kit with credit before publishing.",
-    "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug johnny-otis."
-  ]
+    "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug johnny-otis.",
+    "Photo is a wide stage shot of the whole Johnny Otis Show (1987), not a portrait: replace if a better free photo appears. File page: https://commons.wikimedia.org/wiki/File:Johnny_Otis_Show1987.jpg"
+  ],
+  "img": "https://commons.wikimedia.org/wiki/Special:FilePath/Johnny_Otis_Show1987.jpg?width=1200",
+  "image_credit": "Photo: Sumori, 1987, the Johnny Otis Show at the Long Beach Blues Festival (Wikimedia Commons, CC BY-SA 4.0)"
 }
