@@ -334,7 +334,7 @@
     "1943/1981 years come from the Wikipedia list table; the search did not state them explicitly - confirm full dates and place of death on a source page.",
     "'Born in Chicago', 'Albert's Shuffle', 'Season of the Witch' from memory: verify. Newport date disputed (not mentioned).",
     "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug mike-bloomfield.",
-    "Weak provenance: Commons marks this 1969 Columbia advert public domain but it shows a (c) Columbia mark and was sourced from eBay. Replace with a better free photo if one turns up: https://commons.wikimedia.org/wiki/File:Mike_Bloomfield_ad_1969_cropped.jpg"
+    "DECISION (Kjell): keep the 1969 Columbia advert photo for now; replace if a press-kit photo with written permission turns up. Weak provenance: Commons marks this 1969 Columbia advert public domain but it shows a (c) Columbia mark and was sourced from eBay. Replace with a better free photo if one turns up: https://commons.wikimedia.org/wiki/File:Mike_Bloomfield_ad_1969_cropped.jpg"
   ],
   "img": "https://commons.wikimedia.org/wiki/Special:FilePath/Mike_Bloomfield_ad_1969_cropped.jpg?width=1200",
   "image_credit": "Image: Columbia Records, 1969 advertisement (Wikimedia Commons, public domain)"
