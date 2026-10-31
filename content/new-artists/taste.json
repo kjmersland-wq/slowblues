@@ -1,0 +1,402 @@
+{
+  "slug": "taste",
+  "name": "Taste",
+  "tag": "Blues Rock",
+  "era": "Classic Era",
+  "region": "Europe",
+  "country": "Ireland",
+  "base_path": "/artists",
+  "img": "https://commons.wikimedia.org/wiki/Special:FilePath/The_Taste_1970.jpg?width=1200",
+  "image_credit": "Photo: Herbert Weber, Hildesheim, 1970 (Wikimedia Commons, CC BY-SA 4.0)",
+  "died": null,
+  "birth_place": "Cork, Ireland",
+  "origin": "Cork, Ireland",
+  "active_years": "1966–1970",
+  "styles": [
+    "Blues Rock",
+    "Rock"
+  ],
+  "labels": [
+    "Polydor"
+  ],
+  "instruments_simple": [
+    "Guitar",
+    "Vocals",
+    "Bass",
+    "Drums"
+  ],
+  "short": "Rory Gallagher's first band: a raw Irish blues-rock trio that burned out in four years.",
+  "short_no": "Rory Gallaghers første band: en rå irsk blues-rock-trio som brant ut på fire år.",
+  "short_en": "Rory Gallagher's first band: a raw Irish blues-rock trio that burned out in four years.",
+  "short_sv": "Rory Gallaghers första band: en rå irländsk bluesrocktrio som brann ut på fyra år.",
+  "short_de": "Rory Gallaghers erste Band: ein rohes irisches Bluesrock-Trio, das in vier Jahren ausbrannte.",
+  "short_pl": "Pierwszy zespół Rory'ego Gallaghera: surowe irlandzkie trio bluesrockowe, które wypaliło się w cztery lata.",
+  "biography_no": "Taste var Rory Gallaghers første ordentlige band, dannet i Cork i 1966, en trio bygget på gitaren hans og den harde stemmen. Etter en endring i besetningen i 1968, med Richard McCracken på bass og John Wilson på trommer, flyttet de til London og signerte for Polydor. Det var den versjonen som betydde noe.\n\nPå bare et par år turnerte de i Europa og spilte på Isle of Wight Festival 28. august 1970, et sett som ble utgitt året etter som «Live at the Isle of Wight» og fortsatt låter vilt. Studioplater som «Taste» og «On the Boards» viste at en irsk trio kunne spille bluesen like hardt som hvem som helst i London.\n\nBandets siste konsert var nyttårsaften i Belfast, i 1970. McCracken og Wilson dannet Stud, og Gallagher ble en av de store blues-rock-gitaristene som soloartist. Sett på «What's Going On» og hør hvor det begynte.",
+  "biography_en": "Taste was Rory Gallagher's first real band, formed in Cork in 1966, a trio built on his guitar and his hard-boiled voice. After a lineup change in 1968, with Richard McCracken on bass and John Wilson on drums, they moved to London and signed with Polydor. That was the version that mattered.\n\nIn just a couple of years they toured Europe and played the Isle of Wight Festival on August 28, 1970, a set that was released the next year as \"Live at the Isle of Wight\" and still sounds ferocious. Studio records like \"Taste\" and \"On the Boards\" proved that an Irish trio could play the blues as hard as anyone in London.\n\nThe band's last show was on New Year's Eve in Belfast, in 1970. McCracken and Wilson went on to form Stud, and Gallagher became one of the great solo blues-rock guitarists. Put on \"What's Going On\" and hear where it started.",
+  "biography_sv": "Taste var Rory Gallaghers första riktiga band, bildat i Cork 1966, en trio byggd på hans gitarr och hans hårdkokta röst. Efter en förändring i uppsättningen 1968, med Richard McCracken på bas och John Wilson på trummor, flyttade de till London och skrev på för Polydor. Det var den versionen som betydde något.\n\nPå bara ett par år turnerade de i Europa och spelade på Isle of Wight Festival den 28 augusti 1970, ett set som gavs ut året därpå som \"Live at the Isle of Wight\" och fortfarande låter vilt. Studioskivor som \"Taste\" och \"On the Boards\" visade att en irländsk trio kunde spela blues lika hårt som vem som helst i London.\n\nBandets sista spelning var nyårsafton i Belfast, 1970. McCracken och Wilson bildade Stud, och Gallagher blev en av de stora bluesrockgitarristerna som soloartist. Sätt på \"What's Going On\" och hör var det började.",
+  "biography_de": "Taste war Rory Gallaghers erste richtige Band, 1966 in Cork gegründet, ein Trio, das auf seiner Gitarre und seiner harten Stimme aufbaute. Nach einem Besetzungswechsel 1968, mit Richard McCracken am Bass und John Wilson am Schlagzeug, zogen sie nach London und unterschrieben bei Polydor. Diese Besetzung war die, die zählte.\n\nIn nur wenigen Jahren tourten sie durch Europa und spielten am 28. August 1970 beim Isle of Wight Festival, ein Set, das im Jahr darauf als \"Live at the Isle of Wight\" erschien und noch immer wild klingt. Studioplatten wie \"Taste\" und \"On the Boards\" zeigten, dass ein irisches Trio den Blues so hart spielen konnte wie jeder in London.\n\nDas letzte Konzert der Band fand an Silvester 1970 in Belfast statt. McCracken und Wilson gründeten Stud, und Gallagher wurde als Solokünstler einer der großen Bluesrock-Gitarristen. Leg \"What's Going On\" auf und hör, wo es begann.",
+  "biography_pl": "Taste był pierwszym prawdziwym zespołem Rory'ego Gallaghera, założonym w Cork w 1966 roku, trio zbudowane na jego gitarze i twardym głosie. Po zmianie składu w 1968 roku, z Richardem McCrackenem na basie i Johnem Wilsonem na perkusji, przenieśli się do Londynu i podpisali kontrakt z Polydor. To ta wersja miała znaczenie.\n\nW zaledwie kilka lat koncertowali w Europie i zagrali na Isle of Wight Festival 28 sierpnia 1970 roku, set, który rok później ukazał się jako \"Live at the Isle of Wight\" i wciąż brzmi dziko. Płyty studyjne takie jak \"Taste\" i \"On the Boards\" pokazały, że irlandzkie trio potrafi grać bluesa tak mocno jak ktokolwiek w Londynie.\n\nOstatni koncert zespołu odbył się w sylwestra 1970 roku w Belfaście. McCracken i Wilson założyli Stud, a Gallagher jako solista stał się jednym z wielkich gitarzystów bluesrockowych. Włącz \"What's Going On\" i usłysz, gdzie się zaczęło.",
+  "influence_no": "Taste satte irsk blues-rock på kartet og lanserte Rory Gallagher. Trioformatet, tungt men løst, formet senere irske og britiske bluesband, og opptakene fra Isle of Wight er fortsatt en målestokk.",
+  "influence_en": "Taste put Irish blues-rock on the map and launched Rory Gallagher. The trio format, heavy but loose, shaped later Irish and British blues bands, and the Isle of Wight tapes are still a benchmark.",
+  "influence_sv": "Taste satte irländsk bluesrock på kartan och lanserade Rory Gallagher. Triofomatet, tungt men löst, formade senare irländska och brittiska bluesband, och banden från Isle of Wight är fortfarande en måttstock.",
+  "influence_de": "Taste setzte den irischen Bluesrock auf die Landkarte und startete Rory Gallagher. Das Trioformat, schwer aber locker, prägte spätere irische und britische Bluesbands, und die Isle-of-Wight-Aufnahmen sind noch immer ein Maßstab.",
+  "influence_pl": "Taste wpisał irlandzki bluesrock na mapę i wylansował Rory'ego Gallaghera. Format tria, ciężki, ale luźny, ukształtował późniejsze irlandzkie i brytyjskie zespoły bluesowe, a nagrania z Isle of Wight wciąż są wzorcem.",
+  "signature_songs": [
+    "What's Going On",
+    "Sugar Mama",
+    "Born on the Wrong Side of Town",
+    "Blister on the Moon"
+  ],
+  "signature_songs_i18n": {
+    "no": [
+      "What's Going On",
+      "Sugar Mama",
+      "Born on the Wrong Side of Town",
+      "Blister on the Moon"
+    ],
+    "en": [
+      "What's Going On",
+      "Sugar Mama",
+      "Born on the Wrong Side of Town",
+      "Blister on the Moon"
+    ],
+    "sv": [
+      "What's Going On",
+      "Sugar Mama",
+      "Born on the Wrong Side of Town",
+      "Blister on the Moon"
+    ],
+    "de": [
+      "What's Going On",
+      "Sugar Mama",
+      "Born on the Wrong Side of Town",
+      "Blister on the Moon"
+    ],
+    "pl": [
+      "What's Going On",
+      "Sugar Mama",
+      "Born on the Wrong Side of Town",
+      "Blister on the Moon"
+    ]
+  },
+  "influences_i18n": {
+    "no": [
+      "Muddy Waters",
+      "Lead Belly",
+      "Albert King"
+    ],
+    "en": [
+      "Muddy Waters",
+      "Lead Belly",
+      "Albert King"
+    ],
+    "sv": [
+      "Muddy Waters",
+      "Lead Belly",
+      "Albert King"
+    ],
+    "de": [
+      "Muddy Waters",
+      "Lead Belly",
+      "Albert King"
+    ],
+    "pl": [
+      "Muddy Waters",
+      "Lead Belly",
+      "Albert King"
+    ]
+  },
+  "formative_i18n": {
+    "no": [
+      "1966: Dannet i Cork av Rory Gallagher.",
+      "1968: Ny besetning med Richard McCracken og John Wilson; flyttet til London og signerte for Polydor.",
+      "28. august 1970: Spilte på Isle of Wight Festival."
+    ],
+    "en": [
+      "1966: Formed in Cork by Rory Gallagher.",
+      "1968: New lineup with Richard McCracken and John Wilson; moved to London and signed to Polydor.",
+      "August 28, 1970: Played the Isle of Wight Festival."
+    ],
+    "sv": [
+      "1966: Bildades i Cork av Rory Gallagher.",
+      "1968: Ny uppsättning med Richard McCracken och John Wilson; flyttade till London och skrev på för Polydor.",
+      "28 augusti 1970: Spelade på Isle of Wight Festival."
+    ],
+    "de": [
+      "1966: In Cork von Rory Gallagher gegründet.",
+      "1968: Neue Besetzung mit Richard McCracken und John Wilson; zog nach London und unterschrieb bei Polydor.",
+      "28. August 1970: Spielte beim Isle of Wight Festival."
+    ],
+    "pl": [
+      "1966: Założony w Cork przez Rory'ego Gallaghera.",
+      "1968: Nowy skład z Richardem McCrackenem i Johnem Wilsonem; przenieśli się do Londynu i podpisali kontrakt z Polydor.",
+      "28 sierpnia 1970: Zagrali na Isle of Wight Festival."
+    ]
+  },
+  "anecdotes_i18n": {
+    "no": [
+      "Den siste konserten var nyttårsaften 1970 i Belfast.",
+      "Etter oppløsningen dannet McCracken og Wilson Stud sammen med Jim Cregan og John Weider."
+    ],
+    "en": [
+      "Their final show was on New Year's Eve 1970 in Belfast.",
+      "After the split, McCracken and Wilson formed Stud with Jim Cregan and John Weider."
+    ],
+    "sv": [
+      "Den sista spelningen var nyårsafton 1970 i Belfast.",
+      "Efter splittringen bildade McCracken och Wilson Stud tillsammans med Jim Cregan och John Weider."
+    ],
+    "de": [
+      "Ihr letztes Konzert fand an Silvester 1970 in Belfast statt.",
+      "Nach der Trennung gründeten McCracken und Wilson mit Jim Cregan und John Weider die Band Stud."
+    ],
+    "pl": [
+      "Ich ostatni koncert odbył się w sylwestra 1970 w Belfaście.",
+      "Po rozpadzie McCracken i Wilson założyli Stud z Jimem Creganem i Johnem Weiderem."
+    ]
+  },
+  "instruments_i18n": {
+    "no": [
+      {
+        "category": "Gitar",
+        "name": "Rory Gallaghers gitar",
+        "note": "En rå, drivende blues-rock-triolyd."
+      }
+    ],
+    "en": [
+      {
+        "category": "Guitar",
+        "name": "Rory Gallagher's guitar",
+        "note": "A raw, driving blues-rock trio sound."
+      }
+    ],
+    "sv": [
+      {
+        "category": "Gitarr",
+        "name": "Rory Gallaghers gitarr",
+        "note": "Ett rått, drivande bluesrocktriosound."
+      }
+    ],
+    "de": [
+      {
+        "category": "Gitarre",
+        "name": "Rory Gallaghers Gitarre",
+        "note": "Ein roher, treibender Bluesrock-Trio-Sound."
+      }
+    ],
+    "pl": [
+      {
+        "category": "Gitara",
+        "name": "Gitara Rory'ego Gallaghera",
+        "note": "Surowe, pędzące brzmienie tria bluesrockowego."
+      }
+    ]
+  },
+  "collaborators_i18n": {
+    "no": [
+      {
+        "name": "Rory Gallagher",
+        "note": "Founder, guitarist and singer; went solo after Taste split."
+      }
+    ],
+    "en": [
+      {
+        "name": "Rory Gallagher",
+        "note": "Founder, guitarist and singer; went solo after Taste split."
+      }
+    ],
+    "sv": [
+      {
+        "name": "Rory Gallagher",
+        "note": "Founder, guitarist and singer; went solo after Taste split."
+      }
+    ],
+    "de": [
+      {
+        "name": "Rory Gallagher",
+        "note": "Founder, guitarist and singer; went solo after Taste split."
+      }
+    ],
+    "pl": [
+      {
+        "name": "Rory Gallagher",
+        "note": "Founder, guitarist and singer; went solo after Taste split."
+      }
+    ]
+  },
+  "discography_i18n": {
+    "no": [
+      {
+        "year": 1969,
+        "title": "Taste",
+        "label": "Polydor",
+        "notes": "Debut-studioalbum.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1970,
+        "title": "On the Boards",
+        "label": "Polydor",
+        "notes": "Andre studioalbum.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1971,
+        "title": "Live at the Isle of Wight",
+        "label": "Polydor",
+        "notes": "Spilt inn 28. august 1970, utgitt etter oppløsningen.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "en": [
+      {
+        "year": 1969,
+        "title": "Taste",
+        "label": "Polydor",
+        "notes": "Debut studio album.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1970,
+        "title": "On the Boards",
+        "label": "Polydor",
+        "notes": "Second studio album.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1971,
+        "title": "Live at the Isle of Wight",
+        "label": "Polydor",
+        "notes": "Recorded August 28, 1970, released after the split.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "sv": [
+      {
+        "year": 1969,
+        "title": "Taste",
+        "label": "Polydor",
+        "notes": "Debutstudioalbum.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1970,
+        "title": "On the Boards",
+        "label": "Polydor",
+        "notes": "Andra studioalbumet.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1971,
+        "title": "Live at the Isle of Wight",
+        "label": "Polydor",
+        "notes": "Inspelad 28 augusti 1970, utgiven efter splittringen.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "de": [
+      {
+        "year": 1969,
+        "title": "Taste",
+        "label": "Polydor",
+        "notes": "Debüt-Studioalbum.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1970,
+        "title": "On the Boards",
+        "label": "Polydor",
+        "notes": "Zweites Studioalbum.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1971,
+        "title": "Live at the Isle of Wight",
+        "label": "Polydor",
+        "notes": "Am 28. August 1970 aufgenommen, nach der Trennung erschienen.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "pl": [
+      {
+        "year": 1969,
+        "title": "Taste",
+        "label": "Polydor",
+        "notes": "Debiutancki album studyjny.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1970,
+        "title": "On the Boards",
+        "label": "Polydor",
+        "notes": "Drugi album studyjny.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1971,
+        "title": "Live at the Isle of Wight",
+        "label": "Polydor",
+        "notes": "Nagrane 28 sierpnia 1970, wydane po rozpadzie.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ]
+  },
+  "videos": [],
+  "external_links": [
+    {
+      "label": "YouTube Music",
+      "url": "https://music.youtube.com/search?q=Taste"
+    },
+    {
+      "label": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Taste_(Irish_band)"
+    }
+  ],
+  "article_references": [
+    {
+      "title": "Taste — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Taste_(Irish_band)"
+    },
+    {
+      "title": "Taste (Irish band) — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Taste_(Irish_band)"
+    },
+    {
+      "title": "Taste / Rory Gallagher Band — Irish Showbands",
+      "url": "https://irishshowbands.net/bgtaste.htm"
+    },
+    {
+      "title": "What's Going On: Live at the Isle of Wight — Ultimate Classic Rock",
+      "url": "https://ultimateclassicrock.com/rory-gallagher-taste-isle-of-wight-review/"
+    }
+  ],
+  "related_slugs": [
+    "rory-gallagher",
+    "cyril-davies",
+    "chicken-shack"
+  ],
+  "_inactive": true,
+  "_sources": {},
+  "_todo": [
+    "Defunct band: no booking_info. The page shows a Booking box whenever 'died' is empty; needs a code/field decision. Song titles and the first two albums' dates from memory: verify. A 1996 reformation was mentioned in a source: check before stating.",
+    "Taste is a separate act from Rory Gallagher's solo profile: keep bios distinct.",
+    "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:The_Taste_1970.jpg",
+    "Disbanded band: no booking data written. The page still shows its Booking box whenever `died` is empty - needs a small code decision.",
+    "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug taste."
+  ]
+}
