@@ -68,7 +68,10 @@ def check(d: dict, existing: list[dict]) -> list[str]:
         problems.append("deceased/inactive artist or band must not have a booking_info key")
     if not d.get("died") and not d.get("_inactive") and d.get("born") is None and "booking_info" not in d:
         problems.append("living artist: add booking_info (empty {} = not yet researched) or mark _inactive")
-    if d.get("img") and not d.get("image_credit"):
+    # every profile needs a photo WITH credit (Commons PD/CC0/CC BY/CC BY-SA or press kit with permission)
+    if not d.get("img"):
+        problems.append("no image: add a free Commons photo (scripts/commons_image.py) with credit")
+    elif not d.get("image_credit"):
         problems.append("image without credit")
     known = {a["slug"] for a in existing}
     for r in d.get("related_slugs", []):

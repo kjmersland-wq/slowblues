@@ -398,7 +398,9 @@
   "_todo": [
     "Hound Dog chart run: sources disagree (3 vs 7 weeks at No. 1), so no number is stated. Check the $500 claim against a second source before keeping it.",
     "Disc entries (1966/1968 Arhoolie) from memory: verify titles, years and labels.",
-    "No free Commons photo found - add one from Commons/press kit with credit before publishing.",
-    "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug big-mama-thornton."
-  ]
+    "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug big-mama-thornton.",
+    "Photo confirmed as Big Mama Thornton by the Commons file description; page: https://commons.wikimedia.org/wiki/File:Blues_is_a_woman_Reitz_%28Big_Mama_Thornton%29.jpg"
+  ],
+  "img": "https://commons.wikimedia.org/wiki/Special:FilePath/Blues_is_a_woman_Reitz_(Big_Mama_Thornton).jpg?width=1200",
+  "image_credit": "Photo: Barbara Weinberg Barefield, 1980 (Wikimedia Commons, CC BY-SA 3.0)"
 }

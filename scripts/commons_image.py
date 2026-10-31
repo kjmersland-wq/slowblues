@@ -58,13 +58,33 @@ def commons_meta(filename: str) -> dict | None:
     }
 
 
+def search_commons(name: str, limit: int = 12) -> list[dict]:
+    """Fallback when the Wikipedia lead image is not free: search Commons files directly."""
+    d = api("commons.wikimedia.org", action="query", list="search", srsearch=f'"{name}"', srnamespace=6, srlimit=limit)
+    out = []
+    for hit in d["query"]["search"]:
+        fn = hit["title"].removeprefix("File:")
+        if not re.search(r"\.(jpe?g|png|webp)$", fn, re.I):
+            continue
+        meta = commons_meta(fn)
+        if meta and meta["allowed"]:
+            out.append(meta)
+    return out
+
+
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
     for name in sys.argv[1:]:
         li = lead_image(name)
         meta = commons_meta(li["file"]) if li else None
         if not meta:
-            print(f"{name}: no free image found (lead image missing or not on Commons)")
+            alts = search_commons(name)
+            if not alts:
+                print(f"{name}: no free image found (lead image missing; Commons search empty)")
+                continue
+            print(f"{name}: lead image not free; {len(alts)} free Commons candidates (verify by eye):")
+            for m in alts[:6]:
+                print(f"  [{m['license']}] {m['artist']} | {m['date']} | {m['page']}")
             continue
         flag = "OK " if meta["allowed"] else "NOT ALLOWED"
         print(f"{name}: [{flag}] {meta['license']} | {meta['artist']} | {meta['date']}\n  {meta['url']}\n  verify: {meta['page']}")
