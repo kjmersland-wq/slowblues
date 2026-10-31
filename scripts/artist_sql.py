@@ -23,7 +23,7 @@ import sys
 from pathlib import Path
 
 from _d1 import ROOT, query
-from new_artist_check import duplicates
+from new_artist_check import duplicates, norm
 
 LANGS = ["no", "en", "sv", "de", "pl"]
 JSON_COLS = {
@@ -80,6 +80,12 @@ def check(d: dict, existing: list[dict]) -> list[str]:
         problems.append("death needs two independent sources in _sources.death")
     if not d.get("videos"):
         problems.append("no videos: run new_artist_check.py (needs YouTube quota) and add API-verified ids")
+    # CLAUDE.md: a fan re-upload may not be the only source -> at least one video from the artist, a label or a Topic channel
+    def official(v):
+        ch = norm(v.get("channel", ""))
+        return norm(d["name"]) in ch or ch.endswith(("topic", "official", "records", "vevo")) or "official" in ch
+    if d.get("videos") and not any(official(v) for v in d["videos"]):
+        problems.append("only fan/third-party videos: need one from the artist, label or Topic channel")
     for v in d.get("videos", []):
         if not v.get("youtube_id"):
             problems.append(f"video without id: {v.get('title')}")
