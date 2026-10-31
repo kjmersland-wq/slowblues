@@ -1,0 +1,420 @@
+{
+  "slug": "dr-john",
+  "name": "Dr. John",
+  "tag": "Classic",
+  "era": "Modern Era",
+  "region": "North America",
+  "country": "United States",
+  "base_path": "/artists",
+  "birth_name": "Malcolm John Rebennack",
+  "img": "https://commons.wikimedia.org/wiki/Special:FilePath/Dr._John_2.jpg?width=1200",
+  "image_credit": "Photo: Derek Bridges New Orleans, LA, 2007 (Wikimedia Commons, CC BY 2.0)",
+  "born": "November 20, 1941, New Orleans, Louisiana",
+  "died": "June 6, 2019, New Orleans, Louisiana",
+  "birth_place": "New Orleans, Louisiana",
+  "origin": "New Orleans, Louisiana",
+  "styles": [
+    "New Orleans Blues",
+    "Rhythm and Blues",
+    "Funk",
+    "Voodoo Blues"
+  ],
+  "labels": [
+    "Atco"
+  ],
+  "instruments_simple": [
+    "Piano",
+    "Guitar",
+    "Vocals"
+  ],
+  "short": "The Night Tripper — voodoo piano, gravel voice and the whole spirit of New Orleans.",
+  "short_no": "Natt-vandreren — voodoo-piano, grusstemme og hele New Orleans' ånd.",
+  "short_en": "The Night Tripper — voodoo piano, gravel voice and the whole spirit of New Orleans.",
+  "short_sv": "Natt-vandraren — voodoopiano, grusröst och hela New Orleans anda.",
+  "short_de": "Der Night Tripper — Voodoo-Klavier, Kiesstimme und der ganze Geist von New Orleans.",
+  "short_pl": "Night Tripper — fortepian voodoo, żwirowy głos i cały duch Nowego Orleanu.",
+  "biography_no": "Dr. John var Malcolm John Rebennack, født i New Orleans i 1941, som vokste opp i byens studioer og klubber som gitarist og studiospiller. Som fjortenåring møtte han Professor Longhair, som ble den store innflytelsen på pianospillet, og da en skuddskade kostet ham en finger, gikk han over til piano på heltid.\n\nHan skapte rollefiguren Dr. John, Night Tripper, for den sumpete, uhyggelige «Gris-Gris» (1968). Det kommersielle gjennombruddet var «In the Right Place» (1973), og «Right Place, Wrong Time» nådde niendeplass på Hot 100. Han tok sin første Grammy i 1989 for en duett med Rickie Lee Jones, og seks til sammen.\n\nHan døde 6. juni 2019, 77 år gammel. Sett på hvilken som helst av platene, så hører du en hel by: second-line, funk, blues og tyngden av varmen i New Orleans.",
+  "biography_en": "Dr. John was Malcolm John Rebennack, born in New Orleans in 1941, who grew up in the city's studios and clubs as a guitarist and session player. At fourteen he met Professor Longhair, who became the great influence on his piano, and when a gunshot injury cost him a finger he moved to piano full-time.\n\nHe created the persona of Dr. John, the Night Tripper, for the swampy, spooky \"Gris-Gris\" (1968). The commercial breakthrough was \"In the Right Place\" (1973), and \"Right Place, Wrong Time\" reached number nine on the Hot 100. He picked up his first Grammy in 1989 for a duet with Rickie Lee Jones, and six in total.\n\nHe died on June 6, 2019, aged 77. Put on any of the records and you hear a whole city: second-line, funk, blues and the weight of New Orleans heat.",
+  "biography_sv": "Dr. John var Malcolm John Rebennack, född i New Orleans 1941, som växte upp i stadens studior och klubbar som gitarrist och studiospelare. Som fjortonåring träffade han Professor Longhair, som blev den stora influensen på pianospelet, och när en skottskada kostade honom ett finger gick han över till piano på heltid.\n\nHan skapade rollfiguren Dr. John, Night Tripper, för den träskiga, kusliga \"Gris-Gris\" (1968). Det kommersiella genombrottet var \"In the Right Place\" (1973), och \"Right Place, Wrong Time\" nådde nionde plats på Hot 100. Han tog sin första Grammy 1989 för en duett med Rickie Lee Jones, och sex totalt.\n\nHan dog den 6 juni 2019, 77 år gammal. Sätt på vilken som helst av skivorna så hör du en hel stad: second line, funk, blues och tyngden av hettan i New Orleans.",
+  "biography_de": "Dr. John war Malcolm John Rebennack, 1941 in New Orleans geboren, der in den Studios und Clubs der Stadt als Gitarrist und Session-Spieler aufwuchs. Mit vierzehn traf er Professor Longhair, der zum großen Einfluss auf sein Klavierspiel wurde, und als ihn eine Schussverletzung einen Finger kostete, wechselte er ganz zum Klavier.\n\nEr schuf die Figur Dr. John, den Night Tripper, für das sumpfige, gespenstische \"Gris-Gris\" (1968). Der kommerzielle Durchbruch war \"In the Right Place\" (1973), und \"Right Place, Wrong Time\" erreichte Platz neun der Hot 100. Seinen ersten Grammy holte er 1989 für ein Duett mit Rickie Lee Jones, insgesamt sechs.\n\nEr starb am 6. Juni 2019 mit 77. Leg irgendeine der Platten auf und du hörst eine ganze Stadt: Second Line, Funk, Blues und die Schwere der New-Orleans-Hitze.",
+  "biography_pl": "Dr. John to Malcolm John Rebennack, urodzony w Nowym Orleanie w 1941 roku, który dorastał w studiach i klubach miasta jako gitarzysta i muzyk sesyjny. Jako czternastolatek poznał Professora Longhaira, który stał się największym wpływem na jego grę na fortepianie, a gdy postrzał kosztował go palec, przeszedł na fortepian na stałe.\n\nStworzył postać Dr. Johna, Night Trippera, na bagiennym, upiornym \"Gris-Gris\" (1968). Komercyjny przełom przyniosło \"In the Right Place\" (1973), a \"Right Place, Wrong Time\" dotarło do dziewiątego miejsca Hot 100. Pierwszą nagrodę Grammy zdobył w 1989 roku za duet z Rickie Lee Jones, a w sumie sześć.\n\nZmarł 6 czerwca 2019 roku w wieku 77 lat. Włącz którąkolwiek z płyt, a usłyszysz całe miasto: second line, funk, bluesa i ciężar upału Nowego Orleanu.",
+  "influence_no": "Dr. John bar New Orleans-pianotradisjonen etter Professor Longhair inn i rock-æraen og holdt den i live i et halvt århundre. Voodoo-rollefiguren og de sumpete grooveene åpnet døren for en ny generasjon musikere fra Louisiana.",
+  "influence_en": "Dr. John carried the New Orleans piano tradition of Professor Longhair into the rock age and kept it alive for half a century. His voodoo persona and swampy grooves opened the door for a new generation of Louisiana musicians.",
+  "influence_sv": "Dr. John förde New Orleans pianotradition efter Professor Longhair in i rockeran och höll den vid liv i ett halvt sekel. Hans voodoopersona och träskiga grooves öppnade dörren för en ny generation musiker från Louisiana.",
+  "influence_de": "Dr. John trug die New-Orleans-Klaviertradition von Professor Longhair ins Rockzeitalter und hielt sie ein halbes Jahrhundert lang am Leben. Seine Voodoo-Persona und sumpfigen Grooves öffneten einer neuen Generation von Musikern aus Louisiana die Tür.",
+  "influence_pl": "Dr. John zaniósł nowoorleańską tradycję fortepianową Professora Longhaira w erę rocka i podtrzymywał ją przez pół wieku. Jego postać voodoo i bagienne groove'y otworzyły drzwi nowemu pokoleniu muzyków z Luizjany.",
+  "signature_songs": [
+    "Right Place, Wrong Time",
+    "I Walk on Guilded Splinters",
+    "Such a Night",
+    "Iko Iko"
+  ],
+  "signature_songs_i18n": {
+    "no": [
+      "Right Place, Wrong Time",
+      "I Walk on Guilded Splinters",
+      "Such a Night",
+      "Iko Iko"
+    ],
+    "en": [
+      "Right Place, Wrong Time",
+      "I Walk on Guilded Splinters",
+      "Such a Night",
+      "Iko Iko"
+    ],
+    "sv": [
+      "Right Place, Wrong Time",
+      "I Walk on Guilded Splinters",
+      "Such a Night",
+      "Iko Iko"
+    ],
+    "de": [
+      "Right Place, Wrong Time",
+      "I Walk on Guilded Splinters",
+      "Such a Night",
+      "Iko Iko"
+    ],
+    "pl": [
+      "Right Place, Wrong Time",
+      "I Walk on Guilded Splinters",
+      "Such a Night",
+      "Iko Iko"
+    ]
+  },
+  "influences_i18n": {
+    "no": [
+      "Professor Longhair",
+      "Huey \"Piano\" Smith"
+    ],
+    "en": [
+      "Professor Longhair",
+      "Huey \"Piano\" Smith"
+    ],
+    "sv": [
+      "Professor Longhair",
+      "Huey \"Piano\" Smith"
+    ],
+    "de": [
+      "Professor Longhair",
+      "Huey \"Piano\" Smith"
+    ],
+    "pl": [
+      "Professor Longhair",
+      "Huey \"Piano\" Smith"
+    ]
+  },
+  "formative_i18n": {
+    "no": [
+      "Vokste opp i New Orleans' studioer som gitarist og studiospiller.",
+      "Møtte Professor Longhair rundt fjortenårsalderen.",
+      "1968: Debuten «Gris-Gris» introduserte rollefiguren Dr. John."
+    ],
+    "en": [
+      "Grew up in New Orleans studios as a guitarist and session player.",
+      "Met Professor Longhair at about age 14.",
+      "1968: Debut \"Gris-Gris\" introduced the Dr. John persona."
+    ],
+    "sv": [
+      "Växte upp i New Orleans studior som gitarrist och studiospelare.",
+      "Träffade Professor Longhair vid ungefär fjorton års ålder.",
+      "1968: Debuten \"Gris-Gris\" introducerade rollfiguren Dr. John."
+    ],
+    "de": [
+      "Wuchs in den Studios von New Orleans als Gitarrist und Session-Spieler auf.",
+      "Traf Professor Longhair mit etwa 14.",
+      "1968: Das Debüt \"Gris-Gris\" stellte die Figur Dr. John vor."
+    ],
+    "pl": [
+      "Dorastał w studiach Nowego Orleanu jako gitarzysta i muzyk sesyjny.",
+      "Poznał Professora Longhaira w wieku około 14 lat.",
+      "1968: Debiut \"Gris-Gris\" przedstawił postać Dr. Johna."
+    ]
+  },
+  "anecdotes_i18n": {
+    "no": [
+      "Den første Grammyen, i 1989, kom for en duett med Rickie Lee Jones på «Makin' Whoopee».",
+      "Datoen for «Gris-Gris» oppgis som 1967 eller 1968, avhengig av kilden."
+    ],
+    "en": [
+      "His first Grammy, in 1989, came for a duet with Rickie Lee Jones on \"Makin' Whoopee\".",
+      "The date of \"Gris-Gris\" is given as 1967 or 1968, depending on the source."
+    ],
+    "sv": [
+      "Hans första Grammy, 1989, kom för en duett med Rickie Lee Jones på \"Makin' Whoopee\".",
+      "Datumet för \"Gris-Gris\" anges som 1967 eller 1968, beroende på källa."
+    ],
+    "de": [
+      "Sein erster Grammy 1989 kam für ein Duett mit Rickie Lee Jones auf \"Makin' Whoopee\".",
+      "Das Datum von \"Gris-Gris\" wird je nach Quelle mit 1967 oder 1968 angegeben."
+    ],
+    "pl": [
+      "Jego pierwsza Grammy, w 1989 roku, przyszła za duet z Rickie Lee Jones w \"Makin' Whoopee\".",
+      "Datę \"Gris-Gris\" podaje się jako 1967 lub 1968, zależnie od źródła."
+    ]
+  },
+  "instruments_i18n": {
+    "no": [
+      {
+        "category": "Piano",
+        "name": "Piano",
+        "note": "Rullende New Orleans-piano med grusstemme."
+      }
+    ],
+    "en": [
+      {
+        "category": "Piano",
+        "name": "Piano",
+        "note": "Rolling New Orleans piano with a gravelly voice."
+      }
+    ],
+    "sv": [
+      {
+        "category": "Piano",
+        "name": "Piano",
+        "note": "Rullande New Orleans-piano med grusröst."
+      }
+    ],
+    "de": [
+      {
+        "category": "Klavier",
+        "name": "Klavier",
+        "note": "Rollendes New-Orleans-Klavier mit Kiesstimme."
+      }
+    ],
+    "pl": [
+      {
+        "category": "Fortepian",
+        "name": "Fortepian",
+        "note": "Toczący się nowoorleański fortepian z żwirowym głosem."
+      }
+    ]
+  },
+  "collaborators_i18n": {
+    "no": [
+      {
+        "name": "Professor Longhair",
+        "note": "His great piano influence, met at about age 14."
+      },
+      {
+        "name": "Rickie Lee Jones",
+        "note": "Duet \"Makin' Whoopee\", Grammy winner in 1989."
+      }
+    ],
+    "en": [
+      {
+        "name": "Professor Longhair",
+        "note": "His great piano influence, met at about age 14."
+      },
+      {
+        "name": "Rickie Lee Jones",
+        "note": "Duet \"Makin' Whoopee\", Grammy winner in 1989."
+      }
+    ],
+    "sv": [
+      {
+        "name": "Professor Longhair",
+        "note": "His great piano influence, met at about age 14."
+      },
+      {
+        "name": "Rickie Lee Jones",
+        "note": "Duet \"Makin' Whoopee\", Grammy winner in 1989."
+      }
+    ],
+    "de": [
+      {
+        "name": "Professor Longhair",
+        "note": "His great piano influence, met at about age 14."
+      },
+      {
+        "name": "Rickie Lee Jones",
+        "note": "Duet \"Makin' Whoopee\", Grammy winner in 1989."
+      }
+    ],
+    "pl": [
+      {
+        "name": "Professor Longhair",
+        "note": "His great piano influence, met at about age 14."
+      },
+      {
+        "name": "Rickie Lee Jones",
+        "note": "Duet \"Makin' Whoopee\", Grammy winner in 1989."
+      }
+    ]
+  },
+  "discography_i18n": {
+    "no": [
+      {
+        "year": 1968,
+        "title": "Gris-Gris",
+        "label": "Atco",
+        "notes": "Debut; noen kilder sier 1967.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1973,
+        "title": "In the Right Place",
+        "label": "Atco",
+        "notes": "Kommersielt gjennombrudd med «Right Place, Wrong Time».",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "en": [
+      {
+        "year": 1968,
+        "title": "Gris-Gris",
+        "label": "Atco",
+        "notes": "Debut; some sources say 1967.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1973,
+        "title": "In the Right Place",
+        "label": "Atco",
+        "notes": "Commercial breakthrough with \"Right Place, Wrong Time\".",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "sv": [
+      {
+        "year": 1968,
+        "title": "Gris-Gris",
+        "label": "Atco",
+        "notes": "Debut; vissa källor säger 1967.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1973,
+        "title": "In the Right Place",
+        "label": "Atco",
+        "notes": "Kommersiellt genombrott med \"Right Place, Wrong Time\".",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "de": [
+      {
+        "year": 1968,
+        "title": "Gris-Gris",
+        "label": "Atco",
+        "notes": "Debüt; manche Quellen nennen 1967.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1973,
+        "title": "In the Right Place",
+        "label": "Atco",
+        "notes": "Kommerzieller Durchbruch mit \"Right Place, Wrong Time\".",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "pl": [
+      {
+        "year": 1968,
+        "title": "Gris-Gris",
+        "label": "Atco",
+        "notes": "Debiut; niektóre źródła podają 1967.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1973,
+        "title": "In the Right Place",
+        "label": "Atco",
+        "notes": "Komercyjny przełom z \"Right Place, Wrong Time\".",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ]
+  },
+  "awards_i18n": {
+    "no": [
+      {
+        "year": 1989,
+        "title": "Grammy Award",
+        "category": "Første Grammy, med Rickie Lee Jones",
+        "note": "Six wins in total (Grammy.com)"
+      }
+    ],
+    "en": [
+      {
+        "year": 1989,
+        "title": "Grammy Award",
+        "category": "First Grammy, with Rickie Lee Jones",
+        "note": "Six wins in total (Grammy.com)"
+      }
+    ],
+    "sv": [
+      {
+        "year": 1989,
+        "title": "Grammy Award",
+        "category": "Första Grammy, med Rickie Lee Jones",
+        "note": "Six wins in total (Grammy.com)"
+      }
+    ],
+    "de": [
+      {
+        "year": 1989,
+        "title": "Grammy Award",
+        "category": "Erster Grammy, mit Rickie Lee Jones",
+        "note": "Six wins in total (Grammy.com)"
+      }
+    ],
+    "pl": [
+      {
+        "year": 1989,
+        "title": "Grammy Award",
+        "category": "Pierwsza Grammy, z Rickie Lee Jones",
+        "note": "Six wins in total (Grammy.com)"
+      }
+    ]
+  },
+  "videos": [],
+  "external_links": [
+    {
+      "label": "YouTube Music",
+      "url": "https://music.youtube.com/search?q=Dr.+John"
+    },
+    {
+      "label": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Dr._John"
+    }
+  ],
+  "article_references": [
+    {
+      "title": "Dr. John — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Dr._John"
+    },
+    {
+      "title": "Dr. John dies at 77 — CBS News",
+      "url": "https://www.cbsnews.com/amp/news/dr-john-died-new-orleans-musician-dead-age-77-cause-of-death-unknown-2019-06-06"
+    },
+    {
+      "title": "Dr. John, New Orleans music legend, dies at 77 — Grammy.com",
+      "url": "https://www.grammy.com/news/dr-john-new-orleans-music-legend-dies-77/"
+    }
+  ],
+  "related_slugs": [
+    "etta-james",
+    "muddy-waters",
+    "t-bone-walker"
+  ],
+  "_inactive": true,
+  "_sources": {
+    "death": [
+      "https://www.cbsnews.com/amp/news/dr-john-died-new-orleans-musician-dead-age-77-cause-of-death-unknown-2019-06-06",
+      "https://www.grammy.com/news/dr-john-new-orleans-music-legend-dies-77/"
+    ]
+  },
+  "_todo": [
+    "The finger/gunshot detail, 'I Walk on Guilded Splinters', 'Such a Night', 'Iko Iko' and the Atco label are from memory: verify. Place of death not in results (assumed New Orleans): verify.",
+    "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:Dr._John_2.jpg",
+    "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug dr-john."
+  ]
+}

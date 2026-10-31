@@ -1,0 +1,362 @@
+{
+  "slug": "fats-domino",
+  "name": "Fats Domino",
+  "tag": "Classic",
+  "era": "Classic Era",
+  "region": "North America",
+  "country": "United States",
+  "base_path": "/artists",
+  "birth_name": "Antoine Domino Jr.",
+  "img": "https://commons.wikimedia.org/wiki/Special:FilePath/Fats_Domino_in_Amsterdam_1962_(crop).jpg?width=1200",
+  "image_credit": "Photo: Hugo van Gelderen / Anefo, 1962 (Wikimedia Commons, CC0)",
+  "born": "February 26, 1928, New Orleans, Louisiana",
+  "died": "October 24, 2017, Louisiana",
+  "birth_place": "New Orleans, Louisiana",
+  "origin": "New Orleans, Louisiana",
+  "styles": [
+    "Rhythm and Blues",
+    "New Orleans Blues",
+    "Rock and Roll"
+  ],
+  "labels": [
+    "Imperial"
+  ],
+  "instruments_simple": [
+    "Piano",
+    "Vocals"
+  ],
+  "short": "The Fat Man — a warm voice, rolling piano triplets and a smile that sold millions.",
+  "short_no": "Fat Man — en varm stemme, rullende pianotrioler og et smil som solgte millioner.",
+  "short_en": "The Fat Man — a warm voice, rolling piano triplets and a smile that sold millions.",
+  "short_sv": "Fat Man — en varm röst, rullande pianotrioler och ett leende som sålde miljoner.",
+  "short_de": "Der Fat Man — eine warme Stimme, rollende Klaviertriolen und ein Lächeln, das Millionen verkaufte.",
+  "short_pl": "Fat Man — ciepły głos, toczące się triole fortepianu i uśmiech, który sprzedał miliony.",
+  "biography_no": "Fats Domino var den yngste av åtte barn i New Orleans, og han spilte i barer som fjortenåring. Kallenavnet Fats skal ha kommet fra bandlederen Billy Diamond, og det ble hengende ved en mann som egentlig var liten og sjenert. Han signerte for Imperial Records i 1949 og jobbet i mange år med bandlederen og produsenten Dave Bartholomew, og sammen skapte de lyden av New Orleans-R&B.\n\nFormelen var enkel og uimotståelig: rullende pianotrioler, en avslappet beat og en myk stemme. «The Fat Man», «Ain't That a Shame» og «Blueberry Hill» var hits som gjorde ham til en av de bestselgende artistene på femtitallet. Han ble innlemmet i Rock and Roll Hall of Fame i 1986.\n\nHan ble i New Orleans hele livet og døde 24. oktober 2017. Hør hvor løs han er: dette er festmusikk med et bluesk hjerte.",
+  "biography_en": "Fats Domino was the youngest of eight children in New Orleans, and he was playing in bars by fourteen. The nickname Fats, the story goes, was given to him by bandleader Billy Diamond, and it stuck to a man who was in fact small and shy. He signed to Imperial Records in 1949 and worked for years with the bandleader and producer Dave Bartholomew, together making the sound of New Orleans R&B.\n\nThe formula was simple and irresistible: rolling piano triplets, a laid-back beat and a gentle voice. \"The Fat Man\", \"Ain't That a Shame\" and \"Blueberry Hill\" were hits that made him one of the best-selling artists of the fifties. He was inducted into the Rock and Roll Hall of Fame in 1986.\n\nHe stayed in New Orleans his whole life and died on October 24, 2017. Listen for how loose he is: this is party music with a blues heart.",
+  "biography_sv": "Fats Domino var yngst av åtta barn i New Orleans, och han spelade på barer som fjortonåring. Smeknamnet Fats ska ha kommit från bandledaren Billy Diamond, och det fastnade på en man som i själva verket var liten och blyg. Han skrev på för Imperial Records 1949 och arbetade i många år med bandledaren och producenten Dave Bartholomew, och tillsammans skapade de ljudet av New Orleans-R&B.\n\nFormeln var enkel och oemotståndlig: rullande pianotrioler, ett avslappnat beat och en mjuk röst. \"The Fat Man\", \"Ain't That a Shame\" och \"Blueberry Hill\" var hits som gjorde honom till en av femtiotalets bäst säljande artister. Han valdes in i Rock and Roll Hall of Fame 1986.\n\nHan stannade i New Orleans hela livet och dog den 24 oktober 2017. Lyssna på hur lös han är: det här är festmusik med ett blueshjärta.",
+  "biography_de": "Fats Domino war das jüngste von acht Kindern in New Orleans und spielte mit vierzehn in Bars. Den Spitznamen Fats gab ihm der Überlieferung nach Bandleader Billy Diamond, und er blieb an einem Mann hängen, der eigentlich klein und schüchtern war. 1949 unterschrieb er bei Imperial Records und arbeitete jahrelang mit dem Bandleader und Produzenten Dave Bartholomew, gemeinsam schufen sie den Sound des New-Orleans-R&B.\n\nDie Formel war einfach und unwiderstehlich: rollende Klaviertriolen, ein entspannter Beat und eine sanfte Stimme. \"The Fat Man\", \"Ain't That a Shame\" und \"Blueberry Hill\" waren Hits, die ihn zu einem der meistverkauften Künstler der Fünfziger machten. 1986 wurde er in die Rock and Roll Hall of Fame aufgenommen.\n\nEr blieb sein ganzes Leben in New Orleans und starb am 24. Oktober 2017. Hör, wie locker er ist: Das ist Partymusik mit Blues im Herzen.",
+  "biography_pl": "Fats Domino był najmłodszym z ośmiorga dzieci w Nowym Orleanie i jako czternastolatek grał w barach. Przydomek Fats podobno nadał mu lider zespołu Billy Diamond i przylgnął do człowieka, który w rzeczywistości był niski i nieśmiały. W 1949 roku podpisał kontrakt z Imperial Records i przez lata pracował z liderem i producentem Dave'em Bartholomewem, razem tworząc brzmienie nowoorleańskiego R&B.\n\nFormuła była prosta i nieodparta: toczące się triole fortepianu, swobodny beat i łagodny głos. \"The Fat Man\", \"Ain't That a Shame\" i \"Blueberry Hill\" były hitami, które uczyniły go jednym z najlepiej sprzedających się artystów lat pięćdziesiątych. W 1986 roku wprowadzono go do Rock and Roll Hall of Fame.\n\nPrzez całe życie został w Nowym Orleanie i zmarł 24 października 2017 roku. Posłuchaj, jaki jest swobodny: to muzyka na imprezę z bluesowym sercem.",
+  "influence_no": "Domino brakte New Orleans-pianoshuffle til hele verden. Elvis, Beatles og utallige andre lærte av platene hans, og den lette swingen hans er det varme hjertet i tidlig rock'n'roll.",
+  "influence_en": "Domino brought the New Orleans piano shuffle to the whole world. Elvis, the Beatles and countless others learned from his records, and his easygoing swing is the warm heart of early rock and roll.",
+  "influence_sv": "Domino förde New Orleans pianoshuffle till hela världen. Elvis, Beatles och otaliga andra lärde av hans skivor, och hans lättsamma swing är det varma hjärtat i tidig rock'n'roll.",
+  "influence_de": "Domino brachte den New-Orleans-Klavier-Shuffle in die ganze Welt. Elvis, die Beatles und unzählige andere lernten von seinen Platten, und sein lockerer Swing ist das warme Herz des frühen Rock'n'Roll.",
+  "influence_pl": "Domino zaniósł nowoorleański shuffle fortepianowy na cały świat. Elvis, Beatlesi i niezliczeni inni uczyli się z jego płyt, a jego swobodny swing jest ciepłym sercem wczesnego rock'n'rolla.",
+  "signature_songs": [
+    "The Fat Man",
+    "Ain't That a Shame",
+    "Blueberry Hill",
+    "I'm Walkin'"
+  ],
+  "signature_songs_i18n": {
+    "no": [
+      "The Fat Man",
+      "Ain't That a Shame",
+      "Blueberry Hill",
+      "I'm Walkin'"
+    ],
+    "en": [
+      "The Fat Man",
+      "Ain't That a Shame",
+      "Blueberry Hill",
+      "I'm Walkin'"
+    ],
+    "sv": [
+      "The Fat Man",
+      "Ain't That a Shame",
+      "Blueberry Hill",
+      "I'm Walkin'"
+    ],
+    "de": [
+      "The Fat Man",
+      "Ain't That a Shame",
+      "Blueberry Hill",
+      "I'm Walkin'"
+    ],
+    "pl": [
+      "The Fat Man",
+      "Ain't That a Shame",
+      "Blueberry Hill",
+      "I'm Walkin'"
+    ]
+  },
+  "influences_i18n": {
+    "no": [
+      "Professor Longhair",
+      "Amos Milburn"
+    ],
+    "en": [
+      "Professor Longhair",
+      "Amos Milburn"
+    ],
+    "sv": [
+      "Professor Longhair",
+      "Amos Milburn"
+    ],
+    "de": [
+      "Professor Longhair",
+      "Amos Milburn"
+    ],
+    "pl": [
+      "Professor Longhair",
+      "Amos Milburn"
+    ]
+  },
+  "formative_i18n": {
+    "no": [
+      "Yngst av åtte barn i New Orleans; spilte i barer som 14-åring.",
+      "1949: Signerte for Imperial Records.",
+      "Jobbet i mange år med produsent og bandleder Dave Bartholomew."
+    ],
+    "en": [
+      "Youngest of eight children in New Orleans; playing in bars at 14.",
+      "1949: Signed to Imperial Records.",
+      "Worked for years with producer and bandleader Dave Bartholomew."
+    ],
+    "sv": [
+      "Yngst av åtta barn i New Orleans; spelade på barer som 14-åring.",
+      "1949: Skrev på för Imperial Records.",
+      "Arbetade i många år med producenten och bandledaren Dave Bartholomew."
+    ],
+    "de": [
+      "Jüngstes von acht Kindern in New Orleans; mit 14 in Bars aktiv.",
+      "1949: Bei Imperial Records unter Vertrag.",
+      "Arbeitete jahrelang mit Produzent und Bandleader Dave Bartholomew."
+    ],
+    "pl": [
+      "Najmłodszy z ośmiorga dzieci w Nowym Orleanie; w wieku 14 lat grał w barach.",
+      "1949: Podpisał kontrakt z Imperial Records.",
+      "Przez lata pracował z producentem i liderem Dave'em Bartholomewem."
+    ]
+  },
+  "anecdotes_i18n": {
+    "no": [
+      "Kallenavnet «Fats» tilskrives bandlederen Billy Diamond.",
+      "Han forlot ABC-Paramount i 1965 og vendte tilbake til New Orleans for å jobbe med Dave Bartholomew."
+    ],
+    "en": [
+      "The nickname \"Fats\" is credited to bandleader Billy Diamond.",
+      "He left ABC-Paramount in 1965 and returned to work with Dave Bartholomew in New Orleans."
+    ],
+    "sv": [
+      "Smeknamnet \"Fats\" tillskrivs bandledaren Billy Diamond.",
+      "Han lämnade ABC-Paramount 1965 och återvände till New Orleans för att arbeta med Dave Bartholomew."
+    ],
+    "de": [
+      "Der Spitzname \"Fats\" wird Bandleader Billy Diamond zugeschrieben.",
+      "Er verließ ABC-Paramount 1965 und kehrte nach New Orleans zurück, um mit Dave Bartholomew zu arbeiten."
+    ],
+    "pl": [
+      "Przydomek \"Fats\" przypisuje się liderowi zespołu Billy'emu Diamondowi.",
+      "W 1965 roku opuścił ABC-Paramount i wrócił do Nowego Orleanu, by pracować z Dave'em Bartholomewem."
+    ]
+  },
+  "instruments_i18n": {
+    "no": [
+      {
+        "category": "Piano",
+        "name": "Piano",
+        "note": "Rullende trioler på pianoet med avslappet backbeat."
+      }
+    ],
+    "en": [
+      {
+        "category": "Piano",
+        "name": "Piano",
+        "note": "Rolling triplet piano with a laid-back backbeat."
+      }
+    ],
+    "sv": [
+      {
+        "category": "Piano",
+        "name": "Piano",
+        "note": "Rullande triolpiano med avslappnad backbeat."
+      }
+    ],
+    "de": [
+      {
+        "category": "Klavier",
+        "name": "Klavier",
+        "note": "Rollende Triolen am Klavier mit entspanntem Backbeat."
+      }
+    ],
+    "pl": [
+      {
+        "category": "Fortepian",
+        "name": "Fortepian",
+        "note": "Toczące się triole z swobodnym backbeatem."
+      }
+    ]
+  },
+  "collaborators_i18n": {
+    "no": [
+      {
+        "name": "Dave Bartholomew",
+        "note": "Producer and bandleader; partner on his hits."
+      }
+    ],
+    "en": [
+      {
+        "name": "Dave Bartholomew",
+        "note": "Producer and bandleader; partner on his hits."
+      }
+    ],
+    "sv": [
+      {
+        "name": "Dave Bartholomew",
+        "note": "Producer and bandleader; partner on his hits."
+      }
+    ],
+    "de": [
+      {
+        "name": "Dave Bartholomew",
+        "note": "Producer and bandleader; partner on his hits."
+      }
+    ],
+    "pl": [
+      {
+        "name": "Dave Bartholomew",
+        "note": "Producer and bandleader; partner on his hits."
+      }
+    ]
+  },
+  "discography_i18n": {
+    "no": [
+      {
+        "year": 1949,
+        "title": "The Fat Man (single)",
+        "label": "Imperial",
+        "notes": "Hans første hit på Imperial.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "en": [
+      {
+        "year": 1949,
+        "title": "The Fat Man (single)",
+        "label": "Imperial",
+        "notes": "His first hit on Imperial.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "sv": [
+      {
+        "year": 1949,
+        "title": "The Fat Man (single)",
+        "label": "Imperial",
+        "notes": "Hans första hit på Imperial.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "de": [
+      {
+        "year": 1949,
+        "title": "The Fat Man (single)",
+        "label": "Imperial",
+        "notes": "Sein erster Hit bei Imperial.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "pl": [
+      {
+        "year": 1949,
+        "title": "The Fat Man (single)",
+        "label": "Imperial",
+        "notes": "Jego pierwszy hit w Imperial.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ]
+  },
+  "awards_i18n": {
+    "no": [
+      {
+        "year": 1986,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Innlemmet",
+        "note": ""
+      }
+    ],
+    "en": [
+      {
+        "year": 1986,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Inducted",
+        "note": ""
+      }
+    ],
+    "sv": [
+      {
+        "year": 1986,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Invald",
+        "note": ""
+      }
+    ],
+    "de": [
+      {
+        "year": 1986,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Aufgenommen",
+        "note": ""
+      }
+    ],
+    "pl": [
+      {
+        "year": 1986,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Wprowadzony",
+        "note": ""
+      }
+    ]
+  },
+  "videos": [],
+  "external_links": [
+    {
+      "label": "YouTube Music",
+      "url": "https://music.youtube.com/search?q=Fats+Domino"
+    },
+    {
+      "label": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Fats_Domino"
+    }
+  ],
+  "article_references": [
+    {
+      "title": "Fats Domino — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Fats_Domino"
+    },
+    {
+      "title": "Fats Domino — Britannica",
+      "url": "https://www.britannica.com/print/article/168791"
+    },
+    {
+      "title": "Fats Domino — Tipitina's",
+      "url": "https://tipitinas.com/?p=3267"
+    },
+    {
+      "title": "In Memoriam: Fats Domino — WWOZ",
+      "url": "https://wwoz.org/blog/305966"
+    }
+  ],
+  "related_slugs": [
+    "etta-james",
+    "t-bone-walker",
+    "muddy-waters"
+  ],
+  "_inactive": true,
+  "_sources": {
+    "death": [
+      "https://www.britannica.com/print/article/168791",
+      "https://www.biography.com/musician/fats-domino"
+    ]
+  },
+  "_todo": [
+    "Place of death differs (Harvey vs New Orleans); song titles not in search results, from memory: verify; record sales claims (65M vs 110M) left out.",
+    "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:Fats_Domino_in_Amsterdam_1962_%28crop%29.jpg",
+    "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug fats-domino."
+  ]
+}
