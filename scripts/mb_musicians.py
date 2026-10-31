@@ -248,6 +248,64 @@ def render(rows: list[dict], fmt: str, artist: dict) -> str:
     return "\n".join(lines)
 
 
+def d1_query(sql: str) -> list[dict]:
+    """Read-only query against the live D1 (needs `npx wrangler login`)."""
+    import os
+    import subprocess
+
+    root = Path(__file__).resolve().parent.parent
+    res = subprocess.run(
+        ["npx", "wrangler", "d1", "execute", "slowblues", "--remote", "--json", "--command", sql],
+        cwd=root, capture_output=True, text=True, encoding="utf-8", errors="replace", shell=(os.name == "nt"),
+    )
+    if res.returncode != 0:
+        raise SystemExit(f"wrangler failed: {res.stderr[-500:]}")
+    return json.loads(res.stdout[res.stdout.find("["):])[0]["results"]
+
+
+def title_key(title: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "", title.casefold())
+
+
+def sql_str(value: str) -> str:
+    return "'" + value.replace("'", "''") + "'"
+
+
+def merge_into_discography(slug: str, rows: list[dict]) -> tuple[str | None, list[str]]:
+    """Fill EMPTY `musicians` fields in artists.discography_i18n (all languages).
+
+    Returns (guarded UPDATE or None, dry-run lines). Existing musician data is
+    never overwritten, and the UPDATE is a no-op if the row changed meanwhile.
+    """
+    found = d1_query(f"SELECT discography_i18n FROM artists WHERE slug = {sql_str(slug)}")
+    if not found:
+        raise SystemExit(f"No artist with slug {slug!r} in D1")
+    old_raw = found[0]["discography_i18n"]
+    disc = json.loads(old_raw or "{}")
+    by_title = {title_key(r["title"]): r for r in rows if r["credits"]}
+    report, changed = [], False
+    for lang, entries in disc.items():
+        for e in entries:
+            hit = by_title.get(title_key(e.get("title", "")))
+            if e.get("musicians"):
+                status = "kept (already has musicians)"
+            elif not hit:
+                status = "no MusicBrainz credits matched"
+            else:
+                e["musicians"] = [{"name": n, "instrument": ", ".join(r)} for n, r in hit["credits"].items()]
+                status = f"filled {len(e['musicians'])} musicians"
+                changed = True
+            report.append(f"[{lang}] {e.get('year')} {e.get('title')}: {status}")
+    if not changed:
+        return None, report
+    new_raw = json.dumps(disc, ensure_ascii=False, separators=(",", ":"))
+    sql = (
+        f"UPDATE artists SET discography_i18n = {sql_str(new_raw)} "
+        f"WHERE slug = {sql_str(slug)} AND discography_i18n = {sql_str(old_raw)};"
+    )
+    return sql, report
+
+
 def slugify(name: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", name.casefold()).strip("-")
 
@@ -267,6 +325,7 @@ def main() -> None:
     p.add_argument("--include-compilations", action="store_true", help="include compilations")
     p.add_argument("--skip-main", action="store_true", help="leave the artist themself out of the musician list")
     p.add_argument("--tries", type=int, default=2, help="releases to try per album when one has no credits")
+    p.add_argument("--merge-slug", help="D1 artist slug: fill empty Musikere fields and write a guarded UPDATE (single artist)")
     p.add_argument("--no-cache", action="store_true", help="ignore the .mb-cache/ response cache")
     args = p.parse_args()
 
@@ -278,7 +337,7 @@ def main() -> None:
                 names.append(line)
     if not names:
         p.error("give at least one artist name or --file")
-    if args.mbid and len(names) != 1:
+    if (args.mbid or args.merge_slug) and len(names) != 1:
         p.error("--mbid only works with exactly one artist")
 
     out_dir = Path(args.out_dir) if args.out_dir else None
@@ -290,6 +349,18 @@ def main() -> None:
             artist, rows = build_rows(name, args)
         except SystemExit as e:  # artist not found: report and move on
             log(str(e))
+            continue
+        if args.merge_slug:
+            sql, lines = merge_into_discography(args.merge_slug, rows)
+            target = (out_dir or Path("out/mb")) / f"{args.merge_slug}.sql"
+            target.parent.mkdir(parents=True, exist_ok=True)
+            print("\n".join(lines))
+            if sql:
+                cmd = f"npx wrangler d1 execute slowblues --remote --file {target.as_posix()}"
+                target.write_text(f"-- Review the dry-run first; apply with: {cmd}\n{sql}\n", encoding="utf-8")
+                log(f"  wrote {target} (NOT applied)")
+            else:
+                log("  nothing to update")
             continue
         text = render(rows, args.format, artist)
         if out_dir:
