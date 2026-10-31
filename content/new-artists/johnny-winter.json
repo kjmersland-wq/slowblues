@@ -445,11 +445,12 @@
   ],
   "_sources": {
     "death": [
-      "https://en.wikipedia.org/wiki/Johnny_Winter"
+      "https://www.foxnews.com/entertainment/blues-guitar-legend-johnny-winter-dies.amp",
+      "https://www.jambase.com/article/in-memoriam-blues-guitarist-johnny-winter-1944-2014"
     ]
   },
   "_todo": [
-    "Death needs a second independent source (only Wikipedia + search aggregators so far).",
+    "Open both death sources (AP via Fox News, JamBase) and confirm date/place on the pages themselves.",
     "Verify Woodstock 1969 performance and the song titles for each album before publishing.",
     "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:Johnny_Winter1990.jpg",
     "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug johnny-winter."
