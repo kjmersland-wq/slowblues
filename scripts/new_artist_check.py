@@ -102,8 +102,7 @@ def main() -> None:
         try:
             yres = youtube(yt, name) if yt else None
         except SystemExit as e:  # quota exhausted: keep what we have and stop cleanly
-            print(f"
-STOPPED at {name}: {e}")
+            print(f"STOPPED at {name}: {e}")
             break
         results.append({"name": name, "duplicates": dup, "mentioned_in": ment, "youtube": yres})
         verdict = "DUPLICATE" if dup else ("ok" if (yres is None or yres["ok"]) else "NO VIDEOS")
