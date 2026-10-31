@@ -32,6 +32,13 @@ const ESSENTIAL_ALBUMS = [
   { artist: "Stevie Ray Vaughan", album: "Texas Flood (1983)", note: "The album that single-handedly restarted the blues-rock revival." },
 ];
 
+// Opens YouTube's results for the album itself ("artist + title + full album"), the same way the
+// playlist cards above link out. Swap in a direct album-playlist URL per entry when one is verified.
+function albumYoutubeUrl(artist: string, album: string): string {
+  const title = album.replace(/\s*\(\d{4}\)\s*$/, "");
+  return `https://www.youtube.com/results?search_query=${encodeURIComponent(`${artist} ${title} full album`)}`;
+}
+
 function ListenPage() {
   const { t, lang } = useI18n();
   return (
@@ -55,7 +62,11 @@ function ListenPage() {
           {ESSENTIAL_ALBUMS.map((a) => (
             <div key={a.album} className="grid md:grid-cols-3 gap-2 p-4 border-b border-border">
               <div className="font-display text-lg text-gold">{a.artist}</div>
-              <div className="text-foreground">{a.album}</div>
+              <div className="text-foreground">
+                <a href={albumYoutubeUrl(a.artist, a.album)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-gold transition">
+                  {a.album} <Youtube className="size-3.5 text-gold shrink-0" aria-label="YouTube" />
+                </a>
+              </div>
               <div className="text-sm text-muted-foreground italic">{a.note}</div>
             </div>
           ))}
