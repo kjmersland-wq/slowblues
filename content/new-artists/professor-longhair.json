@@ -1,0 +1,407 @@
+{
+  "slug": "professor-longhair",
+  "name": "Professor Longhair",
+  "tag": "Classic",
+  "era": "Classic Era",
+  "region": "North America",
+  "country": "United States",
+  "base_path": "/artists",
+  "birth_name": "Henry Roeland Byrd",
+  "img": "https://commons.wikimedia.org/wiki/Special:FilePath/New_Orleans_Jazz_Fest_1975_-_Jambalaya_-_Fess.jpg?width=1200",
+  "image_credit": "Photo: Unknown authorUnknown author, 1975 (Wikimedia Commons, Public domain)",
+  "born": "December 19, 1918, Bogalusa, Louisiana",
+  "died": "January 30, 1980, New Orleans, Louisiana",
+  "birth_place": "Bogalusa, Louisiana",
+  "origin": "New Orleans, Louisiana",
+  "styles": [
+    "New Orleans Blues",
+    "Rhythm and Blues",
+    "Piano Blues"
+  ],
+  "labels": [
+    "Alligator"
+  ],
+  "instruments_simple": [
+    "Piano",
+    "Vocals"
+  ],
+  "short": "\"Fess\" — the rumba-boogie piano that taught New Orleans how to swing.",
+  "short_no": "«Fess» — rumba-boogie-pianoet som lærte New Orleans å swinge.",
+  "short_en": "\"Fess\" — the rumba-boogie piano that taught New Orleans how to swing.",
+  "short_sv": "\"Fess\" — rumba-boogie-pianot som lärde New Orleans att svänga.",
+  "short_de": "\"Fess\" — das Rumba-Boogie-Klavier, das New Orleans das Swingen beibrachte.",
+  "short_pl": "\"Fess\" — fortepian rumba-boogie, które nauczyło Nowy Orlean swingu.",
+  "biography_no": "Professor Longhair var Henry Roeland Byrd, født i Bogalusa, Louisiana, i 1918 og vokst opp i New Orleans, der pianoet var hele livet hans. Han fikk navnet av det lange håret og måten han satt ved tangentene på, og alle kalte ham «Fess». Han beskrev sin egen stil som en blanding av rhumba, mambo og calypso, og når du hører en venstrehånd rulle sånn, forstår du.\n\nHan spilte på klubbene i New Orleans fra førtitallet og lagde plater som «Mardi Gras in New Orleans» (1949), «Tipitina» og «Big Chief». I mange år var han nesten glemt og jobbet dagjobber, men Jazz Fest brakte ham tilbake på syttitallet, og han fikk sitt comeback med nye plater og turneer.\n\nHan døde i søvne 30. januar 1980, to dager før albumet «Crawfish Fiesta» ble sendt ut fra Alligator Records. Dr. John, James Booker, Fats Domino og Eddie Bo lærte alle av ham. Sett på «Tipitina», så hører du hele byen.",
+  "biography_en": "Professor Longhair was Henry Roeland Byrd, born in Bogalusa, Louisiana, in 1918, and raised in New Orleans, where the piano was his whole life. He got the name from his long hair and the way he sat at the keys, and everyone called him \"Fess\". He described his own style as a mix of rhumba, mambo and calypso, and when you hear a left hand rolling like that you understand.\n\nHe played the New Orleans clubs from the forties, and made records like \"Mardi Gras in New Orleans\" (1949), \"Tipitina\" and \"Big Chief\". For years he was almost forgotten, working day jobs, but the Jazz Fest brought him back in the seventies, and he made his comeback with new records and tours.\n\nHe died in his sleep on January 30, 1980, two days before his album \"Crawfish Fiesta\" shipped from Alligator Records. Dr. John, James Booker, Fats Domino and Eddie Bo all learned from him. Put on \"Tipitina\" and you hear the whole city.",
+  "biography_sv": "Professor Longhair var Henry Roeland Byrd, född i Bogalusa, Louisiana, 1918 och uppvuxen i New Orleans, där pianot var hela hans liv. Han fick namnet av det långa håret och sättet han satt vid tangenterna, och alla kallade honom \"Fess\". Han beskrev sin egen stil som en blandning av rhumba, mambo och calypso, och när man hör en vänsterhand rulla så förstår man.\n\nHan spelade på klubbarna i New Orleans från fyrtiotalet och gjorde skivor som \"Mardi Gras in New Orleans\" (1949), \"Tipitina\" och \"Big Chief\". I många år var han nästan bortglömd och hade dagjobb, men Jazz Fest förde tillbaka honom på sjuttiotalet, och han fick sin comeback med nya skivor och turnéer.\n\nHan dog i sömnen den 30 januari 1980, två dagar innan albumet \"Crawfish Fiesta\" skickades ut från Alligator Records. Dr. John, James Booker, Fats Domino och Eddie Bo lärde sig alla av honom. Sätt på \"Tipitina\" så hör du hela staden.",
+  "biography_de": "Professor Longhair war Henry Roeland Byrd, 1918 in Bogalusa, Louisiana, geboren und in New Orleans aufgewachsen, wo das Klavier sein ganzes Leben war. Den Namen bekam er von seinem langen Haar und der Art, wie er an den Tasten saß, und alle nannten ihn \"Fess\". Seinen eigenen Stil beschrieb er als Mischung aus Rhumba, Mambo und Calypso, und wenn man eine linke Hand so rollen hört, versteht man das.\n\nEr spielte ab den Vierzigern in den Clubs von New Orleans und machte Platten wie \"Mardi Gras in New Orleans\" (1949), \"Tipitina\" und \"Big Chief\". Jahrelang war er fast vergessen und hatte Tagesjobs, aber das Jazz Fest brachte ihn in den Siebzigern zurück, und er feierte sein Comeback mit neuen Platten und Tourneen.\n\nEr starb am 30. Januar 1980 im Schlaf, zwei Tage bevor sein Album \"Crawfish Fiesta\" bei Alligator Records ausgeliefert wurde. Dr. John, James Booker, Fats Domino und Eddie Bo lernten alle von ihm. Leg \"Tipitina\" auf und du hörst die ganze Stadt.",
+  "biography_pl": "Professor Longhair to Henry Roeland Byrd, urodzony w Bogalusa w Luizjanie w 1918 roku i wychowany w Nowym Orleanie, gdzie fortepian był całym jego życiem. Przydomek wziął od długich włosów i sposobu, w jaki siedział przy klawiszach, i wszyscy nazywali go \"Fess\". Swój styl opisywał jako mieszankę rumby, mambo i calypso, a gdy słyszy się, jak tocząca się lewa ręka brzmi, wszystko jasne.\n\nGrał w klubach Nowego Orleanu od lat czterdziestych i nagrywał takie utwory jak \"Mardi Gras in New Orleans\" (1949), \"Tipitina\" i \"Big Chief\". Przez lata był prawie zapomniany i pracował na etacie, ale Jazz Fest przywrócił go w latach siedemdziesiątych i miał powrót z nowymi płytami i trasami.\n\nZmarł we śnie 30 stycznia 1980 roku, dwa dni przed wysłaniem do sklepów albumu \"Crawfish Fiesta\" z Alligator Records. Dr. John, James Booker, Fats Domino i Eddie Bo uczyli się od niego. Włącz \"Tipitina\" i usłyszysz całe miasto.",
+  "influence_no": "Professor Longhair er roten til New Orleans-pianoet: den rumba-og-boogie-bevegde venstrehånden formet Fats Domino, Allen Toussaint, James Booker og Dr. John, og går rett gjennom byens rhythm and blues.",
+  "influence_en": "Professor Longhair is the root of New Orleans piano: his rumba-and-boogie left hand shaped Fats Domino, Allen Toussaint, James Booker and Dr. John, and runs right through the city's rhythm and blues.",
+  "influence_sv": "Professor Longhair är roten till New Orleans-pianot: hans rumba-och-boogie-vänsterhand formade Fats Domino, Allen Toussaint, James Booker och Dr. John, och går rakt genom stadens rhythm and blues.",
+  "influence_de": "Professor Longhair ist die Wurzel des New-Orleans-Pianos: Seine Rumba-und-Boogie-linke-Hand prägte Fats Domino, Allen Toussaint, James Booker und Dr. John und zieht sich durch den Rhythm and Blues der Stadt.",
+  "influence_pl": "Professor Longhair jest korzeniem fortepianu z Nowego Orleanu: jego lewa ręka rumby i boogie ukształtowała Fatsa Domino, Allena Toussainta, Jamesa Bookera i Dr. Johna i przebiega przez rhythm and blues miasta.",
+  "signature_songs": [
+    "Tipitina",
+    "Mardi Gras in New Orleans",
+    "Big Chief",
+    "Go to the Mardi Gras"
+  ],
+  "signature_songs_i18n": {
+    "no": [
+      "Tipitina",
+      "Mardi Gras in New Orleans",
+      "Big Chief",
+      "Go to the Mardi Gras"
+    ],
+    "en": [
+      "Tipitina",
+      "Mardi Gras in New Orleans",
+      "Big Chief",
+      "Go to the Mardi Gras"
+    ],
+    "sv": [
+      "Tipitina",
+      "Mardi Gras in New Orleans",
+      "Big Chief",
+      "Go to the Mardi Gras"
+    ],
+    "de": [
+      "Tipitina",
+      "Mardi Gras in New Orleans",
+      "Big Chief",
+      "Go to the Mardi Gras"
+    ],
+    "pl": [
+      "Tipitina",
+      "Mardi Gras in New Orleans",
+      "Big Chief",
+      "Go to the Mardi Gras"
+    ]
+  },
+  "influences_i18n": {
+    "no": [
+      "Rhumba",
+      "Boogie-woogie",
+      "Calypso"
+    ],
+    "en": [
+      "Rhumba",
+      "Boogie-woogie",
+      "Calypso"
+    ],
+    "sv": [
+      "Rhumba",
+      "Boogie-woogie",
+      "Calypso"
+    ],
+    "de": [
+      "Rhumba",
+      "Boogie-woogie",
+      "Calypso"
+    ],
+    "pl": [
+      "Rhumba",
+      "Boogie-woogie",
+      "Calypso"
+    ]
+  },
+  "formative_i18n": {
+    "no": [
+      "Født i Bogalusa, Louisiana, og vokst opp i New Orleans.",
+      "1940-tallet: Spilte på klubber i New Orleans som Caledonia Inn.",
+      "1970-tallet: Comeback gjennom New Orleans Jazz & Heritage Festival."
+    ],
+    "en": [
+      "Born in Bogalusa, Louisiana, and raised in New Orleans.",
+      "1940s: Played New Orleans clubs such as the Caledonia Inn.",
+      "1970s: Comeback via the New Orleans Jazz & Heritage Festival."
+    ],
+    "sv": [
+      "Född i Bogalusa, Louisiana, och uppvuxen i New Orleans.",
+      "1940-talet: Spelade på klubbar i New Orleans som Caledonia Inn.",
+      "1970-talet: Comeback genom New Orleans Jazz & Heritage Festival."
+    ],
+    "de": [
+      "In Bogalusa, Louisiana, geboren und in New Orleans aufgewachsen.",
+      "1940er: Spielte in Clubs in New Orleans wie dem Caledonia Inn.",
+      "1970er: Comeback über das New Orleans Jazz & Heritage Festival."
+    ],
+    "pl": [
+      "Urodzony w Bogalusa w Luizjanie i wychowany w Nowym Orleanie.",
+      "Lata 40.: Grał w klubach Nowego Orleanu, takich jak Caledonia Inn.",
+      "Lata 70.: Powrót dzięki New Orleans Jazz & Heritage Festival."
+    ]
+  },
+  "anecdotes_i18n": {
+    "no": [
+      "Han døde i søvne to dager før «Crawfish Fiesta» ble sendt ut.",
+      "Han beskrev pianostilen sin som en blanding av rhumba, mambo og calypso."
+    ],
+    "en": [
+      "He died in his sleep two days before \"Crawfish Fiesta\" shipped.",
+      "He described his piano style as a mix of rhumba, mambo and calypso."
+    ],
+    "sv": [
+      "Han dog i sömnen två dagar innan \"Crawfish Fiesta\" skickades ut.",
+      "Han beskrev sin pianostil som en blandning av rhumba, mambo och calypso."
+    ],
+    "de": [
+      "Er starb im Schlaf zwei Tage vor Auslieferung von \"Crawfish Fiesta\".",
+      "Seinen Klavierstil beschrieb er als Mischung aus Rhumba, Mambo und Calypso."
+    ],
+    "pl": [
+      "Zmarł we śnie dwa dni przed wysłaniem \"Crawfish Fiesta\".",
+      "Swój styl gry na fortepianie opisywał jako mieszankę rumby, mambo i calypso."
+    ]
+  },
+  "instruments_i18n": {
+    "no": [
+      {
+        "category": "Piano",
+        "name": "Oppreist piano og flygel",
+        "note": "En rullende, synkopert venstrehånd med rhumba- og calypso-aksenter."
+      }
+    ],
+    "en": [
+      {
+        "category": "Piano",
+        "name": "Upright and grand piano",
+        "note": "A rolling, syncopated left hand with rhumba and calypso accents."
+      }
+    ],
+    "sv": [
+      {
+        "category": "Piano",
+        "name": "Piano och flygel",
+        "note": "En rullande, synkoperad vänsterhand med rhumba- och calypsoaccenter."
+      }
+    ],
+    "de": [
+      {
+        "category": "Klavier",
+        "name": "Klavier und Flügel",
+        "note": "Eine rollende, synkopierte linke Hand mit Rhumba- und Calypso-Akzenten."
+      }
+    ],
+    "pl": [
+      {
+        "category": "Fortepian",
+        "name": "Pianino i fortepian",
+        "note": "Toczącą się, synkopowana lewa ręka z akcentami rumby i calypso."
+      }
+    ]
+  },
+  "collaborators_i18n": {
+    "no": [
+      {
+        "name": "Earl King",
+        "note": "Wrote \"Big Chief\", which brought Longhair back into the studio (1964)."
+      }
+    ],
+    "en": [
+      {
+        "name": "Earl King",
+        "note": "Wrote \"Big Chief\", which brought Longhair back into the studio (1964)."
+      }
+    ],
+    "sv": [
+      {
+        "name": "Earl King",
+        "note": "Wrote \"Big Chief\", which brought Longhair back into the studio (1964)."
+      }
+    ],
+    "de": [
+      {
+        "name": "Earl King",
+        "note": "Wrote \"Big Chief\", which brought Longhair back into the studio (1964)."
+      }
+    ],
+    "pl": [
+      {
+        "name": "Earl King",
+        "note": "Wrote \"Big Chief\", which brought Longhair back into the studio (1964)."
+      }
+    ]
+  },
+  "discography_i18n": {
+    "no": [
+      {
+        "year": 1949,
+        "title": "Mardi Gras in New Orleans (single)",
+        "label": "Mercury",
+        "notes": "En rumba-boogie karnevalsklassiker.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1980,
+        "title": "Crawfish Fiesta",
+        "label": "Alligator",
+        "notes": "Utgitt like etter hans død.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "en": [
+      {
+        "year": 1949,
+        "title": "Mardi Gras in New Orleans (single)",
+        "label": "Mercury",
+        "notes": "A rumba-boogie Carnival classic.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1980,
+        "title": "Crawfish Fiesta",
+        "label": "Alligator",
+        "notes": "Released just after his death.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "sv": [
+      {
+        "year": 1949,
+        "title": "Mardi Gras in New Orleans (single)",
+        "label": "Mercury",
+        "notes": "En rumba-boogie karnevalsklassiker.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1980,
+        "title": "Crawfish Fiesta",
+        "label": "Alligator",
+        "notes": "Utgiven strax efter hans död.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "de": [
+      {
+        "year": 1949,
+        "title": "Mardi Gras in New Orleans (single)",
+        "label": "Mercury",
+        "notes": "Ein Rumba-Boogie-Karnevalsklassiker.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1980,
+        "title": "Crawfish Fiesta",
+        "label": "Alligator",
+        "notes": "Kurz nach seinem Tod erschienen.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "pl": [
+      {
+        "year": 1949,
+        "title": "Mardi Gras in New Orleans (single)",
+        "label": "Mercury",
+        "notes": "Karnawałowa klasyka rumba-boogie.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1980,
+        "title": "Crawfish Fiesta",
+        "label": "Alligator",
+        "notes": "Wydane tuż po jego śmierci.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ]
+  },
+  "awards_i18n": {
+    "no": [
+      {
+        "year": 1992,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Innlemmet",
+        "note": "Posthumous"
+      }
+    ],
+    "en": [
+      {
+        "year": 1992,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Inducted",
+        "note": "Posthumous"
+      }
+    ],
+    "sv": [
+      {
+        "year": 1992,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Invald",
+        "note": "Posthumous"
+      }
+    ],
+    "de": [
+      {
+        "year": 1992,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Aufgenommen",
+        "note": "Posthumous"
+      }
+    ],
+    "pl": [
+      {
+        "year": 1992,
+        "title": "Rock and Roll Hall of Fame",
+        "category": "Wprowadzony",
+        "note": "Posthumous"
+      }
+    ]
+  },
+  "videos": [],
+  "external_links": [
+    {
+      "label": "YouTube Music",
+      "url": "https://music.youtube.com/search?q=Professor+Longhair"
+    },
+    {
+      "label": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Professor_Longhair"
+    }
+  ],
+  "article_references": [
+    {
+      "title": "Professor Longhair — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Professor_Longhair"
+    },
+    {
+      "title": "Professor Longhair — Tipitina's",
+      "url": "https://tipitinas.com/biographytime-professorlonghair/"
+    },
+    {
+      "title": "Professor Longhair — Rock Hall 1992",
+      "url": "https://rockhall.com/wp-content/uploads/2024/03/Professor_Longhair_1992.pdf"
+    },
+    {
+      "title": "Professor Longhair — Big Train Blues",
+      "url": "https://bigtrainblues.com/professor-longhair/"
+    }
+  ],
+  "related_slugs": [
+    "t-bone-walker",
+    "etta-james",
+    "muddy-waters"
+  ],
+  "_inactive": true,
+  "_sources": {
+    "death": [
+      "https://www.findagrave.com/memorial/2703",
+      "https://tipitinas.com/biographytime-professorlonghair/"
+    ]
+  },
+  "_todo": [
+    "'Mardi Gras in New Orleans' label (Mercury) from memory: verify. 'Go to the Mardi Gras' from memory. Rock Hall 1992 taken from the induction PDF name.",
+    "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:New_Orleans_Jazz_Fest_1975_-_Jambalaya_-_Fess.jpg",
+    "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug professor-longhair."
+  ]
+}

@@ -1,0 +1,362 @@
+{
+  "slug": "wc-handy",
+  "name": "W. C. Handy",
+  "tag": "Classic",
+  "era": "Pioneers",
+  "region": "North America",
+  "country": "United States",
+  "base_path": "/artists",
+  "birth_name": "William Christopher Handy",
+  "img": "https://commons.wikimedia.org/wiki/Special:FilePath/W._C._Handy_(1941_Van_Vechten_portrait).jpg?width=1200",
+  "image_credit": "Photo: Carl Van Vechten, 1941 (Wikimedia Commons, Public domain)",
+  "born": "November 16, 1873, Florence, Alabama",
+  "died": "March 1958, New York City",
+  "birth_place": "Florence, Alabama",
+  "origin": "Memphis, Tennessee",
+  "styles": [
+    "Classic Blues",
+    "Early Blues",
+    "Jazz"
+  ],
+  "labels": [
+    "Handy Brothers Music"
+  ],
+  "instruments_simple": [
+    "Cornet",
+    "Trumpet",
+    "Vocals"
+  ],
+  "short": "The man who wrote the blues down — \"St. Louis Blues\" and the title Father of the Blues.",
+  "short_no": "Mannen som skrev bluesen ned — «St. Louis Blues» og tittelen Bluesens far.",
+  "short_en": "The man who wrote the blues down — \"St. Louis Blues\" and the title Father of the Blues.",
+  "short_sv": "Mannen som skrev ner bluesen — \"St. Louis Blues\" och titeln Bluesens fader.",
+  "short_de": "Der Mann, der den Blues aufschrieb — \"St. Louis Blues\" und der Titel Vater des Blues.",
+  "short_pl": "Człowiek, który spisał bluesa — \"St. Louis Blues\" i tytuł Ojca Bluesa.",
+  "biography_no": "W. C. Handy skapte ikke bluesen, og det sa han selv, men han var den første som skrev den ned på en måte verden kunne bruke. Født i Florence, Alabama, i 1873 var han en skolert musiker med kornett og notatbok, og han hørte musikken på gata, på jernbanestasjoner og i juke joints og skrev ned det han hørte.\n\nI Memphis ga han ut «Memphis Blues», så «Yellow Dog Blues» og «St. Louis Blues», og «Beale Street Blues» i 1916. I 1913 startet han sitt eget forlag, som første afroamerikaner, og Handy Brothers Music Company holdt sangene hans i egne hender.\n\nDerfor kalles han Bluesens far. Andre spilte den bedre, men han sørget for at den kunne trykkes, framføres og bæres ut over landet. Han døde i New York i mars 1958, og W. C. Handy Music Festival i Alabama bærer fortsatt navnet hans.",
+  "biography_en": "W. C. Handy did not invent the blues, and he said so himself, but he was the first to put it on paper in a way the world could use. Born in Florence, Alabama, in 1873, he was a trained musician with a cornet and a notebook, and he heard the music in the street, at railway stations and in juke joints and wrote down what he heard.\n\nIn Memphis he published \"Memphis Blues\", then \"Yellow Dog Blues\" and \"St. Louis Blues\", and \"Beale Street Blues\" in 1916. In 1913 he started his own publishing company, the first African American to do so, and the Handy Brothers Music Company kept his songs in his own hands.\n\nThat is why he is called the Father of the Blues. Others played it better, but he made sure it could be printed, performed and carried across the country. He died in New York in March 1958, and the W. C. Handy Music Festival in Alabama still carries his name.",
+  "biography_sv": "W. C. Handy uppfann inte bluesen, och det sa han själv, men han var den första som skrev ner den på ett sätt som världen kunde använda. Född i Florence, Alabama, 1873 var han en skolad musiker med kornett och anteckningsbok, och han hörde musiken på gatan, på järnvägsstationer och i juke joints och skrev ner det han hörde.\n\nI Memphis gav han ut \"Memphis Blues\", sedan \"Yellow Dog Blues\" och \"St. Louis Blues\", och \"Beale Street Blues\" 1916. År 1913 startade han sitt eget förlag, som första afroamerikan, och Handy Brothers Music Company höll hans låtar i egna händer.\n\nDärför kallas han Bluesens fader. Andra spelade den bättre, men han såg till att den kunde tryckas, framföras och spridas över landet. Han dog i New York i mars 1958, och W. C. Handy Music Festival i Alabama bär fortfarande hans namn.",
+  "biography_de": "W. C. Handy hat den Blues nicht erfunden, und das sagte er selbst, aber er war der Erste, der ihn so aufschrieb, dass die Welt ihn nutzen konnte. 1873 in Florence, Alabama, geboren, war er ein ausgebildeter Musiker mit Kornett und Notizbuch, hörte die Musik auf der Straße, an Bahnhöfen und in Juke Joints und schrieb auf, was er hörte.\n\nIn Memphis veröffentlichte er \"Memphis Blues\", dann \"Yellow Dog Blues\" und \"St. Louis Blues\", und 1916 \"Beale Street Blues\". 1913 gründete er seinen eigenen Verlag, als erster Afroamerikaner, und die Handy Brothers Music Company hielt seine Songs in eigener Hand.\n\nDeshalb nennt man ihn den Vater des Blues. Andere spielten ihn besser, aber er sorgte dafür, dass er gedruckt, aufgeführt und durchs Land getragen werden konnte. Er starb im März 1958 in New York, und das W. C. Handy Music Festival in Alabama trägt noch immer seinen Namen.",
+  "biography_pl": "W. C. Handy nie wynalazł bluesa i sam to mówił, ale jako pierwszy zapisał go tak, by świat mógł z niego korzystać. Urodzony w 1873 roku w Florence w Alabamie, był wykształconym muzykiem z kornetem i notesem, słyszał muzykę na ulicy, na dworcach i w juke joints i zapisywał to, co usłyszał.\n\nW Memphis wydał \"Memphis Blues\", potem \"Yellow Dog Blues\" i \"St. Louis Blues\", a w 1916 roku \"Beale Street Blues\". W 1913 roku założył własne wydawnictwo, jako pierwszy Afroamerykanin, a Handy Brothers Music Company trzymało jego piosenki we własnych rękach.\n\nDlatego nazywa się go Ojcem Bluesa. Inni grali go lepiej, ale on zadbał o to, by dało się go drukować, wykonywać i nieść po kraju. Zmarł w Nowym Jorku w marcu 1958 roku, a festiwal W. C. Handy Music Festival w Alabamie wciąż nosi jego imię.",
+  "influence_no": "Handy ga bluesen en skriftlig form og en forretningsmodell. Hver bluessangbok, hver låtskriver som eier sine egne verk, skylder noe til mannen fra Florence, Alabama.",
+  "influence_en": "Handy gave the blues a written form and a business model. Every blues songbook, every songwriter who owns their work, owes something to the man from Florence, Alabama.",
+  "influence_sv": "Handy gav bluesen en skriven form och en affärsmodell. Varje bluessångbok, varje låtskrivare som äger sina verk, är skyldig något till mannen från Florence, Alabama.",
+  "influence_de": "Handy gab dem Blues eine schriftliche Form und ein Geschäftsmodell. Jedes Blues-Liederbuch und jeder Songwriter, dem seine Werke gehören, verdankt dem Mann aus Florence, Alabama, etwas.",
+  "influence_pl": "Handy nadał bluesowi formę zapisaną i model biznesowy. Każdy śpiewnik bluesowy i każdy autor, który jest właścicielem swoich utworów, jest coś winien człowiekowi z Florence w Alabamie.",
+  "signature_songs": [
+    "St. Louis Blues",
+    "Memphis Blues",
+    "Beale Street Blues",
+    "Yellow Dog Blues"
+  ],
+  "signature_songs_i18n": {
+    "no": [
+      "St. Louis Blues",
+      "Memphis Blues",
+      "Beale Street Blues",
+      "Yellow Dog Blues"
+    ],
+    "en": [
+      "St. Louis Blues",
+      "Memphis Blues",
+      "Beale Street Blues",
+      "Yellow Dog Blues"
+    ],
+    "sv": [
+      "St. Louis Blues",
+      "Memphis Blues",
+      "Beale Street Blues",
+      "Yellow Dog Blues"
+    ],
+    "de": [
+      "St. Louis Blues",
+      "Memphis Blues",
+      "Beale Street Blues",
+      "Yellow Dog Blues"
+    ],
+    "pl": [
+      "St. Louis Blues",
+      "Memphis Blues",
+      "Beale Street Blues",
+      "Yellow Dog Blues"
+    ]
+  },
+  "influences_i18n": {
+    "no": [
+      "Folk music",
+      "Street blues"
+    ],
+    "en": [
+      "Folk music",
+      "Street blues"
+    ],
+    "sv": [
+      "Folk music",
+      "Street blues"
+    ],
+    "de": [
+      "Folk music",
+      "Street blues"
+    ],
+    "pl": [
+      "Folk music",
+      "Street blues"
+    ]
+  },
+  "formative_i18n": {
+    "no": [
+      "Født i Florence, Alabama, og utdannet musiker.",
+      "1913: Startet sitt eget forlag, Handy Brothers Music.",
+      "1916: Ga ut «Beale Street Blues»."
+    ],
+    "en": [
+      "Born in Florence, Alabama, and trained as a musician.",
+      "1913: Started his own publishing company, Handy Brothers Music.",
+      "1916: Published \"Beale Street Blues\"."
+    ],
+    "sv": [
+      "Född i Florence, Alabama, och utbildad musiker.",
+      "1913: Startade sitt eget förlag, Handy Brothers Music.",
+      "1916: Gav ut \"Beale Street Blues\"."
+    ],
+    "de": [
+      "In Florence, Alabama, geboren und als Musiker ausgebildet.",
+      "1913: Gründete seinen eigenen Verlag, Handy Brothers Music.",
+      "1916: Veröffentlichte \"Beale Street Blues\"."
+    ],
+    "pl": [
+      "Urodzony w Florence w Alabamie i wykształcony muzycznie.",
+      "1913: Założył własne wydawnictwo Handy Brothers Music.",
+      "1916: Wydał \"Beale Street Blues\"."
+    ]
+  },
+  "anecdotes_i18n": {
+    "no": [
+      "Han påstod aldri å ha funnet opp bluesen; han sa han var den første som ga den ut.",
+      "Han skal være den første afroamerikaneren som startet sitt eget musikkforlag."
+    ],
+    "en": [
+      "He never claimed to have invented the blues; he said he was the first to publish it.",
+      "He is reported to be the first African American to start his own music publishing company."
+    ],
+    "sv": [
+      "Han påstod aldrig att han uppfunnit bluesen; han sa att han var den första som gav ut den.",
+      "Han ska vara den första afroamerikanen som startade ett eget musikförlag."
+    ],
+    "de": [
+      "Er behauptete nie, den Blues erfunden zu haben; er sagte, er sei der Erste, der ihn veröffentlichte.",
+      "Er soll der erste Afroamerikaner gewesen sein, der einen eigenen Musikverlag gründete."
+    ],
+    "pl": [
+      "Nigdy nie twierdził, że wynalazł bluesa; mówił, że jako pierwszy go wydał.",
+      "Podobno był pierwszym Afroamerykaninem, który założył własne wydawnictwo muzyczne."
+    ]
+  },
+  "instruments_i18n": {
+    "no": [
+      {
+        "category": "Messing",
+        "name": "Kornett",
+        "note": "Ledet sine egne band fra kornetten."
+      }
+    ],
+    "en": [
+      {
+        "category": "Brass",
+        "name": "Cornet",
+        "note": "Led his own bands from the cornet."
+      }
+    ],
+    "sv": [
+      {
+        "category": "Mässing",
+        "name": "Kornett",
+        "note": "Ledde sina egna band från kornetten."
+      }
+    ],
+    "de": [
+      {
+        "category": "Blech",
+        "name": "Kornett",
+        "note": "Leitete seine Bands vom Kornett aus."
+      }
+    ],
+    "pl": [
+      {
+        "category": "Dęte",
+        "name": "Kornet",
+        "note": "Prowadził własne zespoły z kornetu."
+      }
+    ]
+  },
+  "collaborators_i18n": {
+    "no": [
+      {
+        "name": "Beale Street, Memphis",
+        "note": "The street where much of his early work was heard and published."
+      }
+    ],
+    "en": [
+      {
+        "name": "Beale Street, Memphis",
+        "note": "The street where much of his early work was heard and published."
+      }
+    ],
+    "sv": [
+      {
+        "name": "Beale Street, Memphis",
+        "note": "The street where much of his early work was heard and published."
+      }
+    ],
+    "de": [
+      {
+        "name": "Beale Street, Memphis",
+        "note": "The street where much of his early work was heard and published."
+      }
+    ],
+    "pl": [
+      {
+        "name": "Beale Street, Memphis",
+        "note": "The street where much of his early work was heard and published."
+      }
+    ]
+  },
+  "discography_i18n": {
+    "no": [
+      {
+        "year": 1914,
+        "title": "St. Louis Blues (composition)",
+        "label": "Handy Brothers Music",
+        "notes": "Hans mest berømte komposisjon, en blues-standard.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1916,
+        "title": "Beale Street Blues (composition)",
+        "label": "Handy Brothers Music",
+        "notes": "Utgitt i 1916.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "en": [
+      {
+        "year": 1914,
+        "title": "St. Louis Blues (composition)",
+        "label": "Handy Brothers Music",
+        "notes": "His most famous composition, a blues standard.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1916,
+        "title": "Beale Street Blues (composition)",
+        "label": "Handy Brothers Music",
+        "notes": "Published in 1916.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "sv": [
+      {
+        "year": 1914,
+        "title": "St. Louis Blues (composition)",
+        "label": "Handy Brothers Music",
+        "notes": "Hans mest berömda komposition, en bluesstandard.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1916,
+        "title": "Beale Street Blues (composition)",
+        "label": "Handy Brothers Music",
+        "notes": "Utgiven 1916.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "de": [
+      {
+        "year": 1914,
+        "title": "St. Louis Blues (composition)",
+        "label": "Handy Brothers Music",
+        "notes": "Seine berühmteste Komposition, ein Blues-Standard.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1916,
+        "title": "Beale Street Blues (composition)",
+        "label": "Handy Brothers Music",
+        "notes": "1916 veröffentlicht.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "pl": [
+      {
+        "year": 1914,
+        "title": "St. Louis Blues (composition)",
+        "label": "Handy Brothers Music",
+        "notes": "Jego najsłynniejsza kompozycja, bluesowy standard.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1916,
+        "title": "Beale Street Blues (composition)",
+        "label": "Handy Brothers Music",
+        "notes": "Wydane w 1916 roku.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ]
+  },
+  "videos": [],
+  "external_links": [
+    {
+      "label": "YouTube Music",
+      "url": "https://music.youtube.com/search?q=W.+C.+Handy"
+    },
+    {
+      "label": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/W._C._Handy"
+    }
+  ],
+  "article_references": [
+    {
+      "title": "W. C. Handy — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/W._C._Handy"
+    },
+    {
+      "title": "William \"W. C.\" Handy — Encyclopedia of Alabama",
+      "url": "https://encyclopediaofalabama.org/article/william-w-c-handy/"
+    },
+    {
+      "title": "W.C. Handy — Songwriters Hall of Fame",
+      "url": "https://songhall.org/profile/WC_Handy"
+    },
+    {
+      "title": "W.C. Handy — BlackPast",
+      "url": "https://new.blackpast.org/handy-w-c-1873-1958"
+    }
+  ],
+  "related_slugs": [
+    "ma-rainey",
+    "bessie-smith",
+    "lonnie-johnson"
+  ],
+  "_inactive": true,
+  "_sources": {
+    "death": [
+      "https://songhall.org/profile/WC_Handy",
+      "https://www.findagrave.com/memorial/441"
+    ]
+  },
+  "_todo": [
+    "Exact death date (March 28 vs 29, 1958) differs by source: kept as 'March 1958'. 'St. Louis Blues' = 1914 stated by the list but not confirmed by the search: verify composition dates.",
+    "Handy is mostly known as composer: 'discography' lists compositions, not albums. Rock Hall mention on the source list is unclear and left out.",
+    "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:W._C._Handy_%281941_Van_Vechten_portrait%29.jpg",
+    "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug wc-handy."
+  ]
+}
