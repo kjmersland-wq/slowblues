@@ -1,0 +1,498 @@
+{
+  "slug": "bonnie-raitt",
+  "name": "Bonnie Raitt",
+  "tag": "Modern",
+  "era": "Modern Era",
+  "region": "North America",
+  "country": "United States",
+  "base_path": "/artists",
+  "birth_name": "Bonnie Lynn Raitt",
+  "img": "https://commons.wikimedia.org/wiki/Special:FilePath/Bonnie_Raitt_on_December_8,_2024_in_the_White_House_Oval_Office_(cropped).jpg?width=1200",
+  "image_credit": "Photo: The White House, 2024 (Wikimedia Commons, Public domain)",
+  "born": "November 8, 1949, Burbank, California",
+  "died": null,
+  "birth_place": "Burbank, California",
+  "origin": "Los Angeles, California",
+  "styles": [
+    "Blues Rock",
+    "Contemporary Blues",
+    "Slide Guitar",
+    "Roots"
+  ],
+  "labels": [
+    "Warner Bros.",
+    "Capitol",
+    "Redwing"
+  ],
+  "instruments_simple": [
+    "Slide guitar",
+    "Guitar",
+    "Vocals"
+  ],
+  "short": "A slide-guitar player with a voice like warm whiskey — blues, soul and songwriting in one.",
+  "short_no": "En slide-gitarist med en stemme som varm whisky — blues, soul og låtskriving i ett.",
+  "short_en": "A slide-guitar player with a voice like warm whiskey — blues, soul and songwriting in one.",
+  "short_sv": "En slidegitarrist med en röst som varm whisky — blues, soul och låtskrivande i ett.",
+  "short_de": "Eine Slide-Gitarristin mit einer Stimme wie warmer Whisky — Blues, Soul und Songwriting in einem.",
+  "short_pl": "Gitarzystka slide z głosem jak ciepła whisky — blues, soul i pisanie piosenek w jednym.",
+  "biography_no": "Bonnie Raitt vokste opp med showbusiness i huset: faren John Raitt var Broadway-stjerne, moren pianist. Det barnet plukket opp var noe annet. Hun fikk en gitar i julegave som åtteåring, ble forelsket i bluesen og lærte seg slide til hun fikk en flaskehals til å synge som en andre stemme.\n\nHun ga ut den selvtitulerte debuten i 1971 og var gjennom syttitallet en respektert kultfigur, en kvinne som kunne spille gammel country blues, skrive en ballade som knuste hjertet ditt og ta slide-partiene selv. Hun ble aldri helt stor før «Nick of Time» i 1989, platen som gjorde en lang, jevn karriere om til en bred suksess og ga henne en stabel med Grammy-priser. «Something to Talk About» (1991) holdt festen i gang.\n\nDet jeg beundrer mest er at hun aldri sluttet å være elev. Hun har i flere tiår løftet fram de eldre bluesspillerne og turnerer, spiller inn og skriver fortsatt i syttiårene; «Just Like That» kom i 2022. Varm, morsom og veldig tøff under overflaten er hun akkurat den bluesrotfestede musikeren bluesen trenger i offentligheten.",
+  "biography_en": "Bonnie Raitt grew up with show business in the house: her father John Raitt was a Broadway star, her mother a pianist. What the child picked up was something else. She got a guitar for Christmas at eight, fell in love with the blues, and taught herself slide until she could make a bottleneck sing as if it were her second voice.\n\nShe made her self-titled debut in 1971 and spent the seventies as a respected cult figure, a woman who could cover old country blues, write a ballad that broke your heart and play the slide parts herself. She never quite became a star until \"Nick of Time\" in 1989, the record that turned a long, steady career into a sweeping success and won her a stack of Grammy awards. \"Something to Talk About\" (1991) kept the party going.\n\nWhat I admire most is that she never stopped being a student. She has championed the older blues players for decades and still tours, records and writes in her seventies; \"Just Like That\" came out in 2022. Warm, funny and very tough underneath, she is exactly the sort of blues-rooted musician the blues needs in the public eye.",
+  "biography_sv": "Bonnie Raitt växte upp med showbusiness i huset: pappa John Raitt var Broadway-stjärna, mamma pianist. Det barnet tog med sig var något annat. Hon fick en gitarr i julklapp som åttaåring, blev förälskad i bluesen och lärde sig slide tills hon kunde få en flaskhals att sjunga som en andra röst.\n\nHon gav ut den självbetitlade debuten 1971 och var under sjuttiotalet en respekterad kultfigur, en kvinna som kunde spela gammal country blues, skriva en ballad som krossade ditt hjärta och ta slidepartierna själv. Hon blev aldrig riktigt stor förrän \"Nick of Time\" 1989, skivan som gjorde en lång, jämn karriär till en bred framgång och gav henne en hög Grammy-priser. \"Something to Talk About\" (1991) höll festen igång.\n\nDet jag beundrar mest är att hon aldrig slutade vara elev. Hon har i decennier lyft fram de äldre bluesspelarna och turnerar, spelar in och skriver fortfarande på sjuttiotalet; \"Just Like That\" kom 2022. Varm, rolig och mycket tuff under ytan är hon precis den bluesrotade musiker som bluesen behöver i offentligheten.",
+  "biography_de": "Bonnie Raitt wuchs mit Showbusiness im Haus auf: Ihr Vater John Raitt war ein Broadway-Star, ihre Mutter Pianistin. Was das Kind aufschnappte, war etwas anderes. Mit acht bekam sie zu Weihnachten eine Gitarre, verliebte sich in den Blues und brachte sich Slide bei, bis ein Bottleneck wie eine zweite Stimme für sie sang.\n\n1971 erschien ihr selbstbetiteltes Debüt, und in den Siebzigern war sie eine respektierte Kultfigur, eine Frau, die alten Country Blues covern, eine Ballade schreiben konnte, die einem das Herz brach, und die Slide-Parts selbst spielte. Richtig groß wurde sie erst mit \"Nick of Time\" 1989, dem Album, das eine lange, stetige Karriere in einen breiten Erfolg verwandelte und ihr einen Stapel Grammys einbrachte. \"Something to Talk About\" (1991) hielt die Party am Laufen.\n\nWas ich am meisten bewundere: Sie hat nie aufgehört, Schülerin zu sein. Seit Jahrzehnten stellt sie die älteren Blueser nach vorn und tourt, nimmt auf und schreibt noch in ihren Siebzigern; \"Just Like That\" erschien 2022. Warm, witzig und darunter sehr zäh ist sie genau die bluesverwurzelte Musikerin, die der Blues in der Öffentlichkeit braucht.",
+  "biography_pl": "Bonnie Raitt dorastała w domu pełnym show-biznesu: jej ojciec John Raitt był gwiazdą Broadwayu, matka pianistką. Dziecko wybrało jednak coś innego. W wieku ośmiu lat dostała gitarę na Boże Narodzenie, zakochała się w bluesie i uczyła się slide'u tak długo, aż bottleneck zaczął dla niej śpiewać jak drugi głos.\n\nDebiutancki album ukazał się w 1971 roku, a w latach siedemdziesiątych była szanowaną postacią kultową, kobietą, która potrafiła zagrać stary country blues, napisać balladę łamiącą serce i samodzielnie zagrać partie slide'u. Prawdziwą gwiazdą stała się dopiero dzięki \"Nick of Time\" w 1989 roku, płycie, która zamieniła długą, stabilną karierę w szeroki sukces i przyniosła jej stos nagród Grammy. \"Something to Talk About\" (1991) podtrzymało zabawę.\n\nNajbardziej podziwiam to, że nigdy nie przestała być uczennicą. Od dziesięcioleci promuje starszych bluesmanów i wciąż koncertuje, nagrywa i pisze po siedemdziesiątce; \"Just Like That\" ukazało się w 2022 roku. Ciepła, dowcipna i bardzo twarda pod spodem, jest dokładnie taką zakorzenioną w bluesie muzyczką, jakiej blues potrzebuje w świadomości publicznej.",
+  "influence_no": "Raitt åpnet bluesen for et mainstream-publikum uten å gi slipp på røttene. En generasjon kvinnelige gitarister og sangere fant en modell i slide-spillet og låtskrivingen hennes, og hun har brukt tiår på å sørge for at de eldre spillerne får æren.",
+  "influence_en": "Raitt opened the blues to a mainstream audience without giving up the roots. A generation of women guitarists and singers found a model in her slide playing and her songwriting, and she has spent decades making sure the older players get credit.",
+  "influence_sv": "Raitt öppnade bluesen för en mainstreampublik utan att släppa rötterna. En generation kvinnliga gitarrister och sångare hittade en förebild i hennes slidespel och låtskrivande, och hon har ägnat decennier åt att se till att de äldre spelarna får äran.",
+  "influence_de": "Raitt öffnete den Blues für ein Mainstream-Publikum, ohne die Wurzeln aufzugeben. Eine Generation von Gitarristinnen und Sängerinnen fand in ihrem Slide-Spiel und Songwriting ein Vorbild, und sie hat Jahrzehnte darauf verwendet, dass die älteren Spieler ihre Anerkennung bekommen.",
+  "influence_pl": "Raitt otworzyła blues dla szerokiej publiczności, nie porzucając korzeni. Pokolenie gitarzystek i wokalistek znalazło w jej grze slide i pisaniu piosenek wzór, a ona od dziesięcioleci dba o to, by starsi muzycy dostawali należne uznanie.",
+  "signature_songs": [
+    "Something to Talk About",
+    "I Can't Make You Love Me",
+    "Nick of Time",
+    "Just Like That"
+  ],
+  "signature_songs_i18n": {
+    "no": [
+      "Something to Talk About",
+      "I Can't Make You Love Me",
+      "Nick of Time",
+      "Just Like That"
+    ],
+    "en": [
+      "Something to Talk About",
+      "I Can't Make You Love Me",
+      "Nick of Time",
+      "Just Like That"
+    ],
+    "sv": [
+      "Something to Talk About",
+      "I Can't Make You Love Me",
+      "Nick of Time",
+      "Just Like That"
+    ],
+    "de": [
+      "Something to Talk About",
+      "I Can't Make You Love Me",
+      "Nick of Time",
+      "Just Like That"
+    ],
+    "pl": [
+      "Something to Talk About",
+      "I Can't Make You Love Me",
+      "Nick of Time",
+      "Just Like That"
+    ]
+  },
+  "influences_i18n": {
+    "no": [
+      "Sippie Wallace",
+      "Mississippi Fred McDowell"
+    ],
+    "en": [
+      "Sippie Wallace",
+      "Mississippi Fred McDowell"
+    ],
+    "sv": [
+      "Sippie Wallace",
+      "Mississippi Fred McDowell"
+    ],
+    "de": [
+      "Sippie Wallace",
+      "Mississippi Fred McDowell"
+    ],
+    "pl": [
+      "Sippie Wallace",
+      "Mississippi Fred McDowell"
+    ]
+  },
+  "formative_i18n": {
+    "no": [
+      "1957: Fikk sin første gitar, en Stella, i julegave som åtteåring.",
+      "Lærte seg slide-gitar selv og ble forelsket i blues.",
+      "1971: Ga ut den selvtitulerte debuten."
+    ],
+    "en": [
+      "1957: Received her first guitar, a Stella, as a Christmas present at age 8.",
+      "Taught herself slide guitar and fell in love with blues.",
+      "1971: Released her self-titled debut."
+    ],
+    "sv": [
+      "1957: Fick sin första gitarr, en Stella, i julklapp som åttaåring.",
+      "Lärde sig slidegitarr själv och blev förälskad i blues.",
+      "1971: Gav ut den självbetitlade debuten."
+    ],
+    "de": [
+      "1957: Bekam mit acht Jahren zu Weihnachten ihre erste Gitarre, eine Stella.",
+      "Brachte sich Slide-Gitarre selbst bei und verliebte sich in den Blues.",
+      "1971: Veröffentlichte ihr selbstbetiteltes Debüt."
+    ],
+    "pl": [
+      "1957: W wieku ośmiu lat dostała pod choinkę pierwszą gitarę, Stellę.",
+      "Sama nauczyła się grać slide i zakochała się w bluesie.",
+      "1971: Wydała debiutancki album z własnym imieniem."
+    ]
+  },
+  "anecdotes_i18n": {
+    "no": [
+      "Faren var Broadway-stjernen John Raitt, men hjertet hennes lå alltid i bluesen.",
+      "«Nick of Time» (1989) gjorde en respektert kultkarriere til en mainstream-triumf."
+    ],
+    "en": [
+      "Her father was Broadway star John Raitt, but her heart was always in the blues.",
+      "\"Nick of Time\" (1989) turned a respected cult career into a mainstream triumph."
+    ],
+    "sv": [
+      "Pappan var Broadway-stjärnan John Raitt, men hennes hjärta låg alltid i bluesen.",
+      "\"Nick of Time\" (1989) gjorde en respekterad kultkarriär till en mainstreamtriumf."
+    ],
+    "de": [
+      "Ihr Vater war der Broadway-Star John Raitt, doch ihr Herz gehörte immer dem Blues.",
+      "\"Nick of Time\" (1989) machte aus einer respektierten Kultkarriere einen Mainstream-Triumph."
+    ],
+    "pl": [
+      "Jej ojciec był gwiazdą Broadwayu Johnem Raittem, ale jej serce zawsze należało do bluesa.",
+      "\"Nick of Time\" (1989) zamieniło szanowaną karierę kultową w mainstreamowy triumf."
+    ]
+  },
+  "instruments_i18n": {
+    "no": [
+      {
+        "category": "Gitar",
+        "name": "Slide-gitar",
+        "note": "Flaskehals-slide på en Stratocaster er varemerket hennes."
+      }
+    ],
+    "en": [
+      {
+        "category": "Guitar",
+        "name": "Slide guitar",
+        "note": "Bottleneck slide on a Stratocaster is her trademark."
+      }
+    ],
+    "sv": [
+      {
+        "category": "Gitarr",
+        "name": "Slidegitarr",
+        "note": "Flaskhalsslide på en Stratocaster är hennes signum."
+      }
+    ],
+    "de": [
+      {
+        "category": "Gitarre",
+        "name": "Slide-Gitarre",
+        "note": "Bottleneck-Slide auf einer Stratocaster ist ihr Markenzeichen."
+      }
+    ],
+    "pl": [
+      {
+        "category": "Gitara",
+        "name": "Gitara slide",
+        "note": "Bottleneck slide na stratocasterze to jej znak rozpoznawczy."
+      }
+    ]
+  },
+  "collaborators_i18n": {
+    "no": [
+      {
+        "name": "Sippie Wallace",
+        "note": "Blues-pioner og venn som Raitt lærte av."
+      }
+    ],
+    "en": [
+      {
+        "name": "Sippie Wallace",
+        "note": "Blues pioneer and friend whom Raitt learned from."
+      }
+    ],
+    "sv": [
+      {
+        "name": "Sippie Wallace",
+        "note": "Blueskvinna och vännen som Raitt lärde av."
+      }
+    ],
+    "de": [
+      {
+        "name": "Sippie Wallace",
+        "note": "Blues-Pionierin und Freundin, von der Raitt lernte."
+      }
+    ],
+    "pl": [
+      {
+        "name": "Sippie Wallace",
+        "note": "Pionierka bluesa i przyjaciółka, od której Raitt się uczyła."
+      }
+    ]
+  },
+  "discography_i18n": {
+    "no": [
+      {
+        "year": 1971,
+        "title": "Bonnie Raitt",
+        "label": "Warner Bros.",
+        "notes": "Selvtitulert debutalbum.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1989,
+        "title": "Nick of Time",
+        "label": "Capitol",
+        "notes": "Det kommersielle gjennombruddet.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1991,
+        "title": "Luck of the Draw",
+        "label": "Capitol",
+        "notes": "Inneholder «Something to Talk About».",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2022,
+        "title": "Just Like That...",
+        "label": "Redwing",
+        "notes": "Hennes siste studioalbum.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "en": [
+      {
+        "year": 1971,
+        "title": "Bonnie Raitt",
+        "label": "Warner Bros.",
+        "notes": "Self-titled debut.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1989,
+        "title": "Nick of Time",
+        "label": "Capitol",
+        "notes": "The commercial breakthrough.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1991,
+        "title": "Luck of the Draw",
+        "label": "Capitol",
+        "notes": "Includes \"Something to Talk About\".",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2022,
+        "title": "Just Like That...",
+        "label": "Redwing",
+        "notes": "Her most recent studio album.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "sv": [
+      {
+        "year": 1971,
+        "title": "Bonnie Raitt",
+        "label": "Warner Bros.",
+        "notes": "Självbetitlad debut.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1989,
+        "title": "Nick of Time",
+        "label": "Capitol",
+        "notes": "Det kommersiella genombrottet.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1991,
+        "title": "Luck of the Draw",
+        "label": "Capitol",
+        "notes": "Innehåller \"Something to Talk About\".",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2022,
+        "title": "Just Like That...",
+        "label": "Redwing",
+        "notes": "Hennes senaste studioalbum.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "de": [
+      {
+        "year": 1971,
+        "title": "Bonnie Raitt",
+        "label": "Warner Bros.",
+        "notes": "Selbstbetiteltes Debüt.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1989,
+        "title": "Nick of Time",
+        "label": "Capitol",
+        "notes": "Der kommerzielle Durchbruch.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1991,
+        "title": "Luck of the Draw",
+        "label": "Capitol",
+        "notes": "Enthält \"Something to Talk About\".",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2022,
+        "title": "Just Like That...",
+        "label": "Redwing",
+        "notes": "Ihr jüngstes Studioalbum.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ],
+    "pl": [
+      {
+        "year": 1971,
+        "title": "Bonnie Raitt",
+        "label": "Warner Bros.",
+        "notes": "Debiut z własnym imieniem.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1989,
+        "title": "Nick of Time",
+        "label": "Capitol",
+        "notes": "Komercyjny przełom.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 1991,
+        "title": "Luck of the Draw",
+        "label": "Capitol",
+        "notes": "Zawiera \"Something to Talk About\".",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2022,
+        "title": "Just Like That...",
+        "label": "Redwing",
+        "notes": "Jej najnowszy album studyjny.",
+        "musicians": [],
+        "youtube_id": ""
+      }
+    ]
+  },
+  "awards_i18n": {
+    "no": [
+      {
+        "year": 1990,
+        "title": "Grammy Award",
+        "category": "Årets album",
+        "note": "Nick of Time"
+      }
+    ],
+    "en": [
+      {
+        "year": 1990,
+        "title": "Grammy Award",
+        "category": "Album of the Year",
+        "note": "Nick of Time"
+      }
+    ],
+    "sv": [
+      {
+        "year": 1990,
+        "title": "Grammy Award",
+        "category": "Årets album",
+        "note": "Nick of Time"
+      }
+    ],
+    "de": [
+      {
+        "year": 1990,
+        "title": "Grammy Award",
+        "category": "Album des Jahres",
+        "note": "Nick of Time"
+      }
+    ],
+    "pl": [
+      {
+        "year": 1990,
+        "title": "Grammy Award",
+        "category": "Album roku",
+        "note": "Nick of Time"
+      }
+    ]
+  },
+  "videos": [
+    {
+      "kind": "featured",
+      "title": "Bonnie Raitt - Just Like That (Official Lyric Video)",
+      "youtube_id": "Skd0XR3twCA",
+      "channel": "TheBonnieRaitt"
+    },
+    {
+      "kind": "more",
+      "title": "Something To Talk About",
+      "youtube_id": "RNochZbb0tg",
+      "channel": "Bonnie Raitt - Topic"
+    },
+    {
+      "kind": "more",
+      "title": "I Can't Make You Love Me",
+      "youtube_id": "UJ90r6m8mVE",
+      "channel": "Bonnie Raitt - Topic"
+    }
+  ],
+  "external_links": [
+    {
+      "label": "YouTube Music",
+      "url": "https://music.youtube.com/search?q=Bonnie+Raitt"
+    },
+    {
+      "label": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Bonnie_Raitt"
+    }
+  ],
+  "article_references": [
+    {
+      "title": "Bonnie Raitt — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Bonnie_Raitt"
+    },
+    {
+      "title": "Bonnie Raitt — official site (bonnieraitt.eu biography)",
+      "url": "https://www.bonnieraitt.eu/biography/page/2/"
+    },
+    {
+      "title": "Bonnie Raitt — TCM",
+      "url": "https://tcm.com/tcmdb/person/157291%7C0/Bonnie-Raitt"
+    }
+  ],
+  "related_slugs": [
+    "muddy-waters",
+    "etta-james",
+    "john-lee-hooker"
+  ],
+  "booking_info": {},
+  "_sources": {},
+  "_todo": [
+    "Search only confirmed birth/family/Stella guitar/debut; Grammy Album of the Year 1990, Sippie Wallace friendship and 'Strat' gear come from my own knowledge: verify on grammy.com and a second source before publishing.",
+    "Her official site is not the 'bonnieraitt.eu' fan page: replace with the official URL.",
+    "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:Bonnie_Raitt_on_December_8%2C_2024_in_the_White_House_Oval_Office_%28cropped%29.jpg",
+    "Living artist: research booking_info before publishing (empty = not yet researched).",
+    "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug bonnie-raitt."
+  ]
+}
