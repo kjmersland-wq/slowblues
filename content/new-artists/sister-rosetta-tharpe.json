@@ -353,7 +353,26 @@
       }
     ]
   },
-  "videos": [],
+  "videos": [
+    {
+      "kind": "featured",
+      "title": "Up Above My Head I Hear Music In the Air",
+      "youtube_id": "44yC4z7fwLs",
+      "channel": "Sister Rosetta Tharpe - Topic"
+    },
+    {
+      "kind": "more",
+      "title": "Up Above My Head I Hear Music In The Air",
+      "youtube_id": "W3DVWRAIybY",
+      "channel": "Sister Rosetta Tharpe - Topic"
+    },
+    {
+      "kind": "more",
+      "title": "Up Above My Head I Hear Music In The Air",
+      "youtube_id": "kkK_YRv-blA",
+      "channel": "Sister Rosetta Tharpe - Topic"
+    }
+  ],
   "external_links": [
     {
       "label": "YouTube Music",
@@ -398,5 +417,32 @@
     "'Up Above My Head' and 'Origin: Chicago' from memory: verify. Birth year (1915 vs 1921) disputed.",
     "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:Sister_Rosetta_Tharpe_%281938_publicity_photo_-_headshot%29.jpg",
     "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug sister-rosetta-tharpe."
+  ],
+  "key_recordings": [
+    {
+      "title": "Up Above My Head I Hear Music in the Air",
+      "youtube_id": "lTo-IeGBtT0",
+      "channel": "Sister Rosetta Tharpe - Topic"
+    },
+    {
+      "title": "Rock Me",
+      "youtube_id": "u1eaJrHWegE",
+      "channel": "Sister Rosetta Tharpe - Topic"
+    },
+    {
+      "title": "Strange Things Happening Every Day (with Sam Price Trio)",
+      "youtube_id": "YFw18QQ3q_s",
+      "channel": "Sister Rosetta Tharpe - Topic"
+    },
+    {
+      "title": "Every Time I Feel The Spirit",
+      "youtube_id": "vy3ctPbuUSY",
+      "channel": "Sister Rosetta Tharpe - Topic"
+    },
+    {
+      "title": "Shout Sister Shout",
+      "youtube_id": "OfZPMwIcOrI",
+      "channel": "Sister Rosetta Tharpe - Topic"
+    }
   ]
 }

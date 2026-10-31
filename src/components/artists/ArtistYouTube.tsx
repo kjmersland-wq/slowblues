@@ -33,7 +33,22 @@ function writeCache<T>(key: string, v: T) {
   } catch {}
 }
 
+const QUOTA_KEY = "yt:quota-block";
+function quotaBlocked(): boolean {
+  try {
+    return Date.now() < Number(localStorage.getItem(QUOTA_KEY) || 0);
+  } catch {
+    return false;
+  }
+}
+function blockQuotaFor(ms: number) {
+  try {
+    localStorage.setItem(QUOTA_KEY, String(Date.now() + ms));
+  } catch {}
+}
+
 async function fetchArtistVideos(name: string): Promise<YTVideo[]> {
+  if (quotaBlocked()) return []; // the daily YouTube quota is used up: do not keep asking
   const key = `yt:artist:${name.toLowerCase()}`;
   const cached = readCache<YTVideo[]>(key);
   if (cached) return cached;
@@ -44,6 +59,7 @@ async function fetchArtistVideos(name: string): Promise<YTVideo[]> {
       searchYouTube({ data: { query: q, max: 50 } }).catch(() => ({ videos: [] as YTVideo[] })),
     ),
   );
+  if (results.some((r) => /quota/i.test((r as { error?: string | null }).error ?? ""))) blockQuotaFor(6 * 60 * 60 * 1000);
   const seen = new Set<string>();
   const merged: YTVideo[] = [];
   for (const r of results)

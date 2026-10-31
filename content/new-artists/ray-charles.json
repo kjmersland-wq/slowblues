@@ -361,7 +361,26 @@
       }
     ]
   },
-  "videos": [],
+  "videos": [
+    {
+      "kind": "featured",
+      "title": "Ray Charles - You Are My Sunshine (Official Video)",
+      "youtube_id": "wzKlfxT64u0",
+      "channel": "Ray Charles"
+    },
+    {
+      "kind": "more",
+      "title": "Ray Charles | Don't Set Me Free | Official Video",
+      "youtube_id": "BKAXPkiznL8",
+      "channel": "Ray Charles"
+    },
+    {
+      "kind": "more",
+      "title": "Ray Charles - Come Live With Me (Official Visualizer)",
+      "youtube_id": "nw_FKl6_UI8",
+      "channel": "Ray Charles"
+    }
+  ],
   "external_links": [
     {
       "label": "YouTube Music",
@@ -406,5 +425,32 @@
     "'I Got a Woman' date (1954/55) differs by source: not stated. Place of death (Los Angeles vs Beverly Hills) differs. 'Hit the Road Jack' and Wurlitzer from memory: verify. 'Blind since childhood' not in search results.",
     "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:Ray_Charles_classic_piano_pose.jpg",
     "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug ray-charles."
+  ],
+  "key_recordings": [
+    {
+      "title": "What'd I Say, Pt. 1 & 2",
+      "youtube_id": "ASic0TJrqcw",
+      "channel": "Ray Charles - Topic"
+    },
+    {
+      "title": "I Got a Woman (Single Version)",
+      "youtube_id": "BmKpDgfiRPc",
+      "channel": "Ray Charles - Topic"
+    },
+    {
+      "title": "What'd I Say, Pt. 1",
+      "youtube_id": "L5gyZ3D_ikg",
+      "channel": "Ray Charles - Topic"
+    },
+    {
+      "title": "Ray Charles | What'd I Say (Live) | Audio",
+      "youtube_id": "j3Ty2uGE0Rg",
+      "channel": "Ray Charles"
+    },
+    {
+      "title": "I Can't Stop Loving You",
+      "youtube_id": "YBAG1rARuZU",
+      "channel": "Ray Charles - Topic"
+    }
   ]
 }

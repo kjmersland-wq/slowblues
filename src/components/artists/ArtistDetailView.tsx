@@ -11,9 +11,10 @@ import { artistDetailPath, artistsListPath, type ArtistLocale } from "@/lib/loca
 import { NameLink, useNameIndex } from "@/components/artists/NameLink";
 import {
   ArrowLeft, Music, MapPin, Disc3, Calendar, Users, Star, Quote, Guitar,
-  PlayCircle, Mic, Award, Sparkles, Globe, ExternalLink, Image as ImageIcon, BookOpen, Link2, Check, Phone,
+  PlayCircle, Music2, Mic, Award, Sparkles, Globe, ExternalLink, Image as ImageIcon, BookOpen, Link2, Check, Phone,
 } from "lucide-react";
 import { ArtistYouTube, AlbumYouTubeCell, DiscographyVideos } from "@/components/artists/ArtistYouTube";
+import { SongList } from "@/components/artists/SongList";
 import { ArtistInitialsPlaceholder } from "@/components/artists/ArtistInitialsPlaceholder";
 
 const T = {
@@ -25,6 +26,8 @@ const T = {
 } as const;
 
 
+
+const SONGS_TITLE: Record<string, string> = { no: "Lytt til sanger", en: "Play the songs", sv: "Lyssna på låtarna", de: "Songs anhören", pl: "Posłuchaj utworów" };
 
 export function ArtistDetailView({ slug, locale, initial }: { slug: string; locale: ArtistLocale; initial?: ArtistRecord | null }) {
   const lang = locale as Lang;
@@ -275,8 +278,17 @@ export function ArtistDetailView({ slug, locale, initial }: { slug: string; loca
           </Section>
         )}
 
-        {/* Auto-fetched YouTube videos for this artist */}
-        <ArtistYouTube artistName={a.name} title={t.videos} />
+        {/* Songs: stored, pre-verified single tracks (no API calls) */}
+        {a.key_recordings.length > 0 && (
+          <Section id="sanger" icon={Music2} title={SONGS_TITLE[locale] ?? SONGS_TITLE.en} tone="gold">
+            <SongList songs={a.key_recordings} watchLabel={t.watchVideoGeneric} />
+          </Section>
+        )}
+
+        {/* Auto-fetched YouTube videos: only a fallback for artists with little stored content.
+            Each live search costs YouTube API quota (100 units), so artists that already have
+            stored videos/songs never trigger it. */}
+        {a.videos.length + a.key_recordings.length < 3 && <ArtistYouTube artistName={a.name} title={t.videos} />}
 
         {/* Press quotes & critic statements */}
         {pressQuotes.length > 0 && (

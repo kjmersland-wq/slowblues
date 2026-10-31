@@ -427,7 +427,26 @@
       }
     ]
   },
-  "videos": [],
+  "videos": [
+    {
+      "kind": "featured",
+      "title": "The Jimi Hendrix Experience - Purple Haze (Live At Berkeley - 1st Show)",
+      "youtube_id": "bNV7JZjCuF8",
+      "channel": "Jimi Hendrix"
+    },
+    {
+      "kind": "more",
+      "title": "The Jimi Hendrix Experience - Red House (Live at Los Angeles Forum, 4/26/1969)",
+      "youtube_id": "-N0JNgPAX-U",
+      "channel": "JimiHendrixVEVO"
+    },
+    {
+      "kind": "more",
+      "title": "The Jimi Hendrix Experience - Purple Haze (Live at Los Angeles Forum, 4/26/1969)",
+      "youtube_id": "WDSlbFjTYBg",
+      "channel": "JimiHendrixVEVO"
+    }
+  ],
   "external_links": [
     {
       "label": "YouTube Music",
@@ -469,5 +488,32 @@
     "Videos: the Love & Peace Festival clip is a fan upload; the Topic channel video is the official source.",
     "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:Jimi_Hendrix_%281967%29_%28cropped%29.jpg",
     "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug jimi-hendrix."
+  ],
+  "key_recordings": [
+    {
+      "title": "The Jimi Hendrix Experience - Little Wing (Official Audio)",
+      "youtube_id": "35luFxHO5E0",
+      "channel": "JimiHendrixVEVO"
+    },
+    {
+      "title": "The Jimi Hendrix Experience - Purple Haze (Official Audio)",
+      "youtube_id": "WGoDaYjdfSg",
+      "channel": "JimiHendrixVEVO"
+    },
+    {
+      "title": "The Jimi Hendrix Experience - Red House (Live At Berkeley - 1st Show)",
+      "youtube_id": "wOpfGXBrTMQ",
+      "channel": "Jimi Hendrix"
+    },
+    {
+      "title": "Voodoo Child (Slight Return)/Sunshine Of Your Love (Live at Los Angeles Forum, 4/26/1969)",
+      "youtube_id": "dCrRLNeHyHY",
+      "channel": "JimiHendrixVEVO"
+    },
+    {
+      "title": "The Jimi Hendrix Experience - Voodoo Child (Slight Return) (Live In Maui, 1970)",
+      "youtube_id": "qFfnlYbFEiE",
+      "channel": "JimiHendrixVEVO"
+    }
   ]
 }

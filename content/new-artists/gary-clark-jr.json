@@ -19,9 +19,19 @@
   "died": null,
   "birth_place": "Austin, Texas",
   "origin": "Austin, Texas",
-  "styles": ["Contemporary Blues", "Texas Blues", "Blues Rock", "Soul"],
-  "labels": ["Warner Records"],
-  "instruments_simple": ["Guitar", "Vocals"],
+  "styles": [
+    "Contemporary Blues",
+    "Texas Blues",
+    "Blues Rock",
+    "Soul"
+  ],
+  "labels": [
+    "Warner Records"
+  ],
+  "instruments_simple": [
+    "Guitar",
+    "Vocals"
+  ],
   "biography_en": "Gary Clark Jr. grew up in Austin, a town where a teenager with a guitar can walk into a blues club on any night of the week and learn something. He did exactly that, and the clubs took him in. In his teens he was playing the Austin circuit, and the Texas guitar tradition, from Albert King to Stevie Ray Vaughan, sits in his hands without ever sounding like a museum piece.\n\nThe big moment came in 2010, when Eric Clapton invited him to the Crossroads Guitar Festival, and the world suddenly knew his name. A string of EPs led to \"Blak and Blu\" (2012), his major-label debut, which reached number six on the Billboard 200. \"Please Come Home\" from that record won him a Grammy in 2014, for Best Traditional R&B Performance. It is a good reminder of how far his taste stretches: the guitar is a blues guitar, but the songs move through soul, rock and hip-hop.\n\n\"The Story of Sonny Boy Slim\" (2015) pushed even further into that mix. Then came \"This Land\" in 2019, a record that looks directly at race and America, and its title track earned him Grammys in 2020 for Best Rock Song and Best Rock Performance. In 2024 he released \"JPEG RAW\".\n\nSome blues purists wonder if he is \"really\" blues. Put on a live clip and the question answers itself: the tone is dirty and huge, the phrasing is pure Texas, and he plays like someone who learned from the people who invented it. He is one of the reasons younger audiences still find the blues.",
   "biography_no": "Gary Clark Jr. vokste opp i Austin, en by der en tenåring med gitar kan gå inn på en bluesklubb en hvilken som helst kveld og lære noe. Det gjorde han, og klubbene tok ham inn. Som tenåring spilte han på Austin-scenen, og den teksanske gitartradisjonen, fra Albert King til Stevie Ray Vaughan, ligger i hendene hans uten at det noensinne låter som et museum.\n\nGjennombruddet kom i 2010, da Eric Clapton inviterte ham til Crossroads Guitar Festival, og plutselig kjente hele verden navnet. Flere EP-er førte til «Blak and Blu» (2012), debuten på storlabel, som nådde sjetteplass på Billboard 200. «Please Come Home» fra den platen ga ham en Grammy i 2014, for Best Traditional R&B Performance. Det er en fin påminnelse om hvor bred smaken hans er: gitaren er en blues-gitar, men låtene beveger seg gjennom soul, rock og hiphop.\n\n«The Story of Sonny Boy Slim» (2015) dro den miksen enda lenger. Så kom «This Land» i 2019, en plate som ser rett på rase og USA, og tittelsporet ga ham Grammy-priser i 2020 for Best Rock Song og Best Rock Performance. I 2024 ga han ut «JPEG RAW».\n\nNoen blues-puristene lurer på om han «egentlig» er blues. Sett på en live-video, så svarer spørsmålet seg selv: tonen er skitten og stor, frasene er ren Texas, og han spiller som en som har lært av dem som fant det opp. Han er en av grunnene til at yngre publikum fortsatt finner bluesen.",
   "biography_sv": "Gary Clark Jr. växte upp i Austin, en stad där en tonåring med gitarr kan gå in på en bluesklubb vilken kväll som helst och lära sig något. Det gjorde han, och klubbarna tog emot honom. Som tonåring spelade han på Austins scen, och den texanska gitarrtraditionen, från Albert King till Stevie Ray Vaughan, ligger i hans händer utan att någonsin låta som ett museum.\n\nGenombrottet kom 2010, när Eric Clapton bjöd in honom till Crossroads Guitar Festival, och plötsligt kände hela världen hans namn. Flera EP:s ledde till \"Blak and Blu\" (2012), debuten på storbolag, som nådde sjätteplats på Billboard 200. \"Please Come Home\" från den skivan gav honom en Grammy 2014, för Best Traditional R&B Performance. Det är en fin påminnelse om hur bred hans smak är: gitarren är en bluesgitarr, men låtarna rör sig genom soul, rock och hiphop.\n\n\"The Story of Sonny Boy Slim\" (2015) drog den blandningen ännu längre. Sedan kom \"This Land\" 2019, en skiva som ser rakt på ras och USA, och titelspåret gav honom Grammys 2020 för Best Rock Song och Best Rock Performance. 2024 släppte han \"JPEG RAW\".\n\nVissa blues-puristerna undrar om han \"egentligen\" är blues. Sätt på en livefilm så svarar frågan sig själv: tonen är smutsig och stor, fraseringen är ren Texas, och han spelar som någon som lärt av dem som uppfann det. Han är en av anledningarna till att yngre publik fortfarande hittar bluesen.",
@@ -32,109 +42,512 @@
   "influence_sv": "Clark är det tydligaste beviset på att den texanska gitarrtraditionen fortfarande skrivs. Han tog tillbaka bluesgitarren till arenor och festivalernas huvudscener, gjorde en Grammy-vinnande skiva om ras och USA och gav en ny generation en väg in till Albert King, Hendrix och Stevie Ray Vaughan.",
   "influence_de": "Clark ist der klarste Beweis, dass die texanische Gitarrentradition noch geschrieben wird. Er brachte die Bluesgitarre zurück in Arenen und auf die Hauptbühnen der Festivals, machte ein Grammy-prämiertes Album über Rassismus und Amerika und gab einer neuen Generation einen Zugang zu Albert King, Hendrix und Stevie Ray Vaughan.",
   "influence_pl": "Clark jest najlepszym dowodem na to, że teksańska tradycja gitarowa wciąż jest pisana. Przywrócił bluesową gitarę arenom i głównym scenom festiwali, nagrał nagrodzoną Grammy płytę o rasizmie i Ameryce i otworzył nowemu pokoleniu drogę do Alberta Kinga, Hendriksa i Stevie'ego Raya Vaughana.",
-  "signature_songs": ["Bright Lights", "Ain't Messin 'Round", "Please Come Home", "Numb", "This Land"],
+  "signature_songs": [
+    "Bright Lights",
+    "Ain't Messin 'Round",
+    "Please Come Home",
+    "Numb",
+    "This Land"
+  ],
   "signature_songs_i18n": {
-    "en": ["Bright Lights", "Ain't Messin 'Round", "Please Come Home", "Numb", "This Land"],
-    "no": ["Bright Lights", "Ain't Messin 'Round", "Please Come Home", "Numb", "This Land"],
-    "sv": ["Bright Lights", "Ain't Messin 'Round", "Please Come Home", "Numb", "This Land"],
-    "de": ["Bright Lights", "Ain't Messin 'Round", "Please Come Home", "Numb", "This Land"],
-    "pl": ["Bright Lights", "Ain't Messin 'Round", "Please Come Home", "Numb", "This Land"]
+    "en": [
+      "Bright Lights",
+      "Ain't Messin 'Round",
+      "Please Come Home",
+      "Numb",
+      "This Land"
+    ],
+    "no": [
+      "Bright Lights",
+      "Ain't Messin 'Round",
+      "Please Come Home",
+      "Numb",
+      "This Land"
+    ],
+    "sv": [
+      "Bright Lights",
+      "Ain't Messin 'Round",
+      "Please Come Home",
+      "Numb",
+      "This Land"
+    ],
+    "de": [
+      "Bright Lights",
+      "Ain't Messin 'Round",
+      "Please Come Home",
+      "Numb",
+      "This Land"
+    ],
+    "pl": [
+      "Bright Lights",
+      "Ain't Messin 'Round",
+      "Please Come Home",
+      "Numb",
+      "This Land"
+    ]
   },
   "formative_i18n": {
-    "en": ["Grew up in Austin, Texas, playing the local blues clubs as a teenager.", "2010: Invited to Eric Clapton's Crossroads Guitar Festival.", "2012: Signed to a major label and released \"Blak and Blu\"."],
-    "no": ["Vokste opp i Austin, Texas, og spilte på de lokale bluesklubbene som tenåring.", "2010: Invitert til Eric Claptons Crossroads Guitar Festival.", "2012: Signerte for et storlabel og ga ut «Blak and Blu»."],
-    "sv": ["Växte upp i Austin, Texas, och spelade på de lokala bluesklubbarna som tonåring.", "2010: Inbjuden till Eric Claptons Crossroads Guitar Festival.", "2012: Skrev på för ett storbolag och släppte \"Blak and Blu\"."],
-    "de": ["Wuchs in Austin, Texas, auf und spielte als Teenager in den örtlichen Blues-Clubs.", "2010: Zum Crossroads Guitar Festival von Eric Clapton eingeladen.", "2012: Beim Major-Label unter Vertrag und \"Blak and Blu\" veröffentlicht."],
-    "pl": ["Dorastał w Austin w Teksasie, jako nastolatek grał w lokalnych klubach bluesowych.", "2010: Zaproszony na Crossroads Guitar Festival Erica Claptona.", "2012: Podpisał kontrakt z dużą wytwórnią i wydał \"Blak and Blu\"."]
+    "en": [
+      "Grew up in Austin, Texas, playing the local blues clubs as a teenager.",
+      "2010: Invited to Eric Clapton's Crossroads Guitar Festival.",
+      "2012: Signed to a major label and released \"Blak and Blu\"."
+    ],
+    "no": [
+      "Vokste opp i Austin, Texas, og spilte på de lokale bluesklubbene som tenåring.",
+      "2010: Invitert til Eric Claptons Crossroads Guitar Festival.",
+      "2012: Signerte for et storlabel og ga ut «Blak and Blu»."
+    ],
+    "sv": [
+      "Växte upp i Austin, Texas, och spelade på de lokala bluesklubbarna som tonåring.",
+      "2010: Inbjuden till Eric Claptons Crossroads Guitar Festival.",
+      "2012: Skrev på för ett storbolag och släppte \"Blak and Blu\"."
+    ],
+    "de": [
+      "Wuchs in Austin, Texas, auf und spielte als Teenager in den örtlichen Blues-Clubs.",
+      "2010: Zum Crossroads Guitar Festival von Eric Clapton eingeladen.",
+      "2012: Beim Major-Label unter Vertrag und \"Blak and Blu\" veröffentlicht."
+    ],
+    "pl": [
+      "Dorastał w Austin w Teksasie, jako nastolatek grał w lokalnych klubach bluesowych.",
+      "2010: Zaproszony na Crossroads Guitar Festival Erica Claptona.",
+      "2012: Podpisał kontrakt z dużą wytwórnią i wydał \"Blak and Blu\"."
+    ]
   },
   "anecdotes_i18n": {
-    "en": ["His 2014 Grammy came for \"Please Come Home\", a soul ballad rather than a guitar-blowout.", "\"This Land\" took two Grammys in 2020, Best Rock Song and Best Rock Performance."],
-    "no": ["Grammy-prisen i 2014 kom for «Please Come Home», en soulballade snarere enn et gitarkaos.", "«This Land» tok to Grammy-priser i 2020, Best Rock Song og Best Rock Performance."],
-    "sv": ["Grammyn 2014 kom för \"Please Come Home\", en soulballad snarare än en gitarrorgie.", "\"This Land\" tog två Grammys 2020, Best Rock Song och Best Rock Performance."],
-    "de": ["Der Grammy 2014 kam für \"Please Come Home\", eine Soulballade statt eines Gitarren-Feuerwerks.", "\"This Land\" holte 2020 zwei Grammys: Best Rock Song und Best Rock Performance."],
-    "pl": ["Grammy z 2014 roku dostał za \"Please Come Home\", balladę soulową, a nie gitarową eksplozję.", "\"This Land\" zdobyło w 2020 roku dwie nagrody Grammy: Best Rock Song i Best Rock Performance."]
+    "en": [
+      "His 2014 Grammy came for \"Please Come Home\", a soul ballad rather than a guitar-blowout.",
+      "\"This Land\" took two Grammys in 2020, Best Rock Song and Best Rock Performance."
+    ],
+    "no": [
+      "Grammy-prisen i 2014 kom for «Please Come Home», en soulballade snarere enn et gitarkaos.",
+      "«This Land» tok to Grammy-priser i 2020, Best Rock Song og Best Rock Performance."
+    ],
+    "sv": [
+      "Grammyn 2014 kom för \"Please Come Home\", en soulballad snarare än en gitarrorgie.",
+      "\"This Land\" tog två Grammys 2020, Best Rock Song och Best Rock Performance."
+    ],
+    "de": [
+      "Der Grammy 2014 kam für \"Please Come Home\", eine Soulballade statt eines Gitarren-Feuerwerks.",
+      "\"This Land\" holte 2020 zwei Grammys: Best Rock Song und Best Rock Performance."
+    ],
+    "pl": [
+      "Grammy z 2014 roku dostał za \"Please Come Home\", balladę soulową, a nie gitarową eksplozję.",
+      "\"This Land\" zdobyło w 2020 roku dwie nagrody Grammy: Best Rock Song i Best Rock Performance."
+    ]
   },
   "instruments_i18n": {
-    "en": [{"category": "Guitar", "name": "Electric guitar", "note": "Gritty Texas tone, often with heavy overdrive and fuzz."}],
-    "no": [{"category": "Gitar", "name": "Elektrisk gitar", "note": "Røff Texas-tone, ofte med mye overdrive og fuzz."}],
-    "sv": [{"category": "Gitarr", "name": "Elgitarr", "note": "Rå Texas-ton, ofta med mycket overdrive och fuzz."}],
-    "de": [{"category": "Gitarre", "name": "E-Gitarre", "note": "Rauer Texas-Ton, oft mit viel Overdrive und Fuzz."}],
-    "pl": [{"category": "Gitara", "name": "Gitara elektryczna", "note": "Surowe teksańskie brzmienie, często z mocnym overdrive i fuzzem."}]
+    "en": [
+      {
+        "category": "Guitar",
+        "name": "Electric guitar",
+        "note": "Gritty Texas tone, often with heavy overdrive and fuzz."
+      }
+    ],
+    "no": [
+      {
+        "category": "Gitar",
+        "name": "Elektrisk gitar",
+        "note": "Røff Texas-tone, ofte med mye overdrive og fuzz."
+      }
+    ],
+    "sv": [
+      {
+        "category": "Gitarr",
+        "name": "Elgitarr",
+        "note": "Rå Texas-ton, ofta med mycket overdrive och fuzz."
+      }
+    ],
+    "de": [
+      {
+        "category": "Gitarre",
+        "name": "E-Gitarre",
+        "note": "Rauer Texas-Ton, oft mit viel Overdrive und Fuzz."
+      }
+    ],
+    "pl": [
+      {
+        "category": "Gitara",
+        "name": "Gitara elektryczna",
+        "note": "Surowe teksańskie brzmienie, często z mocnym overdrive i fuzzem."
+      }
+    ]
   },
   "collaborators_i18n": {
-    "en": [{"name": "Eric Clapton", "note": "Invited Clark to Crossroads Guitar Festival in 2010, his breakthrough."}],
-    "no": [{"name": "Eric Clapton", "note": "Inviterte Clark til Crossroads Guitar Festival i 2010, hans gjennombrudd."}],
-    "sv": [{"name": "Eric Clapton", "note": "Bjöd in Clark till Crossroads Guitar Festival 2010, hans genombrott."}],
-    "de": [{"name": "Eric Clapton", "note": "Lud Clark 2010 zum Crossroads Guitar Festival ein, sein Durchbruch."}],
-    "pl": [{"name": "Eric Clapton", "note": "Zaprosił Clarka na Crossroads Guitar Festival w 2010 roku, jego przełom."}]
+    "en": [
+      {
+        "name": "Eric Clapton",
+        "note": "Invited Clark to Crossroads Guitar Festival in 2010, his breakthrough."
+      }
+    ],
+    "no": [
+      {
+        "name": "Eric Clapton",
+        "note": "Inviterte Clark til Crossroads Guitar Festival i 2010, hans gjennombrudd."
+      }
+    ],
+    "sv": [
+      {
+        "name": "Eric Clapton",
+        "note": "Bjöd in Clark till Crossroads Guitar Festival 2010, hans genombrott."
+      }
+    ],
+    "de": [
+      {
+        "name": "Eric Clapton",
+        "note": "Lud Clark 2010 zum Crossroads Guitar Festival ein, sein Durchbruch."
+      }
+    ],
+    "pl": [
+      {
+        "name": "Eric Clapton",
+        "note": "Zaprosił Clarka na Crossroads Guitar Festival w 2010 roku, jego przełom."
+      }
+    ]
   },
   "influences_i18n": {
-    "en": ["Albert King", "Jimi Hendrix", "Stevie Ray Vaughan"],
-    "no": ["Albert King", "Jimi Hendrix", "Stevie Ray Vaughan"],
-    "sv": ["Albert King", "Jimi Hendrix", "Stevie Ray Vaughan"],
-    "de": ["Albert King", "Jimi Hendrix", "Stevie Ray Vaughan"],
-    "pl": ["Albert King", "Jimi Hendrix", "Stevie Ray Vaughan"]
+    "en": [
+      "Albert King",
+      "Jimi Hendrix",
+      "Stevie Ray Vaughan"
+    ],
+    "no": [
+      "Albert King",
+      "Jimi Hendrix",
+      "Stevie Ray Vaughan"
+    ],
+    "sv": [
+      "Albert King",
+      "Jimi Hendrix",
+      "Stevie Ray Vaughan"
+    ],
+    "de": [
+      "Albert King",
+      "Jimi Hendrix",
+      "Stevie Ray Vaughan"
+    ],
+    "pl": [
+      "Albert King",
+      "Jimi Hendrix",
+      "Stevie Ray Vaughan"
+    ]
   },
   "discography_i18n": {
     "en": [
-      {"year": 2012, "title": "Blak and Blu", "label": "Warner Records", "notes": "Major-label debut; reached No. 6 on the Billboard 200.", "musicians": [], "youtube_id": ""},
-      {"year": 2015, "title": "The Story of Sonny Boy Slim", "label": "Warner Records", "notes": "Second studio album.", "musicians": [], "youtube_id": ""},
-      {"year": 2019, "title": "This Land", "label": "Warner Records", "notes": "Title track won two Grammys in 2020.", "musicians": [], "youtube_id": ""},
-      {"year": 2024, "title": "JPEG RAW", "label": "Warner Records", "notes": "Most recent studio album.", "musicians": [], "youtube_id": ""}
+      {
+        "year": 2012,
+        "title": "Blak and Blu",
+        "label": "Warner Records",
+        "notes": "Major-label debut; reached No. 6 on the Billboard 200.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2015,
+        "title": "The Story of Sonny Boy Slim",
+        "label": "Warner Records",
+        "notes": "Second studio album.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2019,
+        "title": "This Land",
+        "label": "Warner Records",
+        "notes": "Title track won two Grammys in 2020.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2024,
+        "title": "JPEG RAW",
+        "label": "Warner Records",
+        "notes": "Most recent studio album.",
+        "musicians": [],
+        "youtube_id": ""
+      }
     ],
     "no": [
-      {"year": 2012, "title": "Blak and Blu", "label": "Warner Records", "notes": "Debut på storlabel; nådde sjetteplass på Billboard 200.", "musicians": [], "youtube_id": ""},
-      {"year": 2015, "title": "The Story of Sonny Boy Slim", "label": "Warner Records", "notes": "Andre studioalbum.", "musicians": [], "youtube_id": ""},
-      {"year": 2019, "title": "This Land", "label": "Warner Records", "notes": "Tittelsporet vant to Grammy-priser i 2020.", "musicians": [], "youtube_id": ""},
-      {"year": 2024, "title": "JPEG RAW", "label": "Warner Records", "notes": "Siste studioalbum.", "musicians": [], "youtube_id": ""}
+      {
+        "year": 2012,
+        "title": "Blak and Blu",
+        "label": "Warner Records",
+        "notes": "Debut på storlabel; nådde sjetteplass på Billboard 200.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2015,
+        "title": "The Story of Sonny Boy Slim",
+        "label": "Warner Records",
+        "notes": "Andre studioalbum.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2019,
+        "title": "This Land",
+        "label": "Warner Records",
+        "notes": "Tittelsporet vant to Grammy-priser i 2020.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2024,
+        "title": "JPEG RAW",
+        "label": "Warner Records",
+        "notes": "Siste studioalbum.",
+        "musicians": [],
+        "youtube_id": ""
+      }
     ],
     "sv": [
-      {"year": 2012, "title": "Blak and Blu", "label": "Warner Records", "notes": "Debut på storbolag; nådde sjätteplats på Billboard 200.", "musicians": [], "youtube_id": ""},
-      {"year": 2015, "title": "The Story of Sonny Boy Slim", "label": "Warner Records", "notes": "Andra studioalbumet.", "musicians": [], "youtube_id": ""},
-      {"year": 2019, "title": "This Land", "label": "Warner Records", "notes": "Titelspåret vann två Grammys 2020.", "musicians": [], "youtube_id": ""},
-      {"year": 2024, "title": "JPEG RAW", "label": "Warner Records", "notes": "Senaste studioalbumet.", "musicians": [], "youtube_id": ""}
+      {
+        "year": 2012,
+        "title": "Blak and Blu",
+        "label": "Warner Records",
+        "notes": "Debut på storbolag; nådde sjätteplats på Billboard 200.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2015,
+        "title": "The Story of Sonny Boy Slim",
+        "label": "Warner Records",
+        "notes": "Andra studioalbumet.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2019,
+        "title": "This Land",
+        "label": "Warner Records",
+        "notes": "Titelspåret vann två Grammys 2020.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2024,
+        "title": "JPEG RAW",
+        "label": "Warner Records",
+        "notes": "Senaste studioalbumet.",
+        "musicians": [],
+        "youtube_id": ""
+      }
     ],
     "de": [
-      {"year": 2012, "title": "Blak and Blu", "label": "Warner Records", "notes": "Major-Label-Debüt; erreichte Platz 6 der Billboard 200.", "musicians": [], "youtube_id": ""},
-      {"year": 2015, "title": "The Story of Sonny Boy Slim", "label": "Warner Records", "notes": "Zweites Studioalbum.", "musicians": [], "youtube_id": ""},
-      {"year": 2019, "title": "This Land", "label": "Warner Records", "notes": "Der Titelsong gewann 2020 zwei Grammys.", "musicians": [], "youtube_id": ""},
-      {"year": 2024, "title": "JPEG RAW", "label": "Warner Records", "notes": "Jüngstes Studioalbum.", "musicians": [], "youtube_id": ""}
+      {
+        "year": 2012,
+        "title": "Blak and Blu",
+        "label": "Warner Records",
+        "notes": "Major-Label-Debüt; erreichte Platz 6 der Billboard 200.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2015,
+        "title": "The Story of Sonny Boy Slim",
+        "label": "Warner Records",
+        "notes": "Zweites Studioalbum.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2019,
+        "title": "This Land",
+        "label": "Warner Records",
+        "notes": "Der Titelsong gewann 2020 zwei Grammys.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2024,
+        "title": "JPEG RAW",
+        "label": "Warner Records",
+        "notes": "Jüngstes Studioalbum.",
+        "musicians": [],
+        "youtube_id": ""
+      }
     ],
     "pl": [
-      {"year": 2012, "title": "Blak and Blu", "label": "Warner Records", "notes": "Debiut w dużej wytwórni; dotarł do 6. miejsca Billboard 200.", "musicians": [], "youtube_id": ""},
-      {"year": 2015, "title": "The Story of Sonny Boy Slim", "label": "Warner Records", "notes": "Drugi album studyjny.", "musicians": [], "youtube_id": ""},
-      {"year": 2019, "title": "This Land", "label": "Warner Records", "notes": "Utwór tytułowy zdobył dwie nagrody Grammy w 2020 roku.", "musicians": [], "youtube_id": ""},
-      {"year": 2024, "title": "JPEG RAW", "label": "Warner Records", "notes": "Najnowszy album studyjny.", "musicians": [], "youtube_id": ""}
+      {
+        "year": 2012,
+        "title": "Blak and Blu",
+        "label": "Warner Records",
+        "notes": "Debiut w dużej wytwórni; dotarł do 6. miejsca Billboard 200.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2015,
+        "title": "The Story of Sonny Boy Slim",
+        "label": "Warner Records",
+        "notes": "Drugi album studyjny.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2019,
+        "title": "This Land",
+        "label": "Warner Records",
+        "notes": "Utwór tytułowy zdobył dwie nagrody Grammy w 2020 roku.",
+        "musicians": [],
+        "youtube_id": ""
+      },
+      {
+        "year": 2024,
+        "title": "JPEG RAW",
+        "label": "Warner Records",
+        "notes": "Najnowszy album studyjny.",
+        "musicians": [],
+        "youtube_id": ""
+      }
     ]
   },
   "awards_i18n": {
-    "en": [{"year": 2014, "title": "Grammy Award", "category": "Best Traditional R&B Performance", "note": "\"Please Come Home\""}, {"year": 2020, "title": "Grammy Award", "category": "Best Rock Song and Best Rock Performance", "note": "\"This Land\""}],
-    "no": [{"year": 2014, "title": "Grammy Award", "category": "Best Traditional R&B Performance", "note": "«Please Come Home»"}, {"year": 2020, "title": "Grammy Award", "category": "Best Rock Song og Best Rock Performance", "note": "«This Land»"}],
-    "sv": [{"year": 2014, "title": "Grammy Award", "category": "Best Traditional R&B Performance", "note": "\"Please Come Home\""}, {"year": 2020, "title": "Grammy Award", "category": "Best Rock Song och Best Rock Performance", "note": "\"This Land\""}],
-    "de": [{"year": 2014, "title": "Grammy Award", "category": "Best Traditional R&B Performance", "note": "\"Please Come Home\""}, {"year": 2020, "title": "Grammy Award", "category": "Best Rock Song und Best Rock Performance", "note": "\"This Land\""}],
-    "pl": [{"year": 2014, "title": "Grammy Award", "category": "Best Traditional R&B Performance", "note": "\"Please Come Home\""}, {"year": 2020, "title": "Grammy Award", "category": "Best Rock Song i Best Rock Performance", "note": "\"This Land\""}]
+    "en": [
+      {
+        "year": 2014,
+        "title": "Grammy Award",
+        "category": "Best Traditional R&B Performance",
+        "note": "\"Please Come Home\""
+      },
+      {
+        "year": 2020,
+        "title": "Grammy Award",
+        "category": "Best Rock Song and Best Rock Performance",
+        "note": "\"This Land\""
+      }
+    ],
+    "no": [
+      {
+        "year": 2014,
+        "title": "Grammy Award",
+        "category": "Best Traditional R&B Performance",
+        "note": "«Please Come Home»"
+      },
+      {
+        "year": 2020,
+        "title": "Grammy Award",
+        "category": "Best Rock Song og Best Rock Performance",
+        "note": "«This Land»"
+      }
+    ],
+    "sv": [
+      {
+        "year": 2014,
+        "title": "Grammy Award",
+        "category": "Best Traditional R&B Performance",
+        "note": "\"Please Come Home\""
+      },
+      {
+        "year": 2020,
+        "title": "Grammy Award",
+        "category": "Best Rock Song och Best Rock Performance",
+        "note": "\"This Land\""
+      }
+    ],
+    "de": [
+      {
+        "year": 2014,
+        "title": "Grammy Award",
+        "category": "Best Traditional R&B Performance",
+        "note": "\"Please Come Home\""
+      },
+      {
+        "year": 2020,
+        "title": "Grammy Award",
+        "category": "Best Rock Song und Best Rock Performance",
+        "note": "\"This Land\""
+      }
+    ],
+    "pl": [
+      {
+        "year": 2014,
+        "title": "Grammy Award",
+        "category": "Best Traditional R&B Performance",
+        "note": "\"Please Come Home\""
+      },
+      {
+        "year": 2020,
+        "title": "Grammy Award",
+        "category": "Best Rock Song i Best Rock Performance",
+        "note": "\"This Land\""
+      }
+    ]
   },
   "videos": [
-    {"kind": "featured", "title": "Gary Clark Jr. - Bright Lights [Official Music Video]", "youtube_id": "CFjMeOnqAPI", "channel": "garyclarkjr", "note": "Official channel."},
-    {"kind": "more", "title": "Gary Clark Jr - Come Together [Official Music Video]", "youtube_id": "r7imYeuAfkg", "channel": "garyclarkjr"},
-    {"kind": "more", "title": "Gary Clark Jr. - Come Together (Live from Lollapalooza 2019)", "youtube_id": "9riFu5CQnBw", "channel": "garyclarkjr"}
+    {
+      "kind": "featured",
+      "title": "Gary Clark Jr. - Bright Lights [Official Music Video]",
+      "youtube_id": "CFjMeOnqAPI",
+      "channel": "garyclarkjr",
+      "note": "Official channel."
+    },
+    {
+      "kind": "more",
+      "title": "Gary Clark Jr - Come Together [Official Music Video]",
+      "youtube_id": "r7imYeuAfkg",
+      "channel": "garyclarkjr"
+    },
+    {
+      "kind": "more",
+      "title": "Gary Clark Jr. - Come Together (Live from Lollapalooza 2019)",
+      "youtube_id": "9riFu5CQnBw",
+      "channel": "garyclarkjr"
+    }
   ],
   "booking_info": {},
   "external_links": [
-    {"label": "YouTube Music", "url": "https://music.youtube.com/search?q=Gary+Clark+Jr."},
-    {"label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Gary_Clark_Jr."}
+    {
+      "label": "YouTube Music",
+      "url": "https://music.youtube.com/search?q=Gary+Clark+Jr."
+    },
+    {
+      "label": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Gary_Clark_Jr."
+    }
   ],
   "article_references": [
-    {"title": "Gary Clark Jr. — Wikipedia", "url": "https://en.wikipedia.org/wiki/Gary_Clark_Jr."},
-    {"title": "Gary Lee Clark Jr. — BlackPast", "url": "https://www.blackpast.org/african-american-history/gary-lee-clark-jr-1984/"},
-    {"title": "Gary Clark Jr. — Grammy.com", "url": "https://www.grammy.com/artists/gary-clark-jr/"}
+    {
+      "title": "Gary Clark Jr. — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Gary_Clark_Jr."
+    },
+    {
+      "title": "Gary Lee Clark Jr. — BlackPast",
+      "url": "https://www.blackpast.org/african-american-history/gary-lee-clark-jr-1984/"
+    },
+    {
+      "title": "Gary Clark Jr. — Grammy.com",
+      "url": "https://www.grammy.com/artists/gary-clark-jr/"
+    }
   ],
-  "related_slugs": ["stevie-ray-vaughan", "albert-king", "eric-clapton"],
+  "related_slugs": [
+    "stevie-ray-vaughan",
+    "albert-king",
+    "eric-clapton"
+  ],
   "_sources": {},
   "_todo": [
     "Booking box: living artist, so research booking_info (tri-state per CLAUDE.md/schema) before publishing; left empty = not yet researched.",
     "Verify the Grammy categories/years on grammy.com and the 'Blak and Blu' #6 Billboard 200 position on a second source.",
     "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug gary-clark-jr.",
     "'Ain't Messin 'Round' and 'Numb' are assumed signature songs; confirm they are on the listed albums."
+  ],
+  "key_recordings": [
+    {
+      "title": "Gary Clark Jr. And The Roots - This Land (Remix) [feat. Black Thought]",
+      "youtube_id": "HmXm3_FDJrA",
+      "channel": "garyclarkjr"
+    },
+    {
+      "title": "Gary Clark Jr. with The Roots - This Land (Live from the 62nd Annual Grammy Awards)",
+      "youtube_id": "JXGgRrqugxE",
+      "channel": "garyclarkjr"
+    },
+    {
+      "title": "Gary Clark Jr. - This Land (Live on SNL)",
+      "youtube_id": "XwWQFKKUejk",
+      "channel": "garyclarkjr"
+    }
   ]
 }

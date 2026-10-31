@@ -375,7 +375,20 @@
       }
     ]
   },
-  "videos": [],
+  "videos": [
+    {
+      "kind": "featured",
+      "title": "Dr. John - Ice Age (Live) [Official Video]",
+      "youtube_id": "ko38kSd1its",
+      "channel": "OfficialDrJohn"
+    },
+    {
+      "kind": "more",
+      "title": "Dr. John -  Revolution [Official Video]",
+      "youtube_id": "guUN-5Xpdt0",
+      "channel": "OfficialDrJohn"
+    }
+  ],
   "external_links": [
     {
       "label": "YouTube Music",
@@ -416,5 +429,12 @@
     "The finger/gunshot detail, 'I Walk on Guilded Splinters', 'Such a Night', 'Iko Iko' and the Atco label are from memory: verify. Place of death not in results (assumed New Orleans): verify.",
     "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:Dr._John_2.jpg",
     "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug dr-john."
+  ],
+  "key_recordings": [
+    {
+      "title": "Dr. John - I Walk On Guilded Splinters (feat. Lukas Nelson & Promise Of The Real)",
+      "youtube_id": "aoPu1P4Tmxg",
+      "channel": "DrJohnVEVO"
+    }
   ]
 }

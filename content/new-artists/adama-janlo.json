@@ -476,5 +476,32 @@
   },
   "social_links": {
     "instagram": "https://www.instagram.com/adamajanlo"
-  }
+  },
+  "key_recordings": [
+    {
+      "title": "Fool",
+      "youtube_id": "I8xPDV_7H6U",
+      "channel": "Adama Janlo - Topic"
+    },
+    {
+      "title": "Bloodline",
+      "youtube_id": "fqrCRJdU5Vk",
+      "channel": "Adama Janlo - Topic"
+    },
+    {
+      "title": "Overcome",
+      "youtube_id": "jnZjYZtEx2o",
+      "channel": "Adama Janlo - Topic"
+    },
+    {
+      "title": "You Got This",
+      "youtube_id": "iN4u_I80zHs",
+      "channel": "Adama Janlo - Topic"
+    },
+    {
+      "title": "Come Over Here",
+      "youtube_id": "Z2zSj3rqjwA",
+      "channel": "Adama Janlo - Topic"
+    }
+  ]
 }

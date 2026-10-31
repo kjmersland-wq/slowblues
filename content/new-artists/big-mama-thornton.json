@@ -402,5 +402,32 @@
     "Photo confirmed as Big Mama Thornton by the Commons file description; page: https://commons.wikimedia.org/wiki/File:Blues_is_a_woman_Reitz_%28Big_Mama_Thornton%29.jpg"
   ],
   "img": "https://commons.wikimedia.org/wiki/Special:FilePath/Blues_is_a_woman_Reitz_(Big_Mama_Thornton).jpg?width=1200",
-  "image_credit": "Photo: Barbara Weinberg Barefield, 1980 (Wikimedia Commons, CC BY-SA 3.0)"
+  "image_credit": "Photo: Barbara Weinberg Barefield, 1980 (Wikimedia Commons, CC BY-SA 3.0)",
+  "key_recordings": [
+    {
+      "title": "Down-Home Shake-Down",
+      "youtube_id": "AonP7GD9UN4",
+      "channel": "Big Mama Thornton - Topic"
+    },
+    {
+      "title": "Hound Dog",
+      "youtube_id": "oUYWjktGpuI",
+      "channel": "Big Mama Thornton - Topic"
+    },
+    {
+      "title": "I'm Feeling Alright",
+      "youtube_id": "9D0nC23hK9s",
+      "channel": "Big Mama Thornton - Topic"
+    },
+    {
+      "title": "Life Goes On",
+      "youtube_id": "-kTcCO-E0Xs",
+      "channel": "Big Mama Thornton - Topic"
+    },
+    {
+      "title": "Everything Gonna Be Alright",
+      "youtube_id": "2hWn8h5ShZk",
+      "channel": "Big Mama Thornton - Topic"
+    }
+  ]
 }

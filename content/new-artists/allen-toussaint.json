@@ -387,6 +387,12 @@
       "youtube_id": "3lY8kmocAjE",
       "channel": "BBC Music",
       "note": "Third-party upload; replace with an official source if one turns up."
+    },
+    {
+      "kind": "more",
+      "title": "Southern Nights",
+      "youtube_id": "2DzhzIWZxzE",
+      "channel": "Allen Toussaint - Topic"
     }
   ],
   "external_links": [
@@ -433,5 +439,32 @@
     "'Working in the Coal Mine' and 'Southern Nights' credits were NOT confirmed by the search: verify. Albums (1975 Reprise, 2009 Nonesuch) from memory. Rock Hall 1998 from one source: verify. The 'Glen Campbell/Pointer Sisters' covers from memory.",
     "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:AllenToussaintFreretStFestival2009DSBNOLA_%28cropped%29.jpg",
     "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug allen-toussaint."
+  ],
+  "key_recordings": [
+    {
+      "title": "Southern Nights",
+      "youtube_id": "kfFBmwtU7g0",
+      "channel": "Allen Toussaint - Topic"
+    },
+    {
+      "title": "Lipstick Traces",
+      "youtube_id": "z2AJSSgFfQ4",
+      "channel": "Allen Toussaint - Topic"
+    },
+    {
+      "title": "You Will Not Lose",
+      "youtube_id": "jSS6s-K0YPc",
+      "channel": "Allen Toussaint - Topic"
+    },
+    {
+      "title": "Country John",
+      "youtube_id": "YxJ0DfeEv-Y",
+      "channel": "Allen Toussaint - Topic"
+    },
+    {
+      "title": "To Be with You",
+      "youtube_id": "kq5hpD6O2fM",
+      "channel": "Allen Toussaint - Topic"
+    }
   ]
 }

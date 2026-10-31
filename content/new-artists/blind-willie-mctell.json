@@ -314,7 +314,20 @@
       }
     ]
   },
-  "videos": [],
+  "videos": [
+    {
+      "kind": "featured",
+      "title": "Statesboro Blues",
+      "youtube_id": "njuW6k9XTSw",
+      "channel": "Blind Willie McTell - Topic"
+    },
+    {
+      "kind": "more",
+      "title": "Statesboro Blues",
+      "youtube_id": "K9MXNWTVb28",
+      "channel": "Blind Willie McTell - Topic"
+    }
+  ],
   "external_links": [
     {
       "label": "YouTube Music",
@@ -355,5 +368,12 @@
     "Birth year (1898/1901/1903) and place of death (Milledgeville vs Almon) disputed; songs 'Broke Down Engine Blues', 'Georgia Rag', 'Dying Crapshooter's Blues' and the Victor/Decca labels from memory: verify.",
     "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:Blind_Willie_McTell_LOC.jpg",
     "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug blind-willie-mctell."
+  ],
+  "key_recordings": [
+    {
+      "title": "Statesboro Blues (Remastered 2002)",
+      "youtube_id": "sk4Js6Q58h8",
+      "channel": "Blind Willie McTell - Topic"
+    }
   ]
 }

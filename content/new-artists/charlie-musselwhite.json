@@ -352,5 +352,12 @@
     "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:Charlie_Musselwhite_7-16-03.jpg",
     "Living artist: research booking_info before publishing (empty = not yet researched).",
     "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug charlie-musselwhite."
+  ],
+  "key_recordings": [
+    {
+      "title": "Cristo Redentor | Charlie Musselwhite",
+      "youtube_id": "5k-P9DoEhTs",
+      "channel": "Charlie Musselwhite"
+    }
   ]
 }

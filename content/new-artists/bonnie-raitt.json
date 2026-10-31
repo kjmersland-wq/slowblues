@@ -494,5 +494,32 @@
     "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:Bonnie_Raitt_on_December_8%2C_2024_in_the_White_House_Oval_Office_%28cropped%29.jpg",
     "Living artist: research booking_info before publishing (empty = not yet researched).",
     "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug bonnie-raitt."
+  ],
+  "key_recordings": [
+    {
+      "title": "Angel from Montgomery",
+      "youtube_id": "go3lUuag2uQ",
+      "channel": "Bonnie Raitt - Topic"
+    },
+    {
+      "title": "Fool Yourself",
+      "youtube_id": "7cqvt999dyA",
+      "channel": "Bonnie Raitt - Topic"
+    },
+    {
+      "title": "Thank You",
+      "youtube_id": "TYNVKQJk43g",
+      "channel": "Bonnie Raitt - Topic"
+    },
+    {
+      "title": "Walk out the Front Door",
+      "youtube_id": "L-OE5PdUdo8",
+      "channel": "Bonnie Raitt - Topic"
+    },
+    {
+      "title": "Good Enough",
+      "youtube_id": "E7ylEU_6Uvs",
+      "channel": "Bonnie Raitt - Topic"
+    }
   ]
 }

@@ -276,7 +276,14 @@
       }
     ]
   },
-  "videos": [],
+  "videos": [
+    {
+      "kind": "featured",
+      "title": "Chuck Berry - Run Rudolph Run (Official Video)",
+      "youtube_id": "YiadNVhaGwk",
+      "channel": "ChuckBerryVEVO"
+    }
+  ],
   "external_links": [
     {
       "label": "YouTube Music",
@@ -321,5 +328,12 @@
     "Rock Hall 1986 induction not confirmed: left out. 'Duckwalk', songs besides Maybellene/Johnny B. Goode and the 1986 'sole composer' reading from search: verify.",
     "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:Chuck_Berry_1957.jpg",
     "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug chuck-berry."
+  ],
+  "key_recordings": [
+    {
+      "title": "\"Johnny B. Goode\" - Chuck Berry LIVE on The Sonny & Cher Comedy Hour",
+      "youtube_id": "b-kmOlVu4d8",
+      "channel": "Chuck Berry"
+    }
   ]
 }

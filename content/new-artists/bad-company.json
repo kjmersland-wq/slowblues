@@ -357,7 +357,20 @@
       }
     ]
   },
-  "videos": [],
+  "videos": [
+    {
+      "kind": "featured",
+      "title": "Bad Company - Silver, Blue & Gold (In Concert: Merchants Of Cool, 2002)",
+      "youtube_id": "SReQcsFU8Cc",
+      "channel": "Bad Company"
+    },
+    {
+      "kind": "more",
+      "title": "Bad Company - Bad Company (In Concert: Merchants Of Cool, 2002)",
+      "youtube_id": "MvcQbMDENrY",
+      "channel": "Bad Company"
+    }
+  ],
   "external_links": [
     {
       "label": "YouTube Music",
@@ -399,5 +412,27 @@
     "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:Bad_Company_-_1976.jpg",
     "Living artist: research booking_info before publishing (empty = not yet researched).",
     "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug bad-company."
+  ],
+  "key_recordings": [
+    {
+      "title": "Bad Company - Silver, Blue, & Gold (Official Visualizer)",
+      "youtube_id": "TwQYMIJHSQ4",
+      "channel": "Bad Company"
+    },
+    {
+      "title": "Bad Company - Bad Company (Live: O2 Arena, London – October 29, 2016) (Official)",
+      "youtube_id": "LoAcfLV1IkI",
+      "channel": "BadCompanyVEVO"
+    },
+    {
+      "title": "Bad Company - Rock ’n’ Roll Fantasy (Live: O2 Arena, London – October 29, 2016) (Official)",
+      "youtube_id": "Rv7JcRSFmBc",
+      "channel": "BadCompanyVEVO"
+    },
+    {
+      "title": "Bad Company - Shooting Star (In Concert: Merchants Of Cool, 2002)",
+      "youtube_id": "3_4-3Vfme7M",
+      "channel": "Bad Company"
+    }
   ]
 }

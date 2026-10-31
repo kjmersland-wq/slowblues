@@ -6,6 +6,8 @@ import { parseArtistRow } from "@/integrations/d1/artistRow";
 export type FamilyEntry = { relation: string; name: string; note?: string };
 export type InstrumentEntry = { category: "Gitar" | "Vokal" | "Annet" | string; name: string; years?: string; note?: string };
 export type CollaboratorEntry = { name: string; years?: string; note?: string };
+// A single playable song (artists.key_recordings); filled and verified by scripts/video_sync.py.
+export type TrackEntry = { title: string; youtube_id: string; channel?: string };
 export type VideoEntry = {
   kind: "featured" | "more";
   title: string;
@@ -125,6 +127,7 @@ export type ArtistRecord = {
   anecdotes: string[];
   collaborators: CollaboratorEntry[];
   videos: VideoEntry[];
+  key_recordings: TrackEntry[];
   discography: DiscographyEntry[];
   awards: AwardEntry[];
   press_quotes: PressQuote[];
@@ -209,6 +212,7 @@ function normalise(row: any): ArtistRecord {
     anecdotes: Array.isArray(row.anecdotes) ? row.anecdotes : [],
     collaborators: Array.isArray(row.collaborators) ? row.collaborators : [],
     videos: Array.isArray(row.videos) ? row.videos : [],
+    key_recordings: Array.isArray(row.key_recordings) ? row.key_recordings.filter((x: any) => x && typeof x === "object" && x.youtube_id) : [],
     discography: Array.isArray(row.discography) ? row.discography : [],
     awards: Array.isArray(row.awards) ? row.awards : [],
     press_quotes: Array.isArray(row.press_quotes) ? row.press_quotes : [],

@@ -419,5 +419,32 @@
     "Check the photo on its Commons page: https://commons.wikimedia.org/wiki/File:Allman_Brothers_Band_1969.jpg",
     "Disbanded band: no booking data written. The page still shows its Booking box whenever `died` is empty - needs a small code decision.",
     "Fill producers, studios, chart and sales from Discogs/AllMusic; run mb_musicians.py --merge-slug the-allman-brothers-band."
+  ],
+  "key_recordings": [
+    {
+      "title": "Ramblin' Man",
+      "youtube_id": "cErDHaNrryo",
+      "channel": "The Allman Brothers Band - Topic"
+    },
+    {
+      "title": "Midnight Rider",
+      "youtube_id": "XaOVNxpLCVc",
+      "channel": "The Allman Brothers Band - Topic"
+    },
+    {
+      "title": "Jessica (Live)",
+      "youtube_id": "8led-ovqkJ8",
+      "channel": "The Allman Brothers Band - Topic"
+    },
+    {
+      "title": "Blue Sky (Live)",
+      "youtube_id": "iQheFcqAiPY",
+      "channel": "The Allman Brothers Band - Topic"
+    },
+    {
+      "title": "Whipping Post (Live)",
+      "youtube_id": "dIgmCeIKiKI",
+      "channel": "The Allman Brothers Band - Topic"
+    }
   ]
 }
