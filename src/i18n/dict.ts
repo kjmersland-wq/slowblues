@@ -193,7 +193,7 @@ const no = {
       lead: "Slow-Blues.com er uavhengig, reklamefri som standard, og leses av blueselskere i hele Europa. Vi samarbeider med et lite antall nøye utvalgte partnere hvis verdier samsvarer med bluesmiljøet.",
       audienceTitle: "Vårt publikum",
       audience: [
-        "229+ artistprofiler fra alle epoker og kontinenter",
+        "236+ artistprofiler fra alle epoker og kontinenter",
         "Lesere i 40+ land",
         "Fire språk: norsk, engelsk, tysk, svensk",
         "Kjernepublikum: 35–70 år, høy kjøpekraft",
@@ -430,7 +430,7 @@ const en: typeof no = {
       lead: "Slow-Blues.com is independent, ad-free by default, and trusted by blues lovers across Europe and beyond. We work with a small number of carefully chosen partners whose values align with the blues community.",
       audienceTitle: "Our audience",
       audience: [
-        "229+ artist profiles across all eras and continents",
+        "236+ artist profiles across all eras and continents",
         "Readers in 40+ countries",
         "Four languages: Norwegian, English, German, Swedish",
         "Core audience: ages 35–70, high purchasing power",
@@ -667,7 +667,7 @@ const de: typeof no = {
       lead: "Slow-Blues.com ist unabhängig, standardmäßig werbefrei und wird von Blues-Liebhabern in ganz Europa und darüber hinaus geschätzt. Wir arbeiten mit einer kleinen Auswahl sorgfältig ausgewählter Partner zusammen, deren Werte mit der Blues-Community übereinstimmen.",
       audienceTitle: "Unser Publikum",
       audience: [
-        "229+ Künstlerprofile aus allen Epochen und Kontinenten",
+        "236+ Künstlerprofile aus allen Epochen und Kontinenten",
         "Leser in über 40 Ländern",
         "Vier Sprachen: Norwegisch, Englisch, Deutsch, Schwedisch",
         "Kernpublikum: 35–70 Jahre, hohe Kaufkraft",
@@ -904,7 +904,7 @@ const sv: typeof no = {
       lead: "Slow-Blues.com är oberoende, reklamfri som standard, och läses av blueselskare i hela Europa. Vi samarbetar med ett litet antal noggrant utvalda partners vars värderingar stämmer överens med bluesmiljön.",
       audienceTitle: "Vår publik",
       audience: [
-        "229+ artistprofiler från alla epoker och kontinenter",
+        "236+ artistprofiler från alla epoker och kontinenter",
         "Läsare i 40+ länder",
         "Fyra språk: norska, engelska, tyska, svenska",
         "Kärnpublik: 35–70 år, hög köpkraft",
@@ -1141,7 +1141,7 @@ const pl: typeof no = {
       lead: "Slow-Blues.com jest niezależny, domyślnie wolny od reklam i czytany przez miłośników bluesa w całej Europie. Współpracujemy z wąskim, starannie dobranym gronem partnerów, których wartości pasują do bluesowego świata.",
       audienceTitle: "Nasza publiczność",
       audience: [
-        "229+ profili artystów ze wszystkich epok i kontynentów",
+        "236+ profili artystów ze wszystkich epok i kontynentów",
         "Czytelnicy w ponad 40 krajach",
         "Pięć języków: norweski, angielski, niemiecki, szwedzki, polski",
         "Główna grupa: 35–70 lat, wysoka siła nabywcza",
